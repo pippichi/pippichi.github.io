@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
-    <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/senior/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/senior/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker</title>
+      <link>https://pippichi.github.io/posts/docker/</link>
+      <pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/docker/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of docker&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Spring Boot -senior</title>
       <link>https://pippichi.github.io/posts/springboot_senior/</link>
