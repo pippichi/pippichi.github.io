@@ -54,9 +54,18 @@
     </item>
     
     <item>
+      <title>高并发</title>
+      <link>https://pippichi.github.io/posts/high_concurrency/</link>
+      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/high_concurrency/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of high concurrency&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Pillow</title>
       <link>https://pippichi.github.io/posts/pillow/</link>
-      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/posts/pillow/</guid>
       <description>&lt;p&gt;The article contains the knowledge of pillow&amp;hellip;&lt;/p&gt;</description>

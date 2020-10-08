@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  高并发 &ndash; Learning Records
+
+    </title>
+    
+    <meta content="Java, 高并发" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of high concurrency&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="高并发 | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of high concurrency&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">高并发</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/java' class="muted-link">
+  <span class="Label Label--gray">Java</span>
+</a>
+
+<a href='/tags/%E9%AB%98%E5%B9%B6%E5%8F%91' class="muted-link">
+  <span class="Label Label--gray">高并发</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-04-20. Published at: 2020-04-20.">
+        
+          Published: 2020-04-20
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of high concurrency&hellip;</p>
+<h2 id="锁">锁</h2>
+<p>锁只能锁堆上的元素，不能锁栈上的元素</p>
+<p>Wait会释放锁，notify不会释放锁</p>
+<p>Countdownlatch/cyclicbarrier/semaphore</p>
+<h2 id="reentrantlock">ReentrantLock</h2>
+<p>ReentrantLock:</p>
+<ul>
+<li>
+<p>Trylock （可设置delay，规定时间内没拿到线程就不拿了）</p>
+</li>
+<li>
+<p>lockInterruptibly（不想让线程再等了，用主线程通知他别等了）</p>
+</li>
+<li>
+<p>reentrantLock(true) 公平锁</p>
+</li>
+</ul>
+<h2 id="threadlocal">ThreadLocal</h2>
+<p>ThreadLocal（线程自己用，别的线程用不了）</p>
+<p><img src="/high_concurrency/32d19390589e69d54f56dea202d28c35.png" alt=""></p>
+<p><img src="/high_concurrency/6b046db7b240817c601552e62d277658.png" alt=""></p>
+<p><img src="/high_concurrency/cb2d1ab56ff1a265f8c0a8a7cce4b01b.png" alt=""></p>
+<p><img src="/high_concurrency/9f323208c312485a583b4b13acbc99c8.png" alt=""></p>
+<h2 id="currentlinkedqueue">currentLinkedQueue</h2>
+<p><img src="/high_concurrency/395374f85a24ea2163238a0f3e1c86b0.png" alt=""></p>
+<h2 id="concurrentskiplistmap排好序的因此插入时效率低">concurrentSkipListMap（排好序的，因此插入时效率低）</h2>
+<p><img src="/high_concurrency/9f4ca54b8cafcfef879d3eab6088e5c7.png" alt=""></p>
+<h2 id="blockingqueue">BlockingQueue</h2>
+<p><img src="/high_concurrency/c2852c1ebf6acca15912e15ced8aa122.png" alt=""></p>
+<p><img src="/high_concurrency/f492d65596e9ee1e09a700936208cbde.png" alt=""></p>
+<p><img src="/high_concurrency/c31b4ba328339ce86d41302fb811eae2.png" alt=""></p>
+<p><img src="/high_concurrency/57ca91ed778b0f99d2fc78977e3d9be6.png" alt=""></p>
+<h3 id="synchronusqueue">SynchronusQueue</h3>
+<p>SynchronusQueue没有容量，每放进去一个就必须被消费掉，如果用add，则报错，如果用put，则阻塞（这里的put内部就是transfer）</p>
+<p><img src="/high_concurrency/e3c1b333de885bd8adf00ba965299e45.png" alt=""></p>
+<p><img src="/high_concurrency/bef5f20b15f702ec4ae5bc41ac02181a.png" alt=""></p>
+<p><img src="/high_concurrency/c6ecacf5938de1b4227c865212a4077a.png" alt=""></p>
+<p>（Array有界Linked无界）</p>
+<p>Run()方法不返回值，不抛异常，call()方法返回值，抛异常</p>
+<h2 id="linkedtransferqueue">LinkedTransferQueue</h2>
+<p>LinkedTransferQueue调用transfer的时候，如果没有执行线程，则会阻塞，调用其他例如offer，put之类的就不会阻塞</p>
+<p><img src="/high_concurrency/93ff8943c47e6a72e1db27e204aae32c.png" alt=""></p>
+<h2 id="threadpoolfactory">Threadpoolfactory</h2>
+<p>Threadpoolfactory可以用来指定线程的名字</p>
+<p><img src="/high_concurrency/e20c3858c0bca24eec5785fc15a4ce30.png" alt=""></p>
+<h2 id="补充">补充</h2>
+<p>FutureTask中的get是阻塞方法</p>
+<p>execute()执行runnable，不用返回值，submit执行runnable或者callable</p>
+<p>一个线程池维护两个队列，一个是任务队列，一个是已完成任务队列</p>
+<p>Workstealingpool &mdash;&mdash;&mdash;线程池中所有线程都是精灵线程（forkjoinpool也一样）</p>
+<p>Threadpoolexecutor</p>
+<p>parallelStreamAPI</p>
+<p>runtime.getRuntime().availableprocessors() 打印有多少个cpu核</p>
+<p>forkjoinpool中recursiveAction没有返回值，recursiveTask有返回值</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>高并发</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#锁">锁</a></li>
+    <li><a href="#reentrantlock">ReentrantLock</a></li>
+    <li><a href="#threadlocal">ThreadLocal</a></li>
+    <li><a href="#currentlinkedqueue">currentLinkedQueue</a></li>
+    <li><a href="#concurrentskiplistmap排好序的因此插入时效率低">concurrentSkipListMap（排好序的，因此插入时效率低）</a></li>
+    <li><a href="#blockingqueue">BlockingQueue</a>
+      <ul>
+        <li><a href="#synchronusqueue">SynchronusQueue</a></li>
+      </ul>
+    </li>
+    <li><a href="#linkedtransferqueue">LinkedTransferQueue</a></li>
+    <li><a href="#threadpoolfactory">Threadpoolfactory</a></li>
+    <li><a href="#补充">补充</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>
