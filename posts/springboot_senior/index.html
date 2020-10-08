@@ -106,33 +106,33 @@ if (!doNotTrack) {
     <p>The article contains cache, message, security, searching, actuator, deployment&hellip;</p>
 <h2 id="缓存">缓存</h2>
 <h3 id="jsr107">JSR107</h3>
-<p><img src="/media/6de7a6a8d143ea7aec0a6afd495ee28a.png" alt=""></p>
-<p><img src="/media/29b26f66c154f12d004eecb769ec5cc5.png" alt=""></p>
-<p><img src="/media/fd8ab8e2097e1e8423bce6552cec9220.png" alt=""></p>
+<p><img src="/spring_boot_senior/6de7a6a8d143ea7aec0a6afd495ee28a.png" alt=""></p>
+<p><img src="/spring_boot_senior/29b26f66c154f12d004eecb769ec5cc5.png" alt=""></p>
+<p><img src="/spring_boot_senior/fd8ab8e2097e1e8423bce6552cec9220.png" alt=""></p>
 <p>每一个cache缓存的内容是不一样的，可能第一个cache放的是员工的信息，第二个就是专门放商品的信息</p>
 <p>要使用JSR107我们需要引入下面的包：</p>
-<p><img src="/media/ccd86347d6b5bb48b2d4f71d3cd4ebcc.png" alt=""></p>
+<p><img src="/spring_boot_senior/ccd86347d6b5bb48b2d4f71d3cd4ebcc.png" alt=""></p>
 <h3 id="spring缓存抽象">Spring缓存抽象</h3>
 <p>JSR107复杂度高，因此一般用的都是Spring缓存抽象</p>
-<p><img src="/media/8a6eb7918002ed14758c8bdd1834ca0d.png" alt=""></p>
-<p><img src="/media/208fd395024f03658091d92ae83040b8.png" alt=""></p>
+<p><img src="/spring_boot_senior/8a6eb7918002ed14758c8bdd1834ca0d.png" alt=""></p>
+<p><img src="/spring_boot_senior/208fd395024f03658091d92ae83040b8.png" alt=""></p>
 <h4 id="重要概念与缓存注解">重要概念与缓存注解</h4>
-<p><img src="/media/14510b6c7e088a892a221da3411b4f0c.png" alt=""></p>
+<p><img src="/spring_boot_senior/14510b6c7e088a892a221da3411b4f0c.png" alt=""></p>
 <h5 id="cacheevict">@CacheEvict</h5>
 <p>删除某用户之后，数据表中该用户就会被删除，按理来说缓存中也要删除这个用户，这个时候可以用这个注解</p>
 <h6 id="allentries">allEntries</h6>
 <p>这是@CacheEvict中的一个属性，默认为false，表示只删除相关的内容的缓存，如果设置为true表示将缓存中的所有数据全部删除：</p>
-<p><img src="/media/453f1c17f40198ee6867721982353370.png" alt=""></p>
+<p><img src="/spring_boot_senior/453f1c17f40198ee6867721982353370.png" alt=""></p>
 <h6 id="beforeinvocation">beforeInvocation</h6>
 <p>默认为false，代表是否要在方法执行之前执行，有些时候方法执行可能会出错，出错之后程序就中断了，缓存中的删除就不会执行，这个时候我们可以指定beforeInvocation为true，就能实现即使我的方法执行中断了，但是我缓存中的数据还是成功删除了。</p>
-<p><img src="/media/e5c51486bbf0b31f898d337a59bd8ee4.png" alt=""></p>
+<p><img src="/spring_boot_senior/e5c51486bbf0b31f898d337a59bd8ee4.png" alt=""></p>
 <h5 id="cacheput">@CachePut</h5>
 <p>用户更新之后，缓存中也跟着更新。</p>
 <p>该注解既能保证方法被调用，又可以使得结果被缓存，因此常用做缓存更新</p>
 <h5 id="cacheput和cacheable的区别">@CachePut和@Cacheable的区别</h5>
 <p>@CachePut标注的方法一定会被调用，调用完之后的数据会被重新放入缓存中，而@Cacheable标注的方法不一定会调用，第一次的时候缓存中没有数据，那么会调用方法，而第二次缓存中有数据之后，该方法就不会调用了。</p>
 <p>并且要注意两者的运行时机：</p>
-<p><img src="/media/1570687046e0c72c8b94b93e668a30e1.png" alt=""></p>
+<p><img src="/spring_boot_senior/1570687046e0c72c8b94b93e668a30e1.png" alt=""></p>
 <p>CachePut是先调用方法，并返回结果，再存入缓存</p>
 <h5 id="enablecaching">@EnableCaching</h5>
 <p>如果要使用上面的三个注解，我们必须使用@EnableCaching开启基于注解的缓存</p>
@@ -146,35 +146,35 @@ if (!doNotTrack) {
 </li>
 </ol>
 <h5 id="caching">@Caching</h5>
-<p><img src="/media/f0c7fc44792b40ee794dd2312f971d88.png" alt=""></p>
+<p><img src="/spring_boot_senior/f0c7fc44792b40ee794dd2312f971d88.png" alt=""></p>
 <p>@Caching是@Cachable、@CachePut、@CacheEvict三个注解的集合体，当遇到复杂的缓存规则的时候就可以用@Caching，例如：</p>
-<p><img src="/media/f633713ca2b89c899eda1e5470da54fd.png" alt=""></p>
+<p><img src="/spring_boot_senior/f633713ca2b89c899eda1e5470da54fd.png" alt=""></p>
 <p>这里我们分别用id、email、参数中的lastName作为缓存的key</p>
 <p><strong>注意：这个时候如果我们用id、email去查数据，是可以直接从缓存取数据的，但是如果我们再用lastName去查（也就是上图的方法）的话，他还是会去数据库查一遍，原因是该方法的复杂注解里标明了@CachePut，会导致每一次调用该方法都会先去数据库查数据。</strong></p>
 <h5 id="cacheconfig">@CacheConfig</h5>
-<p><img src="/media/f1952b55411e1839c52974fa82def3a3.png" alt=""></p>
+<p><img src="/spring_boot_senior/f1952b55411e1839c52974fa82def3a3.png" alt=""></p>
 <p>我们发现每一个cache注解里面都要写一遍value=“xxx”，太麻烦了，因此我们可以给这些方法所在的类上加一个@CacheConfig注解</p>
-<p><img src="/media/d627a81c93effa3abb6fb957b67a4cb7.png" alt=""></p>
+<p><img src="/spring_boot_senior/d627a81c93effa3abb6fb957b67a4cb7.png" alt=""></p>
 <p>这个是缓存配置</p>
 <p>那么这个缓存配置里面有哪些可配置呢？</p>
-<p><img src="/media/5d238d3d6127ddd6d827301b7f210762.png" alt=""></p>
-<p><img src="/media/e5df9d6c158ff16474184e94b6eff844.png" alt=""></p>
+<p><img src="/spring_boot_senior/5d238d3d6127ddd6d827301b7f210762.png" alt=""></p>
+<p><img src="/spring_boot_senior/e5df9d6c158ff16474184e94b6eff844.png" alt=""></p>
 <p>那么我们给它写上cacheNames=“emp”：</p>
-<p><img src="/media/08940f285278931f4a2fb9c3c8c2ac74.png" alt=""></p>
+<p><img src="/spring_boot_senior/08940f285278931f4a2fb9c3c8c2ac74.png" alt=""></p>
 <p>这样的话该类下面的方法只要想用这个名为emp的cache，都不需要再写value属性了：</p>
-<p><img src="/media/3003e122262542f5414c5953160eab80.png" alt=""></p>
+<p><img src="/spring_boot_senior/3003e122262542f5414c5953160eab80.png" alt=""></p>
 <h5 id="属性cachemanager">属性CacheManager</h5>
 <p>可以在@CacheConfig中配置，表示指定全局的CacheManager，也可以单独给每一个方法配置CacheManager</p>
-<p><img src="/media/0dbd02b9aa200e783f5118089011556b.png" alt=""></p>
+<p><img src="/spring_boot_senior/0dbd02b9aa200e783f5118089011556b.png" alt=""></p>
 <h4 id="缓存注解中可以写的spel表达式">缓存注解中可以写的SpEL表达式</h4>
-<p><img src="/media/2393d68a330a2cfc6507d1a9f79a46a1.png" alt=""></p>
+<p><img src="/spring_boot_senior/2393d68a330a2cfc6507d1a9f79a46a1.png" alt=""></p>
 <p>所以上上图注解中的key还可以写成这种形式：</p>
-<p><img src="/media/07c64ca21600c440b5787995aaab8a99.png" alt=""></p>
+<p><img src="/spring_boot_senior/07c64ca21600c440b5787995aaab8a99.png" alt=""></p>
 <h5 id="指定同一数据多个缓存">指定同一数据多个缓存</h5>
-<p><img src="/media/9e82fad7a8cde717228280e02930140d.png" alt=""></p>
+<p><img src="/spring_boot_senior/9e82fad7a8cde717228280e02930140d.png" alt=""></p>
 <p>这个时候key里面就可以写#root.cache[1].name来使得key获取第二个缓存的名字，使用#root.cache[0].name来获得第一个缓存的名字</p>
 <h5 id="a0p0rootargs0参数名以及不写key时的默认给定值">#a0、#p0、#root.args[0]、#参数名以及不写key时的默认给定值</h5>
-<p><img src="/media/ab2258e087a0d53cd4ebf614d4f1e19e.png" alt=""></p>
+<p><img src="/spring_boot_senior/ab2258e087a0d53cd4ebf614d4f1e19e.png" alt=""></p>
 <p>#a0、#p0、#root.args[0]中的 0
 表示参数的索引，因此他们都表示第一个参数，所以#a0、#p0、#root.args[0]其实是同一个东西</p>
 <p><strong>另外，默认不写key的时候也是用传入的参数的值作为缓存的key</strong></p>
@@ -183,438 +183,438 @@ if (!doNotTrack) {
 <p>返回方法的返回值</p>
 <h4 id="原理">原理</h4>
 <p>进入到CacheAutoConfigration.java</p>
-<p><img src="/media/3e7d7fd720480b0583c436f52ebd510d.png" alt=""></p>
-<p><img src="/media/d1dffb563e2c2476a9ce96a7d1dfbbb6.png" alt=""></p>
-<p><img src="/media/decd9f03815d2bbb7b128a8326c26612.png" alt=""></p>
-<p><img src="/media/c17178738a7a4c25fc155fb2b7ab11dc.png" alt=""></p>
-<p><img src="/media/92e95738501c935fb8724c1bb144b3a1.png" alt=""></p>
-<p><img src="/media/38e554b5063e85590164f3165d88a482.png" alt=""></p>
-<p><img src="/media/8eded0e609e289c266cb63499e4a7745.png" alt=""></p>
-<p><img src="/media/f42f7b69c60ede5c8306d813bc775a7d.png" alt=""></p>
-<p><img src="/media/5d2e1aa56a1058b8d5971d625ee3f06e.png" alt=""></p>
+<p><img src="/spring_boot_senior/3e7d7fd720480b0583c436f52ebd510d.png" alt=""></p>
+<p><img src="/spring_boot_senior/d1dffb563e2c2476a9ce96a7d1dfbbb6.png" alt=""></p>
+<p><img src="/spring_boot_senior/decd9f03815d2bbb7b128a8326c26612.png" alt=""></p>
+<p><img src="/spring_boot_senior/c17178738a7a4c25fc155fb2b7ab11dc.png" alt=""></p>
+<p><img src="/spring_boot_senior/92e95738501c935fb8724c1bb144b3a1.png" alt=""></p>
+<p><img src="/spring_boot_senior/38e554b5063e85590164f3165d88a482.png" alt=""></p>
+<p><img src="/spring_boot_senior/8eded0e609e289c266cb63499e4a7745.png" alt=""></p>
+<p><img src="/spring_boot_senior/f42f7b69c60ede5c8306d813bc775a7d.png" alt=""></p>
+<p><img src="/spring_boot_senior/5d2e1aa56a1058b8d5971d625ee3f06e.png" alt=""></p>
 <p>总的来讲就是：</p>
-<p><img src="/media/31903f75c9bb36f386469e135d519e7a.png" alt=""></p>
+<p><img src="/spring_boot_senior/31903f75c9bb36f386469e135d519e7a.png" alt=""></p>
 <h4 id="运行流程">运行流程</h4>
-<p><img src="/media/38352db66edd13dc43cfb4141079374b.png" alt=""></p>
+<p><img src="/spring_boot_senior/38352db66edd13dc43cfb4141079374b.png" alt=""></p>
 <h4 id="案例">案例</h4>
 <h5 id="cacheable">@Cacheable</h5>
-<p><img src="/media/30a7162f44acb7b307c07ca8e310abdd.png" alt=""></p>
-<p><img src="/media/3b19482bbf9b047782c3525a6fe6b104.png" alt=""></p>
-<p><img src="/media/d16f96b33cb92038dbf8e18f31c57179.png" alt=""></p>
-<p><img src="/media/f862c6dd0fd4c9f79cd17515600d8aab.png" alt=""></p>
+<p><img src="/spring_boot_senior/30a7162f44acb7b307c07ca8e310abdd.png" alt=""></p>
+<p><img src="/spring_boot_senior/3b19482bbf9b047782c3525a6fe6b104.png" alt=""></p>
+<p><img src="/spring_boot_senior/d16f96b33cb92038dbf8e18f31c57179.png" alt=""></p>
+<p><img src="/spring_boot_senior/f862c6dd0fd4c9f79cd17515600d8aab.png" alt=""></p>
 <p>注意，这个key里面可以写SqEL表达式，如上图的@Cacheable注解中的key，上图这么写表示缓存的key/value中的key为传入的形参中的id</p>
 <p>当然我们还可以将key设置为我们想要的格式：</p>
-<p><img src="/media/f081f67084415fec1fca996f1f0fb3a7.png" alt=""></p>
+<p><img src="/spring_boot_senior/f081f67084415fec1fca996f1f0fb3a7.png" alt=""></p>
 <p>注意：当我们使用sync=true的时候表示开启异步，这个时候数据会被异步输入缓存，默认是同步的，异步会有一个问题就是unless会用不了</p>
 <h5 id="cacheput-1">@CachePut</h5>
-<p><img src="/media/99c56f379e96a194a0d2b5c22aebeb19.png" alt=""></p>
-<p><img src="/media/81ed3d6226492b905a1f3a7d352c3e2f.png" alt=""></p>
+<p><img src="/spring_boot_senior/99c56f379e96a194a0d2b5c22aebeb19.png" alt=""></p>
+<p><img src="/spring_boot_senior/81ed3d6226492b905a1f3a7d352c3e2f.png" alt=""></p>
 <p>这里放入缓存的key默认是employee对象，而上面查询时放入缓存的key默认是id，这就会导致虽然数据在数据库中改了，但是缓存中没改，导致再次查询的时候显示的值没变</p>
 <p>我们可以做出如下更改：</p>
-<p><img src="/media/eb776dd1b0fd330a8b14455a4970d083.png" alt=""></p>
+<p><img src="/spring_boot_senior/eb776dd1b0fd330a8b14455a4970d083.png" alt=""></p>
 <p>可以指定key为#employee.id，也可以指定key为#result.id</p>
 <p><a href="%E6%B3%A8%E6%84%8F#result.id%E5%8F%AA%E6%9C%89@CachePut">注意#result.id只有@CachePut</a>里面可以用，@Cacheable不行，那是因为@CachePut先执行方法，获取返回值之后再将返回值放入缓存，因此他天然的有result，而@Cacheable在执行方法之前就要先去缓存中查找key，而此时并没有result。</p>
 <h5 id="cacheevict-1">@CacheEvict</h5>
-<p><img src="/media/c4edaa9143084000ae9768103f3747e7.png" alt=""></p>
-<p><img src="/media/c6aa3309a75bc43e74293025099dc66c.png" alt=""></p>
+<p><img src="/spring_boot_senior/c4edaa9143084000ae9768103f3747e7.png" alt=""></p>
+<p><img src="/spring_boot_senior/c6aa3309a75bc43e74293025099dc66c.png" alt=""></p>
 <p>注意，@CacheEvict有一个属性叫allEntries默认时false，如果改为true表示把缓存中的数据全删了。</p>
 <p>除此之外@CacheEvict还有一个beforeInvocation，上面介绍过，默认为false，设置为true的时候将指定缓存中的所有数据全删。</p>
 <h3 id="整合redis作为缓存">整合redis作为缓存</h3>
-<p><img src="/media/8206940806e560570f55d76577faa6a1.png" alt=""></p>
-<p><img src="/media/63d354645f51e8ab9d17e4b0ed309590.png" alt=""></p>
+<p><img src="/spring_boot_senior/8206940806e560570f55d76577faa6a1.png" alt=""></p>
+<p><img src="/spring_boot_senior/63d354645f51e8ab9d17e4b0ed309590.png" alt=""></p>
 <p>由于Springboot的缓存组件时按顺序加载的，并且有一条很重要的判断条件是如果容器中没有CacheManager时才能启动组件，因此当我们引入并配置了redis之后，容器中就有了RedisTemplate，导致RedisAutoConfigration起作用，而他其作用之后容器中就会new进去一个RedisCacheManager，从而导致之后的SimpleCacheConfiguration由于容器中已有CacheManager而不起作用了：</p>
-<p><img src="/media/8969db505d3593e1749b501495fcf8d8.png" alt=""></p>
+<p><img src="/spring_boot_senior/8969db505d3593e1749b501495fcf8d8.png" alt=""></p>
 <p>我们看该类的下面：</p>
-<p><img src="/media/9ee603840b9556d55523819b531c156f.png" alt=""></p>
+<p><img src="/spring_boot_senior/9ee603840b9556d55523819b531c156f.png" alt=""></p>
 <p>有两个template被加到组件里面了，他们两个就是用来操作redis的</p>
 <p>其中RedisTemplate是obj：obj</p>
 <p>而StringRedisTemplate是用来简化字符串操作的</p>
-<p><img src="/media/be4c4f9ced55eda9c33d80b85dbe1d82.png" alt=""></p>
+<p><img src="/spring_boot_senior/be4c4f9ced55eda9c33d80b85dbe1d82.png" alt=""></p>
 <p>要用redis缓存，直接引入上面那两个东西就好</p>
-<p><img src="/media/f9953b2dc8acf8a3a5cd6215cc880762.png" alt=""></p>
+<p><img src="/spring_boot_senior/f9953b2dc8acf8a3a5cd6215cc880762.png" alt=""></p>
 <p>StringRedisTemplate的操作如上所示，RedisTemplate的操作跟他是一样的，只不过上面说了，一个是obj：obj，一个是str：str</p>
 <p>用法：</p>
-<p><img src="/media/4500023e52d2a18543c9c5ac6b298612.png" alt=""></p>
+<p><img src="/spring_boot_senior/4500023e52d2a18543c9c5ac6b298612.png" alt=""></p>
 <p>我们给员工实体类添加序列化功能：</p>
-<p><img src="/media/cd25ee75bc9714126647e4abe7a57059.png" alt=""></p>
+<p><img src="/spring_boot_senior/cd25ee75bc9714126647e4abe7a57059.png" alt=""></p>
 <p>然后测试保存对象：</p>
-<p><img src="/media/1a25ace12d136a8b0cd353bdea1ababa.png" alt=""></p>
-<p><img src="/media/acba75a039a1c2f6c0a2bea8f985d68a.png" alt=""></p>
+<p><img src="/spring_boot_senior/1a25ace12d136a8b0cd353bdea1ababa.png" alt=""></p>
+<p><img src="/spring_boot_senior/acba75a039a1c2f6c0a2bea8f985d68a.png" alt=""></p>
 <p>保存的都是jdk序列化机制序列化之后的数据</p>
 <p>那么怎么才能保存我们想要的格式的数据呢？</p>
-<p><img src="/media/1f51f9393f0db51cfefcd102744f2fb2.png" alt=""></p>
+<p><img src="/spring_boot_senior/1f51f9393f0db51cfefcd102744f2fb2.png" alt=""></p>
 <p>第一种方式不用多说，直接json转换（fastjson）</p>
 <p>来看看第二种：</p>
 <p>redisTemplate自带了一些序列化：</p>
-<p><img src="/media/8a24accf876c367032bb236847dcd9fe.png" alt=""></p>
+<p><img src="/spring_boot_senior/8a24accf876c367032bb236847dcd9fe.png" alt=""></p>
 <p>而他默认用的序列化器是jdk的序列化：</p>
-<p><img src="/media/03912f2f6e2d8d16d1effd1331cff2a8.png" alt=""></p>
+<p><img src="/spring_boot_senior/03912f2f6e2d8d16d1effd1331cff2a8.png" alt=""></p>
 <p>现在我们来自己写redisconfig，仔细看下面的图片步骤：</p>
-<p><img src="/media/b5eeadc8db0e4ade8c143f38fc52fc64.png" alt=""></p>
+<p><img src="/spring_boot_senior/b5eeadc8db0e4ade8c143f38fc52fc64.png" alt=""></p>
 <p>直接重写RedisTemplate</p>
 <p>之后给template设置默认序列化器</p>
-<p><img src="/media/7a01a073ea2721b07a5d31727f145d8b.png" alt=""></p>
+<p><img src="/spring_boot_senior/7a01a073ea2721b07a5d31727f145d8b.png" alt=""></p>
 <p>在确认了需要传入的序列化器为RedisSerializer的实现类之后，我们去找RedisSerializer，并ctrl+h，即可看到他所有的实现类，之后随便选一个传入template：</p>
-<p><img src="/media/711bf27d530c13e4671bb4c7015b71ed.png" alt=""></p>
+<p><img src="/spring_boot_senior/711bf27d530c13e4671bb4c7015b71ed.png" alt=""></p>
 <p>之后用的时候注入我们自己写的RedisTemplate：</p>
-<p><img src="/media/3bdecf87db6a78f6df60a975fc89eab6.png" alt=""></p>
+<p><img src="/spring_boot_senior/3bdecf87db6a78f6df60a975fc89eab6.png" alt=""></p>
 <h4 id="测试缓存">测试缓存</h4>
-<p><img src="/media/4c84763cae86319d882688c06c493932.png" alt=""></p>
-<p><img src="/media/d07f62bb0563582f609612fb7ce22e46.png" alt=""></p>
+<p><img src="/spring_boot_senior/4c84763cae86319d882688c06c493932.png" alt=""></p>
+<p><img src="/spring_boot_senior/d07f62bb0563582f609612fb7ce22e46.png" alt=""></p>
 <p>定制RedisCacheManager：</p>
-<p><img src="/media/15cf316566ba8c40382367251db09f6a.png" alt=""></p>
+<p><img src="/spring_boot_senior/15cf316566ba8c40382367251db09f6a.png" alt=""></p>
 <p>当我们自己写了RedisCacheManager之后容器中就有了CacheManager，会导致RedisCacheConfiguration不会启动：</p>
-<p><img src="/media/cecbb5b7df9e90e5102962d2c5ae3526.png" alt=""></p>
+<p><img src="/spring_boot_senior/cecbb5b7df9e90e5102962d2c5ae3526.png" alt=""></p>
 <p>之后我们来看一下效果：</p>
-<p><img src="/media/9dc59e668551ce206f39825df5701c68.png" alt=""></p>
+<p><img src="/spring_boot_senior/9dc59e668551ce206f39825df5701c68.png" alt=""></p>
 <p>这里emp：1中的1是因为配置的@Cacheable里面的key我们没有指定，那就是默认传入的参数就为key，而参数就是id，所以他是1</p>
 <p>可以发现这个key里面多了一个前缀 emp:</p>
 <p>那是因为我们配置了使用前缀：</p>
-<p><img src="/media/c3876bce40cc42b4b9b5b3bea94a5140.png" alt=""></p>
+<p><img src="/spring_boot_senior/c3876bce40cc42b4b9b5b3bea94a5140.png" alt=""></p>
 <p>这样的话即时有多张表的内容需要缓存，key也不会冲突</p>
 <p>现在再来测一个：</p>
-<p><img src="/media/151059b1cf60f2f39f9cebe47e1e74cd.png" alt=""></p>
+<p><img src="/spring_boot_senior/151059b1cf60f2f39f9cebe47e1e74cd.png" alt=""></p>
 <p>结果第一次查数据是没问题的，但是第二次就报错了，那是因为我们自己配置的RedisCacheManager里面第二个类型指定的是Employee</p>
-<p><img src="/media/7c440e0d03bb6746bf9bd09988f78d1b.png" alt=""></p>
+<p><img src="/spring_boot_senior/7c440e0d03bb6746bf9bd09988f78d1b.png" alt=""></p>
 <p>所以就很离奇了，他能存入缓存，但是不能将缓存中的内容反序列化回来</p>
 <p>解决方法就是：</p>
-<p><img src="/media/5afe4829ef93a6ad8402312e65ddbf62.png" alt=""></p>
-<p><img src="/media/d6b6fda9833b873bdc7e4dfac0128813.png" alt=""></p>
+<p><img src="/spring_boot_senior/5afe4829ef93a6ad8402312e65ddbf62.png" alt=""></p>
+<p><img src="/spring_boot_senior/d6b6fda9833b873bdc7e4dfac0128813.png" alt=""></p>
 <p>给department实体也写一个template和manager</p>
 <h5 id="指定使用哪个cachemanager">指定使用哪个CacheManager</h5>
 <p>我们在每个实体的service层分别指定CacheManager</p>
-<p><img src="/media/a1180e47a0a15d619668765f6f8c142b.png" alt=""></p>
+<p><img src="/spring_boot_senior/a1180e47a0a15d619668765f6f8c142b.png" alt=""></p>
 <h5 id="属性cachemanager-1">属性CacheManager</h5>
 <p>当然，除了上述的@CacheConfig配置之外，我们还可以单独给每一个方法配置CacheManager</p>
-<p><img src="/media/0dbd02b9aa200e783f5118089011556b.png" alt=""></p>
+<p><img src="/spring_boot_senior/0dbd02b9aa200e783f5118089011556b.png" alt=""></p>
 <h5 id="primary在多个cachemanager情况下指定主cachemanager或者叫默认缓存管理器">@Primary（在多个CacheManager情况下指定主CacheManager或者叫默认缓存管理器）</h5>
-<p><img src="/media/adddf495615bff64cf125e31ef001719.png" alt=""></p>
+<p><img src="/spring_boot_senior/adddf495615bff64cf125e31ef001719.png" alt=""></p>
 <p>这里我们指定employee的这个CacheManager为主CacheManager，不设置的话会报错</p>
 <p>注意，由于设置了默认的缓存管理器（employee的），因此在EmployeeService中我们就可以不指定他的缓存管理器了，因为默认就会去用employee的缓存管理器：</p>
-<p><img src="/media/8f5f7ab4a437e5e26ba6780accc8e31b.png" alt=""></p>
+<p><img src="/spring_boot_senior/8f5f7ab4a437e5e26ba6780accc8e31b.png" alt=""></p>
 <p>当然，实际情况下我们应该将系统自带的，也就是那个obj：obj的缓存管理器作为默认缓存管理器，因为这个管理器更加通用</p>
 <h5 id="自己操作更加细粒度的缓存数据的存放与读取">自己操作更加细粒度的缓存数据的存放与读取</h5>
 <p>有时候我们不希望直接在方法上面加一个注解来让系统给我们自动处理缓存，我们希望在方法内部的某一个位置，我要存一下数据或者读一下数据，这个时候就需要我们自己操作RedisCacheManager了</p>
 <p>首先我们需要拿到RedisCacheManager（可以是系统自带的也可以是自己配的）：</p>
-<p><img src="/media/6ff8a750f7020d4392ed1946e3cd28d7.png" alt=""></p>
+<p><img src="/spring_boot_senior/6ff8a750f7020d4392ed1946e3cd28d7.png" alt=""></p>
 <p>我们将他注入，注意这个变量名就是之前创建的RedisCacheManager的变量名：</p>
-<p><img src="/media/6cd10a47cd5015f85bea367caa3c8932.png" alt=""></p>
+<p><img src="/spring_boot_senior/6cd10a47cd5015f85bea367caa3c8932.png" alt=""></p>
 <p>另外，我们可以用@Qualifier注解明确表明我们选用的RedisCacheManager是这么多的RedisCacheManager中的哪一个，如上图所示</p>
 <h6 id="用cachemanager获取指定cache">用CacheManager获取指定Cache</h6>
-<p><img src="/media/6dc3161cd78a85eff7328f5b73903e04.png" alt=""></p>
-<p><img src="/media/60f4fea30c03bdbbca251412e4bc37ce.png" alt=""></p>
+<p><img src="/spring_boot_senior/6dc3161cd78a85eff7328f5b73903e04.png" alt=""></p>
+<p><img src="/spring_boot_senior/60f4fea30c03bdbbca251412e4bc37ce.png" alt=""></p>
 <p>上图的第一个 “dept：”是之前设置的前缀，第二个“dept：”则是上上图中我们自己指定的</p>
 <h2 id="spring-boot与消息">Spring Boot与消息</h2>
-<p><img src="/media/5db0e7e2ac2b40b66758a49f674b88e1.png" alt=""></p>
-<p><img src="/media/e172e21d06c7a5a25c7336b8a18086da.png" alt=""></p>
+<p><img src="/spring_boot_senior/5db0e7e2ac2b40b66758a49f674b88e1.png" alt=""></p>
+<p><img src="/spring_boot_senior/e172e21d06c7a5a25c7336b8a18086da.png" alt=""></p>
 <h3 id="应用场景">应用场景</h3>
 <h4 id="异步处理">异步处理</h4>
-<p><img src="/media/e2d86ee122c171d204b1a6cc90b21226.png" alt=""></p>
+<p><img src="/spring_boot_senior/e2d86ee122c171d204b1a6cc90b21226.png" alt=""></p>
 <p>上图第三种是使用消息队列的，相当于注册信息写入数据库就直接写入消息队列之后就直接反馈给用户了，后续再来发送邮件和注册短信</p>
 <h4 id="应用解耦">应用解耦</h4>
-<p><img src="/media/abd5ba00a1babe6ebf9bf312cdeefe8b.png" alt=""></p>
+<p><img src="/spring_boot_senior/abd5ba00a1babe6ebf9bf312cdeefe8b.png" alt=""></p>
 <p>应用解耦相当于将订单系统和库存系统分开，订单以来就到消息队列里去，库存系统一看到消息队列有订单就进行处理</p>
 <h4 id="流量削峰">流量削峰</h4>
-<p><img src="/media/c4f8bd5efb07cabcd4e798c5a68a740b.png" alt=""></p>
+<p><img src="/spring_boot_senior/c4f8bd5efb07cabcd4e798c5a68a740b.png" alt=""></p>
 <p>流量削峰：我有1000个商品，有100000个人来买，那就可以设置消息队列只收取1000个用户，1000个用户谁快谁先进队，超过1000个就直接抛弃请求，取消响应，之后业务处理模块再慢慢地从消息队列里面取出请求并处理</p>
 <h3 id="概述">概述</h3>
-<p><img src="/media/274fd20a1a0f214e33506f958f562c6d.png" alt=""></p>
+<p><img src="/spring_boot_senior/274fd20a1a0f214e33506f958f562c6d.png" alt=""></p>
 <h3 id="两种模式">两种模式</h3>
 <h4 id="点对点式">点对点式</h4>
-<p><img src="/media/37297bf19a6794cc777ef08628461dd3.png" alt=""></p>
+<p><img src="/spring_boot_senior/37297bf19a6794cc777ef08628461dd3.png" alt=""></p>
 <p>点对点式就是发送者A发送请求到队列，接收者B从队列中取出请求</p>
 <p>要理解只有唯一的发送者和接受者，但并非只有一个接收者这句话，意思是发送者确实只有A一个，但是我可以有B、C、D多个接收者等着取队列中的数据，但是最终这个数据只能被B或者C或者D中的一个取走。</p>
 <h4 id="发布订阅式">发布/订阅式</h4>
-<p><img src="/media/2a67cbdc0f9e37e570ce20bee57db5be.png" alt=""></p>
+<p><img src="/spring_boot_senior/2a67cbdc0f9e37e570ce20bee57db5be.png" alt=""></p>
 <p>上面的点对点是只有一个接收者最终能获得消息，现在这个发布/订阅式指的是当发送者A发出消息之后，B、C、D等接收者都能收到消息</p>
 <h3 id="消息代理规范">消息代理规范</h3>
 <h4 id="jms">JMS</h4>
-<p><img src="/media/08d9d9d26273e0d1038fc851afc93209.png" alt=""></p>
+<p><img src="/spring_boot_senior/08d9d9d26273e0d1038fc851afc93209.png" alt=""></p>
 <h4 id="amqp">AMQP</h4>
-<p><img src="/media/3669b8ff7f552857dcf1642753e8b34d.png" alt=""></p>
+<p><img src="/spring_boot_senior/3669b8ff7f552857dcf1642753e8b34d.png" alt=""></p>
 <h4 id="jms和amqp对比">JMS和AMQP对比</h4>
-<p><img src="/media/42888e0593641adac111514f0555a8ca.png" alt=""></p>
+<p><img src="/spring_boot_senior/42888e0593641adac111514f0555a8ca.png" alt=""></p>
 <p>由于JMS是Java api，所以只有Java能用，但是AMQP是网络协议，所以跨平台</p>
-<p><img src="/media/f2ed742bfbe27730367a569e8b464fd1.png" alt=""></p>
+<p><img src="/spring_boot_senior/f2ed742bfbe27730367a569e8b464fd1.png" alt=""></p>
 <h3 id="rabbitmq">RabbitMQ</h3>
-<p><img src="/media/d7474e2f208e1e0b758c9a8cee043faf.png" alt=""></p>
-<p><img src="/media/b53e1ab1a5792c44a3568e388e008b0c.png" alt=""></p>
+<p><img src="/spring_boot_senior/d7474e2f208e1e0b758c9a8cee043faf.png" alt=""></p>
+<p><img src="/spring_boot_senior/b53e1ab1a5792c44a3568e388e008b0c.png" alt=""></p>
 <p>原理就是Publisher生成消息到消息服务器内的exchange，exchange通过binding与多个queue绑定，因此由exchange做消息的分发将消息分发到队列中去</p>
 <p>注意，一个exchange可以绑定多个队列，一个队列也可以绑定多个exchange，如果一个队列绑定了多个交换机，那这些交换机都能往这个队列里面发数据</p>
 <p>Channel：信道，如果每去一个队列里面去一次数据就要建立一次tcp连接那是非常耗费资源的，因此一般情况下是建立一条tcp连接，在这个连接中建立多个Channel通道，并由这些通道做真正的消息收发</p>
-<p><img src="/media/5689d8064c80164dd1bdd6d2e770bb57.png" alt=""></p>
+<p><img src="/spring_boot_senior/5689d8064c80164dd1bdd6d2e770bb57.png" alt=""></p>
 <p>Virtual
 Host：相当于再RabbitMQ服务器里面建立多个虚拟的mini版RabbitMQ服务器，且他们之间相对隔离，每一个虚拟服务器都有自己的交换机、权限、身份加密信息、路由规则等等。连接RabbitMQ的时候必须指定虚拟主机，虚拟主机默认是按照路径来划分，可以是/ab，可以是/cd等等</p>
 <h4 id="broker">Broker</h4>
 <p>他就是我们的服务器实体</p>
-<p><img src="/media/41b0badfbb9ef6fc88a42db592414546.png" alt=""></p>
+<p><img src="/spring_boot_senior/41b0badfbb9ef6fc88a42db592414546.png" alt=""></p>
 <h4 id="rabbitmq运行机制">RabbitMQ运行机制</h4>
-<p><img src="/media/e3298639813c1d89ea014a67beb065c9.png" alt=""></p>
+<p><img src="/spring_boot_senior/e3298639813c1d89ea014a67beb065c9.png" alt=""></p>
 <p>核心就是交换器和绑定的规则，这两个不同，消息的派发结果就不一样</p>
 <h4 id="exchange类型">Exchange类型</h4>
-<p><img src="/media/ffec9c18ebd7e66ca97db7214485b372.png" alt=""></p>
+<p><img src="/spring_boot_senior/ffec9c18ebd7e66ca97db7214485b372.png" alt=""></p>
 <p>headers几乎不用了，不介绍</p>
 <h5 id="direct-exchange单播模式">Direct Exchange（单播模式）</h5>
-<p><img src="/media/6fcfe9207b61076c8ee6ae41578a4345.png" alt=""></p>
+<p><img src="/spring_boot_senior/6fcfe9207b61076c8ee6ae41578a4345.png" alt=""></p>
 <p>消息中由路由键，当路由键跟绑定的队列中的键名一样的时候就会分发给这个队列</p>
 <p>注意它是两个键名严格一致的时候才会进行分发，比方说我们要发dog，两个键名都是dog的时候就会发，而dog.go、dog.wang都不会进行分发</p>
 <h5 id="fanout-exchange广播模式">Fanout Exchange（广播模式）</h5>
-<p><img src="/media/58746cca474f6c6004c1d926cf6a275f.png" alt=""></p>
+<p><img src="/spring_boot_senior/58746cca474f6c6004c1d926cf6a275f.png" alt=""></p>
 <p>将收到的信息发送给所有绑定的队列，不处理路由键，速度最快</p>
 <h5 id="topic-exchange选择性广播模式">Topic Exchange（选择性广播模式）</h5>
-<p><img src="/media/d60982a7c40f17f4caf561f50c4a4262.png" alt=""></p>
+<p><img src="/spring_boot_senior/d60982a7c40f17f4caf561f50c4a4262.png" alt=""></p>
 <p>通过通配符模糊匹配键名进行分发</p>
 <h4 id="rabbitmq整合">RabbitMQ整合</h4>
-<p><img src="/media/b4001ea4f411bf72e6a4e969c705f871.png" alt=""></p>
+<p><img src="/spring_boot_senior/b4001ea4f411bf72e6a4e969c705f871.png" alt=""></p>
 <p>用docker run一个rabbitmq，注意pull一个带management的版本，这些版本带web管理界面</p>
 <p>启动镜像：</p>
-<p><img src="/media/fcd92b2bb90b427ef06e2b03b2a9f321.png" alt=""></p>
+<p><img src="/spring_boot_senior/fcd92b2bb90b427ef06e2b03b2a9f321.png" alt=""></p>
 <p>5672端口是rabbit本身的，15672是管理界面的</p>
-<p><img src="/media/36f5f00218c11d8cc7bd1b7fa4710190.png" alt=""></p>
+<p><img src="/spring_boot_senior/36f5f00218c11d8cc7bd1b7fa4710190.png" alt=""></p>
 <h5 id="测试">测试</h5>
-<p><img src="/media/3172e990759357aea12760fd96cd716b.png" alt=""></p>
+<p><img src="/spring_boot_senior/3172e990759357aea12760fd96cd716b.png" alt=""></p>
 <p>这里有四个队列，他们的队列名最终就是绑定的路由键的名称，我们看看消息到不同的交换机之后他们会被分发到哪</p>
-<p><img src="/media/1b665f6d5152ce671801942cd3cee318.png" alt=""></p>
+<p><img src="/spring_boot_senior/1b665f6d5152ce671801942cd3cee318.png" alt=""></p>
 <p>首先创建自己的交换机，这里的Durability是持久化的意思，开启之后就算关闭了RabbitMQ，下次开启的时候这个交换机还在</p>
-<p><img src="/media/8c946ea1aa99bcd770c0419c46ccb5b7.png" alt=""></p>
+<p><img src="/spring_boot_senior/8c946ea1aa99bcd770c0419c46ccb5b7.png" alt=""></p>
 <p>然后创建队列</p>
-<p><img src="/media/72130f26bd3ba4d027ad23607fcd60d3.png" alt=""></p>
+<p><img src="/spring_boot_senior/72130f26bd3ba4d027ad23607fcd60d3.png" alt=""></p>
 <p>点击之前创建的交换器，进入页面后绑定队列</p>
 <p>当然在绑定topic交换器的时候路由键应该写上通配符</p>
-<p><img src="/media/d6a0465c70f71bda5ab41e045a8b9ced.png" alt=""></p>
-<p><img src="/media/baa60f29a206e3cb85ebcb9c3d69a0bf.png" alt=""></p>
+<p><img src="/spring_boot_senior/d6a0465c70f71bda5ab41e045a8b9ced.png" alt=""></p>
+<p><img src="/spring_boot_senior/baa60f29a206e3cb85ebcb9c3d69a0bf.png" alt=""></p>
 <p>之后开始发送消息进行测试</p>
-<p><img src="/media/b782d09af543a995c3602c6d9886f208.png" alt=""></p>
+<p><img src="/spring_boot_senior/b782d09af543a995c3602c6d9886f208.png" alt=""></p>
 <p>direct交换器发：</p>
 <p>点对点，路由键完全匹配的队列才会受到数据</p>
-<p><img src="/media/5c070628343fda763a30857ceab37f77.png" alt=""></p>
-<p><img src="/media/6208b5aa3d68676b201e0933c5dae32e.png" alt=""></p>
+<p><img src="/spring_boot_senior/5c070628343fda763a30857ceab37f77.png" alt=""></p>
+<p><img src="/spring_boot_senior/6208b5aa3d68676b201e0933c5dae32e.png" alt=""></p>
 <p>fanout交换器发：</p>
-<p><img src="/media/eab13a2aea1616a5746544a15c6db7ed.png" alt=""></p>
+<p><img src="/spring_boot_senior/eab13a2aea1616a5746544a15c6db7ed.png" alt=""></p>
 <p>我们发现每一个队列都收到了</p>
 <p>topic交换器发：</p>
 <p>匹配到的会接收</p>
-<p><img src="/media/5bacc8cf828a7d3b540c0e7fb5cccbbc.png" alt=""></p>
+<p><img src="/spring_boot_senior/5bacc8cf828a7d3b540c0e7fb5cccbbc.png" alt=""></p>
 <p>当我们到某个queue中去查看获取到的数据的时候，可以用上图的get message</p>
 <p>我们发现每次获取的都是fanout发来的那个message，那是因为选择的ack
 mode不对，这个时候我们上图的第一行ack
 mode可以改成应答的模式，让queue每获取一个message就进行应答，这样的话就会把这个message给删了，我们也就能获取到后面的message了：</p>
-<p><img src="/media/f737a2a9bdb8433fcb9523c5a10118c4.png" alt=""></p>
+<p><img src="/spring_boot_senior/f737a2a9bdb8433fcb9523c5a10118c4.png" alt=""></p>
 <p>这个模式下我们可以获取后面的几个message</p>
 <h5 id="将rabbitmq配置到springboot">将rabbitMQ配置到springboot</h5>
-<p><img src="/media/3707eb8c99788f0086e39b80827343a5.png" alt=""></p>
+<p><img src="/spring_boot_senior/3707eb8c99788f0086e39b80827343a5.png" alt=""></p>
 <p>具体怎么配看Properties文件</p>
-<p><img src="/media/adfd09f35df26991f5ef974cc2a6cde1.png" alt=""></p>
+<p><img src="/spring_boot_senior/adfd09f35df26991f5ef974cc2a6cde1.png" alt=""></p>
 <p>我们之前说一定要指定virtual-host，这里不指定是因为它默认就会给你一个virtual-host</p>
 <h5 id="使用rabbittemplate发送和接受消息">使用RabbitTemplate发送和接受消息</h5>
 <h6 id="发送数据">发送数据</h6>
-<p><img src="/media/02f3e8ee2458237919a84fc6da909db7.png" alt=""></p>
+<p><img src="/spring_boot_senior/02f3e8ee2458237919a84fc6da909db7.png" alt=""></p>
 <p>注意，当使用fanout模式的时候不需要指定路由键：</p>
-<p><img src="/media/a7864b5f918f2bf806ba3e01feeea500.png" alt=""></p>
+<p><img src="/spring_boot_senior/a7864b5f918f2bf806ba3e01feeea500.png" alt=""></p>
 <p>####### send</p>
 <p>需要自己构造一个Message将消息序列化</p>
 <p>####### convertAndSend</p>
 <p>如果不牵扯到复杂的自定义，比方说自定义消息头什么的就可以直接用该方法</p>
 <p>他只需要传入发送的对象，会自动序列化发送给rabbitmq</p>
-<p><img src="/media/a784621d5c1ccc6b3223c7af950c391b.png" alt=""></p>
-<p><img src="/media/30afa88456e2ecfb667c11b7b735d59c.png" alt=""></p>
+<p><img src="/spring_boot_senior/a784621d5c1ccc6b3223c7af950c391b.png" alt=""></p>
+<p><img src="/spring_boot_senior/30afa88456e2ecfb667c11b7b735d59c.png" alt=""></p>
 <h6 id="接收数据">接收数据</h6>
-<p><img src="/media/0195447e6c915999c18aa57a0a45d2b9.png" alt=""></p>
+<p><img src="/spring_boot_senior/0195447e6c915999c18aa57a0a45d2b9.png" alt=""></p>
 <p>注意，一旦接收了队列中的数据，该数据在队列中就不复存在了</p>
 <p>####### receive</p>
 <p>该方法可以获取指定队列的数据，并返回Message</p>
 <p>####### receiveAndConvert</p>
 <p>该方法可直接将数据以对象形式返回</p>
-<p><img src="/media/a219fbb405d1c6184bbb28697ba016b9.png" alt=""></p>
+<p><img src="/spring_boot_senior/a219fbb405d1c6184bbb28697ba016b9.png" alt=""></p>
 <h5 id="如何将数据转为json发送到队列">如何将数据转为json发送到队列</h5>
-<p><img src="/media/18eb84871e81b43b369a6e5384f3bf7d.png" alt=""></p>
+<p><img src="/spring_boot_senior/18eb84871e81b43b369a6e5384f3bf7d.png" alt=""></p>
 <p>之前发到队列里面的数据是一对乱码，原因是使用了默认消息转换器</p>
-<p><img src="/media/63c0918d1593e03c75664683ab4a8e9b.png" alt=""></p>
+<p><img src="/spring_boot_senior/63c0918d1593e03c75664683ab4a8e9b.png" alt=""></p>
 <p>我们再看RabbitAutoConfiguration，如果有自己定义的MessageConverter，他也会把他加载进来，如上图</p>
 <h6 id="定制自己的messageconverter">定制自己的MessageConverter</h6>
-<p><img src="/media/3b27313dbdeb794f17539b61dc5ef668.png" alt=""></p>
+<p><img src="/spring_boot_senior/3b27313dbdeb794f17539b61dc5ef668.png" alt=""></p>
 <p>这里的Jackson2JsonMessageConverter是MessageConverter的实现类，fastjson的也有</p>
-<p><img src="/media/15fda7cff89f300b8e304739e5c537e9.png" alt=""></p>
+<p><img src="/spring_boot_senior/15fda7cff89f300b8e304739e5c537e9.png" alt=""></p>
 <p>结果如上图，我们发现还有消息头</p>
 <h5 id="监听注解">监听注解</h5>
 <p>之前说了订单库存模型，库存要一直监听消息队列，一旦有订单就处理，Springboot为了简化开发，引入了监听注解</p>
 <h6 id="enablerabbit">@EnableRabbit</h6>
-<p><img src="/media/3707eb8c99788f0086e39b80827343a5.png" alt=""></p>
+<p><img src="/spring_boot_senior/3707eb8c99788f0086e39b80827343a5.png" alt=""></p>
 <p>首先要用到RabbitMQ的注解，因此要再启动类加一个@EnableRabbit表示开启基于注解的RabbitMQ模式</p>
 <h6 id="rabbitlistener">@RabbitListener</h6>
-<p><img src="/media/381333f73de4df824ce0b43ebcf41ed9.png" alt=""></p>
+<p><img src="/spring_boot_senior/381333f73de4df824ce0b43ebcf41ed9.png" alt=""></p>
 <p>里面指定队列，注意可以是数组的形式，上图表示当atguigu.news队列中有book的消息就进行处理。</p>
 <p>当然，我们还可以获取消息的头信息和主体信息：</p>
-<p><img src="/media/c75c9955291217660ababac33e41700a.png" alt=""></p>
+<p><img src="/spring_boot_senior/c75c9955291217660ababac33e41700a.png" alt=""></p>
 <h5 id="amqpadmin">AmqpAdmin</h5>
 <p>上面我们的RabbitMQ中的队列，交换器什么的都是手动配置的，那如何自动配置呢？要用到AmqpAdmin</p>
-<p><img src="/media/3707eb8c99788f0086e39b80827343a5.png" alt=""></p>
-<p><img src="/media/9234207c554c078da3101366cb4e0c7b.png" alt=""></p>
+<p><img src="/spring_boot_senior/3707eb8c99788f0086e39b80827343a5.png" alt=""></p>
+<p><img src="/spring_boot_senior/9234207c554c078da3101366cb4e0c7b.png" alt=""></p>
 <p>declare开头的都是用于创建交换器、队列等组件的，相应的有delete</p>
 <p>在创建交换器的时候我们发现要传入一个Exchange对象：</p>
-<p><img src="/media/75dcae37fd2c94b8abc66701e3a3a725.png" alt=""></p>
+<p><img src="/spring_boot_senior/75dcae37fd2c94b8abc66701e3a3a725.png" alt=""></p>
 <p>我们发现他是一个接口，有很多实现，而这些实现正是上面讲的几种模式，还多了一个自定义</p>
-<p><img src="/media/97d13f0a6b4e50447081b6a9917e24be.png" alt=""></p>
+<p><img src="/spring_boot_senior/97d13f0a6b4e50447081b6a9917e24be.png" alt=""></p>
 <p>创建队列也一样</p>
-<p><img src="/media/7ff1f7623d4841e847fdb30180421034.png" alt=""></p>
+<p><img src="/spring_boot_senior/7ff1f7623d4841e847fdb30180421034.png" alt=""></p>
 <p>注意，交换器和队列的初始化方式不只传name这一种，具体的点进去看构造器</p>
 <p>创建Binding也一样，具体的看Binding构造器</p>
-<p><img src="/media/0d784d767f56a29aa3bedb9c855c752f.png" alt=""></p>
+<p><img src="/spring_boot_senior/0d784d767f56a29aa3bedb9c855c752f.png" alt=""></p>
 <p>有创建就有删除，删除的基本一样的操作</p>
 <h2 id="springboot与检索">Springboot与检索</h2>
-<p><img src="/media/cca3ddff7ee1d2e92780877aa9f4cab4.png" alt=""></p>
-<p><img src="/media/46ed650356c68e5d044a2bfde042c513.png" alt=""></p>
+<p><img src="/spring_boot_senior/cca3ddff7ee1d2e92780877aa9f4cab4.png" alt=""></p>
+<p><img src="/spring_boot_senior/46ed650356c68e5d044a2bfde042c513.png" alt=""></p>
 <p>由于es由Java编写，启动的时候会默认占用2G的内存，因此我们在run
 docker的时候可以添加-e ES_JAVA_OPTS=“-Xms 265m
 -Xmx256m”参数来限制启动时Java占用的内存（该参数表示初始化占用内存256兆，最大占用内存256兆）：</p>
-<p><img src="/media/e824b8afe2c7f4ecc6c575e27d6cc03c.png" alt=""></p>
-<p><img src="/media/32f8c81411986fd4efecc058569d90ce.png" alt=""></p>
-<p><img src="/media/864db69649a4f7dd9c7c1b553af2afcb.png" alt=""></p>
+<p><img src="/spring_boot_senior/e824b8afe2c7f4ecc6c575e27d6cc03c.png" alt=""></p>
+<p><img src="/spring_boot_senior/32f8c81411986fd4efecc058569d90ce.png" alt=""></p>
+<p><img src="/spring_boot_senior/864db69649a4f7dd9c7c1b553af2afcb.png" alt=""></p>
 <h3 id="测试-1">测试</h3>
 <p>在存入一些数据之后哦我们去查找数据</p>
-<p><img src="/media/d5445b3e27aa05f3b7fc1679f8267937.png" alt=""></p>
+<p><img src="/spring_boot_senior/d5445b3e27aa05f3b7fc1679f8267937.png" alt=""></p>
 <p>可以使用HEAD请求，表示判断es中是否有该数据，有跟没有都不会返回内容只会返回状态码，找得到就是200ok，找不到就是404not
 found</p>
 <p>搜索全部数据：</p>
-<p><img src="/media/662770b37eaa83496f2da726e5658d80.png" alt=""></p>
+<p><img src="/spring_boot_senior/662770b37eaa83496f2da726e5658d80.png" alt=""></p>
 <p>搜索last_name为Smith的数据：</p>
-<p><img src="/media/4de144c49542361506bced6b305ccdfc.png" alt=""></p>
+<p><img src="/spring_boot_senior/4de144c49542361506bced6b305ccdfc.png" alt=""></p>
 <p>还可以这样查询：</p>
-<p><img src="/media/be4ab85163b52beb6522dd2fef4c4a1c.png" alt=""></p>
-<p><img src="/media/ebeb2990ed8531c1c874a6805ebb8629.png" alt=""></p>
+<p><img src="/spring_boot_senior/be4ab85163b52beb6522dd2fef4c4a1c.png" alt=""></p>
+<p><img src="/spring_boot_senior/ebeb2990ed8531c1c874a6805ebb8629.png" alt=""></p>
 <p>查数据所有属性中可能有rock climbing这两个字段的数据：</p>
-<p><img src="/media/c21d6283702af900ecefc606c8139dca.png" alt=""></p>
+<p><img src="/spring_boot_senior/c21d6283702af900ecefc606c8139dca.png" alt=""></p>
 <p>可以看到上图的_score有0.53+</p>
-<p><img src="/media/9dd2a3025537254386c114123108b069.png" alt=""></p>
+<p><img src="/spring_boot_senior/9dd2a3025537254386c114123108b069.png" alt=""></p>
 <p>而2号员工只匹配到了一个rock，所以他的_score只有0.28+</p>
 <p>上面模式是match，会将短语拆分成两个单词，使用match_phrase之后就可以不拆分匹配整个短语：</p>
-<p><img src="/media/e92044cb6c912052b6356a1a0bbe64b0.png" alt=""></p>
+<p><img src="/spring_boot_senior/e92044cb6c912052b6356a1a0bbe64b0.png" alt=""></p>
 <p>结果：</p>
-<p><img src="/media/d1dd89e6bc74da115cd668d2b18159de.png" alt=""></p>
+<p><img src="/spring_boot_senior/d1dd89e6bc74da115cd668d2b18159de.png" alt=""></p>
 <p>高亮搜索：</p>
-<p><img src="/media/43be95cc0e1e7537238f5d14ee14c86d.png" alt=""></p>
-<p><img src="/media/4dd0768af7a2512d609f3498a35a69d3.png" alt=""></p>
+<p><img src="/spring_boot_senior/43be95cc0e1e7537238f5d14ee14c86d.png" alt=""></p>
+<p><img src="/spring_boot_senior/4dd0768af7a2512d609f3498a35a69d3.png" alt=""></p>
 <p>高亮部分用em标签包裹起来了</p>
 <h3 id="spring-boot整合elasticsearch">spring boot整合elasticsearch</h3>
-<p><img src="/media/6698ec72ade46c2c4ac66ed301258c53.png" alt=""></p>
-<p><img src="/media/afc57bc1802a4225c04a59b3c2781d6e.png" alt=""></p>
+<p><img src="/spring_boot_senior/6698ec72ade46c2c4ac66ed301258c53.png" alt=""></p>
+<p><img src="/spring_boot_senior/afc57bc1802a4225c04a59b3c2781d6e.png" alt=""></p>
 <p>点进去看一下：</p>
-<p><img src="/media/25668ee2896aa0a5fa92001b0060f60c.png" alt=""></p>
+<p><img src="/spring_boot_senior/25668ee2896aa0a5fa92001b0060f60c.png" alt=""></p>
 <h4 id="springboot默认支持两种技术来和es交互">SpringBoot默认支持两种技术来和ES交互</h4>
-<p><img src="/media/056e0b623f02210b9197997480208312.png" alt=""></p>
+<p><img src="/spring_boot_senior/056e0b623f02210b9197997480208312.png" alt=""></p>
 <p>其中Jest是通过http请求来和es交互，就相当于我们上面测试的时候用postman发送请求那样来交互，但是看Jest的自动配置类我们发现他需要配置一个JestClient之后Jest的自动配置才会生效</p>
 <h5 id="jest">Jest</h5>
-<p><img src="/media/a6d4b6798e504207164d80a79990e586.png" alt=""></p>
+<p><img src="/spring_boot_senior/a6d4b6798e504207164d80a79990e586.png" alt=""></p>
 <p>由于es版本是569的：</p>
-<p><img src="/media/7389136866325ce25594e541c7d3c062.png" alt=""></p>
+<p><img src="/spring_boot_senior/7389136866325ce25594e541c7d3c062.png" alt=""></p>
 <p>所以jest也要是5版本的：</p>
-<p><img src="/media/69258a6af917f16331b77b348b3e0c97.png" alt=""></p>
+<p><img src="/spring_boot_senior/69258a6af917f16331b77b348b3e0c97.png" alt=""></p>
 <p>导入jest模块并注释掉spring data的es：</p>
-<p><img src="/media/cd91afcd58a39868e6a0add2d2854257.png" alt=""></p>
+<p><img src="/spring_boot_senior/cd91afcd58a39868e6a0add2d2854257.png" alt=""></p>
 <p>之后还是老套路，去找jest的自动配置类里面的properties，里面有各种配置信息</p>
-<p><img src="/media/07159e2d881beadc40bf9146c33b9d16.png" alt=""></p>
+<p><img src="/spring_boot_senior/07159e2d881beadc40bf9146c33b9d16.png" alt=""></p>
 <p>我们要配url：</p>
-<p><img src="/media/9e59430a9e8029f7b08a3980c898e469.png" alt=""></p>
+<p><img src="/spring_boot_senior/9e59430a9e8029f7b08a3980c898e469.png" alt=""></p>
 <p>之后注入jestClient就能用了：</p>
-<p><img src="/media/3b1f73c4a435e87b518554a07aea0166.png" alt=""></p>
+<p><img src="/spring_boot_senior/3b1f73c4a435e87b518554a07aea0166.png" alt=""></p>
 <h6 id="jestid">@JestId</h6>
-<p><img src="/media/2f31c97a5b1cfbdbcdc95a50284b95d0.png" alt=""></p>
+<p><img src="/spring_boot_senior/2f31c97a5b1cfbdbcdc95a50284b95d0.png" alt=""></p>
 <p>告诉es这个是主键</p>
 <h6 id="创建索引">创建索引</h6>
-<p><img src="/media/199524c846012c0a12822ebed9418d15.png" alt=""></p>
+<p><img src="/spring_boot_senior/199524c846012c0a12822ebed9418d15.png" alt=""></p>
 <h6 id="搜索">搜索</h6>
-<p><img src="/media/823d3375f976daf79c29d0bfe8f9ab10.png" alt=""></p>
+<p><img src="/spring_boot_senior/823d3375f976daf79c29d0bfe8f9ab10.png" alt=""></p>
 <p>上图遮住的部分：</p>
-<p><img src="/media/12ba580f5c06c9418839bb223d1f2f0e.png" alt=""></p>
-<p><img src="/media/44aea0248ebb37d809621bb27e96ee64.png" alt=""></p>
+<p><img src="/spring_boot_senior/12ba580f5c06c9418839bb223d1f2f0e.png" alt=""></p>
+<p><img src="/spring_boot_senior/44aea0248ebb37d809621bb27e96ee64.png" alt=""></p>
 <p>能从查出来的返回值中获取命中、最大分值、总记录数等很多东西，如上图</p>
-<p><img src="/media/0cd25c44e9eabf8f2c0e075a4554dfdc.png" alt=""></p>
+<p><img src="/spring_boot_senior/0cd25c44e9eabf8f2c0e075a4554dfdc.png" alt=""></p>
 <p>我们这里就拿一个返回结果的json字符串</p>
 <p>更多操作去GitHub查看：</p>
-<p><img src="/media/d1ee063d4bbe134e702fb858984befb8.png" alt=""></p>
+<p><img src="/spring_boot_senior/d1ee063d4bbe134e702fb858984befb8.png" alt=""></p>
 <h5 id="springdata-elasticsearch">SpringData ElasticSearch</h5>
-<p><img src="/media/df68667e1d030b561465d30625db03cc.png" alt=""></p>
-<p><img src="/media/998163600d8a39c28330e22c735ca9bc.png" alt=""></p>
+<p><img src="/spring_boot_senior/df68667e1d030b561465d30625db03cc.png" alt=""></p>
+<p><img src="/spring_boot_senior/998163600d8a39c28330e22c735ca9bc.png" alt=""></p>
 <p>注意，这个nodes不是用9200来通信的，而是用9300</p>
 <p>name你懂的，就是集群名称</p>
 <h6 id="解决es和springboot的es版本不匹配问题">解决es和springboot的es版本不匹配问题</h6>
 <p>启动之后报错了，原因是springdata的es版本跟es版本不符</p>
 <p>解决方法：</p>
 <p>找springboot官网中的spring data：</p>
-<p><img src="/media/91f268f94bce6450398e73c022946a6b.png" alt=""></p>
-<p><img src="/media/a8b39aa9fa4d7483471fc233f2afa113.png" alt=""></p>
-<p><img src="/media/d4d2f3e76017b63cb2003b20078af5ae.png" alt=""></p>
-<p><img src="/media/67edc2d63d5180ccae2f671f3e314c03.png" alt=""></p>
-<p><img src="/media/74f1b9f207ee1b8f2b394c1bcbf86a65.png" alt=""></p>
+<p><img src="/spring_boot_senior/91f268f94bce6450398e73c022946a6b.png" alt=""></p>
+<p><img src="/spring_boot_senior/a8b39aa9fa4d7483471fc233f2afa113.png" alt=""></p>
+<p><img src="/spring_boot_senior/d4d2f3e76017b63cb2003b20078af5ae.png" alt=""></p>
+<p><img src="/spring_boot_senior/67edc2d63d5180ccae2f671f3e314c03.png" alt=""></p>
+<p><img src="/spring_boot_senior/74f1b9f207ee1b8f2b394c1bcbf86a65.png" alt=""></p>
 <p>上图就是es对应springboot的es版本</p>
 <p>上面说了，有两种方法来解决版本不匹配问题，一种是修改springboot版本，一种是修改es版本，由于修改springboot版本可能会牵扯到其他组件的版本适配，因此我们修改es版本</p>
 <p>重新run一个es：</p>
-<p><img src="/media/b7e0ace2b3dcdc705463aba991eb45f6.png" alt=""></p>
+<p><img src="/spring_boot_senior/b7e0ace2b3dcdc705463aba991eb45f6.png" alt=""></p>
 <p>之后就不会报错了</p>
-<p><img src="/media/0a50e0e75eea8fdfe760ad8fdd7e9a51.png" alt=""></p>
+<p><img src="/spring_boot_senior/0a50e0e75eea8fdfe760ad8fdd7e9a51.png" alt=""></p>
 <p>而且显示添加到了节点9301</p>
 <h6 id="使用方法">使用方法</h6>
 <p>参照GitHub上的文档</p>
 <p>####### 第一种用ElasticsearchRepository</p>
-<p><img src="/media/077e22f44be7839bb4b22cc2f9cd7f3b.png" alt=""></p>
-<p><img src="/media/616bd9c615d3c4f5d10c7e2f1c792f41.png" alt=""></p>
+<p><img src="/spring_boot_senior/077e22f44be7839bb4b22cc2f9cd7f3b.png" alt=""></p>
+<p><img src="/spring_boot_senior/616bd9c615d3c4f5d10c7e2f1c792f41.png" alt=""></p>
 <p>用法跟jpa完全一样，继承接口之后指定泛型即可，泛型中的第一个参数是实体类类型，第二个参数是实体类主键的类型，如上图</p>
 <p>之后在实体类用@Document（这是es的注解）指定索引和类型：</p>
-<p><img src="/media/07b48bb7b4bdb52499b99e4e8aa80f9b.png" alt=""></p>
+<p><img src="/spring_boot_senior/07b48bb7b4bdb52499b99e4e8aa80f9b.png" alt=""></p>
 <p>然后测试：</p>
-<p><img src="/media/e4e7b58e7d69fea84bcfd6120aa6bd07.png" alt=""></p>
-<p><img src="/media/07ea0c102f6e51374b4de3eadb67f4a7.png" alt=""></p>
+<p><img src="/spring_boot_senior/e4e7b58e7d69fea84bcfd6120aa6bd07.png" alt=""></p>
+<p><img src="/spring_boot_senior/07ea0c102f6e51374b4de3eadb67f4a7.png" alt=""></p>
 <p>扩展查询接口</p>
-<p><img src="/media/6a040d755e69ec148a82f03c031103ae.png" alt=""></p>
+<p><img src="/spring_boot_senior/6a040d755e69ec148a82f03c031103ae.png" alt=""></p>
 <p>可以在Repository中写自己想要的接口，如上图</p>
 <p>注意这个接口不用实现，spring-es自动会实现接口的查找方法（这里有点迷，为什么能自动实现呢？他怎么确定是精准查询还是模糊查询呢？下面有解答）</p>
 <p>下面来使用该接口：</p>
-<p><img src="/media/661e01036e627de583d7b13ac52c3a1c.png" alt=""></p>
+<p><img src="/spring_boot_senior/661e01036e627de583d7b13ac52c3a1c.png" alt=""></p>
 <p>扩展方法可以参照上上图的那个网址</p>
-<p><img src="/media/bfbaac008c4401d5e12f6b33cbbd9c0d.png" alt=""></p>
-<p><img src="/media/8a476236213618d89f4a19b2ca7dbf7c.png" alt=""></p>
+<p><img src="/spring_boot_senior/bfbaac008c4401d5e12f6b33cbbd9c0d.png" alt=""></p>
+<p><img src="/spring_boot_senior/8a476236213618d89f4a19b2ca7dbf7c.png" alt=""></p>
 <p>这里我们明白了为什么可以这么用，这其实是官方定义好的接口的命名规则</p>
 <p>@Query标注扩展接口的查询方法</p>
-<p><img src="/media/e8ed2f91eebb5b365707dab5134a55f3.png" alt=""></p>
+<p><img src="/spring_boot_senior/e8ed2f91eebb5b365707dab5134a55f3.png" alt=""></p>
 <p>除了上面的那种方法，我们还可以给接口标注@Query注解来表明该接口的查询方法</p>
 <p>####### 第二种用ElasticsearchTemplate</p>
-<p><img src="/media/b33b025922daa27ac118ad6ae99502d5.png" alt=""></p>
-<p><img src="/media/71cfd18452d66e53c196c2587ed8218c.png" alt=""></p>
+<p><img src="/spring_boot_senior/b33b025922daa27ac118ad6ae99502d5.png" alt=""></p>
+<p><img src="/spring_boot_senior/71cfd18452d66e53c196c2587ed8218c.png" alt=""></p>
 <p>具体使用去看官方文档</p>
 <h2 id="springboot与任务">Springboot与任务</h2>
-<p><img src="/media/508c0d1432ff57e80d1caba0ebf5b7ae.png" alt=""></p>
+<p><img src="/spring_boot_senior/508c0d1432ff57e80d1caba0ebf5b7ae.png" alt=""></p>
 <h3 id="异步任务">异步任务</h3>
 <p>先来模拟一个需要很久时间的任务：</p>
-<p><img src="/media/649e1d64323f572349be590c4b9d8f23.png" alt=""></p>
+<p><img src="/spring_boot_senior/649e1d64323f572349be590c4b9d8f23.png" alt=""></p>
 <p>之后调用：</p>
-<p><img src="/media/ce1347ff13450af1e11d9b96d0c8d054.png" alt=""></p>
+<p><img src="/spring_boot_senior/ce1347ff13450af1e11d9b96d0c8d054.png" alt=""></p>
 <p>在同步的方法之下每次都要等很长时间用户才能拿到数据</p>
 <p>当然我们可以用多线程的方式手动改写该任务，但是这样太麻烦</p>
 <h4 id="async">@Async</h4>
 <p>告诉Springboot这是一个异步方法，Spring就会自己调用线程池来异步执行该方法</p>
-<p><img src="/media/2e13f3f85c43939f24ec1783c6516856.png" alt=""></p>
+<p><img src="/spring_boot_senior/2e13f3f85c43939f24ec1783c6516856.png" alt=""></p>
 <h4 id="enableasync">@EnableAsync</h4>
-<p><img src="/media/c0aa560fa86d8963e144883f92a93cb3.png" alt=""></p>
+<p><img src="/spring_boot_senior/c0aa560fa86d8963e144883f92a93cb3.png" alt=""></p>
 <p>要使用上面的异步注解，我们就需要标注@EnableAsync</p>
 <h3 id="定时任务">定时任务</h3>
-<p><img src="/media/90f0d290700667d816da28804dc94791.png" alt=""></p>
+<p><img src="/spring_boot_senior/90f0d290700667d816da28804dc94791.png" alt=""></p>
 <h4 id="scheduled">@Scheduled</h4>
-<p><img src="/media/f6dd9cae94f8a29bc736d3d71d5c5ca6.png" alt=""></p>
+<p><img src="/spring_boot_senior/f6dd9cae94f8a29bc736d3d71d5c5ca6.png" alt=""></p>
 <p>跟linux的crontab很像，只不过多了一个秒</p>
 <p>上图的cron表示周一到周六每一分钟的0秒的时候都执行一次任务</p>
 <h4 id="enablescheduling">@EnableScheduling</h4>
-<p><img src="/media/092f26e9cc352c532aa87602011777c4.png" alt=""></p>
+<p><img src="/spring_boot_senior/092f26e9cc352c532aa87602011777c4.png" alt=""></p>
 <h4 id="cron表达式">cron表达式</h4>
-<p><img src="/media/f71077ad5a9ea418b622d1c7c5a3dc39.png" alt=""></p>
+<p><img src="/spring_boot_senior/f71077ad5a9ea418b622d1c7c5a3dc39.png" alt=""></p>
 <h5 id="枚举">枚举</h5>
-<p><img src="/media/e0e1eb870f91eefeb237f367e84fd7ea.png" alt=""></p>
+<p><img src="/spring_boot_senior/e0e1eb870f91eefeb237f367e84fd7ea.png" alt=""></p>
 <h5 id="区间">区间</h5>
-<p><img src="/media/19742036e576397599d8d46994713582.png" alt=""></p>
+<p><img src="/spring_boot_senior/19742036e576397599d8d46994713582.png" alt=""></p>
 <h5 id="步长">步长</h5>
-<p><img src="/media/4f8a2daca125e74d0457ef5c80f437e0.png" alt=""></p>
+<p><img src="/spring_boot_senior/4f8a2daca125e74d0457ef5c80f437e0.png" alt=""></p>
 <p>上图的意思就是每4秒执行一下任务</p>
 <h5 id="其他的表达式">其他的表达式</h5>
-<p><img src="/media/72860cec59156646d3ecb09648108216.png" alt=""></p>
+<p><img src="/spring_boot_senior/72860cec59156646d3ecb09648108216.png" alt=""></p>
 <p>解释一下 ？ ：</p>
 <p>比方说我们写了一个 0 15 10 * * 1-6
 这串表达式的意思本来想表达的是每个月的周一至周六10：15份执行一次任务，但是会有歧义，上面日的位置我们写了
@@ -633,154 +633,154 @@ found</p>
 <h5 id="表达式连写">表达式连写</h5>
 <p>比方说 LW 就表示最后一个工作日</p>
 <h3 id="邮件任务">邮件任务</h3>
-<p><img src="/media/ee0768c35b5ae2102274e95c14b950ce.png" alt=""></p>
+<p><img src="/spring_boot_senior/ee0768c35b5ae2102274e95c14b950ce.png" alt=""></p>
 <p>JavaMailSenderImpl就是用来发送邮件的：</p>
-<p><img src="/media/32e5779fc4661c599aff3e667b465d28.png" alt=""></p>
+<p><img src="/spring_boot_senior/32e5779fc4661c599aff3e667b465d28.png" alt=""></p>
 <p>还是在Properties里面配置属性：</p>
-<p><img src="/media/0e3a31de7b3099e4e531478e2d2e550a.png" alt=""></p>
+<p><img src="/spring_boot_senior/0e3a31de7b3099e4e531478e2d2e550a.png" alt=""></p>
 <p>我们发邮件不是直接发给对方的，而是去找自己的所处邮箱服务器，邮箱服务器之间互相发送，之后再由邮箱服务器发给对方：</p>
-<p><img src="/media/7c379775f3ee73e1ba93fa1db3e89508.png" alt=""></p>
+<p><img src="/spring_boot_senior/7c379775f3ee73e1ba93fa1db3e89508.png" alt=""></p>
 <p>所以我们除了要配置发件人的用户密码之外，还需要配置所在的邮箱服务器</p>
 <p>其次，为了安全，配置的密码也是授权码（跟之前Django写过的邮件服务一样）</p>
-<p><img src="/media/daa793dd16c8f83f99e901f1047043b3.png" alt=""></p>
+<p><img src="/spring_boot_senior/daa793dd16c8f83f99e901f1047043b3.png" alt=""></p>
 <p>最后配置完成：</p>
-<p><img src="/media/f41e0ebe71dd76efc7f05ea2c72d94cd.png" alt=""></p>
-<p><img src="/media/93e4da80c97b5a50988e947a26145374.png" alt=""></p>
+<p><img src="/spring_boot_senior/f41e0ebe71dd76efc7f05ea2c72d94cd.png" alt=""></p>
+<p><img src="/spring_boot_senior/93e4da80c97b5a50988e947a26145374.png" alt=""></p>
 <p>注意，qq邮箱需要额外配置ssl：</p>
-<p><img src="/media/b08c1af878555b1e4380299f16dccc97.png" alt=""></p>
+<p><img src="/spring_boot_senior/b08c1af878555b1e4380299f16dccc97.png" alt=""></p>
 <h4 id="复杂邮件">复杂邮件</h4>
 <p>简单邮件我们用的SimpleMailMessage</p>
 <p>复杂邮件我们需要用到MimeMessage，但是MimeMessage没有setSubject、setText这些方法，</p>
 <p>因此还需要借助MimeMessageHelper，传入的第一个参数是mimeMessage，第二个参数是multipart，当我们需要传输文件的时候就需要设置multipart为true</p>
-<p><img src="/media/c10f1695bfe1298b43f8277691f7c4d3.png" alt=""></p>
+<p><img src="/spring_boot_senior/c10f1695bfe1298b43f8277691f7c4d3.png" alt=""></p>
 <p>复杂邮件的setText里可以写html代码，而且可以发送附件，其中这个文件可以是一个文件也可以是一个文件流</p>
 <p>发送之后我们发现html文本没有被解析，那是因为setText里面有个参数要设置为true，表示解析html代码：</p>
-<p><img src="/media/50ffa3943bdc7434e226e67be0f389e0.png" alt=""></p>
+<p><img src="/spring_boot_senior/50ffa3943bdc7434e226e67be0f389e0.png" alt=""></p>
 <h2 id="springboot与安全">Springboot与安全</h2>
 <p>身份认证、权限控制、漏洞攻击等</p>
-<p><img src="/media/9d03dd3f8c8f98dcd936d73b4d0275f0.png" alt=""></p>
+<p><img src="/spring_boot_senior/9d03dd3f8c8f98dcd936d73b4d0275f0.png" alt=""></p>
 <p>市面上有两个比较好用框架，一个叫shiro，一个就是Spring的Security</p>
-<p><img src="/media/8933383b5d6063ea4a8e1751d26b64c7.png" alt=""></p>
-<p><img src="/media/941b4b10632677d0fee903e5963c58d0.png" alt=""></p>
+<p><img src="/spring_boot_senior/8933383b5d6063ea4a8e1751d26b64c7.png" alt=""></p>
+<p><img src="/spring_boot_senior/941b4b10632677d0fee903e5963c58d0.png" alt=""></p>
 <p>认证是指用户输入用户名密码登录</p>
 <p>而授权的意思是当用户调用接口的时候是否有权限访问该接口</p>
 <p>两者是不一样的</p>
 <h3 id="spring-security">Spring Security</h3>
-<p><img src="/media/ed1bd4d68c45eec11322126066c0aac9.png" alt=""></p>
+<p><img src="/spring_boot_senior/ed1bd4d68c45eec11322126066c0aac9.png" alt=""></p>
 <p>如何配置要去看官网</p>
-<p><img src="/media/54eb7a6318de8c102a73478b00b2a1a0.png" alt=""></p>
-<p><img src="/media/db5225ce39c12645b88668bbc92c9ad5.png" alt=""></p>
+<p><img src="/spring_boot_senior/54eb7a6318de8c102a73478b00b2a1a0.png" alt=""></p>
+<p><img src="/spring_boot_senior/db5225ce39c12645b88668bbc92c9ad5.png" alt=""></p>
 <p>官方就有例子</p>
-<p><img src="/media/4a6c37cd4e64143a160f3c69f6663374.png" alt=""></p>
+<p><img src="/spring_boot_senior/4a6c37cd4e64143a160f3c69f6663374.png" alt=""></p>
 <p><strong>配置权限，不用的接口对于不同的角色有着不同的访问权限：</strong></p>
-<p><img src="/media/e8286843c6f3d9442e236196ab21246c.png" alt=""></p>
+<p><img src="/spring_boot_senior/e8286843c6f3d9442e236196ab21246c.png" alt=""></p>
 <p>由于@EnableWebSecurity里面自带了@Configuration，因此我们就不必再在他的配置类上面加@Configuration了</p>
-<p><img src="/media/7d6275237287f38e806695b4e9cf1f86.png" alt=""></p>
+<p><img src="/spring_boot_senior/7d6275237287f38e806695b4e9cf1f86.png" alt=""></p>
 <p>这里/level1/**
 是指url，其中的两个*是level1里面不管嵌套了几层都会被影响到，如果是一个*那就只是level1下的层级会被影响到</p>
 <p><strong>之后再开启自动配置的登录功能：</strong></p>
-<p><img src="/media/9b80efbabf70d5c50bafda698072c38f.png" alt=""></p>
+<p><img src="/spring_boot_senior/9b80efbabf70d5c50bafda698072c38f.png" alt=""></p>
 <p>注意，这个登录页面是spring默认的，那么怎么让他跳转到我们自己指定的页面呢？</p>
-<p><img src="/media/3fa822eb9243b332e2c350cfa373acb2.png" alt=""></p>
+<p><img src="/spring_boot_senior/3fa822eb9243b332e2c350cfa373acb2.png" alt=""></p>
 <p>后面加个loginPage（）就行了</p>
 <p>另外默认post形式的/login代表处理登录，而登录是要带用户名和密码的，所以我们用usernameParameter（）和passwordParameter（）来将前端的form表单里面的属性name为user和pwd的input中的内容传过来：</p>
-<p><img src="/media/87ac792b2c559b711dcf1130882dee7e.png" alt=""></p>
-<p><img src="/media/c7e1ffef170a7d3e0f2bd188aa4b8eba.png" alt=""></p>
+<p><img src="/spring_boot_senior/87ac792b2c559b711dcf1130882dee7e.png" alt=""></p>
+<p><img src="/spring_boot_senior/c7e1ffef170a7d3e0f2bd188aa4b8eba.png" alt=""></p>
 <p>这里要说一下：</p>
-<p><img src="/media/50f0d5b5879c98d1fc0e13b3beaa100e.png" alt=""></p>
+<p><img src="/spring_boot_senior/50f0d5b5879c98d1fc0e13b3beaa100e.png" alt=""></p>
 <p>一旦定制loginPage（），那么loginPage（）的post请求就是登录，我们也可以用上图的loginProcessingUrl（）来表明用那个网页来处理登录请求，当然如果不指定loginProcessingUrl（）的话那默认就是用loginPage（）中的那个网页来处理登录请求。</p>
 <p>全局配置用户名和密码：</p>
-<p><img src="/media/1906453cf58e56e0f3f2bc1741e3fa8b.png" alt=""></p>
+<p><img src="/spring_boot_senior/1906453cf58e56e0f3f2bc1741e3fa8b.png" alt=""></p>
 <p>注意这些配置是在内存里面的</p>
 <p><strong>定义认证规则：</strong></p>
-<p><img src="/media/92526c2340ec6c1e9e296ab5c8db77b7.png" alt=""></p>
+<p><img src="/spring_boot_senior/92526c2340ec6c1e9e296ab5c8db77b7.png" alt=""></p>
 <p>注意，后面的roles里面可以写多个角色，例如：roles(“vip1”,“vip2”)</p>
 <p><strong>开启自动配置的注销功能：</strong></p>
-<p><img src="/media/92ea0b6a9dfd17fb994eeeed4a6d7dea.png" alt=""></p>
+<p><img src="/spring_boot_senior/92ea0b6a9dfd17fb994eeeed4a6d7dea.png" alt=""></p>
 <p>注意，如果logout()后面不写logoutSuccessUrl()默认是回到登录页面，写logoutSuccessUrl（）就是为了注销之后来到某个指定的页面</p>
 <p><strong>开启记住我功能：</strong></p>
-<p><img src="/media/4c24a8b92b8228e12cdd099f4062b5f1.png" alt=""></p>
+<p><img src="/spring_boot_senior/4c24a8b92b8228e12cdd099f4062b5f1.png" alt=""></p>
 <p>这样退出浏览器之后再次访问就不用登录了</p>
-<p><img src="/media/c2431d494e4521e4e3182f5081e6c1fd.png" alt=""></p>
+<p><img src="/spring_boot_senior/c2431d494e4521e4e3182f5081e6c1fd.png" alt=""></p>
 <p>原理就是加了一个有过期时间的cookie，再次访问的时候如果找到了这个cookie就不必登录了，点击注销之后cookie就不见了：</p>
-<p><img src="/media/215f5f9f332c5eb2962892a2f217af51.png" alt=""></p>
+<p><img src="/spring_boot_senior/215f5f9f332c5eb2962892a2f217af51.png" alt=""></p>
 <p>那么为什么点击注销之后cookie就没有了呢？</p>
-<p><img src="/media/ba743ff474360b7a9739002310fb9d1c.png" alt=""></p>
+<p><img src="/spring_boot_senior/ba743ff474360b7a9739002310fb9d1c.png" alt=""></p>
 <p>那是因为点击注销之后发送了一个删除cookie的请求（Max-Age=0）</p>
 <p>我们也可以用rememberMeParameter（）指定哪个前端元素中的内容可以来决定是否要启用rememberMe（）这个功能，比方说我们前端来个checkbox，name设置为“remember”，那么rememberMeParameter（）中的参数就写“remember”，这样就能关联上了，只要前端checkbox打勾了，就会启用rememberMe（），如下：</p>
-<p><img src="/media/0bd5e6f16130b7d206d6eb37261fbd77.png" alt=""></p>
-<p><img src="/media/06243373aa2b72940d1f6c67b00b25d6.png" alt=""></p>
+<p><img src="/spring_boot_senior/0bd5e6f16130b7d206d6eb37261fbd77.png" alt=""></p>
+<p><img src="/spring_boot_senior/06243373aa2b72940d1f6c67b00b25d6.png" alt=""></p>
 <h2 id="springboot与分布式">Springboot与分布式</h2>
-<p><img src="/media/e4a89d6f34fba3c503d6aafe62d17373.png" alt=""></p>
-<p><img src="/media/a7f274089cc1d4f145309c962af12899.png" alt=""></p>
+<p><img src="/spring_boot_senior/e4a89d6f34fba3c503d6aafe62d17373.png" alt=""></p>
+<p><img src="/spring_boot_senior/a7f274089cc1d4f145309c962af12899.png" alt=""></p>
 <p>比方说我们有一堆用户服务器，一堆订单服务器，当用户服务器想要去调用订单服务器的时候，我们就需要一个RPC框架（分布式服务框架），这个框架spring
 cloud可以做，dubbo也可以做</p>
 <p>但是呢，还有个问题牵扯到注册中心，比方我们用户模块想要使用订单模块的东西，但是订单模块有好几台机器，那么究竟用哪一台机器的呢？这个时候就可以有一个注册中心，里面保存了订单模块都在哪些服务器里面，用户想要用订单模块的时候先来问一下注册中心，我要的订单模块哪些服务器里面有，订单模块告诉他1号、2号服务器里面有，那用户模块就直接去1号或2号服务器里面调用这些订单模块。其实注册中心就类似于一个中介。</p>
 <h3 id="zookeeper和dubbo">Zookeeper和Dubbo</h3>
-<p><img src="/media/1b29ae51aaa2e4c8fb0945bb3d7ef44e.png" alt=""></p>
+<p><img src="/spring_boot_senior/1b29ae51aaa2e4c8fb0945bb3d7ef44e.png" alt=""></p>
 <p>Zookeeper就用来做注册中心，而Dubbo用来做分布式框架，他来负责A模块和B模块的远程调用：</p>
-<p><img src="/media/e8d343dbcee6857f89d1e775acbbe024.png" alt=""></p>
+<p><img src="/spring_boot_senior/e8d343dbcee6857f89d1e775acbbe024.png" alt=""></p>
 <p>但是B在哪呢？我们用注册中心保存B的地址，A访问注册中心，找到B的地址以后进行远程调用</p>
 <h4 id="dubbo架构">dubbo架构</h4>
-<p><img src="/media/87f8bac56f4d447456c22a15ce54608e.png" alt=""></p>
+<p><img src="/spring_boot_senior/87f8bac56f4d447456c22a15ce54608e.png" alt=""></p>
 <p>Container是dubbo的服务容器，他在启动的时候负责启动运行Provider（服务提供者），Provider会将自己能提供的服务信息注册到注册中心Registry里面，Consumer启动的时候会从Registry里面订阅需要的这些服务，之后registry将这些服务的地址列表全部返回给Consumer，而如果服务有变更，Registry也可以使用基于长连接的方式将更新后的服务推送给Consumer，相当于Consumer手中持有一份实时更新的Provider名单，如果Consumer想要调用某个Provider，可以从提供者Provider的地址列表中基于负载均衡机制找到某个Provider的位置来调用它的服务，如果调用失败可以从地址列表中找到另外一个Provider来继续调用他的服务直到调用成功</p>
 <p>dubbo还有监控机制Monitor，我们可以将调用信息、调用时间每隔一定时间给监控中心Monitor发送一次来做到一系列的监控</p>
 <h4 id="安装zookeeper">安装zookeeper</h4>
 <p>用docker安装即可</p>
 <p>使用镜像加速：</p>
-<p><img src="/media/cec1a4380b42644c4a995bb270e74556.png" alt=""></p>
+<p><img src="/spring_boot_senior/cec1a4380b42644c4a995bb270e74556.png" alt=""></p>
 <p>开启镜像</p>
-<p><img src="/media/5a5a66ab18177643a51551936032520c.png" alt=""></p>
+<p><img src="/spring_boot_senior/5a5a66ab18177643a51551936032520c.png" alt=""></p>
 <p>上图的EXPOSE 2181是zookeeper服务交互的端口，后面两个2888是集群，3888是选举</p>
-<p><img src="/media/9b17bfb4932029957f55fa9696b7312f.png" alt=""></p>
+<p><img src="/spring_boot_senior/9b17bfb4932029957f55fa9696b7312f.png" alt=""></p>
 <h4 id="测试-2">测试</h4>
 <p>首先要有一个生产者一个消费者</p>
 <p>对于生产者：</p>
-<p><img src="/media/b4d614c177bd83385852fdc57b617f78.png" alt=""></p>
+<p><img src="/spring_boot_senior/b4d614c177bd83385852fdc57b617f78.png" alt=""></p>
 <p>对于消费者：</p>
-<p><img src="/media/ba9305ac352df5abe766ddcb37f90357.png" alt=""></p>
+<p><img src="/spring_boot_senior/ba9305ac352df5abe766ddcb37f90357.png" alt=""></p>
 <p>首先创建一个空工程</p>
 <p>然后在里面创建一个spring初始化工程</p>
-<p><img src="/media/121d1bea8ea9cd8190176f783070b2cb.png" alt=""></p>
+<p><img src="/spring_boot_senior/121d1bea8ea9cd8190176f783070b2cb.png" alt=""></p>
 <p>然后在里面制作service</p>
-<p><img src="/media/05a576798e79ce105b4dcab7098c6d15.png" alt=""></p>
+<p><img src="/spring_boot_senior/05a576798e79ce105b4dcab7098c6d15.png" alt=""></p>
 <p>之后再创建一个spring初始化工程，用于模拟Consumer</p>
-<p><img src="/media/3751e5fd90202d01b7cb7469039b3727.png" alt=""></p>
+<p><img src="/spring_boot_senior/3751e5fd90202d01b7cb7469039b3727.png" alt=""></p>
 <p>现在我们Consumer内部想要用之前创建的那个工程的service服务，这个时候就要用到dubbo了</p>
 <h5 id="引入dubbo">引入dubbo</h5>
 <p>找到dubbo官网的maven配置</p>
-<p><img src="/media/39106117c5b56e4d72f6e6f37730355d.png" alt=""></p>
-<p><img src="/media/81355987fa52bb99d3d977fe444a03bd.png" alt=""></p>
+<p><img src="/spring_boot_senior/39106117c5b56e4d72f6e6f37730355d.png" alt=""></p>
+<p><img src="/spring_boot_senior/81355987fa52bb99d3d977fe444a03bd.png" alt=""></p>
 <h5 id="zkclient">zkclient</h5>
 <p>之后我们要用到zookeeper的客户端工具叫做zkclient</p>
-<p><img src="/media/e3969f05cd81ad7e8e19e2b6c2cefce2.png" alt=""></p>
-<p><img src="/media/98e7e6fbc0c948a4f43a4846ac11f37c.png" alt=""></p>
+<p><img src="/spring_boot_senior/e3969f05cd81ad7e8e19e2b6c2cefce2.png" alt=""></p>
+<p><img src="/spring_boot_senior/98e7e6fbc0c948a4f43a4846ac11f37c.png" alt=""></p>
 <p>配置dubbo</p>
-<p><img src="/media/23d84e585700c38d3b67edf7eb63d8b4.png" alt=""></p>
+<p><img src="/spring_boot_senior/23d84e585700c38d3b67edf7eb63d8b4.png" alt=""></p>
 <p>首先指定名称，之后指定注册中心的地址，再指定扫描服务所在包</p>
 <p>之后在Service类上加上@Service注解，注意这个Service是dubbo的service</p>
-<p><img src="/media/025abe948719a1d6d33b7cf400b07521.png" alt=""></p>
+<p><img src="/spring_boot_senior/025abe948719a1d6d33b7cf400b07521.png" alt=""></p>
 <p>之后再用@Component将这个服务加到容器里面</p>
-<p><img src="/media/1797b4985c5f019d2efc28537cad7ddb.png" alt=""></p>
+<p><img src="/spring_boot_senior/1797b4985c5f019d2efc28537cad7ddb.png" alt=""></p>
 <p>接下来我们配置消费者：</p>
-<p><img src="/media/ba9305ac352df5abe766ddcb37f90357.png" alt=""></p>
-<p><img src="/media/2232cce854dc11ff69fd75fa5d26fafc.png" alt=""></p>
-<p><img src="/media/c555ed2cc4e0149b7554941e5bc5f7af.png" alt=""></p>
+<p><img src="/spring_boot_senior/ba9305ac352df5abe766ddcb37f90357.png" alt=""></p>
+<p><img src="/spring_boot_senior/2232cce854dc11ff69fd75fa5d26fafc.png" alt=""></p>
+<p><img src="/spring_boot_senior/c555ed2cc4e0149b7554941e5bc5f7af.png" alt=""></p>
 <h5 id="全类名匹配">全类名匹配</h5>
-<p><img src="/media/d8151dcf8f62193efd3ebbd91bfb6f0d.png" alt=""></p>
+<p><img src="/spring_boot_senior/d8151dcf8f62193efd3ebbd91bfb6f0d.png" alt=""></p>
 <p>之后在消费者中创建与生产者注册的类名一模一样的类，而且实现就不需要了</p>
 <p>注意，一定要全类名相同，因为之前发布的时候就是按照全类名进行注册的，他去注册中心找的时候也是按照全类名匹配</p>
-<p><img src="/media/da18960be6ae503eb701a857522afe7a.png" alt=""></p>
-<p><img src="/media/e267eb022409941ea7f84c91553f22b0.png" alt=""></p>
+<p><img src="/spring_boot_senior/da18960be6ae503eb701a857522afe7a.png" alt=""></p>
+<p><img src="/spring_boot_senior/e267eb022409941ea7f84c91553f22b0.png" alt=""></p>
 <h5 id="reference">@Reference</h5>
 <p>使用@Reference远程链接服务，如上图</p>
 <p>这个时候我们的TicketService就可以链到生产者所提供的那个TicketService服务了</p>
 <p>这个时候就能用了：</p>
-<p><img src="/media/d299da8cb3211d78dcc9ec3911795e7d.png" alt=""></p>
+<p><img src="/spring_boot_senior/d299da8cb3211d78dcc9ec3911795e7d.png" alt=""></p>
 <p>注意这里的@Service还是springboot的service，因为它是消费者不是生产者</p>
 <p>注意消费者服务使用的时候生产者服务不能关</p>
 <h3 id="spring-cloud">Spring Cloud</h3>
-<p><img src="/media/d28815a38c2d0e229f95bfd07aac1d7a.png" alt=""></p>
+<p><img src="/spring_boot_senior/d28815a38c2d0e229f95bfd07aac1d7a.png" alt=""></p>
 <p>Eureka：zookeeper对应的就是Eureka</p>
 <p>Ribbon：比方说A服务要调用B服务，而B服务有多台机器，这个时候可以有Ribbon实现负载均衡来确定到底是调用B服务的哪台机器</p>
 <p>Hystrix：当A调用B，B又要调用C，C又要调用D，D又要调用E的时候，如果C出现了故障，导致C后面的路线走不完，这个时候将会有漫长的等待，这个时候我们可以用断路器Hystrix在B服务调用了几次C服务失败之后快速的响应失败，不让用户等待太久</p>
@@ -789,185 +789,185 @@ cloud可以做，dubbo也可以做</p>
 <h4 id="测试-3">测试</h4>
 <p>还是开启一个空工程</p>
 <p>首先搭建Eureka Server：</p>
-<p><img src="/media/80390cbd388d8b587a47a75dd5acc868.png" alt=""></p>
+<p><img src="/spring_boot_senior/80390cbd388d8b587a47a75dd5acc868.png" alt=""></p>
 <p>再开启服务提供者，注意不管是服务提供者还是消费者都是在注册中心里面的，因此是Eureka
 Discovery而不是Eureka
 Server（可以理解为服务提供者要在注册中心注册自己，而服务消费者要去注册中心找服务提供者）</p>
-<p><img src="/media/70a7ea134d975714f31143810b68ab5f.png" alt=""></p>
+<p><img src="/spring_boot_senior/70a7ea134d975714f31143810b68ab5f.png" alt=""></p>
 <p>再创建一个服务消费者，上面说了我们的消费者也要去注册中心找服务提供者，因此也需要Eureka
 Discovery</p>
-<p><img src="/media/8311e07dd181e742576a21d96ad10c0d.png" alt=""></p>
+<p><img src="/spring_boot_senior/8311e07dd181e742576a21d96ad10c0d.png" alt=""></p>
 <h5 id="配置">配置</h5>
 <p>在上面创建的server工程中先进行如下配置：</p>
-<p><img src="/media/e81c6a4b893fa40c61408f046b9d8ca8.png" alt=""></p>
+<p><img src="/spring_boot_senior/e81c6a4b893fa40c61408f046b9d8ca8.png" alt=""></p>
 <p>注意这个register-with-eureka再不做高可用的情况下不需要，因为它会将自己注册到rureka上；fetch-registry是从eureka上获取服务的注册信息，我们这里也不要；service-url可以点进去看一看如何定制，这里我们按照规则写了一个自己的defaultZone</p>
 <h5 id="enableeurekaserver">@EnableEurekaServer</h5>
-<p><img src="/media/d193af41f2c0004a7f7c5fa3373678dd.png" alt=""></p>
+<p><img src="/spring_boot_senior/d193af41f2c0004a7f7c5fa3373678dd.png" alt=""></p>
 <p>在provider提供者中编写服务：</p>
-<p><img src="/media/892fd3a1d830f18cbd37e448d4c8acd8.png" alt=""></p>
+<p><img src="/spring_boot_senior/892fd3a1d830f18cbd37e448d4c8acd8.png" alt=""></p>
 <p>Spring
 cloud在整合微服务的时候是使用轻量级http进行通信的，所以我们要将这个接口暴露出来：</p>
-<p><img src="/media/23ce6ff0a65d26dfe12090e1226e6905.png" alt=""></p>
+<p><img src="/spring_boot_senior/23ce6ff0a65d26dfe12090e1226e6905.png" alt=""></p>
 <p>在 provider提供者中进行配置：</p>
-<p><img src="/media/64d4482737718f21a300bc458ebb46f3.png" alt=""></p>
+<p><img src="/spring_boot_senior/64d4482737718f21a300bc458ebb46f3.png" alt=""></p>
 <p>注意，在用provider和consumer的时候server不要关。</p>
 <p>注意，这里的spring: application: name: xxx最终会到eureka的application这边：</p>
-<p><img src="/media/a5b990bff1ecd5602f9a21533f64de3d.png" alt=""></p>
+<p><img src="/spring_boot_senior/a5b990bff1ecd5602f9a21533f64de3d.png" alt=""></p>
 <p>之后我们调用上上图的接口，发现是可以正常显示数据的，再来看Eureka：</p>
-<p><img src="/media/ccbfd2a87749b9ff94ec8519127d72a8.png" alt=""></p>
+<p><img src="/spring_boot_senior/ccbfd2a87749b9ff94ec8519127d72a8.png" alt=""></p>
 <p>之后我们将provider进行打包：</p>
-<p><img src="/media/e34ec86b3a9e181076c431f526909528.png" alt=""></p>
+<p><img src="/spring_boot_senior/e34ec86b3a9e181076c431f526909528.png" alt=""></p>
 <p>上图这个provider端口是8001的，现在我们换一个端口8002再打包：</p>
-<p><img src="/media/1cb9eda269ba3120239011f37f4693c8.png" alt=""></p>
+<p><img src="/spring_boot_senior/1cb9eda269ba3120239011f37f4693c8.png" alt=""></p>
 <p>现在我们就有两个jar包了：</p>
-<p><img src="/media/2340c85985c8c117b7ac890bbe7ff0ad.png" alt=""></p>
+<p><img src="/spring_boot_senior/2340c85985c8c117b7ac890bbe7ff0ad.png" alt=""></p>
 <p>现在演示如何将同一个应用在注册中心注册多个</p>
-<p><img src="/media/4d0e0d236fd09f3af1a03c7b781a272d.png" alt=""></p>
+<p><img src="/spring_boot_senior/4d0e0d236fd09f3af1a03c7b781a272d.png" alt=""></p>
 <p>我们用cmd将这两个jar运行起来</p>
-<p><img src="/media/06c85911ec55fa67146a2ce61bce4b02.png" alt=""></p>
+<p><img src="/spring_boot_senior/06c85911ec55fa67146a2ce61bce4b02.png" alt=""></p>
 <p>我们会发现同一个应用的两个实例就被注册到注册中心了</p>
 <p>在Consumer中配置：</p>
 <p>将自己注册进eureka中，并从中发现服务提供者：</p>
-<p><img src="/media/947da57db76e50e74335f1200c566b37.png" alt=""></p>
+<p><img src="/spring_boot_senior/947da57db76e50e74335f1200c566b37.png" alt=""></p>
 <h5 id="enablediscoveryclient">@EnableDiscoveryClient</h5>
 <p>开启发现服务功能</p>
-<p><img src="/media/cfc9ffcba5128207383cfde89d9909da.png" alt=""></p>
+<p><img src="/spring_boot_senior/cfc9ffcba5128207383cfde89d9909da.png" alt=""></p>
 <h5 id="resttemplate">RestTemplate</h5>
 <p>那么如何调用提供者的服务呢？要结合RestTemplate，他是来帮我们发http请求的</p>
-<p><img src="/media/4fe958feb62f53f6f129adbbb3057a67.png" alt=""></p>
+<p><img src="/spring_boot_senior/4fe958feb62f53f6f129adbbb3057a67.png" alt=""></p>
 <h5 id="loadbalanced">@LoadBalanced</h5>
 <p>使用负载均衡机制</p>
 <p>在Consumer中编写服务调用provider：</p>
-<p><img src="/media/707b0317b2a959c8fdc20bae39392be9.png" alt=""></p>
+<p><img src="/spring_boot_senior/707b0317b2a959c8fdc20bae39392be9.png" alt=""></p>
 <p>首先将上面的RestTemplate注入进来</p>
 <p>我们用restTemplate的getForObject（）来发送一个http请求来获取数据</p>
 <p>注意getForObject（）这个方法的第一个参数，是一个url，他之所以写成<a href="http://PROVIDER-TICKET/ticket">http://PROVIDER-TICKET/ticket</a>，是因为我们给provider的发票服务配的就是/ticket，如果要调用该方法就需要发送http请求，且url就是http://192.168.1.183/ticket，中间的这个PROVIDER-TICET事实上是application-name，从eureka的application那里也可以获得（eureka的application里面的name实际上就是我们写配置文件时写上去的spring:
 application:
 xxx，所以从根源上来讲这个url中间的这一串字符就是配置的时候我们自己写上去的那个name），这里用这个name替换掉了192.168.1.183，后面的/ticket不变。</p>
 <p>我们来看看eureka的application：</p>
-<p><img src="/media/52854257ca0a14b8aac626d554f80e87.png" alt=""></p>
+<p><img src="/spring_boot_senior/52854257ca0a14b8aac626d554f80e87.png" alt=""></p>
 <p>调用consumer的这个方法之后，我们会发现eureka里面consumer也注册进来了：</p>
-<p><img src="/media/20126d52557869cd89297d3c67770675.png" alt=""></p>
+<p><img src="/spring_boot_senior/20126d52557869cd89297d3c67770675.png" alt=""></p>
 <p>之后直接调用consumer的接口就能获取数据了，而且是有负载均衡机制的：</p>
-<p><img src="/media/d7dc93474d77b152f0832bc6e7d524c7.png" alt=""></p>
+<p><img src="/spring_boot_senior/d7dc93474d77b152f0832bc6e7d524c7.png" alt=""></p>
 <p>我们之前用同一个应用配置了不同端口并根据端口在注册中心注册了两个实例，上图就是在负载均衡的影响下两个实例的调用情况</p>
 <p>这里的负载均衡其实是一个轮询的机制，即下一次访问另外一个。</p>
 <h2 id="springboot与开发热部署">springboot与开发热部署</h2>
-<p><img src="/media/01407f2d8bbc569dcfbe52775936fa5b.png" alt=""></p>
-<p><img src="/media/c166b7098429b68011e132764c11dc7b.png" alt=""></p>
-<p><img src="/media/fc78f9ab027976b09f163abae14624a6.png" alt=""></p>
+<p><img src="/spring_boot_senior/01407f2d8bbc569dcfbe52775936fa5b.png" alt=""></p>
+<p><img src="/spring_boot_senior/c166b7098429b68011e132764c11dc7b.png" alt=""></p>
+<p><img src="/spring_boot_senior/fc78f9ab027976b09f163abae14624a6.png" alt=""></p>
 <p>之所以无法热部署，那是因为Java文件执行前被编码为.class文件，我们在target里面可以找到：</p>
-<p><img src="/media/8fff9d44520b95706fb7a937d652386c.png" alt=""></p>
+<p><img src="/spring_boot_senior/8fff9d44520b95706fb7a937d652386c.png" alt=""></p>
 <p>这个时候我们按下ctrl
 F9，发现编译后的.class文件确实变化了，注意此时服务器还没关，但是我们发现在访问的时候还是没有任何改变，这是因为实时编译的.class文件并不能应用到工程上</p>
-<p><img src="/media/008604fe4a00103865f68b92bfe291c3.png" alt=""></p>
+<p><img src="/spring_boot_senior/008604fe4a00103865f68b92bfe291c3.png" alt=""></p>
 <p>现在我们来引入Dev tools</p>
 <p>之后就可以热部署了，在每次做出改变后按下ctrl
 F9就可以不用重启服务器也能看到我们做出的改变了</p>
 <p>eclipse就更方便了，直接ctrl s保存就行了</p>
 <h2 id="spring-boot与监控管理">spring boot与监控管理</h2>
-<p><img src="/media/8552ea71a32a7a62d1eac1b24736d423.png" alt=""></p>
+<p><img src="/spring_boot_senior/8552ea71a32a7a62d1eac1b24736d423.png" alt=""></p>
 <h3 id="测试-4">测试</h3>
 <p>创建工程：</p>
 <p>勾选actuator</p>
-<p><img src="/media/62d44e5dfd6149fa03725266542b767c.png" alt=""></p>
+<p><img src="/spring_boot_senior/62d44e5dfd6149fa03725266542b767c.png" alt=""></p>
 <p>可以再勾上热部署和web方便测试</p>
 <p>启动之后控制台会打印非常多的配置信息，我们可以看到后面的/xxx
 ，说明这些都可以通过url地址进行访问</p>
-<p><img src="/media/e488ef60ff0258fd3229a44b89478918.png" alt=""></p>
+<p><img src="/spring_boot_senior/e488ef60ff0258fd3229a44b89478918.png" alt=""></p>
 <p>这是引入了actuator之后才会有的</p>
 <p>之后我们尝试访问上述匹配信息中的/xxx，会发现无法访问：</p>
-<p><img src="/media/fbbc830a0d956cb1700d144bfc2e3b3f.png" alt=""></p>
+<p><img src="/spring_boot_senior/fbbc830a0d956cb1700d144bfc2e3b3f.png" alt=""></p>
 <p>将保护关闭：</p>
-<p><img src="/media/8a99b42b0d1ffc8fae67241e14bba675.png" alt=""></p>
+<p><img src="/spring_boot_senior/8a99b42b0d1ffc8fae67241e14bba675.png" alt=""></p>
 <p>就能访问了：</p>
-<p><img src="/media/967e67690746ea9d7c63d99e743ec133.png" alt=""></p>
+<p><img src="/spring_boot_senior/967e67690746ea9d7c63d99e743ec133.png" alt=""></p>
 <h3 id="监控和管理端点">监控和管理端点</h3>
-<p><img src="/media/983bff53f5b37e4aa54cad7523471472.png" alt=""></p>
+<p><img src="/spring_boot_senior/983bff53f5b37e4aa54cad7523471472.png" alt=""></p>
 <p>这些都是可以访问信息的端点</p>
 <h4 id="info">info</h4>
 <p>当我们在配置文件写了info开头的配置之后：</p>
-<p><img src="/media/9b550032d1255bfd811da8d458ae593f.png" alt=""></p>
+<p><img src="/spring_boot_senior/9b550032d1255bfd811da8d458ae593f.png" alt=""></p>
 <p>访问info端点就能得到信息</p>
-<p><img src="/media/576e4fa574728eda7f8ebc31b150d15c.png" alt=""></p>
+<p><img src="/spring_boot_senior/576e4fa574728eda7f8ebc31b150d15c.png" alt=""></p>
 <h5 id="配置gitproperties将代码托管到git">配置git.properties将代码托管到git</h5>
-<p><img src="/media/7edf287ae0b5dd8342cc8edb97a72e6f.png" alt=""></p>
-<p><img src="/media/5b6266967d4c9718354fb09b4d84487f.png" alt=""></p>
-<p><img src="/media/986d90fb60898a708f49c7add313a14f.png" alt=""></p>
+<p><img src="/spring_boot_senior/7edf287ae0b5dd8342cc8edb97a72e6f.png" alt=""></p>
+<p><img src="/spring_boot_senior/5b6266967d4c9718354fb09b4d84487f.png" alt=""></p>
+<p><img src="/spring_boot_senior/986d90fb60898a708f49c7add313a14f.png" alt=""></p>
 <p>由于GitProperty继承InfoProperties，所以git开头的配置也能被info端点检测到：</p>
-<p><img src="/media/98ef8264da91836f2a965564e75ac7be.png" alt=""></p>
+<p><img src="/spring_boot_senior/98ef8264da91836f2a965564e75ac7be.png" alt=""></p>
 <h4 id="heapdump">heapdump</h4>
 <p>将内存快照下载过来，根据内存快照定位应用的一些问题</p>
-<p><img src="/media/b92e8de5c4ceba6e94837e957695f12e.png" alt=""></p>
+<p><img src="/spring_boot_senior/b92e8de5c4ceba6e94837e957695f12e.png" alt=""></p>
 <h4 id="configprops">configprops</h4>
 <p>所有配置的属性</p>
-<p><img src="/media/7f8ed8ee2707b686633ea24c0891d8d9.png" alt=""></p>
+<p><img src="/spring_boot_senior/7f8ed8ee2707b686633ea24c0891d8d9.png" alt=""></p>
 <p>我们就可以从这里看到属性的前缀名以及他能配置的一些信息，从而来进行配置：</p>
-<p><img src="/media/d5dd57a96f0155759d63b20c12f5ca2a.png" alt=""></p>
+<p><img src="/spring_boot_senior/d5dd57a96f0155759d63b20c12f5ca2a.png" alt=""></p>
 <p>这样的话我们的/metrics就不能访问了</p>
 <h4 id="shutdown">shutdown</h4>
 <p>用于配置远程是否能关闭应用</p>
-<p><img src="/media/6a6af50ebffb66e57cf7a37291561d19.png" alt=""></p>
+<p><img src="/spring_boot_senior/6a6af50ebffb66e57cf7a37291561d19.png" alt=""></p>
 <p>然后发一个post请求:</p>
-<p><img src="/media/e749b17e58c57603da27bd7d1754cede.png" alt=""></p>
+<p><img src="/spring_boot_senior/e749b17e58c57603da27bd7d1754cede.png" alt=""></p>
 <p>应用就关闭了：</p>
-<p><img src="/media/21046abfa55b38dcc091599550084735.png" alt=""></p>
+<p><img src="/spring_boot_senior/21046abfa55b38dcc091599550084735.png" alt=""></p>
 <h3 id="定制端点">定制端点</h3>
-<p><img src="/media/e68c4a2350a7546845327285e29fcd9d.png" alt=""></p>
+<p><img src="/spring_boot_senior/e68c4a2350a7546845327285e29fcd9d.png" alt=""></p>
 <h4 id="定义端点id或访问路径">定义端点id或访问路径</h4>
 <p>比方说要自定义endpoints.beans.id：</p>
-<p><img src="/media/7e5d3bb721bb1064d9f51820d0d81cb9.png" alt=""></p>
-<p><img src="/media/1be7193307e113cdfa6aba5e1c05bd7f.png" alt=""></p>
+<p><img src="/spring_boot_senior/7e5d3bb721bb1064d9f51820d0d81cb9.png" alt=""></p>
+<p><img src="/spring_boot_senior/1be7193307e113cdfa6aba5e1c05bd7f.png" alt=""></p>
 <p>这个时候以前的beans就不能访问了，这个时候应该用mybean来访问</p>
 <p>我们也可以修改beans的访问路径：</p>
-<p><img src="/media/50e9c2cb10cc153984e71d31d84e537b.png" alt=""></p>
+<p><img src="/spring_boot_senior/50e9c2cb10cc153984e71d31d84e537b.png" alt=""></p>
 <p>这个时候mybean也不能访问了，要用/bean来访问</p>
-<p><img src="/media/5309a09b218efb0979d598e9303d7617.png" alt=""></p>
+<p><img src="/spring_boot_senior/5309a09b218efb0979d598e9303d7617.png" alt=""></p>
 <p>其他的都一样，比如dump：</p>
-<p><img src="/media/50b68bac34e505a54c5e6a385beaac00.png" alt=""></p>
+<p><img src="/spring_boot_senior/50b68bac34e505a54c5e6a385beaac00.png" alt=""></p>
 <h4 id="开启或关闭端点">开启或关闭端点</h4>
 <p>上面是定制端点访问路径的，我们还可以开启或者关闭某个端点：</p>
-<p><img src="/media/812ffc28e976c484c524c450a9ed1a05.png" alt=""></p>
+<p><img src="/spring_boot_senior/812ffc28e976c484c524c450a9ed1a05.png" alt=""></p>
 <p>现在这个beans端点就不能访问了</p>
 <h4 id="开启或关闭所有端点">开启或关闭所有端点</h4>
-<p><img src="/media/d951e2fcce21c99de95a2d3d1000f580.png" alt=""></p>
+<p><img src="/spring_boot_senior/d951e2fcce21c99de95a2d3d1000f580.png" alt=""></p>
 <p>我们也可以关闭所有端点之后开启某个端点：</p>
-<p><img src="/media/eadef286ad52b73d937a03ad78da299d.png" alt=""></p>
+<p><img src="/spring_boot_senior/eadef286ad52b73d937a03ad78da299d.png" alt=""></p>
 <p>不建议用这个</p>
 <h4 id="定制端点访问根路径">定制端点访问根路径</h4>
-<p><img src="/media/febfb8a8e307c1c2b5e730c0347e9108.png" alt=""></p>
+<p><img src="/spring_boot_senior/febfb8a8e307c1c2b5e730c0347e9108.png" alt=""></p>
 <h4 id="定制端点访问端口">定制端点访问端口</h4>
-<p><img src="/media/7425ab16e42501d3ac719062eda84ace.png" alt=""></p>
+<p><img src="/spring_boot_senior/7425ab16e42501d3ac719062eda84ace.png" alt=""></p>
 <p>如果我们把端口改为-1那他就什么都访问不到了</p>
-<p><img src="/media/b2d808c98dfc19167f5cce890e87e003.png" alt=""></p>
+<p><img src="/spring_boot_senior/b2d808c98dfc19167f5cce890e87e003.png" alt=""></p>
 <h3 id="自定义health-indicator">自定义health indicator</h3>
 <p>健康状态默认只给了一个diskSpace的健康状态</p>
-<p><img src="/media/6e8df15fe0d2d43f71e685299b233da2.png" alt=""></p>
+<p><img src="/spring_boot_senior/6e8df15fe0d2d43f71e685299b233da2.png" alt=""></p>
 <p>当然我们还可以定制更多的健康状态，Springboot里面就有很多默认配置好的健康状态</p>
 <p>都在actuator包下：</p>
-<p><img src="/media/195f65e828dcf9963738b9e7a02624e7.png" alt=""></p>
-<p><img src="/media/ccf1a239593facd504d361ef5ab9f2f5.png" alt=""></p>
+<p><img src="/spring_boot_senior/195f65e828dcf9963738b9e7a02624e7.png" alt=""></p>
+<p><img src="/spring_boot_senior/ccf1a239593facd504d361ef5ab9f2f5.png" alt=""></p>
 <p>这里有非常多的健康状态组件，比方说redis的，何时生效呢？在有了redis相应的starter之后自然就会生效</p>
 <p>我们引入redis：</p>
-<p><img src="/media/26c39d4f9951a3e48cf0343deaa5f2c5.png" alt=""></p>
+<p><img src="/spring_boot_senior/26c39d4f9951a3e48cf0343deaa5f2c5.png" alt=""></p>
 <p>配置一个错误的redis信息：</p>
-<p><img src="/media/226f7ce8b287499cc70f648975783bf0.png" alt=""></p>
+<p><img src="/spring_boot_senior/226f7ce8b287499cc70f648975783bf0.png" alt=""></p>
 <p>此时我们本机没有redis，这样配肯定错</p>
 <p>健康指标显示：</p>
-<p><img src="/media/8eb78bd4c3139514c22330535b25f475.png" alt=""></p>
+<p><img src="/spring_boot_senior/8eb78bd4c3139514c22330535b25f475.png" alt=""></p>
 <p>当配置正确的时候：</p>
-<p><img src="/media/5e15a6d2ede855247555ff5207d3015d.png" alt=""></p>
-<p><img src="/media/4801c2f171de82388a09492361cbad47.png" alt=""></p>
+<p><img src="/spring_boot_senior/5e15a6d2ede855247555ff5207d3015d.png" alt=""></p>
+<p><img src="/spring_boot_senior/4801c2f171de82388a09492361cbad47.png" alt=""></p>
 <h4 id="我们想实现类似这样的指示器而且想要自定义实现">我们想实现类似这样的指示器，而且想要自定义实现</h4>
-<p><img src="/media/3ca2e15eb9340a682d6d9a3c4bd7ad4d.png" alt=""></p>
+<p><img src="/spring_boot_senior/3ca2e15eb9340a682d6d9a3c4bd7ad4d.png" alt=""></p>
 <p>首先要继承HealthIndicator：</p>
-<p><img src="/media/da183f6910b27d3c5d413e360229cb95.png" alt=""></p>
+<p><img src="/spring_boot_senior/da183f6910b27d3c5d413e360229cb95.png" alt=""></p>
 <p>其次，其名称的时候一定要是xxxHealthIndicator，这个是有规定的</p>
 <p>最后加到容器中即可</p>
-<p><img src="/media/cb68113939a00649ca693227515eac07.png" alt=""></p>
+<p><img src="/spring_boot_senior/cb68113939a00649ca693227515eac07.png" alt=""></p>
 <p>健康的时候返回Health.up().build()</p>
 <p>失败的时候如上图</p>
-<p><img src="/media/216f38ee28c180d389a468baca6d5ad5.png" alt=""></p>
+<p><img src="/spring_boot_senior/216f38ee28c180d389a468baca6d5ad5.png" alt=""></p>
   </section>
 
   <section>
