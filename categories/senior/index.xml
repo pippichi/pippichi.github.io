@@ -45,6 +45,24 @@
     </item>
     
     <item>
+      <title>Scrapy</title>
+      <link>https://pippichi.github.io/posts/scrapy/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/scrapy/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Pillow</title>
+      <link>https://pippichi.github.io/posts/pillow/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/pillow/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of pillow&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>axios</title>
       <link>https://pippichi.github.io/posts/axios/</link>
       <pubDate>Sun, 29 Mar 2020 00:00:00 +0000</pubDate>
@@ -96,6 +114,15 @@
       
       <guid>https://pippichi.github.io/posts/js_senior/</guid>
       <description>&lt;p&gt;The article contains the senior knowledge of JavaScript&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>特征工程</title>
+      <link>https://pippichi.github.io/posts/feature_engineering/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/feature_engineering/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of feature engineering&amp;hellip;&lt;/p&gt;</description>
     </item>
     
   </channel>

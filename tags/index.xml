@@ -27,6 +27,15 @@
     </item>
     
     <item>
+      <title>Java</title>
+      <link>https://pippichi.github.io/tags/java/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Spring Boot</title>
       <link>https://pippichi.github.io/tags/spring-boot/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
@@ -45,11 +54,56 @@
     </item>
     
     <item>
+      <title>Python</title>
+      <link>https://pippichi.github.io/tags/python/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Scrapy</title>
+      <link>https://pippichi.github.io/tags/scrapy/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/scrapy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pillow</title>
+      <link>https://pippichi.github.io/tags/pillow/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/pillow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>axios</title>
+      <link>https://pippichi.github.io/tags/axios/</link>
+      <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/axios/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>JavaScript</title>
       <link>https://pippichi.github.io/tags/javascript/</link>
       <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Promise</title>
+      <link>https://pippichi.github.io/tags/promise/</link>
+      <pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/promise/</guid>
       <description></description>
     </item>
     
@@ -68,6 +122,42 @@
       <pubDate>Tue, 25 Feb 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/tags/html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://pippichi.github.io/tags/git/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sklearn</title>
+      <link>https://pippichi.github.io/tags/sklearn/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/sklearn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>机器学习</title>
+      <link>https://pippichi.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>特征工程</title>
+      <link>https://pippichi.github.io/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</guid>
       <description></description>
     </item>
     

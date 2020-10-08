@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  特征工程 &ndash; Learning Records
+
+    </title>
+    
+    <meta content="Python, sklearn, 机器学习, 特征工程" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of feature engineering&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="特征工程 | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of feature engineering&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">特征工程</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/python' class="muted-link">
+  <span class="Label Label--gray">Python</span>
+</a>
+
+<a href='/tags/sklearn' class="muted-link">
+  <span class="Label Label--gray">sklearn</span>
+</a>
+
+<a href='/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0' class="muted-link">
+  <span class="Label Label--gray">机器学习</span>
+</a>
+
+<a href='/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B' class="muted-link">
+  <span class="Label Label--gray">特征工程</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2019-05-01. Published at: 2019-05-01.">
+        
+          Published: 2019-05-01
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of feature engineering&hellip;</p>
+<h2 id="数据集">数据集</h2>
+<p><img src="/feature_engineering/729e480be1e3866e4afba8be4eeface2.png" alt=""></p>
+<p><img src="/feature_engineering/5e81420a63863e3aef0be77b4630934f.png" alt=""></p>
+<p><img src="/feature_engineering/0b0e1c5e8461bc50d36f7974bd98bae7.png" alt=""></p>
+<p><img src="/feature_engineering/bb5a7f003daff75771ddce70460ad58f.png" alt=""></p>
+<p><img src="/feature_engineering/a6c2e2580c77ffb38164b314206a0746.png" alt=""></p>
+<p><img src="/feature_engineering/4816bb21070ca24adb3b655f0ee6efba.png" alt=""></p>
+<h2 id="whatwhyhow">What、Why、How</h2>
+<p><img src="/feature_engineering/8f815ebf2564523d16ed6ba355f5fb12.png" alt=""></p>
+<p><img src="/feature_engineering/d24bde9727892ef29d0164033061825a.png" alt=""></p>
+<p><img src="/feature_engineering/e34bf3da53ce53364b39d556c9bd44b8.png" alt=""></p>
+<h2 id="sklearnfeature_extraction">sklearn.feature_extraction</h2>
+<p><img src="/feature_engineering/2d3747da79c0b9b92da24493b6fdac09.png" alt=""></p>
+<h3 id="dictvectorizer">DictVectorizer</h3>
+<p><img src="/feature_engineering/ba26b929a8a50d46c10f7097e744aeb2.png" alt=""></p>
+<p><img src="/feature_engineering/32f38cdcd20777fd1291b157a058c87f.png" alt=""></p>
+<p><img src="/feature_engineering/bac714c8ef260144b76d677bae734cc5.png" alt=""></p>
+<p><img src="/feature_engineering/664bab708ce8f789ebcb5d3323206b40.png" alt=""></p>
+<p><img src="/feature_engineering/f7a2bc57fe9883794b6e74ce4807eab7.png" alt=""></p>
+<p><img src="/feature_engineering/778ede25680da4b0679f3f7923e7572a.png" alt=""></p>
+<p><img src="/feature_engineering/ad16f6e1a1a1226b68dca520a648c4db.png" alt=""></p>
+<h3 id="one-hot">one-hot</h3>
+<p><img src="/feature_engineering/10a3a53c26e4af53484570d783fa452c.png" alt=""></p>
+<p><img src="/feature_engineering/6a0728f55b9bacbc701dd879eefbd961.png" alt=""></p>
+<p><img src="/feature_engineering/07de8ca98c480470ec92417633687dad.png" alt=""></p>
+<h3 id="countvectorizer">CountVectorizer</h3>
+<p><img src="/feature_engineering/2e7933a2759bf04c66a15e27a8555fd8.png" alt=""></p>
+<p><img src="/feature_engineering/067c6e9a36207fef1b75064e5129d594.png" alt=""></p>
+<p><img src="/feature_engineering/38b4485f3f11694c216e30266d48bd3c.png" alt=""></p>
+<p><img src="/feature_engineering/3624356ec30b96299a431a39902496ba.png" alt=""></p>
+<p><img src="/feature_engineering/93837b37407a5bbb7518cfb01811f4ee.png" alt=""></p>
+<p><img src="/feature_engineering/ac683029ea60e0d85d7e38cfb2200d22.png" alt=""></p>
+<p><img src="/feature_engineering/2dcb8ff9558b24ec8870de944cca68ac.png" alt=""></p>
+<h3 id="tf-idftfidfvectorizer">TF-IDF(TfidfVectorizer)</h3>
+<p><img src="/feature_engineering/d9c66872870041c92f57b97ac897b432.png" alt=""></p>
+<p><img src="/feature_engineering/59d72d17a853ae9b50a9b067713e97c8.png" alt=""></p>
+<p><img src="/feature_engineering/fa3b2a42f2258be94b43118518255c68.png" alt=""></p>
+<p><img src="/feature_engineering/f419deb09c17c5895272c2116cde1d19.png" alt=""></p>
+<p><img src="/feature_engineering/fc4837fa94c155fd4cd245c9b8eb6834.png" alt=""></p>
+<h2 id="sklearnpreprocessing">sklearn.preprocessing</h2>
+<p><img src="/feature_engineering/3c1ac5e9d9ea1fc8f318dcfc5a90e3b7.png" alt=""></p>
+<p><img src="/feature_engineering/4cb90cd35a4efc674f947a342e80a3ee.png" alt=""></p>
+<h3 id="归一化minmaxscaler">归一化（MinMaxScaler）</h3>
+<p><img src="/feature_engineering/e7707a92bbc2269e1ef80bb652d05a05.png" alt=""></p>
+<p><img src="/feature_engineering/a33bb6c2e2bcd5bfd9afc64dd58c08f7.png" alt=""></p>
+<p><img src="/feature_engineering/2564ef1cdf88f1ca8486847a247ef495.png" alt=""></p>
+<p><img src="/feature_engineering/9b7820dbc70cac8a31e07fadd54ff9a7.png" alt=""></p>
+<p><img src="/feature_engineering/9cfa5a06dbdd112b4cf83086402cb670.png" alt=""></p>
+<p><img src="/feature_engineering/1f9a943f9b7166d80d8cd234d95eafea.png" alt=""></p>
+<p><img src="/feature_engineering/a98f73a16b1e0c4e246fef2a7bf9667e.png" alt=""></p>
+<p><img src="/feature_engineering/012091e52eea830f60066df2a9b9bd77.png" alt=""></p>
+<p><img src="/feature_engineering/8cdeb7f6cb0c2d995d94de1dd169a6c0.png" alt=""></p>
+<p><img src="/feature_engineering/173892fa739904ab2e03f00f10c6f5ab.png" alt=""></p>
+<h3 id="标准化standardscaler">标准化（StandardScaler）</h3>
+<p><img src="/feature_engineering/166c3ec8a25615d4474b5af7a7f16201.png" alt=""></p>
+<p><img src="/feature_engineering/056913819246c65f6156a3597d6ce03a.png" alt=""></p>
+<p><img src="/feature_engineering/1e5f38331785d56af552be375038bb3b.png" alt=""></p>
+<p>mean值在中间</p>
+<p><img src="/feature_engineering/2248ce1671445b5a80ea9c30400b5c16.png" alt=""></p>
+<p><img src="/feature_engineering/fe397db06c1b4a894499620b623afe4f.png" alt=""></p>
+<p><img src="/feature_engineering/aae880a76757b7a09c7a766a0b4f9fab.png" alt=""></p>
+<p><img src="/feature_engineering/f38be4efc4a5061654d4a32762de3721.png" alt=""></p>
+<p><img src="/feature_engineering/ad0019d19f7ab61908a909cda04f173d.png" alt=""></p>
+<p><img src="/feature_engineering/90fb045615a01e59497e20ff4ad3bf59.png" alt=""></p>
+<p><img src="/feature_engineering/839b27f4ea7915c01ebdbf9b8eeaed09.png" alt=""></p>
+<p><img src="/feature_engineering/878d0ef9b1ea36cd4e494c4137084b23.png" alt=""></p>
+<h2 id="处理缺失值">处理缺失值</h2>
+<p><img src="/feature_engineering/dc3404add5566b69b2fdf6ef9d6b0d1b.png" alt=""></p>
+<h3 id="sklearnpreprocessingimputer">sklearn.preprocessing.Imputer</h3>
+<p><img src="/feature_engineering/c7a1df3c173d844fa802169a4a5f86d7.png" alt=""></p>
+<p><img src="/feature_engineering/b89dfebd61110920a8ad10b23ec7fba6.png" alt=""></p>
+<p><img src="/feature_engineering/fff8be933bc9a5264c2b0ddde76f8c12.png" alt=""></p>
+<h3 id="pandas">pandas</h3>
+<p><img src="/feature_engineering/2a47c7f9ccd9f9ada888fa0205c3f617.png" alt=""></p>
+<p><img src="/feature_engineering/61ebef473951b891f1c85b565e7fc6c1.png" alt=""></p>
+<h2 id="降维">降维</h2>
+<p><img src="/feature_engineering/3ff87715d732083e524a3b87a45c46db.png" alt=""></p>
+<p><img src="/feature_engineering/550c5fdabc6f943ec3a62b02830887fc.png" alt=""></p>
+<p><img src="/feature_engineering/60b043fe93162c7b8a54caa8c3d939d5.png" alt=""></p>
+<p><img src="/feature_engineering/8bbc744e73a401062e216b22bb595a2f.png" alt=""></p>
+<p><img src="/feature_engineering/0413ae786285a2d5493c1bfd0f5dae08.png" alt=""></p>
+<p><img src="/feature_engineering/738c63dfa4678d25ce8f669c14a28dac.png" alt=""></p>
+<h3 id="variancethreshold">VarianceThreshold</h3>
+<p><img src="/feature_engineering/3ccab40b460f35460d0aa1ab277b5678.png" alt=""></p>
+<p>把方差小的特征删除</p>
+<p><img src="/feature_engineering/6c388a9057680b654fb3ed9bfeb7b94b.png" alt=""></p>
+<p><img src="/feature_engineering/916ad3fdd0b04e520cbe0c067faf9f05.png" alt=""></p>
+<p><img src="/feature_engineering/aaa8bfaa86ad85c2e578b92c50d40fd3.png" alt=""></p>
+<p><img src="/feature_engineering/76b4fbc7113f50f5ad3354089e6dd305.png" alt=""></p>
+<p><img src="/feature_engineering/1741305b0266faf0ce4df3f50a67c150.png" alt=""></p>
+<p><img src="/feature_engineering/af7d51b8151d2874f2fa74f8a8d2c64a.png" alt=""></p>
+<h3 id="pca">PCA</h3>
+<p><img src="/feature_engineering/4cd8082b794904e874ecb69c64a740f8.png" alt=""></p>
+<p><img src="/feature_engineering/919daa2c681ae7a0bf1dea9aff44a757.png" alt=""></p>
+<p><img src="/feature_engineering/93894cae9e9d351c794c4a9683bd7740.png" alt=""></p>
+<p><img src="/feature_engineering/99c3f3a8abb8123228e85bde83f62078.png" alt=""></p>
+<p><img src="/feature_engineering/b06f8f0ce71703fc56f59a3508cffc52.png" alt=""></p>
+<p><img src="/feature_engineering/cfbc3b538616c721809721e8707bbc37.png" alt=""></p>
+<p><img src="/feature_engineering/d23610a2f4a23a3864fab0950935db35.png" alt=""></p>
+<p><img src="/feature_engineering/502ca1435e855f8eab03fa4b5a53a804.png" alt=""></p>
+<p><img src="/feature_engineering/9f28f6c511edaa92fe1d1998ca6174c7.png" alt=""></p>
+<p><img src="/feature_engineering/94f8b5750cf27797d9009d6f68e41d77.png" alt=""></p>
+<p><img src="/feature_engineering/838e1c16989015b18f79d3a41a4550a5.png" alt=""></p>
+<p><img src="/feature_engineering/124a93ac9477bf81888962422fdbdb74.png" alt=""></p>
+<p><img src="/feature_engineering/46b0d4954652bf1debc85a878c4cc8dc.png" alt=""></p>
+<h2 id="sklearn的数据集">sklearn的数据集</h2>
+<p><img src="/feature_engineering/73d587f3a4b9e597da7c58a7706f2d55.png" alt=""></p>
+<p><img src="/feature_engineering/3995364b9a97d839b80f12ab4dd28a93.png" alt=""></p>
+<h2 id="转换器和估计器">转换器和估计器</h2>
+<h3 id="转换器fit_transform">转换器fit_transform()</h3>
+<p><img src="/feature_engineering/c9aed234182f24027d5897f60a0e53b9.png" alt=""></p>
+<p><img src="/feature_engineering/3aa1b1c2d2429b87bb34b066670ec08e.png" alt=""></p>
+<p><img src="/feature_engineering/d6cfb42f1049228e7d5d005a47aa686e.png" alt=""></p>
+<p>可以先fit，存入一些方差标准差之类的信息，然后用到其他的数据集上</p>
+<h3 id="估计器随机森林逻辑回归贝叶斯支持向量机">估计器（随机森林、逻辑回归、贝叶斯、支持向量机…）</h3>
+<p><img src="/feature_engineering/c03e14034ec36bd4e56f1582ad7a4b23.png" alt=""></p>
+<p><img src="/feature_engineering/eba2646fe05c591b22bab26e44d4ad9d.png" alt=""></p>
+<h2 id="监督学习">监督学习</h2>
+<h2 id="feature_engineering9af62247b77b361c5c09a5a1f527a06bpngfeature_engineering9af62247b77b361c5c09a5a1f527a06bpng"><a href="/feature_engineering/9af62247b77b361c5c09a5a1f527a06b.png">/feature_engineering/9af62247b77b361c5c09a5a1f527a06b.png</a></h2>
+<p><img src="/feature_engineering/d9aac0124dfc9686a03d347c98227287.png" alt=""></p>
+<p>开发流程</p>
+<p><img src="/feature_engineering/8bcf33c9a899b95a09a7e0d84585bb76.png" alt=""></p>
+<p><img src="/feature_engineering/5a26cc3ce5a1911235e37fa3372800ea.png" alt=""></p>
+<h2 id="binning特征">binning特征</h2>
+<p><img src="/feature_engineering/30fb6243e43f06644c150b2b1e879cc7.png" alt=""></p>
+<h3 id="pdqcut">pd.qcut()</h3>
+<p><img src="/feature_engineering/8f62a00538fde21c70359e0247860f50.png" alt=""></p>
+<p><img src="/feature_engineering/bdbdf5cac904c9d1b600554638ae92ac.png" alt=""></p>
+<h2 id="nltk">nltk</h2>
+<p>英文句子预处理：</p>
+<p><img src="/feature_engineering/783881714113c2555e57c54f16507bcf.png" alt=""></p>
+<h2 id="similarity特征">Similarity特征</h2>
+<h3 id="cosine_similarity">cosine_similarity()</h3>
+<p><img src="/feature_engineering/7630facd1f4973a72913227230742ca6.png" alt=""></p>
+<h2 id="主题模型latentdirichletallocation">主题模型（LatentDirichletAllocation）</h2>
+<p><img src="/feature_engineering/9aa592f0e0bc16a7f95691b287894ade.png" alt=""></p>
+<p><img src="/feature_engineering/86f93978d4330149771c56eb3ae8db6c.png" alt=""></p>
+<h2 id="词嵌入模型word2vec">词嵌入模型（word2vec）</h2>
+<p><img src="/feature_engineering/166c2e452348e8c6d7d1e5d8f6bcf842.png" alt=""></p>
+<p><img src="/feature_engineering/65b4c6b38f298f0039cb52fab4cf14a4.png" alt=""></p>
+<p><img src="/feature_engineering/8a5bb05e39df97007cd7b3ad6c369c7c.png" alt=""></p>
+<p><img src="/feature_engineering/cab592a8dc65c142cb8ad915ecc27407.png" alt=""></p>
+<h2 id="菜菜的sklearn">菜菜的sklearn</h2>
+<p><img src="/feature_engineering/a981daf4485ab874f1b269c70a9e7a42.png" alt=""></p>
+<h3 id="预处理无量纲化对应上面的sklearnpreprocessing">预处理（无量纲化，对应上面的sklearn.preprocessing）</h3>
+<p><img src="/feature_engineering/ce2c3809a01f29aa14d7e460fa24202e.png" alt=""></p>
+<p><img src="/feature_engineering/c42f3bf2a72faa788b5f4315c323cedd.png" alt=""></p>
+<p>在原本就有索引的情况下read_csv里的参数index_col要设置为0</p>
+<p>随机森林可以用于填补缺失值</p>
+<h3 id="labelencoder标签专用能将分类转换为分类数值">LabelEncoder（标签专用，能将分类转换为分类数值）</h3>
+<p><img src="/feature_engineering/35874f5a79fe1c34e57faddd5f087b0e.png" alt=""></p>
+<h3 id="ordinalencoder特征专用能够将分类特征转换为分类数值">OrdinalEncoder（特征专用，能够将分类特征转换为分类数值）</h3>
+<p><img src="/feature_engineering/25aabc4cb075b0f20dd7a7547bc3b80d.png" alt=""></p>
+<p><img src="/feature_engineering/1dc04a2b3a2a391d553ccea65d8a740d.png" alt=""></p>
+<h3 id="除上述两种encoder之外还有onehotencoder">除上述两种Encoder之外，还有OneHotEncoder</h3>
+<p><img src="/feature_engineering/3f5d21d40870df83da460684a19c41f5.png" alt=""></p>
+<h3 id="数据类型以及常用的统计量">数据类型以及常用的统计量</h3>
+<p><img src="/feature_engineering/e78f9f0a6b93e721007714e77bba102f.png" alt=""></p>
+<p>pandas的DataFrame参数的单独操作：</p>
+<p><img src="/feature_engineering/f9f4d9d50ddebcfb34cb62f4957e9bde.png" alt=""></p>
+<h3 id="kbinsdiscretizer">KBinsDiscretizer</h3>
+<p><img src="/feature_engineering/4b891492204365528bde3003e0f55402.png" alt=""></p>
+<p><img src="/feature_engineering/910ad0cf899bfe71505f87baf275370c.png" alt=""></p>
+<p><img src="/feature_engineering/30f865b4524577b6f9591563b15cc100.png" alt=""></p>
+<p>ravel()是指降维的意思</p>
+<h4 id="selectkbest与卡方f检验互信息">SelectKBest与卡方、F检验、互信息</h4>
+<p><img src="/feature_engineering/6bc7e260e0d77b51af04428094c3428d.png" alt=""></p>
+<p>SelectKBest表示选择K个最佳特征</p>
+<p>Chi2表示卡方过滤特征（数据必须非负）</p>
+<p><img src="/feature_engineering/ee26651092321e0130e22252928139ff.png" alt=""></p>
+<p><img src="/feature_engineering/38a1bf8caf36c45f3904923cfa06ae43.png" alt=""></p>
+<p><img src="/feature_engineering/3d3704648f9a48d2cba7fb9da946663f.png" alt=""></p>
+<p><img src="/feature_engineering/d75c15bf0a76e56fdb3f3b04242b256a.png" alt=""></p>
+<p><img src="/feature_engineering/980353f6255ccb734f7816d43ee35b1e.png" alt=""></p>
+<p><img src="/feature_engineering/bf7c3b30c9d247af194bb5dd0332f789.png" alt=""></p>
+<p>决策树和随机森林有属性feature_importances来显示特征对于模型的某种贡献或重要性</p>
+<p><img src="/feature_engineering/1548f15ad716e3ca94b86844d6ab3e75.png" alt=""></p>
+<p>chi2、f检验、互信息本质上都是寻找相关度大的特征。</p>
+<h3 id="embedded嵌入法">Embedded嵌入法</h3>
+<p><img src="/feature_engineering/e9efb2e54e488c487b54a6647de48237.png" alt=""></p>
+<p><img src="/feature_engineering/a98a23ab3ebf6592c89bf6cd6c95b0ad.png" alt=""></p>
+<h4 id="selectfrommodel">SelectFromModel</h4>
+<p><img src="/feature_engineering/00ed297d4c0fd9bff6f49e3952d3fea2.png" alt=""></p>
+<p><img src="/feature_engineering/6bef91d3d2577b856501e16e2ea8b3da.png" alt=""></p>
+<p><img src="/feature_engineering/3a7faee7e739bd22e3d526e90f8566ff.png" alt=""></p>
+<p><img src="/feature_engineering/513ab18c4c03eed917877a2da0bb547a.png" alt=""></p>
+<p><img src="/feature_engineering/3d7b3bbe82f99c32265e862494ec690b.png" alt=""></p>
+<p><img src="/feature_engineering/d7ba445151f9a4d3101d307837565cab.png" alt=""></p>
+<p><img src="/feature_engineering/fb5bc42095dd12601732dea341fcbbdc.png" alt=""></p>
+<p><img src="/feature_engineering/8d44193ff2f25fbcc9cbdbb5e280df8a.png" alt=""></p>
+<p><img src="/feature_engineering/ea4c17aaf7f0fdda7e68533a827b3be4.png" alt=""></p>
+<p><img src="/feature_engineering/578cb2d1d0fc765ab90d32d6c90ae4d2.png" alt=""></p>
+<p><img src="/feature_engineering/bc2dceffc4c238739b77a2a143f631af.png" alt=""></p>
+<p><img src="/feature_engineering/f188cdb26e2251fbbe734141bbb640dc.png" alt=""></p>
+<h3 id="wrapper包装法rferfecv">Wrapper包装法（RFE、RFECV）</h3>
+<p>在大数据量的时候我们一般还是选用过滤法，因为嵌入法计算量太大了。下面介绍包装法（结合了以上两种方法）</p>
+<p><img src="/feature_engineering/14c807635d814869351b13075f20261d.png" alt=""></p>
+<p><img src="/feature_engineering/87aa79c2c939b48c64985972dba8302a.png" alt=""></p>
+<p><img src="/feature_engineering/35571207249c2da404d2a387d6d50015.png" alt=""></p>
+<p><img src="/feature_engineering/1af513b625b29ecfcd1dcccb1f93c020.png" alt=""></p>
+<p>Step=50表示每迭代一次帮我删掉50个特征</p>
+<p>还有一个RFECV类，类似于RFE，只是在里面要添加cv参数。</p>
+<p><img src="/feature_engineering/d7c441cd9818d56e482872a07decf637.png" alt=""></p>
+<h3 id="特征提取总结">特征提取总结</h3>
+<p>当特征很多的时候先使用方差过滤和互信息法，再用其他的方法。如果使用逻辑回归，优先嵌入法，如果使用支持向量机，优先使用包装法。</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>特征工程</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#数据集">数据集</a></li>
+    <li><a href="#whatwhyhow">What、Why、How</a></li>
+    <li><a href="#sklearnfeature_extraction">sklearn.feature_extraction</a>
+      <ul>
+        <li><a href="#dictvectorizer">DictVectorizer</a></li>
+        <li><a href="#one-hot">one-hot</a></li>
+        <li><a href="#countvectorizer">CountVectorizer</a></li>
+        <li><a href="#tf-idftfidfvectorizer">TF-IDF(TfidfVectorizer)</a></li>
+      </ul>
+    </li>
+    <li><a href="#sklearnpreprocessing">sklearn.preprocessing</a>
+      <ul>
+        <li><a href="#归一化minmaxscaler">归一化（MinMaxScaler）</a></li>
+        <li><a href="#标准化standardscaler">标准化（StandardScaler）</a></li>
+      </ul>
+    </li>
+    <li><a href="#处理缺失值">处理缺失值</a>
+      <ul>
+        <li><a href="#sklearnpreprocessingimputer">sklearn.preprocessing.Imputer</a></li>
+        <li><a href="#pandas">pandas</a></li>
+      </ul>
+    </li>
+    <li><a href="#降维">降维</a>
+      <ul>
+        <li><a href="#variancethreshold">VarianceThreshold</a></li>
+        <li><a href="#pca">PCA</a></li>
+      </ul>
+    </li>
+    <li><a href="#sklearn的数据集">sklearn的数据集</a></li>
+    <li><a href="#转换器和估计器">转换器和估计器</a>
+      <ul>
+        <li><a href="#转换器fit_transform">转换器fit_transform()</a></li>
+        <li><a href="#估计器随机森林逻辑回归贝叶斯支持向量机">估计器（随机森林、逻辑回归、贝叶斯、支持向量机…）</a></li>
+      </ul>
+    </li>
+    <li><a href="#监督学习">监督学习</a></li>
+    <li><a href="#feature_engineering9af62247b77b361c5c09a5a1f527a06bpngfeature_engineering9af62247b77b361c5c09a5a1f527a06bpng"><a href="/feature_engineering/9af62247b77b361c5c09a5a1f527a06b.png">/feature_engineering/9af62247b77b361c5c09a5a1f527a06b.png</a></a></li>
+    <li><a href="#binning特征">binning特征</a>
+      <ul>
+        <li><a href="#pdqcut">pd.qcut()</a></li>
+      </ul>
+    </li>
+    <li><a href="#nltk">nltk</a></li>
+    <li><a href="#similarity特征">Similarity特征</a>
+      <ul>
+        <li><a href="#cosine_similarity">cosine_similarity()</a></li>
+      </ul>
+    </li>
+    <li><a href="#主题模型latentdirichletallocation">主题模型（LatentDirichletAllocation）</a></li>
+    <li><a href="#词嵌入模型word2vec">词嵌入模型（word2vec）</a></li>
+    <li><a href="#菜菜的sklearn">菜菜的sklearn</a>
+      <ul>
+        <li><a href="#预处理无量纲化对应上面的sklearnpreprocessing">预处理（无量纲化，对应上面的sklearn.preprocessing）</a></li>
+        <li><a href="#labelencoder标签专用能将分类转换为分类数值">LabelEncoder（标签专用，能将分类转换为分类数值）</a></li>
+        <li><a href="#ordinalencoder特征专用能够将分类特征转换为分类数值">OrdinalEncoder（特征专用，能够将分类特征转换为分类数值）</a></li>
+        <li><a href="#除上述两种encoder之外还有onehotencoder">除上述两种Encoder之外，还有OneHotEncoder</a></li>
+        <li><a href="#数据类型以及常用的统计量">数据类型以及常用的统计量</a></li>
+        <li><a href="#kbinsdiscretizer">KBinsDiscretizer</a></li>
+        <li><a href="#embedded嵌入法">Embedded嵌入法</a></li>
+        <li><a href="#wrapper包装法rferfecv">Wrapper包装法（RFE、RFECV）</a></li>
+        <li><a href="#特征提取总结">特征提取总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

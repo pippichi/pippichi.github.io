@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>axios on Learning Records</title>
+    <link>https://pippichi.github.io/tags/axios/</link>
+    <description>Recent content in axios on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
+    <lastBuildDate>Wed, 01 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/axios/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>axios -additional</title>
+      <link>https://pippichi.github.io/posts/axios_source_code/</link>
+      <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/axios_source_code/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of axios source code&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>axios</title>
+      <link>https://pippichi.github.io/posts/axios/</link>
+      <pubDate>Sun, 29 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/axios/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of axios&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

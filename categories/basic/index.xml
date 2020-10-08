@@ -53,5 +53,14 @@
       <description>&lt;p&gt;The article contains the basic knowledge of Html&amp;hellip;&lt;/p&gt;</description>
     </item>
     
+    <item>
+      <title>Git</title>
+      <link>https://pippichi.github.io/posts/git/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/git/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of Git&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
   </channel>
 </rss>

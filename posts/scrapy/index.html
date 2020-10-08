@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Scrapy &ndash; Learning Records
+
+    </title>
+    
+    <meta content="Scrapy, Python" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of Scrapy&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="Scrapy | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of Scrapy&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Scrapy</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/scrapy' class="muted-link">
+  <span class="Label Label--gray">Scrapy</span>
+</a>
+
+<a href='/tags/python' class="muted-link">
+  <span class="Label Label--gray">Python</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-05-02. Published at: 2020-05-02.">
+        
+          Published: 2020-05-02
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of Scrapy&hellip;</p>
+<p><img src="/scrapy/99108efc0520902023487742403f65cd.png" alt=""></p>
+<p><img src="/scrapy/3c8d30c186e0fd21ebf358e3c2d8d6e3.png" alt=""></p>
+<h2 id="crawlspider">crawlSpider</h2>
+<p><img src="/scrapy/4c12f7ec9106f1c8c344372efc48023a.png" alt=""></p>
+<p><img src="/scrapy/1e993d04cd6553c8d8ebb92221f9f96f.png" alt=""></p>
+<p><img src="/scrapy/ed69599eaf270eb26ccebf8868d46d97.png" alt=""></p>
+<p>注意follow只会跟进当前显示页面符合规则的网页，如果当前显示页面下面的页码只有1、2、3、4这四页，那么他就只会跟进这四页而不会跟到第五页</p>
+<h2 id="scrapy-shell">Scrapy shell</h2>
+<p><img src="/scrapy/78569d23b1472c95dfd29d91ea851a1d.png" alt=""></p>
+<h2 id="request">Request</h2>
+<p><img src="/scrapy/f6b4f9abcf1ebc12e304caf20790afd0.png" alt=""></p>
+<h2 id="response">Response</h2>
+<p><img src="/scrapy/bcf1c2ae621df6b621eb959c6de1117c.png" alt=""></p>
+<p><img src="/scrapy/a6d09b351822fb7263674556e4f1d16a.png" alt=""></p>
+<h2 id="模拟登录">模拟登录</h2>
+<p><img src="/scrapy/907b8fe314bc46c8bb5fc54a40fb8d98.png" alt=""></p>
+<p><img src="/scrapy/49039de22eb1ff47502640d09f4c3a9f.png" alt=""></p>
+<h2 id="豆瓣登录模拟">豆瓣登录模拟</h2>
+<p><img src="/scrapy/198f28b89440ae552073c61849097277.png" alt=""></p>
+<p><img src="/scrapy/7c0c976a2259602bebb140e1d7485e19.png" alt=""></p>
+<h2 id="图形验证码识别平台">图形验证码识别平台</h2>
+<p><img src="/scrapy/dd96f2e1f1ad410feb1a5df73e4d271d.png" alt=""></p>
+<h3 id="根据验证码平台的提示制作formdata">根据验证码平台的提示制作formdata</h3>
+<p><img src="/scrapy/e7d86cd1c46bf7869c401d2af396992e.png" alt=""></p>
+<p><img src="/scrapy/6507890749fa78a708aff38b79cb20be.png" alt=""></p>
+<h2 id="为formdata指定空返回函数">为formdata指定空返回函数</h2>
+<p><img src="/scrapy/501bb6dc7e58e386a3aba5307b62c98b.png" alt=""></p>
+<h2 id="使用scrapy下载图片">使用scrapy下载图片</h2>
+<h3 id="files-pipeline和images-pipeline">Files pipeline和images pipeline</h3>
+<p><img src="/scrapy/b68f5afde0710e3ad2903a96dc42e65d.png" alt=""></p>
+<p><img src="/scrapy/8eedff6e5ebf7ea5fab2b43352db8c07.png" alt=""></p>
+<p><img src="/scrapy/0a684d3c0009ed9ea8809990af525347.png" alt=""></p>
+<h2 id="下载器中间件">下载器中间件</h2>
+<p><img src="/scrapy/0fcf4deac7e6f77db98b0d692470b1e3.png" alt=""></p>
+<p>注意，如果process_request返回的是response，那么它将直接执行process_response而不执行下一个中间件</p>
+<p><img src="/scrapy/96e0fe28522b0096acdb8f2a55e234b2.png" alt=""></p>
+<p><img src="/scrapy/22560c72a07edada767eca989a922786.png" alt=""></p>
+<p>注意，如果process_response返回一个request，那么它将转给下载器下载</p>
+<h2 id="随机请求头">随机请求头</h2>
+<p><img src="/scrapy/f3b3c7f3090b0b4be31e74ba3d4f5c26.png" alt=""></p>
+<h2 id="购买ip代理池">购买ip代理池</h2>
+<p><img src="/scrapy/c0638c7d3c44bc4f0cc090d60d1c1ba2.png" alt=""></p>
+<h3 id="私密代理设置">私密代理设置</h3>
+<p><img src="/scrapy/5ae98ec66baed19fc3e9407ba032f736.png" alt=""></p>
+<h2 id="分布式爬虫">分布式爬虫</h2>
+<p><img src="/scrapy/17631efbc824ebf416bc7a7c7071e893.png" alt=""></p>
+<p><img src="/scrapy/88107d03c59d9cd000b023a87efde549.png" alt=""></p>
+<p><img src="/scrapy/15fd34f7f758a3173e9387686bddaf06.png" alt=""></p>
+<p>Redis不仅有URL去重还有存储爬下来的数据的功能</p>
+<h3 id="虚拟机下载必要文件">虚拟机下载必要文件</h3>
+<p><img src="/scrapy/fff7cb9aa3f2f19b6443decd0a1c9410.png" alt=""></p>
+<h3 id="开始分布式爬虫">开始分布式爬虫</h3>
+<p><img src="/scrapy/d456d2861535f41443508a333d2bcb8c.png" alt=""></p>
+<p><img src="/scrapy/7d382d28d850545f02d16c0ca4b7e7f2.png" alt=""></p>
+<h2 id="virtualenvwrapper指定python版本">Virtualenvwrapper指定python版本</h2>
+<p>有时候我们使用pip install -r
+requirements.txt命令时会因为python版本不对导致下载失败，当我们确定python3的目录之后使用virtualenvwrapper
+的mkvirtualenv -p /usr/bin/python3
+GP1即可创建python3的虚拟环境，之后再进行安装即可</p>
+<h2 id="yield时通过meta传递参数">Yield时通过meta传递参数</h2>
+<p><img src="/scrapy/d093e025fa63734e0cf9463a91994412.png" alt=""></p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Scrapy</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#crawlspider">crawlSpider</a></li>
+    <li><a href="#scrapy-shell">Scrapy shell</a></li>
+    <li><a href="#request">Request</a></li>
+    <li><a href="#response">Response</a></li>
+    <li><a href="#模拟登录">模拟登录</a></li>
+    <li><a href="#豆瓣登录模拟">豆瓣登录模拟</a></li>
+    <li><a href="#图形验证码识别平台">图形验证码识别平台</a>
+      <ul>
+        <li><a href="#根据验证码平台的提示制作formdata">根据验证码平台的提示制作formdata</a></li>
+      </ul>
+    </li>
+    <li><a href="#为formdata指定空返回函数">为formdata指定空返回函数</a></li>
+    <li><a href="#使用scrapy下载图片">使用scrapy下载图片</a>
+      <ul>
+        <li><a href="#files-pipeline和images-pipeline">Files pipeline和images pipeline</a></li>
+      </ul>
+    </li>
+    <li><a href="#下载器中间件">下载器中间件</a></li>
+    <li><a href="#随机请求头">随机请求头</a></li>
+    <li><a href="#购买ip代理池">购买ip代理池</a>
+      <ul>
+        <li><a href="#私密代理设置">私密代理设置</a></li>
+      </ul>
+    </li>
+    <li><a href="#分布式爬虫">分布式爬虫</a>
+      <ul>
+        <li><a href="#虚拟机下载必要文件">虚拟机下载必要文件</a></li>
+        <li><a href="#开始分布式爬虫">开始分布式爬虫</a></li>
+      </ul>
+    </li>
+    <li><a href="#virtualenvwrapper指定python版本">Virtualenvwrapper指定python版本</a></li>
+    <li><a href="#yield时通过meta传递参数">Yield时通过meta传递参数</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

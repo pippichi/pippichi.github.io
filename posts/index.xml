@@ -63,12 +63,30 @@
     </item>
     
     <item>
+      <title>Scrapy</title>
+      <link>https://pippichi.github.io/posts/scrapy/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/scrapy/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>MySQL -basic</title>
       <link>https://pippichi.github.io/posts/mysql_basic/</link>
       <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/posts/mysql_basic/</guid>
       <description>&lt;p&gt;The article contains the basic knowledge of MySQL&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Pillow</title>
+      <link>https://pippichi.github.io/posts/pillow/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/pillow/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of pillow&amp;hellip;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -177,6 +195,24 @@
       
       <guid>https://pippichi.github.io/posts/html/</guid>
       <description>&lt;p&gt;The article contains the basic knowledge of Html&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://pippichi.github.io/posts/git/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/git/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of Git&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>特征工程</title>
+      <link>https://pippichi.github.io/posts/feature_engineering/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/feature_engineering/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of feature engineering&amp;hellip;&lt;/p&gt;</description>
     </item>
     
   </channel>

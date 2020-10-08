@@ -48,6 +48,11 @@
   </url>
   
   <url>
+    <loc>https://pippichi.github.io/tags/java/</loc>
+    <lastmod>2020-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pippichi.github.io/tags/spring-boot/</loc>
     <lastmod>2020-07-01T00:00:00+00:00</lastmod>
   </url>
@@ -88,8 +93,38 @@
   </url>
   
   <url>
+    <loc>https://pippichi.github.io/tags/python/</loc>
+    <lastmod>2020-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/scrapy/</loc>
+    <lastmod>2020-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/posts/scrapy/</loc>
+    <lastmod>2020-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pippichi.github.io/posts/mysql_basic/</loc>
     <lastmod>2020-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/pillow/</loc>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/posts/pillow/</loc>
+    <lastmod>2020-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/axios/</loc>
+    <lastmod>2020-04-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -105,6 +140,11 @@
   <url>
     <loc>https://pippichi.github.io/posts/axios/</loc>
     <lastmod>2020-03-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/promise/</loc>
+    <lastmod>2020-03-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -170,6 +210,36 @@
   <url>
     <loc>https://pippichi.github.io/posts/html/</loc>
     <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/git/</loc>
+    <lastmod>2019-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/posts/git/</loc>
+    <lastmod>2019-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/sklearn/</loc>
+    <lastmod>2019-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2019-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B/</loc>
+    <lastmod>2019-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/posts/feature_engineering/</loc>
+    <lastmod>2019-05-01T00:00:00+00:00</lastmod>
   </url>
   
 </urlset>
