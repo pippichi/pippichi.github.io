@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on QY Theme</title>
+    <link>https://pippichi.github.io/posts/</link>
+    <description>Recent content in Posts on QY Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>#########&amp;copy;Qiushi Pan 2018-2019#########</copyright><atom:link href="https://pippichi.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>https://pippichi.github.io/posts/springboot_senior/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/springboot_senior/</guid>
+      <description>缓存 JSR107 每一个cache缓存的内容是不一样的，可能第一个cache放的是员工的信息，第二个就是专门放商品的信息 要使用JSR107我们需要引入下</description>
+    </item>
+    
+  </channel>
+</rss>
