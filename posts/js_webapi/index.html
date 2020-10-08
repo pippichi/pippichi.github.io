@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  JavaScript WebApi &ndash; Learning Records
+
+    </title>
+    
+    <meta content="JavaScript" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of JavaScript WebApi&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="JavaScript WebApi | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of JavaScript WebApi&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">JavaScript WebApi</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/javascript' class="muted-link">
+  <span class="Label Label--gray">JavaScript</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-02-20. Published at: 2020-02-20.">
+        
+          Published: 2020-02-20
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of JavaScript WebApi&hellip;</p>
+<p><img src="/js_webapi/e26f94fe1e30cef71fb80ef281ede5cf.png" alt=""></p>
+<p><img src="/js_webapi/34f14d264d1d3469a43398457b343ed9.png" alt=""></p>
+<p><img src="/js_webapi/a60ecbd13bb6fa618b148fd8a3d197a6.png" alt=""></p>
+<h2 id="dom">DOM</h2>
+<h3 id="获取元素">获取元素</h3>
+<p><img src="/js_webapi/e66e14e78e416a2d5d8c617bbd05abd1.png" alt=""></p>
+<p><img src="/js_webapi/0650c91fe43f6b148383ec2434b4b917.png" alt=""></p>
+<p><img src="/js_webapi/b62466bc5a395028bbad56c6b47dc9f1.png" alt=""></p>
+<p><img src="/js_webapi/e6dea46154fb85f6a32d5cc13aced323.png" alt=""></p>
+<p><img src="/js_webapi/6d14d2e5b46fd9f453c9d9d09f72fc91.png" alt=""></p>
+<h4 id="getelementbyid">getElementById()</h4>
+<p><img src="/js_webapi/e451b22a84733a60ffd970080c14ab7d.png" alt=""></p>
+<h4 id="getelementsbytagname">GetElementsByTagName()</h4>
+<p><img src="/js_webapi/e3e3e41ea720fac8b100ed7ae886b62f.png" alt=""></p>
+<p><img src="/js_webapi/89b7f81c12f12e3c80d74d018a4304c7.png" alt=""></p>
+<p><img src="/js_webapi/f89ad11fad0d1d6158d5ce07c64deb2e.png" alt=""></p>
+<p><img src="/js_webapi/08a1eb2ee260c985b552d1a31bf6815f.png" alt=""></p>
+<h4 id="getelementsbyclassname">getElementsByClassName()</h4>
+<p><img src="/js_webapi/426c5172243e535877f43d39c637f2be.png" alt=""></p>
+<h4 id="queryselector">querySelector()</h4>
+<p><img src="/js_webapi/107a4531e2e1ac9609ab7766b7e8fc28.png" alt=""></p>
+<p><img src="/js_webapi/22b49586b29a1cde86a082fa571c30dc.png" alt=""></p>
+<h4 id="queryselectorall">querySelectorAll()</h4>
+<p><img src="/js_webapi/2716fb27503c4a53ca01c0bca0846fc1.png" alt=""></p>
+<p><img src="/js_webapi/cc293f7575690a5b2314d9ac52d4c2d1.png" alt=""></p>
+<h4 id="获取body元素和html元素">获取body元素和html元素</h4>
+<p><img src="/js_webapi/c516ed033c14f47467213ee960af3d75.png" alt=""></p>
+<p><img src="/js_webapi/50253b73f1bed932db94dc0b7d1cb09e.png" alt=""></p>
+<h3 id="事件基础">事件基础</h3>
+<p><img src="/js_webapi/e7a72c2b71f7ae66fe55c5b453de0933.png" alt=""></p>
+<p><img src="/js_webapi/ca3b31ffec99e409f07a3e086a34f56f.png" alt=""></p>
+<h4 id="步骤">步骤</h4>
+<p><img src="/js_webapi/5fd20ef11284cbbeb21838a4c6bbc3ec.png" alt=""></p>
+<p><img src="/js_webapi/5b4c4d5ffb26f6f988d7e64c42e6f87f.png" alt=""></p>
+<h4 id="常见鼠标事件">常见鼠标事件</h4>
+<p><img src="/js_webapi/2750dce9f87ad4d192ba43f3a900ae1c.png" alt=""></p>
+<h4 id="操作元素">操作元素</h4>
+<p><img src="/js_webapi/dfa0d0ab8fbf8aaceb0b45583d242421.png" alt=""></p>
+<p><img src="/js_webapi/7c55fd780ef0d52f311c06ae297d12fe.png" alt=""></p>
+<p><img src="/js_webapi/19f8b9a0f4e1548f9edffdcd2e2eb00c.png" alt=""></p>
+<p><img src="/js_webapi/19b5897f1e07fbd1504dbc403d39f9f3.png" alt=""></p>
+<h5 id="innertext和innerhtml的区别">innerText和innerHtml的区别</h5>
+<p><img src="/js_webapi/f39ef87f9eaee9534d58448f3204d5cf.png" alt=""></p>
+<p>区别就是innerHtml识别html标签，另一个不识别，且innerHtml是W3C标准，而另一个不是，因此innerHtml用的更多。</p>
+<p>另外，innerText会去除空格和换行，而innerHtml不会，如下：</p>
+<p><img src="/js_webapi/d86d708f393e40c0e2d5c551e0b1e70b.png" alt=""></p>
+<h5 id="属性操作">属性操作</h5>
+<p><img src="/js_webapi/9cdff92eacca6b9e66f0b947c5f19907.png" alt=""></p>
+<p><img src="/js_webapi/67fe2064b8e59081dcf2b06bab46efe8.png" alt=""></p>
+<p><img src="/js_webapi/dd2f66ed87bccb42a9d17e9f5207eb21.png" alt=""></p>
+<p><img src="/js_webapi/8c6f5cb57f803c8d92f90ffec19877e5.png" alt=""></p>
+<p>按钮的disabled设置为true的话这个按钮就不能再按下去了</p>
+<p><img src="/js_webapi/46287dd9fbc05b297273fa97eb0d4bc7.png" alt=""></p>
+<p><img src="/js_webapi/6a95843629922dcec72d0d051f3a1133.png" alt=""></p>
+<p><img src="/js_webapi/b422f3c886ae32d08dae50c8648ac9b6.png" alt=""></p>
+<p><img src="/js_webapi/549dbe76398648465eb7dab819a90df1.png" alt=""></p>
+<p><img src="/js_webapi/b24afd9442d44e115dc24fc6f456b796.png" alt=""></p>
+<p>显然这种方法只能在修改元素样式比较少的时候使用，如果要修改的样式比较多，应该通过给标签添加class的方式去修改</p>
+<p><img src="/js_webapi/0fe054ad8d330eb0782375a3e4565064.png" alt=""></p>
+<p><img src="/js_webapi/c15a1984b7f94b7bd4d5d004549a54bf.png" alt=""></p>
+<p><img src="/js_webapi/be32b42154d261bf1424b5a657cd2114.png" alt=""></p>
+<p><img src="/js_webapi/f21c11edfb52d12e46963415c8c8aa6b.png" alt=""></p>
+<p><img src="/js_webapi/177e4d2ce248c07ee6c2603afac7e0c1.png" alt=""></p>
+<p><img src="/js_webapi/7c8ef1a32e0f8d5ed73e95f9207a50ea.png" alt=""></p>
+<p><img src="/js_webapi/12091fad0eba7a3abca54acd5d1f7129.png" alt=""></p>
+<p><img src="/js_webapi/a07ce11beeaa8dfd926c360779b1edcb.png" alt=""></p>
+<h5 id="elementgetattribute获取元素属性的另一种方式">element.getAttribute()（获取元素属性的另一种方式）</h5>
+<p><img src="/js_webapi/89d2ca746c73184bacabe4d75bcf99ac.png" alt=""></p>
+<p><img src="/js_webapi/4ded629bd71b3a00bed7995b2d907727.png" alt=""></p>
+<p>getAttribute()可以获得自定义的属性，这是与element.属性 的区别</p>
+<h5 id="elementsetattribute设置属性值">element.setAttribute()（设置属性值）</h5>
+<p><img src="/js_webapi/bdbab64a91427efad11a8965dbd9d2c3.png" alt=""></p>
+<p><img src="/js_webapi/ca36d95fdcdf45b664bbf1f3883b9268.png" alt=""></p>
+<h5 id="elementremoveattribute移除属性">element.removeAttribute()（移除属性）</h5>
+<p><img src="/js_webapi/33bf59c547d04cc5fe5a02a004a207ce.png" alt=""></p>
+<h5 id="h5自定义属性">H5自定义属性</h5>
+<p><img src="/js_webapi/c5aed4a19eea222230afae1c72b9bad8.png" alt=""></p>
+<h6 id="设置和获取">设置和获取</h6>
+<p><img src="/js_webapi/61de3efc6a5427b3929d0f70dd969492.png" alt=""></p>
+<p><img src="/js_webapi/00594628730640ea89c4be27c20fd1d3.png" alt=""></p>
+<p>这里的dataset是自定义属性的集合</p>
+<h3 id="节点操作">节点操作</h3>
+<p><img src="/js_webapi/0286cf0f619e56059dc8073b14755570.png" alt=""></p>
+<p><img src="/js_webapi/2aa316ce943dc915045fba80512c3077.png" alt=""></p>
+<p><img src="/js_webapi/45aac83b577da807b32998b5c307ef17.png" alt=""></p>
+<p><img src="/js_webapi/d0cdbb80ef6c7893ff81ac70596e1344.png" alt=""></p>
+<p><img src="/js_webapi/bcc153b1495975edf68bc1fea42520a6.png" alt=""></p>
+<p><img src="/js_webapi/455c9b6af4cf9e07197166c19a5068dd.png" alt=""></p>
+<p><img src="/js_webapi/cb5a37aecfe91709a6e0d74a80ce76e7.png" alt=""></p>
+<p>显然childNodes太麻烦，一般我们不用</p>
+<p><img src="/js_webapi/8fcf23de42427e1ad043272e626aaac9.png" alt=""></p>
+<p>我们一般使用children</p>
+<p><img src="/js_webapi/fb82a61eeded65df6634c9effcdf88da.png" alt=""></p>
+<p><img src="/js_webapi/42c83e006f63272bca292f1bbf02c84e.png" alt=""></p>
+<p>这里的firstChild还是会返回文本节点，而我们大多数情况想要的还是元素节点</p>
+<p><img src="/js_webapi/d508a2dd893f8bff05d401c854e1794e.png" alt=""></p>
+<p>firstElementChild返回的就是第一个元素节点</p>
+<p>实际开发中一般用element.children[]的方式去获取</p>
+<p><img src="/js_webapi/2814cf424f5cd62d77f04bf9fe0a44a9.png" alt=""></p>
+<h4 id="下拉菜单案例">下拉菜单案例</h4>
+<p><img src="/js_webapi/f65191acb54d919c79be1705a75dbd01.png" alt=""></p>
+<h4 id="兄弟节点">兄弟节点</h4>
+<p><img src="/js_webapi/1132734e545363796c707b78757e0902.png" alt=""></p>
+<p>这两个方法同firstChlid()一样，还是会返回文本节点</p>
+<p><img src="/js_webapi/ad33f460e95a37cf20e1f94da1e839ff.png" alt=""></p>
+<p><img src="/js_webapi/65c7f9b66561c7a79214b7d3fc6fc960.png" alt=""></p>
+<p>和firstElementChild()一样，只会返回元素节点</p>
+<p><img src="/js_webapi/df947c27addb3b4e66c4186cd8918b61.png" alt=""></p>
+<p>对于nextSibling，他的兼容性没有什么太好的办法，只能写算法解决</p>
+<h4 id="创建与添加节点">创建与添加节点</h4>
+<p><img src="/js_webapi/fd753f232c225e2dea535a74425c8dd3.png" alt=""></p>
+<p><img src="/js_webapi/ca563b07a9e17e8f14a7d72cdad4c994.png" alt=""></p>
+<p><img src="/js_webapi/3358dbaf6597e8395c2f4dbed96150aa.png" alt=""></p>
+<p>留言板案例</p>
+<p><img src="/js_webapi/783671e73fd310fd6a52d71af1e78b6e.png" alt=""></p>
+<h4 id="删除节点">删除节点</h4>
+<p><img src="/js_webapi/ec75a73c0625e0d98fdbf35c31eade03.png" alt=""></p>
+<p><img src="/js_webapi/13a7d324e55c53fd02198a4dd8eea183.png" alt=""></p>
+<p><img src="/js_webapi/73a3b3b70ce7353522ccb1f19914ef6e.png" alt=""></p>
+<h4 id="复制节点">复制节点</h4>
+<p><img src="/js_webapi/b93503e2e12ed68757c3a2ce8175d7e2.png" alt=""></p>
+<p><img src="/js_webapi/12c9613474a931d61365594fc2e177f7.png" alt=""></p>
+<h4 id="三种动态创建元素区别">三种动态创建元素区别</h4>
+<p><img src="/js_webapi/e2f912f092bf3205e1dec31c91abd650.png" alt=""></p>
+<p>document.write()会导致页面重绘（之前页面的所有元素都没了，就只剩下了这个加进去的元素，相当于重新创建了一张页面），一般不用，有点类似window.onload</p>
+<p><img src="/js_webapi/ebb0dde0a74db11a45a3a7204e12a208.png" alt=""></p>
+<p>由于拼接字符串会导致内存栈里面生成大量的字符串，所以直接导致性能下降，所以如果用innerHTML
+并用拼接字符串的方式生成标签效率是很低的，但是如果配合数组就不一样了，我们将需要生成的标签直接加到数组里面，最后用
+.join(‘’) 的方式拼成字符串再用innerHTML生成，这个时候innerHTML的效率为最高。</p>
+<p>如果用createElement()与appendChild()的方式，他的效率会比直接拼接字符串的innerHTML高很多，而且结构更加清晰，但是较配合数组的innerHTML来讲他的效率还是要低那么一点</p>
+<h3 id="事件高级">事件高级</h3>
+<h4 id="注册事件绑定事件">注册事件（绑定事件）</h4>
+<p><img src="/js_webapi/39262b5b51a24ea86d6519d59b2c4196.png" alt=""></p>
+<p><img src="/js_webapi/4968c649cf721abf1b1bfa207c79d8f9.png" alt=""></p>
+<p>这个唯一性就是如果写了两个onclick，那么后面的会把前面的覆盖掉，而监听注册方式就不会出现这个情况，因此更加推荐</p>
+<p><img src="/js_webapi/35caaa3cad559b3e813ccf4a9ef49c6c.png" alt=""></p>
+<p><img src="/js_webapi/61ed97c6f59addf1d43c392610049f0d.png" alt=""></p>
+<p><img src="/js_webapi/03fb924ce88f361e1b39bd5bc8422ad8.png" alt=""></p>
+<p><img src="/js_webapi/ac4e4bf4d1756a508e5301feb444004e.png" alt=""></p>
+<p><img src="/js_webapi/c22533e944a2c5522841785f4f17e154.png" alt=""></p>
+<p>attachEvent是IE9以前用的，是非标准，不推荐使用</p>
+<h5 id="注册事件兼容性解决方案">注册事件兼容性解决方案</h5>
+<p><img src="/js_webapi/46c4710686f08b8b034cc84c1f661cba.png" alt=""></p>
+<h4 id="删除事件的方式">删除事件的方式</h4>
+<p><img src="/js_webapi/ba5fc529fdae7f1abf72b60697a11a0b.png" alt=""></p>
+<p>1、</p>
+<p><img src="/js_webapi/477c1a1e721bd14552e819514435a2d4.png" alt=""></p>
+<p>2、</p>
+<p><img src="/js_webapi/70163e61b37a61a27c07154ac501a77c.png" alt=""></p>
+<p>3、</p>
+<p><img src="/js_webapi/2df6a13a36587ebabda592ca69829526.png" alt=""></p>
+<h5 id="删除事件兼容性解决方案">删除事件兼容性解决方案</h5>
+<p><img src="/js_webapi/a28dfba93ed76de1d7c20b17a0dbdaaa.png" alt=""></p>
+<h4 id="dom事件流">DOM事件流</h4>
+<p><img src="/js_webapi/898f184636bdff18a2e02ddeb7232820.png" alt=""></p>
+<p><img src="/js_webapi/07a7a2bfa33e38644d975db1fd152fe4.png" alt=""></p>
+<p><img src="/js_webapi/fdffcc7035929640e5235f903a96b2a1.png" alt=""></p>
+<p><img src="/js_webapi/08d6f340e5c52c907fc58d41718bae6c.png" alt=""></p>
+<p><img src="/js_webapi/0710dffb1eaac92170f0bbe3da6ba305.png" alt=""></p>
+<p><img src="/js_webapi/0ce13380f55c7f3275830681d7cc0ccf.png" alt=""></p>
+<p>在实际开发过程中更关心事件冒泡过程</p>
+<h4 id="事件对象">事件对象</h4>
+<p><img src="/js_webapi/c021bfc812d96dda28b9d0d74a5f5656.png" alt=""></p>
+<p><img src="/js_webapi/bef21b73590b37a5cbff5693bd60e7d1.png" alt=""></p>
+<p><img src="/js_webapi/4e5d861f8f38017940a70296b514a781.png" alt=""></p>
+<p><img src="/js_webapi/2468b0869fad7a874a25919a8a2592a6.png" alt=""></p>
+<p><img src="/js_webapi/7f0ad351f1b839bc87de3905e6d4ecb2.png" alt=""></p>
+<p><img src="/js_webapi/b7e4160a8e71c45bdd4d2e49f363d0fa.png" alt=""></p>
+<p>现在基本不需要考虑兼容性</p>
+<h4 id="事件对象的常见属性和方法">事件对象的常见属性和方法</h4>
+<p><img src="/js_webapi/4bb3c57acc701891bec8623aba361cd9.png" alt=""></p>
+<p><img src="/js_webapi/f260a12533941f2615e7500b4a019582.png" alt=""></p>
+<p>注意，this和e.target是不一样的，this指向的是绑定事件的对象（元素），而e.target指向的是触发的那个事件对象（元素），例如：我们给ul添加监听事件，然后点击ul下的li，那么this还是ul，而e.target是点击的那个li</p>
+<p><img src="/js_webapi/254a4a50bff99f368d53bf7f40edba1a.png" alt=""></p>
+<p>有一个跟this几乎一样的参数叫做e.currentTarget，这两个可以换着用，该用法也有兼容性问题</p>
+<p>由于兼容性问题，ie678只能使用e.srcElement而不能使用e.target，解决兼容性问题可以这么写：</p>
+<p><img src="/js_webapi/06b8f88119665e9328f33897a307c311.png" alt=""></p>
+<p>还是一样，实际开发中一般不用再考虑兼容性了</p>
+<p>e.type 返回事件类型：</p>
+<p><img src="/js_webapi/5c6d573065a83ac694771008adca5b36.png" alt=""></p>
+<p>阻止默认行为（事件），比如让链接不跳转 或者让提交按钮不提交</p>
+<p><img src="/js_webapi/ebc1b189e0a02c56025d9396929656ab.png" alt=""></p>
+<p><img src="/js_webapi/64693567f75c359f9f49663ebd283e7a.png" alt=""></p>
+<p>可以用e.preventDefault(); 考虑ie678的兼容性问题也可以用e.returnValue();
+由于上面两个都有兼容性问题，我们其实可以直接return false;</p>
+<p>但是return false; 有个问题，他下面的代码将不会再执行：</p>
+<p><img src="/js_webapi/5a623c642b9f61aaa104424c013eca43.png" alt=""></p>
+<p>而且return false; 只限于传统的注册方式，在 .addEventListener() 上他就不管用了。</p>
+<p>因此 e.preventDefault() 是我们开发中最常用的</p>
+<p>e.stopPropagation() 阻止事件冒泡：</p>
+<p><img src="/js_webapi/7531e2d810c5c9cd84928c8766733bbe.png" alt=""></p>
+<p><img src="/js_webapi/22e16f308694422cafa70dd36740004d.png" alt=""></p>
+<p>这里浏览器显示 “son” 之后就不会再显示 “father” 了</p>
+<p>考虑ie678兼容性我们可以使用e.cancelBubble=true :</p>
+<p><img src="/js_webapi/7c94de37d1705226ca62ccf558313465.png" alt=""></p>
+<p>解决兼容性方案：</p>
+<p><img src="/js_webapi/7108bae02c56012973e89781ca639d05.png" alt=""></p>
+<h4 id="事件委托代理委派">事件委托（代理、委派）</h4>
+<p><img src="/js_webapi/6d3ffa954ae3e522b6316c4fe679a8f0.png" alt=""></p>
+<p><img src="/js_webapi/3391a76a794b15df2bb9d85d2bab14cc.png" alt=""></p>
+<p><img src="/js_webapi/e790b1e191712c2ae8c6374f4efa8d29.png" alt=""></p>
+<p>利用冒泡的特点，我们不再需要给每个li添加监听了：</p>
+<p><img src="/js_webapi/6c9751de2cdd574f9c3f822039aa9f6b.png" alt=""></p>
+<p>这里直接给ul（父亲）添加节点，当点击li的时候由ul去接收事件</p>
+<p>如果我们想要给当前li添加背景颜色，可以使用e.target：</p>
+<p><img src="/js_webapi/fbebf6d3a774f2ef489f79ac3d74ec0c.png" alt=""></p>
+<h4 id="常用鼠标事件补充">常用鼠标事件补充</h4>
+<h5 id="contextmenu">contextmenu</h5>
+<p><img src="/js_webapi/1302bd226e70254ec5308ac7000468aa.png" alt=""></p>
+<p>该事件可以防止用户在页面点击鼠标右键之后显示上下文菜单（防复制）</p>
+<p><img src="/js_webapi/18ca606bb735ff0270d86e94d9814e71.png" alt=""></p>
+<h5 id="selectstart">selectstart</h5>
+<p>上面的方法我们只禁止了鼠标事件但是没有禁键盘事件，所以如果直接ctrl+c
+还是可以复制文本内容的，那我们干脆直接禁止鼠标选中就好了</p>
+<p><img src="/js_webapi/b07fbf5ac70381ea1546ef6fdf8da2d2.png" alt=""></p>
+<p><img src="/js_webapi/ab06ebedbca86b190fe9b3e1e563deba.png" alt=""></p>
+<h5 id="鼠标事件对象">鼠标事件对象</h5>
+<p><img src="/js_webapi/bf5f21c38dc97b85ef0ae1f84780e861.png" alt=""></p>
+<p><img src="/js_webapi/280e63d5340b34dcb02649fd1a30f036.png" alt=""></p>
+<p><img src="/js_webapi/75a18ba85815299d54513b75ecb8623c.png" alt=""></p>
+<p>注意：上面红色区域是用户可视区域，控制台不属于用户可视区</p>
+<p>clientX 是鼠标距离可视区左侧的距离，clientY 是鼠标距离可视区右侧的距离</p>
+<p>然后我们设置body的height为3000px</p>
+<p><img src="/js_webapi/c76d02b0211b14a57affc1e62844c0b8.png" alt=""></p>
+<p>发现用户可视区的x、y轴还是没变</p>
+<p>用pageX、pageY之后，我们可以得到鼠标距离文档上沿和左侧的距离（使用较多）：</p>
+<p><img src="/js_webapi/9992eefdcae7c6d41776b748a0baad5d.png" alt=""></p>
+<p><img src="/js_webapi/88fb9ec1c3d2a3a6c6d067e51b996392.png" alt=""></p>
+<p>用screenX、screenY可以得到鼠标距离电脑屏幕上沿和左侧的距离</p>
+<p><img src="/js_webapi/391a24dacead6ea950cdc2e02c99dc2c.png" alt=""></p>
+<h6 id="mousemove">mousemove</h6>
+<p>跟随鼠标移动的图片</p>
+<p><img src="/js_webapi/4428ca726f0a46e128f96e45a2b40914.png" alt=""></p>
+<p><img src="/js_webapi/e4b859758f024cc79d307b579b1cb505.png" alt=""></p>
+<p><img src="/js_webapi/a8e2943af0677b8431b76cd3a41758a2.png" alt=""></p>
+<p>做到这里我们发现图片并没有随着鼠标移动，原因很简单，top和left属性后面都要加 “px”
+才行，我们这里没加</p>
+<p><img src="/js_webapi/2b10882f7c0ba68ff859975d65b46d75.png" alt=""></p>
+<p>Vscode也可以查看图片尺寸</p>
+<p><img src="/js_webapi/f972fef10afb5941f50f2f6d6f2f7b23.png" alt=""></p>
+<p>调整图片位置让他更好看</p>
+<p><img src="/js_webapi/394dce9e1b391924d63fe8b702dde6b2.png" alt=""></p>
+<h4 id="键盘事件">键盘事件</h4>
+<p><img src="/js_webapi/9e197548b58c76882e1c72b8c9785a93.png" alt=""></p>
+<p><img src="/js_webapi/a55ca61032d0f730e7edada3b0b9416f.png" alt=""></p>
+<p><img src="/js_webapi/53bc279d67974bcdedef62bc952f90c7.png" alt=""></p>
+<p>keypress和keydown的区别就是keypress不能识别ctrl、shift、左右箭头等功能键，但是keydown都可以识别，而且：</p>
+<p><img src="/js_webapi/405dad2f2cd1b91ac9b3e4529c47b2f1.png" alt=""></p>
+<p>keyup和keydown不区分a和A（两者都是返回ascii码65），</p>
+<p>但是keypress是区分的</p>
+<h5 id="注意">注意</h5>
+<p>上面这三个事件是有执行顺序的，keyup这个不用说肯定是最后执行的，keypress和keydown这两个先执行keydown后keypress</p>
+<p><img src="/js_webapi/815e24995c3a36aafc5d6564b7d82220.png" alt=""></p>
+<h5 id="键盘事件对象">键盘事件对象</h5>
+<p>跟鼠标事件对象一样，键盘也有键盘事件对象</p>
+<p>键盘对象里面的key属性可以显示用户具体按了那颗键，但是他有很大的兼容性问题，有些浏览器甚至还不支持，因此一般不用这个，我们一般用keyCode（返回按键ascii码）来代替</p>
+<p><img src="/js_webapi/a87fce8e5290261bbe84cdd609288dbd.png" alt=""></p>
+<h6 id="注意-1">注意</h6>
+<p><img src="/js_webapi/405dad2f2cd1b91ac9b3e4529c47b2f1.png" alt=""></p>
+<p>keyup和keydown不区分a和A（两者都是返回ascii码65），</p>
+<p>但是keypress是区分的</p>
+<p><img src="/js_webapi/34a0fca247444aa33ca74bdb36397a87.png" alt=""></p>
+<p>这时候a返回的是97，A返回的是65</p>
+<p><img src="/js_webapi/c49a6f0afea0b4ef508b12eddccbb054.png" alt=""></p>
+<h5 id="案例">案例</h5>
+<p>1、搜索框按下s键获得焦点</p>
+<p><img src="/js_webapi/b8c187626ba197c758fe0ffb6c15da95.png" alt=""></p>
+<p>由于keydown 用户按下键盘的时候会一直触发，所以我们最好设置为keyup</p>
+<p><img src="/js_webapi/ab6aae61c4d57a7651c79c4672094327.png" alt=""></p>
+<p>2、</p>
+<p><img src="/js_webapi/63fe6fcaa8e40d056290d32cb24d3c20.png" alt=""></p>
+<p><img src="/js_webapi/af4c0f9a73206ff25d0342afc8164fea.png" alt=""></p>
+<p><img src="/js_webapi/1ff3f9bf5ccc6026ad78593353b33036.png" alt=""></p>
+<p>注意这里不能用keydown，因为这个事件触发的时候文本还没有进入到文本框中，因此他会先执行上面的if代码块之后再将文本输入到文本框：</p>
+<p><img src="/js_webapi/033a33c4595ce16501c4288d6e680a8a.png" alt=""></p>
+<p>另外，这里我们更不能用keypress，因为keypress不能识别Backspace键：</p>
+<p><img src="/js_webapi/85f72e93bf28b35395fbeb27390f64a3.png" alt=""></p>
+<p>所以这个案例用keyup</p>
+<p><img src="/js_webapi/ae43221799f58683079c2eb7c1feaf9c.png" alt=""></p>
+<p>之后再添加功能：</p>
+<p><img src="/js_webapi/ec480f921ed59d478ff78add528c18a5.png" alt=""></p>
+<p><img src="/js_webapi/038897c9a73b1922c695157039866382.png" alt=""></p>
+<h3 id="总结">总结</h3>
+<p>1、</p>
+<p><img src="/js_webapi/ecc29a2b32f1aef9289b4f7d276a688c.png" alt=""></p>
+<p>2、</p>
+<p>对于父亲节点、子节点、兄弟节点，我们重点记住parentNode、children就可以了</p>
+<p>3、</p>
+<p>DOM小结</p>
+<p><img src="/js_webapi/ee30e580ffe34f62a898a9d5a2408f65.png" alt=""></p>
+<p><img src="/js_webapi/7a12cea1f487b85c1dab327e04d9bf11.png" alt=""></p>
+<p><img src="/js_webapi/8e69095d8c9e70a883717077b21d6997.png" alt=""></p>
+<p><img src="/js_webapi/505ae87ef0aff1b1780118780917ddcc.png" alt=""></p>
+<p><img src="/js_webapi/f29cd6a63381cf6d68c5601c5b32fa54.png" alt=""></p>
+<p><img src="/js_webapi/53335b11686f258adefa5a8821ddc03d.png" alt=""></p>
+<p><img src="/js_webapi/fae53bf42860d43ee61028eeb520b50b.png" alt=""></p>
+<p><img src="/js_webapi/6fc9fb6790d7e4154358ac4c47596f6a.png" alt=""></p>
+<h3 id="补充">补充</h3>
+<p>1、如果不需要a标签跳转，可以在href里面写 javascript:void(0);或者直接写
+javascript:;</p>
+<p><img src="/js_webapi/0f1c0fb433a9d7e6c0efdad71eccea3a.png" alt=""></p>
+<h2 id="bom">BOM</h2>
+<p><img src="/js_webapi/d2620593ebd9c88fba17a790ffe3995d.png" alt=""></p>
+<p><img src="/js_webapi/194ff9b4c5627c258bfad4b44eafdd20.png" alt=""></p>
+<p>BOM比DOM大，原先的document.xxx其实应该这么写：window.document.xxx</p>
+<p><img src="/js_webapi/aba37309526168b734052dbe0f101bb1.png" alt=""></p>
+<p>全局变量会变成window对象的属性，函数会变成window的方法</p>
+<p><img src="/js_webapi/f57c412e7da65d6f49009fc1dd3b2e38.png" alt=""></p>
+<p><img src="/js_webapi/284b9fffa793e152203ee32afa2599aa.png" alt=""></p>
+<p>之前说的声明变量最好不要取名name，因为window对象里面就有一个name属性</p>
+<p><img src="/js_webapi/bbfe328ce7eb2812112d284bc33d0120.png" alt=""></p>
+<h3 id="window对象的常见事件">window对象的常见事件</h3>
+<p><img src="/js_webapi/e4ce3a7907f4e9d0263f8acb156cddc2.png" alt=""></p>
+<p><img src="/js_webapi/b369bda1a4042f9353819b6dda2849fa.png" alt=""></p>
+<p><img src="/js_webapi/13482ffad762a8254bbc7a196f6bd2b5.png" alt=""></p>
+<p>由于是传统的注册方法，因此如果注册多个会以最后一个为准</p>
+<p>当然我们也可以不用传统的，我们用推荐的注册方法：</p>
+<p><img src="/js_webapi/46c0c6b20270e5132377a26514f3f143.png" alt=""></p>
+<p>这样就可以注册多个了</p>
+<p>用了这个注册之后我们的js代码就能写到任何一个地方而不受限制了</p>
+<h4 id="窗口加载事件">窗口加载事件</h4>
+<p><img src="/js_webapi/2d792a332cd533215e39b927adac95c1.png" alt=""></p>
+<p>document的DOMContentLoaded和window的load差不多，区别在于document的DOMContentLoaded不会等待样式表、图片、flash等的加载而会在仅当DOM加载完成之后就直接去执行js事件；对比来讲window的load会等待所有的元素都加载完毕（包括DOM、样式表、图片、flash等）之后再去执行js事件，显然当图片多的时候使用window的load的话js事件会需要等很长的时间才能被执行，用户体验会非常不好，而document的DOMContentLoaded就不需要等待这么久了，虽然可能图片什么的还没有加载出来，但是下拉框、js交互效果什么的还是能用的，用户体验会比较好</p>
+<p><img src="/js_webapi/fe47b598c086cd7fafe951f127aec5ce.png" alt=""></p>
+<p>另外当document的DOMContentLoaded和window的load写在一起的时候document的DOMContentLoaded会更快一点</p>
+<p><img src="/js_webapi/6ae7f4fa195519e37d5fb1ca0b822479.png" alt=""></p>
+<p>这里的执行顺序是：先跳出33 再跳出22 最后跳出“点击我”</p>
+<h4 id="调整窗口大小事件">调整窗口大小事件</h4>
+<p><img src="/js_webapi/9749114d60531895226ecaa83579fad0.png" alt=""></p>
+<p><img src="/js_webapi/412758cd2d31c37be22bec21afe48127.png" alt=""></p>
+<h3 id="定时器">定时器</h3>
+<p><img src="/js_webapi/645545b4a5edb523b6afd09938157fa5.png" alt=""></p>
+<h4 id="settimeout">setTimeout()</h4>
+<p><img src="/js_webapi/3e9e86966e730cdf9c24e521f832a26f.png" alt=""></p>
+<p><img src="/js_webapi/a9806a264707bbb769859cc469af1359.png" alt=""></p>
+<p><img src="/js_webapi/bf10b643306e4af2f3a717a15d37c366.png" alt=""></p>
+<p><img src="/js_webapi/c3ab7a1d4474d848420b7014fc1502ad.png" alt=""></p>
+<p>直接这么写就好了，不需要再去调用</p>
+<p><img src="/js_webapi/d03565bd173d47e46b5cd8469aeeb016.png" alt=""></p>
+<p><img src="/js_webapi/539b8a17edcc5154c8fa8283275de6bf.png" alt=""></p>
+<h5 id="停止settimeout定时器">停止setTimeout()定时器</h5>
+<p><img src="/js_webapi/83025eace8c7afb777068b34948eb0a3.png" alt=""></p>
+<p><img src="/js_webapi/cf7eff9660619e57ed6846b9c5efec86.png" alt=""></p>
+<p>setInterval() 和setTimeout() 基本一样，区别就在于执行方式不同，setInterval()
+倒计时完了之后会再调用</p>
+<h4 id="setinterval">setInterval()</h4>
+<p><img src="/js_webapi/7cfd204ed2e21231b998d1ac7f04fb91.png" alt=""></p>
+<p><img src="/js_webapi/76113a1ec40de772407bfa16308fe0f9.png" alt=""></p>
+<h5 id="停止setinterval定时器">停止setInterval()定时器</h5>
+<p><img src="/js_webapi/0824dd4e74846ef09d80b1be3a2c00b8.png" alt=""></p>
+<h4 id="案例-1">案例</h4>
+<p>1、五秒之后自动关闭广告</p>
+<p><img src="/js_webapi/bc581098436935e4473b34aa715e9a2c.png" alt=""></p>
+<p>2、京东倒计时器</p>
+<p><img src="/js_webapi/73157b9b2870a2ec219827249a3bcbef.png" alt=""></p>
+<p>这里之所以要提前调用一次countDown()函数是为了防止定时器刚开始的那一秒间隔让元素显示空白</p>
+<p>3、开启和停止定时器</p>
+<p><img src="/js_webapi/b9ec5281b80088ae47f710714bc203a6.png" alt=""></p>
+<p>4、手机验证码发送之后要等待60s才能再次点击的那个按钮的实现</p>
+<p><img src="/js_webapi/e5641c677a6587d0127f1f51209e6d51.png" alt=""></p>
+<h3 id="this指向问题">this指向问题</h3>
+<p><img src="/js_webapi/bb51e9069052871c0af696b7672b8625.png" alt=""></p>
+<p><img src="/js_webapi/d12d8db233599996845935323ccbba03.png" alt=""></p>
+<p><img src="/js_webapi/5fc940d5e1c4ef51826d8c9d15cd1849.png" alt=""></p>
+<p><img src="/js_webapi/e1fa996e9135f275fefd29ee58fd28d5.png" alt=""></p>
+<h3 id="js执行队列">JS执行队列</h3>
+<p><img src="/js_webapi/e0634d64acbb58327dc959e9ba3382e7.png" alt=""></p>
+<p><img src="/js_webapi/8d6f32972b6abb1190ad33bd09140242.png" alt=""></p>
+<p>如果是单线程那么上面的这个程序用户体验就很差了</p>
+<p><img src="/js_webapi/1cca7252706347c8db8541741fdee733.png" alt=""></p>
+<p>所以后来html5提出了js的同步和异步，现在不需要任何更改执行上面的程序打印顺序为：1
+2 3</p>
+<p>我们再看下一个程序</p>
+<p><img src="/js_webapi/7c69943017efce3934f50f8cbdb8939c.png" alt=""></p>
+<p>出乎意料的是，该程序输出结果也为1 2 3</p>
+<p><img src="/js_webapi/2abb9d68f0e080845241207c2babda35.png" alt=""></p>
+<p><img src="/js_webapi/5e02069fb6a0bc122feaf0743362390c.png" alt=""></p>
+<p>这是因为js把同步任务和异步任务分开了，同步任务会被放到主线程执行，而异步任务会被放在任务队列中执行</p>
+<p>注意，这里定时器还是会在主线程执行栈中，而定时器中的回调函数会被放到任务队列中</p>
+<p><img src="/js_webapi/bac42d7cd1a49d408dc4417ac2854543.png" alt=""></p>
+<p><img src="/js_webapi/76fd134dd236f791cd6f4f4433610380.png" alt=""></p>
+<p><img src="/js_webapi/17be8e90e68b3fdd5e8853695ce72c82.png" alt=""></p>
+<p>JS执行机制：先执行主线程中的同步任务，碰到定时器这样的异步任务后先将回调函数放入任务队列中不执行，再继续往下执行主线程中的同步任务，当主线程任务执行完毕后再将任务队列中的异步任务放到执行栈中执行</p>
+<h4 id="有多个异步任务时">有多个异步任务时</h4>
+<p><img src="/js_webapi/f873689b2cdce82b962ad9735e5154a3.png" alt=""></p>
+<p><img src="/js_webapi/8ec7e5fc77ac272e279dc912f1cdeae4.png" alt=""></p>
+<p>像鼠标事件，他是先到异步进程处理器这边的，等用户按下鼠标之后，异步进程处理器才会把该任务加到任务队列里面，如果用户不点鼠标它是不会加到任务队列里面的；</p>
+<p>再比如计时器事件，也是先到异步进程处理这边，等到时间到了之后才会被放入任务队列中</p>
+<p><img src="/js_webapi/3598a33df702849b1fdfdbcfb19a7a4a.png" alt=""></p>
+<p>然后放入任务队列之后还是不执行的，要等到主线程执行栈中任务全部完成之后他才会去任务队列找是否有任务，如果有则拿到执行栈中执行</p>
+<h5 id="事件循环event-loop">事件循环（event loop）</h5>
+<p><img src="/js_webapi/fba0587722746570af12c738c706d6d4.png" alt=""></p>
+<p>我们发现主线程栈会时不时来任务队列查看，有任务的话就拿过来，这个过程叫做事件循环（event
+loop）</p>
+<p><img src="/js_webapi/f436ed2843c26548306112e7fbb07a7d.png" alt=""></p>
+<h3 id="location对象">Location对象</h3>
+<p><img src="/js_webapi/10baa83c8268999c3775d5fd39203af9.png" alt=""></p>
+<p><img src="/js_webapi/5a844d1da5feb4faa5ea5881cab4f119.png" alt=""></p>
+<h4 id="属性">属性</h4>
+<p><img src="/js_webapi/5090b56dc2b613b941e7ec7aae974113.png" alt=""></p>
+<p><img src="/js_webapi/f3a6aaf84db2d6c8142de5ef233b210e.png" alt=""></p>
+<p>这里直接给href赋值就可以完成点击按钮页面跳转功能</p>
+<h4 id="案例-2">案例</h4>
+<h5 id="京东5秒倒计时跳转页面">京东5秒倒计时跳转页面</h5>
+<p><img src="/js_webapi/a988c4f93c539d258217681125594066.png" alt=""></p>
+<h5 id="数据在不同页面之间传递的效果">数据在不同页面之间传递的效果</h5>
+<p><img src="/js_webapi/f9ba3ba33d612610c428123e1d81331d.png" alt=""></p>
+<p><img src="/js_webapi/604a4e34b1e138618699f588e9d687c3.png" alt=""></p>
+<h4 id="location对象的方法">location对象的方法</h4>
+<p><img src="/js_webapi/9c1ba39d23122bef9b78b4afefc32fdb.png" alt=""></p>
+<h5 id="locationassign">location.assign()</h5>
+<p><img src="/js_webapi/c4ebf7e538c2832b3b639a1f38fd29fe.png" alt=""></p>
+<p>记录浏览器历史，所以可以实现后退功能</p>
+<h5 id="locationreplace">location.replace()</h5>
+<p>不记录浏览器历史，所以不可以实现后退功能</p>
+<h5 id="locationreload">location.reload()</h5>
+<p>相当于浏览器中的刷新按钮，刷新页面</p>
+<p><img src="/js_webapi/e28190cb38225a88a5daf911e3941545.png" alt=""></p>
+<p>网页在打开过一次之后系统会将图片等存入缓存，那么在下一次再次打开页面的时候就会非常快速了，但是有时候我们不想要使用这些缓存，这个时候在reload()中写true，表示强制刷新，相当于浏览器的ctrl+F5
+强制刷新页面</p>
+<p><img src="/js_webapi/9ad7ae48f74c2c2cfa5aea2dce3d1827.png" alt=""></p>
+<p>有时候我们在写页面的时候他的样貌总是不对可能就是缓存的问题，可能强制刷新一下就可以出来了</p>
+<h4 id="navigator">navigator</h4>
+<p><img src="/js_webapi/e0ed2a781e98eecb05715e1246e1ac78.png" alt=""></p>
+<p>user-agent就可以从这里获取</p>
+<p><img src="/js_webapi/073545e578d24e0b7c6b2673d5452110.png" alt=""></p>
+<p>这里用了正则表达式去判断user-agent里面的终端信息，从而判断到底是打开手机端还是电脑端</p>
+<p>为了方便拷贝，代码如下：</p>
+<p><strong>if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows
+Phone)/i))) {</strong></p>
+<p><strong>window.location.href = “”;</strong>  <strong>//手机</strong></p>
+<p><strong>}else{</strong></p>
+<p><strong>window.location.href = “”; //电脑</strong></p>
+<p><strong>}</strong></p>
+<h4 id="history对象">history对象</h4>
+<p><img src="/js_webapi/e031e91fcedd7e72aab3e71a39238a71.png" alt=""></p>
+<p>这个back()和forward()其实就是浏览器中的后退和前进</p>
+<p><img src="/js_webapi/0c3132a3c5cea4527f490dce67ad7953.png" alt=""></p>
+<p><img src="/js_webapi/24c5300468f2b7d5fefc377b7e9129bb.png" alt=""></p>
+<p>go的话写起来更加方便，直接写go(1)或者go(-1)</p>
+<p><img src="/js_webapi/b63fe78cd4982a99ff9216f558e62ab9.png" alt=""></p>
+<p>history一般很少使用，但是如果开发的是OA(office application)系统就会用得到了</p>
+<p><img src="/js_webapi/72c6161037429a41efe971db1c71ec5e.png" alt=""></p>
+<h3 id="pc端网页特效">PC端网页特效</h3>
+<h4 id="元素偏移量offset系列">元素偏移量offset系列</h4>
+<p><img src="/js_webapi/25dc9c5173a46cef0b9ea893a3d3da60.png" alt=""></p>
+<h5 id="offsettop和offsetleft">offsetTop和offsetLeft</h5>
+<p><img src="/js_webapi/133f30279d32c9807cc96319ee17124d.png" alt=""></p>
+<p>JS可以动态获取元素的css中的一些定位的值</p>
+<p>需要注意的是，如果父元素没有定位的，子元素的定位信息会以body为准：</p>
+<p><img src="/js_webapi/d0c602f9e3c8bb96ebb9ef6efb486a37.png" alt=""></p>
+<p>这里紫色的盒子距离左边框的距离是150 + 45 = 195px</p>
+<p>如果非要得到子元素左边框距离父元素左边框的距离，应该要去父元素的css中添加定位为relative</p>
+<p><img src="/js_webapi/4ee4be97b346cbb56e88ffc32c08cb3d.png" alt=""></p>
+<p>这样上面紫色盒子距离左边框的距离就会是45px了</p>
+<h5 id="offsetwidth和offsetheight">offsetWidth和offsetHeight</h5>
+<p><img src="/js_webapi/1638e6520a932e85803603dc7349aa5d.png" alt=""></p>
+<p>需要注意的是，这里获得的宽度和高度包含了padding和border值，但是不包含margin值，也就是说如果给元素添加了padding和border值，那么获取的width和height就会变大，但是margin值是不会影响他们的</p>
+<p>那我们思考，其实这些值我们直接从style中也可以获取，那么为什么还需要这两个函数呢？其实有一种情况，就是我们把元素的css中的width或height去掉，那从style中就很难获取这些信息了，这个时候就需要借助这两个函数：</p>
+<p><img src="/js_webapi/d3c3bb76a61ca79b15a86db2d5a22b5f.png" alt=""></p>
+<h5 id="offsetparent">offsetParent</h5>
+<p><img src="/js_webapi/b4ab202d26b7d7e0aef04bcea1896d20.png" alt=""></p>
+<p>offsetParent在父亲没有定位的时候返回的是body，在父亲有定位的时候返回的是父亲</p>
+<p>这里就要和parentNode进行区别了</p>
+<p><img src="/js_webapi/516ba2af61d275cfecc6717b770959b7.png" alt=""></p>
+<p>parentNode返回的是亲爸爸，不管他有没有定位；而offsetParent返回的是有定位的爸爸，如果亲爸爸没有定位，就往上找爷爷，以此类推直到最后找到有定位的上级或者body</p>
+<h5 id="offset和style的区别">offset和style的区别</h5>
+<p><img src="/js_webapi/c2cc9bbcd84b1163a490816661fd3728.png" alt=""></p>
+<p>1、style不能获得内嵌样式表，只能获得行内样式表。比方说我们写在head中的或者从外部引入的css样式，那么style是获取不到的；而我们的offset不仅可以获取行内样式表，还可以获取内嵌样式表；</p>
+<p>2、offset获取的数值是不带单位的，而style获取的数值是带单位的；</p>
+<p>3、offsetWidth包含padding+border+width，而style.width不包含padding和border；</p>
+<p>4、offsetWidth等属性是只读的，不能修改，而style.width等是可读写属性，是可以获取也可以赋值的；</p>
+<p><strong>所以，以后如果我们想要获取元素的属性，用offset比较合适；如果我们想要给元素更改属性，则需要用style去改变</strong></p>
+<h5 id="案例-3">案例</h5>
+<p>1、</p>
+<p><img src="/js_webapi/373a248d6f9cca6d0a2200b0f47fbd36.png" alt=""></p>
+<p><img src="/js_webapi/3c8451523002ea2e2ef71ae30a493e38.png" alt=""></p>
+<p><img src="/js_webapi/379c8326571dcb018f07512996853002.png" alt=""></p>
+<p>当然也可以使用mousemove事件</p>
+<p>2、</p>
+<p><img src="/js_webapi/00aa3fa98b2d1005633dec017acfd112.png" alt=""></p>
+<p><img src="/js_webapi/1a4ac3a6dec1bac5243476b279730f36.png" alt=""></p>
+<p>下面这个js是老师写的，上面的html是自己的，可能会有不对应的地方</p>
+<p><img src="/js_webapi/8b9c06e7b7df14deed358905b6d82cb5.png" alt=""></p>
+<p>重点：接下来做拖拽效果</p>
+<p><img src="/js_webapi/59fac17d55a7fae6ed526e1204d5c0ef.png" alt=""></p>
+<p><img src="/js_webapi/4dfb67ac498f4b353202077544156ab9.png" alt=""></p>
+<p><img src="/js_webapi/6b539259f618f4dc36f2121396ebb734.png" alt=""></p>
+<p>这个px千万别忘了</p>
+<p>最后再编写mouseup事件</p>
+<p><img src="/js_webapi/cbe7d6f83ed41c148ea10baf307e327d.png" alt=""></p>
+<p>3、京东鼠标放大镜案例</p>
+<p><img src="/js_webapi/d0cba9471a027a8163fcdb666795937e.png" alt=""></p>
+<p>原理：</p>
+<p>添加两个div，一个是上图黄色的mask，一个是上图被放大的图片，这里涉及到绝对定位，子绝父相</p>
+<p>之后每当鼠标放到图片上，指针就变可移动图标，并且黄色mask跟随鼠标移动，被放大的图片也随之移动</p>
+<p><img src="/js_webapi/5e7157604e99adf9b832e10751b1d8d2.png" alt=""></p>
+<p>由于本案例js较多，因此我们将js移出去</p>
+<p><img src="/js_webapi/7223ca21d3366a02e4f60778a15349a2.png" alt=""></p>
+<p>接下来制作黄色盒子跟随鼠标移动。</p>
+<p><strong>注意！
+由于黄色盒子和他的父盒子用了子绝父相，因此黄色盒子的left和top是以他的父亲为基准定的，因此这个移动事件跟前面那个是有区别的，当然原理还是一样的，所以当遇到这种问题的时候应该先分析，到底这个盒子的left和top是怎么来的，如何通过计算正确给他们赋值，之后再下手写算法。</strong></p>
+<p><img src="/js_webapi/fa681a5d6679de3a2c0070c195348093.png" alt=""></p>
+<p><strong>但是，下一个问题来了，我们要拿到下图黄色盒子与紫框框的相对距离应该是用鼠标坐标去减去紫框框的left和top值，但是我们不能直接减紫框框的css中的属性，还是要分析紫框框是否自己也是子绝父相，如下面的两张图，如果他自己也是的话那就不能这么减了，所以具体问题还是要具体分析！那么一般遇到这种情况可以通过chrome一级一级查看他们的父亲，如果他们的父亲全部没有定位，那么好消息，直接减就行了，如果有，那只能一步一步减。</strong></p>
+<p><img src="/js_webapi/4977d15c21ff39bdee21f617ec39be73.png" alt=""></p>
+<p><img src="/js_webapi/e05752a54b745dce9f073af318dd15db.png" alt=""></p>
+<p>本案例黄盒子的父亲们没有子绝父相，所以直接减就行</p>
+<p><img src="/js_webapi/310c75cebf88037251408cdc52b62192.png" alt=""></p>
+<p>这里我们发现鼠标跟黄盒子左上角对齐了，但是我们希望鼠标在黄盒子中心，这个时候可以减去黄盒子宽高的一半，即.offsetWidth
+/ 2和.offsetHeight / 2</p>
+<p><img src="/js_webapi/5cc013bbb4374f369194b6eff1a5de5f.png" alt=""></p>
+<p>接下来我们让黄盒子出不了父盒子</p>
+<p><img src="/js_webapi/0205bdab1cf62b5bea66648179fe2eb9.png" alt=""></p>
+<p><img src="/js_webapi/0e4e4ef84f038523824957d20fcd630c.png" alt=""></p>
+<p><img src="/js_webapi/e966db14380003b8de6dbd997c85fc0f.png" alt=""></p>
+<p>接下来制作大图片跟随黄盒子覆盖的区域显示，</p>
+<p>由于大盒子的图片 : 小盒子的图片 = 2 : 1</p>
+<p>所以可以设大盒子移动的距离为x，那么就有如下公式：</p>
+<p><img src="/js_webapi/81b03dd0db23e1f11412f2302037ed82.png" alt=""></p>
+<p><img src="/js_webapi/cfeb9ab413e812a50d8c7549da31e7d9.png" alt=""></p>
+<p>根据公式：</p>
+<p><img src="/js_webapi/0229de11dd592f4bdbb5f25f37baab7a.png" alt=""></p>
+<p>首先求遮挡层最大移动距离</p>
+<p><img src="/js_webapi/16b91da62c5daa02cc163a248b5eb69b.png" alt=""></p>
+<p>然后求大图片最大移动距离（大图片的宽度-装大图片的大框的宽度）</p>
+<p><img src="/js_webapi/9f7b343b550c8a8b0cbb35c1b98e203a.png" alt=""></p>
+<p>最后计算大图片的移动距离，算完之后赋值即可</p>
+<p><img src="/js_webapi/edd2342b7da58368919921e579c298fe.png" alt=""></p>
+<p>启动之后发现图片没动，那是因为我们修改的是他的left和top值，而图片没有添加定位属性，添加后即可</p>
+<p><img src="/js_webapi/eca34b13b79e3b313c613a82d3cbb8a4.png" alt=""></p>
+<p>但是问题又出现了，我们发现大图和小图的移动应该是反方向的，所以进行修改：</p>
+<p><img src="/js_webapi/3748ee780b577b31ef5c9a944de106da.png" alt=""></p>
+<h4 id="元素可视区client系列">元素可视区client系列</h4>
+<p><img src="/js_webapi/bb8b460a6ae0b74e29d1af61224d62c2.png" alt=""></p>
+<p><img src="/js_webapi/301878efec96361321c0fb0d1d01f349.png" alt=""></p>
+<h5 id="clienttop">clientTop</h5>
+<p>注意是上边框的大小</p>
+<h5 id="clientleft">clientLeft</h5>
+<p>注意是左边框的大小</p>
+<h5 id="clientwidth">clientWidth</h5>
+<p>注意不包括border大小但是包括padding+width大小</p>
+<h5 id="clientheight">clientHeight</h5>
+<p>注意不包括border大小但是包括padding+height大小</p>
+<h5 id="淘宝flexiblejs源码分析">淘宝flexible.js源码分析</h5>
+<p><img src="/js_webapi/810c2b37f5f1fe0c9238090b663ded8f.png" alt=""></p>
+<p><img src="/js_webapi/63fbaede0c4601eddbac4155b36a13c3.png" alt=""></p>
+<p>它可以创建一个独立作用域，避免了命名冲突</p>
+<h6 id="立即执行函数">立即执行函数</h6>
+<p><img src="/js_webapi/a2293146352e89e1d5f17e28f508d537.png" alt=""></p>
+<p><img src="/js_webapi/1eb53511a13e59c87d33f4e981960d62.png" alt=""></p>
+<p>如果直接写function(){}或者funtion(){}()是会报错的，所以要么写(function(){})()要么写(function(){}())</p>
+<p><img src="/js_webapi/5f36f258d754e31428e2c5c80f14cb5b.png" alt=""></p>
+<p><img src="/js_webapi/6680538da0a28ee39d42fe56406da65e.png" alt=""></p>
+<p>注意，这样的写法在最后一定要加 ; 否则可能会出错（养成好习惯，都加就行了）</p>
+<p><img src="/js_webapi/9f30823aa77c109260c1c45407cb3625.png" alt=""></p>
+<p>还可以给函数加名称</p>
+<p><img src="/js_webapi/225875ca2eb3cb0aa82425bab7a0d24f.png" alt=""></p>
+<p>里面的所有变量都是局部变量，所以不会有命名冲突的情况</p>
+<h6 id="windowdevicepixelratio">window.devicePixelRatio</h6>
+<p>dpr
+物理像素比，一般在pc端是1（就是我真实的是1，他显示的也是1），在移动端是2（就是我真实的是1，他显示的是2）</p>
+<p><img src="/js_webapi/fddabb55585282e2ce87fe71c73608b8.png" alt=""></p>
+<p><img src="/js_webapi/12e6b358dec43c2eaddb345403ee329e.png" alt=""></p>
+<p><img src="/js_webapi/9a9c5104e3d3521889eb38d02a60af9b.png" alt=""></p>
+<h6 id="pageshow与load事件">pageshow与load事件</h6>
+<p><img src="/js_webapi/c8ee5bafa064f05aeace1c4cb94dc213.png" alt=""></p>
+<p>有一种情况就是类似火狐的页面缓存，比方说我们写了load事件，到最后的时候设置页面会打印“go”，但是像有页面缓存的火狐当我们再次到这个页面（可能是前进后退键的方式回到这个页面的）的时候他是不会在页面打印“go”的，那么为了解决这种情况，我们可以使用pageshow事件，pageshow事件在load事件触发后触发，无论页面是否来自缓存他都会在页面显示时触发。注意这个事件是给window添加的。</p>
+<p>另外，我们还可以利用事件对象中的persisted（function(e){e.persisted}）来判断是否是缓存中的页面触发的pageshow事件</p>
+<p><img src="/js_webapi/72a263411c0ab3d6f394279347efaa50.png" alt=""></p>
+<p>这里的e.persisted应该是如果是有缓存页面而且触发了缓存页面的话才会有值，像chrome这样的本身就没有缓存，就算触发了pageshow事件，他的e.persisted也是未定义状态是不会触发下面的setRemUnit()函数的。</p>
+<p>总之，这里的resize和pageshow事件目的都是触发setRemUnit()，也就是重新设置页面大小。</p>
+<h6 id="解决有些浏览器不支持05像素的写法">解决有些浏览器不支持0.5像素的写法</h6>
+<p><img src="/js_webapi/783e1dab24c38bf58fc8e0512b338541.png" alt=""></p>
+<h4 id="元素滚动scroll系列">元素滚动scroll系列</h4>
+<p><img src="/js_webapi/5e24f15c179c27188ef3eac76a7b6463.png" alt=""></p>
+<h5 id="scrollheight">scrollHeight</h5>
+<p><img src="/js_webapi/dbe3e99dc7b7ee5cb4714b409fe1ca4c.png" alt=""></p>
+<p><img src="/js_webapi/f7a7fac1a9cb18b5d129e23cf490b76f.png" alt=""></p>
+<p>我们发现scroll系列属性和client系列属性很像。</p>
+<p>上图就是scrollHeight和clientHeight的区别，scrollHeight是内容实实在在的实际高度，clientHeight只是包含内容的盒子的高度</p>
+<p><img src="/js_webapi/8e41870fe0830ac2612ae4e9a748e049.png" alt=""></p>
+<p>注意scrollHeight是内容顶部到边框下沿的长度：</p>
+<p><img src="/js_webapi/1b11661972ad8ebe197012c4271d8362.png" alt=""></p>
+<h5 id="scroll事件">scroll事件</h5>
+<p><img src="/js_webapi/0fe66b666b51790c78d39b042bfaa953.png" alt=""></p>
+<p><img src="/js_webapi/807516834816d6b2dac867d55cc96c04.png" alt=""></p>
+<p><img src="/js_webapi/18b812596ed8ee023317d271291230c7.png" alt=""></p>
+<h5 id="案例-4">案例</h5>
+<p><img src="/js_webapi/e73d5aa421c824f7da2c87e2152bbb8a.png" alt=""></p>
+<p><img src="/js_webapi/c54731c1ce39c589f7c1c212423de149.png" alt=""></p>
+<h6 id="pageyoffset">pageYOffset</h6>
+<p>可以获取页面被卷去的上部的值</p>
+<h6 id="pagexoffset">pageXOffset</h6>
+<p>可以获取页面被卷去的左侧的值</p>
+<p><strong>注意，元素被卷去的头部是element.scrollTop，如果是页面被卷去的头部则是window.pageYOffset</strong></p>
+<p><img src="/js_webapi/450a0c9d6253ec1c845cebeaf4112d03.png" alt=""></p>
+<p>上面这个172写死有点不好，其实他就是某一个模块的offsetTop值（这里是banner的offsetTop）</p>
+<p><img src="/js_webapi/12869fd387166ba0020af354cb3f3275.png" alt=""></p>
+<p>注意这里banner.offsetTop一定要写到滚动的外面，因为滚动的时候这个值可能会变</p>
+<p>还有一个问题，我们的sliderbar在改为fixed之后突然跳到下面了，那是因为sliderbar原先是absolute绝对定位且本身有个top:300px属性，突然改为fixed之后top值没改，因此一下子跳到距离body上沿300px的地方了，解决方法很简单，修改top的值即可</p>
+<p><img src="/js_webapi/66ccc87b5cacbf9cd8b459fe890a49cb.png" alt=""></p>
+<p>这里的top值应该改为sliderbar的top值减去banner的top值</p>
+<p><img src="/js_webapi/84b090e053ce1f7c3e719606ff4dcd02.png" alt=""></p>
+<p><img src="/js_webapi/667ce7261a34b267badaaa4759375a2b.png" alt=""></p>
+<p>切记要加 ‘px’</p>
+<p>接下来我们制作goback模块</p>
+<p><img src="/js_webapi/c5250f946c5c8874ae380debf37caba4.png" alt=""></p>
+<p><img src="/js_webapi/0ff2e3bc0ec40757f5261cb5a94b4267.png" alt=""></p>
+<p><img src="/js_webapi/b06952ddbf1a8e64bfebf128025ebace.png" alt=""></p>
+<h6 id="解决pagexoffset和pageyoffset的兼容性问题">解决pageXOffset和pageYOffset的兼容性问题</h6>
+<p><img src="/js_webapi/414d6aa6d13b51795ed01baf4fc3cd12.png" alt=""></p>
+<p>其实现在也不在乎兼容性问题了，直接用最新的就好</p>
+<p>####### DTD</p>
+<p><img src="/js_webapi/3afb9ba947fef59180c1264fee2f7b6e.png" alt=""></p>
+<p>html页面加了这个就是声明了DTD，没加就是没声明</p>
+<h4 id="三大系列总结">三大系列总结</h4>
+<p><img src="/js_webapi/a6d35ac58178282c3ff36afeb4c75c09.png" alt=""></p>
+<p><img src="/js_webapi/2cea73854567189eac1b17c279b5a960.png" alt=""></p>
+<h4 id="鼠标事件补充">鼠标事件补充</h4>
+<h5 id="mouseover和mouseenter的区别">mouseover和mouseenter的区别</h5>
+<p><img src="/js_webapi/b4df3aa3eac720458a726a4a206c19ab.png" alt=""></p>
+<h4 id="动画函数封装">动画函数封装</h4>
+<p><img src="/js_webapi/614ee934c98ee02a0e39940124f4ccbd.png" alt=""></p>
+<p><img src="/js_webapi/2f7bfb9789675b0368eb1ef47c0cb72d.png" alt=""></p>
+<h5 id="封装">封装</h5>
+<p><img src="/js_webapi/bb60250f1cf7ceba5ef428c707255152.png" alt=""></p>
+<h5 id="不同的元素记录不同定时器">不同的元素记录不同定时器</h5>
+<p><img src="/js_webapi/b8ce280d76f3bf6c6364ec6dfaf08652.png" alt=""></p>
+<p><img src="/js_webapi/90870be0b36b70c096d32a09b6bc1b08.png" alt=""></p>
+<p>这里每当我们调用函数我们的程序都会到内存中给timer开辟一块空间，如果调用次数过多会造成空间浪费，其次每个对象调用该函数的时候他的定时器都叫timer容易引起歧义，对此我们可以利用对象的特性解决这个问题</p>
+<p><img src="/js_webapi/15ef61a2bd44f237f67d3310953f1760.png" alt=""></p>
+<p>这样写的好处第一因为这个timer只是obj的属性，我们不会再为每一个调用者到内存中开辟一块timer空间；第二这个timer是每一个调用者自己的属性，不会引起歧义</p>
+<p>接下来我们给动画设置按钮，要求用按钮启动动画，但是发现一个bug，当我们多次点击按钮之后，这个div移动的速度越来越快，那是因为每点击一次就给他设置了一个定时器，多个定时器叠加后就会出现这个问题</p>
+<p><img src="/js_webapi/e324dcbc2de54e0dcdf4e9529aa4dcbd.png" alt=""></p>
+<p>代码的解决方案就是每一次启动我先给你清除原先的定时器</p>
+<p><img src="/js_webapi/ebb9c64390b8fbbb15890ffeff2fd86e.png" alt=""></p>
+<h5 id="缓动效果原理">缓动效果原理</h5>
+<p><img src="/js_webapi/2b58b0bf6c7015becc63ff76283ba4b2.png" alt=""></p>
+<p><img src="/js_webapi/757a342bb9adef408f34197d9afb1f45.png" alt=""></p>
+<p><img src="/js_webapi/eab60e23b2d3fb9b38df41f0ec040dfe.png" alt=""></p>
+<p>我们发现这个left不是整数，这会很难看，给它向上取整就行了</p>
+<p><img src="/js_webapi/83a9be4f0fe5f7e52175cd266e805c58.png" alt=""></p>
+<p><img src="/js_webapi/a4dae62966a8360ccef110a215ea83a1.png" alt=""></p>
+<p>这个距离移动公式非常厉害，我们可以写两个按钮一个让盒子移动到500，一个让盒子移动到800，当我们再点击500的按钮的时候他还能自己回来，而且效果跟过去是一样的，但是有一个bug，回来的时候不是500那个位置了，而是509，这是因为我们向上取整了，负数向上取整的时候出的错</p>
+<p><img src="/js_webapi/abc2abf79c8cf1370762361df4692ee3.png" alt=""></p>
+<p>调整一下取整的方式就好了</p>
+<p><img src="/js_webapi/3272d72a4e9670680c59a97d8449a93a.png" alt=""></p>
+<h5 id="在封装的动画函数中添加回调函数">在封装的动画函数中添加回调函数</h5>
+<p><img src="/js_webapi/22e9edb6084592fe6f60586de98c7513.png" alt=""></p>
+<p><img src="/js_webapi/92ae45de426e729e6e4dfd2f801bd8a2.png" alt=""></p>
+<p><img src="/js_webapi/06581948a6f65c39cff207ae480b88e3.png" alt=""></p>
+<p>如果不写到定时器结束的位置，那这个函数只是一个普通的函数，只有写到回调函数后面他才是一个回调函数</p>
+<p><img src="/js_webapi/1af7112e374bba0329382d510fcdf2bd.png" alt=""></p>
+<p><img src="/js_webapi/6671a293fde278ea6754041346660f9c.png" alt=""></p>
+<h5 id="将动画函数写到单独的js文件中下次调用直接引入即可">将动画函数写到单独的js文件中，下次调用直接引入即可</h5>
+<p><img src="/js_webapi/534f0ca67d0e9a32dacff0358e557fe0.png" alt=""></p>
+<h5 id="案例-5">案例</h5>
+<p>1、</p>
+<p><img src="/js_webapi/578894b86951507aea44cdf628324f49.png" alt=""></p>
+<p><img src="/js_webapi/c4620816c9c09bcd28c4d82dde02a04f.png" alt=""></p>
+<p><img src="/js_webapi/fdac0dbd7eab18675ed9e9e4bf5cd6ea.png" alt=""></p>
+<p>计算紫盒子移动的距离：</p>
+<p><img src="/js_webapi/b79c2db5601607b54c0a585dbe669e70.png" alt=""></p>
+<p>200 – 40 = 160px ，由于是向左移动，所以是负值</p>
+<p><img src="/js_webapi/c545ed97f43bea22f044a8cdc0133eb2.png" alt=""></p>
+<p><img src="/js_webapi/95d60a1ba7e6cbc98e98b3a311559cd4.png" alt=""></p>
+<p>最后我们再将上面的紫盒子弹出来之后将右侧的指向左侧的箭头改为指向右侧</p>
+<p><img src="/js_webapi/b2db16339fc40c73a88b8d0f2486faf1.png" alt=""></p>
+<p>2、轮播图</p>
+<p><img src="/js_webapi/69ac9e5c132581607a3be419c6a36402.png" alt=""></p>
+<p>上图的ul中只有一个li，我们给他多加几个：</p>
+<p><img src="/js_webapi/c9b9907da2bb921985488d2bae593d24.png" alt=""></p>
+<p>结果这几张图片是竖下来的，原因是没加float，</p>
+<p>但是加了float他还是竖下来的，原因是父盒子太小了，a标签的大小默认是随父盒子ul的，因此还要将父盒子的width单独设置大一些：</p>
+<p><img src="/js_webapi/08a47c9fc552038363b1405c19d43367.png" alt=""></p>
+<p><img src="/js_webapi/e9d882a64fc3369108055e1025cee897.png" alt=""></p>
+<p><img src="/js_webapi/619218c138b22406a45599caa85a3f57.png" alt=""></p>
+<p><img src="/js_webapi/e05468861f4560ff0f75347a96e69042.png" alt=""></p>
+<p><img src="/js_webapi/a0c44fee65a74a7625a8c7bb6ed439fb.png" alt=""></p>
+<p><img src="/js_webapi/fd08f34ffe1f8b5e3778445643dd6d4f.png" alt=""></p>
+<p><img src="/js_webapi/b5c2cd3525b12c8f0d1ea6d60ed7add6.png" alt=""></p>
+<p><img src="/js_webapi/961e3a35e83a21f66b58b9894cb6f375.png" alt=""></p>
+<p><img src="/js_webapi/524acbad6b2e9cf5a39ab32ba264757b.png" alt=""></p>
+<p>注意这里要先引入animate.js再引入index.js，因为index.js是依赖animate.js的</p>
+<p>首先搞清楚是ul移动而不是li移动，然后给ul添加position:absolute</p>
+<p><img src="/js_webapi/3d7f4ee2ca5f055212c812baebfb7e03.png" alt=""></p>
+<p>那么小圆圈是怎么跟图片联系起来的呢？显然只能是index，我们在添加小圆圈的时候给小圆圈设置index属性，然后在点击事件里面获取即可，之后用index去乘以一张图片的宽度再取负值即可算出图片移动的距离，然后调用我们的animate函数</p>
+<p><img src="/js_webapi/08598c4135068f55370d083f6fdae384.png" alt=""></p>
+<p><img src="/js_webapi/3162b67d4d7fa8a73120e2e68121dbae.png" alt=""></p>
+<p>后来显示图片的时候我们会发现两侧的左滑右滑按钮不见了，那是因为给ul加了定位，解决方案就是给左滑右滑按钮添加z-index属性</p>
+<p>然后我们发现我们的a标签按下之后url后面会带一个 #
+而且页面会跳回到最顶部，解决方法就是把a标签的href内容由 ## 改为javascript:;</p>
+<p><img src="/js_webapi/6ba7257c6006339c5f66b488ceae2748.png" alt=""></p>
+<p><img src="/js_webapi/3478b280b27c09b4660d037a23910790.png" alt=""></p>
+<p>这里focusWidth之前是局部变量，这里我们干脆直接把他拿出来变成全局变量了，不然用不了</p>
+<p><img src="/js_webapi/6163efa703fa2a3a8ad8aa5985fddc3b.png" alt=""></p>
+<p>这里又来了一个bug，当图片已经到最后一张的时候，我们再次点击右滑键，它会显示上图这个画面（其实就是图片下面被盖住的那层被显示出来了，简单来讲就是图片移过头了）</p>
+<h6 id="无缝滚动">无缝滚动</h6>
+<p>事实上淘宝他们的是无缝滚动，实现原理其实很简单就是复制一个li到最后，然后当用户点击右滑键的时候先跳到最后一张复制的li，当再次点击的时候直接将ul的top改为0px，即可实现该效果</p>
+<p><img src="/js_webapi/b3fec695e27abd878dd5b3a3aabcbeac.png" alt=""></p>
+<p>当然了num别忘了再赋值为0</p>
+<p><img src="/js_webapi/f22bf463d7a90e337867f5ddf26b5368.png" alt=""></p>
+<p><img src="/js_webapi/2288de1796f176201500a0aa70799f97.png" alt=""></p>
+<p>这里又来了个新问题，就是我们的小圆圈是根据图片的数目自动生成的，但是我们给ul最后加了一个li，导致真实图片有4张但是我们的li却有5个，其实我们可以让js来复制这最后的li</p>
+<p><img src="/js_webapi/682923eba8cd1d312a7b791a18096b64.png" alt=""></p>
+<p><img src="/js_webapi/14fba9225a43f715caadd48ef6cda54a.png" alt=""></p>
+<p>最后我们将ul的overflow改为hidden</p>
+<p>现在我们来写点击右滑键之后小圆圈的动态变化</p>
+<p><img src="/js_webapi/052eb245f6de9c99509b85fd69a24cb3.png" alt=""></p>
+<p>先定义全局变量circle</p>
+<p><img src="/js_webapi/d73f0fed2c81c425b7c676b668523f34.png" alt=""></p>
+<p>然后bug又出现了，当我们先点击小圆圈来跳转页面之后再点击右滑键会发现图片竟然没有跳到下一张而是跳到了不是我们希望跳转到的那一张（反正就是没有跳到下一张）</p>
+<p>解决方法其实很简单，就是在点击li事件获取它的index之后将我们的全局变量赋值为li的index值（其实思路就是li的点击事件和右滑键的点击事件两者的控制li的index给他同步就行了）</p>
+<p>但是这时候li的颜色变化还是不对，我们选中了第三个小li，但是实验发现点击右滑键的时候第二个li亮了，其实只需要将控制li变亮的index也给他赋值为点击li事件得到的该li的index即可</p>
+<p><img src="/js_webapi/f09894e75db0353144723c12761fe3bb.png" alt=""></p>
+<p>这里也可以连写</p>
+<p><img src="/js_webapi/c0fec7877936c4c3548946352555eb06.png" alt=""></p>
+<p>然后我们会发现这一块有一个小空隙</p>
+<p><img src="/js_webapi/ad308f72d5e435d5398e99a2bfb0890d.png" alt=""></p>
+<p>这是因为框框的宽度和一张照片的宽度不一致，导致翻页的时候越翻这个空隙越大，我们给他俩改一致就不会有这个空隙了</p>
+<p>下一步制作左滑按钮</p>
+<p><img src="/js_webapi/62dd7bc524852a96b097016a132043c6.png" alt=""></p>
+<p><img src="/js_webapi/f5eab418084841c03f73d9bf560f2448.png" alt=""></p>
+<p>还可以用三元表达式</p>
+<p><img src="/js_webapi/7891a894c4dc852df16f2e5734a3c5dc.png" alt=""></p>
+<p>如果有重复的代码就给他封装出来</p>
+<p>接下来制作自动播放功能</p>
+<p><img src="/js_webapi/b69fd2313cb36d2da540ed9b7d0fb68e.png" alt=""></p>
+<h6 id="手动调用点击事件">手动调用点击事件</h6>
+<p>xxx.click()</p>
+<p><img src="/js_webapi/77f21c4ea25a32aa4ffcd53d5788fc69.png" alt=""></p>
+<p>由于自动播放与点击右滑键十分相像，所以我们直接手动调用点击事件触发右滑键就可以了</p>
+<p><img src="/js_webapi/5279e04a42c90329676a969731f99b63.png" alt=""></p>
+<p><img src="/js_webapi/3068ef2e4e56762c7639b24f660e88ca.png" alt=""></p>
+<p>要养成良好的编程习惯，没用了的变量及时置为null</p>
+<p><img src="/js_webapi/32d5adf7ce7455955b1722ba02df3a26.png" alt=""></p>
+<h6 id="节流阀">节流阀</h6>
+<p><img src="/js_webapi/f318c2b08545ae11fb5a8c3221988a69.png" alt=""></p>
+<p><img src="/js_webapi/a47217671b6afd7b0c886cbe29eac5e6.png" alt=""></p>
+<p><img src="/js_webapi/389d4cbc7121b212d9fd6c42d074cb6e.png" alt=""></p>
+<p>这里用到了animate的回调函数，这里的回调函数只会在动画执行完毕之后才会执行，因此我们把flag=true放在这里</p>
+<p>3、按钮返回顶部（优雅地）</p>
+<p><img src="/js_webapi/6cd2055bf4c0c2ce125c5d77a8bb8911.png" alt=""></p>
+<h6 id="windowscrollx-y">window.scroll(x, y)</h6>
+<p><img src="/js_webapi/5985ccdbd9b5972d8d5af2c7375695e4.png" alt=""></p>
+<p>注意，这里的scroll里面的x， y是不带单位“px”的</p>
+<p><img src="/js_webapi/e6c24b7c353fbeb13358d86802e0130c.png" alt=""></p>
+<p>由于这里我们的animate.js已经被引入了，因此我们直接把他复制粘贴到主项目下进行修改</p>
+<p><img src="/js_webapi/89cc4ab73270fd827ed85ad5a96fa346.png" alt=""></p>
+<p>这里就看着改吧，搞清楚是哪一块在动（这里的话明显是整个document在动），注意别漏了就行</p>
+<p>然后需要注意，这里是整个document在scroll，而不是某个元素的top或left值在变，所以别忘了在这里要改一下。然后就是scroll不需要加’px’
+这个也需注意</p>
+<p><img src="/js_webapi/4b975884d23c6298e405efb2817b4c8a.png" alt=""></p>
+<p>最后再调用</p>
+<p><img src="/js_webapi/de7db57268c231ed1f7eb6cbc85190ea.png" alt=""></p>
+<p>4、筋斗云案例</p>
+<p><img src="/js_webapi/746b6dce9626114cf0b81c7188a7caf1.png" alt=""></p>
+<p><img src="/js_webapi/056f775865cafc0cc3478dc348917eef.png" alt=""></p>
+<p><img src="/js_webapi/abbef43826aa2f9ad506ba916ef01477.png" alt=""></p>
+<p><img src="/js_webapi/034398aafa95de9edb33119105c6306d.png" alt=""></p>
+<h2 id="移动端特效">移动端特效</h2>
+<p><img src="/js_webapi/5d4d20ebd1437ea8857d72ff968716c0.png" alt=""></p>
+<p>移动端的head上面要加这几行（目前还不知道什么意思，可能是移动端的全局基础属性配置），只知道中间那一行的user-scalable=no表示用户无法将页面放大缩小（一般是为了解决移动端click会有延时300ms的问题，这个问题在下面有说到）</p>
+<h3 id="触屏事件">触屏事件</h3>
+<p><img src="/js_webapi/172c6aa6ea0e68b772579a8a5338b8b1.png" alt=""></p>
+<h4 id="touchstart">touchstart</h4>
+<p><img src="/js_webapi/ad2639ffa23dd18dd2de02490f8de3d9.png" alt=""></p>
+<h4 id="touchmove">touchmove</h4>
+<p><img src="/js_webapi/fa90d4321196fa7c7126f148740e792f.png" alt=""></p>
+<h4 id="touchend">touchend</h4>
+<p><img src="/js_webapi/42ec4429def3e48182e32a4f91ee985c.png" alt=""></p>
+<h3 id="touchevent">TouchEvent</h3>
+<p><img src="/js_webapi/e5b184f503ee79cc5bbde81748e45a5b.png" alt=""></p>
+<p><img src="/js_webapi/47b5ca01d9956f8a76a2e6de5ca096ea.png" alt=""></p>
+<p><img src="/js_webapi/b7e7594dbb9bd27e9a30178dfcc16686.png" alt=""></p>
+<h4 id="touches">touches</h4>
+<p>触摸屏幕手指个数，是一个列表，几个手指触摸列表中就会有几个元素，上图的length会显示当前有几个手指在触摸</p>
+<p><img src="/js_webapi/29abbb3afad79906f581eaa6f92104f8.png" alt=""></p>
+<h4 id="targettouches">targetTouches</h4>
+<p>触摸当前DOM元素的所有手指的信息</p>
+<p><img src="/js_webapi/1eec6f6f4a60cfe8c26577ef29ac4c01.png" alt=""></p>
+<p>当我们想要获取某个DOM元素上的第一个手指的信息：</p>
+<p><img src="/js_webapi/e0c384473b24e3751671326bcb5de089.png" alt=""></p>
+<h4 id="changedtouches">changedTouches</h4>
+<p>手指状态发生了改变的列表 从无到有 或者 从有到无</p>
+<p><img src="/js_webapi/2faac6f1ec5e4a7f0e97112a7bee2cde.png" alt=""></p>
+<h4 id="toucheschangedtouchestargettouches的区别">touches、changedTouches、targetTouches的区别</h4>
+<p><img src="/js_webapi/a40ca8afde324095623c42da0a5eded0.png" alt=""></p>
+<p><img src="/js_webapi/27bf7dc6315eab5bada4ae93e3af6e1d.png" alt=""></p>
+<p>我们比较常用的是targetTouches</p>
+<h3 id="移动端拖动元素">移动端拖动元素</h3>
+<p><img src="/js_webapi/355ab4e42a0592c566d37fed11887d68.png" alt=""></p>
+<p>注意，手指移动会触发滚动屏幕的默认事件，我们需要用e.preventDefault()把这个默认事件给阻止掉</p>
+<p><img src="/js_webapi/dc7ee6a0add5775fa270aa658e48f26a.png" alt=""></p>
+<p><img src="/js_webapi/90577d01f592204730ebb5950f889a9a.png" alt=""></p>
+<p><img src="/js_webapi/ba6c46e8d298ef56d0aaf44d1dc76fde.png" alt=""></p>
+<p>这里我们没有用touchend事件，因为当touchmove事件结束的时候他就不会移动了，没必要写touchend</p>
+<h3 id="移动端轮播图">移动端轮播图</h3>
+<p><img src="/js_webapi/7ac8e029c0e8c90953ed42c16af2f613.png" alt=""></p>
+<p><img src="/js_webapi/8ede86c0d2a94a55959d47fd04147787.png" alt=""></p>
+<p><img src="/js_webapi/3bbbf890e608ba948463fb010af08752.png" alt=""></p>
+<p><img src="/js_webapi/872ce6db166ce25fa01e9e37f7131f65.png" alt=""></p>
+<p>由于移动端可以左滑右滑，因此第一张的前面也需要放一张最后一张的图片</p>
+<p>之后还是老样子给li添加float，并给ul的宽度设置为500%，但是发现居然不行，li中的图片突然变得特别大，那是因为在pc端中我们的li的宽度是写死的，而在移动端中的li宽度没有写死，那么他就会去找父亲的宽度，而父亲宽度为500%（假设为x
+px），这时候li宽度会就会变x
+px，相当于默认写了li的宽度为100%，那么我们有5个li，我们将li的宽度写成20%（相当于父亲的宽度 * 20%），这个时候li的显示就正常了</p>
+<p><img src="/js_webapi/f3f7b8e74ea4749ea2d55ddd5cf71fd6.png" alt=""></p>
+<p>这样改之后虽然li的显示正常了，但是整个ul下面的元素却不正常了，那是因为ul没有高度，而li设置为float：left，这是典型的没有清除浮动，那么此时最简单的方法就是给ul加overflow：hidden，反正他本来也是不能显示溢出部分的。</p>
+<p><img src="/js_webapi/c3c2f89fa05c82b65b46608fe14317b1.png" alt=""></p>
+<p><img src="/js_webapi/a696bf8479e2f5cc9adefd8c0bd9d47a.png" alt=""></p>
+<p>之后我们发现这块搜索框不见了，那是因为之前的操作撑大了我们的标有class=“focus”的盒子，而我们的搜索框是居中显示的，现在他跑到右边去了，让他回来的原理就是不要撑大focus盒子，那么我们只需要在focus盒子里添加overflow:hidden即可</p>
+<p><img src="/js_webapi/df746c871db07b6872b11ce20885cbd3.png" alt=""></p>
+<p><img src="/js_webapi/85ed2e178444b655ba36a1ceaebc9878.png" alt=""></p>
+<p>然后我们发现那几个小圆点有点高，检查元素之后发现他有margin，那么只需要给他加margin=0即可</p>
+<p>之后我们又发现一个问题显示的轮播图由于是靠左对齐的，现在显示的是最左边的图片，这是不对的，应该显示第二张图</p>
+<p><img src="/js_webapi/8e21944e78b9a9f3678abf0fb4d4c8e6.png" alt=""></p>
+<p>给ul加一个margin-left=-100%即可（意为向左移动距离为父亲宽度的1倍）</p>
+<p><img src="/js_webapi/ee3c97b2b0723d765f1b5f4fed419f86.png" alt=""></p>
+<p>下面开始编写轮播图特效</p>
+<p><img src="/js_webapi/f94b9ba5c122f7ed5c1e6389d09b9bad.png" alt=""></p>
+<p><img src="/js_webapi/f72a70d91946f5730b2916227deb3fa7.png" alt=""></p>
+<p><img src="/js_webapi/d7352cdbf502fb2ff232cbf417097e10.png" alt=""></p>
+<h4 id="检测过渡完成事件transitionend">检测过渡完成事件transitionend</h4>
+<p>用于检测过渡事件是否完成</p>
+<p><img src="/js_webapi/d967ddb8d044b117db6ac70296e80ace.png" alt=""></p>
+<p>这里ul的每次过渡完成之后就会打印1</p>
+<p><img src="/js_webapi/cd58777559a2b103e8e65757feb9e8a1.png" alt=""></p>
+<p>Index为3说明走到最后一张图了，由于index控制着轮播图的位置我们需要修改index，但是index切为0之后在移的过程中轮播图会有过渡地移到第一张图上，因此我们还要清除过渡。同理index为-1。</p>
+<h4 id="返回元素类名列表classlist">返回元素类名列表classList</h4>
+<p><img src="/js_webapi/0c876021ec8ca86fab80efb799793b19.png" alt=""></p>
+<p><img src="/js_webapi/c6db8e01565e625b952cf618ddde52d7.png" alt=""></p>
+<p>第一个类名：</p>
+<p>element.classList[0]</p>
+<h5 id="添加类elementclasslistadd类名">添加类element.classList.add(‘类名’)</h5>
+<p><img src="/js_webapi/0770dc764f6e9c68d91cbd2e70d59370.png" alt=""></p>
+<h5 id="移除类elementclasslistremove类名">移除类element.classList.remove(‘类名’)</h5>
+<p><img src="/js_webapi/099c1c321f41da2bfd13c74681c61634.png" alt=""></p>
+<h5 id="切换类elementclasslisttoggle类名">切换类element.classList.toggle(‘类名’)</h5>
+<p><img src="/js_webapi/130574dea335af483bacd23eafd9d437.png" alt=""></p>
+<p><img src="/js_webapi/65f625a109ec4312562eed0c1fa3ca1c.png" alt=""></p>
+<p>toggle的作用是当元素没有该类名的时候就给它加上，当元素有该类名的时候就给他去掉，之前的开关灯案例都需要写判断逻辑才能完成，现在有了toggle就不需要了</p>
+<p>下一步添加小圆点事件</p>
+<p><img src="/js_webapi/ec16280dfe33159664fcf250d5cdb100.png" alt=""></p>
+<p>选出class为current的li</p>
+<p><img src="/js_webapi/1338497a9b35a0ce545a0b11dcdf5d1c.png" alt=""></p>
+<p><img src="/js_webapi/b18ede04d49afc34d58a57e23c36d0cd.png" alt=""></p>
+<p><img src="/js_webapi/acbcb294909e6afdf319ff4e2dd281c5.png" alt=""></p>
+<p>还可以给小圆圈的变化添加过渡</p>
+<p><img src="/js_webapi/5d61687930f2f0a3353577fe8a35f033.png" alt=""></p>
+<p>下一步制作手指滑动轮播图</p>
+<p><img src="/js_webapi/02794e427c6d8ceda0a6060918c98899.png" alt=""></p>
+<p><img src="/js_webapi/9d5603e81d538fdc4d7315eb6a6432ad.png" alt=""></p>
+<p>注意手指放上去的时候就要清除定时器，手指拖动的时候不需要过渡</p>
+<p><img src="/js_webapi/5ebb627dcdc118794d0825727d3a3f01.png" alt=""></p>
+<p><img src="/js_webapi/7c92854b4a07bcb8369defe350e23f0b.png" alt=""></p>
+<p>在touchend事件中再次开启定时器</p>
+<p><img src="/js_webapi/6be94489c1e888173b509891038c0d19.png" alt=""></p>
+<p>优化：</p>
+<p>当用户触摸的时候如果没有拖动其实就不需要执行某些代码</p>
+<p>因此设置全局变量</p>
+<p><img src="/js_webapi/22441f604ab9752ab65396e40cfa3e89.png" alt=""></p>
+<p>当手指移动的时候，flag变为true</p>
+<p><img src="/js_webapi/f938c4e46c4de731c5bce29f2ca30412.png" alt=""></p>
+<p>然后在touchend事件中包一层flag即可</p>
+<p><img src="/js_webapi/7760e8ecd1a7c57837985c4908e007f7.png" alt=""></p>
+<p>还有最重要的一点：清除移动的默认行为</p>
+<p><img src="/js_webapi/367a928a12fdcc1f3d86655b2640cc03.png" alt=""></p>
+<p>至此轮播图已经完成了，接下来制作返回顶部按钮</p>
+<p><img src="/js_webapi/227865f917fa09fad2effd6ccea18def.png" alt=""></p>
+<p><img src="/js_webapi/5d3bfc366a18bb1cb69d74fea1461261.png" alt=""></p>
+<p><img src="/js_webapi/413696e42408162e1c177a1c5948cb9b.png" alt=""></p>
+<p><img src="/js_webapi/0031d3ccca8bab19f73cc450ca7d01ed.png" alt=""></p>
+<h3 id="移动端click延时解决方案">移动端click延时解决方案</h3>
+<p><img src="/js_webapi/6e0cd407f2a440e062b26d75dba8a074.png" alt=""></p>
+<p><img src="/js_webapi/0435f4b6d3adaf499e74301530122995.png" alt=""></p>
+<p>手机可以放大缩小页面，因此会在300ms之内判断用户是否点了两次，所以这个300ms是不可避免的</p>
+<p>解决方案：</p>
+<p>1、直接禁止用户放大缩小页面</p>
+<p><img src="/js_webapi/5d4d20ebd1437ea8857d72ff968716c0.png" alt=""></p>
+<p>缺点：有些用户就是要放大缩小，这时候就有点麻烦</p>
+<p>2、利用touchstart、touchmove和touchend自己编写逻辑判断封装一个函数代替click</p>
+<p><img src="/js_webapi/f43c1dee1cb02d36b61db45366b93f24.png" alt=""></p>
+<p>缺点：要写这么多代码，关键是每次还只能传入一个元素，如果元素多了有多少元素就要调用多少次函数。</p>
+<p>上面两个方案都不是特别完美，那么为了解决这个问题，有一个贡献者专门写了一段js代码（fastclick插件）</p>
+<p><img src="/js_webapi/b6842f4346942bc0bd1c4f65f7e654ae.png" alt=""></p>
+<p><img src="/js_webapi/11b71c3deb76938f35e3acaa8c00747b.png" alt=""></p>
+<p><img src="/js_webapi/b4a9d185e2c35cc10f59edfdb280626a.png" alt=""></p>
+<p>核心代码中是一个立即执行函数，所以作者在最前面加了一个 ”;”
+，当然，在末尾是必须加的</p>
+<p>既然是js文件，怎么用就不用多说了</p>
+<p>我们来看怎么调用他的函数：</p>
+<p><img src="/js_webapi/3d368462f4f668489b222e44f3be89ba.png" alt=""></p>
+<p>‘addEventListener’ in document表示addEventListener
+属于document（其实就是判断document是否有addEventListener这个事件）</p>
+<p>就只需要添加这段代码，页面中所有的延时问题就都解决了，之后直接想怎么写click事件就怎么写就行了</p>
+<p><img src="/js_webapi/92a49cdbeb5da056e2002beee01d6106.png" alt=""></p>
+<h3 id="swiper插件的使用">Swiper插件的使用</h3>
+<p><img src="/js_webapi/9d350a745ae7ecc8d22f0bcf996114a1.png" alt=""></p>
+<p>下载完的文件里面的demos就是案例示例，dist里面有需要引入的css和js文件，带.min后缀的说明是压缩过的，直接引这个就行</p>
+<p>在demos中找案例的时候先去官网找你喜欢的type的编号：</p>
+<p><img src="/js_webapi/1f6068e2c11f71f16f241d4f2ce6e587.png" alt=""></p>
+<p>之后再去demos里面找</p>
+<p><img src="/js_webapi/337409d49b30f6891edeafa877b787dc.png" alt=""></p>
+<p>由于里面的class名、id名等都是写死的，所以我们最好把需要的部分全量复制，用它的html</p>
+<p><img src="/js_webapi/58e5b5391304817c2522e80e3e4f2fe4.png" alt=""></p>
+<p><img src="/js_webapi/66acb24f994d3b710089dc99fcd07643.png" alt=""></p>
+<p><img src="/js_webapi/2732a2f8a61612cf96e5e54e1c613814.png" alt=""></p>
+<p>复制完结构复制css样式</p>
+<p><img src="/js_webapi/59c51d47914b7509d1abb46a64b164d6.png" alt=""></p>
+<p>之后再复制js</p>
+<p><img src="/js_webapi/6a23659bebbe4e43dcc55814f7e156c1.png" alt=""></p>
+<p>就能用了！</p>
+<p>之后有一些层级的bug的话只需要改一下就行了</p>
+<h4 id="swiper使用进阶">Swiper使用进阶</h4>
+<p>之前讲了怎么用起来，现在讲怎么把他用的更好</p>
+<p>先去看引入的js文件里面用到的方法，如果想改默认参数，可以来API查这个方法具体怎么改，比方说上面的轮播图间歇啊什么的都可以在这里查到怎么改</p>
+<p><img src="/js_webapi/5ea7292019930782c9a4e3d02c9b1401.png" alt=""></p>
+<p>Js可以通过以上方式更改，css更简单直接自己改就行了</p>
+<h3 id="除了swiper之外还有superslide和iscroll">除了Swiper之外还有superslide和iscroll</h3>
+<p><img src="/js_webapi/7f2d148ec906fa26df262e699245429a.png" alt=""></p>
+<p><img src="/js_webapi/ee169dabd92d2fdb76b7dd2519bf00b6.png" alt=""></p>
+<p><img src="/js_webapi/d8654a92033eae40c20bf0c51e5956d2.png" alt=""></p>
+<p><img src="/js_webapi/cb04046a63e31b22b08b0552184eab15.png" alt=""></p>
+<p>移动端选touchslide</p>
+<p>之后就一样了，直接找到相应demo，右键查看网页源代码复制粘贴就行</p>
+<h3 id="移动端视频插件zyjs_webapijs">移动端视频插件zy./js_webapi.js</h3>
+<p><img src="/js_webapi/e39b29278b56d3d86b05985026f0d884.png" alt=""></p>
+<p><img src="/js_webapi/f980b26290373701a15d6aa66ca5906f.png" alt=""></p>
+<p>不同浏览器控件外观都不一样，而想要让他们一样也可以通过写js，但是那样的话就需要写大量的js代码，这里我们可以使用zy./js_webapi.js控件</p>
+<h2 id="前端开发框架">前端开发框架</h2>
+<p><img src="/js_webapi/1cdd0a64e515db176e8d75257dbb2d1a.png" alt=""></p>
+<p><img src="/js_webapi/d87fc303966cfedd13ac48f3acac1230.png" alt=""></p>
+<h2 id="本地存储">本地存储</h2>
+<p><img src="/js_webapi/584d50d1231b6c8ae9d9f37a3322d5d8.png" alt=""></p>
+<h3 id="sessionstorage">sessionStorage</h3>
+<p><img src="/js_webapi/7056fa91ecae6d838b312227695f278c.png" alt=""></p>
+<p>浏览器中查看方式</p>
+<p><img src="/js_webapi/94ee70efb1ed95c159e7a25c68f41c24.png" alt=""></p>
+<h4 id="setitem">setItem</h4>
+<p>存储数据或者更改数据</p>
+<p><img src="/js_webapi/8ad79fddaaf6e2c2b04beb5a4377ae9a.png" alt=""></p>
+<h4 id="getitem">getItem</h4>
+<p>获取数据</p>
+<p><img src="/js_webapi/6cb95b43064e45829925eb311debc586.png" alt=""></p>
+<h4 id="removeitem">removeItem</h4>
+<p>删除数据</p>
+<p><img src="/js_webapi/a16f4f125b023428168fadaa48fb5f30.png" alt=""></p>
+<h4 id="clear">clear</h4>
+<p>删除所有数据（谨慎使用）</p>
+<p><img src="/js_webapi/bdcdad43ccf2aa0894e0078c768d231a.png" alt=""></p>
+<h3 id="localstorage">localStorage</h3>
+<p><img src="/js_webapi/e2ecfcc2a3fcd0c80fd2185dd40fee4b.png" alt=""></p>
+<p>与sessionStorage不同的是，localStorage直接将数据存储在本地，关闭浏览器他都不会消失，除非手动删除</p>
+<p>浏览器中查看方式</p>
+<p><img src="/js_webapi/94ee70efb1ed95c159e7a25c68f41c24.png" alt=""></p>
+<h4 id="setitem-1">setItem</h4>
+<p><img src="/js_webapi/a996a61935860068ccc4122edad4f261.png" alt=""></p>
+<h4 id="getitem-1">getItem</h4>
+<p><img src="/js_webapi/f84f275670eb8a1d2f1bfb1fe9534f59.png" alt=""></p>
+<h4 id="removeitem-1">removeItem</h4>
+<p><img src="/js_webapi/c103f27df2464624a7864c120c0083fe.png" alt=""></p>
+<h4 id="clear-1">clear</h4>
+<p><img src="/js_webapi/34e4caa361e6674e3bfffacd679f73bf.png" alt=""></p>
+<h3 id="案例-6">案例</h3>
+<p><img src="/js_webapi/40d3b3f99e57ee22d17f2b7d4550690d.png" alt=""></p>
+<p><img src="/js_webapi/52f9732f0efdef878b3d7d46ea5adbc0.png" alt=""></p>
+<p><img src="/js_webapi/5945805e789af6a99897c0dd432b66ba.png" alt=""></p>
+<p><img src="/js_webapi/5cfaf3cec04be1faefcbf84781ae0baf.png" alt=""></p>
+<p><img src="/js_webapi/b5d32060e020a82b375a4d3b7ef170ec.png" alt=""></p>
+<h4 id="change事件">change事件</h4>
+<p><img src="/js_webapi/b5d32060e020a82b375a4d3b7ef170ec.png" alt=""></p>
+<h2 id="技巧">技巧</h2>
+<p>1、多使用短路运算符</p>
+<p><img src="/js_webapi/d909164283bd9c387309799debddda47.png" alt=""></p>
+<p>&amp;&amp; 和 || 都有情况可以使用的，但是需要思考一下</p>
+<p>2、css中的属性100%永远是跟父亲来比较的</p>
+<p><img src="/js_webapi/ee3c97b2b0723d765f1b5f4fed419f86.png" alt=""></p>
+<p>比方说上图的意思就是宽度为父亲的5倍，元素向左移动距离为父亲宽度的1倍</p>
+<p>3、移动端能用css3就用css3，css3与js搭配效果更好</p>
+<p>4、为了保证某个定时器只有一个在运行，当我们要开启一个定时器的时候一定要思考一下是否需要先清除该定时器</p>
+<p><img src="/js_webapi/6be94489c1e888173b509891038c0d19.png" alt=""></p>
+<p>5、移动端的touchmove事件一定要留一个心眼，一般情况下都要先清除滚动屏幕的默认行为</p>
+<p><img src="/js_webapi/367a928a12fdcc1f3d86655b2640cc03.png" alt=""></p>
+<p>6、写多个立即执行函数的时候中间一定要加 “;”</p>
+<p><img src="/js_webapi/b4a9d185e2c35cc10f59edfdb280626a.png" alt=""></p>
+<p>这个是fastclick插件，在核心代码中是一个立即执行函数，作者在最前面加了一个 ”;”
+，当然，在末尾是必须加的</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>JavaScript WebApi</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#dom">DOM</a>
+      <ul>
+        <li><a href="#获取元素">获取元素</a></li>
+        <li><a href="#事件基础">事件基础</a></li>
+        <li><a href="#节点操作">节点操作</a></li>
+        <li><a href="#事件高级">事件高级</a></li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#补充">补充</a></li>
+      </ul>
+    </li>
+    <li><a href="#bom">BOM</a>
+      <ul>
+        <li><a href="#window对象的常见事件">window对象的常见事件</a></li>
+        <li><a href="#定时器">定时器</a></li>
+        <li><a href="#this指向问题">this指向问题</a></li>
+        <li><a href="#js执行队列">JS执行队列</a></li>
+        <li><a href="#location对象">Location对象</a></li>
+        <li><a href="#pc端网页特效">PC端网页特效</a></li>
+      </ul>
+    </li>
+    <li><a href="#移动端特效">移动端特效</a>
+      <ul>
+        <li><a href="#触屏事件">触屏事件</a></li>
+        <li><a href="#touchevent">TouchEvent</a></li>
+        <li><a href="#移动端拖动元素">移动端拖动元素</a></li>
+        <li><a href="#移动端轮播图">移动端轮播图</a></li>
+        <li><a href="#移动端click延时解决方案">移动端click延时解决方案</a></li>
+        <li><a href="#swiper插件的使用">Swiper插件的使用</a></li>
+        <li><a href="#除了swiper之外还有superslide和iscroll">除了Swiper之外还有superslide和iscroll</a></li>
+        <li><a href="#移动端视频插件zyjs_webapijs">移动端视频插件zy./js_webapi.js</a></li>
+      </ul>
+    </li>
+    <li><a href="#前端开发框架">前端开发框架</a></li>
+    <li><a href="#本地存储">本地存储</a>
+      <ul>
+        <li><a href="#sessionstorage">sessionStorage</a></li>
+        <li><a href="#localstorage">localStorage</a></li>
+        <li><a href="#案例-6">案例</a></li>
+      </ul>
+    </li>
+    <li><a href="#技巧">技巧</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

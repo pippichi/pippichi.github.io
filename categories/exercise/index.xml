@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Exercise on Learning Records</title>
+    <link>https://pippichi.github.io/categories/exercise/</link>
+    <description>Recent content in Exercise on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
+    <lastBuildDate>Tue, 25 Feb 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/exercise/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>品优购项目 -exercise</title>
+      <link>https://pippichi.github.io/posts/pinyougou_project/</link>
+      <pubDate>Tue, 25 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/pinyougou_project/</guid>
+      <description>&lt;p&gt;The article contains a project written by Html, Css and JavaScript&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Promise &ndash; Learning Records
+
+    </title>
+    
+    <meta content="JavaScript" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of Promise&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="Promise | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of Promise&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Promise</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/javascript' class="muted-link">
+  <span class="Label Label--gray">JavaScript</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-03-20. Published at: 2020-03-20.">
+        
+          Published: 2020-03-20
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of Promise&hellip;</p>
+<h2 id="实例对象与函数对象">实例对象与函数对象</h2>
+<p><img src="/Promise/b089fde773f380c70eee1fb50f4fb0e8.png" alt=""></p>
+<p><img src="/Promise/df6940759c0bba3c09c4c7173b40f5a8.png" alt=""></p>
+<p>总结：括号左边是函数，点左边是对象</p>
+<h2 id="回调函数的两种类型">回调函数的两种类型</h2>
+<p><img src="/Promise/d6cd3fb3996f4af9ba9d877b741c9ccb.png" alt=""></p>
+<p>有的回调函数是同步的，有的是异步的</p>
+<h3 id="同步回调">同步回调</h3>
+<p><img src="/Promise/9e30c66b130ecf70fc4eb5559e4b1ed8.png" alt=""></p>
+<p><img src="/Promise/067d43e26cb4e2d4ffa92fd4028d6706.png" alt=""></p>
+<p>显然上图forEach里面的回调函数是同步函数，因为只有当forEach执行完毕之后才打印下面的log</p>
+<h3 id="异步回调">异步回调</h3>
+<p><img src="/Promise/48994064f69cbb33d24c598e3b90562a.png" alt=""></p>
+<h2 id="js的error处理">JS的error处理</h2>
+<p><img src="/Promise/ae334e6cb9ce74ed87a81b32db0bd237.png" alt=""></p>
+<p><img src="/Promise/4341adaed424a360f4cde02ca60b18aa.png" alt=""></p>
+<h3 id="常见的内置错误">常见的内置错误</h3>
+<h4 id="referenceerror">ReferenceError</h4>
+<p>当我们引用一个不存在的变量的时候会发生：</p>
+<p><img src="/Promise/a41b37752783e96f819ce6ed1649b2df.png" alt=""></p>
+<h4 id="typeerror">TypeError</h4>
+<p>数据类型不正确的错误</p>
+<p><img src="/Promise/8e885d72a51e9fde8b60476af2c76ec8.png" alt=""></p>
+<p><img src="/Promise/2925a237b649cf0596ed5046936f7b89.png" alt=""></p>
+<p><img src="/Promise/8491d6df9084fe63394f56a82f8ad207.png" alt=""></p>
+<p><img src="/Promise/ca9191d5f2c4f582366a3961273570dd.png" alt=""></p>
+<p><img src="/Promise/d68496fc0dc345b383b1c5ddfa99074c.png" alt=""></p>
+<p><img src="/Promise/91e4ffecc292205d1f4b81855d75308b.png" alt=""></p>
+<h4 id="rangeerror">RangeError</h4>
+<p><img src="/Promise/3ed431b2587b7740d3c99bd1c65412c8.png" alt=""></p>
+<p><img src="/Promise/dd79c820790c404dd6add6df0eeccf73.png" alt=""></p>
+<h4 id="syntaxerror">SyntaxError</h4>
+<p><img src="/Promise/4277c6fb7dd6e01570dab1616cf4f16e.png" alt=""></p>
+<p><img src="/Promise/640ec29438526f202cfb9c584497fb27.png" alt=""></p>
+<h3 id="错误处理">错误处理</h3>
+<p><img src="/Promise/1882b6ec07367d39ad3d7e3192c462ee.png" alt=""></p>
+<p><img src="/Promise/7ebea025b1cad27f57eab9e4e0558bb3.png" alt=""></p>
+<p>上图message和stack是这个错误对象里面的属性，上面没有try
+catch的时候浏览器输出的其实是stack里面的信息</p>
+<p><img src="/Promise/66644f35892c8daa3ac05ac4ccd297a1.png" alt=""></p>
+<h4 id="利用try-catch-throw输出偶数的案例">利用try catch throw输出偶数的案例</h4>
+<p><img src="/Promise/b94fa4fedd11b7f4e8541d59fe942a56.png" alt=""></p>
+<h2 id="promise的理解和使用">Promise的理解和使用</h2>
+<p><img src="/Promise/dcc7a34627a8dff373c8ac2818da48bf.png" alt=""></p>
+<p><img src="/Promise/76382a9f33f2e0629877c5b0a63ab547.png" alt=""></p>
+<h3 id="什么是promise">什么是Promise</h3>
+<ol>
+<li>
+<p>抽象表达</p>
+<p>Promise是JS中进行异步编程的新的解决方案，旧的是纯回调函数</p>
+</li>
+<li>
+<p>具体表达</p>
+<p>从语法上来说，Promise是一个构造函数；</p>
+<p>从功能上来说，Promise对象用来封装一个异步操作并可以获取其结果</p>
+</li>
+</ol>
+<h3 id="promise的状态改变">Promise的状态改变</h3>
+<p><img src="/Promise/be320a461936a9d92f4f575fed24ab87.png" alt=""></p>
+<p>promise有三种状态，分别是pending、resolved和rejected，pending表示未知的、未确定的状态，另外两个就不解释了</p>
+<p>要注意的是，只能由pending变成其他的两种状态，不能倒着变。另外每一个promise对象只能改变一次。最后，成功的结果返回value，失败的结果返回reason</p>
+<h3 id="promise的基本流程">Promise的基本流程</h3>
+<p><img src="/Promise/d24b201996f11a95277bd1b44b76cef7.png" alt=""></p>
+<p>注意，我执行resolve()，但是我的状态是resolved状态；我执行reject()，但是我的状态是rejectd状态</p>
+<p>一旦确定了是什么状态之后，就会去调用成功或者失败的回调函数，那么这个回调函数是怎么指定的呢？可以用then()也可以用catch()，其中then()可以指定成功的也可以指定失败的，而catch()只能指定失败的。最后返回一个新的Promise对象</p>
+<h3 id="promise的基本使用">Promise的基本使用</h3>
+<p><img src="/Promise/7e7a5d17b22e934be859835d29b1eb9d.png" alt=""></p>
+<p><img src="/Promise/c7fa3cb124f76478fdd95730503b2159.png" alt=""></p>
+<h3 id="为什么要用promise">为什么要用Promise</h3>
+<p>原来的纯回调函数：</p>
+<p><img src="/Promise/7d187c2dbf5b884583742e4c3cd74827.png" alt=""></p>
+<p>在真正执行异步任务之前需要指定回调函数，他是先指定回调函数，后面再执行异步任务，而且还必须是这样，我们不能在他执行完之后再去调用回调函数，他都完成了，再执行回调函数得不到数据了，因此必须在他真正执行异步任务之前就交给他回调函数，这是原来的纯回调实现异步的做法。</p>
+<p>下面来看看Promise：</p>
+<p><img src="/Promise/66c96c0e33a42dcdfc5c9770c77b7210.png" alt=""></p>
+<p>Promise执行器函数是同步回调的，当Promise对象产生的时候异步任务已经启动了，换句话说Promise在异步任务启动之后指定回调函数（在异步任务启动之前那肯定是可以的），甚至能在任务完成之后指定回调Promise都能得到结果，比如我有一个异步任务要两秒钟，但是回调函数要3秒钟，Promise依然可以在该回调函数中得到异步任务的结果，我们来做个实验：</p>
+<p><img src="/Promise/af92252f7d5f7735e89771e158e30a8a.png" alt=""></p>
+<p>上图表示我异步任务1秒之后执行，回调函数2秒之后执行，这意味着我先有了结果，过了一段时间之后再指定的回调函数</p>
+<p><img src="/Promise/7390b6c45a53ce3d556666249e37e89f.png" alt=""></p>
+<p>结果发现回调函数竟然可以得到数据</p>
+<h4 id="回调地狱">回调地狱</h4>
+<p><img src="/Promise/1eff6be117e2cf11f44c4c88fccc82de.png" alt=""></p>
+<p>回调函数嵌套调用，第二个函数以第一个函数的结果为条件，第三个函数以第二个函数的结果为条件，以此类推。回调函数不便于阅读，不便于异常处理。</p>
+<p>比方说上图的三个嵌套的回调函数，第一个的返回结果作为第二个的条件，第二个再去创建新的回调函数，第二个的结果再作为第三个的条件，第三个再去创建回调函数来接收最终的结果finalResult</p>
+<p><img src="/Promise/416872df655832c18b359300d9f53f0b.png" alt=""></p>
+<p>可以看到她非常难以阅读而且异常处理也不方便，而且如果一旦里面有一个出现异常，也是很费劲的一件事</p>
+<p>上面展示了纯回调的时候如何去编写串联的异步（串联的异步意思就是第一个搞完才搞第二个，第二个搞完才搞第三个）</p>
+<p><img src="/Promise/56f68a92ee10a06596b0db137e183b57.png" alt=""></p>
+<h5 id="使用promise去编写回调地狱">使用Promise去编写回调地狱</h5>
+<p><img src="/Promise/3d3db1ee5371185076db80aa25a8cfb0.png" alt=""></p>
+<p>注意，一旦得到一个Promise对象，说明我启动了一个异步任务</p>
+<p>那么doSomething()就会生成一个Promise对象，就会启动一个异步任务</p>
+<p>上图的完整流程：</p>
+<ol>
+<li>
+<p>doSomething()开启一个异步任务；</p>
+</li>
+<li>
+<p>执行内部成功的回调函数，并用result来接受成功的回调结果；</p>
+</li>
+<li>
+<p>doSomethingElse(result)开启另一个异步任务；</p>
+</li>
+<li>
+<p>执行第一个then中内部的成功的回调函数，并用newResult来接受成功的回调结果；</p>
+</li>
+<li>
+<p>doThirdThing(newResult)开启另一个异步任务；</p>
+</li>
+<li>
+<p>执行第二个then中内部的成功的回调函数，并用finalResult来接受成功的回调结果；</p>
+</li>
+<li>
+<p>执行console.log();</p>
+</li>
+<li>
+<p>如果出现错误就跳到最后的.catch调用里面的错误的回调函数，而不会每一个函数都写一个错误回调函数</p>
+</li>
+</ol>
+<p>这种编码方式是从上往下编写的，看着就是同步的编码方式。</p>
+<p>函数之间不是嵌套的关系，也就没有嵌套地狱的问题</p>
+<p><strong>但是Promise是解决回调地狱最优化的解决方案嘛？</strong></p>
+<p><strong>不是。因为他还有一个回调函数function(){}嵌在里面</strong></p>
+<p><strong>那怎么解决或者说干掉会点函数呢？</strong></p>
+<p><strong>用async/await</strong></p>
+<h5 id="asyncawait">async/await</h5>
+<p><img src="/Promise/694995080dcf7c2c888d90e54b03ecb7.png" alt=""></p>
+<p>我们发现用了async/await之后就没有回调函数了</p>
+<p>上图从编码方式上来说，是纯粹的同步的编码方式</p>
+<p>而Promise还不能称为纯粹的同步的编码方式</p>
+<h5 id="纯粹的同步的编码方式">纯粹的同步的编码方式</h5>
+<p>没有回调函数，就像上面的async/await就是纯粹的同步的编码方式</p>
+<h4 id="结论">结论</h4>
+<p>1、</p>
+<p><img src="/Promise/362ea7ac508f4205d6268b392f3351f6.png" alt=""></p>
+<p>Promise更加灵活，纯回调函数需要在异步任务之前指定回调函数，而Promise可以在异步任务之前、之后甚至完成之后指定回调函数</p>
+<p>2、</p>
+<p>Promise支持链式调用，可以解决回调地狱问题</p>
+<p><img src="/Promise/be9b3d29883be3e709be2bdac0a5261a.png" alt=""></p>
+<h3 id="如何使用promise">如何使用Promise</h3>
+<p><img src="/Promise/e6aabe28e5f9ea45317377c35c3360cb.png" alt=""></p>
+<p><img src="/Promise/350cdc0e5a9950a93947fe13e3fb84c1.png" alt=""></p>
+<p>这里的Promise是实例对象，记住函数对象就一个，而实例对象可以有多个，函数对象不会启动异步操作，实例对象才会启动异步操作</p>
+<h4 id="promise构造函数">Promise构造函数</h4>
+<p><img src="/Promise/73a922981809fceb8954dbb4a2c35ec5.png" alt=""></p>
+<p>里面的执行器executor是同步执行的，他会在Promise内部立即同步回调，而异步操作会在执行器中执行</p>
+<h4 id="原型方法then">原型方法then</h4>
+<p><img src="/Promise/c7262e699904aed500e9af5204b147af.png" alt=""></p>
+<p>返回一个新的promise对象，这点很关键</p>
+<h4 id="原型方法catch">原型方法catch</h4>
+<p><img src="/Promise/9593e0dcf875878068f09d70a11df05c.png" alt=""></p>
+<p>catch只接受失败的回调，相当于：</p>
+<p>then(undefined, onRejected)</p>
+<h4 id="promiseresolve方法">Promise.resolve方法</h4>
+<p><img src="/Promise/2ebe4fd0e19a52b4f53de9c92c4475b5.png" alt=""></p>
+<p>这是一个创建成功的Promise对象的简洁语法</p>
+<h4 id="promisereject方法">Promise.reject方法</h4>
+<p><img src="/Promise/63903fde5874ddb8553aa32a9ce452b7.png" alt=""></p>
+<p>这是一个创建失败的Promise对象的简洁语法</p>
+<h4 id="promiseall方法">Promise.all方法</h4>
+<p><img src="/Promise/6787bb99ec6ce2c4a2a43835c6983bdd.png" alt=""></p>
+<p>列表中所有的都成功了才会执行成功的回调函数，只要有一个失败了就会执行失败的回调函数，并且返回的reason值是那个失败的回调函数传过来的值</p>
+<p><img src="/Promise/c579b16e6a423eccc41c729a200822e6.png" alt=""></p>
+<p>比方说这里的p3是失败的，那么只会输出reason，而且值是p3所指定的reject()括号中的值</p>
+<p><img src="/Promise/2fcf38282a4a5b5f12950c67bd555e9b.png" alt=""></p>
+<p>之后我们把p3去掉，p1、p2是成功的，那么返回值是value，而且是一个数组，里面的元素是p1、p2指定的resolve()括号中的值。</p>
+<p>而且这个value数组里面的元素顺序就是Promise.all()括号里面的参数的顺序，像上面这个他的顺序就是p1、p2，要是没顺序就乱套了，不知道哪个是哪个（注意就算p1设置了延迟，顺序还是p1、p2）</p>
+<h4 id="promiserace方法">Promise.race方法</h4>
+<p><img src="/Promise/298a1dc86bf55d97743feb2c5a2eaddd.png" alt=""></p>
+<p>返回第一个完成的Promise，成功还是失败不管，反正谁第一个完成我就返回谁</p>
+<p><img src="/Promise/8ad3134232048a92303dd3ee6781aef9.png" alt=""></p>
+<p>在没有设置延迟的时候，第一个参数永远都是最先完成的，也就是上图的p1一定是先完成的（谁放第一个谁先完成）</p>
+<p>当我们给p1设置延迟而p2、p3没有设置延迟的时候，p1后面那个会最先完成，也就是上图的p2</p>
+<h4 id="例子">例子</h4>
+<h5 id="基本语法">基本语法</h5>
+<p><img src="/Promise/54ce3dbc7159fd75d4cfbe695a52c009.png" alt=""></p>
+<p>此时执行的是成功回调，只会输出value</p>
+<p><img src="/Promise/5b6cf50daedf27cba48b82788186aa55.png" alt=""></p>
+<p>此时执行的是失败的回调，会输出reason</p>
+<h5 id="产生一个成功值为1的promise对象">产生一个成功值为1的promise对象</h5>
+<p><img src="/Promise/e90103f5f2722f802fdc7b598451b089.png" alt=""></p>
+<p><img src="/Promise/970b096d9b59b9ea33731bdd64d6a509.png" alt=""></p>
+<p>我们对比一下p1和p2的写法，p1是中规中矩的，p2其实是简洁语法，是语法糖</p>
+<p>注意p3可以写then也可以写catch</p>
+<h3 id="promise的几个关键问题">Promise的几个关键问题</h3>
+<h4 id="改变状态函数then函数回调函数是同步执行还是异步执行">改变状态函数、.then函数、回调函数是同步执行还是异步执行</h4>
+<p><img src="/Promise/c9aecfbdb283af7e165b33fbf501cdde.png" alt=""></p>
+<p>((resolve,reject) =&gt;
+{})这个代码块里的是同步执行的，也就是上图的resolve(1)是同步执行的；</p>
+<p>.then也是同步执行的（他都 .then 调用了肯定是同步）；</p>
+<p>而回调函数是异步执行的</p>
+<h5 id="证明回调函数是异步的">证明回调函数是异步的</h5>
+<p><img src="/Promise/d8cc12c93dc4481a9a4f83117a4759dd.png" alt=""></p>
+<p>在最下方写一句代码，如果是异步的则会在同步方法之后执行，也就是会先执行log代码，后执行回调函数</p>
+<p><img src="/Promise/b1f43b9fc078fe26beef6aa21262c0f3.png" alt=""></p>
+<p>证明了它是异步的</p>
+<p>也就是说回调函数不管是成功还是失败状态都不是马上执行的，都要等同步执行完了之后再执行</p>
+<h4 id="如何改变promise的状态">如何改变promise的状态</h4>
+<p><img src="/Promise/f0f961317bb3501d82e07be837fe6cbe.png" alt=""></p>
+<p>resolve和reject就不说了，关键是如果我们抛出一个异常，promise的状态会转变为什么？</p>
+<p><img src="/Promise/3d5f1b162a83050c3258ec113c9ac7f1.png" alt=""></p>
+<p><img src="/Promise/94bdecc71026f27ab90aedce4bff07de.png" alt=""></p>
+<p>上面报错的原因是因为没有catch异常</p>
+<p>我们发现他也是rejected状态</p>
+<p><img src="/Promise/e38e80a0bd9e0cb9b3387b3142583e00.png" alt=""></p>
+<p>而且reason的内容就是抛出的error</p>
+<p>那如果我们抛一个3呢？</p>
+<p><img src="/Promise/bbfe2a3cdcae10c018008e67d59d1056.png" alt=""></p>
+<p><img src="/Promise/517b43a61bd5d33587d71316784406c1.png" alt=""></p>
+<p>输出果然就是3</p>
+<h4 id="一个promise指定多个成功失败回调函数都会调用嘛">一个promise指定多个成功/失败回调函数，都会调用嘛？</h4>
+<p><img src="/Promise/b5cb9f8548846e76517c49c7ce8bb558.png" alt=""></p>
+<p>同时调用两次失败的监听</p>
+<p><img src="/Promise/dad260343726636685d4bbb95233b419.png" alt=""></p>
+<p><img src="/Promise/e904016eb5d75fa4bce8a3112288e0a1.png" alt=""></p>
+<p>他会输出两次</p>
+<p>其实这两个失败结果监听的调用里面还可以分别做不同的事情，同理成功的结果监听</p>
+<h4 id="改变promise状态和指定回调函数谁先谁后">改变promise状态和指定回调函数谁先谁后？</h4>
+<p><img src="/Promise/8e524eaec86125708e474369538fbefe.png" alt=""></p>
+<p><img src="/Promise/64a4b56beb17d9ce41f317cf5e3c61b2.png" alt=""></p>
+<p>Promise的成功和失败函数是异步执行的</p>
+<p>一般情况下会先指定回调函数，后改状态（而且改状态的同时会指定数据），因为一般情况下都是异步执行任务的，这个resolve()会在一段时间后再执行。那么连状态都还没有改变，他是怎么知道要指定哪个回调函数的呢？其实它是先保存当前指定的回调函数的，只有先保存了后面才有机会去调用这个回调函数</p>
+<h5 id="先改状态后执行回调">先改状态后执行回调</h5>
+<p>一般情况不会这么搞，但是要知道我们是有能力改它们的顺序的</p>
+<p><img src="/Promise/8d9ff17d89152cf96a727f876bc9132d.png" alt=""></p>
+<p>最简单的方法就是把setTimeout拿掉，这个时候代码从上到下走到.then那里就已经有resolve()执行后的数据了，所以会先改变状态（同时指定了数据），之后异步调用函数的时候就不必再保存指定的回调函数了，因为当时已经拿到了状态，这时候应该直接指定回调函数并异步执行回调函数</p>
+<p>第二种方法比较笨，但是有效：</p>
+<p><img src="/Promise/a70edb6295cee7ed285b19560a9a9f6e.png" alt=""></p>
+<p>给.then也设置定时器，而且时间要更久</p>
+<h4 id="promisethen返回的新promise的结果状态由什么决定">promise.then()返回的新promise的结果状态由什么决定？</h4>
+<p><img src="/Promise/c977a922b193f924f7936ab5710c6b1e.png" alt=""></p>
+<p><img src="/Promise/58974f581df095f9f3015050a66477e1.png" alt=""></p>
+<p><img src="/Promise/43092cc30f2b6927255e4d50bc3d26cc.png" alt=""></p>
+<p>他的第二个输出竟然是undefined</p>
+<p><strong>首先说结论：</strong></p>
+<p><strong>新的promise的结果状态由上一个.then的回调函数的执行结果决定。</strong></p>
+<p>再来理一遍上图的执行顺序：</p>
+<ol>
+<li>
+<p>resolve(1)执行；</p>
+</li>
+<li>
+<p>第一个.then中执行成功的回调函数，但是只做了log而没有return（就相当于return了一个undefined）;</p>
+</li>
+<li>
+<p>第二个.then中的回调函数根据第一个.then的回调函数的执行结果的返回（也就是第一个.then
+return的值，这里显然没有return所以是undefined）来执行自己的成功或者失败的回调函数，由于上一个.then返回为undefined，而且也没有抛异常，是正常执行，所以此时的.then的value接收到的数据是undefined，所以他会输出undefined</p>
+</li>
+</ol>
+<p><img src="/Promise/b6eb079c90f2b261600119c4fab4c972.png" alt=""></p>
+<p>当我们给他写了return返回值之后，第二个.then就能正常返回了</p>
+<p><img src="/Promise/5816c70f8c22ab65b11ced4902422bc0.png" alt=""></p>
+<p>当然还有可能返回其他的东西</p>
+<p><img src="/Promise/96e76851d2b77ed9feead2ca3e03e296.png" alt=""></p>
+<p>这里返回了Promise成功的值3，那他返回的就是成功的3</p>
+<p><img src="/Promise/41cce83b03f2c641f84c86d4d5806cc9.png" alt=""></p>
+<p><img src="/Promise/902a823300ec3f2ebb630cbd54b219ad.png" alt=""></p>
+<p>同理返回失败的，那.then就是执行失败的回调</p>
+<p><img src="/Promise/70da79fcf6ab1d4e8ef1e43e359e8c2a.png" alt=""></p>
+<p><img src="/Promise/eb2e19736ad3f8d453a6a4844eeb236c.png" alt=""></p>
+<p>同理抛出异常</p>
+<p><img src="/Promise/36eb1b82ffa2f88a7bbb1e94fb6c18be.png" alt=""></p>
+<h4 id="promise如何串联多个操作任务">promise如何串联多个操作任务？</h4>
+<p><img src="/Promise/60cd41ef7f495e3907ff2b07995683f0.png" alt=""></p>
+<p>很简单，就是.then的链式调用</p>
+<p>当然，这些任务可能是同步的也可能是异步的</p>
+<p><img src="/Promise/85e59a879a0643df19483839842d9826.png" alt=""></p>
+<p><img src="/Promise/fce445f6b985bc5acc0482d630c1b8c1.png" alt=""></p>
+<p>我们先看上图，先执行了一个异步任务，然后拿一个.then去接，之后再执行一个任务，再拿.then去接，然后再执行一个延时任务，再拿一个.then去接</p>
+<p><strong>这里其实有问题</strong></p>
+<ol>
+<li>
+<p>我们用的resolve()都是第一行的Promise对象的resolve，按道理他只能在第一个异步任务（执行器函数）里面去用，从第一个.then开始我们就不能再去用它了；</p>
+</li>
+<li>
+<p>为了解决1的问题，我们把第一个.then之后的resolve()都改成return，但是问题还是没有解决，而且这是错误的解决方法，那是因为我们当时说了.then后面的回调函数如果是异步的应该返回一个新的Promise对象，用Promise对象把异步任务包在里面返回（当时说的是每一个新的Promise对象都能启动一个异步任务），这里第一个.then里面的回调函数执行的由于是同步的任务，所以没关系，但是第二个.then的回调里面执行的是异步，而且她显然没有用新的Promise对象包裹返回</p>
+</li>
+</ol>
+<p><img src="/Promise/6d51630da5d266227a693a4636971c1e.png" alt=""></p>
+<p>那应该怎么做呢？</p>
+<p><img src="/Promise/56536e8c2cf3cb7d5ecee0df59249ad4.png" alt=""></p>
+<p>return一个新的Promise对象并在里面设置这个异步任务就好</p>
+<p>现在我return了一个成功的Promise（该Promise返回的值就是他所在的那一层.then所返回的值），而且她会在一秒之后才会成功，<strong>光有回调函数没有结果是没有用的</strong>，所以下面的.then会一直等，到1秒之后输出3</p>
+<p>结果：</p>
+<p><img src="/Promise/c1f36bcb68eb266922e01b4f7b2c0da8.png" alt=""></p>
+<p>注意任务二虽然是同步的，但也要等到任务一结束之后才会执行，因为第二次执行是以第一次执行的结果为条件的</p>
+<h5 id="总结">总结</h5>
+<p>串联的时候如果是同步任务直接return，如果是异步则需要在外层包裹一个新的Promise，在里面做新的异步操作（<strong>Promise是用来封装异步操作的</strong>）</p>
+<h4 id="promise异常穿透">promise异常穿透</h4>
+<p><img src="/Promise/e8a14bfe02af6ba9a2b96e4ce7d97daf.png" alt=""></p>
+<p><img src="/Promise/621c72c730ca763d088c9475dde30f60.png" alt=""></p>
+<p>上图这个段代码中间的.then都不会执行，会执行最后的.catch，那他是直接执行了.catch嘛？不是的，而且我们看.catch所对应的Promise应该是最后一个.then里面的Promise，而不是第一个Promise，而且前面几个.then也没写错误处理代码。那他是怎么从第一个Promise传到最后的.catch的呢？</p>
+<p>其实前面几个.then没写错误处理就相当于写了抛出错误的代码：</p>
+<p><img src="/Promise/8e9524e0687bae0b2254b5a332316cef.png" alt=""></p>
+<p>每一级都这样抛到最后才能到.catch</p>
+<p>当然，除了throw error，我们还可以返回一个Promise的reject，可以起到同样的效果</p>
+<p><img src="/Promise/2aba37f550fff3eb3eddb6ee767f5cb0.png" alt=""></p>
+<h5 id="除了程序本身出错以外的两种触发错误回调的做法">除了程序本身出错以外的两种触发错误回调的做法</h5>
+<ol>
+<li>
+<p>抛出一个异常</p>
+</li>
+<li>
+<p>返回一个Promise的reject</p>
+</li>
+</ol>
+<p>注意，直接写Promise.reject()还没用，因为他没有返回</p>
+<p><img src="/Promise/deaa6999352d6453aa028eaaa594c754.png" alt=""></p>
+<p>一定要写return</p>
+<p><img src="/Promise/341745f2bdbffb2b19127af6e37995b3.png" alt=""></p>
+<h4 id="中断promise链">中断promise链</h4>
+<p>我们知道then和catch都返回一个Promise对象，所以catch和then其实没差的，catch后面的then也会执行而不会在catch这里中断</p>
+<p>那么我们如果想要中断要怎么做呢？</p>
+<p>return new Promise(()=&gt;{})</p>
+<p>返回一个pending状态的Promise即可</p>
+<p><img src="/Promise/360c88a895d28399af8f4893b9407db2.png" alt=""></p>
+<h2 id="自定义promise">自定义Promise</h2>
+<h3 id="定义整体结构">定义整体结构</h3>
+<h4 id="promise068cea3e1a986bc9e134cd02adf8b730pngpromise068cea3e1a986bc9e134cd02adf8b730png"><a href="/Promise/068cea3e1a986bc9e134cd02adf8b730.png">/Promise/068cea3e1a986bc9e134cd02adf8b730.png</a></h4>
+<p><img src="/Promise/32d1321cc63821afef4083d3c70f4cbe.png" alt=""></p>
+<p>编写ES5结构、暴露Promise、编写Promise的构造函数</p>
+<p><img src="/Promise/cc73409d796f2b16c1210fc11143988e.png" alt=""></p>
+<ol>
+<li>
+<p>这个ES5结构叫IIFE</p>
+</li>
+<li>
+<p>整段js代码是一个立即执行函数，并需要传入window</p>
+</li>
+<li>
+<p>如何向外暴露Promise呢？直接给window添加属性Promise并指向我们自己定义的Promise即可</p>
+</li>
+<li>
+<p>编写Promise的构造函数，注意里面传入的参数是一个executor，注意该执行器是同步执行的</p>
+</li>
+</ol>
+<h4 id="原型对象的then">原型对象的then()</h4>
+<p><img src="/Promise/7f641d7d1e9a42e7b38a01f3a61dd816.png" alt=""></p>
+<h4 id="原型对象catch">原型对象catch</h4>
+<p><img src="/Promise/bfba1376fa3e1978f2d7b5166a3eada7.png" alt=""></p>
+<h4 id="resolve">resolve</h4>
+<p><img src="/Promise/ff8d64382eb55154eb09f90b283ba4e4.png" alt=""></p>
+<h4 id="reject">reject</h4>
+<p><img src="/Promise/90026c9aa1ff3278db34f68ec33984df.png" alt=""></p>
+<h4 id="all">all</h4>
+<p><img src="/Promise/c7eb70016832d255400640fe13b5e37b.png" alt=""></p>
+<h4 id="race">race</h4>
+<p><img src="/Promise/1a83ad3880cac659ef5282670c7c16a4.png" alt=""></p>
+<h3 id="正式开始编写">正式开始编写</h3>
+<p><img src="/Promise/b79f6da4b4ff32f773eab77a1e881c92.png" alt=""></p>
+<p>resolve()代表一个value的概念</p>
+<p>reject()代表一个reason的概念</p>
+<p><img src="/Promise/904697908fbbb1ab374f03003697481b.png" alt=""></p>
+<p>注意，由于是执行器，在构造器最后需要调用一下让他执行，而且他执行的函数就是在构造器里面定义的resolve()和reject()这两个函数，如上图。</p>
+<h4 id="promise中的属性值与回调函数">Promise中的属性值与回调函数</h4>
+<p>他可能需要一个status状态值，需要一个data用于存放数据，一个callbacks数组用域存放回调函数</p>
+<p><img src="/Promise/0c5375a0e8d3a64e02d49ce023653fa4.png" alt=""></p>
+<p>下面开始模拟回调函数</p>
+<p><img src="/Promise/2c9d1bc0c36239da78ccd2d325302e1e.png" alt=""></p>
+<p>callbacks里面放的都是回调的对象，之前说的一般情况都是先指定回调函数，再改变Promise状态（reject和resolve）,这种情况下callbacks应该是空数组；如果是先改变Promise状态，再指定回调函数的话，callbacks里面应该是会有回调对象的，这个时候就需要去异步执行这些回调对象了</p>
+<p>这里我们先去判断callbacks是否有回调对象，有的话就去执行</p>
+<p><img src="/Promise/76558248b46fab3493dd809df761fbcb.png" alt=""></p>
+<p>这里用setTimeout来模拟异步回调，是不太正确的，后面会有正确方式</p>
+<p><img src="/Promise/aff10ddf60f165ae8fc090448525051c.png" alt=""></p>
+<p>同理reject()</p>
+<p><img src="/Promise/7adbb9e69874ac517a2410a6ea3c8a8f.png" alt=""></p>
+<p>还有一个问题，我们讲每一个Promise状态只能改变一次，要么是从pending变为resolved，要么变为rejected，所以要在最前面加一个判断</p>
+<p><img src="/Promise/9249ac4e4b3e933c95c4be9d5b588ddc.png" alt=""></p>
+<p><img src="/Promise/8cbbdb6d6a0c7209e874cec8916f2556.png" alt=""></p>
+<p>还有一个问题，如果执行器出现异常Promise将变为rejected状态，直接给最后执行器的调用捕获一下异常就行了：</p>
+<p><img src="/Promise/5480c477873fe1aa396afdbf58ef33dd.png" alt=""></p>
+<h4 id="编写原型方法then">编写原型方法then</h4>
+<p><img src="/Promise/b4896a8dfb9862c4e29c23e451b1307e.png" alt=""></p>
+<p>这个this就是Promise对象</p>
+<p>至此，我们上面写的东西都通了，可以开始测试</p>
+<p><img src="/Promise/e20cdd8f7558b24efb541237e7b0aa8d.png" alt=""></p>
+<p>只需要在最前面引入自己的Promise，后面的使用跟以前都是一样的</p>
+<p><img src="/Promise/829e89627f0ee9cc257a8819f7779825.png" alt=""></p>
+<p>结果发现他并没有输出</p>
+<p>调式：</p>
+<p><img src="/Promise/83616470a6406d0558c100d588d78eec.png" alt=""></p>
+<p>我们发现this的类型是Promise，这是对的</p>
+<p>问题出在resolve里面的this指向</p>
+<h4 id="改变resolvereject中this的指向">改变resolve，reject中this的指向</h4>
+<p>由于我们是直接调用resolve的，所以谁调用this就指向谁，显然直接调用的话他就指向window了，而我们希望他指向Promise</p>
+<p><img src="/Promise/8a7e78f0aa2f211eecaeb54a1a5b317e.png" alt=""></p>
+<p><img src="/Promise/4f7001de77755fad1e013108714076bd.png" alt=""></p>
+<p>解决方法：</p>
+<p>之前讲过如何改变this指向，这里用一种最简单的：</p>
+<p><img src="/Promise/6769b210244e56ceeee9ff1f21bad66d.png" alt=""></p>
+<p>然后下面的this全部改为self</p>
+<p><img src="/Promise/7635be360af500da5695218726e1efaf.png" alt=""></p>
+<p>注意，then里面的this是对的，不应该改为self，这里可以这么修改：</p>
+<p><img src="/Promise/72a385a7734e8ade9fbb94d79b27ccdc.png" alt=""></p>
+<p>直接再声明一个const self指向this</p>
+<p>至此，我们已经可以成功输出想要的内容了</p>
+<p><img src="/Promise/54485fb99e9b8cf9a57afe19de15a5f1.png" alt=""></p>
+<p>调用reject发现也可以成功输出</p>
+<p>现在我们可以更好地理解Promise的机制了</p>
+<p><img src="/Promise/b0e58bd2069b4b9f3fe27ba513286e31.png" alt=""></p>
+<p>我们现在知道.then之后回调函数没有立即调用，而是存到一个数组里面了，真正调用是在reject或者resolve里面遍历回调对象数组的时候去调用的</p>
+<h4 id="验证回调函数是否是异步执行">验证回调函数是否是异步执行</h4>
+<p><img src="/Promise/e90e567f3408c2bf3a1ce4da40805fdf.png" alt=""></p>
+<p>上面讲到回调函数会在reject内部去执行，那么如果他是异步的，就会在上图log之后再执行</p>
+<p><img src="/Promise/331ae72ac7144a857f6be2cbc1077934.png" alt=""></p>
+<p>原因就是我们利用setTimeout模拟了异步</p>
+<p><img src="/Promise/b5a381c9cdee9ac5fd5f802db6e065f9.png" alt=""></p>
+<p>这里虽然没有设置延迟时间，但他也变成了异步</p>
+<h4 id="将经常要写的字符封装成常量">将经常要写的字符封装成常量</h4>
+<p><img src="/Promise/7cefb106b7b033ef0f3a7914ddc6d1ab.png" alt=""></p>
+<h4 id="细分then里面可能是pending可能是resolved可能是rejected">细分then（里面可能是pending可能是resolved可能是rejected）</h4>
+<p><img src="/Promise/4d36ccf06b601e8495aee6c92f2d1897.png" alt=""></p>
+<p>如果是pending说明先执行了then，如果是resolved说明先执行了resolve()，这个时候就不是保存函数了，而是直接异步执行函数</p>
+<p>注意是异步执行，所以还是需要加上setTimeout来模拟，而且如果是resolved说明resolve(value)已经执行，value已经存在Promise的data中了，我们要调用的话直接self.data就可以取到value</p>
+<p><img src="/Promise/95193ec355bc0a25809dd727524ba86e.png" alt=""></p>
+<p>rejected跟resolved差不多</p>
+<p><img src="/Promise/e21a0472041b20ed57c78c050d6c8488.png" alt=""></p>
+<h5 id="返回新的promise对象">返回新的Promise对象（★）</h5>
+<p>首先我们知道返回的新的Promise对象应该根据这一层的then或者catch的onResolved或onRejected函数的执行状态来写</p>
+<p><img src="/Promise/568f679469bbeb0b4cab369b8b9808f9.png" alt=""></p>
+<p>所以如果这么写的话显然是不能拿到onResolved或onRejected函数执行的结果的，应该把这两个函数的执行写到新的Promise对象里面去</p>
+<p><img src="/Promise/3e987e4be0458e396839d2a5e1e0e89e.png" alt=""></p>
+<h6 id="处理resolved">处理resolved</h6>
+<p><img src="/Promise/03903769ef481fe892eb80184111b26f.png" alt=""></p>
+<p>resolved的情况下返回新的Promise对象无非也就三种情况（如上图）：</p>
+<ol>
+<li>
+<p>当前执行的函数抛出异常，那么return的promise失败，那么我们就应该调用promise的reject；</p>
+</li>
+<li>
+<p>当前回调函数返回不是promise，那么return的promise就是成功的，value就是这个返回值；</p>
+</li>
+<li>
+<p>当前回调函数返回是Promise的实例对象，那么return的promise结果就是这个返回的Promise实例对象的结果</p>
+</li>
+</ol>
+<p>第一种情况最简单，直接try catch就能分辨是否是第一种</p>
+<p>第二种情况可以用 instanceof 来判断</p>
+<p>第三种情况最麻烦，首先需要得到返回的promise对象的执行结果（我们需要知道返回的promise对象到底调用的是resolve还是reject，此时可以用then去进行判断如果then里面执行的是onResolved函数，那自然就是成功的，反之就是失败的），如下图：</p>
+<p><img src="/Promise/9722cd5d9c0cc45bb68d1701ab9aed08.png" alt=""></p>
+<p>要注意返回的是Promise时候的写法</p>
+<p><strong>注意上图的try的外层包了一层new
+Promise（下图）！！！</strong>，所以这里的resolve和reject是新的promise对象的resolve和reject：</p>
+<p><img src="/Promise/9da239fbab536e2c5f4d263c097956de.png" alt=""></p>
+<p>####### 这一层的then返回不是异常也不是非promise而是Promise实例对象时的简洁写法</p>
+<p><img src="/Promise/dab8e9e5e0eed8b76b8b86b41995195e.png" alt=""></p>
+<p>事实上直接给这一层的then返回的promise（注意不是新的promise，这里简称旧的promise）的then传入新的promise的resolve和reject函数即可，如果旧的promise是失败的，新的promise由于将resolve和reject函数传入了旧的promise，也会执行失败的回调，同理成功的情况。</p>
+<p>上面这种处理方法其实有点类似下面这种：</p>
+<p><img src="/Promise/1c6e7ac453241c097fd6b945618ab3ac.png" alt=""></p>
+<p>解释：我们给div设置click事件，在这个事件里面我们希望直接调用fn函数，那么可以像上面这样写，但是其实可以更简单：</p>
+<p><img src="/Promise/a2144b1309290cb70de7cd1f98c6f1c6.png" alt=""></p>
+<p>我们直接把click事件指向fn函数就好了，而且这里fn函数不能加括号，加括号就立即执行了。</p>
+<h6 id="处理rejected">处理rejected</h6>
+<p>直接将处理resolved的代码复制粘贴过来，改一个地方就好</p>
+<p><img src="/Promise/8a64fd81da627626e6974dd0196f58d2.png" alt=""></p>
+<h6 id="处理pending">处理pending</h6>
+<p><img src="/Promise/e21afb599c8639d54c22df6aa4b2beb8.png" alt=""></p>
+<p>我们发现pending这里只是push了两个和新的Promise豪不相关的函数，这样会导致一旦执行了这两个函数新的promise的状态将不知道如何改变（<strong>我们知道pending的情况是因为先执行了then中的保存回调函数这一步（就仅仅只是保存了一下回调函数没做别的操作），后执行了改变promise状态的函数，所以一旦是这种情况就会导致返回的新的promise不知道旧的promise到底是什么状态，也就会导致新的promise不清楚应该如何改变他自己的状态</strong>）</p>
+<p>那怎么解决呢？</p>
+<p><img src="/Promise/c9318b520b424e2762e28066fc9da77d.png" alt=""></p>
+<p>我们应该把原先处理resolve、reject的函数除了开头的setTimeout之外全部照搬过来，如上图，为什么不需要setTimeout这一块呢？因为触发该函数调用的函数的外层已经有一个setTimeout了：</p>
+<p><img src="/Promise/49d5a4622bc50d94b275813696f0f61a.png" alt=""></p>
+<p>之后我们发现代码有重复，因此我们将他封装出来，由于执行的时候可能调用resolve也可能调用reject，所以应该把这个回调函数作为形参传入：</p>
+<p><img src="/Promise/029dfc26df20ba33354ccf972e28f065.png" alt=""></p>
+<p>之后代码将变得非常简洁</p>
+<p><img src="/Promise/1a0d818b6f885a41f4a2721c6b088e2a.png" alt=""></p>
+<p>而且不仅可以简化pending还能简化resolved和rejected的代码块</p>
+<h6 id="处理then不传onrejected的情况">处理then不传onRejected的情况</h6>
+<p><img src="/Promise/64428957ab168d4290b5c9d9cb6e1467.png" alt=""></p>
+<p>then有可能不传入onRejected函数，这个时候我们需要给他抛出异常，我们可以像上图那样直接调用reject</p>
+<p>，也可以抛出一个异常</p>
+<p><img src="/Promise/808933aed18ff2ccacf1b780bb8220d2.png" alt=""></p>
+<p>onResolved也最好处理一下</p>
+<p><img src="/Promise/868cc901f04e7ea0a9794609cdf47c60.png" alt=""></p>
+<p>注意，这里onResolved如果不是function的话会直接返回value或者返回Promise.resolve(value)，而onRejected不是function的话会抛出reason或者返回Promise.reject(reason)，两者是不一样的</p>
+<h4 id="编写catch">编写catch</h4>
+<p><img src="/Promise/5d4ca39bfc9a6d976fe9b6e0feb2a537.png" alt=""></p>
+<p>写完了then之后，catch就很简单了</p>
+<p>由于上面处理了onResolved和onRejected没有传递的错误：</p>
+<p><img src="/Promise/868cc901f04e7ea0a9794609cdf47c60.png" alt=""></p>
+<p>这里的undefined会由上面这个操作进行处理而不会出现错误（catch处理了失败但是没有处理成功，但是成功也不会在catch这里断掉，还是会向下传递，也就是说如果catch下面还有catch或者then的话他们是能够正常接收到成功的回调函数的返回值的）</p>
+<h4 id="阶段一测试">阶段一测试</h4>
+<p><img src="/Promise/6c660a33932035ad230831616911af48.png" alt=""></p>
+<p>测试中断链</p>
+<p><img src="/Promise/cf43ecef7749054f397fb7c6ac64beca.png" alt=""></p>
+<h4 id="编写resolve和reject">编写resolve和reject</h4>
+<p><img src="/Promise/08d2e8b79f9121a64e2aec3d04e5a523.png" alt=""></p>
+<p><img src="/Promise/7a912840622173e13e7ed9bd22955a12.png" alt=""></p>
+<p><img src="/Promise/b9f25c212b9c68199af8f83b7d9c1c81.png" alt=""></p>
+<h4 id="编写race和all">编写race和all</h4>
+<p><img src="/Promise/a732583bbb189e064a1afdaad6776e48.png" alt=""></p>
+<p>all：</p>
+<p>全部成功才返回，而且返回的是一个数组，只要有一个失败了就返回失败，而且返回的是第一个失败（因为Promise的状态只能改变一次）</p>
+<p><img src="/Promise/bb68fb245b591bb93096c7e77cddab56.png" alt=""></p>
+<p><img src="/Promise/2e9f3893e193a77fa46c8080aea7fd8b.png" alt=""></p>
+<p>race:</p>
+<p>返回最快执行完毕的那个，不管成功还是失败</p>
+<p><img src="/Promise/b7fe6dc269bba891e583f964627f5240.png" alt=""></p>
+<p>注意，讲道理他这个数组里面可以传入的不仅仅是Promise，还可以是非Promise</p>
+<p><img src="/Promise/1ffcb8397ec67d22403850ab0cf3b5b9.png" alt=""></p>
+<p><img src="/Promise/afe2f0c62f778fce3c203bdff12d7e6e.png" alt=""></p>
+<p>但是上面我们没有考虑这个事情，我们直接写了p.then</p>
+<p><img src="/Promise/864b914349d8a9720a395ee7606c4aab.png" alt=""></p>
+<p>其实要改很简单</p>
+<p><img src="/Promise/e4d7866907a39f5d7a2b8b7cbebf971c.png" alt=""></p>
+<p>直接套一个Promise就行了（race和all都是这么改的）</p>
+<h4 id="编写resolvedelay和rejectdelay自定义的工具方法原先promise没有这两个方法">编写resolveDelay和rejectDelay（自定义的工具方法，原先Promise没有这两个方法）</h4>
+<p><img src="/Promise/f9b4fea23cea37171bfcbc89e0d8d411.png" alt=""></p>
+<p><img src="/Promise/f49f4265d29806a8ac81585be08b6e3d.png" alt=""></p>
+<h4 id="总结-1">总结</h4>
+<p>1、</p>
+<p><img src="/Promise/332be79741f197cc777d76a7fa2b1b5e.png" alt=""></p>
+<p>2、</p>
+<p><img src="/Promise/b1c50ae56b27ac19f7f6949aa52f31c7.png" alt=""></p>
+<p>当是pending状态的时候，由于要满足返回的Promise的状态由onResolved/onRejected执行结果决定的要求，所以外面要包一层函数，如上图，到执行then的时候还是会传过来onResolved或onRejected函数，而且也不会替换掉上图的这两个函数，而是会在上图的这两个函数内部去执行传过来的onResolved或onRejected函数。</p>
+<p>3、</p>
+<p><img src="/Promise/868cc901f04e7ea0a9794609cdf47c60.png" alt=""></p>
+<p>如果传过来的resolve或reject不是函数，那我就想办法让他是，而且是使用正确的方式让他们分别变成一个函数</p>
+<h2 id="自定义promise的类版本">自定义Promise的类版本</h2>
+<p><img src="/Promise/b943529c5ae0c28d354c6ad5a7ed487a.png" alt=""></p>
+<p>直接套进去就行了</p>
+<p><img src="/Promise/99581b7ecff74ca83ff509429df2b962.png" alt=""></p>
+<p>原型方法就是实例方法；类方法就是类方法</p>
+<h2 id="asyncawait-1">async/await</h2>
+<p><img src="/Promise/d6f4151b4701d9f62bb09020ee2c8889.png" alt=""></p>
+<p><img src="/Promise/66501a5218b360c626b75d7964059d8c.png" alt=""></p>
+<p>async 右边放函数定义， await右边放一个Promise对象或者任何需要等待的值</p>
+<p><img src="/Promise/0c83262f4735a2f3c81bb6a8639b3748.png" alt=""></p>
+<p><img src="/Promise/2602a226c6ab84caaa1666d16cf23646.png" alt=""></p>
+<p>我们发现async的函数就算是return
+1，返回的也是一个Promise对象（说明如果返回的是非Promise，那他会在返回值外面包一层Promise），而且他的接收就跟上面Promise的接收逻辑是一模一样的</p>
+<p><img src="/Promise/0d2e5dc3342270b9139ff38c44b500c4.png" alt=""></p>
+<p>原先我们通过then去拿到Promise的返回结果，现在我们不想要通过then了，我们想要直接拿到他的结果值，那么可以用await，如上图。而且我们如果用了await，那么就必须用上async，但是如果是async则并不一定行需要使用await</p>
+<p><img src="/Promise/5cf0c7f362535d438ca06930459e2603.png" alt=""></p>
+<p>当然，await右边不一定就是Promise对象，也可以直接写一个数值</p>
+<p><img src="/Promise/09ec78ade3c5c15e295f2709c7022b84.png" alt=""></p>
+<p>而且也可以是一个函数（最终有一个返回值的函数），得到的结果就是表达式本身的结果</p>
+<p><img src="/Promise/b85bb398e3423b050b305c088b28caf8.png" alt=""></p>
+<p>注意，await只能得到右侧表达式正确的时候的返回值，如果是失败的时候呢？比方说我们reject一个值，直接拿他是拿不到的，需要用try
+catch去拿，catch中的error值就是reject的值，如上图。</p>
+<h2 id="js异步之宏队列与微队列">JS异步之宏队列与微队列</h2>
+<p><img src="/Promise/b24db7e91adf431064629696b9d51a10.png" alt=""></p>
+<p>JS引擎堆内放对象，栈内执行函数，栈内有可能new了一个Promise启动了一个异步任务，如果是异步任务的话会被放到另外的队列里面去</p>
+<p><img src="/Promise/6bfb1b3b325cc8506b7088e4b0690a2b.png" alt=""></p>
+<p>这里有两个队列，一个宏队列，一个微队列</p>
+<p>dom事件回调、ajax回调、定时器回调这些都会被放到宏队列中，而Promise回调、mutation回调会被放到微队列中，其中宏队列中的任务被称为宏任务，微队列中的任务被称为微任务</p>
+<p><img src="/Promise/c01d4c2c9b360160255a0af01c0d5297.png" alt=""></p>
+<p>这个mutation事实上是一个监视器，它用于监视标签属性是否改变，若属性改变则会有一个回调函数，而这个回调函数会被放入微队列</p>
+<p><img src="/Promise/58e7b1d5209ee9c8a45b333231b32295.png" alt=""></p>
+<p>这里有两个函数，我执行上面的setTimeout代码，JS引擎就会将函数和事件交给定时器管理模块去管理</p>
+<p><img src="/Promise/f525c8a2602bd6905e02f6be2ac5eb5d.png" alt=""></p>
+<p>（如何管理呢？到了事件就把回调函数塞到队列里面去）</p>
+<p><img src="/Promise/7e26bc96fc4d68369133bcda36f21641.png" alt=""></p>
+<p>所以本质上这个函数会被立马塞到宏队列里面</p>
+<p><img src="/Promise/2174b9106939d656f5c8bb0959f8046b.png" alt=""></p>
+<p>而这个函数也会被立马塞到微队列里面</p>
+<p><img src="/Promise/cfe97f790b10d5fe2892775e9167a92c.png" alt=""></p>
+<p>理论上按照时间先后的话会是上面的先执行</p>
+<p><img src="/Promise/b3c1350e00df9b7d711ae8906c258ba5.png" alt=""></p>
+<p>但是是微队列中的先执行</p>
+<p><img src="/Promise/ecd8a0e5a3f27e1874015c440c5dc93b.png" alt=""></p>
+<p>再来执行上图函数</p>
+<p><img src="/Promise/95ea99019e126e614b81d82d23ab686e.png" alt=""></p>
+<p>我们发现是微队列的优先级更高，而且每个队列里面的顺序是从上到下的</p>
+<h3 id="js执行机制">JS执行机制</h3>
+<p>JS是单线程执行的，也就是说他会先执行完栈里面的同步函数，再执行微队列中的异步函数，最后执行宏队列中的异步函数。并且这些异步队列中的函数也会被拿到栈里面去执行</p>
+<h4 id="宏队列与微队列的微妙执行逻辑">宏队列与微队列的微妙执行逻辑</h4>
+<p>现在我们把Promise放到setTimeout里面</p>
+<p><img src="/Promise/b57746b3fb1da05d12b15727a69593b7.png" alt=""></p>
+<p>我们发现执行的顺序是这样的：</p>
+<p><img src="/Promise/9ddec3e1cb355cb02729b6b971df5296.png" alt=""></p>
+<p><img src="/Promise/06df69a59631723e1b90558162e5a996.png" alt=""></p>
+<p><strong>注意最后一条，每次取出第一个宏任务执行前，都要将所有的微任务一个一个先取出来执行</strong></p>
+<p>所以上面的执行顺序就可以解释了，是因为在执行完微任务之后开始执行宏任务，而第一个宏任务里面有一个微任务，这个微任务会被放到微队列中，等到当前宏任务执行完毕之后他还不会执行，但是到下一个宏任务开始的时候，所有微队列里面的微任务都会被先执行，执行完毕之后才会执行当前宏任务。</p>
+<h2 id="案例">案例</h2>
+<p>要分析执行顺序，套路就是先把同步的都找出来，再一个一个看异步的</p>
+<p>1、</p>
+<p><img src="/Promise/e8b7a898c519605da2d09e7357d4746e.png" alt=""></p>
+<p>2、★</p>
+<p><img src="/Promise/809065d786d94996fae8d8e919ea8435.png" alt=""></p>
+<p>以下说明中输出值就代表该输出值所在的那个函数</p>
+<ol>
+<li>
+<p>1进入宏队列</p>
+</li>
+<li>
+<p>由于Promise中.then后面的才是异步的，其他的都是同步执行，所以2直接输出，2和5一样都是同步代码块里的东西，所以5也在2之后被输出，resolve()里面没写东西，所以没有输出；</p>
+</li>
+<li>
+<p>到达第一个.then，3进入微队列；</p>
+</li>
+<li>
+<p>由于第一个.then没有执行完，第二个.then无法确定状态，即当前是“pending”状态，所以不会执行这个.then里面的函数而是会将他们保存到callbacks数组中；</p>
+</li>
+<li>
+<p>同步代码执行完毕，现在到微队列里面去找3并执行3，执行3之后4的状态立马由“pending”变为“resolved”，4进入微队列；</p>
+</li>
+<li>
+<p>4执行；</p>
+</li>
+<li>
+<p>宏队列中的1执行</p>
+</li>
+</ol>
+<p>所以最终输出结果为：2 5 3 4 1</p>
+<p>3、</p>
+<p><img src="/Promise/a619996218539b7596757905bce106b2.png" alt=""></p>
+<p>答案 ： 374125</p>
+<p>4、</p>
+<p><img src="/Promise/3bedeb5fc5d0a931252db303c55710bd.png" alt=""></p>
+<p><img src="/Promise/4574cc546f1073fd4fc958d34a61052a.png" alt=""></p>
+<p>答案： 172384650</p>
+<h3 id="注意点">注意点</h3>
+<ol>
+<li>
+<p>then后面的函数执行需要满足两个条件：then上面的函数状态的确定；then后面的回调函数需要指定；</p>
+</li>
+<li>
+<p>什么情况下then后面的函数会被保存到callbacks而不会进入微队列？</p>
+<p>then上面的函数进入了微队列但还没有执行，这么时候then上面的函数的状态还未确定，是pending状态，因此then后面的函数不能准备执行，所以只能保存到callbacks数组而不会进入微队列</p>
+</li>
+</ol>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Promise</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#实例对象与函数对象">实例对象与函数对象</a></li>
+    <li><a href="#回调函数的两种类型">回调函数的两种类型</a>
+      <ul>
+        <li><a href="#同步回调">同步回调</a></li>
+        <li><a href="#异步回调">异步回调</a></li>
+      </ul>
+    </li>
+    <li><a href="#js的error处理">JS的error处理</a>
+      <ul>
+        <li><a href="#常见的内置错误">常见的内置错误</a></li>
+        <li><a href="#错误处理">错误处理</a></li>
+      </ul>
+    </li>
+    <li><a href="#promise的理解和使用">Promise的理解和使用</a>
+      <ul>
+        <li><a href="#什么是promise">什么是Promise</a></li>
+        <li><a href="#promise的状态改变">Promise的状态改变</a></li>
+        <li><a href="#promise的基本流程">Promise的基本流程</a></li>
+        <li><a href="#promise的基本使用">Promise的基本使用</a></li>
+        <li><a href="#为什么要用promise">为什么要用Promise</a></li>
+        <li><a href="#如何使用promise">如何使用Promise</a></li>
+        <li><a href="#promise的几个关键问题">Promise的几个关键问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#自定义promise">自定义Promise</a>
+      <ul>
+        <li><a href="#定义整体结构">定义整体结构</a></li>
+        <li><a href="#正式开始编写">正式开始编写</a></li>
+      </ul>
+    </li>
+    <li><a href="#自定义promise的类版本">自定义Promise的类版本</a></li>
+    <li><a href="#asyncawait-1">async/await</a></li>
+    <li><a href="#js异步之宏队列与微队列">JS异步之宏队列与微队列</a>
+      <ul>
+        <li><a href="#js执行机制">JS执行机制</a></li>
+      </ul>
+    </li>
+    <li><a href="#案例">案例</a>
+      <ul>
+        <li><a href="#注意点">注意点</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

@@ -17,5 +17,41 @@
       <description>&lt;p&gt;The article contains the basic knowledge of spring boot&amp;hellip;&lt;/p&gt;</description>
     </item>
     
+    <item>
+      <title>MySQL -basic</title>
+      <link>https://pippichi.github.io/posts/mysql_basic/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/mysql_basic/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of MySQL&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>JavaScript -basic</title>
+      <link>https://pippichi.github.io/posts/js_basic/</link>
+      <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/js_basic/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of JavaScript&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Css</title>
+      <link>https://pippichi.github.io/posts/css/</link>
+      <pubDate>Fri, 10 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/css/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of Css&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Html</title>
+      <link>https://pippichi.github.io/posts/html/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/html/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of Html&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
   </channel>
 </rss>

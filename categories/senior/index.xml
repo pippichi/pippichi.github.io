@@ -18,12 +18,84 @@
     </item>
     
     <item>
+      <title>Linux</title>
+      <link>https://pippichi.github.io/posts/linux/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/linux/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of linux&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Spring Boot -senior</title>
       <link>https://pippichi.github.io/posts/springboot_senior/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/posts/springboot_senior/</guid>
       <description>&lt;p&gt;The article contains cache, message, security, searching, actuator, deployment&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MySQL -senior</title>
+      <link>https://pippichi.github.io/posts/mysql_senior/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/mysql_senior/</guid>
+      <description>&lt;p&gt;The article contains the senior knowledge of MySQL&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>axios</title>
+      <link>https://pippichi.github.io/posts/axios/</link>
+      <pubDate>Sun, 29 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/axios/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of axios&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Promise</title>
+      <link>https://pippichi.github.io/posts/promise/</link>
+      <pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/promise/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of Promise&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ES7-11</title>
+      <link>https://pippichi.github.io/posts/es7-11/</link>
+      <pubDate>Tue, 10 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/es7-11/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of ES7-11&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ES6</title>
+      <link>https://pippichi.github.io/posts/es6/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/es6/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of ES6&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>JavaScript WebApi</title>
+      <link>https://pippichi.github.io/posts/js_webapi/</link>
+      <pubDate>Thu, 20 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/js_webapi/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of JavaScript WebApi&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>JavaScript -senior</title>
+      <link>https://pippichi.github.io/posts/js_senior/</link>
+      <pubDate>Thu, 30 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/js_senior/</guid>
+      <description>&lt;p&gt;The article contains the senior knowledge of JavaScript&amp;hellip;&lt;/p&gt;</description>
     </item>
     
   </channel>

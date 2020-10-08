@@ -26,5 +26,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>Additional</title>
+      <link>https://pippichi.github.io/categories/additional/</link>
+      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/categories/additional/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Exercise</title>
+      <link>https://pippichi.github.io/categories/exercise/</link>
+      <pubDate>Tue, 25 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/categories/exercise/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

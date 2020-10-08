@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  MySQL -additional &ndash; Learning Records
+
+    </title>
+    
+    <meta content="MySQL" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the additional knowledge of MySQL&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="MySQL -additional | Learning Records">
+    <meta name="twitter:description" content="The article contains the additional knowledge of MySQL&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">MySQL -additional</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/additional' class="muted-link">
+  <span class="Label Label--gray-darker">Additional</span>
+</a>
+
+
+
+<a href='/tags/mysql' class="muted-link">
+  <span class="Label Label--gray">MySQL</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-05-29. Published at: 2020-05-29.">
+        
+          Published: 2020-05-29
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the additional knowledge of MySQL&hellip;</p>
+<h2 id="补充">补充</h2>
+<h3 id="内连接外连接">内连接、外连接</h3>
+<ol>
+<li>
+<p>select * from (a1.name,a2.name from b left join a as a1 on b.id = a1.id)
+left join a as a2 on b.hid = a2.id;</p>
+</li>
+<li>
+<p>select * from 表1 as x1 inner join 表2 as x2 on x1.&lsquo;id&rsquo;=x2.&lsquo;hyuid&rsquo; and
+&lsquo;hyuid&rsquo;=1600702113;</p>
+</li>
+</ol>
+<p>select * from (select goods_id,cat_id,goods_name from goods order by cat_id
+asc,goods_id desc) as temp group by cat_id;</p>
+<h3 id="外键约束以及建立索引-create-index">外键约束以及建立索引（ create index）</h3>
+<p>//添加外键约束以及建立索引（底层B+树，提高效率）如下：</p>
+<p>create table Three_student</p>
+<p>(</p>
+<p>id int auto_increment</p>
+<p>primary key,</p>
+<p>s_name varchar(16) not null,</p>
+<p>s_grade_id int not null,</p>
+<p>constraint Three_student_s_grade_id_ffbb8485_fk_Three_grade_id</p>
+<p>foreign key (s_grade_id) references Three_grade (id)</p>
+<p>);</p>
+<p>create INDEX Three_student_s_grade_id_ffbb8485_fk_Three_grade_id</p>
+<p>on Three_student(s_grade_id);</p>
+<h3 id="联合algorithm创建视图">联合algorithm创建视图</h3>
+<p>create algorithm = merge view v</p>
+<p>as</p>
+<p>select 语句;</p>
+<p>必要时使用algorithm可以用于提高效率；以上写法并不会建立临时表。</p>
+<p>如果algorithm = temptable 则指定生成临时表</p>
+<p>如果拿不准用什么，algorithm= undefined，让系统帮我们定</p>
+<h3 id="ifnullnullif其他">Ifnull|nullif|其他</h3>
+<ol>
+<li>
+<p>表看成集合的话一行是一个元素</p>
+</li>
+<li>
+<p>数据库实现量表的笛卡儿积：select * from 表1,表2;</p>
+</li>
+<li>
+<p>可以直接写 select 2&gt;1;或者select 2&lt;1或者select &lsquo;list&rsquo;=null;</p>
+</li>
+<li>
+<p>null的比较需要用特殊的运算符,遇到其他运算符一律返回null is null , is not
+null; 例如：select * from name where snum is not null;</p>
+</li>
+<li>
+<p>（m） zerofill unsigned。 zerofill 默认 unsigned</p>
+</li>
+<li>
+<p>在开发中，会员的信息优化往往是
+把频繁用到的信息，优先考虑效率，存储到一张表中，不常用的信息和比较占据空间的信息，优先考虑空间占用，存储到辅表中。</p>
+</li>
+<li>
+<p>myisam\innodb\bdb utf8\gbk\latin1&hellip;</p>
+</li>
+<li>
+<p>对于结果中的列如果想再筛选，用having</p>
+</li>
+<li>
+<p>用myisam引擎时
+count(<em>)和count(1)没有区别。而用lnnodb引擎时，count(</em>)效率很低，因为他真的要去数一遍。</p>
+</li>
+<li>
+<p>ifnull(&lsquo;aaa&rsquo;,0)&ndash;&gt;aaa; ifnull(null,0)&ndash;&gt;0; ifnull('',0)&ndash;&gt;'';</p>
+</li>
+<li>
+<p>nullif(a,b) 判断a和b是否相等，相等返回1，不等返回null；</p>
+</li>
+<li>
+<p>数据库设计（项目经理、架构师）：触发器、事物、锁、索引优化、引擎优化、表的涉及、读写分离</p>
+</li>
+<li>
+<p>数据库的管理者（DBA 知识）：权限管理、数据备份、运行监控、性能监测</p>
+</li>
+</ol>
+<h2 id="索引">索引</h2>
+<p>创建索引时，需要保证索引是应用在sql查询语句的条件(一般作为where子句的条件)。</p>
+<p>实际上索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录。索引大大提高查询速度，但降低了更新表的速度。</p>
+<p>在where条件中，对某列使用了函数，则此列的索引不发挥作用。</p>
+<p>mysql在使用like查询的时候只有使用后面的%时，才会使用到索引。</p>
+<h3 id="创建索引">创建索引</h3>
+<ol>
+<li>
+<p>create index 索引名 on 表名(属性名(length));
+如果是char,varchar类型，length可以小于字段实际长度；如果是blob，text，必须指定length。</p>
+</li>
+<li>
+<p>alter table 表名 add index 索引名(列名);</p>
+</li>
+</ol>
+<h3 id="创建表时添加索引">创建表时添加索引</h3>
+<p>create table 表名（</p>
+<p>id int not null,</p>
+<p>uname varchar(16) not null,</p>
+<p>index<a href="uname(length)">索引名</a></p>
+<p>);</p>
+<h3 id="删除索引">删除索引</h3>
+<p>drop index[索引名] on 表名;</p>
+<h3 id="唯一索引">唯一索引</h3>
+<p>创建：create unique index 索引名 on 表名（列名(length)）;</p>
+<p>修改: alter table 表名 add unique index[索引名] (列名(length));</p>
+<h3 id="创建表时添加唯一索引">创建表时添加唯一索引</h3>
+<p>create table 表名（</p>
+<p>id int not null,</p>
+<p>uname varchar(16) not null,</p>
+<p>unique index<a href="uname(length)">索引名</a></p>
+<p>);</p>
+<h3 id="有四种方式来添加数据表的索引">有四种方式来添加数据表的索引</h3>
+<ol>
+<li>
+<p>ALTER TABLE tbl_name ADD PRIMARY KEY (column_list):
+该语句添加一个主键，这意味着索引值必须是唯一的，且不能为NULL。</p>
+</li>
+<li>
+<p>ALTER TABLE tbl_name ADD UNIQUE index_name (column_list):
+这条语句创建索引的值必须是唯一的（除了NULL外，NULL可能会出现多次）。</p>
+</li>
+<li>
+<p>ALTER TABLE tbl_name ADD INDEX index_name (column_list):
+添加普通索引，索引值可出现多次。</p>
+</li>
+<li>
+<p>ALTER TABLE tbl_name ADD FULLTEXT index_name
+(column_list):该语句指定了索引为 FULLTEXT ，用于全文索引。</p>
+</li>
+</ol>
+<p>举个例子，比如你在为某商场做一个会员卡的系统。</p>
+<p>这个系统有一个会员表</p>
+<p>有下列字段：</p>
+<p>会员编号 INT</p>
+<p>会员姓名 VARCHAR(10)</p>
+<p>会员身份证号码 VARCHAR(18)</p>
+<p>会员电话 VARCHAR(10)</p>
+<p>会员住址 VARCHAR(50)</p>
+<p>会员备注信息 TEXT</p>
+<p>那么这个 会员编号，作为主键，使用 PRIMARY</p>
+<p>会员姓名 如果要建索引的话，那么就是普通的 INDEX</p>
+<p>会员身份证号码 如果要建索引的话，那么可以选择 UNIQUE （唯一的，不允许重复）</p>
+<p>会员备注信息 ， 如果需要建索引的话，可以选择 FULLTEXT，全文搜索。</p>
+<h3 id="全文索引测试示例">全文索引测试示例</h3>
+<p>由于建立全文索引的表的存储引擎类型必须为MyISAM</p>
+<p>因此新建一个utf8 MyISAM类型的表并建立一个全文索引：</p>
+<p>CREATE TABLE articles (</p>
+<p>id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,</p>
+<p>title VARCHAR(200),</p>
+<p>body TEXT,</p>
+<p>FULLTEXT (title,body)</p>
+<p>) ENGINE=MyISAM DEFAULT &gt;</p>
+<p>其中FULLTEXT(title, body)
+给title和body这两列建立全文索引，之后检索的时候注意必须同时指定这两列。</p>
+<p>给这个表添加点测试数据</p>
+<p>INSERT INTO articles (title,body) VALUES</p>
+<p>(&lsquo;MySQL Tutorial&rsquo;,&lsquo;DBMS stands for DataBase &hellip;'),</p>
+<p>(&lsquo;How To Use MySQL Well&rsquo;,&lsquo;After you went through a &hellip;'),</p>
+<p>(&lsquo;Optimizing MySQL&rsquo;,&lsquo;In this tutorial we will show &hellip;'),</p>
+<p>(&lsquo;1001 MySQL Tricks&rsquo;,&lsquo;1. Never run mysqld as root. 2. &hellip;'),</p>
+<p>(&lsquo;MySQL vs. YourSQL&rsquo;,&lsquo;In the following database comparison &hellip;'),</p>
+<p>(&lsquo;MySQL Security&rsquo;,&lsquo;When configured properly, MySQL &hellip;')；</p>
+<p>全文检索测试</p>
+<p>SELECT * FROM articles WHERE MATCH (title,body) AGAINST (&lsquo;database&rsquo;);</p>
+<p>注意：</p>
+<ol>
+<li>
+<p>MATCH (title,body) 里面的值必须是前面建立全文索引的两个字段不能少。</p>
+</li>
+<li>
+<p>FULLTEXT
+用于搜索很长一篇文章的时候，效果最好。用在比较短的文本，如果就一两行字的，普通的
+INDEX 也可以。</p>
+</li>
+</ol>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>MySQL -additional</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#补充">补充</a>
+      <ul>
+        <li><a href="#内连接外连接">内连接、外连接</a></li>
+        <li><a href="#外键约束以及建立索引-create-index">外键约束以及建立索引（ create index）</a></li>
+        <li><a href="#联合algorithm创建视图">联合algorithm创建视图</a></li>
+        <li><a href="#ifnullnullif其他">Ifnull|nullif|其他</a></li>
+      </ul>
+    </li>
+    <li><a href="#索引">索引</a>
+      <ul>
+        <li><a href="#创建索引">创建索引</a></li>
+        <li><a href="#创建表时添加索引">创建表时添加索引</a></li>
+        <li><a href="#删除索引">删除索引</a></li>
+        <li><a href="#唯一索引">唯一索引</a></li>
+        <li><a href="#创建表时添加唯一索引">创建表时添加唯一索引</a></li>
+        <li><a href="#有四种方式来添加数据表的索引">有四种方式来添加数据表的索引</a></li>
+        <li><a href="#全文索引测试示例">全文索引测试示例</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

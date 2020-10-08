@@ -514,7 +514,7 @@ file机制使得制作镜像的速度变得非常快</p>
 </ol>
 <h4 id="本地yum源同步到阿里云">本地yum源同步到阿里云</h4>
 <p>其实就是将阿里云的东西下载到本地，然后配置本地yum源，也就是那些repo即可</p>
-<h4 id="--restartalways解决服务重启导致容器全部退出">--restart=always解决服务重启导致容器全部退出</h4>
+<h4 id="--restartalways解决服务重启导致容器全部退出">&ndash;restart=always解决服务重启导致容器全部退出</h4>
 <h5 id="方法一">方法一</h5>
 <p>如果启动容器的时候没有加—restart=always这句话，当我们重启该服务的时候（这里以重启docker服务为例），我们会发现服务都宕掉了</p>
 <p><img src="/docker/106d464b18eeae07b5c698de2f2b2df6.png" alt=""></p>
@@ -533,8 +533,8 @@ file机制使得制作镜像的速度变得非常快</p>
 <h4 id="解决mysql需要交互的问题">解决MySQL需要交互的问题</h4>
 <p>加参数-e即可</p>
 <p>在RUN中的写法（针对5版本的MySQL）：</p>
-<p>RUN mysql <strong>-e</strong> “grant all on *.* to root@‘%’ identified by ‘123’；grant all
-on *.* to discuz@’%’ identified by ‘123’;create database discus charset
+<p>RUN mysql <strong>-e</strong> “grant all on <em>.</em> to root@‘%’ identified by ‘123’；grant all
+on <em>.</em> to discuz@’%’ identified by ‘123’;create database discus charset
 utf8;”</p>
 <p><img src="/docker/23b15dd35c1b8d65bc5cc37af57789b1.png" alt=""></p>
 <h4 id="例子">例子</h4>

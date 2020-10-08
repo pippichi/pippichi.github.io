@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  MySQL -senior &ndash; Learning Records
+
+    </title>
+    
+    <meta content="MySQL" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the senior knowledge of MySQL&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="MySQL -senior | Learning Records">
+    <meta name="twitter:description" content="The article contains the senior knowledge of MySQL&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">MySQL -senior</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/mysql' class="muted-link">
+  <span class="Label Label--gray">MySQL</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-05-25. Published at: 2020-05-25.">
+        
+          Published: 2020-05-25
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the senior knowledge of MySQL&hellip;</p>
+<h2 id="绪论以及概念">绪论以及概念</h2>
+<p>1、Mysql单表瓶颈500万</p>
+<p>2、MySQL单库瓶颈5000万</p>
+<p>3、int本身长度为4，如果为null的话长度为5（这是int最长的长度了）</p>
+<p>4、Varchar如果是gbk那么一个字符占两位，如果是utf8那么一个字符占三位，又因为是varchar（动态），所以在乘相应的倍数之后还要再加2.</p>
+<p>5、CAP理论（C：强一致性、A：可用性、P：分区容错性）（最多只能保证其中的两个），一般电商网站可用性要高于强一致性，举个例子：我关心商品能不能下单要高于商品现在点赞的人数有多少，点赞人数的一致性之后可以修复，因此会选择AP而不是CP。</p>
+<p><img src="/mysql_senior/b03520f394f3a8d155c4e9d3d10b2be8.png" alt=""></p>
+<p><img src="/mysql_senior/68c11b8d1bbe0c2c7ed877872d5bba55.png" alt=""></p>
+<p>GPL是很严格的开源协议，linux用的也是这个。</p>
+<p><img src="/mysql_senior/7f0694d81344c513d194048eb993d83f.png" alt=""></p>
+<p>注意在设计sql表的时候要遵循命名规范</p>
+<h2 id="文件位置">文件位置</h2>
+<p><img src="/mysql_senior/c35744361d76aa27134a654d52a42256.png" alt=""></p>
+<p><img src="/mysql_senior/07035bb46845aad394f76a632d2b4328.png" alt=""></p>
+<p><img src="/mysql_senior/d60e203e27d545004aa8a711c85f2595.png" alt=""></p>
+<h3 id="配置文件位置">配置文件位置</h3>
+<p><img src="/mysql_senior/eab1120b09e8c471222818a8cf26e69c.png" alt=""></p>
+<h2 id="中文乱码问题">中文乱码问题</h2>
+<p>步骤：</p>
+<ol>
+<li>
+<p>修改mysql配置文件；</p>
+</li>
+<li>
+<p>修改已经存在的库或表的字符集</p>
+</li>
+<li>
+<p>如果表中已经出现乱码数据，应该把表删了或者更新一下</p>
+</li>
+</ol>
+<h2 id="用户">用户</h2>
+<h3 id="查看mysql中的user">查看MySQL中的user</h3>
+<p>Select * from mysql.user\G;</p>
+<h3 id="创建用户">创建用户</h3>
+<p>默认创建的是远程用户，因此该账户类型不是localhost而是‘%’，表示远程用户，所有远程主机都可以访问</p>
+<p>Create user user_name identified by user_password;</p>
+<p>或者使用mysql_native_password认证：</p>
+<p>Create user user_name identified with mysql_native_password by user_password;</p>
+<h3 id="删除用户">删除用户</h3>
+<p>Drop user ‘username’@’host’;</p>
+<h3 id="授权">授权</h3>
+<p><img src="/mysql_senior/cad741d5055451f3a44d26d579ee3799.png" alt=""></p>
+<p>案例：</p>
+<p><img src="/mysql_senior/d2a0e42d955343e0fd5b6c662712fead.png" alt=""></p>
+<p><img src="/mysql_senior/dc8acc07954ce4c29e24915be044ef38.png" alt=""></p>
+<p><img src="/mysql_senior/e4a6a8d43db1cdb49623fee7d425faf9.png" alt=""></p>
+<p>**命令:**GRANT privileges ON databasename.tablename TO &lsquo;username&rsquo;@&lsquo;host&rsquo;</p>
+<p><img src="/mysql_senior/f2518e1e8ac25d72795a550c7cb5c17e.png" alt=""></p>
+<p><strong>说明:</strong><br>
+privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所的权限则使用ALL<br>
+databasename：数据库名<br>
+tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用<em>表示，如</em>.*<br>
+**例子:**<br>
+GRANT SELECT, INSERT ON test.user TO &lsquo;pig&rsquo;@'%';<br>
+GRANT ALL ON *.* TO &lsquo;pig&rsquo;@'%';<br>
+GRANT ALL ON maindataplus.* TO &lsquo;pig&rsquo;@'%';<br>
+**注意:**<br>
+用以上命令授权的用户不能给其它用户授权，如果想让该用户可以授权，用以下命令:<br>
+GRANT privileges ON databasename.tablename TO &lsquo;username&rsquo;@&lsquo;host&rsquo; WITH GRANT
+OPTION;</p>
+<p><img src="/mysql_senior/6df55aab59a8bcec793b40f54238b23a.png" alt=""></p>
+<h4 id="查看授权">查看授权</h4>
+<p>Show grants for ‘username’@’host’;</p>
+<h4 id="撤销权限">撤销权限</h4>
+<p>Revoke privilege_names on db_name.table_name to from ‘username’@’host’;</p>
+<h3 id="密码">密码</h3>
+<h4 id="修改当前用户密码">修改当前用户密码</h4>
+<p>Set password = password(“123456”);</p>
+<p>Set password for ‘username’@‘host’=password(‘new_password’);</p>
+<h4 id="修改某个用户的密码">修改某个用户的密码</h4>
+<p>Update mysql.user set password = password(“123456”) where user = “root”;</p>
+<p>Flush privileges;</p>
+<h2 id="group-by的坑">Group by的坑</h2>
+<p><img src="/mysql_senior/9536cc4c470942c186ae4717dc30a422.png" alt=""></p>
+<p>这个错误很明显，但是还是要注意</p>
+<p>正确做法：关联一下</p>
+<p><img src="/mysql_senior/92c2d6d2e205bcfc0c06a5be8e45f88b.png" alt=""></p>
+<h2 id="sql_mode">Sql_mode</h2>
+<p>我们来查看一下造成上面group by出错的原因：ONLY_FULL_GROUP_BY</p>
+<p><img src="/mysql_senior/fe33922c4dfc6cb21375de8c8365098e.png" alt=""></p>
+<p>开发的时候把测试数据库的sql_mode拷贝到本地开发库，这样测试跟开发最后出来的结果就一样了，不会出现开发可以，测试不行的情况。</p>
+<p><img src="/mysql_senior/0da053908daac4fc70d5f252eda67cb5.png" alt=""></p>
+<p>类似的还有ORACLE这个字段，表示oracle遵循的sql_mode我MySQL也遵循</p>
+<h2 id="mysql逻辑架构">Mysql逻辑架构</h2>
+<p><img src="/mysql_senior/d3f417991d142b238f08915eff738728.png" alt=""></p>
+<h3 id="配置缓存">配置缓存</h3>
+<p>这里缓冲跟缓存的区别：缓存是读数据的，缓冲是写数据的</p>
+<p><img src="/mysql_senior/3abd7cdba9499e4a398ba89f02cd7fd0.png" alt=""></p>
+<p><img src="/mysql_senior/2edbed55b2ea41fd3125f130712b32c0.png" alt=""></p>
+<p><img src="/mysql_senior/77e33fcefb894c55af355ae8eb2e5ed0.png" alt=""></p>
+<p>配置文件中开启缓存后，还要再开启profiling才能使用缓存。如果要查看执行计划，执行命令show
+profiles;</p>
+<h2 id="查看sql执行命令时候的执行计划cpu等详细信息">查看sql执行命令时候的执行计划、cpu等详细信息</h2>
+<p><img src="/mysql_senior/0cb76d4849901b3f0f11827946625515.png" alt=""></p>
+<p><img src="/mysql_senior/334b8c3464d4097f2be55e23f422e268.png" alt=""></p>
+<p>注意：show profile cpu,block io for query之后还需要加上之前show
+profiles命令显示的query_id才可以，如下：</p>
+<p><img src="/mysql_senior/af3fad33f3e7bd6ea3f3b053f757735a.png" alt=""></p>
+<p>之后就可以出现所有的执行计划了：</p>
+<p><img src="/mysql_senior/70ad213c687ef0acd692a08648195ce9.png" alt=""></p>
+<p>之后我们再次执行这条sql语句，我们发现他直接用缓存返回数据：</p>
+<p><img src="/mysql_senior/6eb5a95c5ba6f25acd4720b337d5dcda.png" alt=""></p>
+<p>注意，这回我们使用效果相同但是表达不同的sql语句再次查询，结果发现缓存没有命中，因为缓存中key就是sql语句，value就是查询结果，key不一样意味着缓存没有命中。</p>
+<h2 id="机器自动优化之后的sql">机器自动优化之后的sql</h2>
+<p><img src="/mysql_senior/0e614305ff2a2cd4c6b99877b3c4d54d.png" alt=""></p>
+<h2 id="mysql存储引擎">MySQL存储引擎</h2>
+<p><img src="/mysql_senior/2d18cabb4721b969792a457e105df6ab.png" alt=""></p>
+<p><img src="/mysql_senior/6f38630316bfdde7f72f7fa13d1f8d2c.png" alt=""></p>
+<p><img src="/mysql_senior/3418ae4d221c90899d3de804f2f8a810.png" alt=""></p>
+<p><img src="/mysql_senior/7a59f33453b1a8d18af63b1b0af831a4.png" alt=""></p>
+<p>对于Memory引擎，现在都用redis了。</p>
+<h3 id="查看存储引擎列表">查看存储引擎列表</h3>
+<p><img src="/mysql_senior/0bdb8771d5ae57525b9ea3c3e7444777.png" alt=""></p>
+<h3 id="myisam和innodb的区别">MyISAM和InnoDB的区别★</h3>
+<p><img src="/mysql_senior/11a3d6b29047697694409b4b8acdd237.png" alt=""></p>
+<p><img src="/mysql_senior/c40db021cd404c9863ed65d9c0595205.png" alt=""></p>
+<p>一般来讲企业里不会设置外键，因为表之间的关系太复杂的话之后改动数据会非常麻烦。实际工作的时候用的是Innodb</p>
+<h3 id="行锁表锁">行锁表锁</h3>
+<p>行锁：各行之间的修改不受限制；表锁：同一时间只能改表中的一行。MySQL中会出现死锁，一般只有行锁会出现死锁，而表锁不会，因为表锁范围大。</p>
+<p>我们建表默认InnoDB引擎，因为难免会有高并发</p>
+<h3 id="csv">CSV</h3>
+<p>逗号分隔存储格式</p>
+<p><img src="/mysql_senior/71ebc75b8c6f1486d6683833af8478f5.png" alt=""></p>
+<p>支付宝转账之后一般钱不会立刻转过去，只是前台显示已经转过去了，实际上真正转账是需要时延的，而在一段时间后会有一个对账的操作，这个时候对账的数据一般就以csv格式存储，之后再把它读到数据库进行对比看看没有问题。</p>
+<h4 id="csv引擎">CSV引擎</h4>
+<p>Csv格式的文件可以直接从该引擎的数据库下载下来而不需要编写读文件、写文件的代码，而且外部的csv文件也可以直接存储到数据库，因此也省去了sql更新、插入、修改等语句，非常方便。</p>
+<p>一般报表系统、文本编辑这些都可以用这个引擎。</p>
+<h3 id="federated引擎联合引擎">Federated引擎（联合引擎）</h3>
+<p><img src="/mysql_senior/5a26a65e309924e4131faa6df766eac6.png" alt=""></p>
+<p>如图有两台机器上面分别有表A和表B，现在想要这两张表联合查询，这个时候用memory引擎就可以在其中一台机器上面创建另一张表的快捷方式（类似于linux的ln
+-s），这个时候即可完成关联查询。</p>
+<p>注意：只能完成简单的联合查询，像什么分组、筛选等复杂联合查询就不行了，在其中一台机器上固化web页面也是不行的。而且不能下载上传数据毕竟它是一个快捷方式，而且这种方法效率太低。</p>
+<p>说明这种引擎就是应急用的。</p>
+<p>如果真的要完成一些复杂功能一般情况会再来一台机器做数据中心，比方说每天把多台机器上的数据做一个汇总到我这一台数据中心机器上，如下：</p>
+<p><img src="/mysql_senior/6898c50ab44612d7804effbc42190b51.png" alt=""></p>
+<p>一般nosql数据库，大数据分析都是这么干的。都是先汇总，后清洗，后分析生成报表。</p>
+<h2 id="索引优化">索引优化</h2>
+<p><img src="/mysql_senior/eaecd2c86352850f645bc3eaf9689263.png" alt=""></p>
+<p><img src="/mysql_senior/4fe43f5d9fc24505c8029eb61ceaeff3.png" alt=""></p>
+<p>主键会自动建索引，关联字段也会自动建索引，等到sql变慢的时候再有针对性的建索引。</p>
+<p>注意，以上四块优化中索引建立效果最好!</p>
+<h3 id="简介">简介</h3>
+<p><img src="/mysql_senior/bd4e01bd48c2921bb05336a1efdb2a93.png" alt=""></p>
+<p><img src="/mysql_senior/47e8f1c4b3769b3d215e73a54e22c22c.png" alt=""></p>
+<p><img src="/mysql_senior/aa8108d6eac173af0fc014b6625cf48d.png" alt=""></p>
+<p>索引都是存在硬盘里的，MySQL一个文件存数据，一个文件存索引</p>
+<h3 id="索引结构">索引结构</h3>
+<h4 id="b树">B树</h4>
+<p><img src="/mysql_senior/11ddfe98c983ff794897155aa86f3ae0.png" alt=""></p>
+<p>1、数据</p>
+<p>2、向下的指针</p>
+<p>3、指向数据的指针</p>
+<h4 id="b树-1">B+树</h4>
+<p><img src="/mysql_senior/49bba0c0fd977be3c7dfa96ec8881cc7.png" alt=""></p>
+<p>第一层找到28之后没有指针，到下一层还是没有指针，一直到最后一层才有指针，之后才返回指针指向数据。</p>
+<p>1、数据</p>
+<p>2、向下的指针</p>
+<h4 id="b树-vs-b树">B树 VS B+树</h4>
+<p><img src="/mysql_senior/4d3d4e41616493cf9a50d3a87ba4824b.png" alt=""></p>
+<p>B树一次可以加载两块磁盘块</p>
+<p>由于索引需要读到内存里面才能起效，所以B树的时候我们读98就会不断发生内存中的缺页情况，因此需要频繁IO从磁盘中读取缺少的页，比方说在上面的情况下就发生了两次IO。</p>
+<p><img src="/mysql_senior/3b8741fd2a8e9ff6a216ad406dc8b4da.png" alt=""></p>
+<p>B+树一个节点就比B树多1/3，所以它一次能加载三块磁盘块</p>
+<p>这里B+树在找99的时候就发生了一次IO。</p>
+<h5 id="时间复杂度">时间复杂度</h5>
+<p><img src="/mysql_senior/374379238a81b53102c1fa48f694a434.png" alt=""></p>
+<p>跳表（每隔一段数据用一个指针指一下，并把这些指针存储在一张表里），如下：</p>
+<p><img src="/mysql_senior/698569b46b280320ada60df0ebc8b895.png" alt=""></p>
+<p>由于二叉树最坏情况就跟链表一样了，因此MySQL选择了平衡树。</p>
+<p><img src="/mysql_senior/72f4976f819e2af032ae01f754d4f066.png" alt=""></p>
+<h4 id="聚簇索引与非聚簇索引">聚簇索引与非聚簇索引</h4>
+<p><img src="/mysql_senior/97da16c18bcce804a9f12627ea6c2024.png" alt=""></p>
+<p><img src="/mysql_senior/d36a40cb18d89523f9cbae9be7b1a3d3.png" alt=""></p>
+<p>聚簇从上到下排好序了，非聚簇是分散的，比方说名字这个字段它就是无序排列分散到各处的。</p>
+<h3 id="索引分类">索引分类</h3>
+<p><img src="/mysql_senior/097da9d723bfae94acaf2df2644e72c5.png" alt=""></p>
+<p><img src="/mysql_senior/c61cacb1cbed5c53c3747a5ce133f404.png" alt=""></p>
+<h3 id="基本语法">基本语法</h3>
+<h4 id="创建使用create字段">创建（使用create字段）</h4>
+<p><img src="/mysql_senior/774e460f5ede75bac3ed49e71e51f1db.png" alt=""></p>
+<h5 id="创建单值索引">创建单值索引</h5>
+<p>Create index index_name on table_name(column)；</p>
+<h5 id="创建唯一索引">创建唯一索引</h5>
+<p>Create unique index index_name on table_name(column);</p>
+<h5 id="创建复合索引">创建复合索引</h5>
+<p>Create index index_name1_name2… on table_name(column1,column2,…);</p>
+<p><img src="/mysql_senior/ea673808a88cc96d959641a533dc5ec7.png" alt=""></p>
+<p>注意复合索引是有顺序的，因此在Seq_in_index这一字段下是1、2、3，表示写该索引的时候要按照这样的顺序去写字段。</p>
+<h4 id="创建使用alter字段">创建（使用alter字段）</h4>
+<p><img src="/mysql_senior/67cf4ba1b73e3481d81947b124a832b7.png" alt=""></p>
+<h4 id="删除">删除</h4>
+<p>Drop index index_name1、index_name2、… on table_name;</p>
+<h4 id="查看">查看</h4>
+<p>Show index from table_name\G;</p>
+<h5 id="在information_schema元数据库中查看更详细的索引信息">在information_schema(元数据库)中查看更详细的索引信息</h5>
+<p><img src="/mysql_senior/65c98a2a6f5ceaf722d885cdd95d7cc2.png" alt=""></p>
+<p><img src="/mysql_senior/3b4572d3d39cf969bfd9f5a7be279ec8.png" alt=""></p>
+<p>对应的statistic统计表就是</p>
+<h3 id="哪些情况需要创建索引">哪些情况需要创建索引</h3>
+<p><img src="/mysql_senior/a940924a10ec1f451d89debc555394d0.png" alt=""></p>
+<p>如果有5个字段加索引，由于MySQL只会选择一个索引，因此单键索引的话，就算5个字段都加了索引，它最后也还是只会选择其中一个，但是如果是组合索引的话就5个都可以用到了。所以组合索引性价比更高。</p>
+<p>Group by比order by更加消耗性能，因为它先排序后分组。</p>
+<h3 id="哪些情况不需要创建索引">哪些情况不需要创建索引</h3>
+<p><img src="/mysql_senior/ab96e2da472199d0f237a99e94f291d7.png" alt=""></p>
+<p>表记录太少没必要建立索引。</p>
+<p>由于建索引之后写操作会变慢，所以经常增删改的就不要建索引了。</p>
+<p>Where里用不到的字段建了索引也浪费。</p>
+<p>过滤性不好的例如性别这些的也别建立索引。</p>
+<h3 id="性能分析">性能分析</h3>
+<p><img src="/mysql_senior/fe32c049fc8d360e585c4fcabbd79c64.png" alt=""></p>
+<p><img src="/mysql_senior/a702499d25ee347b72ce620ef730e51b.png" alt=""></p>
+<p><img src="/mysql_senior/4672f5e71d91bdf137492e976e1113c5.png" alt=""></p>
+<h4 id="mysql原则">Mysql原则</h4>
+<p>除了or这种查询语句之外mysql只会选择一个它认为最优的索引使用</p>
+<h4 id="各字段解释">各字段解释</h4>
+<p><img src="/mysql_senior/b2a1ce656138dc7ca4fff68e7388c9f7.png" alt=""></p>
+<p>重点：</p>
+<p><img src="/mysql_senior/e84c386db7f111ff7e0c4eb100a9331e.png" alt=""></p>
+<h5 id="id用于分析读取顺序">Id（用于分析读取顺序）</h5>
+<p><img src="/mysql_senior/c2aa6ee7c230d6fab26f1c2573a2a838.png" alt=""></p>
+<p><img src="/mysql_senior/8594f33081fdf74319f4d237104ca019.png" alt=""></p>
+<p><img src="/mysql_senior/1aed788b2cc68541df1c4cc175371f7b.png" alt=""></p>
+<p><img src="/mysql_senior/f0d65dbcfbb44effc8c3d2c85256f437.png" alt=""></p>
+<h6 id="关于查询趟数">关于查询趟数</h6>
+<p><img src="/mysql_senior/567cce823e600ffa358da6a0dd137e46.png" alt=""></p>
+<p>表1要关联表2的数据再关联表3的数据最终才能查到数据，那么找第一行数据的时候是需要表1、2、3都走一遍的，之后三表关联的结果就会出来，所以找第二行数据的时候，就不需要再走表2表3了，只需要走表1。<strong>这样来一遍就叫做一趟查询</strong>。</p>
+<p>所以id显示为不同数字的就表示不是同一趟查询，同理显示同一数字的表示同一趟查询。趟数越少越好，也就是id全都是1那就是最好的。</p>
+<h5 id="select_type">Select_type</h5>
+<p><img src="/mysql_senior/a7e1a1a78623907021568f5e1345471f.png" alt=""></p>
+<p><img src="/mysql_senior/360b02793f256eb0829da1c5deb494ce.png" alt=""></p>
+<h6 id="simple">Simple</h6>
+<p><img src="/mysql_senior/0bea6b641e2564f6b8b3d0c0dd58525c.png" alt=""></p>
+<h6 id="primary和derived">Primary和derived</h6>
+<p><img src="/mysql_senior/ac55fadff38d23bb3d22d9665233bbd1.png" alt=""></p>
+<h6 id="subquery和dependent-subquery">Subquery和dependent subquery</h6>
+<p>Subquery:</p>
+<p><img src="/mysql_senior/d2be66b872ef2d93f263986e43246fe0.png" alt=""></p>
+<p>Dependent subquery:</p>
+<p><img src="/mysql_senior/bbc6c94b674ae453de543965d88c9a94.png" alt=""></p>
+<p>主要区别：where id = ()和where id in ()</p>
+<h6 id="uncacheable-subquery">Uncacheable subquery</h6>
+<p><img src="/mysql_senior/c7bc90490d261f892e2e3a452c8023c6.png" alt=""></p>
+<p>系统变量可能随时会变，所以在这种情况下会被MySQL认为是不可缓存的subquery</p>
+<h6 id="union和union-result">Union和union result</h6>
+<p><img src="/mysql_senior/df41d93bd88fcb6ed716d9f4450f4856.png" alt=""></p>
+<h5 id="type">Type</h5>
+<p><img src="/mysql_senior/7461c8ffe62cb2e6b6cf053919c2e516.png" alt=""></p>
+<p><img src="/mysql_senior/42c82900ac4c52c002ca9f320bcaba6f.png" alt=""></p>
+<p><img src="/mysql_senior/765dd44203ddfb9cb3b5cf2d1dde67c3.png" alt=""></p>
+<p><img src="/mysql_senior/0ebda937f47524b73dc7e64d00db1d1f.png" alt=""></p>
+<p><img src="/mysql_senior/27d092f288badf0894c5d2233a135cba.png" alt=""></p>
+<p><img src="/mysql_senior/223f4384a50d2ad6b1fb8afb891d3c78.png" alt=""></p>
+<h6 id="all">All</h6>
+<p>这里我们看到all是红色的，表示如果出现这个字段的话说明查询需要查全表，效率极低，需要建立索引去处理。如下：</p>
+<p><img src="/mysql_senior/c82295aabe9dcfc2744f28bac09f747e.png" alt=""></p>
+<h6 id="index">Index</h6>
+<p>Index是橙色的，表示where后面没有用到设置为索引的字段，只是select或者from这些字段中用到索引了，如果是像这种覆盖索引或者利用索引进行了排序分组，那么它的效率还是非常低的，需要想办法优化，在后面的筛选条件中用到索引。</p>
+<h6 id="range">Range</h6>
+<p>Range是黄色的，表示索引字段用在了范围查询，这种情况效率也是很低的，但是如果说我们就是想用这个字段做范围查询，那也没办法，只能这么用了，一切以需求为先。如下：</p>
+<p><img src="/mysql_senior/891496b62162917897da4177a39df7af.png" alt=""></p>
+<h6 id="const">Const</h6>
+<p>等号后面的值是常量</p>
+<p><img src="/mysql_senior/abd85e1dde3d3ab5f428bff0d47e6bfa.png" alt=""></p>
+<h6 id="eq_ref">Eq_ref</h6>
+<p>表示按照索引查出唯一一条数据</p>
+<p><img src="/mysql_senior/9eb1d74f3af7e3390cb9277916086f41.png" alt=""></p>
+<h6 id="ref">Ref</h6>
+<p>表示按照索引查出了多条数据</p>
+<p><img src="/mysql_senior/77fccbc58d4d77859637b57e73053b4f.png" alt=""></p>
+<p><img src="/mysql_senior/4ec90d1a3db0979b0feb932634d3cabc.png" alt=""></p>
+<h6 id="index_merge这个or很关键">Index_merge(这个or很关键)</h6>
+<p><img src="/mysql_senior/2a54b5ccfda5f171d407c8e21d596a62.png" alt=""></p>
+<p>如果or两边的字段都用上了索引，那么MySQL会将这两个索引合并，显示index_merge，两个索引都能用。</p>
+<h6 id="ref_or_null这里也是or">Ref_or_null(这里也是or)</h6>
+<p><img src="/mysql_senior/226dc503aafbf89d6e7e82e72bae8d01.png" alt=""></p>
+<p>这种情况下Or两边的字段是一样的，只不过只需要任意一个为空即可，这时候会显示ref_or_null。</p>
+<h6 id="index_subquery">Index_subquery</h6>
+<p><img src="/mysql_senior/9b4b10d17292c8161ddcb28a713ec2b7.png" alt=""></p>
+<p><img src="/mysql_senior/c3f80aa1015295fd409bf38f269bb45d.png" alt=""></p>
+<h6 id="unique_subquery">Unique_subquery</h6>
+<p><img src="/mysql_senior/311751b99c012d1f9fcef8f1c29c2d5a.png" alt=""></p>
+<h5 id="possible_keys和key">Possible_keys和key</h5>
+<p>Possible_keys列出可能用到的索引</p>
+<p><img src="/mysql_senior/74bc5fad3494f026ecf569698045d73b.png" alt=""></p>
+<p><img src="/mysql_senior/14aedf6694cc7aab9196ea55ea22b883.png" alt=""></p>
+<p>Key列出被实际使用的索引</p>
+<p><img src="/mysql_senior/6d7534a0605bb688d638bf94b0312428.png" alt=""></p>
+<p><img src="/mysql_senior/8e1ad4d79d9385709a550f8bfe578924.png" alt=""></p>
+<h5 id="key_len">Key_len</h5>
+<p><img src="/mysql_senior/da5d202aba41dd8434cf908c762d3c29.png" alt=""></p>
+<p>这一块主要用在复合索引上，查看复合索引中索引的命中情况，数值越大越好。</p>
+<p><img src="/mysql_senior/a21640e9c80ff8d165aa38d23249f9e4.png" alt=""></p>
+<p>解释：</p>
+<p><img src="/mysql_senior/12433e41f64129b76ed0c08ef8aad42a.png" alt=""></p>
+<p>注意，int本身长度为4，如果为null的话长度为5（这是int最长的长度了）</p>
+<p>Varchar如果是gbk那么一个字符占两位，如果是utf8那么一个字符占三位，又因为是varchar（动态），所以在乘相应的倍数之后还要再加2.</p>
+<h5 id="rows">Rows</h5>
+<p><img src="/mysql_senior/3225e976c645dcb52b4929291cbf3d32.png" alt=""></p>
+<p>显示搜索时被扫描的物理行数，越少越好</p>
+<p><img src="/mysql_senior/f439588d5485dd016bd8bf3a60524d1b.png" alt=""></p>
+<h5 id="extra">Extra</h5>
+<p><img src="/mysql_senior/3c571470f434ddb1f10d769e7e7071b4.png" alt=""></p>
+<h6 id="using-filesort">Using filesort</h6>
+<p>该字段意为文件排序（手工排序，很慢），为红色，表示order
+by没用上索引。我们知道用上索引之后排序会很快</p>
+<p><img src="/mysql_senior/d327d94f0a58ddcb42cf265ac48d99dd.png" alt=""></p>
+<p>这种情况叫“要你命3000”，超级慢!!</p>
+<p><img src="/mysql_senior/8e0084e1073cf058ef29e40d5533c17c.png" alt=""></p>
+<p>优化后：</p>
+<p><img src="/mysql_senior/b0aac261d8b08d2e1e2cd22f2ffa902b.png" alt=""></p>
+<p><img src="/mysql_senior/76046069778c46ca54beb02ed529af58.png" alt=""></p>
+<h6 id="using-temporary">Using temporary</h6>
+<p>这个字段也是红的，表示group by没用上索引，我们知道group by包含order
+by，所以这个比order by更慢！</p>
+<p><img src="/mysql_senior/c6d47a0d1707c1445323e7bf784a87a3.png" alt=""></p>
+<p>我们看到这种情况在using temporary之后还带了一个using filesort。</p>
+<p><img src="/mysql_senior/6244a909ec2290cbd55ecfbc3dc8cb3f.png" alt=""></p>
+<p>要你命30000！</p>
+<p><img src="/mysql_senior/9a087fc3e8d2a4e9d77dc137505de831.png" alt=""></p>
+<p>优化之后两个字段同时消失，效果：</p>
+<p><img src="/mysql_senior/9c57a5d96b2585762c76636cd5904884.png" alt=""></p>
+<h6 id="using-join-buffer">Using join buffer</h6>
+<p>该字段也是红色的，意为join字段用上buffer缓冲了，表示关联字段没用上索引</p>
+<p><img src="/mysql_senior/53165110e65ae3052552fc8cd04262c3.png" alt=""></p>
+<p>解决方法：以上面为例，我们应该给emp.<code>deptno</code>加索引。</p>
+<h6 id="impossible-where">Impossible where</h6>
+<p>这个字段虽然是黑色的，但也是不好的，意为sql写错了。</p>
+<p><img src="/mysql_senior/785fcaa349125273d0c9cc58b4856ed7.png" alt=""></p>
+<h6 id="using-indexusing-where">Using index、using where</h6>
+<p>这些字段是好的</p>
+<p><img src="/mysql_senior/1b9fedb8f426d168de076a53b12cc4a0.png" alt=""></p>
+<p><img src="/mysql_senior/bed80b9efe00522d1f8e97476fb57e13.png" alt=""></p>
+<h6 id="select-tables-optimized-away">Select tables optimized away</h6>
+<p>这个字段意为用上了优化</p>
+<p><img src="/mysql_senior/141359faaf9ffacc3549e509b784e3ed.png" alt=""></p>
+<p><img src="/mysql_senior/91d2268b29712ffaa231490de729d961.png" alt=""></p>
+<h5 id="tablepartitionsreffiltered">Table、partitions、ref、filtered</h5>
+<p><img src="/mysql_senior/e1aecc89af379843b7d16816b0bca7ad.png" alt=""></p>
+<p>有可能是真实的表，也有可能是我们起的别名，还有可能是衍生表（查询出来的结果作为一个虚拟表存在）</p>
+<p><img src="/mysql_senior/a1c6161e22fde75b919399f8fbb3e7d4.png" alt=""></p>
+<p><img src="/mysql_senior/986ed6791dd7bbce3453857b1609eab7.png" alt=""></p>
+<p><img src="/mysql_senior/b101373f6d43010962090fa978aebb3a.png" alt=""></p>
+<p><img src="/mysql_senior/1863d0f216ee6579f8fda698d8281ac3.png" alt=""></p>
+<p><img src="/mysql_senior/31d63d9f4f80eba915d77dfc3322b844.png" alt=""></p>
+<h3 id="实际开发中处理索引">实际开发中处理索引</h3>
+<p>1、查询索引名</p>
+<p>2、取出索引名</p>
+<p>3、怎么把字符串转换成sql</p>
+<h4 id="查询索引">查询索引</h4>
+<p>还是从information_schema元数据库中查看statistics表</p>
+<p><img src="/mysql_senior/8a8471925dcafa12aae83d345cfb75e7.png" alt=""></p>
+<p>注意，我们删索引可以，但是主键索引不能删，所以我们的索引名应该将主键索引剔除出去（where
+index_name != ‘PRIMARY’）.</p>
+<p>此外，我们注意看它的index_name是有重复的，因此我们取后面那一列seq_in_index为1的数据即可查询出对应表包含哪些索引。</p>
+<p><img src="/mysql_senior/18b96d34ab3f2ea2b52a91e1af738cd1.png" alt=""></p>
+<h2 id="实战分析索引">实战分析索引</h2>
+<h3 id="批量导入数据">批量导入数据</h3>
+<p><img src="/mysql_senior/481841dcc767fd1d618f83cc8c6181d0.png" alt=""></p>
+<p><img src="/mysql_senior/ea84f0f476bf8e94d4a1cd7b6388ed9a.png" alt=""></p>
+<p><img src="/mysql_senior/7cd04a954c5b9d4a8992724ad9a801a1.png" alt=""></p>
+<p><img src="/mysql_senior/13d9e968958f925d0700be20048d44b4.png" alt=""></p>
+<p><img src="/mysql_senior/d68478c8518fd2f1773eb146fe9309bd.png" alt=""></p>
+<p>这里涉及到MySQL主从：主机将所有写操作写到一个二进制日志叫做bin.log而从机去读这个日志，主机做了什么事情，从机也做什么事情</p>
+<p><img src="/mysql_senior/fdd22bc0b513489f795c8ca329aee910.png" alt=""></p>
+<p>但是如果主机写了一个函数获取当前时间，那么从机再去执行这个函数获取当前时间，这两个时间必定不一致，这会造成主从不一致问题，为了避免这个问题MySQL禁止用户创建函数，所以就有了上图中log_bin_trust_function_creators=OFF</p>
+<p><img src="/mysql_senior/bf2a256b31c518a108b827070c9581b7.png" alt=""></p>
+<p>但是在这里我们要批量插入数据就必须写函数，因此要将这个参数设置为on</p>
+<p>生成随机字符串：</p>
+<p><img src="/mysql_senior/b30b3e901d6f76d237d3e9afa0ac6f4e.png" alt=""></p>
+<p>生成随机数：</p>
+<p><img src="/mysql_senior/eae6d13e475bdafcfa3db5e6301f3373.png" alt=""></p>
+<p>注意：但凡是批量输入数据、导数据、操作数据的时候，要写存储过程</p>
+<p>往员工表插入数据</p>
+<p><img src="/mysql_senior/ede4bc50e3bc49414f67503e11808a9c.png" alt=""></p>
+<p>往部门表插入数据</p>
+<p><img src="/mysql_senior/2849f02c36fb890420ad81c38894f35f.png" alt=""></p>
+<h4 id="批量删除索引">批量删除索引</h4>
+<h5 id="mysql游标">Mysql游标</h5>
+<p>用于循环集合</p>
+<p>CURSOR 游标</p>
+<p>FETCH xxx into xxx</p>
+<p>游标每fetch一次指针向下走一格，直到游标指向数据为空为止：</p>
+<p><img src="/mysql_senior/03bda695bc4802bb532aa508ce4b0c37.png" alt=""></p>
+<h5 id="论mysql执行一个字符串">论mysql执行一个字符串</h5>
+<p>PREPARE预编译之后execute执行</p>
+<p><img src="/mysql_senior/32bb014d1904524bd1a2dc71dd6ee265.png" alt=""></p>
+<p><img src="/mysql_senior/cc4836e8bf53c85654de2acaba177a66.png" alt=""></p>
+<h3 id="分析索引">分析索引</h3>
+<p><img src="/mysql_senior/dba62c75dab104f143aa915f855c38d3.png" alt=""></p>
+<p><img src="/mysql_senior/e8b48b9ff3e76e4bbdbb40b3ca037ab3.png" alt=""></p>
+<h4 id="全值匹配我最爱建立复合索引">全值匹配我最爱，建立复合索引</h4>
+<p><img src="/mysql_senior/6dec475adb8cf5eae650f99b4d9f7fea.png" alt=""></p>
+<p>注意：这里的SQL_NO_CACHE表示查询的时候排除缓存的影响</p>
+<p>建立索引之前</p>
+<p><img src="/mysql_senior/b9ca2fee29ec4727133465d1e61de17f.png" alt=""></p>
+<p>建立索引之后</p>
+<p><img src="/mysql_senior/99faff033d11ef37c84931749313b831.png" alt=""></p>
+<p>建立组合索引</p>
+<p><img src="/mysql_senior/2c1baeb38899f055fc9ffb809c1e186f.png" alt=""></p>
+<p><img src="/mysql_senior/42fd40108e3229079f4ea06331625dc1.png" alt=""></p>
+<p>效果显著啊！</p>
+<p><strong>注意：如果两个字段中只有一个建立了索引，那么就命中那一个，但是如果两个都没有单独建立索引（注意这里就算某个字段之前建立过组合索引，但是没有单独建立索引的话也不会命中索引），这个时候就一个也不会命中了。</strong></p>
+<h4 id="复合索引最佳左前缀法则">复合索引最佳左前缀法则</h4>
+<p><img src="/mysql_senior/6a5eefb5caf0b2b5fe8932dd79e4e3ec.png" alt=""></p>
+<p>复合索引是分层的，比方说上面age为第一层，那么age有多少子节点对应的deptid就有多少颗树，在age命中之后跳到第二层deptid，命中之后再跳到name层。</p>
+<p><strong>所以如果这个层级断裂了，比方说deptid层没了，那么name这一层就没法用了。同理如果name层没了，那整个索引就都没法用了。</strong></p>
+<h4 id="给索引加函数加计算加类型转换会造成索引失效">给索引加函数，加计算，加类型转换会造成索引失效</h4>
+<p><img src="/mysql_senior/112d5e143e475f2931520a5f83b23759.png" alt=""></p>
+<h4 id="用于范围查询的索引右边添加的索引失效">用于范围查询的索引右边添加的索引失效</h4>
+<p><img src="/mysql_senior/a9a648d3d02d6e9eee916298906cfbac.png" alt=""></p>
+<p>这里有个一本身也为索引的字段deptid，但是它被用在了范围查询，所以它右边的这个name索引字段就会失效，解决方法：建立索引的时候把deptid字段放在最后面</p>
+<p><img src="/mysql_senior/b6cf7db206f0cbb570c6e038ae22f601.png" alt=""></p>
+<p><img src="/mysql_senior/ef71cb1dca1ad1ee95e7a40ad99e601c.png" alt=""></p>
+<p>这里我们发现可选索引有两个，MySQL选择了deptid在最后的那个</p>
+<h4 id="索引遇到不等于号时失效">索引遇到“&lt;&gt;”（不等于号）时失效</h4>
+<p><img src="/mysql_senior/5036239185b36a0c2b3854e994cc6848.png" alt=""></p>
+<p>注意：工作中如果没有特殊原因不要写不等于号</p>
+<h4 id="索引遇到is-not-null失效">索引遇到IS NOT NULL失效</h4>
+<p><img src="/mysql_senior/54915f8292d51f965051d8c0be70099e.png" alt=""></p>
+<p>IS NULL是可以用索引的，但是IS NOT NULL失效</p>
+<h4 id="like查询条件最前面有时索引失效">Like查询条件最前面有%时索引失效</h4>
+<p>例如：like ‘%abc%’</p>
+<p><img src="/mysql_senior/6da2772099456306f46a1572a48d7aab.png" alt=""></p>
+<p>由于复合索引的原理，一般英文的字段按照a-z的顺序排列，但是如果连首字母都无法确定那么就显然会失效。</p>
+<h4 id="等号右边的值做类型转换索引失效">等号右边的值做类型转换索引失效</h4>
+<p><img src="/mysql_senior/aaec27a015ea30ab6b0070152c838814.png" alt=""></p>
+<p>刚才上面讲到等号左边的变量做计算、类型转换、加函数等操作都会使得索引失效。</p>
+<p>这里的name是varchar类型，123是int类型，MySQL自动给123做了类型转换，使得索引失效。</p>
+<p><strong>场景：Java代码中使用对象直接作为结果去MySQL中查找，可能对象和MySQL中那个字段类型不匹配，这个时候MySQL就会触发类型转换使索引失效</strong></p>
+<h4 id="调整sql顺序涉及sql优化器">调整sql顺序（涉及sql优化器）</h4>
+<p><img src="/mysql_senior/8eae2f3fd104a44572cc93e6cd508a99.png" alt=""></p>
+<p><img src="/mysql_senior/64fd58cba4ef068960f751711f1752e9.png" alt=""></p>
+<p>以上两条sql效果一样，只是语句顺序发生了修改，但是这两条语句照样用上了索引，原因是MySQL有优化器，优化器的效果就是在不改变sql语句的前提下调整sql顺序，所以它还是可以用到索引的。</p>
+<h4 id="总结">总结</h4>
+<p><img src="/mysql_senior/594c69e03f3348e05dece6c1bde30b19.png" alt=""></p>
+<h3 id="关联子查询索引优化">关联、子查询索引优化</h3>
+<h4 id="非inner-join">非inner join</h4>
+<p><img src="/mysql_senior/23b98df30d55689c7feea5907fd04a8b.png" alt=""></p>
+<p>没做关联索引优化的时候出现Using join
+buffer。这时他做全盘扫描，一共需要扫描20*20=400行数据！</p>
+<p><img src="/mysql_senior/af9ae95c1c8182f212f57746d62aa530.png" alt=""></p>
+<p>两表关联查询是有顺序的，分驱动表和被驱动表，其中驱动表无法避免全盘扫描，因此建索引也没用，只有被驱动表可以建索引优化。</p>
+<p><img src="/mysql_senior/6685c893e16dda73d65513553b77e119.png" alt=""></p>
+<p>做了索引之后需要扫描20*1=20行数据</p>
+<h4 id="inner-join">Inner join</h4>
+<p><img src="/mysql_senior/198a0be1ca14bf97070074e6a8d6477d.png" alt=""></p>
+<p>但凡是inner join，MySQL自己选择驱动表和被驱动表</p>
+<h4 id="straight_join手动设置驱动表与被驱动表">Straight_join（手动设置驱动表与被驱动表）</h4>
+<p><img src="/mysql_senior/a5b0157fc9adbcddff52809b821f8ce4.png" alt=""></p>
+<p>效果跟inner join一样，但是它可以指定谁为驱动表，谁为被驱动表。如下：</p>
+<p><img src="/mysql_senior/4b623a947082af1b2e6a99610c65e027.png" alt=""></p>
+<p>这个时候straight_join前面的就为驱动表，后面的为被驱动表。</p>
+<h4 id="大表关联小表">大表关联小表</h4>
+<p>这个时候肯定是选择小表为驱动表，因为扫描的物理行数少</p>
+<h4 id="比较四种join写法的优劣">比较四种join写法的优劣</h4>
+<p>第一名：</p>
+<p><img src="/mysql_senior/bbabbb86719fb533dae162fd522278fd.png" alt=""></p>
+<p>第二名：</p>
+<p><img src="/mysql_senior/1e31a08c2d576c22949dc0a12e53dc5a.png" alt=""></p>
+<p>第三名：</p>
+<p><img src="/mysql_senior/432a70ec2b997aa8331bdee3a572bbae.png" alt=""></p>
+<p>第四名：</p>
+<p><img src="/mysql_senior/392f217725d118cff32a978c5da019a2.png" alt=""></p>
+<p>解释：</p>
+<p>第三第四名的表A和表B关联之后生成了一张虚拟表，而这张虚拟表被作为了被驱动表，**而被驱动表是建不了索引的！**所以这里相当于浪费了被驱动表优势。</p>
+<p>这里为什么第三名只有两个all而第四名有三个all，是因为第四名把子查询放在left
+join后面的最后了，而第三名left
+join后面先放了一个子查询，后面又放了一个正常的能建索引的被驱动表。</p>
+<h4 id="避免不了子查询时的优化案例">避免不了子查询时的优化案例</h4>
+<p><img src="/mysql_senior/e57c9fa0e29ccc039a91b7f10f96fc87.png" alt=""></p>
+<p>上面那种查询既用到了is not null还用到not in</p>
+<p>还用到了子查询。因此效率极其低下。</p>
+<p>这个时候我们想到了这个算法根本目的在于找一个表里有但另一个表里没有的数据，想到了使用left
+join来优化。如下：</p>
+<p><img src="/mysql_senior/15cdfc92cf8564229efd0abbf7bed9bc.png" alt=""></p>
+<p>这个算法一趟查询，而且用到了索引，效率非常高</p>
+<h4 id="总结-1">总结</h4>
+<p><img src="/mysql_senior/e97bc203d1c14bde235dd0b19e68acc5.png" alt=""></p>
+<p><img src="/mysql_senior/37e66e16b80675030d3d544b045631a3.png" alt=""></p>
+<h3 id="排序分组优化">排序分组优化</h3>
+<h4 id="必须加过滤条件">必须加过滤条件</h4>
+<p>注意：但凡用到了order by，一定要搭配过滤条件，实在不行用limit也可以，不然using
+filesort去不掉</p>
+<p><img src="/mysql_senior/f1b45ee6226ae4e47da2b74826ac2b83.png" alt=""></p>
+<h4 id="过滤条件和排序先后顺序可互换">过滤条件和排序先后顺序可互换</h4>
+<p><img src="/mysql_senior/a7a2fe2f6ac2c5a6550a4c62c2e12fab.png" alt=""></p>
+<p>过滤条件在前面，排序照样用到了索引</p>
+<h4 id="order-by是否用上索引就看最后一列指标extra">Order by是否用上索引就看最后一列指标extra</h4>
+<p><img src="/mysql_senior/38838a8cc38ab40ae69d4a6ce9f7a09d.png" alt=""></p>
+<p><img src="/mysql_senior/abd1bfb5e6d8ba6beebe288b9b813848.png" alt=""></p>
+<p>这里我们给age、deptid、name三个字段按照顺序加了复合索引，我们发现key_len是5，是因为key_len只记录where后面用上索引的字段，不记录order
+by后面的，但事实上这里的order by中的两个字段都用上了索引，所以看order
+by是否用上索引应该看最后一列指标是否消除了using filesort</p>
+<h4 id="order-by后面有一个字段跟所建索引对不上">Order by后面有一个字段跟所建索引对不上</h4>
+<p><img src="/mysql_senior/75a331f38c2a6b1e7346766286351c18.png" alt=""></p>
+<p><img src="/mysql_senior/3abd8b4bf17c70f1753c5ebf58428024.png" alt=""></p>
+<p><img src="/mysql_senior/8ad763cd48147e4cdac1499a8fed412d.png" alt=""></p>
+<p>这个时候想要这两个order
+by后面的字段用上索引是不可能的，所以需要再创建一个索引，如下：</p>
+<p><img src="/mysql_senior/4a4d291ff7f2e0fd5531d78bb8216649.png" alt=""></p>
+<p><img src="/mysql_senior/0f77e3a1170efaec5538a57b67ae0bcd.png" alt=""></p>
+<h4 id="order-by后面字段都在复合索引里但是顺序调换">Order by后面字段都在复合索引里但是顺序调换</h4>
+<p><img src="/mysql_senior/991e9e1790ae35c35d6ae952483b7f12.png" alt=""></p>
+<p><img src="/mysql_senior/b7263348587df99c434c0b4c0a0078a9.png" alt=""></p>
+<p><img src="/mysql_senior/6bec8660bded22a3f3c60127ad631ca4.png" alt=""></p>
+<p>这种情况也是不行的，要注意MySQL是在不改变结果的情况下进行优化，这里order
+by字段都换了，结果必定不一样，所以MySQL不会进行优化。这种情况也是只能再建立一个新的复合索引</p>
+<h4 id="where和order-by后字段顺序与索引对应字段顺序不一致">Where和order by后字段顺序与索引对应字段顺序不一致</h4>
+<p>这也是不行的</p>
+<p><img src="/mysql_senior/745c4e42b0e394a164bcd97ca00c6f1e.png" alt=""></p>
+<p><img src="/mysql_senior/44a998b523f8958b755ac04e2b30c7bf.png" alt=""></p>
+<h4 id="有过滤字段顺序正确但有ascdesc情况下的索引">有过滤，字段顺序正确但有asc、desc情况下的索引</h4>
+<p>要么都降序要么都升序情况下索引正常</p>
+<p><img src="/mysql_senior/d98065f4886a661d32f7bb9b72ed67cf.png" alt=""></p>
+<p><img src="/mysql_senior/df721204c34ba80058bea07d3af18ebd.png" alt=""></p>
+<p>一个降序一个升序，出现using filesort</p>
+<p><img src="/mysql_senior/cb71decaf2a854f0a4743e29596ba86c.png" alt=""></p>
+<p><img src="/mysql_senior/e78f9bc337908a21dd18512bab90b7d5.png" alt=""></p>
+<h4 id="总结上">总结（上）</h4>
+<p>1、无过滤，不索引；</p>
+<p>2、顺序错，必using filesort</p>
+<p>3、方向反，必排序</p>
+<h4 id="索引的选择">索引的选择</h4>
+<p><img src="/mysql_senior/b7a86fc110f25fbd91cb1ff8261ba3ec.png" alt=""></p>
+<p><img src="/mysql_senior/ad7c7e159422ce6d1ca06d79e1021583.png" alt=""></p>
+<p>首先这个案例empno用到了范围查询，所以后面那个order
+by里面的索引肯定会失效，所以这个一块只能选择age_name（舍弃empno）或者age_empno，测试结果发现使用age_name时using
+filesort被优化了，但是rows有四万多行，使用age_empno时，虽然有using
+filesort，但是rows只有40多行，<strong>最终MySQL选择了age_empno</strong></p>
+<h4 id="filesort的两种算法双路排序和单路排序">Filesort的两种算法：双路排序和单路排序</h4>
+<p>在避免不了Using
+filesort的时候MySQL会选用这两种算法中的一个。那么这个时候我们就可以调整下面两个字段的参数使得filesort更快。</p>
+<p>单路排序比双路排序要快得多，因为单路是在内存中排序</p>
+<p><img src="/mysql_senior/2fdedc0fe223e027a4f6c76499301780.png" alt=""></p>
+<p><img src="/mysql_senior/8d6244d342ea6815ce7026ca4534ef21.png" alt=""></p>
+<p><img src="/mysql_senior/664f62af89c282332ca67d4733ecb540.png" alt=""></p>
+<p>**双路：**先将所有数据取出，再进行排序；</p>
+<p>**单路：**取一个数据排一下，取一个数据排一下，直到所有数据都取出来后，自然也就排好序了，而且是在内存中排的序，因此内存要足够大。</p>
+<h5 id="设置sort_buffer_size与max_length_for_sort_data">设置sort_buffer_size与max_length_for_sort_data</h5>
+<p><img src="/mysql_senior/cf5f5dfec93dcf76ce221e19160d8916.png" alt=""></p>
+<p>Sort_buffer_size是指单个sql 1M-8M，已经非常大了；</p>
+<p>Max_length_for_sort_data：单路排序的时候我们需要从磁盘取一次数据并做一次排序，那这个字段是指每一次取数据的大小是多少，一般设置1024-8192。</p>
+<h4 id="group-by关键字优化">Group by关键字优化</h4>
+<p><img src="/mysql_senior/ebc4691350ef3afcee91d81b0939e9ea.png" alt=""></p>
+<p>Group by就算没有过滤条件用到索引，也可以直接使用索引</p>
+<h4 id="总结下">总结（下）</h4>
+<p>1、用到Order by和group
+by索引且是复合索引的时候各字段与我们创建的索引的各字段必须一一对应，不然很可能索引就失效了。</p>
+<p>2、order by和group by
+后面如果有多个字段而且某些字段已经有索引了，那么就不需要再全部合起来建一个复合索引，只需要把没有建索引的几个字段建立索引即可，**因为order
+by、group by后面但凡有索引就能用，是没有限制条件的。**例如：</p>
+<p><img src="/mysql_senior/7bec6142e929060d69b5a3c01cae8a6e.png" alt=""></p>
+<p>这两个字段中id已经有主键索引了，就不需要再建了，只需建立deptName这个字段的索引即可</p>
+<h3 id="覆盖索引最后的索引手段">覆盖索引（最后的索引手段）</h3>
+<p>这一块有经验技巧可言，如下：</p>
+<p>案例1</p>
+<p><img src="/mysql_senior/c80f2becf973a448980a117cc7058c58.png" alt=""></p>
+<p>这个例子有两个sql语句，第一句sql在where后用了age索引但是用了”&lt;&gt;”不等号，导致了age索引失效，所以做了第二句sql优化，在select后面加了个id字段，这个字段也是索引，这个操作之后变成了using
+index，也就是覆盖索引，type由all变成了range，至少优化了一点点。</p>
+<p>*<em>注意：这里select * 和select id,name…是不同的，select <em>没有用到覆盖索引！</em></em></p>
+<p>案例2</p>
+<p><img src="/mysql_senior/98e6727d739fb17041fe7c34f81c7339.png" alt=""></p>
+<p>这里用了语句like ‘%abc’，索引又失效了。</p>
+<p>优化如下：</p>
+<p><img src="/mysql_senior/13a30964c855c7f939d97267ce0e7a85.png" alt=""></p>
+<p>将select
+<em>中的</em>展开之后但凡有索引字段就会用到覆盖索引。虽然效率只提升了一点点。</p>
+<h4 id="总结-2">总结</h4>
+<p>从今以后写sql不再写select *，而是具体写出相应字段。</p>
+<h2 id="查询截取分析">查询截取分析</h2>
+<p><img src="/mysql_senior/d8ce46b9c30cf11a21cc342d4a559ee4.png" alt=""></p>
+<h3 id="慢查询日志">慢查询日志</h3>
+<p><img src="/mysql_senior/09742ad2de9f7ec4cc3f86c99c753d23.png" alt=""></p>
+<p><img src="/mysql_senior/24205ec93e577099b78de45026509529.png" alt=""></p>
+<h4 id="日志分析工具mysqldumpslow">日志分析工具mysqldumpslow</h4>
+<p><img src="/mysql_senior/4be842b27343ac8d69476780eb4cde24.png" alt=""></p>
+<p><img src="/mysql_senior/581312ea171f4f0c874e225beacfa8ff.png" alt=""></p>
+<p>At表示平均查询时间，sql语句相同但是里面参数不同则被归为一类。</p>
+<p><img src="/mysql_senior/58332f2e664805c226a65814a29f9132.png" alt=""></p>
+<p>主要就用以上这几个参数，其中-s c：查询次数，-s t：查询时间，-t
+NUM：选择前NUM个数据，-a：默认将数字替换成N，将字符串替换成S，写上-a之后可以取消这些替换，将所有数据显示出来</p>
+<h5 id="语法">语法</h5>
+<p><img src="/mysql_senior/c4d5e4f1b51d852a0a13196e364b4369.png" alt=""></p>
+<p>Mysqldumpslow [参数] [日志文件]</p>
+<p><img src="/mysql_senior/9e9837aa14edcdbaf3bf2d9b253a4f32.png" alt=""></p>
+<h3 id="全局日志">全局日志</h3>
+<p>一般这种级别的不会去开，除非出现诡异情况才会开。该功能可以记录对sql的所有操作。</p>
+<p><img src="/mysql_senior/332f9794337e5e627be39d64f7289366.png" alt=""></p>
+<h4 id="配置启用">配置启用</h4>
+<p><img src="/mysql_senior/bb7bdfb9a32bd67aee3808c566bc611e.png" alt=""></p>
+<h4 id="编码启用">编码启用</h4>
+<h5 id="选用file记录日志">选用file记录日志</h5>
+<p><img src="/mysql_senior/084e2ffde91cc8184e43724a696f8008.png" alt=""></p>
+<h5 id="选用table记录日志">选用table记录日志</h5>
+<p><img src="/mysql_senior/c77f9cb4b20faa9bdfa0a6894c8e444c.png" alt=""></p>
+<h3 id="mysql进程以及杀死进程">MySQL进程以及杀死进程</h3>
+<p><img src="/mysql_senior/2f3b9aa83433f7ceb164925a0d7a6547.png" alt=""></p>
+<p>语法：show processlist</p>
+<p>类似于linux的ps -ef</p>
+<p>在程序死锁的时候可以杀掉部分MySQL进程</p>
+<p>杀死语法：kill id号</p>
+<h3 id="show-profile上面查看sql执行计划时用过">Show Profile(上面查看sql执行计划时用过)</h3>
+<p><img src="/mysql_senior/ceb34cae8c0d15d713e47b6a0fd652f2.png" alt=""></p>
+<p>Show profile cpu,block io for query除了cpu、block io还可以查以下参数：</p>
+<p><img src="/mysql_senior/724d9d1e2ee6f5bb3126c1faf28d1c75.png" alt=""></p>
+<p>之后会出现类似这样的结果：</p>
+<p><img src="/mysql_senior/05d90f5509a7ebfba2d5e803b9ea3e26.png" alt=""></p>
+<p>如果在这些结果里面出现：</p>
+<p><img src="/mysql_senior/ceb8f660026d375c893abf94acb72d99.png" alt=""></p>
+<p>这四条，说明sql语句有严重问题，需要优化！</p>
+<p>就拿creating tmp table来讲，首先group
+by分组之前先排序，之后还会创建临时表，最后还要把临时表删了。如果查询的数据有上百万条，那我们把这上百万条数据先拷贝到临时表再展现给客户最后再删临时表必定发生大量性能损耗，如下：</p>
+<p><img src="/mysql_senior/acf2295d0d7a90945879961bbab458ab.png" alt=""></p>
+<p><img src="/mysql_senior/08e0a9b22f1dcd476a55f95de8d5bbeb.png" alt=""></p>
+<p>可见copying to tmp table非常损耗性能</p>
+<h2 id="锁机制">锁机制</h2>
+<p><img src="/mysql_senior/56a2e953ed2133153c88d584a64a6b44.png" alt=""></p>
+<p><img src="/mysql_senior/800a302e49dec7aac8b5e23d9559c3c2.png" alt=""></p>
+<p><img src="/mysql_senior/ba797536f5ee3ed19f5b17c870884bb1.png" alt=""></p>
+<p><img src="/mysql_senior/c3613c446e68b6392a7c17b39c5fe9b2.png" alt=""></p>
+<p><img src="/mysql_senior/ff907701d18d56341b5e3636a56417f0.png" alt=""></p>
+<h3 id="表锁主要是myisam偏读">表锁（主要是myisam，偏读）</h3>
+<p><img src="/mysql_senior/7099cad58b8cb7aa7992aa5abb802fb1.png" alt=""></p>
+<h4 id="查看锁">查看锁</h4>
+<p>Show open tables;</p>
+<p><img src="/mysql_senior/da6755d81fe43339989fb88dc0b36c08.png" alt=""></p>
+<p>看 in_use这一列，为0表示没有锁</p>
+<h4 id="上锁">上锁</h4>
+<p><img src="/mysql_senior/0afe87b361307696fa46b07fb0dfbec6.png" alt=""></p>
+<h4 id="解锁">解锁</h4>
+<p>Unlock tables；</p>
+<h4 id="读锁">读锁</h4>
+<h5 id="特点">特点</h5>
+<p>假设有两个客户端c1和c2以及表stu</p>
+<p>如果c1把stu锁了，那么：</p>
+<p>c1可以读stu，但是不能改stu，也不能读其他的表。</p>
+<p>c2可以读stu，也可以读其他表，但是当修改stu表的时候被阻塞，只有当c1释放了锁之后，c2的修改操作才被执行。</p>
+<p><img src="/mysql_senior/98f3b0345ae872504d1b13054b67bcff.png" alt=""></p>
+<p><img src="/mysql_senior/f4d9676bcdf7696c0161d56a63a335d0.png" alt=""></p>
+<p><img src="/mysql_senior/8679e3178e15370c3b1fdb4d71771308.png" alt=""></p>
+<h4 id="写锁">写锁</h4>
+<h5 id="特点-1">特点</h5>
+<p>假设有两个客户端c1和c2以及表stu</p>
+<p>如果c1把stu锁了，那么：</p>
+<p>c1可以查stu，可以改stu，但是不可以查别的表。</p>
+<p>c2可以正常对其它表操作，但是查stu表的时候被阻塞，连查都被阻塞，改就更不用说了。</p>
+<p><img src="/mysql_senior/1224921fed1abeab33f6cfebf73b49f7.png" alt=""></p>
+<p><img src="/mysql_senior/ea60b29f3bbf8a5367bec60551e1df0e.png" alt=""></p>
+<h4 id="分析表锁命令show-status-like-table">分析表锁命令（show status like ‘%table%’）</h4>
+<p><img src="/mysql_senior/cf64e4858cb86f999655789019ae3fa4.png" alt=""></p>
+<p><strong>这里的两个参数主要看table_locks_waited，这个参数表示被阻塞的次数，table_locks_im/mysql_seniorte表示顺利获得锁的次数。因此主要看被阻塞的这个参数。</strong></p>
+<p>此外，Myisam的读写锁调度是写优先，这也是myisam不适合做写为主表的引擎，因为写锁之后，其他线程不能做任何操作，大量的更新会使查询很难得到锁，从而造成永远阻塞。</p>
+<p>所以myisam要偏读而不是偏写，如果来写的话直接写锁，那别的客户端连读都会被阻塞，更别说更新操作了。</p>
+<h4 id="小结">小结</h4>
+<p><img src="/mysql_senior/b1e8d68474436a175a658ccdfeba2146.png" alt=""></p>
+<p>简而言之，就是读锁会阻塞写，但是不会阻塞读，而写锁则会把读和写都阻塞。</p>
+<p>注意点：</p>
+<p>Myisam要偏读</p>
+<h3 id="行锁主要是innodb偏写">行锁（主要是innodb，偏写）</h3>
+<p><img src="/mysql_senior/206288ce9605ee55802f0c671217d22b.png" alt=""></p>
+<p><img src="/mysql_senior/a5d2c0dbbefdae866c04edda5775604c.png" alt=""></p>
+<p><img src="/mysql_senior/5bd34fc37eb986a22505e028d00d18f8.png" alt=""></p>
+<p>在关闭auto_commit之后，一个客户端修改某一行数据是可以的，但是另外一个客户端修改同一行数据就会被阻塞，直到上一个客户端手动commit之后该客户端才会被执行，之后该行的数据将会被后面那个客户端修改的数据覆盖。</p>
+<p>但是如果两个客户端修改不同行的数据是互不影响的。</p>
+<h4 id="如何锁定一行">如何锁定一行</h4>
+<p><img src="/mysql_senior/db61639e5b020c801978aae29927fee1.png" alt=""></p>
+<p>首先关闭auto_commit</p>
+<p><strong>语法：</strong></p>
+<p>首先Begin;</p>
+<p>之后在sql语句最后加for update; 例如：select * from dept where address=’myadd’
+<strong>for update</strong>;</p>
+<p>这个时候另外一个客户端想要修改address=’myadd’这一行就会被阻塞，直到上一个客户端手动commit才能恢复执行</p>
+<h4 id="分析行锁命令show-status-like-innodb_row_lock">分析行锁命令（show status like ‘innodb_row_lock%’）</h4>
+<p><img src="/mysql_senior/717cb0fb57531504da098fb470c44773.png" alt=""></p>
+<p><img src="/mysql_senior/72abdb80c1ba09e45f619ee4dc1b5129.png" alt=""></p>
+<p>如果出现问题的话，一般都用show profile分析</p>
+<h3 id="页锁">页锁</h3>
+<p><img src="/mysql_senior/40e6affabb5bc7ce5cf944257e423509.png" alt=""></p>
+<h3 id="索引失效行锁变表锁">索引失效行锁变表锁</h3>
+<p>首先关闭auto_commit，设置某一列为索引(这里简称b列)，然后c1客户端进行了update操作，其中where条件用到了索引，并且等号右边进行了类型转换，即发生了索引失效，这个时候c2客户端无论改哪一行的数据都会发生阻塞，因为c1在事务期间发生了索引失效，导致行锁变成了表锁。直到c1手动commit之后才可恢复</p>
+<h3 id="间隙锁的危害">间隙锁的危害</h3>
+<p><img src="/mysql_senior/a728a8062af3e1c05507bb5afe64a1d5.png" alt=""></p>
+<p>举个例子，某个表id值有1、3、4、5、6，我需要修改id&gt;1 and
+id&lt;6的所有值，这个时候虽然id=2的数据不存在，但innodb仍旧给我锁了2，导致另外一个客户端想要对id=2的行做操作，比方说插入操作的时候被阻塞（事实上id&gt;1
+and
+id&lt;6的所有行都会被阻塞），直到前一个客户端手动commit之后，id=2的行才会被执行，并且这个时候id=2的行是不会被之前的语句（也就是那个id&gt;1
+and id&lt;6的范围的行进行操作的语句）所影响的。</p>
+<h3 id="总结-3">总结</h3>
+<p><img src="/mysql_senior/0abea30b30b5f2dd6bf4d8a35b825a07.png" alt=""></p>
+<p><img src="/mysql_senior/6db8bbca7aa30fef86bc759e935b9643.png" alt=""></p>
+<h2 id="视图">视图</h2>
+<p><img src="/mysql_senior/6d0e9a6a892a4fb739bccf686a86ae2a.png" alt=""></p>
+<p>除了基本的优点外，视图还可以用于Java程序与MySQL的解耦。例如：在Java程序中我们直接select</p>
+<ul>
+<li>from view_name，而当需求改变的时候不需要改Java代码，只需要更改视图即可</li>
+</ul>
+<h2 id="主从复制">主从复制</h2>
+<p><img src="/mysql_senior/cfe6d5506382a6b24ffc3d7b9e02755b.png" alt=""></p>
+<p><img src="/mysql_senior/520614c31d61b4532170c0d3b6ed0008.png" alt=""></p>
+<p><img src="/mysql_senior/f0e6a09b5f9453099eaa3cbece9c0281.png" alt=""></p>
+<p><img src="/mysql_senior/b1aa37861634c72636931022a9304ec1.png" alt=""></p>
+<p>主机只能有一台，而从机可以多台。</p>
+<p>Redis中从机拜主机，拿到rdb直接从头开始复制。但是MySQL不一样，MySQL从接入点开始复制，主机之前的事情与从机无关。</p>
+<p>**过程：主机将写操作信息全写在binary
+log文件中，从机读取该文件，再写入自己的relay log，之后再从relay
+log读到从机里面执行。**这里发生了很多次io，会导致主从的数据有时延，因此在主机写入数据后，从机不能马上就去读数据，可以先查一些别的东西，或者做点日志，再去查数据。</p>
+<p>注意：redis从机不能写，但是MySQL从机只要有有写权限的用户就可以写操作。那么这一块的解决办法是限制从机权限。</p>
+<h3 id="主从搭建配置主机从机的config">主从搭建（配置主机从机的config）</h3>
+<p><strong>具体的主机从机配置文件写在linux中。</strong></p>
+<p>注意：</p>
+<p>1、改配置之前最好备份一下。</p>
+<p>2、跟redis不一样，MySQL的配置文件直接配置在原配置文件位置。</p>
+<p><img src="/mysql_senior/b4892e429141877a3fe6df9f5cf22b6b.png" alt=""></p>
+<p><img src="/mysql_senior/845602f17c35301f4a4c1651531a7fe6.png" alt=""></p>
+<h4 id="binlog_formatstatement默认">Binlog_format=STATEMENT(默认)</h4>
+<p><img src="/mysql_senior/5c86ad1af1c86c0a09d5d263f24ee37d.png" alt=""></p>
+<h5 id="statement">Statement</h5>
+<p>该模式下binlog日志中记录所有的写操作，但是有一点，这里有个字段为now().</p>
+<p>这里的time=now()从主机复制到从机的时候时间必然就不相同，会造成主从不一致，为了解决这个问题，有了row模式。</p>
+<h5 id="row">Row</h5>
+<p>不再记录写操作sql，而是记录执行完sql之后每一行的改变（比方说ceo字段变了，那就要记录每一行ceo的改变），这就避免了函数执行造成主从不一致的情况。</p>
+<p>但是row模式也有缺点，就是当我们写update语句不写where导致全表更新的时候，如果表太大有几百万行，那么这种模式下binlog就要记录几百万行的改变，然后到从机下还得执行几百万行。这个问题显而易见了，就是效率有问题，但凡有大批量更新的时候，这个问题就会凸显出来。</p>
+<h5 id="mixed">Mixed</h5>
+<p>Mix模式原理：当写操作有函数，比方说now()这种的，那么就切到row模式，如果没有那就用statement这种模式，来回切。</p>
+<p>但是它也有缺点，当遇到sql中有系统变量时，它也没办法避免主从不一致。</p>
+<p><img src="/mysql_senior/1a90c7a1567d0602b4eac31e4c6ec612.png" alt=""></p>
+<p><img src="/mysql_senior/10d3805d1fd30072fbc5f75e0be0bf21.png" alt=""></p>
+<h4 id="主机上创建用户权限不需要很高只需要能复制主从即可">主机上创建用户（权限不需要很高，只需要能复制主从即可）</h4>
+<p><img src="/mysql_senior/97701bb3d78f35ce5340aad5aa4e7762.png" alt=""></p>
+<p>不可能来一个机器我就给你复制，需要授权</p>
+<p>语法：</p>
+<p><strong>Grant replication slave on <em>.</em> to ‘slave190401’@’从机数据库ip’ identified
+by ‘123456’;</strong></p>
+<p><strong>或者</strong></p>
+<p><strong>Grant replication slave on <em>.</em> to ‘slave190401’@’%’ identified by
+‘123456’;</strong></p>
+<p>这里%表示所有远程用户</p>
+<p><img src="/mysql_senior/b2db36a58b31d487533f3927abef32e5.png" alt=""></p>
+<p><img src="/mysql_senior/9e8edcc41886c314c4068d3ddbc223b3.png" alt=""></p>
+<h5 id="查看master状态">查看master状态</h5>
+<p>语法：</p>
+<p>Show master status;</p>
+<p><img src="/mysql_senior/37055a87ab98ab9c5cb60fc6579efe55.png" alt=""></p>
+<p>1、File表示新增的logbin日志；</p>
+<p>2、position表示就从107这个位置开始复制</p>
+<p>3、binlog_do_db表示指定的复制的数据库</p>
+<p>4、binlog_ignore_db表示指定的不要复制的数据库</p>
+<p><strong>注意：这个时候主机器一定不要执行sql语句，比方说创建数据库之类的操作，一旦执行了，上面这些参数中的position是会变化的</strong></p>
+<p><img src="/mysql_senior/037acb222206e18fe0d7df590925b3c1.png" alt=""></p>
+<h4 id="从机上配置需要复制的主机">从机上配置需要复制的主机</h4>
+<p><img src="/mysql_senior/b46724a6fba06d9347b6e5a5514ba765.png" alt=""></p>
+<p>上面的第一条截取了一半的很长的命令：</p>
+<p><img src="/mysql_senior/cbd6590b11a43e13172f341536bc9fe4.png" alt=""></p>
+<p>Change master to master_host=’主机ip地址’，</p>
+<p>Master_user=’上面主机上创建的那个用户slave190401’，</p>
+<p>Master_password=’上面主机上创建的那个用户的密码123456’，</p>
+<p>Master_log_file=’mysqlbin.具体数字(具体数字通过show master status就可以知道)’，</p>
+<p>Master_log_pos=接入点position，也是通过show master status知道的;</p>
+<p><strong>注意：</strong></p>
+<p><strong>在写master_host的时候，主机的ip地址一定要写对，要和从机在一个网段，如下：</strong></p>
+<p><img src="/mysql_senior/1cb9d2981e66b26419ef118e7f50f046.png" alt=""></p>
+<h4 id="开启从机">开启从机</h4>
+<p><img src="/mysql_senior/a8f1ce21524d6b3ebdf20a4f2fe184cd.png" alt=""></p>
+<p>这一步之后应该是开起来了，为了确认还需要查看从机状态</p>
+<h4 id="查看从机状态">查看从机状态</h4>
+<p><img src="/mysql_senior/5bdb89533c8287a2acd068dc253d38c2.png" alt=""></p>
+<p><img src="/mysql_senior/33d9177331cb08d1894a78adb063b978.png" alt=""></p>
+<p>这两块是yes，则搭起来了</p>
+<p>如果出问题，首先看看后面的error，一般情况就是防火墙的问题，或者是position接入点出错了（看到的是缓存中的position，但是实际上它已经变了）</p>
+<h4 id="创建数据库">创建数据库</h4>
+<p>至此，我们可以创建数据库了，按照之前配置的需要复制的数据库为mydb_190401，我们创建名为这个的数据库</p>
+<p><img src="/mysql_senior/d8b170ddfb3ed7ed9ab65f33098069d7.png" alt=""></p>
+<p>这个时候主从机就都有这个库了。</p>
+<h4 id="最后如果出现问题先stop-slave后reset-master">最后，如果出现问题先stop slave，后reset master</h4>
+<p><img src="/mysql_senior/f0abb52e4e7631da99b9d407da66ae62.png" alt=""></p>
+<p>这两个命令可以重新配置主从。</p>
+<h2 id="mycat">Mycat</h2>
+<p><img src="/mysql_senior/1d9451fc931ae9989d219653a544d0b6.png" alt=""></p>
+<p><img src="/mysql_senior/b3a15dedf0f0b69a1d259ca78f982a4c.png" alt=""></p>
+<p><img src="/mysql_senior/7e90767d247e9a81c5d2f339b9ab2a5a.png" alt=""></p>
+<p>如果没有mycat，那么增删改查都是交给Java来判断到底是给哪个数据库。</p>
+<p>而且这种情况下slave仍然可以插入数据，除非限制slave只有读的权限。<strong>即读写未分离。</strong></p>
+<p><img src="/mysql_senior/3a76ef01d19e90c6fb5320a0de0ac380.png" alt=""></p>
+<p>有了mycat之后，数据库跟Java就解耦了，而且可以做到读写分离</p>
+<h3 id="原理拦截">原理：拦截</h3>
+<p><img src="/mysql_senior/e224bc8135b3a023c6bb8888b149e089.png" alt=""></p>
+<p><img src="/mysql_senior/cc96dbe4db4e9b9cc38aa8f71e0769a1.png" alt=""></p>
+<p><img src="/mysql_senior/23fa034f4a7be736c159078f875b933e.png" alt=""></p>
+<p>这里的schema.xml配置的逻辑库表示在逻辑上存在于mycat，但在物理上就是一台台机器上的真实的数据库</p>
+<h3 id="修改serverxml">修改server.xml</h3>
+<p><img src="/mysql_senior/fc9e4f57b05d55922f5bcd27e4a14421.png" alt=""></p>
+<p>为了与mysql进行区分，我们将mycat的user属性进行一些修改</p>
+<h3 id="修改schemaxml">修改schema.xml</h3>
+<p><img src="/mysql_senior/32956bd7bea69c61e675879764108497.png" alt=""></p>
+<p>这个地方写了进行主从复制的主机数据库mydb_190401</p>
+<p><img src="/mysql_senior/ee3e2ed8fe110d8fffd2bf227c9c7642.png" alt=""></p>
+<p>打开schema.xml之后我们发现从第6行到第32行都是不需要的，因此把他们删掉</p>
+<p><img src="/mysql_senior/6ada0ab1a20c2fd72e8f9f264ec1d5f1.png" alt=""></p>
+<p>需要给schema逻辑数据库配一个默认的节点，如下图标黑部分</p>
+<p><img src="/mysql_senior/1d9947f7ec09d3dbf7f689f5fd9780d4.png" alt=""></p>
+<p>之后就是配置mycat节点和主机以及从机，并且删除多余部分</p>
+<p><img src="/mysql_senior/e3c696d0aee7b649f48712bcb391bbf8.png" alt=""></p>
+<h3 id="验证数据库访问情况">验证数据库访问情况</h3>
+<p><img src="/mysql_senior/bda8d0a5e349410d209fb439879660cd.png" alt=""></p>
+<p>主要访问一下主从机看看能不能连上。如果出错，就建立对应用户，一般情况下上图的“缺少的host”字段为“%”，即所有远程主机</p>
+<h3 id="开启mycat">开启mycat</h3>
+<p><img src="/mysql_senior/c27744941beb531fe37683ff8d9cecf5.png" alt=""></p>
+<p>用控制台启动的好处是它报错的时候我们能看到，而且他报的是Java错误</p>
+<h4 id="修改控制台名称">修改控制台名称</h4>
+<p><img src="/mysql_senior/b0e19ed02cd81c3f2627d50f54be3a81.png" alt=""></p>
+<p>后面会大量进行表和库的配置修改，为了分工明确，我们将两个控制台更名为conf和bin</p>
+<h4 id="登录">登录</h4>
+<p><img src="/mysql_senior/6a269c32a13ae1038c952dd28cfdfba5.png" alt=""></p>
+<p>这里的-u后面的用户名是server.xml中之前更改的那个用户名，我们改的是mycat，所以他就叫mycat，-p后面的密码也同理。</p>
+<p>运维一般用9066这个端口，开发用8066，mycat默认端口8066.</p>
+<h4 id="区分到底是哪个机器的数据库">区分到底是哪个机器的数据库</h4>
+<p><img src="/mysql_senior/cb5c9f07565d59d9f01c6f57124c6b6d.png" alt=""></p>
+<p>在主机的mytbl表中插入@@hostname主机名后，我们发现在windows中的主机的数据库和在linux中的从机的数据库的数据不一样。当我们切回mycat中再次查找发现它显示的是主机在windows中的数据库的表。如下（重点看id为3的数据）：</p>
+<p><img src="/mysql_senior/0894e25a5197e6189b59b4d92dd4327a.png" alt=""></p>
+<p><img src="/mysql_senior/cc36708a94095c9a44aa42af5e622673.png" alt=""></p>
+<p><img src="/mysql_senior/24c8e94d93d20aa0e3310f2a52d0bfca.png" alt=""></p>
+<p>出现这种原因是因为读写分离没有搭建起来，即schema.xml中的balance字段</p>
+<p><img src="/mysql_senior/1e83c8c8c2fceee64108b2a9d1fa5aa7.png" alt=""></p>
+<h4 id="balance配置读写分离">Balance配置读写分离</h4>
+<p><img src="/mysql_senior/fa2a2c4af4fe74085def5e2c09fa8b06.png" alt=""></p>
+<p>Schema.xml中的dataHost中的balance为：</p>
+<p>1、<strong>0</strong>表示不配置读写分离</p>
+<p>2、<strong>1</strong>表示在多台主机多台从机情况下，用于备用的那台主机以及它的从机也参与读的负载均衡，举个例子：双主双从模式下(M1为主机，M2为备用主机，注意这里M2还不是真正的主机，就跟皇帝和太子的关系一样，太子是没人理他的，只有皇帝死了，太子登基之后他才有所有权利。那么M1-&gt;S1,M2-&gt;S2，并且M1与M2互为主备)，这种情况下M2、S1、S2都参与读的负载均衡</p>
+<p>3、<strong>2</strong>表示所有的读操作随机地在写主机与读从机上进行分发</p>
+<p>4、<strong>3</strong>表示所有读都发到读从机上，而所有写主机都不参与读。显然这才是我们需要的读写分离模式</p>
+<h3 id="分库">分库</h3>
+<p>切记分库需要两台机器上的数据库是没有任何数据的干净的库</p>
+<p><img src="/mysql_senior/ffbd20d803f169251a46a8b2a9555c39.png" alt=""></p>
+<p>举个例子，一般情况下客户表和订单表就可以分离，因为通常情况下我们需要登录才可以查订单，这个时候只需要在订单表加一个字段类似于id来识别用户就可以了，而不需要跟用户表进行关联，所以分表的时候就可以将这两个表分离在不同的机器上。</p>
+<p><img src="/mysql_senior/92d3dd34fa2cfd81a99f226c712a4695.png" alt=""></p>
+<p>这里schema中加了一个table，而且dataNode设置为dn2，但是schema中的dataNode还是dn1，表示除了这个表，其它表仍旧使用dn1那个节点，而且给该节点配置的数据库也不一样了，因为原先那个数据库中是有表的，我们应该新建一个新的数据库。</p>
+<p><strong>原先写死的进行主从复制的主机数据库mydb_190401:</strong></p>
+<p><img src="/mysql_senior/32956bd7bea69c61e675879764108497.png" alt=""></p>
+<p><strong>现在由于分表新增的数据库order190401，由于之前写死了主从复制的主机数据库，因此order190401不会再进行主从复制，如下：</strong></p>
+<p><img src="/mysql_senior/0379025b3d335432df9537cc629bbcd7.png" alt=""></p>
+<h4 id="修改schemaxml-1">修改schema.xml</h4>
+<p><img src="/mysql_senior/0575d99dbeae25939f4b6fff66eec81d.png" alt=""></p>
+<h4 id="建库">建库</h4>
+<p>如果这个时候直接启动mycat显然会出错，因为没有order190401这个库。</p>
+<p>因此建立分表所要存入的数据库order190401，这里由于该库不会进行主从复制，因此需要手动在两个机器上建库。</p>
+<p><img src="/mysql_senior/f063e28b6dfad356ec4ebccd6ba9a1ad.png" alt=""></p>
+<h4 id="开启mycat建表">开启mycat建表</h4>
+<p>这里需要在mycat中建表那么mycat怎么知道要将表建在哪呢？原理还是拦截。通过schema中的配置知道customer表需要建立在节点dn2的主机上，而其他表则建在节点dn1的主机上</p>
+<p><img src="/mysql_senior/4cd69bd7b4c0f81eda24ec3c3ead2a08.png" alt=""></p>
+<p>注意这个时候虽然不同的表被分配在不同的机器上，但是访问mycat的时候是可以访问全表的。</p>
+<h3 id="分表">分表</h3>
+<p><img src="/mysql_senior/21e9c1deb884e20140903cc2dfc3d6ce.png" alt=""></p>
+<p>就拿用户订单表举例，我们取一个用户的数据最好能从同一个数据库数据表中读取，因此最好按照用户id进行分表。仿照redis中分表操作，它是拿到id转换成hash码再取模最后再将数据分配到slot槽中。对应的mycat也应该这样分，若有两个节点，则对应id取2的模之后再进行分配，这样可以保证根据用户id平均分配了数据</p>
+<h4 id="修改schemaxml-2">修改schema.xml</h4>
+<p><img src="/mysql_senior/d4d24ecd7805e42f4456748abf96ba2c.png" alt=""></p>
+<h4 id="修改rulexml">修改rule.xml</h4>
+<p><img src="/mysql_senior/e551f9c24cb48d3068559317f88f6379.png" alt=""></p>
+<p><img src="/mysql_senior/baa65b6cc5f6e5ed42e36eabd3cb8648.png" alt=""></p>
+<h4 id="哪个机器缺表就把哪个机器的表建好">哪个机器缺表就把哪个机器的表建好</h4>
+<p>在所有节点的机器上都建好表，比方说customer表需要分表，那么节点1和节点2都需要创建好这张表</p>
+<h4 id="插入数据">插入数据</h4>
+<p>但凡在mycat中插入数据都需要写清楚字段名，像上面那个案例，我们是按照customer_id进行分表，那么如果不写明字段，mycat是找不到插入的值中customer_id对应的那个数值的，就会报错。</p>
+<p><img src="/mysql_senior/edd611b924ec0ca4f8d1291ad85ce573.png" alt=""></p>
+<h4 id="查找数据">查找数据</h4>
+<p><img src="/mysql_senior/4fc4b7c19932afaca7f9e3e1d429c126.png" alt=""></p>
+<p>我们发现id是乱序的</p>
+<p><img src="/mysql_senior/a5d97ec343d9919ffe3e627db53f218d.png" alt=""></p>
+<p>原因还是拦截，mycat在dn1和dn2分别返回数据之后union了一下。</p>
+<p>因此这个就是所谓的跨库查询</p>
+<h4 id="小结-1">小结</h4>
+<p>实际情况下如果有旧数据库，而我们需要将旧数据库中的某个表进行拆分，那我们应该先买好新的服务器，再配置mycat，再创建好对应表，再执行插入语句即可</p>
+<h3 id="join关联表分表">join关联表分表</h3>
+<p>如果没有给关联的表分表，而直接进行关联，由于主表在两个节点dn1、dn2都有，因此mycat会将这个查询语句发给dn1、dn2节点，假设关联表在dn1中，那么dn1这个节点是会返回查询结果的，但是问题是dn2没有这个关联表，那么就会报错，导致所有数据都不返回。</p>
+<p><img src="/mysql_senior/dd552774de81f1ed7e2f37402e947ab5.png" alt=""></p>
+<h4 id="er表">ER表</h4>
+<p>关联表跟随前面那张已经分表的主表根据关联键分表，举个例子，order表已经分表，order_detail的order_id字段对应order的id字段，那么order_detail表根据order_id进行分表。</p>
+<p><strong>这种分发叫做ER表</strong></p>
+<p><img src="/mysql_senior/ff00b394d2c492881c510fb677dde2d1.png" alt=""></p>
+<h5 id="修改schemaxml-3">修改schema.xml</h5>
+<p><img src="/mysql_senior/39ed7931ef4f71efd2b5b5b9e1187ad8.png" alt=""></p>
+<h5 id="跟上面一样哪个机器缺表就在哪个机器里面建表">跟上面一样，哪个机器缺表就在哪个机器里面建表</h5>
+<p><img src="/mysql_senior/63cf8cb40779cdce8417b3586bbf4559.png" alt=""></p>
+<h5 id="插入关联表数据">插入关联表数据</h5>
+<p><img src="/mysql_senior/fdce732228c26ef164e8c75572809418.png" alt=""></p>
+<h5 id="查询关联数据">查询关联数据</h5>
+<p><img src="/mysql_senior/8c758c7901f5b8fb7143d7aba04061a0.png" alt=""></p>
+<h4 id="全局表">全局表</h4>
+<p>相当于给每个数据库复制了一份，通过冗余保证可以进行关联</p>
+<p><img src="/mysql_senior/cda290dbd66c4397615311ef1ddc1b61.png" alt=""></p>
+<p>所以全局表一般不能是大数据表</p>
+<h5 id="修改schemaxml-4">修改schema.xml</h5>
+<p><img src="/mysql_senior/8e815dab45176e0624b72c6e231a479a.png" alt=""></p>
+<h5 id="跟上面一样哪个机器缺表就在哪个机器创建表">跟上面一样，哪个机器缺表就在哪个机器创建表</h5>
+<p><img src="/mysql_senior/8223e6bb7053e3b0d333374c48e11a52.png" alt=""></p>
+<h3 id="全局序列id">全局序列(id)</h3>
+<p>由于某个表会被分到多个节点，那么id如果是自增序列会导致id重复。我们需要搭建全局序列保证id号不可能重复</p>
+<p><img src="/mysql_senior/0399ae1efcef4a0f64f2d9b7a0c71b43.png" alt=""></p>
+<h4 id="本地文件方式">本地文件方式</h4>
+<p><img src="/mysql_senior/57822751c61c0cfc84e26fd8683c3bc7.png" alt=""></p>
+<p>将存放id序列的文件放在mycat，来一个插入我赋给它一个id，这样可以保证id不重复，但是有个问题，如果主机挂了，那么这个文件就丢失了。因此不推荐。</p>
+<h4 id="时间戳方式">时间戳方式</h4>
+<p>但凡从mycat主机这边过，我们取mycat主机的时间，时间戳不会重复，因为它会不断变大，要是主机挂了，从机上线的时候保证主机从机时间一致即可。</p>
+<p>而且有一个优点，他不再需要取配置复杂的文件和配置项，直接用系统时间就可以了。</p>
+<p>但是依旧是不推荐使用，因为一个id如果配时间戳那将是18位，有点浪费空间</p>
+<h4 id="数据库方式推荐">数据库方式（推荐）</h4>
+<p><img src="/mysql_senior/621802d6bb4195de4992cd29ce100c94.png" alt=""></p>
+<p><img src="/mysql_senior/fa365c92c0e55b5f3ca2cb78f9e1cfdd.png" alt=""></p>
+<p>将序列存在一台机器的数据库中，每次比方说从数据库批量读出100个id，来一个序列我给他一个id，如果id用完了，再从数据库读，比方说第一次读1-100，那么第二次读101-200，这样就算mycat主机挂了，再来一个新的mycat，我依旧是继续上次读101-200，这样就不会冲突了。</p>
+<h5 id="使用方法">使用方法</h5>
+<h6 id="建库序列脚本">建库序列脚本</h6>
+<p>先建序列表</p>
+<p><img src="/mysql_senior/a0c0aaaaf4cebb0ccad42634186205e0.png" alt=""></p>
+<p><img src="/mysql_senior/d81485e64b953610164332e12d4acad2.png" alt=""></p>
+<p><img src="/mysql_senior/3c9c8134fa696a236368725435abfef6.png" alt=""></p>
+<p><img src="/mysql_senior/33d4678c720e5721aac00f57bff32478.png" alt=""></p>
+<p><img src="/mysql_senior/ad0e094af5418eb11b51d0f2d93c1998.png" alt=""></p>
+<h6 id="修改mycat配置">修改mycat配置</h6>
+<p>1、修改sequence_db_conf.properties文件</p>
+<p><img src="/mysql_senior/0fbc959891cc3baa1d9d8ae832448feb.png" alt=""></p>
+<p>如果要配置linux的，那么在linux的数据库中我们还得执行一下建库序列脚本那一步</p>
+<p>2、修改server.xml文件</p>
+<p><img src="/mysql_senior/268c62d94452613cd3ee5eb135edd9f3.png" alt=""></p>
+<p><img src="/mysql_senior/ac436d60b460f4f35a053c2cd1baa631.png" alt=""></p>
+<p>这里0表示本地文件方式，1表示数据库方式，2表示时间戳方式</p>
+<h6 id="重启mycat">重启mycat</h6>
+<p><img src="/mysql_senior/f2c7e2d9683fc68687526e03ac5d9e8e.png" alt=""></p>
+<h6 id="插入语句">插入语句</h6>
+<p><img src="/mysql_senior/439de68916244867546148107c30abd8.png" alt=""></p>
+<p>Next value for MYCATSEQ_ORDERS表示从MYCATSEQ_ORDERS取下一个值</p>
+<p>效果：</p>
+<p><img src="/mysql_senior/a40af173fd5de43dcc6e642f8cb3cb2f.png" alt=""></p>
+<p>如果mycat挂了，那么刚才已经给过mycat100-199这一段的id了，现在给mycat200-299的id</p>
+<p>效果：</p>
+<p><img src="/mysql_senior/61ebd2d6e5924ec8dc6d28467f1733a1.png" alt=""></p>
+<h4 id="自主生成方式">自主生成方式</h4>
+<p><img src="/mysql_senior/c76a12e6836f63cb1b6065a0379c4fd2.png" alt=""></p>
+<p>通过编写Java逻辑拼接id，这种方法相当于写死了id，再将id传回来。</p>
+<p>也可以通过redis 的原子性incr来生成序列。</p>
+<p>当然，我们更加推荐数据库的方式</p>
+<h3 id="可能出现的错误centos68就出现过">可能出现的错误（centos6.8就出现过）</h3>
+<p><img src="/mysql_senior/e152f5790b3a71b4610fae14c1405713.png" alt=""></p>
+<p><img src="/mysql_senior/679f12f327e2cdfc090b2fa3cd68db2a.png" alt=""></p>
+<p>解决方案：</p>
+<p><img src="/mysql_senior/567e50118e7fdeda23c5f9ff2d807980.png" alt=""></p>
+<p>之后重启即可</p>
+<h2 id="联合查询复习">联合查询复习</h2>
+<p><img src="/mysql_senior/bc9534b3684f95d6c457e1451ce76e5f.png" alt=""></p>
+<p><img src="/mysql_senior/d2de90de07026cce3f4aec06fc0d84fe.png" alt=""></p>
+<h2 id="思考题">思考题</h2>
+<p>论如何往数据库中插入100万行数据：</p>
+<p>1、利用高级语言将多条数据拼接到insert into table_name
+values后面，争取在一条sql语句中能插多少插多少，这样效率高；</p>
+<p>2、由于索引会使得曾删改数据变慢，因此在插入之前应该删除除主键以外的所有索引；</p>
+<p>3、关闭自动提交，在插入所有数据之后手动提交；</p>
+<p>4、多线程异步插入数据；</p>
+<p>5、使用JDBC的executeBatch进行插入。</p>
+<h2 id="优化习题">优化习题</h2>
+<p>1、</p>
+<p><img src="/mysql_senior/dcf8de5f53888d92f547544c44c84545.png" alt=""></p>
+<p>2、</p>
+<p><img src="/mysql_senior/cb4df5729b4c83b8dd0c5df2de0b26bd.png" alt=""></p>
+<p>我们发现这种情况下大表被MySQL自动设置成了驱动表（这里是因为小表有primary索引，MySQL想使用被驱动表的优势，即被驱动表索引，因此将小表设置为被驱动表），这不是我们希望的，我们希望的是小表能变成驱动表，这个时候就需要straight_join这个字段，效果跟inner
+join一样，但是他可以指定驱动表，如下：</p>
+<p><img src="/mysql_senior/0e744ec666fa35839413aeb705c20403.png" alt=""></p>
+<p>这个时候dpet_b就被设置为驱动表了，emp_a就被设置为被驱动表，这是我们希望的。</p>
+<p>之后我们建立索引，因为group
+by后面的id已经建立了索引，因此只需要给deptName建立索引即可。</p>
+<p><img src="/mysql_senior/5c633e07ca9b8424e153d361fb548d41.png" alt=""></p>
+<p>效果如下：</p>
+<p><img src="/mysql_senior/29e6f1ca4f15fe77f976a301e7a26fcb.png" alt=""></p>
+<p>3、</p>
+<p><img src="/mysql_senior/e5ef1f5dc0e138965b358b5fde21dba1.png" alt=""></p>
+<p><img src="/mysql_senior/6bc836705abc63db1365c07366b1af20.png" alt=""></p>
+<p>我们发现大表为驱动表，使用straight_join</p>
+<p><img src="/mysql_senior/9273ebee8b2845a4af40a56ac29476dc.png" alt=""></p>
+<p>建立索引</p>
+<p><img src="/mysql_senior/04009ac562788de7b06b54007f14e594.png" alt=""></p>
+<p>效果</p>
+<p><img src="/mysql_senior/7ebd61b3559a6c10a4b1aee5e971e0a4.png" alt=""></p>
+<p>4、</p>
+<p><img src="/mysql_senior/251432ccc71457651aad55045adac708.png" alt=""></p>
+<p>5、</p>
+<p><img src="/mysql_senior/3867d4bdba65beded7af41f5a724997d.png" alt=""></p>
+<p>这里我们只写id应该也可以，但是先来一个deptName分组再来id分组也许会更快</p>
+<p>6、</p>
+<p><img src="/mysql_senior/1977200567c2bbf8e6b77e4ce3448812.png" alt=""></p>
+<p><img src="/mysql_senior/1b9e3f6fa3273796240461da7633dda4.png" alt=""></p>
+<p>7、（略难）</p>
+<p><img src="/mysql_senior/a4c1bcd19405cc7d2e8093cb18173efa.png" alt=""></p>
+<p>但是如果两个人的deptid和age相等的话，这里就有bug了，本来应该并列排名的人变成了没有并列的，因此还可以改进：</p>
+<p><img src="/mysql_senior/de21d3b792e534c6eff34e1a0f886c47.png" alt=""></p>
+<p>这里涉及到的组内排序在oracle里面是rank（）
+over（）这两个函数，这两个函数还可以实现并列第一名之后第二名就没了直接是第三名的情况</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>MySQL -senior</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#绪论以及概念">绪论以及概念</a></li>
+    <li><a href="#文件位置">文件位置</a>
+      <ul>
+        <li><a href="#配置文件位置">配置文件位置</a></li>
+      </ul>
+    </li>
+    <li><a href="#中文乱码问题">中文乱码问题</a></li>
+    <li><a href="#用户">用户</a>
+      <ul>
+        <li><a href="#查看mysql中的user">查看MySQL中的user</a></li>
+        <li><a href="#创建用户">创建用户</a></li>
+        <li><a href="#删除用户">删除用户</a></li>
+        <li><a href="#授权">授权</a></li>
+        <li><a href="#密码">密码</a></li>
+      </ul>
+    </li>
+    <li><a href="#group-by的坑">Group by的坑</a></li>
+    <li><a href="#sql_mode">Sql_mode</a></li>
+    <li><a href="#mysql逻辑架构">Mysql逻辑架构</a>
+      <ul>
+        <li><a href="#配置缓存">配置缓存</a></li>
+      </ul>
+    </li>
+    <li><a href="#查看sql执行命令时候的执行计划cpu等详细信息">查看sql执行命令时候的执行计划、cpu等详细信息</a></li>
+    <li><a href="#机器自动优化之后的sql">机器自动优化之后的sql</a></li>
+    <li><a href="#mysql存储引擎">MySQL存储引擎</a>
+      <ul>
+        <li><a href="#查看存储引擎列表">查看存储引擎列表</a></li>
+        <li><a href="#myisam和innodb的区别">MyISAM和InnoDB的区别★</a></li>
+        <li><a href="#行锁表锁">行锁表锁</a></li>
+        <li><a href="#csv">CSV</a></li>
+        <li><a href="#federated引擎联合引擎">Federated引擎（联合引擎）</a></li>
+      </ul>
+    </li>
+    <li><a href="#索引优化">索引优化</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#索引结构">索引结构</a></li>
+        <li><a href="#索引分类">索引分类</a></li>
+        <li><a href="#基本语法">基本语法</a></li>
+        <li><a href="#哪些情况需要创建索引">哪些情况需要创建索引</a></li>
+        <li><a href="#哪些情况不需要创建索引">哪些情况不需要创建索引</a></li>
+        <li><a href="#性能分析">性能分析</a></li>
+        <li><a href="#实际开发中处理索引">实际开发中处理索引</a></li>
+      </ul>
+    </li>
+    <li><a href="#实战分析索引">实战分析索引</a>
+      <ul>
+        <li><a href="#批量导入数据">批量导入数据</a></li>
+        <li><a href="#分析索引">分析索引</a></li>
+        <li><a href="#关联子查询索引优化">关联、子查询索引优化</a></li>
+        <li><a href="#排序分组优化">排序分组优化</a></li>
+        <li><a href="#覆盖索引最后的索引手段">覆盖索引（最后的索引手段）</a></li>
+      </ul>
+    </li>
+    <li><a href="#查询截取分析">查询截取分析</a>
+      <ul>
+        <li><a href="#慢查询日志">慢查询日志</a></li>
+        <li><a href="#全局日志">全局日志</a></li>
+        <li><a href="#mysql进程以及杀死进程">MySQL进程以及杀死进程</a></li>
+        <li><a href="#show-profile上面查看sql执行计划时用过">Show Profile(上面查看sql执行计划时用过)</a></li>
+      </ul>
+    </li>
+    <li><a href="#锁机制">锁机制</a>
+      <ul>
+        <li><a href="#表锁主要是myisam偏读">表锁（主要是myisam，偏读）</a></li>
+        <li><a href="#行锁主要是innodb偏写">行锁（主要是innodb，偏写）</a></li>
+        <li><a href="#页锁">页锁</a></li>
+        <li><a href="#索引失效行锁变表锁">索引失效行锁变表锁</a></li>
+        <li><a href="#间隙锁的危害">间隙锁的危害</a></li>
+        <li><a href="#总结-3">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#视图">视图</a></li>
+    <li><a href="#主从复制">主从复制</a>
+      <ul>
+        <li><a href="#主从搭建配置主机从机的config">主从搭建（配置主机从机的config）</a></li>
+      </ul>
+    </li>
+    <li><a href="#mycat">Mycat</a>
+      <ul>
+        <li><a href="#原理拦截">原理：拦截</a></li>
+        <li><a href="#修改serverxml">修改server.xml</a></li>
+        <li><a href="#修改schemaxml">修改schema.xml</a></li>
+        <li><a href="#验证数据库访问情况">验证数据库访问情况</a></li>
+        <li><a href="#开启mycat">开启mycat</a></li>
+        <li><a href="#分库">分库</a></li>
+        <li><a href="#分表">分表</a></li>
+        <li><a href="#join关联表分表">join关联表分表</a></li>
+        <li><a href="#全局序列id">全局序列(id)</a></li>
+        <li><a href="#可能出现的错误centos68就出现过">可能出现的错误（centos6.8就出现过）</a></li>
+      </ul>
+    </li>
+    <li><a href="#联合查询复习">联合查询复习</a></li>
+    <li><a href="#思考题">思考题</a></li>
+    <li><a href="#优化习题">优化习题</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

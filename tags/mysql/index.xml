@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL on Learning Records</title>
+    <link>https://pippichi.github.io/tags/mysql/</link>
+    <description>Recent content in MySQL on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
+    <lastBuildDate>Fri, 29 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL -additional</title>
+      <link>https://pippichi.github.io/posts/mysql_additional/</link>
+      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/mysql_additional/</guid>
+      <description>&lt;p&gt;The article contains the additional knowledge of MySQL&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MySQL -senior</title>
+      <link>https://pippichi.github.io/posts/mysql_senior/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/mysql_senior/</guid>
+      <description>&lt;p&gt;The article contains the senior knowledge of MySQL&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MySQL -basic</title>
+      <link>https://pippichi.github.io/posts/mysql_basic/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/posts/mysql_basic/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of MySQL&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
