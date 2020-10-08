@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  MySQL -basic &ndash; Learning Records
+
+    </title>
+    
+    <meta content="MySQL" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the basic knowledge of MySQL&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="MySQL -basic | Learning Records">
+    <meta name="twitter:description" content="The article contains the basic knowledge of MySQL&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF file</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">MySQL -basic</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/basic' class="muted-link">
+  <span class="Label Label--gray-darker">Basic</span>
+</a>
+
+
+
+<a href='/tags/mysql' class="muted-link">
+  <span class="Label Label--gray">MySQL</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-05-01. Published at: 2020-05-01.">
+        
+          Published: 2020-05-01
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the basic knowledge of MySQL&hellip;</p>
+<h2 id="补充">补充</h2>
+<h3 id="mysql-80修改密码">mysql 8.0修改密码</h3>
+<p>ALTER USER &lsquo;root&rsquo;@&lsquo;localhost&rsquo; IDENTIFIED WITH mysql_native_password BY
+&lsquo;你的密码&rsquo;;</p>
+<p>flush privileges;</p>
+<h3 id="用户授权">用户授权</h3>
+<p>一、用户授权<br>
+mysql&gt; grant all privileges on <em>.</em> to &lsquo;yangxin&rsquo;@'%' identified by
+&lsquo;yangxin123456&rsquo; with grant option;</p>
+<p>添加权限（和已有权限合并，不会覆盖已有权限）</p>
+<p>GRANT Insert ON <code>your database</code>.* TO <code>user</code>@<code>host</code>;</p>
+<p>删除权限</p>
+<p>REVOKE Delete ON <code>your database</code>.* FROM <code>user</code>@<code>host</code>;</p>
+<p>二、刷新权限<br>
+对用户做了权限变更之后，一定记得重新加载一下权限，将权限信息从内存中写入数据库。</p>
+<p>mysql&gt; flush privileges;</p>
+<h3 id="查看当前库">查看当前库</h3>
+<p>mysql&gt; select database();</p>
+<h3 id="执行计划explain">执行计划（EXPLAIN）</h3>
+<p>类似于DESC，在语句前添加关键字EXPLAIN后显示一些信息。https://www.cnblogs.com/yinjw/p/11864477.html</p>
+<h3 id="配置文件">配置文件</h3>
+<p><img src="/mysql_basic/3f2128f5103751de0dfb44c9b425e91e.png" alt=""></p>
+<h3 id="select用法">Select用法</h3>
+<p><img src="/mysql_basic/bc6c360fbfaf63fe5a5f4fdda95d2e73.png" alt=""></p>
+<p><img src="/mysql_basic/3183e536b83b397b511cc27a9bf55a01.png" alt=""></p>
+<h3 id="set用法">Set用法</h3>
+<p>设置系统的变量</p>
+<p><img src="/mysql_basic/d3a59ab41c644a60c4b8fb4bc04f0895.png" alt=""></p>
+<p>设置隔离级别</p>
+<p><img src="/mysql_basic/a15bd7d4468f20bf6d06fdc6518baf18.png" alt=""></p>
+<h3 id="limit以及offset用法">Limit以及offset用法</h3>
+<p>limit offsite，N； （offsite（起始游标）可以不写，相当于 limit 0，N（长度））</p>
+<p>语句1：select * from student limit 9,4</p>
+<p>语句2：slect * from student limit 4 offset 9</p>
+<p>//语句1和2均返回表student的第10、11、12、13行</p>
+<p>//语句2中的4表示返回4行，9表示从表的第十行开始</p>
+<h3 id="distinct用法">Distinct用法</h3>
+<p><img src="/mysql_basic/151512ee32b1e32711019a06b75fd9c7.png" alt=""></p>
+<ol>
+<li>
+<p>select distinct(goods_name) ,goods_id from goods;
+注意：distinct只能放在查询列名的最前面，但是与其他函数使用的时候，没有前后位置限制。</p>
+</li>
+<li>
+<p>select distinct name,age from user;</p>
+</li>
+</ol>
+<h3 id="between用法">Between用法</h3>
+<p>select goods_name from goods where goods_price not between 50 and 4000;</p>
+<h3 id="-的作用">“+” 的作用</h3>
+<p><img src="/mysql_basic/0e0c37382c16a149c3ff0fd147630aeb.png" alt=""></p>
+<p><img src="/mysql_basic/ac418ad0bdccba83e44dd2dd92202e17.png" alt=""></p>
+<h3 id="g的作用">\G的作用</h3>
+<p>按列显示，使得显示出来的信息更加人性化</p>
+<h3 id="null的性质">Null的性质</h3>
+<p>任何东西跟null拼接都为null；字符串‘null’跟null没有关系。坑点：我们用concate函数的时候如果拼接内容中有一方为null，则结果为null，因此可能返回的不是我们想要的拼接的结果。</p>
+<h3 id="ifnull判空后面那个0表示如果是空的话就显示0">IFNULL判空（后面那个“0”表示如果是空的话就显示0）</h3>
+<p><img src="/mysql_basic/56d35f408bf53ca2720fc676119e321f.png" alt=""></p>
+<p><img src="/mysql_basic/d70f7514218144773dcb2f2e1392a838.png" alt=""></p>
+<h3 id="条件运算符">条件运算符</h3>
+<p><img src="/mysql_basic/953b8b78b026ac18542eb28ba3198a05.png" alt=""></p>
+<h3 id="模糊查询包括安全等于is-nullinescape转义的运用注意-null是不行的一定要is-null">模糊查询（包括安全等于&lt;=&gt;、is null、in、escape、转义的运用）（注意= NULL是不行的，一定要IS NULL）</h3>
+<p><img src="/mysql_basic/818608c39f86f17abc1251603155bda6.png" alt=""></p>
+<p><img src="/mysql_basic/85e1f4db3d1e3cd8643cb6cb5b303b05.png" alt=""></p>
+<p><img src="/mysql_basic/56d59a5ac7a47a2c595af39e962f2e60.png" alt=""></p>
+<p>下面这个‘$’可以是任意字符，只要后面excape里面表明清楚就可以了，他的意思是表示该字符后面的那个字符是转义的意思</p>
+<p><img src="/mysql_basic/7cda42046e349b1714bc270920f6f262.png" alt=""></p>
+<p><img src="/mysql_basic/21fd2e2c55cb00f866d70a87d39d2833.png" alt=""></p>
+<p><img src="/mysql_basic/e8bf37fb14214656404cb284168f13bc.png" alt=""></p>
+<p><img src="/mysql_basic/e1c8abfcdfa841a27c9132dc16510193.png" alt=""></p>
+<p><img src="/mysql_basic/dbc38f57b831c62d231440dd55721fe7.png" alt=""></p>
+<p><img src="/mysql_basic/a569418058553d3e4f7320437dc8e6ba.png" alt=""></p>
+<p><img src="/mysql_basic/0ace3328e64dd3efa29970c05e48f267.png" alt=""></p>
+<p>注意：在可能为0的字段前面加IFNULL</p>
+<p><img src="/mysql_basic/5a71605f1a0f3875f00ac319ebbee2dd.png" alt=""></p>
+<h3 id="多字段排序">多字段排序</h3>
+<p><img src="/mysql_basic/09a366005d53a1c6b37e396c20583147.png" alt=""></p>
+<h3 id="show-variables-like-char">Show variables like ‘%char%’</h3>
+<p><img src="/mysql_basic/646f060fe2c7efd7f93bb4342c9abba0.png" alt=""></p>
+<p><img src="/mysql_basic/ec4244952620a918ef5c70233be7a869.png" alt=""></p>
+<h3 id="hostname">@@hostname</h3>
+<p>系统变量，显示主机名，应用场景：使用mycat时区分到底是哪个机器的库，因为linux跟windows的主机名必定不一样，因此可以使用这种方法来进行区分</p>
+<h3 id="select-transaction_isolation-from-dualfrom-dual可以省略">Select @@transaction_isolation from dual（from dual可以省略）</h3>
+<p>Dual表示虚表，表示这个表根本不存在，我主要是想找前面那个东西。</p>
+<p><img src="/mysql_basic/80108a713207e934eacaee8534e134c9.png" alt=""></p>
+<h3 id="设置时区">设置时区</h3>
+<p>Set
+time_zone=’+9:00’意思是把时区设置为东9区，这个时候TIMESTAMP会发生变化但是DATETIME不会变。</p>
+<p><img src="/mysql_basic/504a52e26846452d8d9dcc26503e36b2.png" alt=""></p>
+<p><img src="/mysql_basic/3360480b44c82c23997bfbba4ca1de2a.png" alt=""></p>
+<p>其中t1是datetime，t2是timestamp</p>
+<h3 id="建表时设置timestamp为当前时间">建表时设置timestamp为当前时间</h3>
+<p>timeStamp not null default CURRENT_TIMESTAMP;</p>
+<h3 id="刷新权限">刷新权限</h3>
+<p>flush privileges;</p>
+<h3 id="sql注释">sql注释</h3>
+<p>&ndash;</p>
+<h3 id="查看表结构">查看表结构</h3>
+<p>DESC 表名;</p>
+<h3 id="查看表索引约束">查看表索引约束</h3>
+<p>SHOW INDEX FROM 表名；</p>
+<p><img src="/mysql_basic/cc83e0656a57c18a17389c7995ee87f1.png" alt=""></p>
+<h3 id="返回建表时的sql语句">返回建表时的sql语句</h3>
+<p>show create table 表名;</p>
+<h3 id="sql_no_cache">SQL_NO_CACHE</h3>
+<p>加这个字段表示查询的时候不被缓存干扰</p>
+<p>示例：</p>
+<p><img src="/mysql_basic/6dec475adb8cf5eae650f99b4d9f7fea.png" alt=""></p>
+<h2 id="数据类型">数据类型</h2>
+<p><img src="/mysql_basic/c054897ef402f0dd123dd889966a7f7e.png" alt=""></p>
+<p><img src="/mysql_basic/f11198227324e85a34fae1f513732df0.png" alt=""></p>
+<ol>
+<li>
+<p>Char（定长）</p>
+</li>
+<li>
+<p>varchar 在列内容前有1-2个字节来标志该列的内容长度。（不定长）</p>
+</li>
+<li>
+<p>timestamp 4个字节 ； time 3个字节； date 3个字节； datetime 8个字节； year
+1个字节</p>
+</li>
+<li>
+<p>blob用于存放二进制数据，如图像、音频等二进制信息。意义：二进制，0-255都可能出现</p>
+</li>
+<li>
+<p>blob在于防止因为字符集的问题，导致信息丢失。比如：一张图片有0xFF字节，这个在ascii字符集认为为非法，在入库的时候，就被过滤了。</p>
+</li>
+<li>
+<p>longtext 存放超大量文本。</p>
+</li>
+<li>
+<p>text 用于存放大量文本（比如10000字）。text不用加默认值，加了没用。</p>
+</li>
+<li>
+<p>float是浮点数有损精度，decimal是定点数，整数部分和小数部分分开存储，因此比float要精确。</p>
+</li>
+</ol>
+<h3 id="整形">整形</h3>
+<p><img src="/mysql_basic/eb3ecebaf722c20bef0a4388d7ce9deb.png" alt=""></p>
+<p><img src="/mysql_basic/100889ca6ec424e4644d27feda21ebc6.png" alt=""></p>
+<p>使用无符号的话需要加unsigned</p>
+<p><img src="/mysql_basic/3d23f11b75e00bcfa0903b05bac8b463.png" alt=""></p>
+<p><img src="/mysql_basic/1febb443217f8c969c5e2da1e4b86082.png" alt=""></p>
+<p>上图中的写法：INT(7)表示如果长度超出7则不做改动，如果长度不足7则前面用0填充，但是要实现用0填充的话就必须在后面加上ZEROFILL，并且一旦加上ZEROFILL，我们的int会自动变成unsigned类型。注意数值的范围由int来决定不由7决定，7只是表示了数值的最大宽度，当然，如果不设置的话它也会有默认值。</p>
+<h3 id="小数">小数</h3>
+<p><img src="/mysql_basic/9e42a25106fb84983f53a69eeee42340.png" alt=""></p>
+<p><img src="/mysql_basic/4fe5ec88e1ebc2bf9dd6e00602c2df3d.png" alt=""></p>
+<p>dec和decimal是一样的。并且定点数类型不仅范围跟double一样，精度还要比double高，因此当需要存储高精度数据的时候推荐用定点数类型。</p>
+<p><img src="/mysql_basic/66fb1cced38a0dfc573651b662590b5f.png" alt=""></p>
+<p>注意，这里的decimal(M,D)中的D表示小数后几位，M表示整数位加小数位总共的位数，如果D和M都确定，那么整数位位数就可以知道了，比方说float(5,2)，那么小数位两位，整数位3位，这个时候如果插入1111.1会报错，因为这个数的整数位位数有4位。</p>
+<p>另外decimal的M、D要比float和double的严格得多，如果我们插入的数据小数位数超过D，double和float不会报错而会四舍五入，但是decimal会报错，插入失败。</p>
+<p>最后，在不加M、D的情况下，只有decimal有默认值：M=10、D=0，也就是说我们只能插入宽度为10，小数位位数为0的整数，而double、float则随便插入，且精度会随着插入的数变化（1.22则精确到小数点后两位，1.323则精确到小数点后三位）。</p>
+<h3 id="字符型">字符型</h3>
+<p><img src="/mysql_basic/d469851d04723cef92df8a5410aca6af.png" alt=""></p>
+<p><img src="/mysql_basic/1cbf69bb4f8b01dcffa16c5d273b9611.png" alt=""></p>
+<p>注意：char是给多少位就用多少位，不管实际上用到的位数多少，而varchar是动态使用位数的，也就是用到多少位就给多少位，但是char效率高，varchar效率低。所以像性别之类的固定长度的就用char，像姓名之类变长的就用varchar</p>
+<p><img src="/mysql_basic/bcc5757de20ece8744b34345d13e6782.png" alt=""></p>
+<p><img src="/mysql_basic/3fbab48947ec0a78054228b951385384.png" alt=""></p>
+<p><img src="/mysql_basic/fb9750792a1669864d5ddc3dcd69b36d.png" alt=""></p>
+<h4 id="enum">Enum</h4>
+<p><img src="/mysql_basic/21e62885d438c2c7184130d02ccd3b1d.png" alt=""></p>
+<p><img src="/mysql_basic/2f05a7278c5f059fadea68ce96409377.png" alt=""></p>
+<p>存季节、性别的时候可以用enum。不区分大小写。</p>
+<h4 id="set">Set</h4>
+<p><img src="/mysql_basic/88ea52327095460c7857e7b65524f219.png" alt=""></p>
+<p><img src="/mysql_basic/b49652d3a842067333a74d8198b04ad0.png" alt=""></p>
+<p>Set跟enum的区别就是set可以插入多个。不区分大小写。</p>
+<h3 id="日期型">日期型</h3>
+<p><img src="/mysql_basic/8c57980a6b6d399741213e3ce071294c.png" alt=""></p>
+<p><img src="/mysql_basic/d0b5228ff0df6e031a6e321c341333ca.png" alt=""></p>
+<p><img src="/mysql_basic/5df0784ccc1873f0ff7bfa4aff5a719d.png" alt=""></p>
+<p><img src="/mysql_basic/a11bc5ababe7591d24a1907a953a2f2b.png" alt=""></p>
+<p>timestamp更能反映真实时间</p>
+<p>Set
+time_zone=’+9:00’意思是把时区设置为东9区，这个时候TIMESTAMP会发生变化但是DATETIME不会变。</p>
+<p><img src="/mysql_basic/504a52e26846452d8d9dcc26503e36b2.png" alt=""></p>
+<p><img src="/mysql_basic/3360480b44c82c23997bfbba4ca1de2a.png" alt=""></p>
+<p>其中t1是datetime，t2是timestamp</p>
+<h2 id="库操作">库操作</h2>
+<h3 id="建库">建库</h3>
+<p><img src="/mysql_basic/9dc54896605fac8691943ab70d23e40c.png" alt=""></p>
+<h3 id="库的修改主要是字符集的修改">库的修改（主要是字符集的修改）</h3>
+<p>以前能用rename database 库名 to
+新库名;现在不行了。要改的话直接去文件夹里面改文件名。</p>
+<p>修改库的字符集：</p>
+<p><img src="/mysql_basic/062e181561838c50dc1bc5401ed4ed15.png" alt=""></p>
+<h3 id="删库安全方式">删库（安全方式）</h3>
+<p><img src="/mysql_basic/e1b635536587cca5b3ec722fc2e348c1.png" alt=""></p>
+<h2 id="表操作">表操作</h2>
+<h3 id="建表安全方式">建表（安全方式）</h3>
+<p><img src="/mysql_basic/4f9c6603f6c7769d0ee90d59d4aee0ad.png" alt=""></p>
+<p><img src="/mysql_basic/b83ee9d709203d9c4df8d7440b19bc0b.png" alt=""></p>
+<p>create table <strong>if not exists</strong> class_name(</p>
+<p>id int primary key not null auto_increment,</p>
+<p>sname varchar(10) not null default &lsquo;&rsquo;,</p>
+<p>salary decimal(6,2) not null default 0.00,</p>
+<p>fanbu smallint not null default 0</p>
+<p>)engine myisam charset utf8;</p>
+<p>注意：在建表最后一行engine myisam charset
+utf8后面还可以加auto_increment=1表示自增列从1开始计数，如果是auto_increment=100表示自增列从100开始计数。</p>
+<h3 id="复制表">复制表</h3>
+<h4 id="仅复制表的结构">仅复制表的结构</h4>
+<p>create table 表 like 表;</p>
+<h4 id="结构跟数据都复制过来">结构跟数据都复制过来</h4>
+<p>create table 表 select * from 表；</p>
+<h4 id="仅复制部分数据">仅复制部分数据</h4>
+<p>Create table 表 select … from 表 where …;</p>
+<p><img src="/mysql_basic/4af05acfd13469984a1eb9450881be74.png" alt=""></p>
+<h4 id="仅复制部分字段不复制数据">仅复制部分字段不复制数据</h4>
+<p><img src="/mysql_basic/33f6456c5c5e24ec48c49a87df8f1b6e.png" alt=""></p>
+<h3 id="跨数据库建表">跨数据库建表</h3>
+<p><img src="/mysql_basic/b368e711c15a69339b279ed8a6b62f80.png" alt=""></p>
+<p><img src="/mysql_basic/6c111b93a5dc2b9a49db968085bd3c12.png" alt=""></p>
+<h3 id="修改表">修改表</h3>
+<p><img src="/mysql_basic/f7e46e45bfbe2983849bcdd5cb46b3c9.png" alt=""></p>
+<p>修改列属性：</p>
+<ol>
+<li>
+<p>改列的属性值：alter table 表 modify column（column可省略） 列名 char(4) not
+null default &lsquo;'（列名 新类型 新约束）;</p>
+<p><img src="/mysql_basic/256d39f3d070a8be341d5e59da3d1e75.png" alt=""></p>
+</li>
+<li>
+<p>改列名：alter table 表 change column（column可以省略） 旧列名 新列名 新类型
+新参数;</p>
+<p><img src="/mysql_basic/4e8bd09c3a2b97c3aafb5178c84082b1.png" alt=""></p>
+</li>
+</ol>
+<p>增加新列：</p>
+<ol>
+<li>
+<p>alter table 表 add column **** after **;</p>
+</li>
+<li>
+<p>alter table 表 add column **** first;</p>
+</li>
+<li>
+<p>alter table 表 add column 名字 类型 not null default;</p>
+<p><img src="/mysql_basic/6da7dabc19cfbceff2b55b5dd201ca08.png" alt=""></p>
+</li>
+</ol>
+<p>删除列：</p>
+<p>alter table 表 drop column（column可省略）列名;</p>
+<p>修改表名：</p>
+<p>Alter table 表 rename to 新表名;</p>
+<p>修改表的字符集：</p>
+<p>Alter table 表 convert to character set ‘utf8’;</p>
+<h3 id="删除表安全方式">删除表（安全方式）</h3>
+<p><img src="/mysql_basic/66c47574c09fa274fd3b830aa253823f.png" alt=""></p>
+<h2 id="增删改查">增删改查</h2>
+<h3 id="增">增</h3>
+<h4 id="方法一">方法一</h4>
+<ol>
+<li>
+<p>insert into 表 (<em><strong>) values (</strong></em>);</p>
+</li>
+<li>
+<p>insert into 表1 select *** from 表2 ; 表1插入表2相应数据</p>
+</li>
+<li>
+<p>insert into 表 values (NULL); 表示插入空值</p>
+</li>
+<li>
+<p>insert into class02 select good_name,good_num from class03;</p>
+<p><img src="/mysql_basic/17f120686416fcbb1f2a8d63044ffee9.png" alt=""></p>
+</li>
+</ol>
+<h4 id="方法二">方法二</h4>
+<p><img src="/mysql_basic/ac0423aba387030788ff90254c262675.png" alt=""></p>
+<p><img src="/mysql_basic/97a903fd42baa5891b71f1b3085cbed6.png" alt=""></p>
+<h4 id="法一vs法二">法一VS法二</h4>
+<p><img src="/mysql_basic/37308fc0a32923fc5e97b99c61b937fc.png" alt=""></p>
+<p><img src="/mysql_basic/ac604cab80d6995ad6a53d4c7a4136ac.png" alt=""></p>
+<h3 id="删">删</h3>
+<h4 id="delete">Delete</h4>
+<p><img src="/mysql_basic/fe83329ce5b2211528a88d660a9b6b8b.png" alt=""></p>
+<p><img src="/mysql_basic/39c4cb53f6cb54813cc9223adb5f992f.png" alt=""></p>
+<p>要删哪张表就在delete之后加上哪张表的别名</p>
+<p><img src="/mysql_basic/7217eb484ef3e3352282bc7b3d0f0946.png" alt=""></p>
+<p><img src="/mysql_basic/3c96c31ff95e7d6ef2466d5e125f3231.png" alt=""></p>
+<p>Delete和limit联用：</p>
+<p><img src="/mysql_basic/44023614172294e572cb460254372046.png" alt=""></p>
+<p>Delete from 表 where 条件（where 条件可以按需填写） limit 删除条数；</p>
+<p>删整行：</p>
+<p>delete from 表 where 条件;</p>
+<h4 id="truncate">Truncate</h4>
+<p><img src="/mysql_basic/4ad7f2f56e22ad35ec16faa75ad790ce.png" alt=""></p>
+<p><img src="/mysql_basic/f4423f8b45170e6020ef50f49ab5d878.png" alt=""></p>
+<p>truncate相当于删表再重建一张同样结构的表，操作后得到一张全新表。相当于把旧表扔了重画一张。</p>
+<p>而delete是从删除所有的层面来操作的。相当于用橡皮把表的数据库擦掉。</p>
+<h4 id="delete-vs-truncate">Delete VS truncate</h4>
+<p><img src="/mysql_basic/611a85819377e8f8568006b30eba6b3f.png" alt=""></p>
+<p><img src="/mysql_basic/eaf08aae3d317a86232951399b7b4136.png" alt=""></p>
+<p>注意：truncate之后再插入数据的话id从1开始</p>
+<p><img src="/mysql_basic/cd98adf265dcc1a50fdfa47ec2e1b689.png" alt=""></p>
+<p>注意：truncate之后没有显示几行被删</p>
+<h3 id="改">改</h3>
+<p>修改单表记录：</p>
+<ol>
+<li>
+<p>update 表 set 属性=CASE 属性 when &quot;&quot; then &quot;&quot; else &quot;&quot; end;</p>
+</li>
+<li>
+<p>update 表 set 属性=&quot;&quot; where &ldquo;&quot;;</p>
+</li>
+<li>
+<p>update 表 set 属性 =
+concat(&lsquo;HTC&rsquo;,substring(goods_name,选取第几位开始截取,选取的length)) where
+goods_name like &lsquo;诺基亚%';</p>
+<p>注释：</p>
+</li>
+</ol>
+<p>第三句中concat是连接字符串用的</p>
+<p><img src="/mysql_basic/cee98d09a9561728904c65df0d181193.png" alt=""></p>
+<p>修改多表记录：</p>
+<p><img src="/mysql_basic/403cf0542b704517840dded87d799cf8.png" alt=""></p>
+<p><img src="/mysql_basic/3e85b302d6352e5382dd21000d8b3958.png" alt=""></p>
+<p><img src="/mysql_basic/9873c15a10d99c6696794e50c1850bbe.png" alt=""></p>
+<h3 id="查">查</h3>
+<p>select语句后面跟for
+update是读取锁的方式之一，解决丢失修改不能靠事务，要加必要的锁。</p>
+<p>示例：</p>
+<ol>
+<li>
+<p>select * from 表名 where 列名 like &ldquo;%x%&quot;;
+&mdash;-&gt;从表中查找列名中带一个“x”的列</p>
+</li>
+<li>
+<p>select concat(列名,&quot;&quot;),concat(列名,&quot;&quot;) from &quot;&rdquo;</p>
+</li>
+<li>
+<p>select A.<em>,B.</em> from A,B;</p>
+</li>
+<li>
+<p>select goods_name,goods_num,goods_id from 表 where goods_id in (4,11);
+#goods_id 在{4,11}这个集合里都满足。</p>
+</li>
+<li>
+<p>select goods_name,goods_num,goods_id from 表 where goods_id between 100 and
+500 #100&lt;=goods_id&lt;=500</p>
+</li>
+<li>
+<p>select goods_name from 表 where goods_id not in (2,5);
+#选取goods_id不是2或5的所有goods_name.</p>
+</li>
+<li>
+<p>select goods_name from 表 where goods_id !=2 and goods_id!=5.</p>
+</li>
+<li>
+<p>select goods_name from 表 where goods_id&gt;=100 and goods_id&lt;=400 or
+goods_id&gt;=1000 and goods_id&lt;=2000.</p>
+</li>
+<li>
+<p>select goods_name from 表 where goods_id&gt;=100 and (goods_num&lt;50 or
+goods_num&gt;240) and goods_id&gt;900.</p>
+</li>
+<li>
+<p>select goods_name from 表 where goods_name like &lsquo;诺基亚%'; %可以匹配任意字符</p>
+</li>
+<li>
+<p>select goods_name from 表 where goods_name like &lsquo;诺基亚N__'; _
+可以配一个字符</p>
+</li>
+<li>
+<p>select goods_name,goods_id,market_price-shop_price as price from goods where
+1;</p>
+</li>
+<li>
+<p>select goods_id,sum(goods_number) from goods group by goods_id;</p>
+</li>
+<li>
+<p>select goods_id,(market_num-goods_num) as nums from goods where 1 having
+nums&gt;200; having关键字的使用</p>
+</li>
+<li>
+<p>select sname,if(gender = 0,&lsquo;优先&rsquo;,&lsquo;等待&rsquo;) as vip from 表;</p>
+</li>
+</ol>
+<p>可以select 列 as 别名，也可以from 表 as 别名;</p>
+<h2 id="utf8等字符集设置">Utf8等字符集设置</h2>
+<p>1、</p>
+<p>set charactor_set_client = gbk;</p>
+<p>告诉连接器，使用utf8</p>
+<p>set charactor_set_connection = utf8;</p>
+<p>再告诉，如果返回值，返回gbk结果</p>
+<p>set charactor_set_results = gbk;</p>
+<p>2、</p>
+<p>set charactor_set_client = gbk;</p>
+<p>set charactor_set_connection = gbk;</p>
+<p>set charactor_set_results = gbk; 可以简写成 set names gbk;</p>
+<h2 id="单行函数">单行函数</h2>
+<h3 id="字符函数">字符函数</h3>
+<p><img src="/mysql_basic/358c8c5bdf22631566209835e3d8aef4.png" alt=""></p>
+<h4 id="concat拼接">CONCAT拼接</h4>
+<p><img src="/mysql_basic/668561d6eec7a38c7b172b13e87e442f.png" alt=""></p>
+<p><img src="/mysql_basic/a9aa97a31d023812a632866d0f93522f.png" alt=""></p>
+<h4 id="length">LENGTH</h4>
+<p><img src="/mysql_basic/77c0739058eee653c688cb910e04230d.png" alt=""></p>
+<p><img src="/mysql_basic/873274b7d3b77c8303a7fb6d1986f468.png" alt=""></p>
+<h4 id="upperlower">Upper、lower</h4>
+<p><img src="/mysql_basic/6d5ff8fe95958ca13aaf0d6cdba83511.png" alt=""></p>
+<h4 id="leftright">Left、right</h4>
+<p><img src="/mysql_basic/9ea8430c8d50256c92beff5b32476368.png" alt=""></p>
+<p>从左边或右边开始截取若干个字符</p>
+<h4 id="substrsubstring">Substr、substring</h4>
+<p><img src="/mysql_basic/f25910a11643af016d2f82e3d7c7ce39.png" alt=""></p>
+<p><img src="/mysql_basic/1d086311375f1791b318e9c47e0a7c03.png" alt=""></p>
+<p><img src="/mysql_basic/5bf90c747a72d7503815d01a01e021fb.png" alt=""></p>
+<h4 id="instr">Instr</h4>
+<p><img src="/mysql_basic/223e31fb88c6d1afc718b3ef80767eb2.png" alt=""></p>
+<h4 id="trim">Trim</h4>
+<p><img src="/mysql_basic/d9d5abfda4e64ff95f2287b832785340.png" alt=""></p>
+<p><img src="/mysql_basic/32c1bd53202fea4aaff27f1d702b6a7a.png" alt=""></p>
+<h4 id="lpad">Lpad</h4>
+<p><img src="/mysql_basic/49b2f3571447bb4580d83c949d46edd0.png" alt=""></p>
+<p><img src="/mysql_basic/6eb77bd8108041e9b59d84bf31b510dd.png" alt=""></p>
+<h4 id="rpad">Rpad</h4>
+<p><img src="/mysql_basic/5442830a0856cb72c96c4a9bd15d5d2b.png" alt=""></p>
+<h4 id="replace">Replace</h4>
+<p><img src="/mysql_basic/d1bb3d541817bbf0f53a4d9c897102a0.png" alt=""></p>
+<h3 id="数学函数">数学函数</h3>
+<h4 id="round">Round</h4>
+<p><img src="/mysql_basic/69fdfa29c46904f6cc5dfd01d5e6eb83.png" alt=""></p>
+<h4 id="ceilfloor">Ceil、floor</h4>
+<p><img src="/mysql_basic/376a9a7b4e6e68188aef247b27b11174.png" alt=""></p>
+<h4 id="truncate-1">Truncate</h4>
+<p><img src="/mysql_basic/07bdc97856f40d86453f92b13d46f395.png" alt=""></p>
+<h4 id="mod">Mod</h4>
+<p><img src="/mysql_basic/984793e8ab6d8f57ab5fe489dd571092.png" alt=""></p>
+<h4 id="rand">Rand</h4>
+<p>获取随机数，返回0-1之间的小数</p>
+<h3 id="日期函数">日期函数</h3>
+<h4 id="now">Now</h4>
+<p><img src="/mysql_basic/1969172834293cbcf93c45283e121a8a.png" alt=""></p>
+<h4 id="curdatecurtime">Curdate、curtime</h4>
+<p><img src="/mysql_basic/653932e30e3f8c4ea87212d2e3bae503.png" alt=""></p>
+<h4 id="yearmonthmonthname">Year、month、monthname</h4>
+<p><img src="/mysql_basic/144bb402cdbd6043a4a3ef260cf2af5d.png" alt=""></p>
+<p><img src="/mysql_basic/6eea10e85b0755767301da3699350bd9.png" alt=""></p>
+<h4 id="datediff">Datediff</h4>
+<p><img src="/mysql_basic/2e2da4b5255988a30e64a0aeb086e8ac.png" alt=""></p>
+<h4 id="str_to_datedate_format">Str_to_date、date_format</h4>
+<p><img src="/mysql_basic/29ec983e65ee4f7f37271d0be3b6bec6.png" alt=""></p>
+<p><img src="/mysql_basic/c6a89391c4533298a5bc985d9b19d851.png" alt=""></p>
+<p><img src="/mysql_basic/0241049f8cff4e9f3923a88f40f6d909.png" alt=""></p>
+<h4 id="日期格式符号">日期格式符号</h4>
+<p><img src="/mysql_basic/36186b16c8cecd1c14dc3c1cfc924c71.png" alt=""></p>
+<h3 id="其他函数">其他函数</h3>
+<h4 id="versiondatabaseuser">Version()、DataBase()、user()</h4>
+<p><img src="/mysql_basic/859cf66c16e6acc5045f46c8eb7a0368.png" alt=""></p>
+<h4 id="passwordmd5">Password()、md5()</h4>
+<p><img src="/mysql_basic/de85848ee16a452f10b3559c71438991.png" alt=""></p>
+<p><img src="/mysql_basic/d89e6dbce0ac10092a4813e65dad1d8b.png" alt=""></p>
+<p>返回该字符的密码形式</p>
+<h3 id="流程控制函数">流程控制函数</h3>
+<h4 id="if类似三目运算符if-else">If（类似三目运算符）、if else</h4>
+<p><img src="/mysql_basic/cf065c9859d648eed58c7781faebcc12.png" alt=""></p>
+<h4 id="caseswitch">Case(switch)</h4>
+<p><img src="/mysql_basic/62f8007070cbe668e147108194e3f0d8.png" alt=""></p>
+<p><img src="/mysql_basic/9d0ca456dc467c1e855ed8fa0f1b7eec.png" alt=""></p>
+<p><img src="/mysql_basic/8f364ba36764cd2fe62ea2c0c5046682.png" alt=""></p>
+<p><img src="/mysql_basic/e43feb38db31a239d3c86d2c819a62a5.png" alt=""></p>
+<h4 id="caseif-else">Case(if else)</h4>
+<p><img src="/mysql_basic/116010c625dc9f2105874a93d0479a41.png" alt=""></p>
+<p><img src="/mysql_basic/8dc07423fa385e171cb2fac8845bca63.png" alt=""></p>
+<p><img src="/mysql_basic/f3742029d7604a73203c8876f03397bf.png" alt=""></p>
+<h2 id="分组函数">分组函数</h2>
+<p><img src="/mysql_basic/b6874e5e45707667309dfc9582851e01.png" alt=""></p>
+<h3 id="sumcountmaxminavg">Sum、count、max、min、avg</h3>
+<p><img src="/mysql_basic/321259ed0812e9c22ce17c2fec4bb246.png" alt=""></p>
+<p><img src="/mysql_basic/e1620d4f193ac46730c5e73861085a7b.png" alt=""></p>
+<p><img src="/mysql_basic/ec5ae0430563cfec75edd68214467e1f.png" alt=""></p>
+<p><img src="/mysql_basic/c23367c755cdf19790b1abff770ef188.png" alt=""></p>
+<p>这里的max、min按照字符排序来选择，count按照非空来计数</p>
+<p><img src="/mysql_basic/481cb6dc2f8c795b9551d1fb37575e90.png" alt=""></p>
+<p><img src="/mysql_basic/f107e5fa1e3b6907a4e297a6009d0bc6.png" alt=""></p>
+<p><img src="/mysql_basic/e13b7d3bc97b2d280e0caae15f4c5937.png" alt=""></p>
+<p>经过上面的几个操作我们可以断定这些函数都忽略了null值</p>
+<h3 id="分组函数与distinct联用">分组函数与distinct联用</h3>
+<p><img src="/mysql_basic/4a0dc88922115f53b3f87d049251ce96.png" alt=""></p>
+<p><img src="/mysql_basic/aba736f6c71dcea78c53093cc897bf69.png" alt=""></p>
+<h3 id="count函数详解">Count函数详解</h3>
+<p><img src="/mysql_basic/55db991914ea30770d1d0b6954fdc764.png" alt=""></p>
+<p><img src="/mysql_basic/4fe948d8d6ee9327be7962a1c073cd82.png" alt=""></p>
+<p>myisam中有一个计数器，当调用count时直接返回计数器的值，所以效率非常高</p>
+<p><img src="/mysql_basic/0253e60895d0bb241e4e8153b00714d4.png" alt=""></p>
+<h3 id="和分组函数一同查询的字段有限制">和分组函数一同查询的字段有限制</h3>
+<p><img src="/mysql_basic/f4613da06a75aad12138c1b187481429.png" alt=""></p>
+<p>这里的employee_id显然是无效数据</p>
+<p><img src="/mysql_basic/7957156ec52ed6eeaee2fe81d3501638.png" alt=""></p>
+<h2 id="分组查询">分组查询</h2>
+<h3 id="注意点">注意点</h3>
+<h4 id="group-by">Group by</h4>
+<p><img src="/mysql_basic/bc8fbfe75a0442a62a39b05a03f2afce.png" alt=""></p>
+<p>·</p>
+<p><img src="/mysql_basic/1580916653bced275d0a20615401f0c8.png" alt=""></p>
+<p><img src="/mysql_basic/fe767307dd3428e6d389ae53808ecafe.png" alt=""></p>
+<p><img src="/mysql_basic/8c841893815b26fc7c4789322d94f730.png" alt=""></p>
+<p><img src="/mysql_basic/0b148edf95e723e23d30c26edb153354.png" alt=""></p>
+<h4 id="having">Having</h4>
+<p><img src="/mysql_basic/919d305cb39a07f92e8670b9177e6709.png" alt=""></p>
+<p>这里的筛选是分组后的筛选，刚才那些where字段的筛选是分组前的筛选</p>
+<p><img src="/mysql_basic/77ff2f7c0bdcb2c284cdd06fee4590d6.png" alt=""></p>
+<p><img src="/mysql_basic/5f5a51145fcddf5e3a40937e083c9cd9.png" alt=""></p>
+<p><img src="/mysql_basic/ef01b0306a03bd236de24deef2d90749.png" alt=""></p>
+<p><img src="/mysql_basic/43e43d5c42408eb8c84f8010930db84f.png" alt=""></p>
+<p><img src="/mysql_basic/e6f5f40a99ba2d37a3499ebdcaaeed71.png" alt=""></p>
+<h4 id="按表达式或函数分组">按表达式或函数分组</h4>
+<p><img src="/mysql_basic/12e2f4a914c37bf061f3e85dca3866f7.png" alt=""></p>
+<p><img src="/mysql_basic/28c5e1258607b71011f03f8190ffeca6.png" alt=""></p>
+<h4 id="按多个字段分组">按多个字段分组</h4>
+<p><img src="/mysql_basic/0bd8b6976daf6089f6770a2850ad8c71.png" alt=""></p>
+<h4 id="添加排序">添加排序</h4>
+<p><img src="/mysql_basic/18e08626003c49b0ca7915b6c6ef51d6.png" alt=""></p>
+<h2 id="sql92">Sql92</h2>
+<p><img src="/mysql_basic/16ab8026709acbbe512358ca16a16ebe.png" alt=""></p>
+<h3 id="等值连接">等值连接</h3>
+<p><img src="/mysql_basic/1f06c75d48951f09146f65e98455f955.png" alt=""></p>
+<p><img src="/mysql_basic/bd159c787b393cf827021db41e1c003b.png" alt=""></p>
+<p><img src="/mysql_basic/b4a5dab68de58ae84b083c4910af47ce.png" alt=""></p>
+<p><img src="/mysql_basic/a4ef3fb10a1e19078594c5ef32b62239.png" alt=""></p>
+<p><img src="/mysql_basic/999571060e6d0b641df0a9cb9486399b.png" alt=""></p>
+<p>注意：为表起别名的时候相当于生成了一个视图，因此用这个表的时候应该用别名去引用它，而不应该用原表名。</p>
+<h4 id="增加筛选">增加筛选</h4>
+<p><img src="/mysql_basic/a2966279da2d9c2b5beacdf07f3e5e59.png" alt=""></p>
+<p><img src="/mysql_basic/a79f32cac24d04b103f03f5e61e9e879.png" alt=""></p>
+<h4 id="添加分组">添加分组</h4>
+<p><img src="/mysql_basic/44dca6d04ecb8a7b00f66f6d3fc7e63a.png" alt=""></p>
+<p><img src="/mysql_basic/996808265a99455d991b51bd6529c023.png" alt=""></p>
+<h4 id="排序">排序</h4>
+<p><img src="/mysql_basic/e4b0d378a6a6e418dbcedeb0732e6769.png" alt=""></p>
+<h4 id="三表连接">三表连接</h4>
+<p><img src="/mysql_basic/8988b6369ae5a2afc5af856f365817e3.png" alt=""></p>
+<p><img src="/mysql_basic/381f81a615507a880587336322e46ec3.png" alt=""></p>
+<h4 id="总结">总结</h4>
+<p><img src="/mysql_basic/0010cf3bd8880ab9152130ce58e33e34.png" alt=""></p>
+<h3 id="非等值连接">非等值连接</h3>
+<p><img src="/mysql_basic/d251ed7e8dc0c7b4997760b504512202.png" alt=""></p>
+<p><img src="/mysql_basic/c1a69f30477c9575ff9a4c295ac519c2.png" alt=""></p>
+<h3 id="自连接">自连接</h3>
+<p><img src="/mysql_basic/eea33dfa3896fd58ae2223160121f035.png" alt=""></p>
+<h2 id="sql99内连接外连接交叉连接">Sql99（内连接、外连接、交叉连接）</h2>
+<p><img src="/mysql_basic/89ba8c2f9c5b58afa8adadb8bb32ff91.png" alt=""></p>
+<h3 id="内连接">内连接</h3>
+<p><img src="/mysql_basic/d90a408b2fd48b0873e2d0bb74707903.png" alt=""></p>
+<p><img src="/mysql_basic/a0307443924f1de98e9440a29fcc32e5.png" alt=""></p>
+<p><img src="/mysql_basic/cc58435551bddc48cdc044738a0ba1d8.png" alt=""></p>
+<h4 id="等值">等值</h4>
+<p><img src="/mysql_basic/4b2657b645e235e29400a9957302c7f1.png" alt=""></p>
+<p><img src="/mysql_basic/ff575eb38e26de4ce12b84a5235b7661.png" alt=""></p>
+<p><img src="/mysql_basic/dd4914db590996761f016c7ff93aa26e.png" alt=""></p>
+<p><img src="/mysql_basic/7c43bd7cf86833abdf0fdf7a03ab9bdd.png" alt=""></p>
+<p><img src="/mysql_basic/f74e4b495d5e0ef573c436d9f37654c7.png" alt=""></p>
+<p><img src="/mysql_basic/e580a79aab043cec4cc9f5fb65ef270d.png" alt=""></p>
+<p>注意：后面的表连接前面的表的时候必须要有连接条件，不然无法连接。Inner可以省略。</p>
+<h4 id="非等值连接-1">非等值连接</h4>
+<p><img src="/mysql_basic/4489d622f3a37515ea1a7cdf41b70cf1.png" alt=""></p>
+<p><img src="/mysql_basic/7a813a53d59389aa25fd8482321a1ba5.png" alt=""></p>
+<h4 id="自连接-1">自连接</h4>
+<p><img src="/mysql_basic/e421406a4fb1867abb99c1cd2503a2b2.png" alt=""></p>
+<p><img src="/mysql_basic/6fd4a96aa79e8dd4848d6306114039e9.png" alt=""></p>
+<h3 id="外连接">外连接</h3>
+<p><img src="/mysql_basic/d5b7029a752b6fb2fd1225eeb9aa8c86.png" alt=""></p>
+<p><img src="/mysql_basic/cc90a84e99107bd9538cb73d9ee58ab1.png" alt=""></p>
+<h4 id="左外右外连接">左外、右外连接</h4>
+<p><img src="/mysql_basic/c756e773871002fa0c54a21805fbf006.png" alt=""></p>
+<p><img src="/mysql_basic/686db039d96ec0d9d18acc8636567a77.png" alt=""></p>
+<p><img src="/mysql_basic/ff1f1d9f48366112aef33aa4d635f444.png" alt=""></p>
+<p><img src="/mysql_basic/586362b40d9b0857a6df17ff30e701f3.png" alt=""></p>
+<p><img src="/mysql_basic/b4600b1ff8e86766716df6a7fc117167.png" alt=""></p>
+<h4 id="全外连接">全外连接</h4>
+<p>在左外或者右外的基础上把从表中有但是主表没有的那个字段的内容也查询出来</p>
+<h4 id="全外连接-内连接">全外连接-内连接</h4>
+<p>A表独有+B表独有即可</p>
+<h4 id="交叉连接">交叉连接</h4>
+<p><img src="/mysql_basic/4781a4b710069ba657a540e405485e41.png" alt=""></p>
+<h2 id="子查询">子查询</h2>
+<p><img src="/mysql_basic/353d19adb9e5c47e2274e9258742dac3.png" alt=""></p>
+<p><img src="/mysql_basic/48e3511af689d78e6642144a2d51f6c6.png" alt=""></p>
+<p><img src="/mysql_basic/4c219450084d2d4a525799bc977ea7f9.png" alt=""></p>
+<p><img src="/mysql_basic/41a8315d7198a6c86ddb70c8e93c0db2.png" alt=""></p>
+<p><img src="/mysql_basic/c349f0753df20adf41137d746224f044.png" alt=""></p>
+<h3 id="where或having后面">Where或having后面</h3>
+<h4 id="标量子查询一行一列">标量子查询（一行一列）</h4>
+<p><img src="/mysql_basic/12ad03508c1b2a8cf43acd1acdfcdf50.png" alt=""></p>
+<p><img src="/mysql_basic/847411683c72b4e79895948171139389.png" alt=""></p>
+<p><img src="/mysql_basic/c94244b6ecae72487ec458376d5ba0b0.png" alt=""></p>
+<p><img src="/mysql_basic/46b4c17e730b96876e26827a12381717.png" alt=""></p>
+<p><img src="/mysql_basic/0717d82232909efab814b8f4b3468a95.png" alt=""></p>
+<p><img src="/mysql_basic/db5a85b4c9eb3ddaf7b8c79b200f4349.png" alt=""></p>
+<p><img src="/mysql_basic/6b69e71685bbc801dadda2eda5af744b.png" alt=""></p>
+<h4 id="列子查询多行子查询">列子查询（多行子查询）</h4>
+<p><img src="/mysql_basic/c43696845840b542c4a23bc646031ab1.png" alt=""></p>
+<p><img src="/mysql_basic/f37a20631a8a14f8be7220f2ac7032ed.png" alt=""></p>
+<p><img src="/mysql_basic/07a464bed6c4276ddba77d1363603e07.png" alt=""></p>
+<p>或者</p>
+<p><img src="/mysql_basic/926f4db889be7c2aafdb417aa084e7a6.png" alt=""></p>
+<p>扩展</p>
+<p><img src="/mysql_basic/964df838404599f56637d198ad2e577f.png" alt=""></p>
+<p>相当于</p>
+<p><img src="/mysql_basic/ee4f8de4de84c3add42220c7fcd053a3.png" alt=""></p>
+<p><img src="/mysql_basic/4e7c5809287a95eeff711a383865405d.png" alt=""></p>
+<p><img src="/mysql_basic/1503a9f070346fa63c80289a846afa3a.png" alt=""></p>
+<p><img src="/mysql_basic/2f3f7056e3563e1f1c5dcbcfc0a6a429.png" alt=""></p>
+<h4 id="行子查询结果集一行多列或多行多列">行子查询（结果集一行多列或多行多列）</h4>
+<p>原先的做法：</p>
+<p><img src="/mysql_basic/fd3d34954cbcc8513848a93db9e632bc.png" alt=""></p>
+<p><img src="/mysql_basic/5bfcfdb682e075c044c17817ed7c704b.png" alt=""></p>
+<p>行子查询的做法：</p>
+<p><img src="/mysql_basic/8ae25145afcc45b755a0a4de19a62880.png" alt=""></p>
+<h3 id="select后面仅支持标量子查询">Select后面（仅支持标量子查询）</h3>
+<p><img src="/mysql_basic/a22ee3c120d51ffc7ed7cd9a82d8f8e4.png" alt=""></p>
+<p><img src="/mysql_basic/4076cd81f7bc6013adc4d9d427b11122.png" alt=""></p>
+<h3 id="from后面子查询结果的表必须起别名">From后面（子查询结果的表必须起别名）</h3>
+<p><img src="/mysql_basic/5f745b5519f6b8a3f38bfaa87c03f3e5.png" alt=""></p>
+<p><img src="/mysql_basic/ef4a22940b3e277852307a57a2305699.png" alt=""></p>
+<h3 id="exists1表示子查询存在0表示子查询不存在">Exists(1表示子查询存在，0表示子查询不存在)</h3>
+<p><img src="/mysql_basic/ee115c134c19c9d7ba8ac3cd80eefe1b.png" alt=""></p>
+<p><img src="/mysql_basic/59080f103a03f37cb089e7aeed4a8cd7.png" alt=""></p>
+<p><img src="/mysql_basic/8ac6b81a220b8b14cfdb4b6d16bcf622.png" alt=""></p>
+<p>这里的select * 也可以替换为select 1</p>
+<p>注意：用 exists的一定能用in来代替，比方说上面这个案例用in来写就是：</p>
+<p><img src="/mysql_basic/dd84a280c7743d231189f820e6872103.png" alt=""></p>
+<p><img src="/mysql_basic/13f1ec4e0271e3dae0ae83e3d6eaab70.png" alt=""></p>
+<p><img src="/mysql_basic/37595a4146a2b5bf2ec393c08fcdaa65.png" alt=""></p>
+<h2 id="limit分页查询">limit分页查询</h2>
+<p><img src="/mysql_basic/a7dfafac24d9d910edaf9be3e73619a1.png" alt=""></p>
+<p><img src="/mysql_basic/cd034a54814c7425dc14b0d2b186aa45.png" alt=""></p>
+<p>如果offset从0开始则可省略</p>
+<h2 id="联合查询">联合查询</h2>
+<p><img src="/mysql_basic/78dd48520ea8931e539e09364c7be0f3.png" alt=""></p>
+<p><img src="/mysql_basic/ace6f435432d9526904d456c5c6b5faa.png" alt=""></p>
+<p><img src="/mysql_basic/83f51ff20f313c8a2003a0b8bf359962.png" alt=""></p>
+<p><img src="/mysql_basic/771c103583fce118de771b73dedd1f25.png" alt=""></p>
+<p><img src="/mysql_basic/e4d79e3312e2c2ddb6546ead67a8c708.png" alt=""></p>
+<p><img src="/mysql_basic/af8cd24e6392f8ceb7702e7e1033f236.png" alt=""></p>
+<p>使用union all之后就算两个查询有重复的东西，最终的结果集也会将所有信息显示出来。</p>
+<p>QUERY1 union QUERY2 order by **; order by
+是针对最终结果集排的序，但是如果语句中有limit等让内部排序有意义(影响最终结果集)的话，内部order
+by就会发挥作用，如：(select goods_name from goods where goods_id&lt;5 order by
+goods_num desc limit 3) union (select cat_name from cats where cat_id&lt;5 order
+by cat_num asc limit 8);</p>
+<p>注意：union会去重，union
+all不会去重。当我们确定两表连接不会有重复的数据之后优先选择union
+all，它的效率更高。</p>
+<h2 id="约束列级约束和表级约束">约束（列级约束和表级约束）</h2>
+<p><img src="/mysql_basic/540a2578def9dd0ca7e5fa2b89b24dad.png" alt=""></p>
+<p><img src="/mysql_basic/6655a51ec8574e163a7ee01c06ff9866.png" alt=""></p>
+<p><img src="/mysql_basic/ff74ded957c56a5bffe220e0d57fdb01.png" alt=""></p>
+<p>这里的两个null的字段设置了唯一约束，唯一约束可以为空但是也不能有两个空，所以这里这样写会报错。</p>
+<p><img src="/mysql_basic/b93d667b1f64e902bf66ad37d43fe34d.png" alt=""></p>
+<p><img src="/mysql_basic/d39d8bb5024a04dd40ff1469821434f1.png" alt=""></p>
+<p>Check：比方说我们需要id必须大于0，那么可以在建表时加约束：check(id&gt;0)或者在之后修改表约束的时候add
+check(id&gt;0)或者drop check check_name</p>
+<p><img src="/mysql_basic/b8828f25384db179f3aa3a37b59c05c5.png" alt=""></p>
+<p><img src="/mysql_basic/f76c0cd763ddb92b4776d4f3d0538050.png" alt=""></p>
+<p><img src="/mysql_basic/91a36941070d163c4312974b6371356d.png" alt=""></p>
+<p><img src="/mysql_basic/a3481bc87bf54ed0feeeb2c0dbdc5d75.png" alt=""></p>
+<p>其中constraint 约束名可以省略</p>
+<p><img src="/mysql_basic/896f3f57c51e8f95a1db303c80ff933f.png" alt=""></p>
+<p>可以通过desc 表名、show index from 表名这两个函数来查看表结构和表索引约束。</p>
+<p><img src="/mysql_basic/f8348c83392f83315f801adf08cce599.png" alt=""></p>
+<p>通用的写法就是把unique、primary key写成列约束，外键写成表约束</p>
+<h3 id="组合约束">组合约束</h3>
+<p>主键和唯一键都可以组合约束，但是不推荐。语法：</p>
+<p><img src="/mysql_basic/8388f9b9a5d128b3166c7812dceb62ac.png" alt=""></p>
+<p>这个时候只有id和stuinfo两个值都重复的时候才会报错，如果只是id重了或者只是stuinfo重了或者两个都没重那是可以正常插入的。</p>
+<p><img src="/mysql_basic/e989e262237b576da6854237d016d107.png" alt=""></p>
+<p>唯一键和主键类似</p>
+<h3 id="外键">外键</h3>
+<p><img src="/mysql_basic/5a1d61ff5b4dc7194358f76f662f584e.png" alt=""></p>
+<h4 id="级联删除">级联删除</h4>
+<p><img src="/mysql_basic/402677b687df320437a4abfc8bb59d2d.png" alt=""></p>
+<p>在添加外键约束的语句最后写上ON DELETE CASCADE</p>
+<h4 id="级联置空">级联置空</h4>
+<p><img src="/mysql_basic/4b60c08b0826e3f942b00e75d2045ea6.png" alt=""></p>
+<p>在添加外键约束的语句最后写上ON DELETE SET NULL</p>
+<h3 id="修改表时添加约束">修改表时添加约束</h3>
+<p><img src="/mysql_basic/fb90f1df97932569727e18bff214ba21.png" alt=""></p>
+<p><img src="/mysql_basic/842b6c3fe5081904faff8ccc008a697e.png" alt=""></p>
+<p><img src="/mysql_basic/0b97d64433027415ea66efb8d48fd40e.png" alt=""></p>
+<p><img src="/mysql_basic/7347d13a7c61106d3620ed87a571fd0a.png" alt=""></p>
+<p>同理constraint 外键名可省略</p>
+<h3 id="修改表时删除约束">修改表时删除约束</h3>
+<p><img src="/mysql_basic/c504fae9de648b4d4e28e60e697dbf13.png" alt=""></p>
+<p>这里也可以不写NULL</p>
+<p><img src="/mysql_basic/a985663c9dabbf72be1bfa4c4d69f645.png" alt=""></p>
+<h2 id="标识列自增列">标识列（自增列）</h2>
+<p><img src="/mysql_basic/e6b17c8d3a3992596b53550368abd19e.png" alt=""></p>
+<p><img src="/mysql_basic/cf167f991d6beb81c36f8aad99d7fc69.png" alt=""></p>
+<p><img src="/mysql_basic/d536e703b074638201c8841e4cad6b1f.png" alt=""></p>
+<p>设置自增起始位置和步长（MySQL中不支持设置起始位置）</p>
+<p><img src="/mysql_basic/49d40b355c26e3fbb28f6a7e9d5e2f96.png" alt=""></p>
+<p>也可以set @@auto_increment_increment=3；</p>
+<p>MySQL中如果要修改自增的起始位置，只能通过插入的第一条数据时将该数据id设置为我们想要的起始id来实现。</p>
+<h3 id="修改表时设置标识列">修改表时设置标识列</h3>
+<p><img src="/mysql_basic/fe92dbf43f7358497282999807b0ddf6.png" alt=""></p>
+<p><img src="/mysql_basic/28b64abab1caed84dddd32fa165edd50.png" alt=""></p>
+<h3 id="修改表时删除标识列">修改表时删除标识列</h3>
+<p><img src="/mysql_basic/975a7909107e94778a01b3d7b88bfeda.png" alt=""></p>
+<p><img src="/mysql_basic/b2605ae610a9c83e537e39d467bdbcd7.png" alt=""></p>
+<h2 id="事务">事务</h2>
+<p><img src="/mysql_basic/2e5b7bfa8b4777593c3c320d2c32153c.png" alt=""></p>
+<p><strong>脏读：不符合一致性</strong></p>
+<p><strong>不可重复读：不符合隔离性</strong></p>
+<p><strong>幻读：不符合隔离性</strong></p>
+<p>事物不能撤销，如果出错，则做一次“补偿性事物”</p>
+<p><img src="/mysql_basic/6c7a6aaf528049e3dc74102bd7f5f882.png" alt=""></p>
+<p><img src="/mysql_basic/415993d81534baf130831f8ca397ef91.png" alt=""></p>
+<p><img src="/mysql_basic/aa98b9031db22727c31711390f4cf00d.png" alt=""></p>
+<p>查看数据库引擎：show engines</p>
+<p><img src="/mysql_basic/aba00258922e15e2b78138a7e78024b3.png" alt=""></p>
+<p><img src="/mysql_basic/db4fb663f96b2c43cf9af98734064ba7.png" alt=""></p>
+<p>这里的一致性可以这么理解：转账之后两个用户的财产总额不变</p>
+<h3 id="事务的创建">事务的创建</h3>
+<p><img src="/mysql_basic/91ae3aa77e3cb78dc554110a7b71c365.png" alt=""></p>
+<p><img src="/mysql_basic/93ede0cf9b9e79edf9971b3cf3d828f7.png" alt=""></p>
+<p><img src="/mysql_basic/69dfab61a7067965ca3be97c4a4e411c.png" alt=""></p>
+<p><img src="/mysql_basic/579191f88f00f61c67ac83e338922faa.png" alt=""></p>
+<h3 id="修改事务级别">修改事务级别</h3>
+<p><img src="/mysql_basic/56ae42bebcc52cb7f24e6a5a50cd8adc.png" alt=""></p>
+<p><img src="/mysql_basic/bd2cb56ac77af3d209a14d2b770c6270.png" alt=""></p>
+<p><img src="/mysql_basic/e510ed3c753266fcd5ded17b472d336e.png" alt=""></p>
+<p>将事务修改为某一等级：</p>
+<p>set session/global transaction isolation level read uncommitted</p>
+<p><img src="/mysql_basic/a15bd7d4468f20bf6d06fdc6518baf18.png" alt=""></p>
+<h3 id="并发情况下更新丢失">并发情况下更新丢失</h3>
+<p><strong>此外，事务还有并发情况下更新丢失的问题</strong></p>
+<p><img src="/mysql_basic/86cf25e8918863c06e45220f06f59a65.png" alt=""></p>
+<p>解决方法：一个人在完成并提交事务之前，另一个人不能访问同一个文件。</p>
+<h3 id="savepoint设置保存点和rollback-to联用">savepoint（设置保存点，和rollback to联用）</h3>
+<p><img src="/mysql_basic/6da33db4e7f31802a10713dab9a44a40.png" alt=""></p>
+<h3 id="delete和truncate在事务使用时的区别">Delete和truncate在事务使用时的区别</h3>
+<p><img src="/mysql_basic/cb3949271546c9071411a2e82dea76e4.png" alt=""></p>
+<p><img src="/mysql_basic/d6558ed07c612c0010273ed67f824424.png" alt=""></p>
+<p>truncate无法回滚</p>
+<p>而且delete之所以可以回滚是因为他在删除的时候每删一行在日志中写一行，而truncate没有这样的操作。</p>
+<p>所以有个面试题就是在delete数据的时候提示磁盘空间不足，就是这个原因。</p>
+<h2 id="视图">视图</h2>
+<p><img src="/mysql_basic/79cf63c9cfaaa51df39523c92c918919.png" alt=""></p>
+<p><img src="/mysql_basic/9757fce1a8a706acce1e59f74b49c559.png" alt=""></p>
+<p><img src="/mysql_basic/455b5f1446f3c0bf78d6572731171177.png" alt=""></p>
+<p><img src="/mysql_basic/9c26f406d5bf9839d633b2b6f29c6bd6.png" alt=""></p>
+<h3 id="创建视图">创建视图</h3>
+<p><img src="/mysql_basic/e34d5bf0989dfb6ee6e1eff1bf631ff1.png" alt=""></p>
+<p>一般视图名取为view_name</p>
+<p><img src="/mysql_basic/fa86a69f684771e419d45a1e9bfcfa5e.png" alt=""></p>
+<p><img src="/mysql_basic/aa9ddd8d2cbac435d20715eedc1619d4.png" alt=""></p>
+<p><img src="/mysql_basic/201baa861007323c6f9fcb44434b5363.png" alt=""></p>
+<p><img src="/mysql_basic/50c32e11045a296c50e24237e976dbad.png" alt=""></p>
+<h3 id="修改视图">修改视图</h3>
+<p><img src="/mysql_basic/59bbfb5aa93a1cd6988509bb9317fa4e.png" alt=""></p>
+<p><img src="/mysql_basic/e3ff9f1bb5c2d68a1d424992bc6fb888.png" alt=""></p>
+<p><img src="/mysql_basic/d7a96ae8522d6e0d33f1681c78d326e6.png" alt=""></p>
+<h3 id="删除视图">删除视图</h3>
+<p><img src="/mysql_basic/761c4e93369b7d441c5214b52e0132a0.png" alt=""></p>
+<h3 id="查看视图">查看视图</h3>
+<p><img src="/mysql_basic/6aaa5847295503bb5e0a8fe208aafbdf.png" alt=""></p>
+<p>或者show create view myv3\G；可以格式化显示</p>
+<h3 id="更新视图">更新视图</h3>
+<p><img src="/mysql_basic/8a1ee3098663ce24b62251eecc69021b.png" alt=""></p>
+<p>注意：这里视图内的数据改了，原始表的数据也改了。视图很少拿来更新，有很多更新操作是不被允许的。</p>
+<p><img src="/mysql_basic/ad280ddda46317607237b4a2f58ef2da.png" alt=""></p>
+<p><img src="/mysql_basic/a492453bb0892c02ca7e5be14b6ecc47.png" alt=""></p>
+<p>上面这个例子由于包含group by，因此无法更新</p>
+<p><img src="/mysql_basic/dea11b19ea911f90258c136dd9e2b064.png" alt=""></p>
+<p>常量视图无法更新</p>
+<p><img src="/mysql_basic/014b12004aec5bdaaad5813d0b5da1bd.png" alt=""></p>
+<p>select包含子查询，无法更新</p>
+<p><img src="/mysql_basic/c1f98d0c5c3aacee46f67f26dacaa82d.png" alt=""></p>
+<p>涉及join，无法更新</p>
+<p><img src="/mysql_basic/abb2d3aab50196ea67b588bcc5a5532c.png" alt=""></p>
+<p>From一个无法更新的视图，无法更新</p>
+<p><img src="/mysql_basic/ae476584b78e4017b048664cda9abe4c.png" alt=""></p>
+<p>Where的子查询中用到了from子句中的表，无法更新</p>
+<h2 id="变量">变量</h2>
+<p><img src="/mysql_basic/a4f22a65b789754cdea1d26d63cdec9f.png" alt=""></p>
+<h3 id="系统变量">系统变量</h3>
+<p><img src="/mysql_basic/7ea790ff8653d75f770fa7913892910f.png" alt=""></p>
+<h4 id="全局变量需要super权限才能设置">全局变量（需要super权限才能设置）</h4>
+<p><img src="/mysql_basic/991dd6af843fd3b14cd94c0e7b471401.png" alt=""></p>
+<p>全局变量赋值还可以使用语句：set global autocommit = 0;</p>
+<p>注意重启之后全局变量就恢复默认值了，如果需要每次重启之后全局变量不会变回去，那么需要修改配置文件，不过一般情况我们不会去改它</p>
+<h4 id="会话变量">会话变量</h4>
+<p><img src="/mysql_basic/b2d4a76691062eb77ebdf1b726cdbbe2.png" alt=""></p>
+<p><img src="/mysql_basic/11fa129a87ad5ad7f2dec6e4886f0cb5.png" alt=""></p>
+<p><img src="/mysql_basic/174016f919b93625c9db7f5be31f5f9d.png" alt=""></p>
+<h3 id="自定义变量">自定义变量</h3>
+<p><img src="/mysql_basic/8806e1f866ee578bbbb17cf000bca688.png" alt=""></p>
+<h4 id="用户变量">用户变量</h4>
+<p><img src="/mysql_basic/4ab37bebb20fb8952d0296b156ab1ea9.png" alt=""></p>
+<p><img src="/mysql_basic/687af3cb5f6dab2f875fd5ccb25ff818.png" alt=""></p>
+<p><img src="/mysql_basic/cc792867ea7c5f596513c1b77c7fddee.png" alt=""></p>
+<p><img src="/mysql_basic/da01ddcff41e9acbba17ac5f8d6a2a2e.png" alt=""></p>
+<p><img src="/mysql_basic/b0f5592fe43bc402ec79f18ec4911585.png" alt=""></p>
+<h4 id="局部变量">局部变量</h4>
+<p><img src="/mysql_basic/a982b321d189c74ad014ab93c5b74f7d.png" alt=""></p>
+<p><img src="/mysql_basic/2a3ca34f91cb3b3bb823d9cc17bf03c3.png" alt=""></p>
+<h4 id="对比用户变量和局部变量">对比用户变量和局部变量</h4>
+<p><img src="/mysql_basic/6f5bea1618c77ebbd754a85b760d9fdb.png" alt=""></p>
+<p><img src="/mysql_basic/77a36da197fa64a80d93c854a6cab1c9.png" alt=""></p>
+<p>必须在begin end中</p>
+<h2 id="存储过程">存储过程</h2>
+<p><img src="/mysql_basic/e8ea57425bfd88040f66e86ca8684f92.png" alt=""></p>
+<h3 id="创建语法">创建语法</h3>
+<p><img src="/mysql_basic/96eac3cb151a5e6eccb51ed6b32362fc.png" alt=""></p>
+<p>其中in可省略，但是为了可读性一般不省略。</p>
+<p>第一句也可以写成CREATE OR REPLACE PROCEDURE …</p>
+<p><img src="/mysql_basic/8df7ab817d2d52cde3a1a6675113adf1.png" alt=""></p>
+<h3 id="调用语法">调用语法</h3>
+<p><img src="/mysql_basic/e04ecd50499c52d77fb6a26dd0908e83.png" alt=""></p>
+<p><img src="/mysql_basic/39e36f804322e2e07cc1f5dc1d46276b.png" alt=""></p>
+<h3 id="删除存储过程">删除存储过程</h3>
+<p><img src="/mysql_basic/2cc5f8a2017fce24d03f3bf158712a93.png" alt=""></p>
+<p>注意：一次删除多个存储过程的操作是不支持的</p>
+<h3 id="查看存储过程">查看存储过程</h3>
+<p><img src="/mysql_basic/060c3ea2d48213f756a14e1c390f6faf.png" alt=""></p>
+<p>注意：DESC不能用于查看存储过程</p>
+<h3 id="案例">案例</h3>
+<p><img src="/mysql_basic/42bd435875f3d489f37d4bc4924adbcb.png" alt=""></p>
+<p><img src="/mysql_basic/1f39bc7c8e5c7b7499c048a4eb5ac08e.png" alt=""></p>
+<p><img src="/mysql_basic/ad9c36b11f5e8e32831c0c0a73194ce7.png" alt=""></p>
+<p><img src="/mysql_basic/6f50e3627e3c70beeafb3d730f36bff1.png" alt=""></p>
+<p><img src="/mysql_basic/0b5266b5b04ce8c69d7f084bf1af31ab.png" alt=""></p>
+<p><img src="/mysql_basic/6674dd28d2a9c15121e6b96ad673f3b7.png" alt=""></p>
+<p><img src="/mysql_basic/ff3c3448c8592741154f962f45c46a31.png" alt=""></p>
+<p>或者</p>
+<p><img src="/mysql_basic/5a4b77be240b99054ff0f694bc383b28.png" alt=""></p>
+<p><img src="/mysql_basic/e00f83be73aa3085eb17cdb84d8a212f.png" alt=""></p>
+<p><img src="/mysql_basic/93054eaff73ea6c59a42a1c2065bc445.png" alt=""></p>
+<h2 id="函数">函数</h2>
+<p><img src="/mysql_basic/2c2b60f60e42065609d5e67fcb659060.png" alt=""></p>
+<h3 id="创建函数">创建函数</h3>
+<p><img src="/mysql_basic/88ad686ad574523d8e6e9f15259ede1d.png" alt=""></p>
+<h3 id="调用函数">调用函数</h3>
+<p><img src="/mysql_basic/b32b18f5359f90439f77eef42199d25c.png" alt=""></p>
+<p><img src="/mysql_basic/b37216a4ec17808ab261de88384195bd.png" alt=""></p>
+<p><img src="/mysql_basic/c3a60ff67776bc14213a66cec5bce0c8.png" alt=""></p>
+<p><img src="/mysql_basic/c24dc349aa007caccea5fb58dd64775d.png" alt=""></p>
+<h3 id="查看函数">查看函数</h3>
+<p><img src="/mysql_basic/c52b3d02bf90f3eefdd28d9bb51c98eb.png" alt=""></p>
+<h3 id="删除函数">删除函数</h3>
+<p><img src="/mysql_basic/33f1d4dce03eef17e71ea3928a786d21.png" alt=""></p>
+<h2 id="流程控制结构">流程控制结构</h2>
+<p><img src="/mysql_basic/e639aca592ee797c30ba82908aebaecf.png" alt=""></p>
+<h3 id="分支结构">分支结构</h3>
+<h4 id="if函数">If函数</h4>
+<p><img src="/mysql_basic/a4c06f578072e12d33611abdcd4bd6e7.png" alt=""></p>
+<h4 id="case结构">Case结构</h4>
+<p>Case作为表达式，嵌套在其他语句中使用，可以放在任何地方，写法如下：</p>
+<p><img src="/mysql_basic/5860590365918b32a4f144cb84ec2475.png" alt=""></p>
+<p>Case作为独立语句去使用，只能放在begin end中，写法如下：</p>
+<p><img src="/mysql_basic/87f6454df148df229df5f264b0509c31.png" alt=""></p>
+<p><img src="/mysql_basic/c7aef49057f4f11528bdac33f65a612b.png" alt=""></p>
+<p><img src="/mysql_basic/cf64fb1f95999034f2a29e9c65ba8500.png" alt=""></p>
+<p><img src="/mysql_basic/70863254e2ff2dd13f9bea5c1c252fed.png" alt=""></p>
+<p><img src="/mysql_basic/ab75458cf7cf14e1cbf43a65e7cea40f.png" alt=""></p>
+<h4 id="if结构">If结构</h4>
+<p><img src="/mysql_basic/4c54b70d46de84a0a8ee46f6bc9fe5a7.png" alt=""></p>
+<p><img src="/mysql_basic/f163d8947d553bfb2efe183c9ffb97e4.png" alt=""></p>
+<h2 id="循环结构">循环结构</h2>
+<p><img src="/mysql_basic/6d2ad59a2342856a926b81d68138341c.png" alt=""></p>
+<p><img src="/mysql_basic/6ccca9f01ee6b7a951b393813c653cca.png" alt=""></p>
+<h3 id="while">While</h3>
+<p><img src="/mysql_basic/b0652f58d826553efd28a57d194c5456.png" alt=""></p>
+<h3 id="loop">Loop</h3>
+<p><img src="/mysql_basic/9a1c44b18f9e6805cbdd40186ea8b05a.png" alt=""></p>
+<p>如果不想死循环，那么需要搭配leave</p>
+<h3 id="repeat">Repeat</h3>
+<p><img src="/mysql_basic/9bedeabead03e654bebbf72515a055be.png" alt=""></p>
+<h3 id="案例-1">案例</h3>
+<p><img src="/mysql_basic/9fc5d33a445fd60ed4fd55f30b5bad1a.png" alt=""></p>
+<p><img src="/mysql_basic/90de7fdc033bb955ed909639ad26b789.png" alt=""></p>
+<p><img src="/mysql_basic/4a27abc3c88b9df176b4ec55df7e5385.png" alt=""></p>
+<p><img src="/mysql_basic/488761d6d41897d7a3d4e90c54158bbc.png" alt=""></p>
+<p><img src="/mysql_basic/213fc2e9c35927fa1539766be629190f.png" alt=""></p>
+<h2 id="mysql游标">MySQL游标</h2>
+<p>用于循环集合</p>
+<p>CURSOR 游标</p>
+<p>FETCH xxx into xxx</p>
+<p>游标每fetch一次指针向下走一格，直到游标指向数据为空为止：</p>
+<p><img src="/mysql_basic/03bda695bc4802bb532aa508ce4b0c37.png" alt=""></p>
+<h2 id="论mysql执行一个字符串">论mysql执行一个字符串</h2>
+<p>PREPARE预编译之后execute执行</p>
+<p><img src="/mysql_basic/32bb014d1904524bd1a2dc71dd6ee265.png" alt=""></p>
+<p><img src="/mysql_basic/cc4836e8bf53c85654de2acaba177a66.png" alt=""></p>
+<h2 id="总结-1">总结</h2>
+<p><img src="/mysql_basic/c7c43f2a6c4e7e37d7572756c4b34cbe.png" alt=""></p>
+<p><img src="/mysql_basic/61ae3729fbcb0bd195eb1205a6789178.png" alt=""></p>
+<p><img src="/mysql_basic/52d64e9120f3a021781866782c4c67e5.png" alt=""></p>
+<p><img src="/mysql_basic/bf4c4c935324737509e81da8f710fe53.png" alt=""></p>
+<p><img src="/mysql_basic/e6a3d8c53e8913c3d47a6fe9fcb7712b.png" alt=""></p>
+<p><img src="/mysql_basic/4fee3ebfeb34c0e1727429c2c117d339.png" alt=""></p>
+<p><img src="/mysql_basic/99353b115eb5292a9ea64f00725de70e.png" alt=""></p>
+<h2 id="测试题">测试题</h2>
+<p><img src="/mysql_basic/4ef913ca91c78a265a52952cd275d584.png" alt=""></p>
+<p><img src="/mysql_basic/624a2b0bd519104ab2223feb0040e194.png" alt=""></p>
+<p><img src="/mysql_basic/903a160cfbde315cd0c1503c58d81f3d.png" alt=""></p>
+<p><img src="/mysql_basic/4bc5017cf26fd0f346a64796cc1cb51c.png" alt=""></p>
+<p><img src="/mysql_basic/3c056d789e553399ff73a50e2b818634.png" alt=""></p>
+<p><img src="/mysql_basic/e0d5510442c33c2ac72fb18d6df2a821.png" alt=""></p>
+<p><img src="/mysql_basic/d24cbb6a0041d6298929f2b6ee54209c.png" alt=""></p>
+<p><img src="/mysql_basic/86fb1a559a00f89641857ad338b7b79b.png" alt=""></p>
+<p><img src="/mysql_basic/4d6a92f55951b20af1d889e061414a69.png" alt=""></p>
+<p><img src="/mysql_basic/f9ca80c3edffda2b7380b07239e2e316.png" alt=""></p>
+<p><img src="/mysql_basic/0389836ff03d63bd8befbe5fc2f63778.png" alt=""></p>
+<p><img src="/mysql_basic/c3c7d4af127595702484775649a9a107.png" alt=""></p>
+<p><img src="/mysql_basic/964ffe9ebf4eae71aa0942eca9f74783.png" alt=""></p>
+<p><img src="/mysql_basic/4b86d01130bc465ea8bce22539909144.png" alt=""></p>
+<p><img src="/mysql_basic/2ea25fefeecda960dee0efe11aa330b8.png" alt=""></p>
+<p><img src="/mysql_basic/66b8a1728f29c481df1e0d82e823f90b.png" alt=""></p>
+<p><img src="/mysql_basic/f85d30e05534f606d63e883309d8fee5.png" alt=""></p>
+<p><img src="/mysql_basic/250b804bb61e417d6b7752b3e25528a9.png" alt=""></p>
+<p><img src="/mysql_basic/5858441662e4fc0acf967437882a42dd.png" alt=""></p>
+<p><img src="/mysql_basic/1f2dd1ba3e68059e4ace0d9c5ab72726.png" alt=""></p>
+<p><img src="/mysql_basic/4d1bcd91dd4c4825dccd3b1622fa10d9.png" alt=""></p>
+<p><img src="/mysql_basic/95bbb030c2dfa7fb74058926b8c4ff77.png" alt=""></p>
+<p><img src="/mysql_basic/e48fb2a81e91e34a786186a8a23dca13.png" alt=""></p>
+<p><img src="/mysql_basic/7e263bf3eb8a4f2c64d49945e7b8926f.png" alt=""></p>
+<p><img src="/mysql_basic/31c93fc6cf73dffd577b7cd9270ec27a.png" alt=""></p>
+<p><img src="/mysql_basic/f868545b2bf3ef56379a254027c917f8.png" alt=""></p>
+<p><img src="/mysql_basic/122efafee7323ec5dffc6032f8a8cd7e.png" alt=""></p>
+<p><img src="/mysql_basic/080cd02d6f868f0743ac97db8044923c.png" alt=""></p>
+<p><img src="/mysql_basic/2c41114895d66314de739a149bc5c747.png" alt=""></p>
+<p><img src="/mysql_basic/3bb47f7ab0596643e0d9b49c5d8ce6c0.png" alt=""></p>
+<p><img src="/mysql_basic/335b4120a57807df4151b420270d71f0.png" alt=""></p>
+<p><img src="/mysql_basic/eed1d6ca2d9d3af32f4e717eccdd3ee3.png" alt=""></p>
+<p><img src="/mysql_basic/2a86f5ffd041a76d35b3eaaa93ceee73.png" alt=""></p>
+<p><img src="/mysql_basic/168970b7ff418515e5f3f2d84ab631f9.png" alt=""></p>
+<p><img src="/mysql_basic/51022fcc267c3432e5fb60ed39a4e2b9.png" alt=""></p>
+<p><img src="/mysql_basic/6b2880d313d876d2d6a8c69f9710cc8c.png" alt=""></p>
+<p><img src="/mysql_basic/cef1f03bedd596ac26c6914ab85d6c1c.png" alt=""></p>
+<p><img src="/mysql_basic/74599d7cbda5bfe2cbc2cbc02277d2c0.png" alt=""></p>
+<p><img src="/mysql_basic/6ec3fd23dd74f6a7357022ed66f3cacb.png" alt=""></p>
+<p><img src="/mysql_basic/47dba2f42889c5f4cb731c1002d7ab8e.png" alt=""></p>
+<p>两种方法一种可以写constraint，一种不可以写</p>
+<p><img src="/mysql_basic/3ba0be3bbeba92417ebb4bdfc1a7d459.png" alt=""></p>
+<p><img src="/mysql_basic/5a769843c043e9a6ca1b7a8231642d2f.png" alt=""></p>
+<p><img src="/mysql_basic/24165e8b69314c832a95a57d1e189aea.png" alt=""></p>
+<p><img src="/mysql_basic/e2b8a721f90ff09a9bb7832c28c022c2.png" alt=""></p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>MySQL -basic</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#补充">补充</a>
+      <ul>
+        <li><a href="#mysql-80修改密码">mysql 8.0修改密码</a></li>
+        <li><a href="#用户授权">用户授权</a></li>
+        <li><a href="#查看当前库">查看当前库</a></li>
+        <li><a href="#执行计划explain">执行计划（EXPLAIN）</a></li>
+        <li><a href="#配置文件">配置文件</a></li>
+        <li><a href="#select用法">Select用法</a></li>
+        <li><a href="#set用法">Set用法</a></li>
+        <li><a href="#limit以及offset用法">Limit以及offset用法</a></li>
+        <li><a href="#distinct用法">Distinct用法</a></li>
+        <li><a href="#between用法">Between用法</a></li>
+        <li><a href="#-的作用">“+” 的作用</a></li>
+        <li><a href="#g的作用">\G的作用</a></li>
+        <li><a href="#null的性质">Null的性质</a></li>
+        <li><a href="#ifnull判空后面那个0表示如果是空的话就显示0">IFNULL判空（后面那个“0”表示如果是空的话就显示0）</a></li>
+        <li><a href="#条件运算符">条件运算符</a></li>
+        <li><a href="#模糊查询包括安全等于is-nullinescape转义的运用注意-null是不行的一定要is-null">模糊查询（包括安全等于&lt;=&gt;、is null、in、escape、转义的运用）（注意= NULL是不行的，一定要IS NULL）</a></li>
+        <li><a href="#多字段排序">多字段排序</a></li>
+        <li><a href="#show-variables-like-char">Show variables like ‘%char%’</a></li>
+        <li><a href="#hostname">@@hostname</a></li>
+        <li><a href="#select-transaction_isolation-from-dualfrom-dual可以省略">Select @@transaction_isolation from dual（from dual可以省略）</a></li>
+        <li><a href="#设置时区">设置时区</a></li>
+        <li><a href="#建表时设置timestamp为当前时间">建表时设置timestamp为当前时间</a></li>
+        <li><a href="#刷新权限">刷新权限</a></li>
+        <li><a href="#sql注释">sql注释</a></li>
+        <li><a href="#查看表结构">查看表结构</a></li>
+        <li><a href="#查看表索引约束">查看表索引约束</a></li>
+        <li><a href="#返回建表时的sql语句">返回建表时的sql语句</a></li>
+        <li><a href="#sql_no_cache">SQL_NO_CACHE</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据类型">数据类型</a>
+      <ul>
+        <li><a href="#整形">整形</a></li>
+        <li><a href="#小数">小数</a></li>
+        <li><a href="#字符型">字符型</a></li>
+        <li><a href="#日期型">日期型</a></li>
+      </ul>
+    </li>
+    <li><a href="#库操作">库操作</a>
+      <ul>
+        <li><a href="#建库">建库</a></li>
+        <li><a href="#库的修改主要是字符集的修改">库的修改（主要是字符集的修改）</a></li>
+        <li><a href="#删库安全方式">删库（安全方式）</a></li>
+      </ul>
+    </li>
+    <li><a href="#表操作">表操作</a>
+      <ul>
+        <li><a href="#建表安全方式">建表（安全方式）</a></li>
+        <li><a href="#复制表">复制表</a></li>
+        <li><a href="#跨数据库建表">跨数据库建表</a></li>
+        <li><a href="#修改表">修改表</a></li>
+        <li><a href="#删除表安全方式">删除表（安全方式）</a></li>
+      </ul>
+    </li>
+    <li><a href="#增删改查">增删改查</a>
+      <ul>
+        <li><a href="#增">增</a></li>
+        <li><a href="#删">删</a></li>
+        <li><a href="#改">改</a></li>
+        <li><a href="#查">查</a></li>
+      </ul>
+    </li>
+    <li><a href="#utf8等字符集设置">Utf8等字符集设置</a></li>
+    <li><a href="#单行函数">单行函数</a>
+      <ul>
+        <li><a href="#字符函数">字符函数</a></li>
+        <li><a href="#数学函数">数学函数</a></li>
+        <li><a href="#日期函数">日期函数</a></li>
+        <li><a href="#其他函数">其他函数</a></li>
+        <li><a href="#流程控制函数">流程控制函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#分组函数">分组函数</a>
+      <ul>
+        <li><a href="#sumcountmaxminavg">Sum、count、max、min、avg</a></li>
+        <li><a href="#分组函数与distinct联用">分组函数与distinct联用</a></li>
+        <li><a href="#count函数详解">Count函数详解</a></li>
+        <li><a href="#和分组函数一同查询的字段有限制">和分组函数一同查询的字段有限制</a></li>
+      </ul>
+    </li>
+    <li><a href="#分组查询">分组查询</a>
+      <ul>
+        <li><a href="#注意点">注意点</a></li>
+      </ul>
+    </li>
+    <li><a href="#sql92">Sql92</a>
+      <ul>
+        <li><a href="#等值连接">等值连接</a></li>
+        <li><a href="#非等值连接">非等值连接</a></li>
+        <li><a href="#自连接">自连接</a></li>
+      </ul>
+    </li>
+    <li><a href="#sql99内连接外连接交叉连接">Sql99（内连接、外连接、交叉连接）</a>
+      <ul>
+        <li><a href="#内连接">内连接</a></li>
+        <li><a href="#外连接">外连接</a></li>
+      </ul>
+    </li>
+    <li><a href="#子查询">子查询</a>
+      <ul>
+        <li><a href="#where或having后面">Where或having后面</a></li>
+        <li><a href="#select后面仅支持标量子查询">Select后面（仅支持标量子查询）</a></li>
+        <li><a href="#from后面子查询结果的表必须起别名">From后面（子查询结果的表必须起别名）</a></li>
+        <li><a href="#exists1表示子查询存在0表示子查询不存在">Exists(1表示子查询存在，0表示子查询不存在)</a></li>
+      </ul>
+    </li>
+    <li><a href="#limit分页查询">limit分页查询</a></li>
+    <li><a href="#联合查询">联合查询</a></li>
+    <li><a href="#约束列级约束和表级约束">约束（列级约束和表级约束）</a>
+      <ul>
+        <li><a href="#组合约束">组合约束</a></li>
+        <li><a href="#外键">外键</a></li>
+        <li><a href="#修改表时添加约束">修改表时添加约束</a></li>
+        <li><a href="#修改表时删除约束">修改表时删除约束</a></li>
+      </ul>
+    </li>
+    <li><a href="#标识列自增列">标识列（自增列）</a>
+      <ul>
+        <li><a href="#修改表时设置标识列">修改表时设置标识列</a></li>
+        <li><a href="#修改表时删除标识列">修改表时删除标识列</a></li>
+      </ul>
+    </li>
+    <li><a href="#事务">事务</a>
+      <ul>
+        <li><a href="#事务的创建">事务的创建</a></li>
+        <li><a href="#修改事务级别">修改事务级别</a></li>
+        <li><a href="#并发情况下更新丢失">并发情况下更新丢失</a></li>
+        <li><a href="#savepoint设置保存点和rollback-to联用">savepoint（设置保存点，和rollback to联用）</a></li>
+        <li><a href="#delete和truncate在事务使用时的区别">Delete和truncate在事务使用时的区别</a></li>
+      </ul>
+    </li>
+    <li><a href="#视图">视图</a>
+      <ul>
+        <li><a href="#创建视图">创建视图</a></li>
+        <li><a href="#修改视图">修改视图</a></li>
+        <li><a href="#删除视图">删除视图</a></li>
+        <li><a href="#查看视图">查看视图</a></li>
+        <li><a href="#更新视图">更新视图</a></li>
+      </ul>
+    </li>
+    <li><a href="#变量">变量</a>
+      <ul>
+        <li><a href="#系统变量">系统变量</a></li>
+        <li><a href="#自定义变量">自定义变量</a></li>
+      </ul>
+    </li>
+    <li><a href="#存储过程">存储过程</a>
+      <ul>
+        <li><a href="#创建语法">创建语法</a></li>
+        <li><a href="#调用语法">调用语法</a></li>
+        <li><a href="#删除存储过程">删除存储过程</a></li>
+        <li><a href="#查看存储过程">查看存储过程</a></li>
+        <li><a href="#案例">案例</a></li>
+      </ul>
+    </li>
+    <li><a href="#函数">函数</a>
+      <ul>
+        <li><a href="#创建函数">创建函数</a></li>
+        <li><a href="#调用函数">调用函数</a></li>
+        <li><a href="#查看函数">查看函数</a></li>
+        <li><a href="#删除函数">删除函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#流程控制结构">流程控制结构</a>
+      <ul>
+        <li><a href="#分支结构">分支结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#循环结构">循环结构</a>
+      <ul>
+        <li><a href="#while">While</a></li>
+        <li><a href="#loop">Loop</a></li>
+        <li><a href="#repeat">Repeat</a></li>
+        <li><a href="#案例-1">案例</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql游标">MySQL游标</a></li>
+    <li><a href="#论mysql执行一个字符串">论mysql执行一个字符串</a></li>
+    <li><a href="#总结-1">总结</a></li>
+    <li><a href="#测试题">测试题</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

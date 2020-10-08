@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  axios &ndash; Learning Records
+
+    </title>
+    
+    <meta content="JavaScript, axios" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of axios&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="axios | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of axios&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF file</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">axios</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/javascript' class="muted-link">
+  <span class="Label Label--gray">JavaScript</span>
+</a>
+
+<a href='/tags/axios' class="muted-link">
+  <span class="Label Label--gray">axios</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-03-29. Published at: 2020-03-29.">
+        
+          Published: 2020-03-29
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of axios&hellip;</p>
+<h2 id="http请求交互的基本过程">HTTP请求交互的基本过程</h2>
+<p><img src="/axios/3bf6923ac9833085e33dda0abfab0645.png" alt=""></p>
+<p><img src="/axios/bad5dc9bfdf5aa2a3ab2a85568711bf8.png" alt=""></p>
+<h3 id="http请求报文">HTTP请求报文</h3>
+<h4 id="请求行">请求行</h4>
+<p><img src="/axios/0f01cfd8eca58d238805c8c72be07b7d.png" alt=""></p>
+<p><img src="/axios/b286d8d98943f88b2c52c5d36badcd2e.png" alt=""></p>
+<h4 id="多个请求头">多个请求头</h4>
+<p><img src="/axios/e753170e4d23356bab7bde908a293684.png" alt=""></p>
+<p>Cookie是由后台产生，交给浏览器存储，浏览器发请求的时候会自动携带Cookie（浏览器利用Cookie请求头携带Cookie数据）</p>
+<p><img src="/axios/01a2d38058515cac5db796936de1268a.png" alt=""></p>
+<p>像这样的就是携带了两个Cookie</p>
+<h4 id="请求体">请求体</h4>
+<p><img src="/axios/a9da5e1b7e7d9ebbfea459fe049a1f81.png" alt=""></p>
+<p>请求体数据格式有多种，可能是json格式，可能是urlencoded格式</p>
+<p>像这一种是urlencoded格式：</p>
+<p><img src="/axios/200f5a6258268d9d66b4dcb50100606c.png" alt=""></p>
+<p>我们需要告诉服务器我们请求体中的数据的类型服务器才能给我们进行解析，那么怎么告诉呢？
+通过请求头中的Content-Type</p>
+<p><img src="/axios/34267f13a64be2866850c3516910d4c0.png" alt=""></p>
+<p>如果Content-Type中是application/x-www-form-urlencoded
+那么就是告诉服务器我请求体中的数据是这种格式：</p>
+<p><img src="/axios/d217adbfa17f749659b5d9ce82a7c5f1.png" alt=""></p>
+<p>同理json</p>
+<p><img src="/axios/71173ae399e0881e45521a77c812ec4b.png" alt=""></p>
+<h3 id="http响应报文">HTTP响应报文</h3>
+<p><img src="/axios/3c849ce78007a696e01f097b51c3ba25.png" alt=""></p>
+<p>这里的Content-Type：</p>
+<p>text/html表示返回的是html格式的文本，如果写了text/json表示返回的是json格式的文本，后面的charset=utf-8表示字符集编码为utf-8。</p>
+<p>Set-Cookie是响应报文携带Cookie的方式，刚才说了请求报文是通过Cookie携带的cookie，而响应报文是通过Set-Cookie携带的cookie。</p>
+<p><img src="/axios/7184a7878282319242390b7012d033c2.png" alt=""></p>
+<p>响应体有可能是html文本，也有可能是json文本，也有可能是js、css、图片等。</p>
+<p>例子：</p>
+<p><img src="/axios/37cd2b7248f1a3550713f0e9910d7a8b.png" alt=""></p>
+<p>这里的响应体是css文本</p>
+<h3 id="post请求体参数格式">post请求体参数格式</h3>
+<p><img src="/axios/4db7d451e1b648b5aca9c26e03b9fe01.png" alt=""></p>
+<p><img src="/axios/5a3e5bf12d7dd3921acb99855d801adc.png" alt=""></p>
+<p>通常写在url后面的就是urlencoded格式的请求体参数：</p>
+<p><img src="/axios/a3ea2e14f181283719791d0bfeafa339.png" alt=""></p>
+<p>如果是用于文件上传请求的那么他的格式就是multipart/form-data</p>
+<h3 id="常见响应状态码">常见响应状态码</h3>
+<p><img src="/axios/a7ec92fbec2eb77cc7a34925d39e7cb5.png" alt=""></p>
+<h3 id="不同类型的请求及其作用">不同类型的请求及其作用</h3>
+<p><img src="/axios/64d256a29ebc2242416a91a001640601.png" alt=""></p>
+<h3 id="api的分类">API的分类</h3>
+<p><img src="/axios/45169492479765500da327106e4cc858.png" alt=""></p>
+<p>非rest风格的一个请求路径只对应一个操作，他一般是这么写的：…/getxxx/…表示获取、…/deletexxx/…表示删除，就是一眼就能看出来是什么操作，他一般GET做查询，POST做增删改。</p>
+<h3 id="使用json-server搭建rest-api">使用json-server搭建REST API</h3>
+<p><img src="/axios/c3e62a6a25c1be180c95b4422b701717.png" alt=""></p>
+<p>直接去GitHub搜索json-server</p>
+<p><img src="/axios/b4ba74461143828e04bb163aa01c900e.png" alt=""></p>
+<p>我们打开一个工程，想要查看项目依赖了哪些包，去package.json看，如上图，dependencies是指依赖声明，在这个工程中我们依赖了两个包，一个是cors，一个是express</p>
+<p>使用方法：</p>
+<p>现在根目录下创建db.json，并写上如下代码：</p>
+<p><img src="/axios/c59cb8796cc7b2f9989980ed32537af6.png" alt=""></p>
+<p><img src="/axios/48c405a0820f121764c5df8aa8ac8cd3.png" alt=""></p>
+<p>之后在终端执行代码：</p>
+<p><img src="/axios/f8722ad6e902433ed9d01e0cce96e59f.png" alt=""></p>
+<p>&ndash;watch表示监视db.json文件</p>
+<p>注意，使用query参数查询它是通过过滤去查的（查询结果是一个数组）</p>
+<p><img src="/axios/f3fddb364ffdd9f4094f97487ea8d757.png" alt=""></p>
+<p>而使用在url后面加斜杠id号的方式查询它是直接定位到该对象的（查出来的不是数组，是一个对象）</p>
+<p><img src="/axios/779f05de1686603ecb8003489ccd70f7.png" alt=""></p>
+<h3 id="axios访问测试">axios访问测试</h3>
+<p>首先从BootCDN上引入axios</p>
+<p><img src="/axios/8358613216362a246c6181e9c2ef5583.png" alt=""></p>
+<p><img src="/axios/8b31ed54d3281c17562c18a311bfa51c.png" alt=""></p>
+<h4 id="get">get</h4>
+<p><img src="/axios/4c09781d8aa064a575a869335a1c3709.png" alt=""></p>
+<h4 id="post">post</h4>
+<p><img src="/axios/ccdb6260e24a9bcfe1fb6d32916687d1.png" alt=""></p>
+<h4 id="put">put</h4>
+<p><img src="/axios/658ad38919ba9939b6de597a264d79f4.png" alt=""></p>
+<h4 id="delete">delete</h4>
+<p><img src="/axios/7924303cb50f546c56d8e697837f1505.png" alt=""></p>
+<h3 id="xhr">XHR</h3>
+<p><img src="/axios/a01ccf28161d30f58f13150f7c2795f9.png" alt=""></p>
+<p>前端可以从URL获取数据，而无需让整个页面刷新</p>
+<p><img src="/axios/bda78c0734bda51040c616b20e467ae0.png" alt=""></p>
+<p>XHR可以发送ajax请求，与服务器交互，可以使得web页面只更新页面的局部而不影响用户操作</p>
+<h3 id="一般http请求与ajax请求">一般http请求与ajax请求</h3>
+<p><img src="/axios/684d4da82082dd61fd64ac5f5211aa42.png" alt=""></p>
+<p>ajax请求由ajax引擎发送，一般请求由一般引擎发送。</p>
+<p>ajax引擎请求拿到数据之后不会立刻更新，会由ajax引擎调用回调函数操作DOM再去局部更新。</p>
+<p>一般http请求和ajax请求发的时候有点不一样，收的时候进一步处理也不一样。</p>
+<h3 id="api">API</h3>
+<p><img src="/axios/4d0bf214ebb343dec092f2f86b926443.png" alt=""></p>
+<p><img src="/axios/fd147be1783e461a5392a6a6f011f5d5.png" alt=""></p>
+<p><img src="/axios/1868366bbbadc0e27906ea22283930af.png" alt=""></p>
+<h4 id="xmlhttprequest">XMLHttpRequest()</h4>
+<p>创建XHR对象的构造函数</p>
+<h4 id="status">status</h4>
+<p>相应状态码，只读的</p>
+<h4 id="statustext">statusText</h4>
+<p>响应状态文本（200对应的ok、404对应的not found等）</p>
+<h4 id="readystate重要">readyState（重要）</h4>
+<p>0：初始</p>
+<p>1：open()之后</p>
+<p>2：send()之后</p>
+<p>3：请求中</p>
+<p>4：请求完成</p>
+<p>显示4表示请求完成，但是这个时候还不代表成功，要再去看status，status在一定范围内才表示成功</p>
+<h4 id="onreadystatechange">onreadystatechange</h4>
+<p>一个监听器，监听readyState值是否改变，当readyState值改变了这个监听器就会被触发。</p>
+<p>一但是监听那就是函数，而且是回调函数</p>
+<h4 id="responsetype">responseType</h4>
+<p>指定响应数据的类型，它关系到后面的response响应体数据的内容，如果指定了responseType，比方说就指定了json，那么response中的响应体数据就会自动解析json文本变为对象或者数组，而如果没有指定，则返回的响应体数据就是一段json文本，需要我们手动解析，类似于python的json.loads()，在js中用JSON.parse()</p>
+<h4 id="response">response</h4>
+<p>响应体数据，类型取决于responseType的指定</p>
+<h4 id="timeout">timeout</h4>
+<p>指定请求超时事件，默认为0代表没有限制</p>
+<h4 id="ontimeout">ontimeout</h4>
+<p>绑定超时的监听</p>
+<p>由于是监听器，所以是函数而且是回调函数</p>
+<h4 id="onerror">onerror</h4>
+<p>绑定请求网络错误的监听</p>
+<h4 id="open">open()</h4>
+<p>初始化一个请求，参数为：（method, url[, async]）</p>
+<p>后面那个async一般可以不用指定，因为我们发送ajax请求一般都是异步的，但是如果一定要用同步（sync），其实影响到的是下面的send（data），如果是异步的，发一个请求立即结束，如果是同步的，需要等到当前请求返回数据之后再结束，可想而知，当请求多的时候，异步优势大</p>
+<h4 id="senddata">send(data)</h4>
+<p>发送请求</p>
+<h4 id="abort">abort()</h4>
+<p>中断请求</p>
+<p>发送请求，还没结束之前中断请求</p>
+<p>例子：</p>
+<p><img src="/axios/baff7c27c63698ae02e6a8d121e58e9d.png" alt=""></p>
+<p>我发了一个a请求和一个b请求，但是a请求迟迟不结束，而我需要的其实是b请求的数据，那么这个时候可以先判断a是否结束，如果a没有结束可以中断a请求，从而让b请求继续获取到数据</p>
+<h4 id="getresponseheadername">getResponseHeader(name)</h4>
+<p>获取指定名称的响应头值</p>
+<p>不管是响应头还是请求头都有一个name对应一个value，并且可能有多对这样的name和value，这个函数显然就是拿到name对应的value</p>
+<h4 id="getallresponseheaders">getAllResponseHeaders()</h4>
+<p>获取所有响应头组成的字符串</p>
+<h4 id="setrequestheadername-value">setRequestHeader(name, value)</h4>
+<p>设置请求头</p>
+<p>由于请求头数据是浏览器端设置好之后发送给服务器端的，所以有设置请求头这么一个方法，而响应头是服务器端设置好之后返回给浏览器的，所以响应头数据只需要读，因此没有设置响应头一说</p>
+<h3 id="分析axios请求函数">分析axios请求函数</h3>
+<p><img src="/axios/16ca26f00dcf53d836264171e66f103b.png" alt=""></p>
+<p>上图axios括号里面的对象叫做配置对象，那么配置对象跟一般的对象有什么区别呢？<strong>配置对象中的key名称都是固定的，而且意义也是固定的，有哪些名字可以指定文档中会告诉我们</strong>，比方说这个method:
+‘post’，意思就是指定请求的方式为post，显然我们不能写成method1 : ’post’。</p>
+<p>配置对象中的属性有一个的名称叫做option，属性还有一个统一的名称叫做options（包含多个配置<strong>选项</strong>的<strong>对象</strong>）</p>
+<h4 id="request-config">Request Config</h4>
+<p>上图是axios中post的方法，下面看一下get的方法：</p>
+<p><img src="/axios/c8d6401c21850623c6a9fb16ef5ad802.png" alt=""></p>
+<p><img src="/axios/427bc93064f69f12248c536fa238db07.png" alt=""></p>
+<p>这里的params事实上就是拼在url路径后面的query参数</p>
+<p><img src="/axios/e8ac5f069028918f99d3459f77ceb550.png" alt=""></p>
+<p><img src="/axios/a23dd707c661bdc2a3c0f22ae179c894.png" alt=""></p>
+<h3 id="response-schema">Response Schema</h3>
+<p><img src="/axios/126209af45c04debb74356baa26a7b03.png" alt=""></p>
+<p>response返回的参数</p>
+<p>注意：里面的data应该是解析以后的对象或数组，而不应该是json数据</p>
+<p>当我们的axios请求成功的时候我们会需要返回一个response，这个时候就需要参考response
+schema了，下面那个案例就讲了怎么构建请求成功时的response</p>
+<h2 id="xhr的ajax封装自制简单版axios">XHR的ajax封装（自制简单版axios）</h2>
+<p><img src="/axios/402c29c0a512138ff876e6f511332efe.png" alt=""></p>
+<h3 id="案例">案例</h3>
+<h4 id="首先封装一下axios函数">首先封装一下axios函数</h4>
+<p><img src="/axios/c66b021fb50062fbe0937d3de4af335e.png" alt=""></p>
+<p><img src="/axios/0914804499da833c25b07964f6dfee49.png" alt=""></p>
+<p>注意，这里还没有写处理params和data的代码，下面我们会写的，先运行一下看看能不能发送请求。</p>
+<p>1、GET</p>
+<p><img src="/axios/af13b58b1112045d77592d9cc930289d.png" alt=""></p>
+<p>2、POST</p>
+<p><img src="/axios/626c836acec90a61a4c3a42089cce75b.png" alt=""></p>
+<h4 id="下面我们来写处理data的代码">下面我们来写处理data的代码</h4>
+<p><img src="/axios/d687b53d2c82ddd1b825202688f7d869.png" alt=""></p>
+<p><img src="/axios/da21986d0b0d73f289a6fdc09ae9df91.png" alt=""></p>
+<p>注意，有的后台只支持urlencoded格式，不支持json格式的请求体参数，后面会说怎么处理</p>
+<p><img src="/axios/d8baf5cd2a0e0da2cfc7763f68b892ac.png" alt=""></p>
+<p>需要注意的是axios括号里面配置对象的写法，这里不是写 “ ：”了，而是写 “=”
+，等到调用的时候又要写“ ：”。</p>
+<h4 id="下面我们来写处理params的代码">下面我们来写处理params的代码</h4>
+<p><img src="/axios/0573009919095c3ca6a0f5cf9d928bd0.png" alt=""></p>
+<p>相当于最后的url会变成：url?id=1&amp;xxx=abc</p>
+<p><img src="/axios/58659ad47394ee44808cd55dc38a9ff7.png" alt=""></p>
+<p>我们可以用别的库帮我们自动实现url字符串拼接，当然我们也可以自己来写</p>
+<p><img src="/axios/249ce780fd5d6eabc013951c1319387d.png" alt=""></p>
+<p><img src="/axios/1edd0b1660252fd2a66d685154dc19d3.png" alt=""></p>
+<h4 id="绑定状态改变的监听">绑定状态改变的监听</h4>
+<p><img src="/axios/6107b1af2ea4cd9d8b8445ec5ac01397.png" alt=""></p>
+<p>注意，这个状态改变监听是可以放在send后面的（当然放send前面那是完全没问题），那是因为send是异步的，而这个监听是同步的，基础班有讲异步是放在同步后面执行的。</p>
+<p><img src="/axios/795db8dccd2bd3ebf252740dcc5a3629.png" alt=""></p>
+<p>由于readyState为0、1、2、3的时候说明请求还没走完是不需要处理的，因此直接return跳过</p>
+<p>注意开头的第一句话：</p>
+<p><img src="/axios/155279ea2e1275649f366650a5194b35.png" alt=""></p>
+<p>所以resolve（）里面需要传入response，reject（）里面需要传入error</p>
+<p>按照上面Response Schema格式，我们创建response，并传入resolve（）：</p>
+<p><img src="/axios/c6d369e78b698be424b192cd80ba4f04.png" alt=""></p>
+<p>JSON.parse()操作就相当于实现了响应json数据自动解析为 js对象或数组</p>
+<p><img src="/axios/534d7d96ba6fb2cd15a834e76bc41935.png" alt=""></p>
+<p>同样reject（）里面需要传入error对象，error对象里面附上message</p>
+<p>写完之后去button的函数中调用就可以</p>
+<p><img src="/axios/a5dea20538b6943f8bc6699faedd12b6.png" alt=""></p>
+<p>成功：</p>
+<p><img src="/axios/fcb13eb91cc12fe0d4a0d6994f668add.png" alt=""></p>
+<p>失败：</p>
+<p><img src="/axios/b264316ea3b35839abebad2406a77b71.png" alt=""></p>
+<h4 id="put请求">PUT请求</h4>
+<p><img src="/axios/a78cc8a4fd9c8d3939c4dd8bbd65e64d.png" alt=""></p>
+<p>注意，这里url后面如果不写数字1就表示更新全部；</p>
+<p>method中的put可以小写，只需要处理一下这个method，让他大写就行了</p>
+<p><img src="/axios/04a7ceb40024026a1154e1e062f76bb4.png" alt=""></p>
+<p>然后需要在原先已经处理了GET和POST请求的基础下再加一个处理PUT的请求即可</p>
+<p><img src="/axios/db5577d60db9a73c9954e8f43b6ef4e3.png" alt=""></p>
+<h4 id="delete请求">DELETE请求</h4>
+<p><img src="/axios/8c5dfd73afa76316f87fd83fcb64da00.png" alt=""></p>
+<p>在原先已经处理了GET、PUT和POST请求的基础下再加一个处理DELETE的请求即可</p>
+<p><img src="/axios/db5577d60db9a73c9954e8f43b6ef4e3.png" alt=""></p>
+<h4 id="postdelete和put的跨域请求非重点">POST、DELETE和PUT的跨域请求（非重点）</h4>
+<p><img src="/axios/2d9fbffda7bf642c8a785c3c11e70d5f.png" alt=""></p>
+<p>注意，每一次发送POST或者PUT请求的时候都会有两个请求，第一个请求中的request
+method为OPTIONS，注意看他的response
+headers，里面一堆access-control-allow，这个其实是跨域请求（在上图这堆参数表示是允许跨域的）</p>
+<p><img src="/axios/9b733ee3d46a4d91f804797cd59e48e4.png" alt=""></p>
+<p>我们这里是本地的绝对域，请求任何地址都是跨域的，但是我们发现竟然没出现跨域问题，能正常收到数据，说明他已经解决了跨域问题</p>
+<p><strong>原理：</strong></p>
+<p>浏览器出于安全考虑会先发一个预检请求（问一下服务器允不允许跨域，后台如果允许跨域了会返回一个响应头，也就是上图的上图的有那一堆access-control-allow的响应头），这个时候我就可以跨域访问了。而且如果我点很多次按钮：</p>
+<p><img src="/axios/f2669256144948b192dfc6e913fb5d88.png" alt=""></p>
+<p>会发现他不是每次都会发这个预检请求，他会隔一段时间发一次（换言之这是浏览器自己做的事情）</p>
+<p>那为什么就只有GET没有这个预检请求呢？那是因为GET只是看看，不修改数据</p>
+<h2 id="axios的理解和使用">axios的理解和使用</h2>
+<p><img src="/axios/81512f493cbf1cdfee130691f84692f7.png" alt=""></p>
+<p><img src="/axios/326774af99bc363de6afc1c423b5ca75.png" alt=""></p>
+<ol>
+<li>
+<p>基于promise的异步ajax请求库，说明发送请求之后返回的是一个promise对象</p>
+</li>
+<li>
+<p>拦截器（重点）</p>
+</li>
+</ol>
+<p><img src="/axios/d485a145220704874ec037ef3dbd80ee.png" alt=""></p>
+<p>其实axios还有别的特点，比方说上图的最后一点，预防XSRF网络攻击</p>
+<h2 id="axios常用语法">axios常用语法</h2>
+<p><img src="/axios/53f7a318d7343c9f05a70107320241cc.png" alt=""></p>
+<p><img src="/axios/047a1ae0f801d8e6979f9d9e2422bd7c.png" alt=""></p>
+<p><img src="/axios/99d754db2a8ecb7da8f45eba2ffd2fc2.png" alt=""></p>
+<p>spread()和all()这两个是配合使用的</p>
+<p><img src="/axios/e5382ebf772e9d8764c938dcc45c8e55.png" alt=""></p>
+<h3 id="语法糖">语法糖</h3>
+<p>上文中axios有两种发请求的方式，一种是axios.get()一种是axios({method:
+“get”})，post、put等同理，那么axios.get()其实是一种语法糖</p>
+<p><img src="/axios/f73e9fce536a963a104cce8526f0e757.png" alt=""></p>
+<p>此时的axios是作为对象在使用</p>
+<h3 id="create创建一个axios实例用于定制">（create）创建一个axios实例用于定制</h3>
+<p><img src="/axios/693242fa7ee1bac40a206911d8cf973c.png" alt=""></p>
+<h4 id="实例的方法">实例的方法</h4>
+<p><img src="/axios/98d76c81824cc8d50f08f84ff1063525.png" alt=""></p>
+<h2 id="config-defaults">Config Defaults</h2>
+<p><img src="/axios/c1717565152fb6de6cbbd935906811e8.png" alt=""></p>
+<p>比如这里的Global axios
+defaults是用于指定公共的一些属性，比方说baseURL，指定之后url就不需要写前面的这一部分了，再比如headers.post[‘Content-Type’]指定了之后后续就不需要再指定Content-Type属性了</p>
+<p>另外还有很多公共配置项，具体看文档</p>
+<h2 id="interceptors拦截器重点">Interceptors拦截器（重点★）</h2>
+<p><img src="/axios/4b893e6e9d9671cc595e1b5bbb06ba38.png" alt=""></p>
+<p>分为请求的拦截器和响应的拦截器，请求拦截器是在发请求之前执行，响应拦截器是在得到响应之后执行</p>
+<h2 id="处理错误指定错误时的回调函数">处理错误（指定错误时的回调函数）</h2>
+<p><img src="/axios/c58f8117458ace574c418eeb893bd4cd.png" alt=""></p>
+<h2 id="cancellation取消请求">Cancellation（取消请求）</h2>
+<p><img src="/axios/b8bb548612f70f842d8d8e80de582863.png" alt=""></p>
+<h2 id="axios代码">axios代码</h2>
+<p><img src="/axios/e68170bcbcc8caacda4de2f8ca3ef9da.png" alt=""></p>
+<p><img src="/axios/50947aa95cd77f3ee715357ff31e6b85.png" alt=""></p>
+<p>这里我们发现传上去的数据默认写的就是json，但是我们并没有指定post的数据格式为json，这是因为在这个后台服务器中，当我们传入的数据为对象类型，他自动就会用json发，但是有的后台服务器它不支持json，后面会细说。</p>
+<p>上图还可以这么写：</p>
+<p><img src="/axios/b3633a9e4ece226a3a34f6b32c0f5b09.png" alt=""></p>
+<p><img src="/axios/37c8395040c5aa6a9eef791f7fbc8f5e.png" alt=""></p>
+<p><img src="/axios/fb8a858bc07dcb80401099603ef3b5d0.png" alt=""></p>
+<h2 id="难点语法的理解和使用">难点语法的理解和使用</h2>
+<p>后面项目中会讲axios的二次封装，因为axios已经是用xhr对ajax请求的一次封装了，所以这里说二次。</p>
+<p><img src="/axios/a9da812751924c93adf29cf89227d3bb.png" alt=""></p>
+<h3 id="create">create</h3>
+<p><img src="/axios/42947631952deec81639e8d56a27bd15.png" alt=""></p>
+<p>为啥会有create语法的产生呢？</p>
+<p>场景：</p>
+<p>有多台主机，我们需要从端口3000、4000的两台主机中取数据，又不想写两遍只有url不一样的axios，这个时候就轮到create发挥作用了：</p>
+<p><img src="/axios/c6793570853e30122d8bad1acf0ed328.png" alt=""></p>
+<p><img src="/axios/d030caae0dc9edf7022138ba71291e0e.png" alt=""></p>
+<p>我们可以用写了url端口为3000的axios去create一个端口为4000的axios实例，这样就达到了只改变url而不需要重复写其他多于代码的目的</p>
+<p>当然，生成的instance也可以当作对象使用：</p>
+<p><img src="/axios/2d65ba56e4767bbc5e3ca1b6268e67b3.png" alt=""></p>
+<h2 id="axios处理链流程">axios处理链流程</h2>
+<h3 id="interceptors拦截器">Interceptors拦截器</h3>
+<p><img src="/axios/4b893e6e9d9671cc595e1b5bbb06ba38.png" alt=""></p>
+<h4 id="添加请求拦截器">添加请求拦截器</h4>
+<p><img src="/axios/0c1f08b3ad5a085b24960f0c2d5ed4ae.png" alt=""></p>
+<p>还能指定多个，我们在第一个拦截器下面再写一个：</p>
+<p><img src="/axios/b243aad1ef0c14709435a0453486fe0d.png" alt=""></p>
+<h4 id="添加响应拦截器">添加响应拦截器</h4>
+<p><img src="/axios/b0259586b1ded5674096ab12cdc613f0.png" alt=""></p>
+<p>这里我们也来两个：</p>
+<p><img src="/axios/e5ce4c3b63e0cd759c301d656fb5eeb3.png" alt=""></p>
+<p>之后发送get请求：</p>
+<p><img src="/axios/34a83c8668ff7c042a865eeda1dad828.png" alt=""></p>
+<p>拦截结果：</p>
+<p><img src="/axios/2135205b3bcd855c6d13250845583a63.png" alt=""></p>
+<p><strong>我们发现是先执行第二个请求拦截器再执行第一个，先执行第一个响应拦截器再执行第二个</strong></p>
+<p>请求拦截器在get等请求之后执行，响应拦截器在处理响应以及处理error之前执行，那是因为可能有多个axios去发请求，那么拦截器肯定是处理公共部分的拦截的，所以肯定是在每一个axios请求处理自己的响应以及error之前去执行这个公共的响应拦截器，而且必须是在get等请求发出之后去执行请求拦截器，否则没有意义。</p>
+<p><img src="/axios/4da70cd4715ca807e4c62a2170aa63a7.png" alt=""></p>
+<p><strong>就比如上图就有两个axios请求，那么响应拦截器和请求拦截器会在get之后，then(response=&gt;{})之前进行拦截。</strong></p>
+<p>需要注意的是，拦截器中都需要return：</p>
+<p><img src="/axios/940ee6c3090e4bbccc96dc8e9a6b5b7c.png" alt=""></p>
+<p>如果有一个没有return就会报undefined，那是因为每一个拦截器都相当于一个任务，发请求也是一个任务，我们需要把这所有的任务都串联起来，每一环要去接上一环return过来的数据的，如果有一环没有return，那下一环拿到的从上一环来的数据就是undefined。</p>
+<p>而且我们讲拦截器是在get等请求发生之后，在then(response=&gt;{})之前进行的拦截，那比方说这个response没有return出去，最终就会导致then(response=&gt;{})里面的response为undefined，那最终的结果就会是undefined）</p>
+<p>再比如没有return
+error，这个就比较严重了，由于没有返回error，下一步程序会走到成功的那一块里面去，也就是原本程序下一步会走到下一步的错误处理块里面，但却走到了正确处理的那一块程序里面，显然这是错误的。</p>
+<p>这其实是Promise里面的机制，去看看Promise的源码就会比较清楚了。</p>
+<h2 id="取消请求">取消请求</h2>
+<p><img src="/axios/51840b4c1c18bfcc75cdc1343734ecca.png" alt=""></p>
+<h2 id="技巧">技巧</h2>
+<p>不懂就看GitHub上面的axios文档</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>axios</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#http请求交互的基本过程">HTTP请求交互的基本过程</a>
+      <ul>
+        <li><a href="#http请求报文">HTTP请求报文</a></li>
+        <li><a href="#http响应报文">HTTP响应报文</a></li>
+        <li><a href="#post请求体参数格式">post请求体参数格式</a></li>
+        <li><a href="#常见响应状态码">常见响应状态码</a></li>
+        <li><a href="#不同类型的请求及其作用">不同类型的请求及其作用</a></li>
+        <li><a href="#api的分类">API的分类</a></li>
+        <li><a href="#使用json-server搭建rest-api">使用json-server搭建REST API</a></li>
+        <li><a href="#axios访问测试">axios访问测试</a></li>
+        <li><a href="#xhr">XHR</a></li>
+        <li><a href="#一般http请求与ajax请求">一般http请求与ajax请求</a></li>
+        <li><a href="#api">API</a></li>
+        <li><a href="#分析axios请求函数">分析axios请求函数</a></li>
+        <li><a href="#response-schema">Response Schema</a></li>
+      </ul>
+    </li>
+    <li><a href="#xhr的ajax封装自制简单版axios">XHR的ajax封装（自制简单版axios）</a>
+      <ul>
+        <li><a href="#案例">案例</a></li>
+      </ul>
+    </li>
+    <li><a href="#axios的理解和使用">axios的理解和使用</a></li>
+    <li><a href="#axios常用语法">axios常用语法</a>
+      <ul>
+        <li><a href="#语法糖">语法糖</a></li>
+        <li><a href="#create创建一个axios实例用于定制">（create）创建一个axios实例用于定制</a></li>
+      </ul>
+    </li>
+    <li><a href="#config-defaults">Config Defaults</a></li>
+    <li><a href="#interceptors拦截器重点">Interceptors拦截器（重点★）</a></li>
+    <li><a href="#处理错误指定错误时的回调函数">处理错误（指定错误时的回调函数）</a></li>
+    <li><a href="#cancellation取消请求">Cancellation（取消请求）</a></li>
+    <li><a href="#axios代码">axios代码</a></li>
+    <li><a href="#难点语法的理解和使用">难点语法的理解和使用</a>
+      <ul>
+        <li><a href="#create">create</a></li>
+      </ul>
+    </li>
+    <li><a href="#axios处理链流程">axios处理链流程</a>
+      <ul>
+        <li><a href="#interceptors拦截器">Interceptors拦截器</a></li>
+      </ul>
+    </li>
+    <li><a href="#取消请求">取消请求</a></li>
+    <li><a href="#技巧">技巧</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

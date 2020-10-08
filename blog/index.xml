@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Learning Records</title>
+    <link>https://pippichi.github.io/blog/</link>
+    <description>Recent content in Home on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
+    <lastBuildDate>Sat, 01 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker</title>
+      <link>https://pippichi.github.io/blog/docker/</link>
+      <pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/docker/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of docker&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://pippichi.github.io/blog/linux/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/linux/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of linux&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Spring Boot -senior</title>
+      <link>https://pippichi.github.io/blog/springboot_senior/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/springboot_senior/</guid>
+      <description>&lt;p&gt;The article contains cache, message, security, searching, actuator, deployment&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Spring Boot -basic</title>
+      <link>https://pippichi.github.io/blog/springboot_basic/</link>
+      <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/springboot_basic/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of spring boot&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MySQL -additional</title>
+      <link>https://pippichi.github.io/blog/mysql_additional/</link>
+      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/mysql_additional/</guid>
+      <description>&lt;p&gt;The article contains the additional knowledge of MySQL&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MySQL -senior</title>
+      <link>https://pippichi.github.io/blog/mysql_senior/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/mysql_senior/</guid>
+      <description>&lt;p&gt;The article contains the senior knowledge of MySQL&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scrapy</title>
+      <link>https://pippichi.github.io/blog/scrapy/</link>
+      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/scrapy/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MySQL -basic</title>
+      <link>https://pippichi.github.io/blog/mysql_basic/</link>
+      <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/mysql_basic/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of MySQL&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>高并发</title>
+      <link>https://pippichi.github.io/blog/high_concurrency/</link>
+      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/high_concurrency/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of high concurrency&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Pillow</title>
+      <link>https://pippichi.github.io/blog/pillow/</link>
+      <pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/pillow/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of pillow&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>axios -additional</title>
+      <link>https://pippichi.github.io/blog/axios_source_code/</link>
+      <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/axios_source_code/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of axios source code&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>axios</title>
+      <link>https://pippichi.github.io/blog/axios/</link>
+      <pubDate>Sun, 29 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/axios/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of axios&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Promise</title>
+      <link>https://pippichi.github.io/blog/promise/</link>
+      <pubDate>Fri, 20 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/promise/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of Promise&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ES7-11</title>
+      <link>https://pippichi.github.io/blog/es7-11/</link>
+      <pubDate>Tue, 10 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/es7-11/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of ES7-11&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ES6</title>
+      <link>https://pippichi.github.io/blog/es6/</link>
+      <pubDate>Sat, 29 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/es6/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of ES6&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>品优购项目 -exercise</title>
+      <link>https://pippichi.github.io/blog/pinyougou_project/</link>
+      <pubDate>Tue, 25 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/pinyougou_project/</guid>
+      <description>&lt;p&gt;The article contains a project written by Html, Css and JavaScript&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>JavaScript WebApi</title>
+      <link>https://pippichi.github.io/blog/js_webapi/</link>
+      <pubDate>Thu, 20 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/js_webapi/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of JavaScript WebApi&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>JavaScript -senior</title>
+      <link>https://pippichi.github.io/blog/js_senior/</link>
+      <pubDate>Thu, 30 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/js_senior/</guid>
+      <description>&lt;p&gt;The article contains the senior knowledge of JavaScript&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>JavaScript -basic</title>
+      <link>https://pippichi.github.io/blog/js_basic/</link>
+      <pubDate>Mon, 20 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/js_basic/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of JavaScript&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Html5_Css3 -additional</title>
+      <link>https://pippichi.github.io/blog/html5_css3_additional/</link>
+      <pubDate>Wed, 15 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/html5_css3_additional/</guid>
+      <description>&lt;p&gt;The article contains the additional knowledge of Html5 and Css3&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Css</title>
+      <link>https://pippichi.github.io/blog/css/</link>
+      <pubDate>Fri, 10 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/css/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of Css&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Html</title>
+      <link>https://pippichi.github.io/blog/html/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/html/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of Html&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://pippichi.github.io/blog/git/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/git/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of Git&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>特征工程</title>
+      <link>https://pippichi.github.io/blog/feature_engineering/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/feature_engineering/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of feature engineering&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

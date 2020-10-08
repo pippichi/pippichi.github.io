@@ -10,28 +10,28 @@
     <lastBuildDate>Sat, 02 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Scrapy</title>
-      <link>https://pippichi.github.io/posts/scrapy/</link>
+      <link>https://pippichi.github.io/blog/scrapy/</link>
       <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pippichi.github.io/posts/scrapy/</guid>
+      <guid>https://pippichi.github.io/blog/scrapy/</guid>
       <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Pillow</title>
-      <link>https://pippichi.github.io/posts/pillow/</link>
+      <link>https://pippichi.github.io/blog/pillow/</link>
       <pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pippichi.github.io/posts/pillow/</guid>
+      <guid>https://pippichi.github.io/blog/pillow/</guid>
       <description>&lt;p&gt;The article contains the knowledge of pillow&amp;hellip;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>特征工程</title>
-      <link>https://pippichi.github.io/posts/feature_engineering/</link>
+      <link>https://pippichi.github.io/blog/feature_engineering/</link>
       <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://pippichi.github.io/posts/feature_engineering/</guid>
+      <guid>https://pippichi.github.io/blog/feature_engineering/</guid>
       <description>&lt;p&gt;The article contains the knowledge of feature engineering&amp;hellip;&lt;/p&gt;</description>
     </item>
     

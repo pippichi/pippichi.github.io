@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  ES7-11 &ndash; Learning Records
+
+    </title>
+    
+    <meta content="JavaScript" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of ES7-11&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="ES7-11 | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of ES7-11&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF file</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">ES7-11</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/javascript' class="muted-link">
+  <span class="Label Label--gray">JavaScript</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-03-10. Published at: 2020-03-10.">
+        
+          Published: 2020-03-10
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of ES7-11&hellip;</p>
+<h2 id="es7">ES7</h2>
+<h3 id="arrayprototypeincludes">Array.prototype.includes</h3>
+<p><img src="/ES7-11/91cd8fefc531cc5d1aff841aa43defe8.png" alt=""></p>
+<p><img src="/ES7-11/d9c184b4dffef7ffa1f2478756be640a.png" alt=""></p>
+<p>以前使用indexOf来判断</p>
+<h3 id="指数运算符">指数运算符</h3>
+<p><img src="/ES7-11/d845ef64016bd8e0f439a1abb47f1dc1.png" alt=""></p>
+<p><img src="/ES7-11/1849f3ca0282341f100d7a66b81f34d2.png" alt=""></p>
+<h2 id="es8">ES8</h2>
+<p><img src="/ES7-11/2c08edaa3a5390cfce9327127b3a2951.png" alt=""></p>
+<h3 id="async">async</h3>
+<p>注意async函数的返回值为promise对象，且promise对象的结果由async函数执行的返回值决定，如果返回结果不是一个Promise对象，他也是一个成功的Promsie，比方说我们直接写return;，那他就是一个resolved状态，value为undefined的Promise（反正就是跟直接用Promise一样）</p>
+<p><img src="/ES7-11/28faedfeadcab28000f2dffe6f5a7743.png" alt=""></p>
+<p>由于是Promise，所以可以.then</p>
+<h3 id="await">await</h3>
+<p><img src="/ES7-11/2290fb40f90b7cc684e13232717f4d4d.png" alt=""></p>
+<p>注意async里面执行函数失败的情况下需要用try catch去捕获</p>
+<p>另外，await 后面可以跟任何的JS 表达式。虽然说 await
+可以等很多类型的东西，但是它最主要的意图是用来等待 Promise 对象的状态被
+resolved。如果是被rejected那就要try catch去捕获了。</p>
+<h3 id="与axios连用">与axios连用</h3>
+<p>由于axios本身就返回一个Promise，所以可以直接写在await后面</p>
+<h3 id="objectkeysobjectvalues和objectentries">Object.keys、Object.values和Object.entries</h3>
+<p><img src="/ES7-11/025288a96bf3bc687485fb5b6c3a8cad.png" alt=""></p>
+<p><img src="/ES7-11/844c6c46fa8faf758fe213715cffdd12.png" alt=""></p>
+<p>Object.entries返回键值对数组，主要可以方便创建map，如上图</p>
+<h3 id="objectgetownpropertdescriptors">Object.getOwnPropertDescriptors</h3>
+<p><img src="/ES7-11/a084541fbc4e13c14699180d3a0da243.png" alt=""></p>
+<p><img src="/ES7-11/789cf5854145b001650e04e21a56a938.png" alt=""></p>
+<p><img src="/ES7-11/30fdd539d9892c978b930f266a4da676.png" alt=""></p>
+<p>我们发现每个属性里面的configurable、enumerable等跟Object.create()里面的第二个参数很像，跟Object.defineProperty()里面的有些参数也很像：</p>
+<p><img src="/ES7-11/dea50bb8b346c7c1c86be9dc27e092cd.png" alt=""></p>
+<p>事实上，Object.getOwnPropertyDescriptors获取的就是对象的所有属性的这些描述值，所以被称为是获取对象属性的描述对象</p>
+<h4 id="用途">用途</h4>
+<p>获取这些属性的描述对象能干嘛呢？</p>
+<p>主要是能够深层次的拷贝对象，使得对象的属性的描述也能一起拷贝过来</p>
+<h2 id="es9">ES9</h2>
+<p>在ES9中为对象提供了像数组一样的rest参数和扩展运算符</p>
+<p>我们来试一下：</p>
+<p>使用解构：</p>
+<p><img src="/ES7-11/3f4a9fefd7a7ad3d8e1ab4a929cc035f.png" alt=""></p>
+<p><img src="/ES7-11/4d9fbdea63de1a3ae05d6be1bc997154.png" alt=""></p>
+<p>使用rest：</p>
+<p><img src="/ES7-11/50be8f99944cc309b3126894f9c82c90.png" alt=""></p>
+<p><img src="/ES7-11/079d5c9b46915c2e273a78768357dee2.png" alt=""></p>
+<p>扩展运算符对对象的操作：</p>
+<p><img src="/ES7-11/cc0b6e6e1cc01d09bf74ffa0fabb6e03.png" alt=""></p>
+<p>对对象用扩展运算符可以取出对象中的键值对</p>
+<p><img src="/ES7-11/29aad190ce0f837e093d33aeabd74e5e.png" alt=""></p>
+<p>使用该特性可以将多个对象的键值对合并到一个新的对象里面，如上图</p>
+<h3 id="正则扩展">正则扩展</h3>
+<h4 id="命名捕获分组">命名捕获分组</h4>
+<p><img src="/ES7-11/da6bfc4377ab3de2ea22b28ad715b9ef.png" alt=""></p>
+<p><img src="/ES7-11/fba20f9e53beebd6355b37b3dc9a5643.png" alt=""></p>
+<p>返回的是一个数组，下标0为原字符串，1为第一组，2为第二组，以此类推</p>
+<p>但是我们可以看到上面的groups是undefined</p>
+<p>命名捕获分组：</p>
+<p><img src="/ES7-11/939a7063fc330ee659b04cc7c964d73e.png" alt=""></p>
+<p>在小括号中用 ?&lt;名称&gt;
+的方式命名该小括号的组，这个时候我们会发现上面的groups里面就有内容了，且key就是重命名的名称，value就是组获取到的内容。</p>
+<p>如何通过groups获取组里面的内容呢：</p>
+<p><img src="/ES7-11/7b043bc9e0d6f832bf923aa28299fc29.png" alt=""></p>
+<h4 id="零宽断言">零宽断言</h4>
+<h5 id="正向">正向</h5>
+<p><img src="/ES7-11/a6b4e83bd1a99a133ea8a548d0ad4ffc.png" alt=""></p>
+<p>我们只想匹配555，不想匹配前面的数字，可以通过：/\d+啦/的方式，但是这样会把“啦”也匹配进来，我们不想让“啦”进来，就给“啦”加一个(?=)表示断言匹配的内容后面一定是“啦”这个字而且不会把“啦”匹配进来，如上图</p>
+<h5 id="反向">反向</h5>
+<p><img src="/ES7-11/31b1a288251e1e151745c6be808d0e07.png" alt=""></p>
+<h4 id="dotall模式">dotAll模式</h4>
+<p>我们知道正则里面的 . 代表除换行符以外的任意字符，现在我们想让他把换行符也算上。</p>
+<p><img src="/ES7-11/ecd7e1d00fc6aeeccab66bf00206bb7b.png" alt=""></p>
+<p>原先我们匹配上图的a标签和p标签很麻烦还要考虑换行，也就是上图要加\s+的原因</p>
+<p><img src="/ES7-11/df9e444e2361cd816de2ecb6a609206d.png" alt=""></p>
+<p>现在在后面加上/s，就可以不用考虑换行的问题了</p>
+<p><img src="/ES7-11/ba998e157ccc45af2059c28351585504.png" alt=""></p>
+<p>当然我们还可以加上 g，表示全局匹配，如上图</p>
+<p>另外还有 i 表示忽略大小写</p>
+<h2 id="es10">ES10</h2>
+<h3 id="objectfromentries">Object.fromEntries</h3>
+<p>用于二维数组创建对象：</p>
+<p><img src="/ES7-11/4c6f6383b5a9dad2506334cd694a6486.png" alt=""></p>
+<p>用于map创建对象：</p>
+<p><img src="/ES7-11/94660eefef5bd61502e337e7c3044853.png" alt=""></p>
+<p>这里我们会想到Object.entries()：</p>
+<p><img src="/ES7-11/a718d05fac9cc91ea23404b7e22a9124.png" alt=""></p>
+<p>我们知道Object.entries()用于将对象转变为键值对数组</p>
+<h3 id="objectentries和objectfromentries的联系">Object.entries()和Object.fromEntries()的联系</h3>
+<p>其实他俩是一个逆运算，一个是将对象转化为二维数组，一个是将二维数组转化为对象</p>
+<h3 id="trimstart和trimend">trimStart和trimEnd</h3>
+<p>一个用于删除字符串前面的空白，一个用于删除后面的</p>
+<p><img src="/ES7-11/2105226b140ae384cc3122204fc3ea8c.png" alt=""></p>
+<h3 id="flat">flat</h3>
+<p>当是二维数组的时候直接就变一维了：</p>
+<p><img src="/ES7-11/d1a7ecd2e1042ada28b7aea61e0907de.png" alt=""></p>
+<p>当是三维数组的时候：</p>
+<p><img src="/ES7-11/3ac86e9807bbaeb4f096e1b9a8a3a89c.png" alt=""></p>
+<p>把5、6那一层数组展开了</p>
+<p>那么如果我们想要把7、8那一层的也解开呢？</p>
+<p><img src="/ES7-11/0b4b2f3bba4c128b8682953f6cb37436.png" alt=""></p>
+<p>需要在flat里面传入一个参数，这个参数表示可展开深度，三维数组可展开深度为2，因此写入2之后三维数组就变一维了（默认该参数值为1），如上图</p>
+<h3 id="flatmap">flatMap</h3>
+<p><img src="/ES7-11/4769072fdcd12390df9321d33d57dec0.png" alt=""></p>
+<p>原先我们用map（js的map跟python一样）对数组操作，如上图，但是如果我们的回调函数返回的结果是一个数组，或者说是一个复杂结构：</p>
+<p><img src="/ES7-11/81489c9b7b584800824ae15f1c7b1bef.png" alt=""></p>
+<p>我们发现整个结果就会变成一个二维数组，如上图，这个时候如果我们想把这个结果变成一个一维数组，就可以用flatMap了：</p>
+<p><img src="/ES7-11/066c4292c926465a22da254ef299d226.png" alt=""></p>
+<p>他相当于是map和flat两个操作的结合</p>
+<h3 id="symbolprototypedescription">Symbol.prototype.description</h3>
+<p><img src="/ES7-11/c203717619eeb8e205c11eb258ea5783.png" alt=""></p>
+<p>就是对Symbol里面的注释字符串的提取</p>
+<h2 id="es11">ES11</h2>
+<h3 id="私有属性">私有属性</h3>
+<p><img src="/ES7-11/81bfec819cd5e82f6cc62c29dc103383.png" alt=""></p>
+<p>属性前面加#的就是私有属性，不加#就是公有属性</p>
+<p>要访问的话只能在类内部写方法访问：</p>
+<p><img src="/ES7-11/b8efeb5beb34837abf84103d6ff694c1.png" alt=""></p>
+<h3 id="promiseallsettled">Promise.allSettled</h3>
+<p>接收Promise数组，返回一个Promise对象，而且返回的Promise对象永远是成功的状态，且返回的值是一个数组，里面是一个个对象，装着每一个Promise的状态和值</p>
+<p><img src="/ES7-11/76bc7c0e80c31d8a8d42d92bfbcfa1be.png" alt=""></p>
+<p><img src="/ES7-11/809377095e7e81e7781b4f64141f074e.png" alt=""></p>
+<p>我们发现返回的Promise状态是成功的。</p>
+<p>上面传了两个成功的Promise，那如果是失败的呢？</p>
+<p><img src="/ES7-11/2efc2b93155b6ba399033e3b1ab8d74c.png" alt=""></p>
+<p>这里我们把第二个Promise设置为失败的</p>
+<p><img src="/ES7-11/57b4d16f3911fe26b99136c5b77498b8.png" alt=""></p>
+<p>返回结果还是一个成功的Promise</p>
+<p>其中返回的值的第二个显示第二个Promise的状态是失败的，而且返回了“出错啦！”这个信息</p>
+<h3 id="promiseall">Promise.all</h3>
+<p>这个不解释了</p>
+<h3 id="promiseall和promiseallsettled的应用场景">Promise.all和Promise.allSettled的应用场景</h3>
+<p>两者都是在处理批量异步任务的时候用的</p>
+<p>如果我们想要看到所有异步任务的返回值，就用.allSettled；</p>
+<p>如果我们想要每一个异步任务都成功才能继续往下执行，就用.all</p>
+<h3 id="stringprototypematchall">String.prototype.matchAll</h3>
+<p><img src="/ES7-11/08746247daa44bbbad949cb1926402a0.png" alt=""></p>
+<p><img src="/ES7-11/f3c2cebbfe6eeae1f0d7f5e22a7080d8.png" alt=""></p>
+<p>.matchAll方法使得匹配到的多个内容变成可迭代对象（有next方法）可以用for
+of遍历，也可以用扩展运算符做展开</p>
+<h3 id="可选链操作符">可选链操作符</h3>
+<p><img src="/ES7-11/9fd2afa16716c14e791a0195fa706553.png" alt=""></p>
+<p>原先我们取数据中的某个属性，比方说上图的host，应该先做一下判断，先判断config是否真的有，如果有再进一步取数据，如上图的
+config &amp;&amp; config.db &amp;&amp; config.db.host</p>
+<p>现在有了可选操作链：</p>
+<p><img src="/ES7-11/e6a5e7a06b946748bdd459f9a6b4ccb5.png" alt=""></p>
+<p>可以达到相同效果</p>
+<h3 id="动态import">动态import</h3>
+<p>原先的静态import时，我们会在一个入口文件里大量的import，也不管这个模块会在当前文件使用还是在未来的某个时刻去使用，就是一股脑地把模块统统导进来，因为是有依赖关系的。这样的话就不能实现按需加载（懒加载）</p>
+<p>模拟：</p>
+<p><img src="/ES7-11/e9b2684dfb0a0ad3c7e390c98dbdecab.png" alt=""></p>
+<p><img src="/ES7-11/c980f6c43a77b87a675a8ed40779562c.png" alt=""></p>
+<p>上图就是静态的导入</p>
+<h4 id="import函数">import函数</h4>
+<p>使用import函数来实现动态导入：</p>
+<p><img src="/ES7-11/212a963d385c0b47d5c09df95f6c697a.png" alt=""></p>
+<p>import函数返回一个Promise，可以用.then拿到导入的模块中的那些export的方法，比方说这里我们可以用module.hello()来调用另外一个文件中的hello()方法（当然这个hello必须是被export的方法）：</p>
+<p><img src="/ES7-11/fd40a9862d0d24ce2355e7f835bc2de0.png" alt=""></p>
+<p>当然这个方法是不影响执行效率的，反而能提高加载效率</p>
+<h3 id="bigint大整形">BigInt（大整形）</h3>
+<h4 id="直接在int型后面加n">直接在int型后面加n</h4>
+<p><img src="/ES7-11/1318f31e27a0726287ed5ae5f8766cc7.png" alt=""></p>
+<h4 id="使用bigint函数转换n">使用BigInt函数转换n</h4>
+<p><img src="/ES7-11/890f240832efa9aed85162ec1fc7f234.png" alt=""></p>
+<p>注意！不能将浮点型的数转换成大整形</p>
+<h4 id="用途场景">用途场景</h4>
+<p>主要用于大数值的运算</p>
+<p>比方说我们声明一个最大安全整形，并给他加1再加2：</p>
+<p><img src="/ES7-11/eb2f1dec407de9012a2211be64d494f8.png" alt=""></p>
+<p><img src="/ES7-11/19e8bba5e4b34391df438616421c3c94.png" alt=""></p>
+<p>我们会发现第三个数他是不对的，她不能再去表示一个更大的整形结果了</p>
+<p><img src="/ES7-11/c02c08d8cd43ba206681d33ef0d7857b.png" alt=""></p>
+<p>现在用BigInt给他做一个转换</p>
+<p>注意！普通的整形无法跟BigInt型的大整形直接运算，会报错，所以在上面这个案例里面我们还需要把普通整形转换为大整形，之后再与大整形一起运算：</p>
+<p><img src="/ES7-11/543a37ecbfb53803c0233cec204ed0e8.png" alt=""></p>
+<p><img src="/ES7-11/3c0745069c3c67911d1b3e0d55bb842d.png" alt=""></p>
+<p>现在就没有问题了</p>
+<h3 id="globalthis">globalThis</h3>
+<p>无论执行环境是浏览器、nodejs还是其他的什么，这个东西始终指向全局对象，当我们想使用全局对象的时候，啥也别想了，直接用globalThis即可</p>
+<p><img src="/ES7-11/f6d3966d0866db7582c15a0b7025eb56.png" alt=""></p>
+<p><img src="/ES7-11/6b930afe8c4340b4557c7898f4f5038b.png" alt=""></p>
+<p>在浏览器下，它指向的就是window</p>
+<p><img src="/ES7-11/19f42b91ae86eded167541bb19d51b75.png" alt=""></p>
+<p>在nodejs下，它指向全局对象global</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>ES7-11</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#es7">ES7</a>
+      <ul>
+        <li><a href="#arrayprototypeincludes">Array.prototype.includes</a></li>
+        <li><a href="#指数运算符">指数运算符</a></li>
+      </ul>
+    </li>
+    <li><a href="#es8">ES8</a>
+      <ul>
+        <li><a href="#async">async</a></li>
+        <li><a href="#await">await</a></li>
+        <li><a href="#与axios连用">与axios连用</a></li>
+        <li><a href="#objectkeysobjectvalues和objectentries">Object.keys、Object.values和Object.entries</a></li>
+        <li><a href="#objectgetownpropertdescriptors">Object.getOwnPropertDescriptors</a></li>
+      </ul>
+    </li>
+    <li><a href="#es9">ES9</a>
+      <ul>
+        <li><a href="#正则扩展">正则扩展</a></li>
+      </ul>
+    </li>
+    <li><a href="#es10">ES10</a>
+      <ul>
+        <li><a href="#objectfromentries">Object.fromEntries</a></li>
+        <li><a href="#objectentries和objectfromentries的联系">Object.entries()和Object.fromEntries()的联系</a></li>
+        <li><a href="#trimstart和trimend">trimStart和trimEnd</a></li>
+        <li><a href="#flat">flat</a></li>
+        <li><a href="#flatmap">flatMap</a></li>
+        <li><a href="#symbolprototypedescription">Symbol.prototype.description</a></li>
+      </ul>
+    </li>
+    <li><a href="#es11">ES11</a>
+      <ul>
+        <li><a href="#私有属性">私有属性</a></li>
+        <li><a href="#promiseallsettled">Promise.allSettled</a></li>
+        <li><a href="#promiseall">Promise.all</a></li>
+        <li><a href="#promiseall和promiseallsettled的应用场景">Promise.all和Promise.allSettled的应用场景</a></li>
+        <li><a href="#stringprototypematchall">String.prototype.matchAll</a></li>
+        <li><a href="#可选链操作符">可选链操作符</a></li>
+        <li><a href="#动态import">动态import</a></li>
+        <li><a href="#bigint大整形">BigInt（大整形）</a></li>
+        <li><a href="#globalthis">globalThis</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

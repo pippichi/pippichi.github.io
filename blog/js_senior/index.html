@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  JavaScript -senior &ndash; Learning Records
+
+    </title>
+    
+    <meta content="JavaScript" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the senior knowledge of JavaScript&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="JavaScript -senior | Learning Records">
+    <meta name="twitter:description" content="The article contains the senior knowledge of JavaScript&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF file</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">JavaScript -senior</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/javascript' class="muted-link">
+  <span class="Label Label--gray">JavaScript</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-01-30. Published at: 2020-01-30.">
+        
+          Published: 2020-01-30
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the senior knowledge of JavaScript&hellip;</p>
+<h2 id="类与对象">类与对象</h2>
+<p><img src="/js_senior/b8e7a23c313873d18fc5d35f59244c7a.png" alt=""></p>
+<p><img src="/js_senior/e51ae1c1d547337bc4ef2e6d48b98c0a.png" alt=""></p>
+<h3 id="构造器">构造器</h3>
+<p><img src="/js_senior/ea062ce5a03237dcb0a13afd7da4cc17.png" alt=""></p>
+<p><img src="/js_senior/b385fea5e00e5960fe26df66d8d7b4b2.png" alt=""></p>
+<h3 id="给类添加方法">给类添加方法</h3>
+<p><img src="/js_senior/836c69d146b3423b1ea901c1a0f1a37c.png" alt=""></p>
+<h3 id="类的继承">类的继承</h3>
+<p><img src="/js_senior/1dc2579b08d37275c0ebf089b457d06c.png" alt=""></p>
+<h3 id="super关键字">super关键字</h3>
+<p><img src="/js_senior/6eca324dbe7f90f54b93a40e59fb1d0e.png" alt=""></p>
+<p><img src="/js_senior/baebab23cb739876cd11a5f9e124b2fa.png" alt=""></p>
+<h4 id="super关键字调用规则">super关键字调用规则</h4>
+<p><img src="/js_senior/fd1635e172aee93b1e83ef63790e213b.png" alt=""></p>
+<p>在构造器中写按钮的点击事件</p>
+<p><img src="/js_senior/103c3e7ccc60fb1e985e3e3786537064.png" alt=""></p>
+<p>这样写至少不会报错，但是还是会有问题，你会发现在点击btn按钮的时候他显示undefined</p>
+<p>注意：方法这里不要加小括号：</p>
+<p><img src="/js_senior/6c0a3886d7a3422f3b5def0e03e707ef.png" alt=""></p>
+<p>不然就直接调用了，我们希望按了按钮之后再调用</p>
+<h3 id="this指向问题跟原先的想法不太一样">this指向问题（跟原先的想法不太一样）</h3>
+<p><img src="/js_senior/22ff380148a5c758044d059dcf7c1807.png" alt=""></p>
+<p><strong>这个this.btn.onclick =
+this.sing之后sing()函数里面的this指向的是btn而非Star实例对象，所以才出现了上面点击btn之后他显示的不是uname而是undefined</strong></p>
+<p><img src="/js_senior/06d92b8f683424c2b4bf9d85459ad140.png" alt=""></p>
+<p><img src="/js_senior/4b68a99207d025b934a552d5f999c217.png" alt=""></p>
+<p>那么怎么让这个按钮输出我们想要的内容呢？</p>
+<p><img src="/js_senior/b15d9d1a08bed0fe3dd7639127204907.png" alt=""></p>
+<p>这里解释一下（个人理解）：由于btn自己的this和类的this两个重名了，那么在调用btn事件的时候会优先使用btn的this，所以才会导致this.uname为undefined，那事实上我们只需要给他换一个名称让他不重名即可，这里把this赋值给that，这个时候再点击btn他就会去调用that.uname了，就不会出现重名了，这个时候就能正常输出</p>
+<h2 id="面向对象版tab栏切换案例">面向对象版tab栏切换案例</h2>
+<p><img src="/js_senior/c2f5384daa8b95a8d89eadd94cd592cc.png" alt=""></p>
+<p><img src="/js_senior/b262a441223347118c4b4b92368c670c.png" alt=""></p>
+<p><img src="/js_senior/d808bd3befa429531c511f162ebd057f.png" alt=""></p>
+<p><img src="/js_senior/2ae58a029b0575a69c3cfc4734268d56.png" alt=""></p>
+<h3 id="tab栏切换功能">tab栏切换功能</h3>
+<p><img src="/js_senior/d1b5f261c711420795658ace3c05742b.png" alt=""></p>
+<p>将刚才的点击事件封装到toggleTab方法中</p>
+<p><img src="/js_senior/e1adee47d7ffef6ce5388ee208ba2c3a.png" alt=""></p>
+<p>toggleTab这个函数中的this指向的是调用者，因此如果我们想要拿到sections就不能用this了，我们可以用之前的方法，用一个全局变量代替this</p>
+<p><img src="/js_senior/2c3e2d5f3ccd0b328b24eac42380a176.png" alt=""></p>
+<p>封装清除其他tab属性的函数clearClass()</p>
+<p><img src="/js_senior/5db234d2a73f7f44c30dd607f552c6a1.png" alt=""></p>
+<h3 id="tab栏添加功能">tab栏添加功能</h3>
+<p><img src="/js_senior/e5264a08b513f9fc95ad0bf372917f10.png" alt=""></p>
+<h3 id="insertadjacenthtml">insertAdjacentHTML()</h3>
+<p>我们使用createElement和appendChild添加元素的方式有时候太麻烦，可以直接用insertAdjacentHTML()</p>
+<p>注意appendChild不支持追加字符串，他要加必须是createElement出来的元素，而insertAdjacentHTML支持追加字符串元素</p>
+<p><img src="/js_senior/3a47bcc9e3b38e36ba89746e250e7ff4.png" alt=""></p>
+<p><img src="/js_senior/f0f3bc656e44af0522509e89695e9c98.png" alt=""></p>
+<h4 id="position是相对于元素的位置并且必须是以下字符串之一">position是相对于元素的位置，并且必须是以下字符串之一</h4>
+<h5 id="beforebegin">beforebegin</h5>
+<p><img src="/js_senior/e177a8b6b02b869d73a30e9afa8da7f3.png" alt=""></p>
+<h5 id="afterbegin">afterbegin</h5>
+<p><img src="/js_senior/37bff40cbbdf8e0ac9ccf4d24ac1245f.png" alt=""></p>
+<h5 id="beforeend">beforeend</h5>
+<p><img src="/js_senior/2457984579dce660f2eab01a1f49063b.png" alt=""></p>
+<h5 id="afterend">afterend</h5>
+<p>同理，是在当前元素外部的后面插入</p>
+<p>添加元素</p>
+<p><img src="/js_senior/6cda69c483cf1f09970b6963d41fe914.png" alt=""></p>
+<p>由于添加元素之后li和section是需要重新获取的，因此我们把li和section的获取函数封装出来</p>
+<p><img src="/js_senior/5ce04108d797f88bdd73008379c7e65b.png" alt=""></p>
+<p><img src="/js_senior/5dceb6581804468d795c7eb32312233e.png" alt=""></p>
+<p><img src="/js_senior/cfa027d7f64515479805d97a1fd0a606.png" alt=""></p>
+<p>将获取li和section函数添加到初始化函数中，在每一次添加tab栏元素的时候都调用一次初始化函数即可</p>
+<p>这样就不会出现添加元素之后新元素tab栏切换不起效了</p>
+<h3 id="tab栏删除功能">tab栏删除功能</h3>
+<p><img src="/js_senior/90353555aee4150445696e37ab7bd9a1.png" alt=""></p>
+<p>注意，x号是li的孩子，给x号添加按钮事件之后会发生冒泡，由于li也有按钮事件（tab栏切换），但是我们又不希望li的按钮事件发生，所以要组织冒泡</p>
+<p><img src="/js_senior/779fd7e94f1e01c695693460db379919.png" alt=""></p>
+<p>x号的获取也应该变成动态的</p>
+<p><img src="/js_senior/2c74ecd0f49ad012261d03b2399d6dc0.png" alt=""></p>
+<h3 id="remove">remove()</h3>
+<p>可以直接将选中的元素删除</p>
+<p><img src="/js_senior/4b71c5a547fa73553199caf0cc35d2ea.png" alt=""></p>
+<p>最后我们将元素删除</p>
+<p><img src="/js_senior/9ac3a000e8572aa8a5473fc92846f0d4.png" alt=""></p>
+<p>当我们删除了选中状态的li之后，我们想要让它的前一个li处于选定状态</p>
+<p><img src="/js_senior/13045f383f6e5254539ed1ec25f5aefc.png" alt=""></p>
+<p>最好的方法不是给前面的li添加类，而是用原先写好的点击事件去触发</p>
+<p>但是当我们删除最后一个li的时候index—会变成-1，li[index]就会报错了</p>
+<p><img src="/js_senior/9ea08ac255767b039571daeecbab8da2.png" alt=""></p>
+<p>可以使用 &amp;&amp; 运算符</p>
+<p>之后我们希望当我们删除的不是选中状态的li的时候，原来的选中状态的li保持不变</p>
+<p>这里显然是需要一个控制条件来判断我们当前删除的li是否是被选中的，我们可以用被选中状态的class来做判断，因为当我们删除的就是被选中的li的话一旦删除文档就不可能找得到选中状态的li了，也就是说我们找不到选中状态的class名，而当我们删除的不是被选中的li，那显然删了之后还是能找到选中状态的class名的</p>
+<p><img src="/js_senior/fab1b6ac535b9d8fd7bee13bfb92eedb.png" alt=""></p>
+<h3 id="tab栏编辑功能">tab栏编辑功能</h3>
+<p><img src="/js_senior/8a458e4aa94b720cf4d91cf1cb9b61bf.png" alt=""></p>
+<p>平时我们双击页面的时候是会选中文字的，取消的方法就是上图的第4步</p>
+<p><img src="/js_senior/961d189dc88ebecc617fff6c5bb376ca.png" alt=""></p>
+<p>核心思路就是利用文本框，但我们双击的时候插入一个文本框，当失去鼠标焦点的时候就将文本框中的值赋值给原先的元素并且删除文本框</p>
+<h3 id="ondblclick">ondblclick()</h3>
+<p>鼠标双击事件</p>
+<p>element.addEventListener(‘dblclick’, function(){})</p>
+<h3 id="双击禁止选定文字直接复制代码就行了">双击禁止选定文字（直接复制代码就行了）</h3>
+<p>window.getSelection ? window.getSleection().removeAllRanges() :
+document.selection.empty()</p>
+<p>接下来开始制作编辑功能</p>
+<p><img src="/js_senior/838774aabe312acabb77a18d71b66d11.png" alt=""></p>
+<p><img src="/js_senior/6ed052f7f6a84b535e29e00284cd9eba.png" alt=""></p>
+<p>首先还是先添加按钮事件，之后关闭双击选中文字事件，并插入文本框</p>
+<p><img src="/js_senior/1037c524f2a7cf51f3d4ff07fc12991b.png" alt=""></p>
+<p><img src="/js_senior/85379313dc87fefd51f3dc0c2db22833.png" alt=""></p>
+<p>之后将原先元素的文本赋值给新添加的input文本框</p>
+<p><img src="/js_senior/6e7af909daf6004265d4a30e8936c606.png" alt=""></p>
+<p><img src="/js_senior/acc735982db22c3ed04be1716019db3f.png" alt=""></p>
+<p>之后我们想要双击之后直接选中文本框中的内容并且获得鼠标焦点</p>
+<p><img src="/js_senior/dbd7f87b7fe26dff8cd2844d547d189b.png" alt=""></p>
+<p><img src="/js_senior/0e17526fdbd189964c00aadb82debf5f.png" alt=""></p>
+<h3 id="select">select()</h3>
+<p>element.select()</p>
+<p>直接选中文本框中的所有文本，同时获得鼠标和键盘焦点</p>
+<p><img src="/js_senior/0e17526fdbd189964c00aadb82debf5f.png" alt=""></p>
+<p>之后我们将文本框中的内容赋值给之前的span元素并且删掉文本框即可，注意，由于文本框是span的innerHTML，所以直接修改span的innerHTML既可以完成赋值操作，又可以删掉文本标签</p>
+<p><img src="/js_senior/786299ecff596cf2576224d8452085e6.png" alt=""></p>
+<p>之后我们希望按下回车键也能实现onblur()类似的效果</p>
+<p><img src="/js_senior/6941af8567a07f578606ceaa27b5fa97.png" alt=""></p>
+<p>有个小技巧，既然是和blur()类似的效果，这里在触发回车事件的时候可以直接this.blur()也就相当于触发了鼠标失焦事件</p>
+<h3 id="blur">blur()</h3>
+<p>element.blur()</p>
+<p>手动调用元素失去焦点事件</p>
+<p>最后我们给li下面对应的section添加类似的功能，好消息是section的功能完全一样，因此不需要重新写了</p>
+<p><img src="/js_senior/eafb65e9e50e90e1b9d4a4708372d8dc.png" alt=""></p>
+<p>直接给他绑定事件就行了</p>
+<p><img src="/js_senior/c704c559e3c96684bda3f3f807f9e76c.png" alt=""></p>
+<h2 id="构造函数和原型">构造函数和原型</h2>
+<p><img src="/js_senior/00e11f59f2b635c9e2f16f42c94a9664.png" alt=""></p>
+<h3 id="构造函数">构造函数</h3>
+<p><img src="/js_senior/fc3f9df3ab10b955951a05c614a81954.png" alt=""></p>
+<p><img src="/js_senior/d4475bb0ad244f921542d6018dbcd55a.png" alt=""></p>
+<h4 id="实例成员">实例成员</h4>
+<p><img src="/js_senior/6fb088663ed5e1dd92468a6ccebb81d7.png" alt=""></p>
+<p><img src="/js_senior/ffe6ed3366daccb3bb9fb320e7b472c7.png" alt=""></p>
+<h4 id="静态成员">静态成员</h4>
+<p><img src="/js_senior/f1a1c943a0f4f093e45378088e2e6c6a.png" alt=""></p>
+<p>静态成员只能通过构造函数来访问，如果通过实例访问的话会提示undefined</p>
+<p><img src="/js_senior/4ac1557c320c58c23278eb710fff15bb.png" alt=""></p>
+<h4 id="构造函数的问题">构造函数的问题</h4>
+<p><img src="/js_senior/9520bef25c62c4ecb686063bce618ad4.png" alt=""></p>
+<p>由于对象是复杂数据类型，因此每开一个就要开辟一个实例空间来存放这个函数，这样会造成资源的浪费</p>
+<p><img src="/js_senior/d655b7041fd1714290725fc3948c8ae6.png" alt=""></p>
+<p>像这种情况返回的就是false（地址不同）</p>
+<h3 id="构造函数原型prototype">构造函数原型prototype</h3>
+<p><img src="/js_senior/fe7790aabbf0eceaf6eceda9b7f19a40.png" alt=""></p>
+<p>实现方法的共享，节约内存空间</p>
+<p><img src="/js_senior/a2d35e9c5dab53a3fa377ffc09695d75.png" alt=""></p>
+<p>一般情况下我们把属性放到构造函数里面，公共的方法放到原型的对象身上</p>
+<p><img src="/js_senior/0c8a35184ccd59282c297294037d7977.png" alt=""></p>
+<p>那么有一个问题：方法加在函数的prototype对象上，那为什么用函数生成的对象能直接使用原型上的方法呢：</p>
+<p><img src="/js_senior/30f9888b587c1f82b15134cec1f71644.png" alt=""></p>
+<p>那是因为有对象原型__proto__</p>
+<h4 id="语法">语法</h4>
+<p><img src="/js_senior/9b0bfc7d8e6a89089134e30f5817c3c0.png" alt=""></p>
+<p><img src="/js_senior/5d06d040d74aa5f036f41b96e321d2d7.png" alt=""></p>
+<h3 id="对象原型__proto__">对象原型__proto__</h3>
+<p><img src="/js_senior/4d73b1a8e96be0edcaeb01df5b52d7fb.png" alt=""></p>
+<p><img src="/js_senior/f1fdf5efe6a5585a7bfed9b806878bbd.png" alt=""></p>
+<p>对象原型__proto__其实就等于构造函数的prototype</p>
+<p><img src="/js_senior/60d3f52bea69006114fd12439b05436b.png" alt=""></p>
+<h3 id="对象的方法的查找规则">对象的方法的查找规则</h3>
+<p><img src="/js_senior/d142d7360b1f1ffbd37e3dfafd92acdf.png" alt=""></p>
+<p>首先看实例对象身上是否有该方法，有就执行，如果没有由于有__proto__的存在，会去原型对象prototype身上查找该方法，找到就执行</p>
+<h3 id="constructor">constructor</h3>
+<p><img src="/js_senior/a7d60416736383521f1a3e42804dd13f.png" alt=""></p>
+<p><img src="/js_senior/7a02114e48a0f1fc30b57c5492a8611f.png" alt=""></p>
+<p><img src="/js_senior/b4096dd41cadce3f38dbd4f23d268a9b.png" alt=""></p>
+<p><img src="/js_senior/87068381ed276534889350aeef4bba87.png" alt=""></p>
+<p>把sing和movie两个函数分开写是一点问题都没的，但是如果写在一起了（如上图），这时候再去打印constructor：</p>
+<p><img src="/js_senior/3d7b360208f7498e5fb0c58c87571dec.png" alt=""></p>
+<p><img src="/js_senior/deb4bf0bc92c75baee664733afdd1c02.png" alt=""></p>
+<p>这是因为从语法角度分析，用Star.prototype.sing =
+function(){}的方式添加sing这个方法不会抹去原先prototype对象中的属性和方法，而用Star.prototype
+= {sing: function(){}}
+的写法相当于直接赋值，把原先的属性和方法都覆盖掉了，所以才会导致prototype中的constructor不再指向原构造函数</p>
+<p>这个时候再直接输出原型prototype，发现他也被覆盖了</p>
+<p><img src="/js_senior/98cb862026e5b33067374666ef66bb8a.png" alt=""></p>
+<p><img src="/js_senior/c5d698870fa84e609d99e97398120c4b.png" alt=""></p>
+<p>很显然已经不再是原来那个Star了，而是我们给他新赋值的对象</p>
+<p>解决方法也很简单，重新给他写上就行了</p>
+<p><img src="/js_senior/41017fdfc10c765602a14c6eee67ebba.png" alt=""></p>
+<h3 id="构造函数实例原型对象三者之间的关系">构造函数、实例、原型对象三者之间的关系</h3>
+<p><img src="/js_senior/5bec337e60d5f06a06df1cdbb42a55ca.png" alt=""></p>
+<h3 id="原型链">原型链</h3>
+<h4 id="prototype的__proto__与object的__proto__">prototype的__proto__与Object的__proto__</h4>
+<p>只要是个对象就会有一个__proto__</p>
+<p>结果我们发现prototype的__proto__指向的是Object的prototype（这里可以参考原来的Star，Star.prototype
+=== star.<strong>proto</strong>）</p>
+<p><img src="/js_senior/a67f3f8159fa978897c33b5ac1947ff1.png" alt=""></p>
+<p>而Object的prototype的constructor指向的是Object的构造函数</p>
+<p>Object的prototype的__proto__指向的是null</p>
+<p>最后得到这样一张图：</p>
+<p><img src="/js_senior/850286c3b4427bc6e8acf817166f584d.png" alt=""></p>
+<p>所以方法的查找路线就是沿着这条原型链一步一步上去的</p>
+<h4 id="js的成员查找机制规则">Js的成员查找机制(规则)</h4>
+<p><img src="/js_senior/59b50ac461e8352cd14a589aa4cc56ce.png" alt=""></p>
+<p>不管是方法还是属性都是这么找的</p>
+<p>所以继承Object的类可以使用Object的toString()方法</p>
+<h3 id="原型对象this指向">原型对象this指向</h3>
+<ol>
+<li>
+<p>只有调用了才能知道这个this指向的是谁；</p>
+</li>
+<li>
+<p>不管是构造函数中的this还是原型对象中的this指向的都是实例对象</p>
+</li>
+</ol>
+<h3 id="原型对象的应用-扩展内置对象">原型对象的应用 扩展内置对象</h3>
+<p><img src="/js_senior/ce275be465dbcf351124af1f42aa0711.png" alt=""></p>
+<p><img src="/js_senior/d210ae2bd77cad5834afdf2195bb503a.png" alt=""></p>
+<p>当然，这个追加不能用Array.prototype =
+{}的方式（会报错），最佳的方法是用Array.prototype.sum = function(){}</p>
+<p><img src="/js_senior/7d42d5731c27dbadafffb6b99ea4f70f.png" alt=""></p>
+<p><img src="/js_senior/e2ce0d7741f5468db2908d8e70f2bb8d.png" alt=""></p>
+<h2 id="继承">继承</h2>
+<p><img src="/js_senior/434f0d4034229ed26ef0d5e7f4ebc375.png" alt=""></p>
+<h3 id="call">call()</h3>
+<p><img src="/js_senior/868232cf89144ed821c833f443f56145.png" alt=""></p>
+<p><img src="/js_senior/a1a4e1d45f8df355235199cb0f91d7c4.png" alt=""></p>
+<p>这个this指向的是window</p>
+<p><img src="/js_senior/4bb63ecb099196b67c2004be360a5c03.png" alt=""></p>
+<p>fn()效果等同fn.call()</p>
+<p><img src="/js_senior/f640dee85ced01de18164945de88280f.png" alt=""></p>
+<p>call()还可以改变函数指向的对象，再次打印之后上面那个this指向的就不是window了，而是对象o</p>
+<p><img src="/js_senior/115ec4c81105d73b22b98bea32c24ad0.png" alt=""></p>
+<p>还能传参</p>
+<h3 id="继承父类属性">继承父类属性</h3>
+<p><img src="/js_senior/dd674d6f3d539c7f0375e398b5193575.png" alt=""></p>
+<p>ES6之前的构造函数+原型对象的继承方式被称作组合继承</p>
+<p><img src="/js_senior/184f53c0beaba7530a54e0fb233e1a94.png" alt=""></p>
+<p>Son继承Father就这一句话，这里借助call()把Father中的this改成了Son的this</p>
+<p><img src="/js_senior/0b3365d54e81633b92e8796cfd8c3077.png" alt=""></p>
+<p><img src="/js_senior/5ddb0fb8ac76e0c5951db360e80b798e.png" alt=""></p>
+<p>当然，还可以扩展Son的属性</p>
+<p><img src="/js_senior/d2097daa45a6f51764fe322315554b34.png" alt=""></p>
+<h3 id="继承父类方法">继承父类方法</h3>
+<p><img src="/js_senior/1d8ea49ee2b4aaf1214b3d4fb75aa200.png" alt=""></p>
+<p>这里有个想法，我们在父亲的prototype中的写入想要继承的方法，执行 Son.prototype =
+Father.prototype，之后再在Son的prototype中写入自己想要的方法，这样虽然能实现，但是这个操作就等同于将Father.prototype的指针赋值给Son.prototype，会导致子做了修改会帮父一起做修改，这样显然是不行的</p>
+<p><img src="/js_senior/fc86a5075dc10b1211c828220414ee7d.png" alt=""></p>
+<p><img src="/js_senior/6b140c3c2fd1937e9de4bee0ce00bf8f.png" alt=""></p>
+<p>最终的解决方法是：</p>
+<p><img src="/js_senior/e81f42058cc1d054bc97c2dcdd592a90.png" alt=""></p>
+<p>让Son的原型直接等于新的Father实例对象，由于new
+Father()实际上会在内存中新开辟一块空间，因此他虽然有__proto__指向Father的prototype，但却不会影响Father的Prototype，这个时候Son的prototype就是Father的一个实例对象，那显然Son是可以使用Fahter.prototype中的方法啦，而且就算在Son中扩展自己的函数，影响的也只是这个Father的实例对象，是不会影响Father的prototype的，这就完美的模拟了方法的继承</p>
+<p><img src="/js_senior/e900392cb84e2b760a3d7358b389c602.png" alt=""></p>
+<p>但是会有一个问题，这个时候Son的prototype的constructor指向的肯定是Father构造函数，但是实际上我们却需要它指向Son的构造函数</p>
+<p>所以我们给它指回来</p>
+<p><img src="/js_senior/3a10c31c6b1e344d967c5b8013ef64b4.png" alt=""></p>
+<h2 id="es5中新增的方法">ES5中新增的方法</h2>
+<p><img src="/js_senior/edb7bfe01920c745e0923b4d17052e8c.png" alt=""></p>
+<p><img src="/js_senior/edfffe128472f273783b875504284899.png" alt=""></p>
+<h3 id="foreach">forEach()</h3>
+<p><img src="/js_senior/e8e5990cee4c2c4d86e998d0a8473db2.png" alt=""></p>
+<p><img src="/js_senior/a28dc7a3a29e82544f21f1101a55974b.png" alt=""></p>
+<h3 id="filter">filter()</h3>
+<p><img src="/js_senior/8071b4e763907b80652b4f2fa1d7173b.png" alt=""></p>
+<p><img src="/js_senior/22a923d9c41895214d2ccfb9cf338fdc.png" alt=""></p>
+<p><img src="/js_senior/1da3942bfe4572012ce328e6dc4f2c91.png" alt=""></p>
+<h3 id="some">some()</h3>
+<p><img src="/js_senior/f18ab9d3fac093aee21508b4d53b7484.png" alt=""></p>
+<p><img src="/js_senior/ccfd175db423ee26d8a0d538ea67fd72.png" alt=""></p>
+<p><img src="/js_senior/f6e8f4d8714f8560bbb0236db824ff68.png" alt=""></p>
+<p>这里只要找到符合条件的就会直接返回true，不会再继续往下找了</p>
+<h3 id="map">map()</h3>
+<p>和foreach()类似，也是用于遍历的</p>
+<h3 id="every">every()</h3>
+<p>和some()类似，只不过every()需要数组中所有元素都满足条件才返回true</p>
+<h3 id="案例">案例</h3>
+<p>1、</p>
+<p><img src="/js_senior/207d33483545ef6187df3724cc1ed28f.png" alt=""></p>
+<p><img src="/js_senior/108af7d0bc1d82060f6dd0a8ed55571c.png" alt=""></p>
+<p>把数据显示到页面</p>
+<p><img src="/js_senior/0ad6b268c5b564e16ca69c8099758ba2.png" alt=""></p>
+<p>封装把数据渲染到页面的函数</p>
+<p><img src="/js_senior/623731984f157a391261522a8ec3dcb1.png" alt=""></p>
+<p><img src="/js_senior/122f0f5257f899adcc81154403db000a.png" alt=""></p>
+<p>出现bug，应该先清空数据</p>
+<p><img src="/js_senior/86082b38cb2fda02cafbdb150d8ba88d.png" alt=""></p>
+<p><img src="/js_senior/239aff6f2feec1f5bcea1ca218ce2fd9.png" alt=""></p>
+<p>接下来制作查询功能</p>
+<p>可以用filter来做，但是由于some()找到之后就不会继续向下找的特性，some()的效率更高，所以我们用some()来做</p>
+<p><img src="/js_senior/75bc22797c6f0f4090a85cf1fde4490c.png" alt=""></p>
+<p><img src="/js_senior/602bb8aa05451f1d552bde264cded367.png" alt=""></p>
+<p>由于some()直接拿原来的写法来写的话是返回true 或
+false的，因此需要改写（如上图），我们让他找到就返回，并且特别要注意的是return
+后面必须写true</p>
+<h4 id="思考">思考</h4>
+<p>1、刚才的案例完全可以用forEach()或者filter()实现，那为什么不用呢？</p>
+<p><img src="/js_senior/8da22b47176a7c44253ac47ca44dada3.png" alt=""></p>
+<p>这里会打印三次11，分别在red、blue、pink，可见forEach写了return也并不会终止循环，filter()也一样</p>
+<p><img src="/js_senior/63886767c5feb9edc352b92f2a241c6e.png" alt=""></p>
+<p>而some()则不会再继续了</p>
+<p><img src="/js_senior/0e0a7b266bab28ccefd9f3b0ed502c4c.png" alt=""></p>
+<p>2、some()为什么一定要return true？</p>
+<p>写了return true说明他找到了元素，return false说明没找到</p>
+<p>some()能终止是因为这个return true，如果我们把return true改为return
+false，他就不会终止了：</p>
+<p><img src="/js_senior/e166981a39462fdf51723a945bf352ab.png" alt=""></p>
+<h3 id="trim">trim()</h3>
+<p><img src="/js_senior/e88108dee88a7ee20f880c003f743b49.png" alt=""></p>
+<p><img src="/js_senior/78fd3de99d918e1678715d90cff7ed97.png" alt=""></p>
+<p>解决了以前input表单里面字符可能为空字符的问题</p>
+<h3 id="keys">keys()</h3>
+<p><img src="/js_senior/801706fc705890fb96a774758363c252.png" alt=""></p>
+<h3 id="objectdefineproperty">Object.defineProperty()</h3>
+<p><img src="/js_senior/27a61d33bdb3ca924ef945cc92c7de7f.png" alt=""></p>
+<h4 id="该方法中第三个参数discriptor说明">该方法中第三个参数discriptor说明</h4>
+<p><img src="/js_senior/c2f8227662edf92a16766e890408ca6a.png" alt=""></p>
+<p>value就是添加或者修改的属性对应的值</p>
+<p>writable定义值是否可以重写，默认为false表示不可重写</p>
+<p><img src="/js_senior/2ed771f1a13c81e407ccaec5531363f4.png" alt=""></p>
+<p>enumerable定义属性是否能被遍历出来，默认为false</p>
+<p><img src="/js_senior/a2318db11ca3974490fdb0a0116c6fca.png" alt=""></p>
+<p><img src="/js_senior/ade4b35dd4b6cf796ea1c1061f2231d7.png" alt=""></p>
+<p>我们可以看到enumerable为false之后就遍历不出address属性了</p>
+<p>configurable定义属性是否能被修改或者删除，默认为false</p>
+<p><img src="/js_senior/4661a56a56151ddfc35b983c090fd437.png" alt=""></p>
+<p>注意，当属性在之前设置了configurable为false之后，在使用Object.defineProperty()时就不能再设置该方法的第三个参数里面的特性了，比如：</p>
+<p>我在前面设置了address属性：</p>
+<p><img src="/js_senior/768539068da125597473db1b025f056a.png" alt=""></p>
+<p>如果我在后面又重新设置了一遍address属性：</p>
+<p><img src="/js_senior/798193a32d97b880c5c45a7eda1cfda7.png" alt=""></p>
+<p>是会报错的，因为第一次设置address属性的时候就设置了configurable为false</p>
+<h4 id="delete">delete</h4>
+<p>删除操作</p>
+<p><img src="/js_senior/07854ef463bc1b3957f80515899e622e.png" alt=""></p>
+<h2 id="函数进阶">函数进阶</h2>
+<h3 id="函数的定义和调用">函数的定义和调用</h3>
+<p><img src="/js_senior/6d4051bfa87a361033345627282317cb.png" alt=""></p>
+<p>以前是用这两种：</p>
+<p><img src="/js_senior/c0bd0c13ae7cbbbde8c419180c4ad406.png" alt=""></p>
+<p>其实还有第三种方式（了解即可，不常用）：</p>
+<p><img src="/js_senior/6570474c1373e4a4cfb594c4e69fa20a.png" alt=""></p>
+<p><img src="/js_senior/06b6a6be755a508ffab407bfaa950768.png" alt=""></p>
+<p>其实我们定义的每一个函数都是Function的实例</p>
+<h4 id="函数定义方式">函数定义方式</h4>
+<p><img src="/js_senior/e9a046b4ecb7b3c441e3a9657a99ea2a.png" alt=""></p>
+<h4 id="函数调用方式">函数调用方式</h4>
+<p><img src="/js_senior/10f5123055413d4bf6323524c5aa7368.png" alt=""></p>
+<p><img src="/js_senior/6e90c826053b23c949657689f48ce453.png" alt=""></p>
+<p><img src="/js_senior/5ee63d3609f40d447d67442463c4ad39.png" alt=""></p>
+<p><img src="/js_senior/8a58dda58b7e8f3548e8ed30f26a174d.png" alt=""></p>
+<p><img src="/js_senior/43d31b3bf178484e069b709ab2a6fbcc.png" alt=""></p>
+<p><img src="/js_senior/a2a43c543dd7ea726ac0bf29835355e5.png" alt=""></p>
+<h3 id="函数内this的指向">函数内this的指向</h3>
+<p><img src="/js_senior/682893ea0bc76cba311c5362ba513ff7.png" alt=""></p>
+<p><img src="/js_senior/783830e49ecbec63485097316c352634.png" alt=""></p>
+<p><img src="/js_senior/7319af1d509f387b99a71b88987e9250.png" alt=""></p>
+<p><img src="/js_senior/f965040a69c254f1884ef2a99b83c38e.png" alt=""></p>
+<p><img src="/js_senior/a43c3eebd6fe2a277b17a34aaf37f799.png" alt=""></p>
+<p><img src="/js_senior/95a8e6b1c926ecb3a32c44f79aaf9c5a.png" alt=""></p>
+<p><img src="/js_senior/9cc7e31198d03386e26dcf6e9f8ee8c8.png" alt=""></p>
+<p>注意，立即执行函数 this指向的是window</p>
+<h4 id="改变函数内部this指向">改变函数内部this指向</h4>
+<h5 id="call-1">call</h5>
+<p><img src="/js_senior/2c86cb8b96ed41dadebd18116fff6e80.png" alt=""></p>
+<p><img src="/js_senior/2a5d42ca414dbee5073dea24314fcd13.png" alt=""></p>
+<p><img src="/js_senior/cd5799d75f84a35bfcc51a7e8b2fedf4.png" alt=""></p>
+<h5 id="apply">apply</h5>
+<p><img src="/js_senior/dcfff29c8c8d2303dc13caad81f9f369.png" alt=""></p>
+<p><img src="/js_senior/8e2c650546e4b9353fd4e39248a95b56.png" alt=""></p>
+<p>apply跟call基本一样，只是他的参数传递必须是数组（也可以是伪数组）</p>
+<p>注意，他虽然传的是数组，但是到函数体里面的时候就会变成函数体参数所需要的类型，比方说我们传进去的数字型数组，进去之后会变数字型参数，字符型的数组会变字符型参数</p>
+<p>如果他的第一个参数写的是null说明不需要改变函数this指向，但是一般不要写null，不太合适的，一般要写调用者</p>
+<p><img src="/js_senior/2177211cd8cb3a3a7db5eb0710306ff0.png" alt=""></p>
+<p>apply的主要应用：</p>
+<p>比方说求数组最大值，换做以前需要用for循环去找，现在不必了：</p>
+<p><img src="/js_senior/6060653cbe185ba41a1bc0d4d7c2b5b4.png" alt=""></p>
+<p>通过apply将arr传入Math.max，即可求出最大值；min也是一样的</p>
+<h5 id="bind">bind</h5>
+<p><img src="/js_senior/4cb93c4c4271e2ceb542f01db26af14d.png" alt=""></p>
+<p>bing和前两个的区别在于他只修改函数this指向但不会调用函数，返回的是改造过的函数的<strong>拷贝</strong></p>
+<p><img src="/js_senior/a3f436f00ed06e9d71642be19906262d.png" alt=""></p>
+<p>只写fn.bind(o)是不会有输出的，因为他只返回改造后的函数的拷贝</p>
+<p><img src="/js_senior/bbdaa5d96b958e81c03d613d85b9ca30.png" alt=""></p>
+<p>当然bind也可以传递参数</p>
+<p>在实际开发中bind用的最多</p>
+<p>因为有的函数我们不需要立即调用，但是又想改变这个函数内部的this指向</p>
+<p><img src="/js_senior/8ce2c1bdf9b1f9c8eddf50ed410b7a7a.png" alt=""></p>
+<p>上图倒数第三行不能写this.disabled，因为里面的this指向window，写btn.disabled也不太好，以前的方法是在外面声明that指向this，再写that.disabled</p>
+<p><img src="/js_senior/19c5ba2820f9bb8f469dcd67ea402268.png" alt=""></p>
+<p>但是这样也很麻烦，现在我们可以用bind</p>
+<p><img src="/js_senior/7fa7dea00e359dccece981a0e24c4a67.png" alt=""></p>
+<p>由于是执行内部的function函数，因此我们的bind要加在这个函数的后面，当然，更好的写法：</p>
+<p><img src="/js_senior/3f94df9189d11e0e9323c4f4d0c5c0dc.png" alt=""></p>
+<p>bind里面的this其实就是btn</p>
+<p>再来看这个案例</p>
+<p><img src="/js_senior/df6d10f18940dcad2b15cf3175702f32.png" alt=""></p>
+<p>当我们循环给btn绑定事件的时候像上图这样写是有问题的，因为for循环是立即执行的，而setTimeout不是，因此当我们最后点击某个按钮的时候这里的btns[i]
+里面的i并不是我们所想的是对应某个btn的索引，这个i其实是for循环遍历之后的i，这里我们btns有三个，显然i这时候已经是4了，那btns[4]显然是会报错的，因为根本没有这个btn。</p>
+<p>解决方法：</p>
+<p><img src="/js_senior/e06534e8aa04e00112006fd4fb59f384.png" alt=""></p>
+<h4 id="callapplybind总结">call、apply、bind总结</h4>
+<p><img src="/js_senior/cf722c03da3ae06a9139ea26e9fcb78e.png" alt=""></p>
+<h2 id="严格模式">严格模式</h2>
+<p><img src="/js_senior/fda6e09966ff66b433644d385ccf4301.png" alt=""></p>
+<p><img src="/js_senior/787ae53bf047b57ee943e50e64e5c6f1.png" alt=""></p>
+<p><img src="/js_senior/092a09600f0b79ab5c275a570a5b9483.png" alt=""></p>
+<p><img src="/js_senior/229d1f4de5bfea22196f857a17842f2b.png" alt=""></p>
+<h3 id="开启严格模式">开启严格模式</h3>
+<h4 id="为整个脚本开启严格模式">为整个脚本开启严格模式</h4>
+<p><img src="/js_senior/8af08654e4e680a2ec6d170040f34ccb.png" alt=""></p>
+<p>script里面最上面一行写 ‘use strict’;</p>
+<p>有的script脚本是严格模式，有的是正常模式，为了防止合并js文件的时候导致变量污染，也可以用立即执行函数，这样独立创建一个作用域而不会影响其他的脚本文件：</p>
+<p><img src="/js_senior/d061bf8b48e389ad366bbb6fb7bfded4.png" alt=""></p>
+<p>之后我们把代码写到立即执行函数里面就行了，也就相当于给整个脚本开启了严格模式</p>
+<h4 id="为某个函数开启严格模式">为某个函数开启严格模式</h4>
+<p><img src="/js_senior/5a5684cbff3388cbb98e116beba025fb.png" alt=""></p>
+<p>直接在函数里面添加那句话就好了</p>
+<h3 id="严格模式中的变化">严格模式中的变化</h3>
+<p><img src="/js_senior/3356c73a6aefe280c6ab720b8dd3513f.png" alt=""></p>
+<p><img src="/js_senior/6ae91348c3d51a92e3f0e1d591e1f8d4.png" alt=""></p>
+<p>用了严格模式上面的num会报错，必须用var先声明</p>
+<p><img src="/js_senior/9b1a09cedb04dce388659a66682c0131.png" alt=""></p>
+<p>严格模式下删除已经声明好的变量也会报错</p>
+<h4 id="严格模式下this指向问题">严格模式下this指向问题</h4>
+<p><img src="/js_senior/364c09ae2c334a077eb43ef9d3837104.png" alt=""></p>
+<p>以前全局作用域中的函数this指向的一定是window，而严格模式下它指向的是undefined</p>
+<p><img src="/js_senior/5cea76de5f188f51e6df45dfc007a2d4.png" alt=""></p>
+<p><img src="/js_senior/8af518e6588d4ca20e4089dda31c0583.png" alt=""></p>
+<p>要是以前的话上图代码是可以直接写的，由于直接调用了，函数里面的this指向的是window，因此window.sex是有值的，而严格模式下由于全局的this指向undefined，我们不能给undefined赋值sex，因此在还没到console.log这一步的时候，也就是在Star()这一步的时候就会报错了，报错信息指出不能给undefined赋值sex</p>
+<p><img src="/js_senior/de9b1b070c46ead3e5c6fb649399f215.png" alt=""></p>
+<p>在严格模式下必须给构造函数加new</p>
+<h5 id="特殊点">特殊点</h5>
+<p><img src="/js_senior/abbc4da46eb9acea46541e81df179509.png" alt=""></p>
+<p><img src="/js_senior/f0422bba6eb7df09d41c6f8be71e0979.png" alt=""></p>
+<p>不管是严格模式还是正常模式，定时器里面的this还是指向window，事件、对象还是指向调用者</p>
+<h4 id="严格模式下函数变化">严格模式下函数变化</h4>
+<p><img src="/js_senior/28f630cac4832ee2f882fa6698a33288.png" alt=""></p>
+<p><img src="/js_senior/5430a0063d26c4d993614028d32968de.png" alt=""></p>
+<p>要是以前，可以像上图这样写（这明显不合理），上图最后输出为4，那是因为变量层叠性，a=2在后面覆盖了a=1</p>
+<p>在严格模式下不能重名</p>
+<p>第二个就是不能再非函数的代码块内声明函数</p>
+<p><img src="/js_senior/43ca37ff8895a10c138903fd6c952b53.png" alt=""></p>
+<p>这个也比较符合正常思维，要注意的是在函数内部还是可以声明函数的</p>
+<p>其他的还有，像严格模式下不能使用八进制了等等</p>
+<h2 id="高阶函数">高阶函数</h2>
+<p><img src="/js_senior/58fb75b1dde2dfc52e46ccf521d1cfae.png" alt=""></p>
+<p>形参是函数或者返回值是函数都叫高阶函数</p>
+<p><img src="/js_senior/8f9aae4816eba29c13c68f56177b60f8.png" alt=""></p>
+<p>回调函数就是典型的高阶函数</p>
+<h2 id="闭包">闭包</h2>
+<p><img src="/js_senior/bb44e2b3aac124446ea7b0dcaa2332b4.png" alt=""></p>
+<p><img src="/js_senior/90c9c053fc869489505b9a7fca7e22db.png" alt=""></p>
+<p><img src="/js_senior/595b21e8e891cf36b3306ddfb2c42fbb.png" alt=""></p>
+<p>里面的fun()函数能访问到num变量，这就是一个闭包</p>
+<p><img src="/js_senior/5d74abc1c45c7268492a5415eb22dd11.png" alt=""></p>
+<p>fun()函数能访问到别的函数（这里就是fn()函数）内的变量，这个被访问的变量所在的函数就叫闭包函数（这里显然fn()就是闭包函数，因为num变量在fn()函数内）</p>
+<p>那么这种是函数内部的函数访问函数内部的变量，这没什么稀奇的，但其实还可以函数外部的作用域访问函数内部的局部变量！</p>
+<p><img src="/js_senior/edb0522f81516321f82ac447ee15b7c1.png" alt=""></p>
+<p><img src="/js_senior/1fb842afe33240a244d15d699e6553a6.png" alt=""></p>
+<p>这里我们把函数内部的函数返回出去，这样在函数外部的作用域调用函数的话就相当于借助函数内部的函数将函数内部的局部变量传递给函数外部，也就达到了在函数外部使用函数内部的局部变量</p>
+<p><img src="/js_senior/745a7012002dfb1ce4dc6b1e444e24dd.png" alt=""></p>
+<p>这里函数return了一个函数，所以我们的闭包也是典型的高阶函数</p>
+<p>到这里我们能总结出闭包的主要作用：<strong>延伸了变量的作用范围</strong></p>
+<p>同时，原来我们讲函数里面的局部作用域会在函数执行完毕之后销毁，但是这个局部变量在函数执行完毕之后不会销毁，因为我们还有一个外部的变量等着调用它，必须等外部的变量把它调用完毕之后才会销毁（这里就是fn()函数内的局部变量num，由于外部的f还需要调用num，所以num在fn()调用完毕后还不会销毁，要等f调用完了才会销毁）</p>
+<h3 id="闭包案例">闭包案例</h3>
+<p>1、</p>
+<p><img src="/js_senior/e26ba75d548be435da9d44c461f401ff.png" alt=""></p>
+<p><img src="/js_senior/b0115993f2bd33b6bae8c2bb2ee77b27.png" alt=""></p>
+<p><img src="/js_senior/322cbb159bd963e711e178c7372742e3.png" alt=""></p>
+<p>由于for循环是同步任务，会立刻执行，而lis的click事件的function是异步任务，不会立刻执行，所以当我们回过头来点击lis（不管点哪个都一样）的时候输出的i全都是4（i++到最后为4）</p>
+<p>以前的解决方法：</p>
+<p><img src="/js_senior/6da7351a640880718c9ab407843e6ed5.png" alt=""></p>
+<p>现在的解决方法：</p>
+<p><img src="/js_senior/932f99078e20d6e5856d685a705691b4.png" alt=""></p>
+<p><img src="/js_senior/e6f69f8c18eec10a9f87bfb0345960fc.png" alt=""></p>
+<p>我们利用闭包传入每次循环的i到立即执行函数，再去绑定每个li的点击事件</p>
+<p>注意这里的闭包是立即执行函数，不是for循环</p>
+<p><img src="/js_senior/0dc80e101dfeef37077c5a10d5161a79.png" alt=""></p>
+<p>但是乍一看第二种方法更复杂了，每次循环都要创建很多函数，所以不是说闭包就一定是好的，在某些情况下它效率反而更低</p>
+<p>而且这里的i本来在立即执行函数结束之后就可以立即释放的，但是由于里面的点击事件一直在等待点击，只有点击事件结束后i变量才会销毁，如果一直不点击就一直不会销毁，这也会造成占用内存和内存泄漏。</p>
+<p><strong>当然我们要看清本质，闭包的主要作用就是延伸某些局部变量的作用范围，要抓住这一点去用闭包！在实际开发中也是，需要合理利用闭包。</strong></p>
+<p>2、</p>
+<p><img src="/js_senior/78ec490c0ebe3099cdd0541384f72ba3.png" alt=""></p>
+<p><img src="/js_senior/218f298e59a635472cb761bd678e9040.png" alt=""></p>
+<p>还是上面那个例子，但是这里的需求是三秒之后打印li的内容</p>
+<p><img src="/js_senior/d1461ed88169ce0f9126afb6d298b210.png" alt=""></p>
+<p>如果直接这么写显然是错误的，原因跟上面的一样（for循环同步任务，定时器异步任务）</p>
+<p>正确做法：利用小闭包</p>
+<p><img src="/js_senior/526c695e140840fa2cf990a3e974f2f8.png" alt=""></p>
+<p>3、</p>
+<p><img src="/js_senior/1fb77af421f7d8c777e6b6898a6a9ddb.png" alt=""></p>
+<p><img src="/js_senior/79a0b95fef790f8decc74e1fde35ff92.png" alt=""></p>
+<p><img src="/js_senior/daabddee202057fc0dcdf3fbe2f15c33.png" alt=""></p>
+<p>这里最外层的匿名的立即执行函数就是一个闭包</p>
+<p><img src="/js_senior/7d57b9a2d54651a7a3a635291d9ffde6.png" alt=""></p>
+<p>被延伸作用于范围的局部变量有start和total</p>
+<h3 id="思考题">思考题</h3>
+<p>1、</p>
+<p><img src="/js_senior/faed94a2ca49359609f158a804ad3d1b.png" alt=""></p>
+<p>问：这里输出是什么？有没有闭包的产生？</p>
+<p><img src="/js_senior/907ab687e2c5457cc4d0ecdc7e90b510.png" alt=""></p>
+<p>按照上图将object.getNameFunc()()拆解</p>
+<p>想得通的话也不用拆解</p>
+<p>很明显这个this.name的this指向window，所以输出是“The Window”，而且我们看这一块：</p>
+<p><img src="/js_senior/01fdf64856fc8c8a10666d6ad5a16937.png" alt=""></p>
+<p>最里面的函数并没有用到上一层函数的局部变量，因此它没有产生闭包</p>
+<p>2、</p>
+<p><img src="/js_senior/0da8469fc6c236ab5493a06eff09c266.png" alt=""></p>
+<p>还是上面那一段代码，区别是这里用了一个that</p>
+<p>问：输出是什么？产生闭包了吗？</p>
+<p>这里还是拆解一下：</p>
+<p><img src="/js_senior/6e7494a87171b39c0c1fa66d22cb121c.png" alt=""></p>
+<p>谁调用函数this就指向谁</p>
+<p>所以这一块：</p>
+<p><img src="/js_senior/d85b2ffdf18389760885b94ff5e3872b.png" alt=""></p>
+<p>这个that指向的其实是object，所以可以判断输出是“My Object”</p>
+<p>那有没有用到闭包呢？</p>
+<p>答案是有的！</p>
+<p>因为他用到了that这个变量，而that是最内层的函数的上一层函数的局部变量，所以是有产生闭包的。</p>
+<p>而且闭包就是getNameFunc这个函数</p>
+<h3 id="闭包总结">闭包总结</h3>
+<p><img src="/js_senior/449b39ea3774e6e658e1425f207b8c67.png" alt=""></p>
+<p><img src="/js_senior/dd248f723824189e731e47c6413a9ee1.png" alt=""></p>
+<p>还是要强调一下，that这个局部变量在getNameFunc()执行完毕之后（上图的箭头）不会立即销毁，他会等其他函数调用完之后才销毁。</p>
+<h2 id="递归">递归</h2>
+<p>在递归中使用forEach的话还需要比一般的for循环多写一步：</p>
+<p><img src="/js_senior/206dabb3912121064d813f6bc60a9f87.png" alt=""></p>
+<p>通过测试，js的forEach里面直接return是没用的，需要通过在外层设置全局变量传参的方式才行，这点需要注意</p>
+<h3 id="浅拷贝">浅拷贝</h3>
+<p>浅拷贝如果拷贝的是对象级别的，那他只是拷贝了地址</p>
+<p><img src="/js_senior/ac64749b2f8828f76f7786eca0f0e501.png" alt=""></p>
+<p><img src="/js_senior/d042fdeaa46273888de39437529c5d9b.png" alt=""></p>
+<h4 id="objectassigntarget-source">Object.assign(target, source)</h4>
+<p><img src="/js_senior/ed7be030e6db1f889ae23cc7973709b4.png" alt=""></p>
+<p>实际开发中浅拷贝一般直接用assign，不会去写for循环</p>
+<p><img src="/js_senior/a631799e5c66a8eb9ff717068b1a8fd1.png" alt=""></p>
+<h3 id="深拷贝">深拷贝</h3>
+<p><img src="/js_senior/9b58540d74c356d80fbc0e96abc3c9a4.png" alt=""></p>
+<p>注意这里Array的判断写在Object前面，因为Array本身也是Object</p>
+<p><img src="/js_senior/2c474e521ecc0c3decb166f7fbca8026.png" alt=""></p>
+<h2 id="正则表达式">正则表达式</h2>
+<p><img src="/js_senior/aa6a87f6495d1905795371fba83a751f.png" alt=""></p>
+<p><img src="/js_senior/1a987d72b351712145876d31f026fb45.png" alt=""></p>
+<h3 id="创建正则表达式">创建正则表达式</h3>
+<p><img src="/js_senior/089223bb9becbaabd3c2583a01dfc75a.png" alt=""></p>
+<p><img src="/js_senior/84cec7c8acd9c39f7b2d04a3ba7f42ea.png" alt=""></p>
+<p><img src="/js_senior/287142b8a43cfb592c78a6252fbf78b0.png" alt=""></p>
+<h3 id="测试字符串是否符合正则表达式">测试字符串是否符合正则表达式</h3>
+<p><img src="/js_senior/db888dc8419e17425919c9e181b7b5f0.png" alt=""></p>
+<p>符合则返回true，不符合返回false</p>
+<h3 id="量词符">量词符</h3>
+<p><img src="/js_senior/a017f1cc6e4dd43ce3c24014e8c6aae6.png" alt=""></p>
+<p>要注意的是 ？ ，表示的是出现0次或者1次</p>
+<h3 id="小括号">小括号</h3>
+<p>表示优先级</p>
+<p><img src="/js_senior/1a20971523d471705f7a063b4d37b6df.png" alt=""></p>
+<p>不加小括号就是匹配abccc</p>
+<p><img src="/js_senior/116b6562dbb14c176e23405f8bb2e0c9.png" alt=""></p>
+<p>加了小括号就是匹配abcabcabc</p>
+<h3 id="或者符号-">或者符号 |</h3>
+<p><img src="/js_senior/5a53ff87e7f48493daf251f75e799092.png" alt=""></p>
+<h3 id="中文匹配">中文匹配</h3>
+<p><img src="/js_senior/f169780f9b272a32a723f064fb48cb53.png" alt=""></p>
+<p>\u 表示Unicode编码</p>
+<p>这个范围包含了所有中文字符</p>
+<h3 id="侵占模式-pattern">侵占模式 （?&gt;Pattern）</h3>
+<p>和侵占量词 “+” 可以通用</p>
+<p><img src="/js_senior/143a8d7a37b8ddc33d3105be2c03345b.png" alt=""></p>
+<h3 id="模式修正符">模式修正符</h3>
+<p><img src="/js_senior/78d07c2e985c43ba1e73ee9241701351.png" alt=""></p>
+<h3 id="替换replace">替换replace</h3>
+<p><img src="/js_senior/9d8a9318e4ebe58f26f26f59b661193a.png" alt=""></p>
+<p><img src="/js_senior/10ada75de6a0b59c7249fcec31fccbc3.png" alt=""></p>
+<p>原先是直接替换具体文本，其实还可以写正则表达式。</p>
+<p>但是像图上这样还是会有问题：</p>
+<p><img src="/js_senior/aeadf090f50778303a72b2a8a9bbff0f.png" alt=""></p>
+<h3 id="全局匹配与忽略大小写">全局匹配与忽略大小写</h3>
+<p><img src="/js_senior/c3be745d30040334fcab0b6a0b1dd5d6.png" alt=""></p>
+<p><img src="/js_senior/d51144d03699f20d308b8c7b288cd1ee.png" alt=""></p>
+<p><img src="/js_senior/812c8416fa73d0e156ce76c97393e581.png" alt=""></p>
+<h3 id="典型易错案例">典型易错案例</h3>
+<p>1、</p>
+<p><img src="/js_senior/ee61db2d3796356502cbca7d4b4160c5.png" alt=""></p>
+<p>这里要求以a或b或c开头或者结尾，但是只能存在一个字符，所以除了“a”、“b”、“c”这三个是true，其他的都是false</p>
+<p>2、</p>
+<p>特别注意！</p>
+<p><img src="/js_senior/b1eba3555f1c3de42158485baf848d18.png" alt=""></p>
+<p>写{6,16}的时候逗号后面不能有空格！！！不然就会失效</p>
+<p>而且{6,16}的意思是大于等于6，小于等于16</p>
+<h3 id="案例-1">案例</h3>
+<p><img src="/js_senior/cba315925a36d74fbd72baf100a0b381.png" alt=""></p>
+<p><img src="/js_senior/2d07816f49739e0153072ecf601efe2e.png" alt=""></p>
+<h2 id="典型易错案例-1">典型易错案例！</h2>
+<p><img src="/js_senior/df6d10f18940dcad2b15cf3175702f32.png" alt=""></p>
+<p>当我们循环给btn绑定事件的时候像上图这样写是有问题的，因为for循环是立即执行的，而setTimeout不是，因此当我们最后点击某个按钮的时候这里的btns[i]
+里面的i并不是我们所想的是对应某个btn的索引，这个i其实是for循环遍历之后的i，这里我们btns有三个，显然i这时候已经是4了，那btns[4]显然是会报错的，因为根本没有这个btn。解决方法：</p>
+<p><img src="/js_senior/e06534e8aa04e00112006fd4fb59f384.png" alt=""></p>
+<h2 id="技巧">技巧</h2>
+<p>1、由于some()找到之后就不会继续向下找的特性，就查找单个唯一元素来讲some()比filter()更合适</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>JavaScript -senior</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#类与对象">类与对象</a>
+      <ul>
+        <li><a href="#构造器">构造器</a></li>
+        <li><a href="#给类添加方法">给类添加方法</a></li>
+        <li><a href="#类的继承">类的继承</a></li>
+        <li><a href="#super关键字">super关键字</a></li>
+        <li><a href="#this指向问题跟原先的想法不太一样">this指向问题（跟原先的想法不太一样）</a></li>
+      </ul>
+    </li>
+    <li><a href="#面向对象版tab栏切换案例">面向对象版tab栏切换案例</a>
+      <ul>
+        <li><a href="#tab栏切换功能">tab栏切换功能</a></li>
+        <li><a href="#tab栏添加功能">tab栏添加功能</a></li>
+        <li><a href="#insertadjacenthtml">insertAdjacentHTML()</a></li>
+        <li><a href="#tab栏删除功能">tab栏删除功能</a></li>
+        <li><a href="#remove">remove()</a></li>
+        <li><a href="#tab栏编辑功能">tab栏编辑功能</a></li>
+        <li><a href="#ondblclick">ondblclick()</a></li>
+        <li><a href="#双击禁止选定文字直接复制代码就行了">双击禁止选定文字（直接复制代码就行了）</a></li>
+        <li><a href="#select">select()</a></li>
+        <li><a href="#blur">blur()</a></li>
+      </ul>
+    </li>
+    <li><a href="#构造函数和原型">构造函数和原型</a>
+      <ul>
+        <li><a href="#构造函数">构造函数</a></li>
+        <li><a href="#构造函数原型prototype">构造函数原型prototype</a></li>
+        <li><a href="#对象原型__proto__">对象原型__proto__</a></li>
+        <li><a href="#对象的方法的查找规则">对象的方法的查找规则</a></li>
+        <li><a href="#constructor">constructor</a></li>
+        <li><a href="#构造函数实例原型对象三者之间的关系">构造函数、实例、原型对象三者之间的关系</a></li>
+        <li><a href="#原型链">原型链</a></li>
+        <li><a href="#原型对象this指向">原型对象this指向</a></li>
+        <li><a href="#原型对象的应用-扩展内置对象">原型对象的应用 扩展内置对象</a></li>
+      </ul>
+    </li>
+    <li><a href="#继承">继承</a>
+      <ul>
+        <li><a href="#call">call()</a></li>
+        <li><a href="#继承父类属性">继承父类属性</a></li>
+        <li><a href="#继承父类方法">继承父类方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#es5中新增的方法">ES5中新增的方法</a>
+      <ul>
+        <li><a href="#foreach">forEach()</a></li>
+        <li><a href="#filter">filter()</a></li>
+        <li><a href="#some">some()</a></li>
+        <li><a href="#map">map()</a></li>
+        <li><a href="#every">every()</a></li>
+        <li><a href="#案例">案例</a></li>
+        <li><a href="#trim">trim()</a></li>
+        <li><a href="#keys">keys()</a></li>
+        <li><a href="#objectdefineproperty">Object.defineProperty()</a></li>
+      </ul>
+    </li>
+    <li><a href="#函数进阶">函数进阶</a>
+      <ul>
+        <li><a href="#函数的定义和调用">函数的定义和调用</a></li>
+        <li><a href="#函数内this的指向">函数内this的指向</a></li>
+      </ul>
+    </li>
+    <li><a href="#严格模式">严格模式</a>
+      <ul>
+        <li><a href="#开启严格模式">开启严格模式</a></li>
+        <li><a href="#严格模式中的变化">严格模式中的变化</a></li>
+      </ul>
+    </li>
+    <li><a href="#高阶函数">高阶函数</a></li>
+    <li><a href="#闭包">闭包</a>
+      <ul>
+        <li><a href="#闭包案例">闭包案例</a></li>
+        <li><a href="#思考题">思考题</a></li>
+        <li><a href="#闭包总结">闭包总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#递归">递归</a>
+      <ul>
+        <li><a href="#浅拷贝">浅拷贝</a></li>
+        <li><a href="#深拷贝">深拷贝</a></li>
+      </ul>
+    </li>
+    <li><a href="#正则表达式">正则表达式</a>
+      <ul>
+        <li><a href="#创建正则表达式">创建正则表达式</a></li>
+        <li><a href="#测试字符串是否符合正则表达式">测试字符串是否符合正则表达式</a></li>
+        <li><a href="#量词符">量词符</a></li>
+        <li><a href="#小括号">小括号</a></li>
+        <li><a href="#或者符号-">或者符号 |</a></li>
+        <li><a href="#中文匹配">中文匹配</a></li>
+        <li><a href="#侵占模式-pattern">侵占模式 （?&gt;Pattern）</a></li>
+        <li><a href="#模式修正符">模式修正符</a></li>
+        <li><a href="#替换replace">替换replace</a></li>
+        <li><a href="#全局匹配与忽略大小写">全局匹配与忽略大小写</a></li>
+        <li><a href="#典型易错案例">典型易错案例</a></li>
+        <li><a href="#案例-1">案例</a></li>
+      </ul>
+    </li>
+    <li><a href="#典型易错案例-1">典型易错案例！</a></li>
+    <li><a href="#技巧">技巧</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

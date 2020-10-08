@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  axios -additional &ndash; Learning Records
+
+    </title>
+    
+    <meta content="JavaScript, axios" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of axios source code&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="axios -additional | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of axios source code&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF file</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">axios -additional</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/additional' class="muted-link">
+  <span class="Label Label--gray-darker">Additional</span>
+</a>
+
+
+
+<a href='/tags/javascript' class="muted-link">
+  <span class="Label Label--gray">JavaScript</span>
+</a>
+
+<a href='/tags/axios' class="muted-link">
+  <span class="Label Label--gray">axios</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-04-01. Published at: 2020-04-01.">
+        
+          Published: 2020-04-01
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of axios source code&hellip;</p>
+<h2 id="axios源码">axios源码</h2>
+<p><img src="/axios_source_code/1141e9c9637e8e4c5b661f5eeed3e4f1.png" alt=""></p>
+<p>一般项目打包之后的目录都叫dist，只有react那个不太一样，那个叫bulid</p>
+<p><img src="/axios_source_code/de99e83bea1304be919f42b615182bfb.png" alt=""></p>
+<p>lib是所有源码的文件</p>
+<p><img src="/axios_source_code/6f27b4341f1dbc4bb7462ffb0f9e99e3.png" alt=""></p>
+<h3 id="exports与require">exports与require</h3>
+<p>exports提供模块公开的接口，require用于从外部获取一个模块的接口，及所获取的exports对象</p>
+<p>上图我们发现index.js暴露的接口为./lib/axios</p>
+<h3 id="首先看adaptor下的xhrjs">首先看adaptor下的xhr.js</h3>
+<p><img src="/axios_source_code/769d676c6d1a19110558aea0b13d02ba.png" alt=""></p>
+<p><img src="/axios_source_code/7a9ae799d6e8114ad69bdea2f8b31403.png" alt=""></p>
+<p>发现他也是new了一个xhr，并且也是返回了一个Promise，跟我们写的差不多</p>
+<p><img src="/axios_source_code/0d20244946ce1010899db9a0abdbdfe9.png" alt=""></p>
+<p>之前说axios既能在浏览器端发送ajax请求，又能在nodejs端发送http请求，上图就是他封装的发送http请求的代码</p>
+<h3 id="再看cancel下的canceljs与iscanceljs">再看cancel下的Cancel.js与isCancel.js</h3>
+<p><img src="/axios_source_code/ef857bae1b1477237f4a51e886d0c90a.png" alt=""></p>
+<p><img src="/axios_source_code/5dfaf24d47e567fc8684a8d571a2424d.png" alt=""></p>
+<p>一般的Error对象里面没有__CANCEL__这个属性，所以这是判断的关键</p>
+<h4 id="js中的--的作用">js中的 !! 的作用</h4>
+<p>上图我们看到他用了 !!(value &amp;&amp; value.<strong>CANCEL</strong>) ，那么这个!!是什么意思呢？</p>
+<p><img src="/axios_source_code/b4422db1e81fa6a00bc2876e14f564db.png" alt=""></p>
+<p><img src="/axios_source_code/1ba1b27efb6937cc15cb883aadef4340.png" alt=""></p>
+<h3 id="再看core">再看core</h3>
+<p><img src="/axios_source_code/13d444293fd58e6375d7a6736aa976bd.png" alt=""></p>
+<p>注意axios不是Axios的实例，因为axios是个函数（从语法上说不是，从功能上说是，后面会讲）</p>
+<p>但是axios和Axios大有关系</p>
+<h3 id="interceptormanager">InterceptorManager</h3>
+<p><img src="/axios_source_code/720314a2002263f6046257a335306d9b.png" alt=""></p>
+<p>上图写法跟Promise中的then极其相似</p>
+<h2 id="axios与axios的关系">axios与Axios的关系</h2>
+<p><img src="/axios_source_code/3cbc5e01e9be7b7cf8220f02f36e7e35.png" alt=""></p>
+<p><img src="/axios_source_code/8876f5d004f8aa27a8ddeb61bd06cb95.png" alt=""></p>
+<p><img src="/axios_source_code/e575a7ad99398cc9a66a6d253c4ab8c1.png" alt=""></p>
+<p><img src="/axios_source_code/9c16fcfd2a3a91436e23d533794191a0.png" alt=""></p>
+<p>这个原型对象中的request其实就是一个发送请求的函数</p>
+<p><img src="/axios_source_code/92b70c0d7952b671f3874971138746b6.png" alt=""></p>
+<p>bind之前讲过是生成一个新的函数，调用的时候调用新的函数，内部用call()的方式调用就函数，并且this指向的对象就是上图的context。之后再回到原型方法中的request的函数,说白了他指向context，但是最后去找request执行（Axios.prototype.request中我们会发现他在用this调用:</p>
+<p>this.interceptor.use()…，那其实这个this就是上图的Axios的实例)</p>
+<p><img src="/axios_source_code/f5113316469e8caf3da1b9b542e2a7fb.png" alt=""></p>
+<p>这里的extend是他自己写的工具函数，效果是将第二个参数对象的所有属性或方法都赋值给第一个参数对象</p>
+<p>而Axios.prototype里面有request()/get()/post()/put()/delete()这几个方法，所以这就是为什么axios能做这么多事情</p>
+<p>那么他到底继承了多少方法呢：</p>
+<p><img src="/axios_source_code/ab53d8f1d58c32f4eae2c123d9ddad82.png" alt=""></p>
+<p><img src="/axios_source_code/71eacb9d3164874fb207a42450d64b92.png" alt=""></p>
+<p><img src="/axios_source_code/4ee00d345b0be8e509e2da42313a479b.png" alt=""></p>
+<p><img src="/axios_source_code/99cdf0325d3e5efee3392af0e0cb081d.png" alt=""></p>
+<p><strong>我们发现在这个遍历里面他最终调用的还是request这个函数</strong>，也就是说执行axios()，axios.request(),axios.get()本质上都是一样的</p>
+<p><img src="/axios_source_code/d85d8c9a98a10f5b1333abfaf0e8f883.png" alt=""></p>
+<p>上图的request()能发任意类型请求，我们调用它就相当于执行函数，说白了axios.request()和axios()本质上是一样的</p>
+<p><img src="/axios_source_code/8b8899cc9708822c9ee781196842bb3b.png" alt=""></p>
+<p>后面又来了一个extend，这次是将context的属性方法赋值给instance</p>
+<p><img src="/axios_source_code/d3eca739398c733fd819bfe887430c45.png" alt=""></p>
+<p><img src="/axios_source_code/fb96cfc979aac28e6ecd0ca268a54030.png" alt=""></p>
+<p>显然他给instance赋值了defaults和interceptors两个属性</p>
+<p>我们看到这些原本是Axios有的东西全部赋值给axios了，这就解释了从功能上来说axios是Axios的实例</p>
+<h3 id="axios优势">axios优势</h3>
+<p>既继承了Axios的所有方法，又由于自身是一个函数，能执行函数的方法，换言之，他既能
+axios. 又能 axios()</p>
+<h3 id="验证axios是否真的继承了axios的全部属性和方法">验证axios是否真的继承了Axios的全部属性和方法</h3>
+<p>首先将断点打在这里：</p>
+<p><img src="/axios_source_code/5148c9ae1438402d7f9c17f5b8d1323c.png" alt=""></p>
+<p>进入createInstance方法之后我们发现context里面有很多方法：</p>
+<p><img src="/axios_source_code/f11ed010f62962c9500104bb06c243b1.png" alt=""></p>
+<p>再走一步，创建了instance但是还没有将方法复制到他身上去：</p>
+<p><img src="/axios_source_code/a24e45344e4b869944b19188e6432b56.png" alt=""></p>
+<p>再走一步，我们将Axios原型上的所有方法都复制到instance身上：</p>
+<p><img src="/axios_source_code/df1899f965467157f78bd45eb3153031.png" alt=""></p>
+<p>再走一步，我们将context（即Axios实例对象）的所有方法和属性复制到instance身上：</p>
+<p><img src="/axios_source_code/5dbbf429feccee2c06d870ed343c38f8.png" alt=""></p>
+<p>我们来看看原本Axios实例对象中有哪些方法：</p>
+<p><img src="/axios_source_code/68e12ea53efabfebf2f1ed5772db95f9.png" alt=""></p>
+<p>上图和上上图一起来看我们发现Axios实例对象的这两个方法都被复制到instance身上了</p>
+<h4 id="结论">结论</h4>
+<p>axios确实如我们所分析一样继承了所有关于Axios的属性和方法</p>
+<p>而它本质上其实就是一个instance：</p>
+<p><img src="/axios_source_code/a9b212379e4a309688cacdbe7dd64bb6.png" alt=""></p>
+<p>仔细分析他其实就是一个函数，只不过继承了所有Axios的属性方法，这也验证了那句话：</p>
+<p>axios从语法上来说不是Axios的实例对象，但是从功能上来说他就是Axios的实例对象</p>
+<h2 id="axios的create方法">axios的create方法</h2>
+<p><img src="/axios_source_code/06b3d44aadfab169b51fb26ca8e99c11.png" alt=""></p>
+<p>这里传入的参数就是新的配置（当时我们是配了一个baseUrl）</p>
+<p>我们发现他还是调用了createInstance，也就是说create这个操作跟创建一个axios没什么区别，他也是返回一个具有Axios所有属性方法而且还保留了自己函数本身的功能的这么一个实例</p>
+<h3 id="create出来的instance与axios的区别">create出来的instance与axios的区别</h3>
+<p><img src="/axios_source_code/edba4f3ff7c70cae74c520bf934c8404.png" alt=""></p>
+<p>default是用来指定默认配置去的，而interceptors用来添加拦截器的</p>
+<p>相同点：</p>
+<p>他俩的功能绝大部分都一样的。</p>
+<p>注意他们的不同点：</p>
+<p><img src="/axios_source_code/199878b5e434ec908e5286003c1a5c14.png" alt=""></p>
+<ol>
+<li>
+<p>create出来的实例合并了新的配置和旧的配置；</p>
+</li>
+<li>
+<p>axios后续还添加了许多操作：</p>
+<p><img src="/axios_source_code/6636455afe703f1c5244ab205e89f815.png" alt=""></p>
+<p>这些操作create不可能有</p>
+</li>
+</ol>
+<p>接下来我们来看一下create的instance里面到底有什么方法：</p>
+<p><img src="/axios_source_code/fd97a9001239a9c047c303ec48259019.png" alt=""></p>
+<p>我们发现确实没有cancel之类的方法</p>
+<p>再来看看axios：</p>
+<p><img src="/axios_source_code/4aacf5ccc672457472918872f50aad40.png" alt=""></p>
+<p>我们从global下去找他，发现它还有cancel、create等这些方法</p>
+<h2 id="axios运行的整体流程">axios运行的整体流程</h2>
+<p><img src="/axios_source_code/4fd35d889e85a4109aea0504af287156.png" alt=""></p>
+<p><img src="/axios_source_code/d7f4227f027d4c118f533bec18ceab19.png" alt=""></p>
+<p><img src="/axios_source_code/e8350c957216862e3419a436f7ae6007.png" alt=""></p>
+<p><img src="/axios_source_code/a9697910599fb8793d042e184e8f3025.png" alt=""></p>
+<ol>
+<li>
+<p>要么用axios，要么用axios.create;</p>
+</li>
+<li>
+<p>两者都是通过createInstance去创建的；</p>
+</li>
+<li>
+<p>可以把他们作为函数或者对象去执行或者调用，比如我可以调用get去发送请求，也可以调用post，等等；</p>
+</li>
+<li>
+<p>发送请求的时候可以执行配置，如果没指定它内部也会给我们指定默认的配置</p>
+</li>
+<li>
+<p>之后都是调用Axios的原型中的request函数去执行请求；</p>
+</li>
+<li>
+<p>之后到达拦截器，拦截器通过Promise的then去串联起来（记得要return，不然串不起来）；</p>
+</li>
+<li>
+<p>之后再去做请求分发，由于是浏览器，所以肯定是去找xhr请求而不是http请求；</p>
+</li>
+<li>
+<p>成功则执行fulfilled，失败则执行rejected；</p>
+</li>
+<li>
+<p>进入响应拦截器；</p>
+</li>
+<li>
+<p>最后再执行成功或者失败的回调</p>
+</li>
+</ol>
+<h3 id="三大步骤">三大步骤</h3>
+<p><img src="/axios_source_code/b66338e03f995aa86a73273a195b19c3.png" alt=""></p>
+<p><img src="/axios_source_code/67e462af0a2958c5d580ad18d80b8b0d.png" alt=""></p>
+<p>我们发现这三大步骤都需要传入config参数</p>
+<p>先说明一点，这里的request、dispatchRequest、xhrAdapter返回的都是promise</p>
+<h4 id="requestconfig">request(config)</h4>
+<p><img src="/axios_source_code/b04fd0e90886c38c4c63ad5f153ac34c.png" alt=""></p>
+<p>首先去看Axios原型中的request方法</p>
+<p><img src="/axios_source_code/418d7a7bcbdb994cf83e104a62db0058.png" alt=""></p>
+<p><img src="/axios_source_code/d0946c1099d02581f9e0700532152e95.png" alt=""></p>
+<p>这里可以看到chain里面存了一个dispatchRequest函数，就是三大步骤中的第二步</p>
+<p>然后他去找所有请求拦截器中的函数并且塞到chain的左边，<strong>注意，每一个请求拦截器有两个回调函数，一个成功的一个失败的</strong>；之后再去找响应拦截器中的函数并塞到chain的右边，同样响应拦截器也有成功的和失败的</p>
+<h5 id="我们来看一下他到底是怎么插入chain的">我们来看一下他到底是怎么插入chain的</h5>
+<p><img src="/axios_source_code/ed378ede554f43a5694fd52e23a13876.png" alt=""></p>
+<p>就拿之前我们自己添加的拦截器来举一个例子，当时我们是添加了两个请求拦截器和两个响应拦截器，按照先后顺序分别都标为requestInterceptors1、requestInterceptors2、responseInterceptors1、responseInterceptors2，每一个拦截器都有两个回调函数，一个成功的一个失败的如上图</p>
+<p>现在开始插入，首先requestInterceptors1先插到头部，然后requestInterceptors2再插到头部，然后responseInterceptors1插到尾部，最后responseInterceptors2插到尾部，如上图的chain所示，**这里为什么每一个拦截器内部的两个回调函数的顺序是不会变化的呢？**其实我们只需要将这两个回调函数看成一个整体，即他俩是一起插入的，这个现象就好理解了。</p>
+<p>这个时候原先那个拦截器案例就好解释了，为什么两个请求拦截器是先执行后面那个拦截器再执行前面那个拦截器，而两个响应拦截器就是按照顺序执行，其实就是上面的插入机制导致的部分倒置所致。</p>
+<h5 id="通过promise的then串联起所有的请求拦截器请求方法响应拦截器">通过promise的then()串联起所有的请求拦截器/请求方法/响应拦截器</h5>
+<p>上面已经将所有拦截器的回调函数放入chain中，现在就可以将他们成双拿出来异步执行了</p>
+<p><img src="/axios_source_code/ec8abe2cb6d19a25d2134d10dddff2e9.png" alt=""></p>
+<p><img src="/axios_source_code/ee68c3c4833f43799bedc53055dc6f7d.png" alt=""></p>
+<p>现在我们就知道这个原先就在chain里面的undefined到底有什么用意了</p>
+<p><img src="/axios_source_code/b5afa5cbbbed47d86f62b3b9854e224d.png" alt=""></p>
+<p>主要是为了占位，dispatchRequest本质上是做一个分发，所以他本质上就是成功的，所以这里会把它当作成功的回调。</p>
+<p>等到上面的都调用完了，其实还没完，我们的while的最后一次.then之后所返回的promise还没有执行：</p>
+<p><img src="/axios_source_code/4500faa1ed8dd02f253c726e1ff8a5ea.png" alt=""></p>
+<p>如图，这也是我们执行axios返回的整个链的最后的promise，而这个promise最后会被我们手动写的那个.then调用：</p>
+<p><img src="/axios_source_code/28cf33f3fadb4131f92919eb3e9c2ef4.png" alt=""></p>
+<p><img src="/axios_source_code/c04f2eec28d5097ac82859300e3c6614.png" alt=""></p>
+<h6 id="axios的请求响应拦截器是什么">axios的请求/响应拦截器是什么？</h6>
+<p>是一个函数，而且是成功或者失败的回调函数</p>
+<p><img src="/axios_source_code/01e1e8aec66dffc7af486daef97cc46e.png" alt=""></p>
+<p><img src="/axios_source_code/d9f34088dc4146a8079db03847c998c8.png" alt=""></p>
+<p>一上来他先创建一个成功的promise，value就是第一个执行的请求拦截器传递的config（上面编写过请求拦截器，他的成功值就是config），传到第二个执行的请求拦截器，他的value也是config，之后传给发请求的函数，发请求的函数开始发送请求，有可能成功也有可能失败，成功就返回成功的promise，失败就返回失败的promise，以此类推一直传到最后的响应拦截器，返回一个最后的promise传给我们编写的then里面的onResolved和onReject去执行</p>
+<h4 id="dispatchrequestconfig">dispatchRequest(config)</h4>
+<p><img src="/axios_source_code/3a16e886dc137468ce82f0cfdd8c126b.png" alt=""></p>
+<p>dispatchRequest(config)可以转换请求数据，传给axios的数据里面的像data、params的数据都是需要转换的，因为我们最终send的时候需要传一个json类型或者urlencoded类型的数据。</p>
+<p>这一步处理完了之后注意并不是dispatchRequest去发请求，而是需要xhrAdapter()去发请求（当然也不一定是xhrAdapter，这个具体要看平台是什么，如果是浏览器那就是xhrAdapter，如果是nodejs那就是专门发送http请求的一个东西去发送请求的）。</p>
+<p>xhrAdapter发送了请求，最终也是他得到了响应的数据，但是他不解析响应得到的数据</p>
+<p><img src="/axios_source_code/d323af441ae817a07fa54d59a637c6bc.png" alt=""></p>
+<p>我们刚才说的xhrAdapter他封装了一个XHR对象去请求数据，发请求需要指定一些东西，是通过config去指定的（我们上面也说了三大步骤传过来的都是config），之后他发送请求，得到相应数据，返回一个成功或者失败的promise，成功的有成功的数据，失败的有失败的，但是再xhrAdapter里面还不去解析这些数据，最终的解析是依靠dispatchRequest。</p>
+<h5 id="dispatchrequest执行过程">dispatchRequest执行过程</h5>
+<p><img src="/axios_source_code/e55b49a829ab67a40f8315c8a9b33f17.png" alt=""></p>
+<p>注意，这里data、headers都是传进去进行解析或者设置的，真正的执行转换的方法没有写到transformData里面，而是在传入的参数config.transformRequest这里去执行转换。</p>
+<p>那么这个transformRequest在哪呢？</p>
+<p><img src="/axios_source_code/f951aa2fae806b8981516b88bb04afe2.png" alt=""></p>
+<p>在这个defaults里面</p>
+<p><img src="/axios_source_code/5faee2258d604bcd65874c48cd7cc806.png" alt=""></p>
+<p>这个data是我们配置的data（注意我们很可能配置的是一个对象）</p>
+<p><img src="/axios_source_code/83428d4674fea0379caa5e490650cf9d.png" alt=""></p>
+<p>看上图。他下面有这么一段代码，如果我们的data传入的是对象，那就传入json数据，如果不是就传入urlencoded格式的数据。</p>
+<h6 id="遇到不支持json格式的浏览器应该对传入的数据进行什么预处理">遇到不支持json格式的浏览器应该对传入的数据进行什么预处理</h6>
+<p>说到这里我们想起了之前说有的浏览器不支持json格式数据，只支持urlencoded格式数据，那这个时候我们写的时候可以是对象（我们知道如果是对象的话最终就会变成json格式数据），但是在交给上图的解析代码之前我不能是对象，我去要变成一个urlencoded格式的字符串以免解析器返回json格式数据，<strong>这个时候就用到了请求拦截器，因为请求拦截器会在上图的代码之前执行</strong>。</p>
+<p>那么转换响应数据是在什么时候呢？</p>
+<p>肯定是在有了响应数据之后去执行的。</p>
+<p>先来看adapter请求数据：</p>
+<p><img src="/axios_source_code/ff99f65bb061c1585464cd2ec6b20de1.png" alt=""></p>
+<p><img src="/axios_source_code/fd3c43460b653f33297053240fc29873.png" alt=""></p>
+<p>看return这一行，有了.then说明他已经有结果了，这个时候他去干嘛呢，他去拿到response.data这个数据，注意这个数据也还没有转换（我们说过xhrAdapter不解析数据），那么由谁来解析呢？由config.transformResponse来做这个事情，那他定义在哪呢？</p>
+<p><img src="/axios_source_code/0eca4495a39a5799eb1d3d7bc6812ee2.png" alt=""></p>
+<p>也在defaults里面</p>
+<p><img src="/axios_source_code/28640215948b5bb457e5c9cd48a7c16e.png" alt=""></p>
+<p>如果是json格式就解析成对象，如果不是就跳过不解析</p>
+<h4 id="xhradapterconfig">xhrAdapter(config)</h4>
+<p>在dispatchRequest中我们已经说了xhrAdapter的功能，就是去请求和接收数据的。</p>
+<p><img src="/axios_source_code/d83682f41ac17a5115c936382de332e3.png" alt=""></p>
+<p>在xhr里面它定义了一个xhrAdapter，接收config参数，返回一个Promise。</p>
+<p><img src="/axios_source_code/c59d4e7fd6d602de6f060fbe77f79243.png" alt=""></p>
+<p>他这里有个buildURL，传入了url，params参数，想想就知道它是将params参数整合到url里面变成一个完整的url的，只不过他比我们写的更加复杂，考虑的更加周到。</p>
+<p><strong>这里说明了一点：处理params数据这一步不是在dispatchRequest里面执行的，dispatchRequest只是负责解析请求体数据和响应体数据。</strong></p>
+<p><img src="/axios_source_code/68f507cf223e760b684aea66378dd19e.png" alt=""></p>
+<p>然后他还指定了一个超时的时间</p>
+<p><img src="/axios_source_code/b234ab3192d4d0ec7a59a3370f6b7cfb.png" alt=""></p>
+<p>之后这一步很重要，监听request的readyState状态的，如果没有request或者readyState不是4就直接返回，当然如果是4的话也不一定就是成功了，有可能成功有可能失败，后面再看。</p>
+<p><img src="/axios_source_code/6263919785afb2c8babdc824e5b7c151.png" alt=""></p>
+<p>这里我们发现他准备了一个response，原先我们准备response的时候只指定了这里的前三项，这里它指定得更加全面。</p>
+<p><img src="/axios_source_code/4584394713c6e6f870dce03b8e2bc8ee.png" alt=""></p>
+<p>我们发现这里他并没有直接去调用resolve或者reject，而是又封装了一个settle函数，传入了resolve、reject和response。</p>
+<p>那现在来看settle函数：</p>
+<p><img src="/axios_source_code/ce9db721e7d63f7052f7ff1436e9343d.png" alt=""></p>
+<p>在这里他就会执行resolve或者reject，并且成功的value就是response（这个response就是前面看到的封装好的response）</p>
+<p>这里有一个很关键的函数validateStatus</p>
+<p><img src="/axios_source_code/01f5f6b6e2f9fed709f86a95eb081583.png" alt=""></p>
+<p>我们发现其实就是判断了一下status。</p>
+<p>再来看上上图执行失败的结果：返回一个reject，里面是一个error，而这个error由函数createError产生，那么我们来看一下这个函数</p>
+<p><img src="/axios_source_code/2b10b74a580f5a5d0faee5657434f905.png" alt=""></p>
+<p>这里先搞定了error的message，但是error不仅仅只有message这一个属性，我们发现这个函数又return了一个新封装的函数enhanceError</p>
+<p><img src="/axios_source_code/bb543d2a8ee3ad74dec51f6e858d4bc2.png" alt=""></p>
+<p><img src="/axios_source_code/74f42a6ab61ac07f4948371863b8a2d4.png" alt=""></p>
+<p>这个方法给error赋值了request、response，而且如果我们想要看到的信息多一些，可以调用他的toJSON方法，里面有更多的信息，如上图。</p>
+<p>现在假设请求失败了，那么返回的应该是一个error，那么如果我们想要拿到这个error的status，可以直接error.response.status（不要忘了前面封装好了response，而这个response被传到了创建error的函数的里面并赋值给了error）</p>
+<p>**那么有没有可能error里面还有data呢？**是有可能的，那在什么情况下呢？在数据成功获取但是状态码不在200-400之间的时候，这个时候虽然有data，但是由于状态码的原因返回的是error，此时error里面有data</p>
+<h5 id="xhr的中断">xhr的中断</h5>
+<p><img src="/axios_source_code/97c8467f1282bff878bfd504be8c35fb.png" alt=""></p>
+<p>在axios中是叫取消请求，但是对于xhr对象来说他叫中断</p>
+<h5 id="xhr的其他事件">xhr的其他事件</h5>
+<p>有error的</p>
+<p><img src="/axios_source_code/a7c17756c3e34e65f44e119dcbc83b69.png" alt=""></p>
+<p>有timeout的</p>
+<p><img src="/axios_source_code/731d01d68714f3a0b610cf5e8cf3a675.png" alt=""></p>
+<h5 id="最后发送数据">最后发送数据</h5>
+<p><img src="/axios_source_code/3295754ddda2e4f16a7ea4b1b212301d.png" alt=""></p>
+<p>当然这个数据是早已经被dispatchRequest处理好的</p>
+<h4 id="结论-1">结论</h4>
+<p>说白了，dispatchRequest他就是用来专门解析数据的，xhrAdapter就是专门用来请求和接收数据的，那么request是用来干嘛的？他是用来连接整个流程的（将请求拦截器、发送请求、响应拦截器串联起来）</p>
+<h2 id="如何取消未完成的请求">如何取消未完成的请求</h2>
+<p>先来看一下原先是怎么写的，注意它是在发送请求之前写的，并且很明显它的代码是同步执行的</p>
+<p><img src="/axios_source_code/31655673d6ae064fba23ed2319ff0268.png" alt=""></p>
+<p>再去CancelToken.js中找它的源代码</p>
+<p><img src="/axios_source_code/7781b261617b8e86e70269444507b1c4.png" alt=""></p>
+<p><img src="/axios_source_code/74106ab0514557a2b7cbc130cf13658b.png" alt=""></p>
+<p>我们发现他传入一个执行器并且立即执行了，然后还做了一步操作，它new了一个Pormise并且立即把resolve保存到外部了，即上图的resolvePromise这个变量里面。这样一来外部也能让这个Promise成功了</p>
+<p>而且上图他还将这个Promise通过this.promise=new Promise保存到了CancelToken里面。</p>
+<p>现在我们找这个Promise就很简单了，由于在axios里面传入了这个cancelToken实例，我们总能通过这个实例来找到它里面的promise：</p>
+<p><img src="/axios_source_code/12fede7427a09271416f457b37ea5b90.png" alt=""></p>
+<p><img src="/axios_source_code/4d32336995f81c3e1dbcb031b99bd96d.png" alt=""></p>
+<p>注意上图的c这个时候是不能用cancel的，但是一定要用的话可以让外部的cancel不用let声明而用var声明，这样的话它就会变成window.cancel
+= cancel，就不会有问题了</p>
+<p><img src="/axios_source_code/a93c41274b81b7550e8d1e71c200bd67.png" alt=""></p>
+<p>上图的函数就相当于上上图传入的函数c，但是会在外部调，而且外部一开始也不调，因为调了就取消请求了</p>
+<p><img src="/axios_source_code/1f9649163b7e30e805e1fd9b9aee0dfc.png" alt=""></p>
+<p>在这个函数里面它new了一个Cancel实例，这个实例最后会变为error对象，也就是说一个error对象可能是一个Cancel的实例，但是要搞清楚他不是上图的cancel函数，cancel函数适用于取消请求的，这里极易搞混。</p>
+<p>然后再看，这个Cancel对象保存到CancelToken里的reason属性了</p>
+<p>再下面就要把CancelToken里面的reason传到某个函数里面执行，执行之后就会取消请求了</p>
+<p><img src="/axios_source_code/3079544495157b5f7793f939f17c2871.png" alt=""></p>
+<p>所以我们现在知道前面为什么有token.reason他就会直接return了：</p>
+<p><img src="/axios_source_code/dc657d163ddf549e707bb45403ec9e05.png" alt=""></p>
+<p>那是因为有了token.reason说明他已经执行了resolvePromise函数，说明他已经取消过请求了</p>
+<p>我们再看这个resolvePromise：</p>
+<p><img src="/axios_source_code/a1faa2790654d4a6dc69bc6fc7f51621.png" alt=""></p>
+<p>发现就是上面的Promise里面的resolve</p>
+<p>但是我们发现在这之后他还没有执行.then，我们思考，最终中断请求肯定就是靠上图resolvePromise这个函数，那这个中断请求的代码写在哪了呢？应该写在resolvePromise这个Promise对应的成功的回调里面，那么现在这个promise成功的value就是token.reason，也就是一个Cancel对象。</p>
+<p>其实这个.then 写在了xhr.js文件里面</p>
+<p><img src="/axios_source_code/19da95828ca88ae479c70c70198f9650.png" alt=""></p>
+<p>他首先先判断是否配置了cancelToken，然后再去取出这个cancelToken的promise，再去.then，后面是一个取消成功的回调，里面先判断是否有request，如果有的话说明请求还在执行，这个时候调用request.abort()，并且到最后将request置为null</p>
+<p>注意，这里reject的reason是cancel，而这个cancel是上上图里面的token.reason，即一个Cancel实例对象。</p>
+<h3 id="单独解释一下canceltoken里面的executor执行器">单独解释一下cancelToken里面的executor执行器</h3>
+<p><img src="/axios_source_code/74106ab0514557a2b7cbc130cf13658b.png" alt=""></p>
+<p>这个执行器其实就是axios里面配置的cancelToken里面传入的c：</p>
+<p><img src="/axios_source_code/4d32336995f81c3e1dbcb031b99bd96d.png" alt=""></p>
+<p>仔细想一想这里的c其实就是function
+cancel这个函数，虽然执行器立即执行了，也就是说这个c立马被赋值为function
+cancel这个函数，但是function
+cancel这个函数却还没有执行，他被保存到外面的cancel变量了，也就是说到cancel()的时候她才会被真正执行</p>
+<h3 id="cancel实例对象的补充">Cancel实例对象的补充</h3>
+<p>对于这个取消请求的操作来说，他是一个成功的value，但是对于发送请求的Promise来说他就是失败的reason</p>
+<p><img src="/axios_source_code/88857f48b56ec59504765e5f992f205a.png" alt=""></p>
+<p>也就是对应这里，它是一个成功的value</p>
+<p><img src="/axios_source_code/7a9094b478ddcee74fef1c2f3aeebe4e.png" alt=""></p>
+<p>而对应这里，他是一个失败的reason，变成了一个error对象了而且这不是error类型的error，而是cancel类型的error</p>
+<h3 id="总结">总结</h3>
+<p><img src="/axios_source_code/cb73aa9686b72f9025c5f931ad8f9253.png" alt=""></p>
+<p>这里解释一下第二步调用cancel()时他的message怎么传递的：</p>
+<ol>
+<li>
+<p>传入错误信息message，但是它内部肯定不会只是message；</p>
+</li>
+<li>
+<p>内部会让cancelPromise先变为成功，且成功的值是一个Cancel对象，再把上面的message传到Cancel对象里面，简单来讲就是这样：</p>
+<p><img src="/axios_source_code/3eb0498fa84653534e7eecf88a3c4560.png" alt=""></p>
+</li>
+<li>
+<p>之后在cancelPromise成功回调中去取消请求，同时改变发送请求的Promise的状态为rejected，这时候发送请求这个操作相当于就是失败了，并且失败的reason就是一个Cancel实例对象。</p>
+</li>
+</ol>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>axios -additional</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#axios源码">axios源码</a>
+      <ul>
+        <li><a href="#exports与require">exports与require</a></li>
+        <li><a href="#首先看adaptor下的xhrjs">首先看adaptor下的xhr.js</a></li>
+        <li><a href="#再看cancel下的canceljs与iscanceljs">再看cancel下的Cancel.js与isCancel.js</a></li>
+        <li><a href="#再看core">再看core</a></li>
+        <li><a href="#interceptormanager">InterceptorManager</a></li>
+      </ul>
+    </li>
+    <li><a href="#axios与axios的关系">axios与Axios的关系</a>
+      <ul>
+        <li><a href="#axios优势">axios优势</a></li>
+        <li><a href="#验证axios是否真的继承了axios的全部属性和方法">验证axios是否真的继承了Axios的全部属性和方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#axios的create方法">axios的create方法</a>
+      <ul>
+        <li><a href="#create出来的instance与axios的区别">create出来的instance与axios的区别</a></li>
+      </ul>
+    </li>
+    <li><a href="#axios运行的整体流程">axios运行的整体流程</a>
+      <ul>
+        <li><a href="#三大步骤">三大步骤</a></li>
+      </ul>
+    </li>
+    <li><a href="#如何取消未完成的请求">如何取消未完成的请求</a>
+      <ul>
+        <li><a href="#单独解释一下canceltoken里面的executor执行器">单独解释一下cancelToken里面的executor执行器</a></li>
+        <li><a href="#cancel实例对象的补充">Cancel实例对象的补充</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

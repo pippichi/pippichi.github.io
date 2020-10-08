@@ -10,19 +10,19 @@
     <lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/spring-boot/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Spring Boot -senior</title>
-      <link>https://pippichi.github.io/posts/springboot_senior/</link>
+      <link>https://pippichi.github.io/blog/springboot_senior/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pippichi.github.io/posts/springboot_senior/</guid>
+      <guid>https://pippichi.github.io/blog/springboot_senior/</guid>
       <description>&lt;p&gt;The article contains cache, message, security, searching, actuator, deployment&amp;hellip;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Spring Boot -basic</title>
-      <link>https://pippichi.github.io/posts/springboot_basic/</link>
+      <link>https://pippichi.github.io/blog/springboot_basic/</link>
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pippichi.github.io/posts/springboot_basic/</guid>
+      <guid>https://pippichi.github.io/blog/springboot_basic/</guid>
       <description>&lt;p&gt;The article contains the basic knowledge of spring boot&amp;hellip;&lt;/p&gt;</description>
     </item>
     

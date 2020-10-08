@@ -10,10 +10,10 @@
     <lastBuildDate>Sat, 02 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/scrapy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Scrapy</title>
-      <link>https://pippichi.github.io/posts/scrapy/</link>
+      <link>https://pippichi.github.io/blog/scrapy/</link>
       <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pippichi.github.io/posts/scrapy/</guid>
+      <guid>https://pippichi.github.io/blog/scrapy/</guid>
       <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;</description>
     </item>
     

@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Docker &ndash; Learning Records
+
+    </title>
+    
+    <meta content="Docker" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of docker&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="Docker | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of docker&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF file</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Docker</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/docker' class="muted-link">
+  <span class="Label Label--gray">Docker</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-08-01. Published at: 2020-08-01.">
+        
+          Published: 2020-08-01
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of docker&hellip;</p>
+<h2 id="虚拟机和容器的区别">虚拟机和容器的区别</h2>
+<p><img src="/docker/376a871a167dbc3d65f03d8c1b8d7f8c.png" alt=""></p>
+<p>虚拟机虽然达到了隔离的效果，但是它太庞大了，里面很多内容我们可能用不到，造成资源的浪费。</p>
+<p>容器不需要装操作系统即可达到隔离效果</p>
+<h2 id="什么叫做互不影响的两套系统">什么叫做互不影响的两套系统</h2>
+<p>有各自的id为1的进程（跟进程）</p>
+<p>有FHS文件系统（文件根目录下有/etc等等的目录）</p>
+<p>涉及到的有：</p>
+<p><img src="/docker/70b383a6780acd9eaad071c34db7de79.png" alt=""></p>
+<p>1、chroot（linux命令，用来切换根目录）</p>
+<p>2、</p>
+<p><img src="/docker/907de8c436f1ed4311118f40660d629c.png" alt=""></p>
+<p>3、</p>
+<p><img src="/docker/dab4ebe9dd4e8cc1cedc2273d19f7dc3.png" alt=""></p>
+<p><img src="/docker/3de11eed4495ed202d1d6affae80883c.png" alt=""></p>
+<h2 id="安装docker">安装docker</h2>
+<p>Centos7环境下</p>
+<p><img src="/docker/d84caf2751914c87cae0649be3070609.png" alt=""></p>
+<p><img src="/docker/0123fdc9e4874258db1168f0eafa7ff6.png" alt=""></p>
+<p><img src="/docker/fcfae8507e8c0f1b5803500c97b3fb18.png" alt=""></p>
+<h2 id="docker体系结构">Docker体系结构</h2>
+<p><img src="/docker/e99268a2e67f78263a680a3f34619c60.png" alt=""></p>
+<h2 id="镜像操作">镜像操作</h2>
+<h3 id="基础镜像拉取">基础镜像拉取</h3>
+<p><img src="/docker/a78f841e8a71e18a0975830b09dea78f.png" alt=""></p>
+<h4 id="机制">机制</h4>
+<p><img src="/docker/790dec666c20d698a2c1cea4bbd652ae.png" alt=""></p>
+<p>解释（看图里的序号）：</p>
+<ol>
+<li>
+<p>使用pull等docker命令拉取镜像（这里可以理解为docker-client）</p>
+</li>
+<li>
+<p>通过本地引擎查找本地是否存在该镜像，如果有则直接跳到第5步（这里的本地引擎可以理解为docker-server）</p>
+</li>
+<li>
+<p>如果没有则通过ALi镜像加速到docker官方去下载这个镜像</p>
+</li>
+<li>
+<p>将该镜像下载到本地镜像库</p>
+</li>
+<li>
+<p>从本地镜像库找到目标镜像</p>
+</li>
+<li>
+<p>用该镜像解压到相应的容器的位置变成一个只读的镜像层</p>
+</li>
+<li>
+<p>在该镜像基础上写一些新的东西</p>
+</li>
+<li>
+<p>将这个新的镜像作为一个整体打包（如果使用dockerfile其实就是在这个地方有多个镜像层一起打包）</p>
+</li>
+<li>
+<p>将该新镜像通过commit命令存入本地镜像库</p>
+</li>
+</ol>
+<h3 id="镜像基本查看">镜像基本查看</h3>
+<p><img src="/docker/c6835c85e774f641b1f108972ba48f5c.png" alt=""></p>
+<h3 id="标识镜像唯一性">标识镜像唯一性</h3>
+<p><img src="/docker/22de284aa6eefd7c90267d5f288e397b.png" alt=""></p>
+<h3 id="查看镜像详细信息">查看镜像详细信息</h3>
+<p><img src="/docker/b3dcb333c6d1acee24b050a45ca11f2c.png" alt=""></p>
+<h3 id="只查看镜像id">只查看镜像ID</h3>
+<p><img src="/docker/f2359e4ef2a56877f266dfea00f4a538.png" alt=""></p>
+<h3 id="镜像的导入和导出">镜像的导入和导出</h3>
+<p><img src="/docker/66b6a5f83ff3f4848c6f73f5c83743e6.png" alt=""></p>
+<h3 id="镜像删除">镜像删除</h3>
+<p><img src="/docker/8c17284d7659978a6d6ffd7a3a7a0f10.png" alt=""></p>
+<p>如果镜像有依赖就用-f</p>
+<p><img src="/docker/1fddd9827333a249fd74cf2c009ecb21.png" alt=""></p>
+<p>删除所有镜像(用到上面“只查看镜像ID的命令”)</p>
+<p><img src="/docker/1312d46398fed198766e7a99991669bb.png" alt=""></p>
+<h3 id="给镜像打标签">给镜像打标签</h3>
+<p><img src="/docker/d2a42fefe593c85c8b0a902a284ff97f.png" alt=""></p>
+<h2 id="容器操作">容器操作</h2>
+<h3 id="启动镜像">启动镜像</h3>
+<p>简写：</p>
+<p>Docker container run ID</p>
+<p>但是这样写系统会给容器一个默认的名字，不太好区分，因此我们使用—name “名称”
+选项手动指定：</p>
+<p><img src="/docker/0d0c4e1d5b2e3c10f62ae74a5debae03.png" alt=""></p>
+<h4 id="交互式启动">交互式启动</h4>
+<p>加-it :docker container run -it ID</p>
+<p>这里的i表示交互式，t表示开启一个新的终端</p>
+<h4 id="守护式启动">守护式启动</h4>
+<p>加-d ：docker run -d ID</p>
+<p>-d表示以后台daemon形式启动</p>
+<p><img src="/docker/e5a2d688db3a0e03bff3ad9c1bc14a41.png" alt=""></p>
+<p>这里我们本地并没有nginx这个东西但是他直接run也能启动起来，那是因为run的时候自动先pull，再run。</p>
+<h4 id="端口映射">端口映射</h4>
+<p>宿主机外部也需要访问容器内的内容，这个时候需要加-p ip:port ，例如：</p>
+<p><img src="/docker/68cdc9e53cbb830073d62f019951a2f7.png" alt=""></p>
+<h3 id="查看启动的容器">查看启动的容器</h3>
+<p>Docker container ls（或者docker ps）</p>
+<p><img src="/docker/11be228e0fcd2b95da55d38d832543ea.png" alt=""></p>
+<h4 id="container-id">Container ID</h4>
+<p>容器唯一号码（自动生成）</p>
+<h4 id="names">Names</h4>
+<p>容器的名字（可以自动生成，也可以手动指定）</p>
+<h4 id="status">Status</h4>
+<p>容器的运行状态（Exited, Up）</p>
+<h3 id="查看所有容器包括启动的和退出的">查看所有容器（包括启动的和退出的）</h3>
+<p>Docker container ls -a（或者docker ps -a）</p>
+<h3 id="查看容器详细信息">查看容器详细信息</h3>
+<p>Docker container inspect 容器ID或者容器名称</p>
+<p>这个命令可以查看容器的端口等详细信息，比如我们需要查看nginx的端口号那么就可以用这个命令</p>
+<h4 id="使用-f或者grep过滤">使用-f或者grep过滤</h4>
+<p><img src="/docker/318d2bd2afec24133fcac012ec2acd75.png" alt=""></p>
+<p>这个命令可以过滤出inspect显示的内容中Metadata对应的内容，当然，也可以使用grep
+Metadata -A 20来过滤</p>
+<h3 id="使用exit退出容器">使用exit退出容器</h3>
+<p>退出容器之后我们查看所有容器发现之前退出的容器还是存在，导致我们无法创建同名容器，这个时候需要先删除这个容器。</p>
+<p>（重点）另一种方法就是在启动镜像的时候添加&ndash;rm ，这样就不用再手动删除容器了</p>
+<p><img src="/docker/c21e7debcd14f8e574b0472e28f1caca.png" alt=""></p>
+<h3 id="使用kill退出">使用kill退出</h3>
+<p>暴力退出，一般数据库的退出不能使用kill，只能使用start、stop</p>
+<h3 id="容器的启动关闭连接">容器的启动、关闭、连接</h3>
+<h4 id="守护式容器">守护式容器</h4>
+<p><img src="/docker/35a0fe561e52d31c91390f1f3893ef21.png" alt=""></p>
+<h4 id="交互式容器">交互式容器</h4>
+<p><img src="/docker/d0a65a170a5436e35b7ce29d0d5c8820.png" alt=""></p>
+<h3 id="容器的连接方法">容器的连接方法</h3>
+<h4 id="attach">Attach</h4>
+<p><img src="/docker/e837e446f5eaa500c7baadfcc63a6cec.png" alt=""></p>
+<p>Attach的连接方法一个退出了就全部退出了</p>
+<h4 id="子进程方式登录exec">子进程方式登录（exec）</h4>
+<p><img src="/docker/cc2527528ad2a1a225dd2a0650d8776c.png" alt=""></p>
+<p>子进程方式登录的话一个ssh退出不会使得其他ssh退出，应用场景：nginx中添加页面，那么我们可以使用exec的方式进入添加页面之后再退出，达到添加了页面而不会使得其他ssh退出的效果</p>
+<h3 id="让容器永生的三种方法">让容器永生的三种方法</h3>
+<p>比方说centos，启动centos的时候必定会占用一个终端窗口（由于终端窗口使用的是/bin/bash，因此如果不加-it启动容器会瞬间退出），那么当我们直接退出这个bash的时候容器也会退出，这不是我们想要的，那么可以这么做：</p>
+<p>1、ctrl+p+q，将容器挂在后台，想要重连的时候使用attach即可；</p>
+<p>2、容器启动的时候不加-it加sleep 100000，使得容器一直沉睡，达到容器一直存在的目的</p>
+<p><strong>3（重点）、以上两种方法了解即可，在应对守护式启动时，我们一般通过不加-d来让容器一直夯在前台达到永生</strong></p>
+<p><img src="/docker/18b6baeda0705bfec0c6c4592a6aac36.png" alt=""></p>
+<h3 id="批量删除容器">批量删除容器</h3>
+<p>模仿之前批量删除镜像，我们用到了-q去拿到所有镜像的ID，容器这里也一样</p>
+<p><img src="/docker/224c2cf1d4d39ac33d68083ffe7ae2ae.png" alt=""></p>
+<p>如果遇到容器依赖，使用-f</p>
+<h2 id="显示完整信息--no-trunc">显示完整信息（&ndash;no-trunc）</h2>
+<p>这个命令可以显示完整ID号以及其他的一些显示不全的信息等</p>
+<p><img src="/docker/add99219010fdde5eada3dc5ba4792f2.png" alt=""></p>
+<h2 id="docker网络">Docker网络</h2>
+<p>宿主机会开启一个docker0的网卡，容器启动的时候里面也会自动生成eth0网卡，容器和宿主机可以通过docker0通信。</p>
+<h2 id="容器网络映射">容器网络映射</h2>
+<p>之前我们讲过容器端口映射</p>
+<p>这里我们在同一个宿主机创建两个容器，我们发现他们是可以通过ip和端口互连的，但是外部还是不能连他们</p>
+<p><img src="/docker/f8a3c3670110cbe625d4885e8ee1d047.png" alt=""></p>
+<h3 id="宿主机8080端口映射到容器80端口">宿主机8080端口映射到容器80端口</h3>
+<p><img src="/docker/636bedddce14ebd1877d000a54f9582b.png" alt=""></p>
+<h3 id="宿主机指定ipport映射到容器80端口">宿主机指定ip:port映射到容器80端口</h3>
+<p><img src="/docker/d249d29267a193be22feeddb1d6a8461.png" alt=""></p>
+<h3 id="宿主机随机ipport映射到容器80端口">宿主机随机ip:port映射到容器80端口</h3>
+<p><img src="/docker/30f6423779cec72a35ee0428735f190e.png" alt=""></p>
+<p>注意这里随机ip是0.0.0.0，port是从32768-60999依次向后</p>
+<h3 id="宿主机指定ip和随机port映射到容器80端口">宿主机指定ip和随机port映射到容器80端口</h3>
+<p><img src="/docker/20fc6a0faf464ac5baa0d73a20b8c50d.png" alt=""></p>
+<p>注意这里的双冒号</p>
+<h3 id="一般情况下映射到容器tcp也可以指定udp">一般情况下映射到容器tcp也可以指定udp</h3>
+<p><img src="/docker/c31df7fbbb855687ed3382aa54100dc1.png" alt=""></p>
+<p><img src="/docker/14e08330fe63f59e462f899d85c07598.png" alt=""></p>
+<h3 id="指定多端口映射">指定多端口映射</h3>
+<p><img src="/docker/bbc3a1a3b5ce308073034d055862bf6a.png" alt=""></p>
+<h2 id="容器的其他命令">容器的其他命令</h2>
+<h3 id="查看容器id号">查看容器ID号</h3>
+<p><img src="/docker/8b3782db3050998fd8b018042b63a359.png" alt=""></p>
+<h3 id="查看容器的进程情况">查看容器的进程情况</h3>
+<p><img src="/docker/3792d0229a3c6bda9ce00291304d4d41.png" alt=""></p>
+<h3 id="查看日志">查看日志</h3>
+<p><img src="/docker/11b2a6d401f25ea41ca8140574b0ceb5.png" alt=""></p>
+<p>这里的-t意思是显示得更全一些，-f意思是一直等待有新的日志情况然后显示，如果两个都不加那么就直接一次性显示之后就没了</p>
+<h2 id="docker的数据卷实现持久化存储">Docker的数据卷实现持久化存储</h2>
+<h3 id="容器默认位置">容器默认位置</h3>
+<p>/usr/share</p>
+<h3 id="手工交互数据docker-的-cp-命令">手工交互数据（Docker 的 cp 命令）</h3>
+<p><img src="/docker/17dc71e53afae4413af453263a09bcaf.png" alt=""></p>
+<h3 id="数据卷volume">数据卷（Volume）</h3>
+<p>数据卷的另一个作用：做持久化，比方说MySQL，一个MySQL容器如果损坏或者删除的话那么这个容器所附带的数据也会跟着删除，那么就要做持久化操作，把它携带的数据、日志、配置文件等都通过数据卷持久化下来</p>
+<h4 id="查看容器的关键目录在宿主机挂载的路径">查看容器的关键目录在宿主机挂载的路径</h4>
+<p>首先进入容器，然后使用命令docker container inspect 容器ID | grep Mounts -A 20</p>
+<h4 id="使用数据卷容器">使用数据卷容器</h4>
+<p>当我们有大量的容器、大量的资源需要映射的时候，有一种方法是写多个-v</p>
+<p><img src="/docker/4cb43942bae6ef37efbddc945a380dab.png" alt=""></p>
+<p>但是这个显然太麻烦，我们可以把这些映射定义为一个xyz容器，之后就挂这个容器就可以了</p>
+<p><img src="/docker/51f4a222a623caf86b9523946c782356.png" alt=""></p>
+<h5 id="具体操作--volumes-from">具体操作（&ndash;volumes-from）</h5>
+<p><img src="/docker/141a8b30f2c12347344278c6fa74adac.png" alt=""></p>
+<p>作用：在集中管理集群中，大批量的容器都需要挂载相同的多个数据卷时，可以采用数据卷容器进行统一管理</p>
+<h2 id="制作本地局域网yum源">制作本地局域网yum源</h2>
+<p><img src="/docker/e6e451b36a4220c027d6945e55ecb066.png" alt=""></p>
+<p>下面两步看<strong>镜像制作</strong>那一块</p>
+<p><img src="/docker/40fdb80b0fd53d43f4fb0938ea73736a.png" alt=""></p>
+<p><img src="/docker/be931feb9a0a29cb3d737ab4ebab53dd.png" alt=""></p>
+<h2 id="更换运行中容器的配置文件">更换运行中容器的配置文件</h2>
+<p>使用数据卷（volume）</p>
+<p>一般情况下像nginx这种的会有负载均衡，也就是会有多台机器共同维持某个功能，这个时候可以使用数据卷修改配置，但是我们知道还需要重启容器才能达到更新配置的效果，由于有负载均衡，是可以做到部分机器重启而不影响服务器运行的，因此可以采用部分重启更新的策略去做服务器配置更新</p>
+<h2 id="镜像制作类似于aliyun-ecs这里模拟centos的其他的也可以是特制的mysql等">镜像制作(类似于aliyun ECS)（这里模拟centos的，其他的也可以是特制的mysql等）</h2>
+<p>1、首先在宿主机挂载centos的iso文件（假设这个文件就是我们自己制作的，我们希望卖给别人，然后别人能够下载我们这个centos中的所有rpm而不需要去网络上下载，为了达到这个目的才有了下一步的替换yum源），一般将iso文件放在/mnt目录下，然后给宿主机设置开机自动挂载centos：</p>
+<p>在/etc/rc.local/ 文件中设置如下：</p>
+<p><img src="/docker/9b11dbef81a1bb967a2c02c768ec6e5d.png" alt=""></p>
+<p>需要验证的话就用：ftp://宿主机ip/，如果能访问到说明ok</p>
+<p>2、然后为centos容器（这个容器是官方容器，我们想要在此基础上给容器加一些自己的东西）制作yum源：</p>
+<p>先要进入centos容器，然后cd /etc/yum.repos.d/
+进入centos容器的yum源文件夹，可以看到有诸多源，将这些源全部挪到/tmp文件夹下</p>
+<p>然后要使得容器能够访问到我们自制的yum源，配置如下：</p>
+<p><img src="/docker/40fdb80b0fd53d43f4fb0938ea73736a.png" alt=""></p>
+<p>然后执行命令:</p>
+<p>yum clean all</p>
+<p>yum makecache</p>
+<p>3、下载ssh</p>
+<p>Yum install -y openssh*（等价于yum install -y openssh-cli以及yum install -y
+openssh-server）</p>
+<p>4、启动ssh服务</p>
+<p>因为是6.9版本的centos，因此启动命令是：</p>
+<p>/etc/init.d/sshd start</p>
+<p>这里ssh第一次启动需要生成密钥对：</p>
+<p><img src="/docker/734d35c35b3e2db2d027cd90cf8d1dba.png" alt=""></p>
+<p>下次再起就不需要了：</p>
+<p><img src="/docker/7b695b21abc589b4af1114bff10912b2.png" alt=""></p>
+<p><strong>注意这个密钥对一定要提前手动生成，不然下面的命令行启动sshd会出问题，也就是说这个sshd第一次启动一定是要我们人为的自己去启动，而不是用户去启动，而且必须要进入容器使用/etc/init.d/sshd
+start 命令去启动（针对centos6.9版本）</strong></p>
+<p>然后我们发现ssh有个机制就是必须要密码才能登录，那么我们再次回到centos容器（即用来模拟自己制作的容器），然后用passwd设置密码，之后再到宿主机使用ssh连接centos容器，我们会发现就可以连接上了，也就是说现在的容器已经具备了远程连接的能力</p>
+<h3 id="出现问题">出现问题！</h3>
+<p>客户想要的是刚才这个centos6.9+ssh的这么一个东西，显然这个容器是不能宕掉的，bash窗口要一直存在，而且有个问题就是下次我把容器删掉了，一切都回到解放前，那么能不能把我们上面做的这一整个东西封装成我们自己的镜像呢？</p>
+<h3 id="基于容器的镜像制作">基于容器的镜像制作</h3>
+<p><img src="/docker/c6eec6636a40670a7497dddaa52c5277.png" alt=""></p>
+<p>红线以上的命令事实上就是上面的一系列命令</p>
+<p>由于是基于oldguo_sshv1容器制作的镜像，因此标准写法是：</p>
+<p>Docker commit oldguo_sshv1 oldguo/centos6.9_sshd:v1</p>
+<p>效果：</p>
+<p><img src="/docker/6c55481009505ad78a2238f58c6e94ab.png" alt=""></p>
+<h3 id="再次出现问题">再次出现问题！</h3>
+<p>但是这个时候我们没有指定让容器启动之后开启ssh功能，而镜像只是一个静态资源，我们保存的镜像只是保存了多层文件系统，但是进程是动态的，无法将进程也保存进去，即容器是依赖镜像的动态资源，没有指定哪个文件先启动的话它是不会自己起的，所以我们现在就算开启了这个自制的镜像也不能使用其ssh</p>
+<h3 id="让sshd在前台启动相当于一直夯在那">让sshd在前台启动（相当于一直夯在那）</h3>
+<p>使用命令 docker container run -d –-name=sshd -p 8080:80 ID号 <strong>/usr/sbin/sshd
+-D</strong></p>
+<p>如果使用命令：docker container run -d –-name=sshd ID号 <strong>/etc/initd/sshd start</strong>
+我们会发现这个container的服务是exit状态的</p>
+<p><img src="/docker/8545f209e87b45dd8e7b84f8819c1436.png" alt=""></p>
+<p>**解释：**类似于linux系统中的1号进程，1号在那么整个系统就没有宕掉，而1号若不在了，就意味着它的所有子进程都会死掉，而/etc/init.d/sshd
+start
+命令执行完之后我们会发现光标跳到新的一行去了，这意味着这个进程执行完了，那么就会死掉，也就导致了这样的启动方式之后容器其实是exit状态的。</p>
+<h2 id="构建企业网站定制镜像">构建企业网站定制镜像</h2>
+<h3 id="启动基础镜像">启动基础镜像</h3>
+<p><img src="/docker/f4d3aee657668733fa434c5289dc0bb7.png" alt=""></p>
+<p>注意：使用yum下载的centos的MySQL目录在/var/lib/mysql，html目录在/var/www/html（阿帕奇默认）</p>
+<h3 id="优化yum源">优化yum源</h3>
+<p><img src="/docker/6f6f0dd9d9eef7ffc410d613a6babea2.png" alt=""></p>
+<h3 id="安装软件">安装软件</h3>
+<p><img src="/docker/cac80b5fe042c07c07a208e3de0a53b2.png" alt=""></p>
+<h3 id="软件初始化">软件初始化</h3>
+<p><img src="/docker/7436a50828f21e559b973ea0aa3ca0aa.png" alt=""></p>
+<h3 id="制作lamp第一版基础镜像">制作LAMP第一版基础镜像</h3>
+<p><img src="/docker/28cc2082502f8f9acb2e40966ebec01b.png" alt=""></p>
+<h3 id="启用">启用</h3>
+<p><img src="/docker/1c53a6974ca38c282f4c001aef7295e6.png" alt=""></p>
+<h3 id="测试php">测试php</h3>
+<p><img src="/docker/16a763b0c4977be5b5862ab47a4efcf3.png" alt=""></p>
+<h3 id="上传bbs论坛安装文件到varwwwhtml目录下并解压">上传bbs论坛安装文件到/var/www/html目录下并解压</h3>
+<p><img src="/docker/8ba0f00f2bee67e44955c3b2bf571887.png" alt=""></p>
+<p><img src="/docker/cbd9388b0441e5965c9d6a8bef8a21bd.png" alt=""></p>
+<p><img src="/docker/7a48e517c05f9393ffa59a942db6df6c.png" alt=""></p>
+<h3 id="制作第二版镜像">制作第二版镜像</h3>
+<p><img src="/docker/0d5ee6bf98e1040b9901984946e2b4c7.png" alt=""></p>
+<h3 id="创建启动脚本">创建启动脚本</h3>
+<p>由于每次只能有一个启动类，但是我们又希望能将mysql、apache、sshd都起起来，并且最后让它夯在那，那只需要创建shell脚本并将sshd放到最后启动即可</p>
+<p><img src="/docker/e0b7aee5f3c4c4e71a4d9119e7409e11.png" alt=""></p>
+<p><img src="/docker/e4217b8573b37adfa6b50871a0fda83e.png" alt=""></p>
+<h3 id="基于centos7的制作">基于centos7的制作</h3>
+<p>由于7版本软件服务的启动都由systemctl来控制，因此/etc/init.d/xxx start
+这个命令就没有了，因此sshd的初始化需要手动完成，命令如下：</p>
+<p><img src="/docker/c54612d8cf9a8917cfdf8390113f3b1f.png" alt=""></p>
+<h2 id="dockerfile">Dockerfile</h2>
+<p><img src="/docker/0bc983ec773593895c03056376f149fe.png" alt=""></p>
+<h3 id="from">FROM</h3>
+<p>非 ## 开头的第一句必须是FROM，然后有两种写法：</p>
+<ol>
+<li>
+<p>FROM centos:6.9</p>
+</li>
+<li>
+<p>FROM centos@21999b8eb8390（推荐，不容易被黑客攻击）</p>
+</li>
+</ol>
+<p><img src="/docker/54d147fe3c045c3b07c6718ead6186ba.png" alt=""></p>
+<p>第二句写RUN命令</p>
+<p><img src="/docker/a83123b5a62348c476826de68e2cecdd.png" alt=""></p>
+<p><img src="/docker/a50e55e7a693050a235d42a563a2f24f.png" alt=""></p>
+<p>每一行都会生成一个临时的容器，比方说在生成一个自制容器的时候第六行出错了，那么我们就可以到第五行的容器中调试，因此为了控制生成的临时容器的数量，我们尽量把shell命令用&amp;符号拼接写到一行上</p>
+<h3 id="run">RUN</h3>
+<p>RUN命令在命令的前面会自动加一个/bin/sh
+-c，用这种方式来启动，这样的话RUN后面的这些命令它不是第一进程，必须以bash的方式去运行</p>
+<p>对于RUN命令有针对shell和非shell的，</p>
+<p><img src="/docker/44c47d0bd57ce50dac6f1a7d91bcee37.png" alt=""></p>
+<p>对于shell的就直接写好了，如：</p>
+<p><img src="/docker/99315d7dbd7950fae6220ec4595d316f.png" alt=""></p>
+<p>，而针对非shell，这里举个MySQL的例子，写法：</p>
+<p><img src="/docker/b3de7b4ae4643ce53c679ce9b60a5fd9.png" alt=""></p>
+<p>注意它用[]包起来，其中命令本身“mysqld”用双引号包裹，后面 –-
+开头的表示参数，也用双引号包裹，并用逗号分隔</p>
+<p><strong>事实上，非shell的命令更倾向于编写脚本然后最终在RUN中调用脚本</strong></p>
+<p><img src="/docker/329efd693b8c0a3e7076c120b237364d.png" alt=""></p>
+<p><strong>像这种情况，我们一般不把MySQL的启动写在RUN下，而是将类似这样的命令整合到CMD中的.sh脚本下，而且这样写更符合逻辑，因为创建镜像的时候本来就不用去启动服务的，而是到最后启动容器的时候才应该去开启服务</strong></p>
+<p>RUN命令可以起多个，当我们觉得这个容器生成到这个步骤之后需要打个断点并在此基础上再新起一个容器的时候就可以另起一行新起一个RUN命令，这样也方便之后的错误调试：</p>
+<p><img src="/docker/879b4df476e02284a256fb36785cc243.png" alt=""></p>
+<h3 id="expose">EXPOSE</h3>
+<p><img src="/docker/4bb501db071451521c25095bc65bc44b.png" alt=""></p>
+<p>暴露端口，如果有多个就分开写多行</p>
+<p><img src="/docker/00b346adec7d45058f4b7600f0aeaf9d.png" alt=""></p>
+<h3 id="cmd">CMD</h3>
+<p><img src="/docker/0189ccd1b54162ee1323d0783ac83f13.png" alt=""></p>
+<p>之前我们启动容器，想要让它夯在那里，为此我们在命令最后一行加了：/usr/sbin/sshd
+-D</p>
+<p>这样太麻烦，如果不想每次都这样加的话可以使用CMD命令：</p>
+<p><img src="/docker/11107c4c71c6d73061063e626b53b394.png" alt=""></p>
+<p><strong>CMD命令在生成最终镜像之前都不会执行，直到最后拿最终生成的镜像启动容器的时候才会执行。</strong></p>
+<p>注意它的写法，跟非shell命令一样，用[]和双引号包裹，用逗号分隔，且第一个是命令本身，后面的都是参数</p>
+<p><strong>CMD命令说明：</strong></p>
+<p><strong>类似上面的RUN中MySQL的启动命令，这种中括号逗号的列表形式意味着将来启动该容器的时候这个命令就是1号进程，而不是先启动/bin/bash。</strong></p>
+<p>使用CMD执行容器中某个目录下的init.sh文件：</p>
+<p><img src="/docker/32781d240e842a9ca0650f41cf4ad08c.png" alt=""></p>
+<h3 id="调用dockerfile生成镜像">调用dockerfile生成镜像</h3>
+<p>Docker image build -t “oldguo/centos6.9-sshd:v1.0” ./</p>
+<p>最后的 ./ 是因为dockerfile就在当前目录下，这样写它会自动去找这个dockerfile</p>
+<p><img src="/docker/b39a67687ac5ddbbd18a6ae208cd2232.png" alt=""></p>
+<p>上面的红线标出的就是临时镜像，是可以进入的，如果第四步出错，我们将就可以进到第三步的容器中</p>
+<p><img src="/docker/b646ef2db08c7b892ba2de0e52db87c4.png" alt=""></p>
+<h3 id="copy">COPY</h3>
+<p>Copy命令将文件拷贝到容器中</p>
+<p><img src="/docker/a73feb3857c88e1336269732f1529b96.png" alt=""></p>
+<p>注意 index.php这个文件必须要和dockerfile在同一目录下</p>
+<p>假如目录不存在，容器会帮我们自动创建</p>
+<p>COPY和ADD都支持通配符</p>
+<p><strong>大坑：如果拷贝的是目录，只拷贝目录下的子文件子目录</strong></p>
+<h3 id="add">ADD</h3>
+<p>和COPY命令作用差不多，也是将文件拷贝进容器，但是如果传送的是tar型的压缩文件那么它还会帮我们自动解压</p>
+<p>我们一般用ADD 多于用COPY，因为ADD功能更强大</p>
+<p>ADD传输源文件有以下两个方法，且源文件可以有多个</p>
+<p><img src="/docker/6a9acc85e9e2d1ba4ddebc8ee6c9134d.png" alt=""></p>
+<h4 id="传输本地文件">传输本地文件</h4>
+<p><img src="/docker/4e0f5a2d294fe0091e74e855beb33eca.png" alt=""></p>
+<p>假如目录不存在，容器会帮我们自动创建</p>
+<p>COPY和ADD都支持通配符</p>
+<h4 id="传输url">传输url</h4>
+<p><img src="/docker/f245ba7a7dafb9bfd62a65d1169a0a57.png" alt=""></p>
+<p>需要注意的是，传输的是url的前提下，如果内容是一个压缩包，那么它不会自动解压，只会传压缩包本身过去。</p>
+<h3 id="volume">VOLUME</h3>
+<p><img src="/docker/1b1be74d608c3b7f75d087eacc678d5b.png" alt=""></p>
+<p>用于自动挂载卷，这里只指定了容器的数据卷目录，但是没指定宿主机的数据卷挂载目录，此时宿主机会指定一个默认的挂载目录来和容器的数据卷挂载目录对应，并且下次在启动另外一个容器的时候使用—volumes-from
+参数调用这个容器，也可以使这个新起来的容器拥有跟我们制作的这个容器一样的数据卷，而且这两个容器的数据卷之间就是相关联的和宿主机也是相关联的。</p>
+<h3 id="workdir">WORKDIR</h3>
+<p>切换工作目录，有一个缺点就是一旦制定了这个参数，之后的所有dockerfile中的操作都是在这个目录下进行了，如果想换工作路径除非再手动声明绝对路径什么的，非常麻烦，所以一般我们用RUN
+cd去替代这个命令</p>
+<h3 id="env">ENV</h3>
+<p>定义环境变量，也可以用path定义环境变量，但是一般我们用ENV</p>
+<p><img src="/docker/e0fb2d4354ad641c8c977f58274c42d6.png" alt=""></p>
+<p>这个时候我们如果想用/var/www/html的话直接用</p>
+<p>${CODE_DIR}就可以了，如：</p>
+<p><img src="/docker/6ffdeb3acd1343a8eca1df9e3ef429f3.png" alt=""></p>
+<p>-&gt;</p>
+<p><img src="/docker/e4dceb80de98c01cf720740e4d5e076b.png" alt=""></p>
+<p><img src="/docker/1b1be74d608c3b7f75d087eacc678d5b.png" alt=""></p>
+<p>-&gt;</p>
+<p><img src="/docker/5e4f83e4db821542fd3bb5390e06db24.png" alt=""></p>
+<h3 id="user">USER</h3>
+<p>切换用户</p>
+<p>执行某个命令的时候是以什么样的身份</p>
+<h3 id="onbuild">ONBUILD</h3>
+<p>比方说我们用dockerfile制作了镜像A，然后B镜像又要拿A去制作一个新镜像，这个时候会调用ONBUILD这个命令，用的不多。</p>
+<h3 id="entrypoint">ENTRYPOINT</h3>
+<p>和CMD类似，用处也是当我们拿这个镜像构建容器的时候会执行的命令</p>
+<p><strong>和CMD区别：</strong></p>
+<p>当我们只用了CMD的时候，在启动容器的时候理应执行CMD中的命令，但是如果我们在启动命令后面又加了一条命令，该命令就会替换掉CMD中的命令导致CMD中命令不再执行，如：</p>
+<p><img src="/docker/3f6973f125fbe3581a5d3a27ef95ae32.png" alt=""></p>
+<p>这里我们在最后又加了/bin/bash这个命令，那么启动的时候就会执行/bin/bash而不会执行CMD中的命令，这个时候可能就会出现容器不能夯在那里这样的情况：</p>
+<p><img src="/docker/7631461009a1dba69d595b43e768f095.png" alt=""></p>
+<p>而ENTRYPOINT的作用就是让命令无法替换，该运行谁还是运行谁，如：</p>
+<p><img src="/docker/4c11573238f4842e1fa2fbd11c0dd384.png" alt=""></p>
+<p>这里把CMD用ENTRYPOINT替换，然后制作镜像</p>
+<p>现在即使我们还是加了/bin/bash命令</p>
+<p><img src="/docker/b54ad3d0a2e5b31eca81635b6c607127.png" alt=""></p>
+<p>/bin/bash还是不会执行，思考一下现在容器应该不会宕掉</p>
+<p><img src="/docker/baf441539d527d4ab2bf158c6ba57ac0.png" alt=""></p>
+<h4 id="高级用法">高级用法</h4>
+<p>用来传参数用的，一般情况下不会使用</p>
+<p>如下图中红圈圈部分现在可以手动敲一些参数，这些参数可以作为写在ENTRYPOINT中的entrypoint.sh脚本的参数</p>
+<p><img src="/docker/bd254605402967706b63b06980a11237.png" alt=""></p>
+<p>MySQL的docker就用到了这个高级用法，如：</p>
+<p><img src="/docker/fefc4e74605de9e044a2399df384ccea.png" alt=""></p>
+<p>ENTRYPOINT可以和CMD共用</p>
+<h3 id="lable">LABLE</h3>
+<p>没啥用，就相当于注释，这里用作作者说明</p>
+<p><img src="/docker/78bc908b0b3d5abd7b1284bd23fe5ef6.png" alt=""></p>
+<h3 id="问题">问题</h3>
+<h4 id="dockerfile的using-cache机制">Dockerfile的using cache机制</h4>
+<p>如果dockerfile只发生了一小点改动，那么下一次再用这个dockerfile制作镜像的时候就会使用using
+file机制使得制作镜像的速度变得非常快</p>
+<p><img src="/docker/ceec2013cbfbbd8bba298914a2097b01.png" alt=""></p>
+<h4 id="dockerfile制作镜像时生成的临时镜像是否会占用大量磁盘空间">Dockerfile制作镜像时生成的临时镜像是否会占用大量磁盘空间</h4>
+<p>由于docker镜像是一种层级关系，一层依赖于一层，所以得出结论：</p>
+<ol>
+<li>
+<p>确实会占用空间，但是不多；</p>
+</li>
+<li>
+<p>临时镜像不能随便删除（包括名称为none的镜像），因为存在依赖关系</p>
+</li>
+</ol>
+<h4 id="本地yum源同步到阿里云">本地yum源同步到阿里云</h4>
+<p>其实就是将阿里云的东西下载到本地，然后配置本地yum源，也就是那些repo即可</p>
+<h4 id="--restartalways解决服务重启导致容器全部退出">&ndash;restart=always解决服务重启导致容器全部退出</h4>
+<h5 id="方法一">方法一</h5>
+<p>如果启动容器的时候没有加—restart=always这句话，当我们重启该服务的时候（这里以重启docker服务为例），我们会发现服务都宕掉了</p>
+<p><img src="/docker/106d464b18eeae07b5c698de2f2b2df6.png" alt=""></p>
+<p>这里加—restart=always表示不管你是主机重启还是服务重启还是docker重启，只要你起来就把我拉起来</p>
+<p><img src="/docker/8ad63f805cb8c71aba2ca7b660c7b6a9.png" alt=""></p>
+<p>之后我们再重启docker服务，发现这个容器还是开启状态的</p>
+<p><img src="/docker/745a037bfd45686d31591f70d87a5d98.png" alt=""></p>
+<h5 id="方法二">方法二</h5>
+<p>在docker的json文件中添加“live-restore”: true</p>
+<p><img src="/docker/6b60721f27429515db6f030335d380da.png" alt=""></p>
+<p>但是有些我不希望启动的容器比方说临时的容器也会被拉起来，这就是缺点</p>
+<h3 id="启动问题">启动问题</h3>
+<h4 id="解决ssh端口冲突">解决ssh端口冲突</h4>
+<p><img src="/docker/88ad41f1586e074db036820a33b4f13e.png" alt=""></p>
+<p>rm -rf .ssh即可</p>
+<h4 id="解决mysql需要交互的问题">解决MySQL需要交互的问题</h4>
+<p>加参数-e即可</p>
+<p>在RUN中的写法（针对5版本的MySQL）：</p>
+<p>RUN mysql <strong>-e</strong> “grant all on <em>.</em> to root@‘%’ identified by ‘123’；grant all
+on <em>.</em> to discuz@’%’ identified by ‘123’;create database discus charset
+utf8;”</p>
+<p><img src="/docker/23b15dd35c1b8d65bc5cc37af57789b1.png" alt=""></p>
+<h4 id="例子">例子</h4>
+<p><img src="/docker/bd21cc1c41ec4f840d5f9cb22f487382.png" alt=""></p>
+<p>执行的时候发现 RUN mysql -e
+这句命令失效了，进入临时容器调试发现是因为这条用于启动MySQL的RUN命令本身就是错误的，</p>
+<p><img src="/docker/b86bdf8506c4b5355be64ceb91281bc0.png" alt=""></p>
+<p>我们发现MySQL命令前面加了/bin/sh -c
+这个是执行shell命令用的，不能用于启动MySQL。解决方法是将启动MySQL的命令写到脚本里，再用RUN命令启动</p>
+<p>我们将出问题的那一行RUN注释掉，然后将mysql创建用户命令写到init.sh中：</p>
+<p><img src="/docker/1ac4c97974192ca891bcbf6e7b85b640.png" alt=""></p>
+<h2 id="docker构建私有registry">Docker构建私有registry</h2>
+<h3 id="启动一个容器作为服务">启动一个容器作为服务</h3>
+<p><img src="/docker/8790c601cd65d3ef91ab1407e9f85f47.png" alt=""></p>
+<h3 id="修改docker的daemonjson配置文件">修改docker的daemon.json配置文件</h3>
+<p>把上面的registry服务器的ip地址和端口写到配置文件中，使得下次pull镜像的时候可以从这个registry服务器中获取</p>
+<p><img src="/docker/fb43b028f537332108411eff2edb5328.png" alt=""></p>
+<h3 id="重启docker服务">重启docker服务</h3>
+<p>Systemctl restart docker</p>
+<h3 id="上传镜像到registry服务器">上传镜像到registry服务器</h3>
+<h4 id="标准化镜像名称">标准化镜像名称</h4>
+<p>Docker tag 原镜像名 标准化镜像名</p>
+<p>标准化镜像名的格式为：</p>
+<p><strong>Registry的ip:registry的port/用作登录registry仓库的用户名/自定义仓库名:自定义标签名</strong></p>
+<p><img src="/docker/62986b169d093d7500bfafd288e2b4f5.png" alt=""></p>
+<p><img src="/docker/42719bc47e5e88759d1fb2dc42247987.png" alt=""></p>
+<h4 id="push命令">Push命令</h4>
+<p>以前拉取镜像我们用的是pull，现在上传镜像用push</p>
+<p>命令语法：</p>
+<p>Docker push 标准化镜像名称</p>
+<p><img src="/docker/2cf3774517a5444056150cabecceff23.png" alt=""></p>
+<h3 id="从registry服务器拉取镜像">从registry服务器拉取镜像</h3>
+<p>命令语法：</p>
+<p>Docker pull 标准化镜像名称</p>
+<p><img src="/docker/9851deeabf9bdb26794847a7c98891db.png" alt=""></p>
+<h3 id="给本地仓库加安全验证">给本地仓库加安全验证</h3>
+<p>事实上就是给httpd生成密码</p>
+<p><img src="/docker/7a7a1ec13f1f25b95956012ecef1b354.png" alt=""></p>
+<p>这个时候再push镜像会提示没有验证需要登录</p>
+<h4 id="login命令">Login命令</h4>
+<p>Docker login 服务器ip:服务器port</p>
+<p><img src="/docker/aa29d44456cb7fa28a3373785e8c99d2.png" alt=""></p>
+<p>登录完之后才能继续push</p>
+<h4 id="浏览器访问registry">浏览器访问registry</h4>
+<p><img src="/docker/cc38db95dc07b99ad29a80aebaf43340.png" alt=""></p>
+<p>登录进取啥也看不到，应该是需要配置一些信息，但其实也没必要看这个</p>
+<h3 id="从加了安全验证的registry服务器拉取镜像">从加了安全验证的registry服务器拉取镜像</h3>
+<p>Pull不需要登录验证，直接就能pull</p>
+<h2 id="harbor重量版registry实现图形化register">Harbor（重量版registry）实现图形化register</h2>
+<p><strong>首先应该选择一台配置足够好磁盘空间足够多的机器来安装harbor</strong></p>
+<ol>
+<li>
+<p>安装docker和docker-compose，yum install -y docker-compose</p>
+</li>
+<li>
+<p>下载harbor-offline-installer-vxxx.tgz</p>
+</li>
+<li>
+<p>上传到/opt并解压</p>
+</li>
+<li>
+<p>修改harbor.cfg配置文件如下：</p>
+<p>hostname = 10.0.0.100</p>
+<p>harbor_admin_password = 123456</p>
+<p><strong>（说明：其中hostname表示访问的域名，也是下面修改docker的daemon.json文件中的insecure-registries中需要添加的内容，如果不加的话会导致使用docker
+login登录的时候报错；</strong></p>
+<p><strong>Harbor_admin_password表示管理员登录密码）</strong></p>
+</li>
+<li>
+<p>执行install.sh</p>
+</li>
+</ol>
+<h3 id="查看docker-compose版本">查看docker-compose版本</h3>
+<p>命令：docker-compose version</p>
+<p><img src="/docker/bb96a588ab54039c64d7b2e5f6ef36c2.png" alt=""></p>
+<h3 id="使用方法">使用方法</h3>
+<p><img src="/docker/89b30090ba0281750cee8474ec157c07.png" alt=""></p>
+<p>解释一下为什么上图insecure-registries中10.0.0.100只写了ip没写port：因为它默认端口就是80，所以就不用写端口号了</p>
+<p>而且由于harbor依赖的容器挺多的，因此设置“live-restore”：true，这样下次重启的时候就不需要手动去开启这些容器了</p>
+<p>安装完之后会在服务器上起一些harbor相关的容器，这些容器来提供服务</p>
+<p><img src="/docker/fd2c3a3f0105a8b7ed696f889566fef8.png" alt=""></p>
+<p>安装之后会提示你用什么地址去访问</p>
+<p><img src="/docker/1cf25f4f158486d2e375f8a8e670a4d3.png" alt=""></p>
+<p>这个时候可能会报错提示端口被占用什么的，那么将被占用端口删除就可以了</p>
+<p>之后登录：</p>
+<p><img src="/docker/6a53948d81f9437eba1b215c5048a40f.png" alt=""></p>
+<p>用户名就是配置文件中的那个，这里是admin，密码也是配置文件中的密码，这里是123456</p>
+<p><img src="/docker/1e1bfc24a5a6cfcd4d85b6e73d81d2cf.png" alt=""></p>
+<p>进入之后一般会先新建一个项目（项目名称其实就是当初10.0.0.100/oldboy/nginx:v1中的oldboy，如果这两个oldboy名称对应不起来会报错）</p>
+<p><img src="/docker/d96ea1fb62bd00a7acc8e479c0613a65.png" alt=""></p>
+<p>然后选择公开，公开的意思就是push的时候需要密码但是pull的时候不需要密码</p>
+<h3 id="启动关闭和重启harbor">启动、关闭和重启harbor</h3>
+<p>使用命令docker-compose start|stop|restart</p>
+<p><img src="/docker/76197ea3b8570b51ccb242f5b57a5251.png" alt=""></p>
+<h3 id="推送镜像">推送镜像</h3>
+<p><img src="/docker/de3b41a294024aac501609c21f394964.png" alt=""></p>
+<p>跟上面的registry一模一样</p>
+<p><img src="/docker/c34481a1b0af31d3eb5e96651ddd36d7.png" alt=""></p>
+<p>之后harbor仓库里就会有镜像了</p>
+<p><img src="/docker/df2871fcf22491a8cbeac264ceb80bb3.png" alt=""></p>
+<h3 id="从harbor中pull">从harbor中pull</h3>
+<p><img src="/docker/770dcb29c3455f9bd14ab37b0aa239c3.png" alt=""></p>
+<p>直接复制就行了，但是别的镜像也得修改daemon.json配置文件，之后才能使用</p>
+<p><img src="/docker/60aaaf454d95824fea2e4ede25f66ff5.png" alt=""></p>
+<p>然后重启docker服务</p>
+<p>之后把pull命令粘贴过来执行</p>
+<p><img src="/docker/0876b7c78bd9e3a876d231f8019ba9b8.png" alt=""></p>
+<h3 id="删除操作">删除操作</h3>
+<p>先删镜像再删仓库</p>
+<h3 id="更多说明">更多说明</h3>
+<p>还有更多关于harbor.cfg的配置比如日志、仓库管理、配置管理、用户管理等，可以查百度</p>
+<h4 id="邮件设置发送重置密码邮件时使用">邮件设置，发送重置密码邮件时使用</h4>
+<p>在运行install.sh之前，配置harbor.cfg的时候修改：</p>
+<p><img src="/docker/75423dddb689ac2d270e94633d398308.png" alt=""></p>
+<h2 id="docker网络模型">Docker网络模型</h2>
+<p><img src="/docker/801cb25b8cbe866450a708aa160db0d7.png" alt=""></p>
+<p>宿主机网卡eth0安装完docker之后会有一个docker0网桥，默认网段地址就是172.17.0/16，是所有bridge，可以理解为容器的网关。Docker0的地址为172.17.0.1</p>
+<p><img src="/docker/8fa9e8da9c20c9f460c4f35234992bea.png" alt=""></p>
+<p>然后我们起容器，docker会给这个容器分发一个eth0网卡且地址为172.17.0.2，这个时候docker0和容器里面会各自产生一个接口，容器通过这个接口指向docker0的接口（就像是交换机跟网线，容器一起来就相当于网线插到交换机，交换机的那个口子上的灯亮了一样）</p>
+<p><img src="/docker/6ce6354099e43a0a3a4105513f1bb256.png" alt=""></p>
+<p>这个时候容器就可以跟宿主机或者其他容器交互了（只要是在一个类型的网络下）</p>
+<p><img src="/docker/29f92b528dca3b8e7a5b3a204b8fc072.png" alt=""></p>
+<p>如果容器要对外访问，可以将请求丢给docker，使用docker提供的NAT功能通过宿主机的eth0出去来访问百度等外部网络（用的是内置的ipforward转发功能）</p>
+<p><img src="/docker/2e00b2e8795b2139749389f9f0d37ed3.png" alt=""></p>
+<p>如果是外部访问内部容器，事实上是通过iptables指定转发规则，即将网卡为eth0的，端口8080的转发到端口80的容器等等（比方说eth0为10.0.0.100，端口为8080，转发到内部容器172.17.0.2:80，即需要通过iptables指定转发规则：10.0.0.100:80
+-&gt; 172.17.0.2:80而且该转发会经过docker0）</p>
+<h3 id="docker作为bridge的注意点">Docker作为bridge的注意点</h3>
+<p>Docker0只提供了容器之间的访问、容器与宿主机之间的访问以及容器的上网问题，但是没有提供外部访问容器的功能，该功能还是需要通过端口映射来完成,但是需要注意的是，外部访问容器还是需要经过docker的</p>
+<h3 id="查看支持网络类型">查看支持网络类型</h3>
+<p>Docker network ls</p>
+<h3 id="测试使用各类网络类型">测试使用各类网络类型</h3>
+<p><strong>语法：docker run &ndash;network=xxx</strong></p>
+<h4 id="none-无网络模式">none: 无网络模式</h4>
+<p>无网络就是没有网络</p>
+<p><img src="/docker/b1c5540108b8fca212dfacf251f90e0c.png" alt=""></p>
+<p>起的容器只有127的这个网卡，没法对外交互</p>
+<h4 id="bridge-默认模式相当于nat上面的几张图讲的就是这个">bridge: 默认模式，相当于NAT（上面的几张图讲的就是这个）</h4>
+<p>上面的图讲的就是这种模式，单机模式下最常用的就是bridge模式</p>
+<h4 id="host-共用宿主机network-namespace">host: 共用宿主机Network NameSpace</h4>
+<p>性能最好，隔离最差</p>
+<p><strong>理念：只隔离部分资源，不隔离网络资源</strong></p>
+<p>和宿主机用同一个命名空间，使得该容器共用宿主机的ip、port、主机名等，但是它只是做了一部分功能，还是属于本地的一种网络模式，还上升不到全局的，全局的有更加复杂的设置方法。</p>
+<p>使用该模式启动容器之后几乎无法和宿主机进行分辨，但是我们确定容器里面没有docker，所以敲一个docker命令就能分辨出到底是在容器里面还是在宿主机。</p>
+<p><img src="/docker/863a1aa8ad17addf6fba7f41f7065d8a.png" alt=""></p>
+<p>这种模式用的不多，因为隔离比较差，虽然挺方便的，因为外面访问进来和里面访问出去都只需要用宿主机的ip就可以了，端口的话自己指定（可想而知他的缺点就是如果一个机器起多个容器，那么他们的端口就不能重复，所以要做到端口的妥善管理），所以他也没有容器跨主机访问一说（容器本身就没有自己的网络隔离，用的就是宿主机的）。</p>
+<p>而且包括hosts文件也是跟宿主机是一样的（下图是容器中的hosts文件）</p>
+<p><img src="/docker/af923b89c97b08f8ebaf0b5deceba7c7.png" alt=""></p>
+<h5 id="在host模式的容器里启动sshd">在host模式的容器里启动sshd</h5>
+<p>由于这个时候容器跟宿主机用的是同一个ip，因此在容器内启动sshd是起不来的</p>
+<p><img src="/docker/1f944d0a42dda8cedf282c847b2d3956.png" alt=""></p>
+<p>那么怎么让他起来呢？</p>
+<p>可以修改sshd的配置文件</p>
+<p><img src="/docker/4947af7a3249f6ab99252446003a527a.png" alt=""></p>
+<p><img src="/docker/59f47e58aec43172620dd03bf8783f93.png" alt=""></p>
+<p>我们把端口改2222</p>
+<p><img src="/docker/525789e642f6c2b552710737a72dfcbc.png" alt=""></p>
+<p>这个时候就能起来了，我们使用某一台宿主机用sshd去连他</p>
+<p><img src="/docker/c4e6c3aacca7287729edfe9625241c10.png" alt=""></p>
+<p>发现是可以连进去的</p>
+<h4 id="container-与其他容器公用network-namespace">container: 与其他容器公用Network Namespace</h4>
+<p>container在单机里面也很少见了。</p>
+<p>host是跟主机共用网络空间（其他空间还是隔离的），container是容器之间共用网络空间，注意，这里ip和port都是共用的。</p>
+<p>当我们启动一个容器的时候，会给这个容器开启一个网络空间，这个网络空间先来先得，也就是最先开启的容器会得到这个网络空间，那这个网络空间就算这个容器的，然后下次再开另一个容器的时候那个容器会和第一个容器共用该网络空间，再来一个也是一样，会共用第一个容器的网络空间。</p>
+<p>该模式有特定的应用场景：比方说我起了一个容器，当他宕掉的时候有两种解决方法：</p>
+<ol>
+<li>
+<p>重启该容器；</p>
+</li>
+<li>
+<p>新起一个容器，这个容器继承上一个容器的网络空间（ip、port等）</p>
+</li>
+</ol>
+<p>一般情况下我们如果使用上述方法二那我们就会用这种模式</p>
+<p><strong>这种模式在k8s中是常用的用来实现自愈功能的网络模型，但是在单机模式下该网络模式不常用</strong></p>
+<h2 id="docker跨主机网络介绍">Docker跨主机网络介绍</h2>
+<p>需求背景：不想用k8s，只想简简单单的跨主机ping通两台宿主机中的容器</p>
+<h3 id="macvlan">Macvlan</h3>
+<p>Docker自带的、轻量的</p>
+<p><strong>这种模式只能两个容器跨主机访问，但是两个容器都不能访问外网</strong></p>
+<p><img src="/docker/d8c0c9a364e98c6c7e46c2f6ed4a1d54.png" alt=""></p>
+<p>建立一个通道让两台机器能够互相访问</p>
+<h4 id="创建步骤">创建步骤</h4>
+<p><img src="/docker/d121da68773d6a320d8c84993285d73f.png" alt=""></p>
+<p>在两个需要互联的宿主机上执行上述命令（相当于建立了一个通道）</p>
+<p>然后两个机器再执行：</p>
+<p><img src="/docker/1c185095807c943477763f06856e12f9.png" alt=""></p>
+<p><img src="/docker/1f8aa3f185bc09d072953445e7fdb29f.png" alt=""></p>
+<p><strong>这里两个容器的ip的地址段要使用上面创建macvlan的时候写的地址段，这个—ip最好自己指定，不指定也行那就是他自动帮你分配，但是这样容易重复</strong></p>
+<p><img src="/docker/5ac8fafcce14c59708d97c26c551b2fd.png" alt=""></p>
+<p>这个macvlan_1是创建这个通道的时候取得名字</p>
+<h4 id="删除">删除</h4>
+<p>语法：docker network delete macvlan名</p>
+<p><img src="/docker/fb3fd8a355dd22c3733289f6848bdffe.png" alt=""></p>
+<p>有时候删不掉是因为有别的容器在使用他，这个时候用docker ps -a(其实就是docker
+container ls
+-a)命令配合grep筛选到目标容器然后先删掉这个容器之后即可删除该macvlan，然后别忘了两个容器中都开起了这个macvlan，因此还需要到另外一个容器里面删掉该macvlan</p>
+<h4 id="优点和缺点">优点和缺点</h4>
+<p>优点是：</p>
+<ol>
+<li>可以实现两个docker容器的跨主机访问；</li>
+</ol>
+<p>缺点是：</p>
+<ol>
+<li>
+<p>不能访问外网</p>
+</li>
+<li>
+<p>给两个容器起同一个ip地址macvlan是不会管的，比如说如果两个容器的ip都指定了100.0.0.10，这不会报错但是会导致同一个局域网里面会有两个相同的ip地址，这本是不被允许的。为了避免这种情况只能人工去管控他们的ip地址，这也是macvlan用的比较少的原因之一</p>
+</li>
+</ol>
+<p><strong>因此引出了overlay模式</strong></p>
+<h3 id="overlay">Overlay</h3>
+<p>其实就是在bridge模式的基础上加了一些东西，</p>
+<p>首先跟bridge模式一样，每个容器都有自己的eth0，宿主机有docker0，内访外或者外访内都要通过docker0（反正就是跟bridge一样）</p>
+<p><img src="/docker/5c5c4ee54cba17aea312d16c229d36ff.png" alt=""></p>
+<p>区别是他在容器内除了eth0还给了容器一张eth1网卡然后两个容器通过eth1网卡建立overlay通道互相访问</p>
+<p><img src="/docker/87535ed5945cb0f0ff6c581e42ea813b.png" alt=""></p>
+<p>简单来讲就是给了容器一张对外访问的网卡和一张内部访问的网卡</p>
+<h4 id="解决macvlan的ip地址冲突问题">解决macvlan的ip地址冲突问题</h4>
+<p><img src="/docker/81e1b9ede110151641c9441c27dbdc31.png" alt=""></p>
+<p>上图蓝箭头指向的容器就是用于记录两个宿主机使用网卡的情况，将使用过的网卡都记录下来统一配置管理，下次再用网卡的时候就看一下这个容器的记录，然后分一个新的网卡给它就好了</p>
+<h4 id="适用场景">适用场景</h4>
+<p>他不像k8s这么重量级可以管理多台机器</p>
+<p>这种模式就是少数几台机器的情况下既可以使得各自内部的容器互相访问又可以使得容器对外访问外网</p>
+<h4 id="启动步骤">启动步骤</h4>
+<h5 id="启动consul服务实现网络的统一配置管理">启动consul服务，实现网络的统一配置管理</h5>
+<p><img src="/docker/043c39816af33f797bc44e0405150de8.png" alt=""></p>
+<p>注意这个配置文件两边都要改（互相通信的两个docker的宿主机），改了之后才能被这个容器统一管理</p>
+<p>这个consul就是上面所说的用于记录两个宿主机使用网卡情况的容器</p>
+<p>上图的倒数第三句话（vim …
+docker.service）这个是新版本（18、19版本）需要改的，新版本需要改systemd的启动脚本，否则加了这个配置进去之后启动不了，如果是17版本的就不需要改这个</p>
+<h5 id="创建overlay网络">创建overlay网络</h5>
+<p><img src="/docker/19bc7712588c001cd3c88039589ae49d.png" alt=""></p>
+<p>上面说到的eth1这个网卡走的就是上图—subnet 172.16.0.0/24 –-gateway
+172.16.0.254这个子网。之后相当于创建了名为ol1的通道</p>
+<p>查看这个容器</p>
+<p><img src="/docker/3ae76e8d99f9459248961c2f8e62ddb7.png" alt=""></p>
+<p>然后我们到另外一台宿主机上看docker network
+ls我们会发现虽然没有在这台机器上创建这个overlay，但是我们也能看到这个容器</p>
+<h5 id="两边启动容器测试">两边启动容器测试</h5>
+<p><img src="/docker/c2cbe2f2928591c575ff2f6d82d2692e.png" alt=""></p>
+<p>进去之后发现是可以ping通外网的，也可以ping通另一个容器</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Docker</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#虚拟机和容器的区别">虚拟机和容器的区别</a></li>
+    <li><a href="#什么叫做互不影响的两套系统">什么叫做互不影响的两套系统</a></li>
+    <li><a href="#安装docker">安装docker</a></li>
+    <li><a href="#docker体系结构">Docker体系结构</a></li>
+    <li><a href="#镜像操作">镜像操作</a>
+      <ul>
+        <li><a href="#基础镜像拉取">基础镜像拉取</a></li>
+        <li><a href="#镜像基本查看">镜像基本查看</a></li>
+        <li><a href="#标识镜像唯一性">标识镜像唯一性</a></li>
+        <li><a href="#查看镜像详细信息">查看镜像详细信息</a></li>
+        <li><a href="#只查看镜像id">只查看镜像ID</a></li>
+        <li><a href="#镜像的导入和导出">镜像的导入和导出</a></li>
+        <li><a href="#镜像删除">镜像删除</a></li>
+        <li><a href="#给镜像打标签">给镜像打标签</a></li>
+      </ul>
+    </li>
+    <li><a href="#容器操作">容器操作</a>
+      <ul>
+        <li><a href="#启动镜像">启动镜像</a></li>
+        <li><a href="#查看启动的容器">查看启动的容器</a></li>
+        <li><a href="#查看所有容器包括启动的和退出的">查看所有容器（包括启动的和退出的）</a></li>
+        <li><a href="#查看容器详细信息">查看容器详细信息</a></li>
+        <li><a href="#使用exit退出容器">使用exit退出容器</a></li>
+        <li><a href="#使用kill退出">使用kill退出</a></li>
+        <li><a href="#容器的启动关闭连接">容器的启动、关闭、连接</a></li>
+        <li><a href="#容器的连接方法">容器的连接方法</a></li>
+        <li><a href="#让容器永生的三种方法">让容器永生的三种方法</a></li>
+        <li><a href="#批量删除容器">批量删除容器</a></li>
+      </ul>
+    </li>
+    <li><a href="#显示完整信息--no-trunc">显示完整信息（&ndash;no-trunc）</a></li>
+    <li><a href="#docker网络">Docker网络</a></li>
+    <li><a href="#容器网络映射">容器网络映射</a>
+      <ul>
+        <li><a href="#宿主机8080端口映射到容器80端口">宿主机8080端口映射到容器80端口</a></li>
+        <li><a href="#宿主机指定ipport映射到容器80端口">宿主机指定ip:port映射到容器80端口</a></li>
+        <li><a href="#宿主机随机ipport映射到容器80端口">宿主机随机ip:port映射到容器80端口</a></li>
+        <li><a href="#宿主机指定ip和随机port映射到容器80端口">宿主机指定ip和随机port映射到容器80端口</a></li>
+        <li><a href="#一般情况下映射到容器tcp也可以指定udp">一般情况下映射到容器tcp也可以指定udp</a></li>
+        <li><a href="#指定多端口映射">指定多端口映射</a></li>
+      </ul>
+    </li>
+    <li><a href="#容器的其他命令">容器的其他命令</a>
+      <ul>
+        <li><a href="#查看容器id号">查看容器ID号</a></li>
+        <li><a href="#查看容器的进程情况">查看容器的进程情况</a></li>
+        <li><a href="#查看日志">查看日志</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker的数据卷实现持久化存储">Docker的数据卷实现持久化存储</a>
+      <ul>
+        <li><a href="#容器默认位置">容器默认位置</a></li>
+        <li><a href="#手工交互数据docker-的-cp-命令">手工交互数据（Docker 的 cp 命令）</a></li>
+        <li><a href="#数据卷volume">数据卷（Volume）</a></li>
+      </ul>
+    </li>
+    <li><a href="#制作本地局域网yum源">制作本地局域网yum源</a></li>
+    <li><a href="#更换运行中容器的配置文件">更换运行中容器的配置文件</a></li>
+    <li><a href="#镜像制作类似于aliyun-ecs这里模拟centos的其他的也可以是特制的mysql等">镜像制作(类似于aliyun ECS)（这里模拟centos的，其他的也可以是特制的mysql等）</a>
+      <ul>
+        <li><a href="#出现问题">出现问题！</a></li>
+        <li><a href="#基于容器的镜像制作">基于容器的镜像制作</a></li>
+        <li><a href="#再次出现问题">再次出现问题！</a></li>
+        <li><a href="#让sshd在前台启动相当于一直夯在那">让sshd在前台启动（相当于一直夯在那）</a></li>
+      </ul>
+    </li>
+    <li><a href="#构建企业网站定制镜像">构建企业网站定制镜像</a>
+      <ul>
+        <li><a href="#启动基础镜像">启动基础镜像</a></li>
+        <li><a href="#优化yum源">优化yum源</a></li>
+        <li><a href="#安装软件">安装软件</a></li>
+        <li><a href="#软件初始化">软件初始化</a></li>
+        <li><a href="#制作lamp第一版基础镜像">制作LAMP第一版基础镜像</a></li>
+        <li><a href="#启用">启用</a></li>
+        <li><a href="#测试php">测试php</a></li>
+        <li><a href="#上传bbs论坛安装文件到varwwwhtml目录下并解压">上传bbs论坛安装文件到/var/www/html目录下并解压</a></li>
+        <li><a href="#制作第二版镜像">制作第二版镜像</a></li>
+        <li><a href="#创建启动脚本">创建启动脚本</a></li>
+        <li><a href="#基于centos7的制作">基于centos7的制作</a></li>
+      </ul>
+    </li>
+    <li><a href="#dockerfile">Dockerfile</a>
+      <ul>
+        <li><a href="#from">FROM</a></li>
+        <li><a href="#run">RUN</a></li>
+        <li><a href="#expose">EXPOSE</a></li>
+        <li><a href="#cmd">CMD</a></li>
+        <li><a href="#调用dockerfile生成镜像">调用dockerfile生成镜像</a></li>
+        <li><a href="#copy">COPY</a></li>
+        <li><a href="#add">ADD</a></li>
+        <li><a href="#volume">VOLUME</a></li>
+        <li><a href="#workdir">WORKDIR</a></li>
+        <li><a href="#env">ENV</a></li>
+        <li><a href="#user">USER</a></li>
+        <li><a href="#onbuild">ONBUILD</a></li>
+        <li><a href="#entrypoint">ENTRYPOINT</a></li>
+        <li><a href="#lable">LABLE</a></li>
+        <li><a href="#问题">问题</a></li>
+        <li><a href="#启动问题">启动问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker构建私有registry">Docker构建私有registry</a>
+      <ul>
+        <li><a href="#启动一个容器作为服务">启动一个容器作为服务</a></li>
+        <li><a href="#修改docker的daemonjson配置文件">修改docker的daemon.json配置文件</a></li>
+        <li><a href="#重启docker服务">重启docker服务</a></li>
+        <li><a href="#上传镜像到registry服务器">上传镜像到registry服务器</a></li>
+        <li><a href="#从registry服务器拉取镜像">从registry服务器拉取镜像</a></li>
+        <li><a href="#给本地仓库加安全验证">给本地仓库加安全验证</a></li>
+        <li><a href="#从加了安全验证的registry服务器拉取镜像">从加了安全验证的registry服务器拉取镜像</a></li>
+      </ul>
+    </li>
+    <li><a href="#harbor重量版registry实现图形化register">Harbor（重量版registry）实现图形化register</a>
+      <ul>
+        <li><a href="#查看docker-compose版本">查看docker-compose版本</a></li>
+        <li><a href="#使用方法">使用方法</a></li>
+        <li><a href="#启动关闭和重启harbor">启动、关闭和重启harbor</a></li>
+        <li><a href="#推送镜像">推送镜像</a></li>
+        <li><a href="#从harbor中pull">从harbor中pull</a></li>
+        <li><a href="#删除操作">删除操作</a></li>
+        <li><a href="#更多说明">更多说明</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker网络模型">Docker网络模型</a>
+      <ul>
+        <li><a href="#docker作为bridge的注意点">Docker作为bridge的注意点</a></li>
+        <li><a href="#查看支持网络类型">查看支持网络类型</a></li>
+        <li><a href="#测试使用各类网络类型">测试使用各类网络类型</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker跨主机网络介绍">Docker跨主机网络介绍</a>
+      <ul>
+        <li><a href="#macvlan">Macvlan</a></li>
+        <li><a href="#overlay">Overlay</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

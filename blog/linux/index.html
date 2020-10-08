@@ -1,0 +1,3394 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Linux &ndash; Learning Records
+
+    </title>
+    
+    <meta content="Linux" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of linux&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="Linux | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of linux&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF file</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Linux</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/linux' class="muted-link">
+  <span class="Label Label--gray">Linux</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-07-20. Published at: 2020-07-20.">
+        
+          Published: 2020-07-20
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of linux&hellip;</p>
+<h2 id="linux发展史与安装">Linux发展史与安装</h2>
+<h2 id="一linux发展史">一、Linux发展史</h2>
+<h3 id="1linux前身-unix">1、Linux前身-Unix</h3>
+<p>1968年 Multics项目</p>
+<p><strong>MIT、Bell实验室、美国通用电气有限公司</strong>走到了一起，致力于开发Multics项目。到后期由于开发进度不是很好，MIT和Bell实验室相继离开这个项目的开发，最终导致项目搁浅。</p>
+<p><strong>1970年（Unix元年，时间戳）</strong> Unix诞生</p>
+<p>当时在开发Multics项目的时候，实验室中有一个开发成员开发了一款游戏（travel
+space：遨游太空），因为两个实验室相继离开项目开发，导致这名开发人员没法玩游戏，后来他提议组织人员重新在Multics项目之上重新的开发，也就出现了1970年的Unix。当时Unix操作系统是使用的**汇编语言（机器语言）**开发的。</p>
+<p>1973年 用<strong>C语言</strong>重写Unix</p>
+<p>因为汇编语言有一个最大的局限性：对于计算机硬件过于依赖。导致移植性不好，所以后期在1973年使用了C语言对其进行重新开发。</p>
+<p>1975年 Bell实验室允许大学使用Unix。</p>
+<p>1975年，bell实验室允许大学使用Unix操作系统用于教学作用，而不允许用于商业用途。</p>
+<h3 id="2linux诞生">2、Linux诞生</h3>
+<p>人物 Linus</p>
+<blockquote>
+<p>Linux的开发作者，Linux之父，李纳斯·托瓦兹。Linux诞生时是荷兰在校大学生。</p>
+</blockquote>
+<p><img src="/linux/7bfe53321ec881cea21c12e280d286b6.png" alt="https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike116%2C5%2C5%2C116%2C38/sign=13e38289349b033b3885f48874a75db6/5882b2b7d0a20cf4f664615276094b36adaf9943.jpg"></p>
+<p>1991年 0.0.1版本</p>
+<p>李纳斯当时学校使用的就是Unix操作系统，然后其对系统的底层代码进行了修改，放到了学校为学生开放的网站上，原先他把文件命名写成了Linus’s
+Unix，后期网络管理发现之后觉得这个名字不好，自己手动的将名字改成Linux。随后其他同学下载之后发现这个版本还是挺好用的，随后都把自己代码贡献给李纳斯。</p>
+<p>1992年 0.0.2版本</p>
+<p>1994年 1.0版本</p>
+<p>2003年 2.6版本</p>
+<p><strong>上述所提及的版本号并不是分支版本，而是指Linux的内核版本。</strong></p>
+<h3 id="3开源文化">3、开源文化</h3>
+<p>Linux是<strong>开源</strong>的操作系统。所谓开源就是指开放源代码。</p>
+<p>人 物 Stallman 斯特曼，开源文化的倡导人。</p>
+<p><strong>1983年 GNU计划</strong></p>
+<p>1985年 FSF基金会</p>
+<p>1990年 Emacs、<strong>GCC</strong>（c语言的编译器）、程序库</p>
+<p>1991年 Stallman去找Linus，商谈让Linux加入其开源计划（GNU计划）</p>
+<p>1992年 GNU/Linux</p>
+<h3 id="4linux系统特点">4、Linux系统特点</h3>
+<p>开放性（开源）、多用户、多任务、良好的用户界面、优异的性能与稳定性</p>
+<p>多用户多任务：</p>
+<p>单用户：一个用户，在登录计算机（操作系统），只能允许<strong>同时</strong>登录一个用户；</p>
+<p>单任务：一个任务，允许用户<strong>同时</strong>进行的操作任务数量；</p>
+<p>多用户：多个用户，在登录计算机（操作系统），允许<strong>同时</strong>登录多个用户进行操作；</p>
+<p>多任务：多个任务，允许用户<strong>同时</strong>进行多个操作任务；</p>
+<p><strong>Windows属于：单用户、多任务。</strong></p>
+<p><strong>Linux属于：多用户、多任务。</strong></p>
+<h3 id="5linux分支">5、Linux分支</h3>
+<p>分支：Linux分支有很多，现在比较有名的ubuntu、debian、<strong>centos（<strong>Community
+Enterprise Operating System</strong>）</strong>、redhat、suse等等。</p>
+<h2 id="二linux系统的安装">二、Linux系统的安装</h2>
+<h3 id="1安装方式">1、安装方式</h3>
+<p>目前安装操作系统方式有2种：真机安装、虚拟机安装。</p>
+<p><strong>真机安装</strong>：使用真实的电脑进行安装，像安装windows操作系统一样，真机安装的结果就是替换掉当前的windows操作系统；</p>
+<p><strong>虚拟机安装</strong>：通过一些特定的手段，来进行模拟安装，<strong>并不会影响当前计算机的真实操作系统</strong>；</p>
+<p>如果是学习或者测试使用，强烈建议使用虚拟机安装方式。</p>
+<h3 id="2虚拟机软件了解">2、虚拟机软件（了解）</h3>
+<p>什么是虚拟机？</p>
+<p>虚拟机，有些时候想模拟出一个真实的电脑环境，碍于使用真机安装代价太大，因此而诞生的一款可以模拟操作系统运行的软件。</p>
+<p>虚拟机目前有2个比较有名的产品：vmware出品的vmware workstation、oracle
+出品的virtual Box。</p>
+<h3 id="3虚拟机的安装">3、虚拟机的安装</h3>
+<h4 id="31vmware-workstation的安装">3.1、VMware Workstation的安装</h4>
+<p>①打开安装程序</p>
+<p><img src="/linux/ab1e394c85619867bf6535b95af64561.png" alt=""></p>
+<p>②进行下一步开始安装</p>
+<p><img src="/linux/165f96e58604dfa7d9ed4e011ffb633c.png" alt=""></p>
+<p>③同意许可协议</p>
+<p><img src="/linux/277b81c8e3fe03719a6fe626b68a307f.png" alt=""></p>
+<p>④根据需要决定是否需要更改软件的安装位置</p>
+<p><img src="/linux/cb0874c768223e0624352fca79817f83.png" alt=""></p>
+<p>点击下一步：</p>
+<p><img src="/linux/5391e1b60b9284b3e7fac82b5c2bd489.png" alt=""></p>
+<p>⑤用户体验设置</p>
+<p><img src="/linux/d4beef8ed2a96c0aff9b72df71491eda.png" alt=""></p>
+<p>⑥快捷方式创建的步骤</p>
+<p><img src="/linux/fb96412af05fcfeb3c80aa0d2b70b83f.png" alt=""></p>
+<p>⑦点击安装按钮</p>
+<p><img src="/linux/2430e248f27d27f46b90606aa691f02b.png" alt=""></p>
+<p>⑧点击完成</p>
+<p><img src="/linux/075e269e2089eaffb1e07d023e042fc1.png" alt=""></p>
+<p>⑨<strong>最重要的地方，在安装完之后需要检查，检查虚拟机软件是否有安装2个虚拟网卡</strong></p>
+<p><img src="/linux/098849109da0c0366e547408ab802534.png" alt=""></p>
+<p><strong>如果没有这2个网卡的话，则会影响后期windows系统与虚拟机其中操作系统之间的相互通信（比如共享网络、文件传输等）。</strong></p>
+<h4 id="32virtual-box的安装">3.2、Virtual Box的安装</h4>
+<p>①运行安装程序</p>
+<p><img src="/linux/b0588e6d64c40347ba3afc1f9a9805b2.png" alt=""></p>
+<p>②点击下一步</p>
+<p><img src="/linux/6b80a428f4f414710c9208d96ef23e37.png" alt=""></p>
+<p>③选择性更改安装的位置</p>
+<p><img src="/linux/88bf6045fa1dde05aaec857bc669cab9.png" alt=""></p>
+<p>④安装的选项设置</p>
+<p><img src="/linux/be04d71d75d2b0e31280b963f820c9d7.png" alt=""></p>
+<p>⑤断网警告，点击是即可</p>
+<p><img src="/linux/e0f55b7771d7376c5fee7a92ed27527f.png" alt=""></p>
+<p>⑤点击安装按钮</p>
+<p><img src="/linux/9de637089ee305a30902856b553d3556.png" alt=""></p>
+<p>⑥完成</p>
+<p><img src="/linux/9277d84d26fdfa167f818829a00017d2.png" alt=""></p>
+<p><strong>⑦检查是否有对应的虚拟网卡存在</strong></p>
+<p><img src="/linux/64a0e6f310ee222a501a41a90e749399.png" alt=""></p>
+<p>两个软件安装完成之后在桌面上都有对应的快捷方式</p>
+<p><img src="/linux/3668d6a7dd6fed16d7d407879264f54f.png" alt=""></p>
+<h3 id="4linux版本的选择">4、Linux版本的选择</h3>
+<p>版本选择：CentOS 6.5 【镜像一般都是xxx.iso文件】</p>
+<p><strong>问题：为什么不选择最新版的7.x版本？</strong></p>
+<p>6.x目前依然是主流</p>
+<p>6.x的各种系统操作模式是基础</p>
+<p>7.x实际上也支持大多数6.x的操作形式</p>
+<p>官网：<a href="https://www.centos.org/">https://www.centos.org/</a></p>
+<p>从官网下载得到的镜像文件</p>
+<p><img src="/linux/8fcbbf84f04bdc63ccb9b0b047f73fcb.png" alt=""></p>
+<h3 id="5新建虚拟机">5、新建虚拟机</h3>
+<h4 id="51使用vmware-workstation重点">5.1、使用VMware Workstation（重点）</h4>
+<p>①点击“文件”菜单，选择“新建虚拟机…”选项，选择“自定义”点击下一步</p>
+<p><img src="/linux/29f91f736f3d0a5375e8fc1b30dc34c7.png" alt=""></p>
+<p>②选择兼容性，默认即可，直接下一步</p>
+<p><img src="/linux/89eee4b4a501e8b0da394e8f21e3dca2.png" alt=""></p>
+<p>③选择镜像文件的时候选择“稍后….”，点击下一步</p>
+<p><img src="/linux/eb9dbf918505a5d28e50df393472720d.png" alt=""></p>
+<p>④选择需要安装的操作系统</p>
+<p><img src="/linux/2f3e238348f53890d24e3a0070cd47c3.png" alt=""></p>
+<p>⑤选择虚拟机的名称（名称将会后期出现在左侧）和设置虚拟系统的安装位置</p>
+<p><img src="/linux/4d4edcc203bbfbb67b05079b0ba63392.png" alt=""></p>
+<p>⑥cpu设置</p>
+<p><img src="/linux/7f8c70aeba73f90e2f62a091341b0643.png" alt=""></p>
+<p>⑦分配内存</p>
+<p><img src="/linux/a0dcc750ab1d498362234d78d9229dc6.png" alt=""></p>
+<p>⑧选择网络类型，选择nat即可</p>
+<p>NAT：配置好之后windows即可和虚拟机进行互相通信，但是教室内的其他同学是访问不了的，只能自己可以访问虚拟机中的操作系统；</p>
+<p>桥接：配置好之后其他同学也可以访问你的虚拟机操作系统；</p>
+<p><img src="/linux/c674b13ce0032e193d5e6f55fb9184ef.png" alt=""></p>
+<p>⑨后续默认的步骤，直接下一步</p>
+<p><img src="/linux/790bc1b8d2b02f250a852676a6a13570.png" alt=""></p>
+<p><img src="/linux/07bdfc3749c892d2df932150da345582.png" alt=""></p>
+<p><img src="/linux/ea502ddf7ed67749a49dd68a6cf0dad8.png" alt=""></p>
+<p><img src="/linux/c2b7d0a37e61c47aa414507d349e8a80.png" alt=""></p>
+<p><img src="/linux/25c7dcfbc00b6b8fb65cdfd94db98c05.png" alt=""></p>
+<p>⑩点击完成</p>
+<p><img src="/linux/5b892d1f4c2f41d23d96fdadfb544d7b.png" alt=""></p>
+<h4 id="52使用virtual-box了解">5.2、使用Virtual Box（了解）</h4>
+<p>①点击左上角的新建按钮</p>
+<p><img src="/linux/f2d54a50854092f34380cf0455fda6e3.png" alt=""></p>
+<p>②选择操作系统，由于centos在列表中是没有的，所以选择centos对应的主线redhat 32位</p>
+<p><img src="/linux/94f80920be35eaa0c9516ee3028e469b.png" alt=""></p>
+<p>③选择内存大小</p>
+<p><img src="/linux/32babf525d0fdd830fd3e0558dba0210.png" alt=""></p>
+<p>④创建磁盘，默认即可</p>
+<p><img src="/linux/8d384f823c083db1bb330b4e70868176.png" alt=""></p>
+<p>⑤选择磁盘类型，默认即可</p>
+<p><img src="/linux/6da03d17d2141971e53ac5591abd6049.png" alt=""></p>
+<p>⑥选择磁盘大小的分配方式，方式为动态分配即可</p>
+<p><img src="/linux/e88db6c99fe6cf8f24c4d3615cf7cb6f.png" alt=""></p>
+<p>⑦设置磁盘的位置和大小确认</p>
+<p><img src="/linux/be7566b3b63f6ceca84fbd1ef216bdbf.png" alt=""></p>
+<h3 id="6linux操作系统安装">6、Linux操作系统安装</h3>
+<h4 id="61使用vmware-workstation进行安装">6.1、使用VMware workstation进行安装</h4>
+<p>a. 由于之前没有指定iso镜像文件，因此此处需要先指定系统镜像文件</p>
+<p><img src="/linux/d54285ed3d70da3ac48783db99164551.png" alt=""></p>
+<p>b. 运行此虚拟机</p>
+<p><img src="/linux/8373c731b6cd765e29f7d73dcc6fb4b2.png" alt=""></p>
+<p><strong>注意：如果开机之后鼠标点进去虚拟机出不来，则可以按下组合快捷键“ctrl+alt”。</strong></p>
+<p>如果启动之后出现类似提示框（不是错误框）则勾选不再提示，并且确定即可：</p>
+<p><img src="/linux/e0fefd8141b729c7cfcb25126a1baa07.png" alt=""></p>
+<p>如果在启动时候出现下述错误，则说明电脑没有开启cpu的
+虚拟化，如果需要开启，则需要重启计算机，并且在开启的时候进入主板的BIOS设置开启虚拟化，然后保存设置重启电脑：</p>
+<p><img src="/linux/c2e146c1a98b9932b11403fcb4d868af.png" alt=""></p>
+<p>c. 选择升级/安装已经存在的系统（通过↑/↓方向键）按下回车</p>
+<p><img src="/linux/7e1d717ef50cb5cc401ec29014ba232d.png" alt=""></p>
+<p>d. 在检测到光盘（disc）之后选择跳过完整性检测直接进行安装</p>
+<p><img src="/linux/3fd4cf0fabe8569adce5ebe361fd68cc.png" alt=""></p>
+<p>随后提示不支持的硬件，忽略直接下一步</p>
+<p><img src="/linux/f1d891021e1e90542cf4eaa4312646a1.png" alt=""></p>
+<p>e. 点击下一步</p>
+<p><img src="/linux/929da6c7de128897543e14fb1ce22d40.png" alt=""></p>
+<p>f. 选择在安装过程中使用的语言</p>
+<p><img src="/linux/24ba8dcb89e5d14c6a0555f0f6d85800.png" alt=""></p>
+<p>g. 选择键盘类型，美国式英语</p>
+<p><img src="/linux/054a44b0360dd52e2710605e675446c5.png" alt=""></p>
+<p>h. 选择存储设备类型</p>
+<p><img src="/linux/1a0648c9d40c21a2669ff3b24177456c.png" alt=""></p>
+<p>i. 对磁盘进行空白盘的初始化操作，选择“是，忽略所有的数据”</p>
+<p><img src="/linux/5eab4aee01aad2c803b1c94323f2327d.png" alt=""></p>
+<p>j. 设置网卡自动连接，依次应用 – 关闭 – 下一步</p>
+<p><img src="/linux/9f0a92b3d1a9b81bad24a167c0a32cce.png" alt=""></p>
+<p>k. 设置时区，默认亚洲/上海</p>
+<p><img src="/linux/aba6563d8af263f1129173548860c567.png" alt=""></p>
+<p>l. 设置密码，设置好了之后下一步</p>
+<p><img src="/linux/b6c281286aeb108757875a2020c626d8.png" alt=""></p>
+<p>m. 使用全部的磁盘空间来安装Linux系统，点击下一步</p>
+<p><img src="/linux/ac33765f37e218694f5df60fbee88578.png" alt=""></p>
+<p><img src="/linux/053a9fd6496df14da7a78b0f5edd0402.png" alt=""></p>
+<p>n. 选择安装的Linux类型</p>
+<p><img src="/linux/d8bec998bdcc69ab825190b14ce62cbb.png" alt=""></p>
+<p><img src="/linux/d7e9fbc9c702b3f273c2e54c7e6b8752.png" alt=""></p>
+<p>o. 选择开发 – 开发工具，<strong>前面复选框√，点击下一步</strong></p>
+<p><img src="/linux/993cac8dda713795746e45508cd217f3.png" alt=""></p>
+<p>p. 等待软件包的安装</p>
+<p><img src="/linux/bb49112562a0b1902abc7e51233b049e.png" alt=""></p>
+<p>等待完成，点击重新引导</p>
+<p><img src="/linux/b90dd89e89c90f35403965c857835351.png" alt=""></p>
+<p>q. 重新引导之后点击“前进”</p>
+<p><img src="/linux/2af39f8dd9062b89078a70de8ae86046.png" alt=""></p>
+<p>r. 在协议许可界面选择同意，然后点击前进</p>
+<p><img src="/linux/a72aff0d880ea6c3d12ad2a1e778be9f.png" alt=""></p>
+<p>s. 创建普通用户帐号（可选），然后点击前进</p>
+<p><img src="/linux/5f9469c1274b3c03c998aef4111c7edc.png" alt=""></p>
+<p>t. 时间设置，设置好之后前进</p>
+<p><img src="/linux/a0d12a387840ae5e35316351de2f4b6d.png" alt=""></p>
+<p><img src="/linux/346b19d40286774411409a1f10754adf.png" alt=""></p>
+<p>u. 关于kdump，之后点击完成</p>
+<p><img src="/linux/58090611a092332356ee29a4a1d19216.png" alt=""></p>
+<p>v. 登录界面</p>
+<p><img src="/linux/25d006348e1aeb254f920ed3cfadb4ac.png" alt=""></p>
+<p>如果需要使用非列出的用户进行登录则点击其他，否则双击列出的用户名即可，随后输入密码。</p>
+<p>w. 使用root帐号登录之后的提示</p>
+<p><img src="/linux/61c19cd3ab89109f26b6f58d9f3ef226.png" alt=""></p>
+<p>x. 看到的桌面</p>
+<p><img src="/linux/86f0914def782383539087d26b823520.png" alt=""></p>
+<h4 id="62使用virtual-box安装linux了解">6.2、使用virtual Box安装Linux（了解）</h4>
+<p>a. 选择需要安装的系统镜像</p>
+<p><img src="/linux/f31de626029a78b7faee62b0b4fcd0a2.png" alt=""></p>
+<p>b. 启动虚拟机</p>
+<p><img src="/linux/c878a4da1b589a19ab7d0d2a6ea3823c.png" alt=""></p>
+<p><strong>注意：如果鼠标在虚拟机中想退出到windows，则需要按下ctrl+alt组合键（空格右侧的）</strong></p>
+<p><strong>c. 后续全部操作按照上面6.1章节中的步骤继续安装即可。</strong></p>
+<h3 id="7终端">7、终端</h3>
+<p>问题：在目前的桌面系统中，如果需要关机可以通过“系统”“关机”进行关机，那么后期服务器都是命令行模式的，届时这种方式将不好用，那会要怎么关机呢？</p>
+<p><img src="/linux/faf73c8ac1c79da7853b936ffd0c6616.png" alt=""></p>
+<p>答：可以通过命令行方式进行关机。命令的输入需要在<strong>终端</strong>中进行输入。</p>
+<p>所谓终端，其实类似于windows下cmd命令行模式。在终端中可以输入需要执行的一些指令，同样可以通过终端进行关机（注意：以后在工作中很少会去使用关机命令，会使用重启比较多）。</p>
+<p>终端的形式：</p>
+<p><img src="/linux/4691a33350b4405403de260c15525005.png" alt=""></p>
+<p>终端组成部分：</p>
+<p><img src="/linux/6f9ded22e60d13ff08161f4bed6d9b11.png" alt=""></p>
+<p><strong>如何使用终端命令进行关机？</strong></p>
+<p>在Linux中关机命令 有以下几个：shutdown -h
+now（正常关机）、halt（关闭内存）、init 0</p>
+<h3 id="8使用vmware备份操作系统">8、使用VMware备份操作系统</h3>
+<p>在vm中备份方式有2种：快照、克隆。</p>
+<p><strong>快照</strong>：又称还原点，就是保存在拍快照时候的系统的状态（包含了所有的内容），在后期的时候随时可以恢复。【<strong>侧重在于短期备份，需要频繁备份的时候可以使用快照，做快照的时候虚拟的操作系统一般处于开启状态</strong>】</p>
+<p>①在菜单“虚拟机”-“快照”-“拍摄快照”</p>
+<p><img src="/linux/7f15276a5cb838434cef30a059381bcb.png" alt=""></p>
+<p>输入相关信息，点击拍摄快照</p>
+<p>②搞事情</p>
+<p><img src="/linux/b07589ae1af2f02554a2d2e0ffa23dde.png" alt=""></p>
+<p>③使用快照恢复搞事情之前的状态</p>
+<p>路径：虚拟机 – 快照 – 快照管理器</p>
+<p><img src="/linux/7e8ee9f49a7fed5a00f6a3cd44adcecf.png" alt=""></p>
+<p>恢复好之后的状态：</p>
+<p><img src="/linux/be47f5df072d3da9527eca0c0cf696e6.png" alt=""></p>
+<p><strong>克隆</strong>：就是复制的意思。【<strong>侧重长期备份，做克隆的时候是必须得关闭</strong>】</p>
+<p>路径：先关机 – 右键需要克隆的虚拟机 – 管理 – 克隆</p>
+<p><img src="/linux/b8b9e3ca7803af6a10ad227a25ac5532.png" alt=""></p>
+<p><img src="/linux/4e587c04bb41c52626b178c3a27702a2.png" alt=""></p>
+<p><img src="/linux/759a4593c1df94e552b9538414abe40e.png" alt=""></p>
+<p>上述的名称和位置与之前新建虚拟机的时候是一样的含义。</p>
+<p>等待克隆完成</p>
+<p><img src="/linux/428f35f12c876ba6fc35484ef81fd76d.png" alt=""></p>
+<p><strong>克隆好的服务器相关密码帐号等信息与被克隆的系统一致。</strong></p>
+<h2 id="三linux系统的文件">三、Linux系统的文件</h2>
+<h3 id="1文件与文件夹目录">1、文件与文件夹（目录）</h3>
+<p>什么是文件？</p>
+<p>一般都是一个独立的东西，可以通过一些特定的工具进行打开，并且其中不能在包含除了文字以外的东西。例如：</p>
+<p><img src="/linux/89074bb11d6f061ea4f7be5f7119f2cb.png" alt=""></p>
+<p>什么是文件夹？</p>
+<p>可以在其中包含其他文件的东西。</p>
+<p><img src="/linux/df4e0443bab2dd693d15874744864f9b.png" alt=""></p>
+<p>为什么先讲文件？</p>
+<p>1:日常运维工作中，有近一半以上的工作内容 精力 其实都是对文件的操作。</p>
+<p>2: Linux 本身也是一个基于文件形式表示的操作系统。</p>
+<p><strong>Linux一切皆文件。</strong></p>
+<p>①在windows是文件的，在Linux下同样也是文件；</p>
+<p>②在windows不是文件的，在Linux下也是以文件的形式存储的；</p>
+<p>日常学习中和日常工作中，对于文件的操作的都有哪些种类？</p>
+<p><strong>创建文件、编辑文件、保存文件、关闭文件、重命名文件、删除文件、恢复文件。</strong></p>
+<h3 id="2linux系统的文件目录结构">2、Linux系统的文件目录结构</h3>
+<p><img src="/linux/eb0d3a7a47b77ccbee43b7cfd7153575.png" alt=""></p>
+<p>目录结构：</p>
+<p>Bin：全称binary，含义是二进制。该目录中存储的都是一些二进制文件，文件都是可以被运行的。</p>
+<p>Dev：该目录中主要存放的是外接设备，例如盘、其他的光盘等。在其中的外接设备是不能直接被使用的，需要<strong>挂载（类似windows下的分配盘符）</strong>。</p>
+<p>Etc：该目录主要存储一些配置文件。</p>
+<p>Home：表示“家”，表示<strong>除了root用户以外其他用户的家目录</strong>，类似于windows下的User/用户目录。</p>
+<p>Proc：process，表示进程，该目录中存储的是Linux运行时候的进程。</p>
+<p>Root：该目录是root用户自己的家目录。</p>
+<p>Sbin：全称super
+binary，该目录也是存储一些可以被执行的二进制文件，但是必须得有super权限的用户才能执行。</p>
+<p>Tmp：表示“临时”的，当系统运行时候产生的临时文件会在这个目录存着。</p>
+<p>Usr：存放的是用户自己安装的软件。类似于windows下的program files。</p>
+<p>Var：存放的程序/系统的日志文件的目录。</p>
+<p>Mnt：当外接设备需要挂载的时候，就需要挂载到mnt目录下。</p>
+<h2 id="linux的基本指令">Linux的基本指令</h2>
+<h2 id="一指令与选项">一、指令与选项</h2>
+<p>什么是Linux的指令？</p>
+<p>指在Linux终端（命令行）中输入的内容就称之为指令。</p>
+<p><img src="/linux/69b805143df60716ec9e18a82ca54a60.png" alt=""></p>
+<p>一个完整的指令的标准格式：Linux通用的格式</p>
+<p>#<strong>指令主体（空格） [选项]（空格） [操作对象]</strong></p>
+<p>一个指令可以包含多个选项</p>
+<p>操作对象也可以是多个</p>
+<p>例如：需要让张三同学帮忙去楼下小卖铺买一瓶农夫山泉水和清风餐巾纸，在这个指令中“买东西”是指令的主体，买的水和餐巾纸是操作的对象，农夫山泉、清风是操作的选项。</p>
+<h2 id="二基础指令重点">二、基础指令（重点）</h2>
+<h3 id="1ls指令">1、ls指令</h3>
+<p>含义：ls （list）</p>
+<p><strong>用法1：#ls</strong></p>
+<p>含义：列出当前工作目录下的所有文件/文件夹的名称</p>
+<p><img src="/linux/72652e3be7d8f11c9bcdaea92b83dfeb.png" alt=""></p>
+<p><strong>用法2：#ls 路径</strong></p>
+<p>含义：列出指定路径下的所有文件/文件夹的名称</p>
+<p>关于路径（重要）：</p>
+<p>路径可以分为两种：相对路径、绝对路径。</p>
+<p>相对路径：相对首先得有一个参照物（一般就是当前的工作路径）；</p>
+<p>相对路径的写法：在相对路径中通常会用到2个符号“./”【表示当前目录下】、“../”【上一级目录下】。</p>
+<p>绝对路径：绝对路径不需要参照物，直接从根“/”开始寻找对应路径；</p>
+<p><img src="/linux/454a16d57e5916954841976c64525f2d.png" alt=""></p>
+<p><strong>用法3：#ls 选项 路径</strong></p>
+<p>含义：在列出指定路径下的文件/文件夹的名称，并以指定的格式进行显示。</p>
+<p>常见的语法：</p>
+<p>#ls -l 路径</p>
+<p>#ls -la 路径</p>
+<p>选项解释：</p>
+<p><strong>-l：表示list，表示以详细列表的形式进行展示</strong></p>
+<p><strong>-a：表示显示所有的文件/文件夹（包含了隐藏文件/文件夹）</strong></p>
+<p><img src="/linux/d578558dabbf926239b1af3672e7c840.png" alt=""></p>
+<p>上述列表中的第一列字符表示文档的类型，<strong>其中“-”表示改行对应的文档类型为文件，“d”表示文档类型为文件夹</strong>。</p>
+<p><img src="/linux/b9ed35421b9d2b4651816e9126db4d04.png" alt=""></p>
+<p><strong>在Linux中隐藏文档一般都是以“.”开头。</strong></p>
+<p><strong>用法4：#ls -lh 路径</strong></p>
+<p>含义：列出指定路径下的所有文件/文件夹的名称，以列表的形式并且在显示文档大小的时候以<strong>可读性较高的形式显示</strong></p>
+<p>参数含义：</p>
+<p><img src="/linux/35e722a51e6b6fd667d81a14dec2d61c.png" alt=""></p>
+<h3 id="2pwd指令">2、pwd指令</h3>
+<p><strong>用法：#pwd</strong>  <strong>（print working directory，打印当前工作目录）</strong></p>
+<p><img src="/linux/e83c412602552ba608aa37f209bcdec1.png" alt=""></p>
+<h3 id="3cd指令">3、cd指令</h3>
+<p>命令：#cd （change directory，改变目录）</p>
+<p>作用：用于切换当前的工作目录的</p>
+<p><strong>语法：#cd 路径</strong></p>
+<p>案例：当前在“/”下，需要使用绝对路径切换到/usr/local。</p>
+<p><img src="/linux/58d7c272c9216bacc3635cf659c1da6b.png" alt=""></p>
+<p>案例：当前在/usr/local下，需要使用相对路径切换目录到home目录下的Linux123用户家目录中去。</p>
+<p><img src="/linux/047c79f35ac9f1bc890921e15dbe47a0.png" alt=""></p>
+<p>补充：</p>
+<p>在Linux中有一个特殊的符号“~”，表示当前用户的家目录。</p>
+<p>切换的方式：#cd ~</p>
+<p><img src="/linux/bf4d8254d14f04b7de4264f3cb727146.png" alt=""></p>
+<h3 id="4mkdir指令">4、mkdir指令</h3>
+<p>指令：mkdir （make directory，创建目录）</p>
+<p>语法1：<strong>#mkdir 路径 【路径，可以是文件夹名称也可以是包含名称的一个完整路径】</strong></p>
+<p>案例：在当前路径下创建出目录“yunweihenniux”</p>
+<p><img src="/linux/ba32554b2f332ad98f378a8afbb91061.png" alt=""></p>
+<p>注意：ls列出的结果颜色说明，<strong>其中蓝色的名称表示文件夹</strong>，黑色的表示文件，<strong>绿色的其权限为拥有所有权限</strong>。</p>
+<p>案例：在指定路径下创建出一个文件夹“yunweihenniux”</p>
+<p><img src="/linux/737522eaad3da8aac1ee0ed3fafc7c6a.png" alt=""></p>
+<p>语法2：<strong>#mkdir -p 路径</strong></p>
+<p>含义：<strong>当一次性创建多层不存在的目录的时候</strong>，添加-p参数，否则会报错</p>
+<p><img src="/linux/77422990f260b5d42ad723807752bf80.png" alt=""></p>
+<p>语法3：<strong>#mkdir 路径1 路径2 路径3 ….</strong>  【表示一次性创建多个目录】</p>
+<p><img src="/linux/101392aac412ae767d8efd2751262cb2.png" alt=""></p>
+<h3 id="5touch指令">5、touch指令</h3>
+<p>指令：touch</p>
+<p>作用：创建文件</p>
+<p>语法：<strong>#touch 文件路径</strong> 【路径可以是直接的文件名也可以是路径】</p>
+<p>案例：使用touch来在当前路径下创建一个文件，命名为Linux.txt</p>
+<p><img src="/linux/e8753ccc71d790cc178e9b3e5088faf6.png" alt=""></p>
+<p>案例：使用touch来同时创建多个文件</p>
+<p><img src="/linux/a30bdae83cd33cb5257e50555cc7d3be.png" alt=""></p>
+<p>案例：使用touch来在“Linux123”用户的家目录中创建文件，Linux.txt</p>
+<p><img src="/linux/76ca6fe634475971f1d9143756a0e689.png" alt=""></p>
+<h3 id="6cp指令">6、cp指令</h3>
+<p>指令：cp （copy，复制）</p>
+<p>作用：复制文件/文件夹到指定的位置</p>
+<p>语法：<strong>#cp 被复制的文档路径 文档被复制到的路径</strong></p>
+<p>案例：使用cp命令来复制一个文件</p>
+<p><img src="/linux/0e3b2c4c53d4f20c77981503395b290b.png" alt=""></p>
+<p><strong>注意：Linux在复制过程中是可以重新对新位置的文件进行重命名的，但是如果不是必须的需要，则建议保持前后名称一致。</strong></p>
+<p>案例：使用cp命令来复制一个文件夹</p>
+<p><strong>注意：当使用cp命令进行文件夹复制操作的时候需要添加选项“-r”【-r表示递归复制】，否则目录将被忽略</strong></p>
+<p><img src="/linux/ec2d5de9ef66e84f58dee229c178a49c.png" alt=""></p>
+<h3 id="7mv指令">7、mv指令</h3>
+<p>指令：mv （move，移动，剪切）</p>
+<p>作用：移动文档到新的位置</p>
+<p>语法：<strong>#mv 需要移动的文档路径 需要保存的位置路径</strong></p>
+<p>确认：移动之后原始的文件还在不在原来的位置？原始文件是不在原始位置的</p>
+<p>mv指令还有很多参数 如: -p
+表示不改变修改信息（兄弟连里面讲的，具体意义不是很清楚，其他的参数还有-i等，具体到用到的时候去翻阅网络资料）</p>
+<p>案例：使用mv命令移动一个文件</p>
+<p><img src="/linux/6dd689cb8c612cee9170c29e22a1a505.png" alt=""></p>
+<p>案例：使用mv命令移动一个文件夹</p>
+<p><img src="/linux/513825d821f8bbd80f8e7402ae4d9fe6.png" alt=""></p>
+<p>补充：在Linux中重命名的命令也是mv，语法和移动语法一样。</p>
+<p><img src="/linux/775e392eefff31552d5d4c4a320df95e.png" alt=""></p>
+<h3 id="8rm指令">8、rm指令</h3>
+<p>指令：rm （remove，移除、删除）</p>
+<p>作用：移除/删除文档</p>
+<p>语法：#rm 选项 需要移除的文档路径</p>
+<p>选项：</p>
+<p>-f：force，强制删除，不提示是否删除</p>
+<p>-r：表示递归</p>
+<p>案例：删除一个文件</p>
+<p><img src="/linux/495176f239fea0a237d7bd897a4d9c9b.png" alt=""></p>
+<p>在删除的时候如果不带选项，会提示是否删除，如果需要确认则输入“y/yes”，否则输入“n/no”按下回车。</p>
+<p><strong>注意：如果在删除的时候不想频繁的确认，则可以在指令中添加选项“-f”，表示force（强制）。</strong></p>
+<p><img src="/linux/7aca45f0cfae95abf5fe115c8e5be814.png" alt=""></p>
+<p>案例：删除一个文件夹</p>
+<p><img src="/linux/18cbbd17849e3e82a8a75f529aac8eef.png" alt=""></p>
+<p><strong>注意：删除一个目录的时候需要做递归删除，并且一般也不需要进行删除确认询问，所以移除目录的时候一般需要使用-rf选项。</strong></p>
+<p>案例：删除多个文档</p>
+<p><img src="/linux/353b53ad675d33365aa1dbc62c468385.png" alt=""></p>
+<p>案例：要删除一个目录下有公共特性的文档，例如都以Linux开头</p>
+<p><img src="/linux/0fe5af8eb8217c690e5675b05965da27.png" alt=""></p>
+<p>其中<strong><em>称之为通配符，意思表示任意的字符，Linux</em>，则表示只要文件以Linux开头，后续字符则不管</strong>。</p>
+<h3 id="9vim指令">9、vim指令</h3>
+<p>指令：vim （vim是一款文本编辑器）</p>
+<p>语法：<strong>#vim 文件的路径</strong></p>
+<p>作用：打开一个文件（可以不存在，也可以存在）</p>
+<p>案例：使用vim来打开文件</p>
+<p>退出打开的文件：在没有按下其他命令的时候，按下shift+英文冒号，输入q，按下回车即可</p>
+<p><img src="/linux/c93f2358c5323a1109cdbb6284d9d43e.png" alt=""></p>
+<h3 id="10输出重定向">10、输出重定向</h3>
+<p><strong>一般命令的输出都会显示在终端中，有些时候需要将一些命令的执行结果想要保存到文件中进行后续的分析/统计，则这时候需要使用到的输出重定向技术。</strong></p>
+<blockquote>
+<p>：覆盖输出，会覆盖掉原先的文件内容</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>：追加输出，不会覆盖原始文件内容，会在原始内容末尾继续添加</p>
+</blockquote>
+</blockquote>
+<p><strong>语法：#正常执行的指令 &gt; / &raquo; 文件的路径</strong></p>
+<p>注意：文件可以不存在，不存在则新建</p>
+<p>案例：使用覆盖重定向，保存ls -la 的执行结果，保存到当前目录下的ls.txt</p>
+<p><img src="/linux/92ce4602ab894d3f98692ea4da36fb18.png" alt=""></p>
+<p>案例：使用追加重定向，保存ls -la的执行结果到ls.txt中</p>
+<p><img src="/linux/e3f316c61b2b13c3c72479302b538909.png" alt=""></p>
+<h3 id="11cat指令">11、cat指令</h3>
+<p><strong>作用1：cat有直接打开一个文件的功能。</strong></p>
+<p><strong>语法1：#cat 文件的路径</strong></p>
+<p><img src="/linux/5ba9628b4f5d3a8419a06c38a6a1c1d4.png" alt=""></p>
+<p><strong>作用2：cat还可以对文件进行合并</strong></p>
+<p><strong>语法2：#cat 待合并的文件路径1 待合并的文件路径2 …. 文件路径n &gt;
+合并之后的文件路径</strong></p>
+<p>例如，合并3个文件，并存到一个文件中【配合输出重定向使用】</p>
+<p><img src="/linux/3413a5a5c9b72f4b22d70617bd5df4de.png" alt=""></p>
+<p><strong>作用3：cat 浏览文件，加上行号</strong></p>
+<p><strong>语法3：#cat -n</strong></p>
+<h3 id="12history指令">12、history指令</h3>
+<p><strong>用于查看之前用过的所有命令</strong></p>
+<p><img src="/linux/ac6bfb986e73f81b101f286869fe1e4d.png" alt=""></p>
+<h3 id="13env指令">13、env指令</h3>
+<p><strong>用于查看配置的环境变量</strong></p>
+<p><img src="/linux/58239b6b1f81d9fa9fe390d6ab312d16.png" alt=""></p>
+<h2 id="三进阶指令重点">三、进阶指令（重点）</h2>
+<h3 id="1df指令">1、df指令</h3>
+<p>作用：查看磁盘的空间</p>
+<p><strong>语法：#df -h</strong>  <strong>-h表示以可读性较高的形式展示大小</strong></p>
+<p><img src="/linux/830664a9cf2726d78eb94af50562a7a1.png" alt=""></p>
+<h3 id="2free指令">2、free指令</h3>
+<p>作用：查看内存使用情况</p>
+<p><strong>语法：#free -m -m表示以mb为单位查看</strong></p>
+<p><img src="/linux/c823c78866935908029f31a20cbae0af.png" alt=""></p>
+<p>剩余的真实可以用的内存为1665mb。</p>
+<p>Swap：用于临时内存，当系统真实内存不够用的时候可以临时使用磁盘空间来充当内存。</p>
+<h3 id="3head指令">3、head指令</h3>
+<p>作用：查看一个文件的前n行，如果不指定n，则默认显示前10行。</p>
+<p><strong>语法：#head -n 文件路径</strong>  <strong>【n表示数字】</strong></p>
+<p><img src="/linux/bedf8a8cc55a36f7453c72b8e1ae3c05.png" alt=""></p>
+<h3 id="4tail指令">4、tail指令</h3>
+<p>作用1：查看一个文件的未n行，如果n不指定默认显示后10行</p>
+<p><strong>语法：#tail -n 文件的路径</strong>  <strong>n同样表示数字</strong></p>
+<p><img src="/linux/434cb19be67fd4f9e4beaf926182f556.png" alt=""></p>
+<p>作用2：可以通过tail指令来查看一个文件的动态变化内容【<strong>变化的内容不能是用户手动增加的</strong>】</p>
+<p><strong>语法：#tail -f 文件路径</strong></p>
+<p><strong>该命令一般用于查看系统的日志比较多。</strong></p>
+<h3 id="5less指令">5、less指令</h3>
+<p>作用：查看文件，以较少的内容进行输出，按下辅助功能键（数字+回车、<strong>空格键</strong>+上下方向键）查看更多</p>
+<p><strong>语法：#less 需要查看的文件路径</strong></p>
+<p><img src="/linux/18238c8fb6c4eeab62aa7717ced2ed46.png" alt=""></p>
+<p>在退出的只需要按下q键即可。</p>
+<h3 id="6wc指令">6、wc指令</h3>
+<p>作用：统计文件内容信息（包含行数、单词数、字节数）</p>
+<p>语法：<strong>#wc -lwc 需要统计的文件路径</strong></p>
+<p><strong>-l：表示lines，行数</strong></p>
+<p>-w：表示words，单词数 依照空格来判断单词数量</p>
+<p>-c：表示bytes，字节数</p>
+<p><img src="/linux/175bc71fc8c023453dba928787752bf1.png" alt=""></p>
+<h3 id="7date指令重点">7、date指令（重点）</h3>
+<p>作用：表示操作时间日期（<strong>读取</strong>、设置）</p>
+<p>语法1：#date 输出的形式：2018年 3月 24日 星期六 15:54:28</p>
+<p>语法2：<strong>#date +%F （等价于#date “+%Y-%m-%d” ）</strong> 输出形式：2018-03-24</p>
+<p>语法3：#date “+%F %T” 引号表示让“年月日与时分秒”成为一个不可分割的整体</p>
+<p><strong>等价操作#date “+%Y-%m-%d %H:%M:%S”</strong></p>
+<p>输出的形式：2018-03-24 16:01:00</p>
+<p>语法4：获取之前或者之后的某个时间（备份）</p>
+<p>#date -d “**-**1 <strong>day</strong>” “+%Y-%m-%d %H:%M:%S”</p>
+<p>符号的可选值：+（之后） 或者 - （之前）</p>
+<p>单位的可选值：day（天）、month（月份）、year（年）</p>
+<p>%F：表示完整的年月日</p>
+<p>%T：表示完整的时分秒</p>
+<p>%Y：表示四位年份</p>
+<p>%m：表示两位月份（带前导0）</p>
+<p>%d：表示日期（带前导0）</p>
+<p>%H：表示小时（带前导0）</p>
+<p>%M：表示分钟（带前导0）</p>
+<p>%S：表示秒数（带前导0）</p>
+<h3 id="8cal指令">8、cal指令</h3>
+<p><strong>作用：用来操作日历的</strong></p>
+<p><strong>语法1：#cal 等价于 #cal -1</strong> 直接输出当前月份的日历</p>
+<p><strong>语法2：#cal -3</strong> 表示输出上一个月+本月+下个月的日历</p>
+<p><strong>语法3：#cal -y 年份</strong> 表示输出某一个年份的日历</p>
+<h3 id="9clearctrl--l指令">9、clear/ctrl + L指令</h3>
+<p>作用：清除终端中已经存在的命令和结果（信息）。</p>
+<p><strong>语法：clear</strong>  <strong>或者快捷键：ctrl + L</strong></p>
+<p>需要注意的是，该命令并不是真的清除了之前的信息，而是把之前的信息的隐藏到了最上面，通过滚动条继续查看以前的信息。</p>
+<h3 id="10管道重要">10、管道（重要）</h3>
+<p>注意！并不是只有grep才能使用正则表达式，一般的命令下也是可以用正则的</p>
+<p><strong>管道符：|</strong></p>
+<p>作用：管道一般可以用于“<strong>过滤</strong>”，“特殊”，“扩展处理”。</p>
+<p>语法：管道不能单独使用，必须需要配合前面所讲的一些指令来一起使用，其作用<strong>主要是辅助作用</strong>。</p>
+<p><strong>①过滤</strong>案例（<strong>100%使用</strong>）：需要通过管道查询出根目录下包含“y”字母的文档名称。</p>
+<p>#ls / | grep y</p>
+<p>针对上面这个命令说明：</p>
+<p>①以管道作为分界线，前面的命令有个输出，后面需要先输入，然后再过滤，最后再输出，通俗的讲就是管道前面的输出就是后面指令的输入；</p>
+<p>②grep指令：主要用于过滤</p>
+<p>常用选项：</p>
+<p>&ndash;help</p>
+<p>-V, &ndash;version</p>
+<p>-G, &ndash;basic-regexp BRE 模式，也是默认的模式</p>
+<p>-E, &ndash;extended-regexp ERE 模式</p>
+<p>-P, &ndash;perl-regexp PRE 模式</p>
+<p>-F, &ndash;fixed-strings 指定的模式被解释为字符串</p>
+<p>-i 忽略大小写</p>
+<p>-o 只输出匹配到的部分(而不是整个行)</p>
+<p>-v 反向选择，即输出没有没有匹配的行</p>
+<p>-c 计算找到的符号行的次数</p>
+<p>-n 顺便输出行号</p>
+<p><strong>在递归的过程中排除某些目录</strong><br>
+可以在应用选项 r 的同时应用 <strong>&ndash;exclude-dir</strong>
+选项来排除一些目录(注意，这里设置的也是正则表达式)：</p>
+<p>$ grep -r &ndash;exclude-dir='.git' &lsquo;email&rsquo; .</p>
+<p>还可以同时指定多个表达式：</p>
+<p>$ grep -r &ndash;exclude-dir={.git,xgit} &lsquo;email&rsquo; .</p>
+<p><strong>在递归的过程中排除指定的文件</strong><br>
+可以在应用选项 r 的同时应用 <strong>&ndash;exclude</strong> 选项来排除一些文件(注意，这里采用的是
+GLOB模式)：<br>
+$ grep -r &ndash;exclude=*.txt &lsquo;email&rsquo; .</p>
+<p><strong>例子（去除带有#和所有空白的行）：</strong></p>
+<p><img src="/linux/142e47e290a29595221781d4ad5f4ffd.png" alt=""></p>
+<p>②特殊用法案例：通过管道的操作方法来实现less的等价效果（了解）</p>
+<p>之前通过less查看一个文件，可以#less 路径</p>
+<p>现在通过管道还可以这么：#cat 路径|less</p>
+<p>③扩展处理：请使用学过的命令，来统计某个目录下的文档的总个数？</p>
+<p><strong>答：#ls / | wc -l</strong></p>
+<h2 id="linux的基本指令2">Linux的基本指令（2）</h2>
+<h2 id="一高级指令">一、高级指令</h2>
+<h3 id="1hostname指令">1、hostname指令</h3>
+<p>作用：操作服务器的<strong>主机名</strong>（<strong>读取</strong>、设置）</p>
+<p>语法1：#hostname 含义：表示输出完整的主机名</p>
+<p><strong>语法2：#hostname -f</strong>
+<strong>含义：表示输出当前主机名中的FQDN</strong>（全限定<strong>域名</strong>）</p>
+<p><img src="/linux/e26961885e45b403298b34bce7e1cef0.png" alt=""></p>
+<h3 id="2id指令">2、id指令</h3>
+<p><strong>作用：查看一个用户的一些基本信息（包含用户id，用户组id，附加组id…），该指令如果不指定用户则默认当前用户。</strong></p>
+<p>语法1：#id 默认显示当前执行该命令的用户的基本信息</p>
+<p>语法2：#id 用户名 显示指定用户的基本信息</p>
+<p><img src="/linux/0cd7e8439c17f98b3de02819e48a1456.png" alt=""></p>
+<p>验证上述信息是否正确？</p>
+<p><strong>验证用户信息：通过文件/etc/passwd</strong></p>
+<p><strong>验证用户组信息：通过文件/etc/group</strong></p>
+<p><img src="/linux/43e7db41b144f8499b96ba0760accd2a.png" alt=""></p>
+<h3 id="3whoami指令">3、whoami指令</h3>
+<p><strong>作用：“我是谁？”显示当前登录的用户名，一般用于shell脚本，用于获取当前操作的用户名方便记录日志。</strong></p>
+<p>语法：#whoami</p>
+<p><img src="/linux/2cb7b5be051e95125bf4c816dbd80c1e.png" alt=""></p>
+<h3 id="4ps--ef指令重点">4、ps -ef指令（重点）</h3>
+<p>指令：ps</p>
+<p>作用：主要是查看服务器的进程信息</p>
+<p>选项含义：</p>
+<p>-e：等价于“-A”，表示列出全部的进程</p>
+<p>-f：显示全部的列（显示全字段）</p>
+<p>执行结果：</p>
+<p><img src="/linux/28fdf8dd817adf9f82dc343c87a47f73.png" alt=""></p>
+<p>列的含义：</p>
+<p>UID：该进程执行的用户id；</p>
+<p>PID：进程id；</p>
+<p>PPID：该进程的父级进程id，如果一个程序的父级进程找不到，该程序的进程称之为僵尸进程（parent
+process ID）；</p>
+<p>C：Cpu的占用率，其形式是百分数；</p>
+<p>STIME：进行的启动时间；</p>
+<p>TTY：终端设备，发起该进程的设备识别符号，如果显示“?”则表示该进程并不是由终端设备发起；</p>
+<p>TIME：进程的执行时间；</p>
+<p>CMD：该进程的名称或者对应的路径；</p>
+<p>案例：（100%使用的命令）在ps的结果中过滤出想要查看的进程状态</p>
+<p><strong>#ps -ef|grep “进程名称”</strong></p>
+<p><img src="/linux/a987b5bb0fcf08a408cbcc8bf36b632f.png" alt=""></p>
+<p>再例如查看火狐浏览器的进程：</p>
+<p><img src="/linux/977cb1b8d4379e9deb0c50675c006a55.png" alt=""></p>
+<h3 id="5top指令重点">5、top指令（重点）</h3>
+<p><strong>作用：查看服务器的进程占的资源（100%使用）</strong></p>
+<p>语法：</p>
+<p>进入命令：#top （动态显示）</p>
+<p>退出命令：按下q键</p>
+<p>输出的结果：</p>
+<p><img src="/linux/2bf28ff52fe24551dda358142a3b21d9.png" alt=""></p>
+<p>表头含义：</p>
+<p>PID：进程id；</p>
+<p>USER：该进程对应的用户；</p>
+<p>PR：优先级；</p>
+<p>VIRT：虚拟内存；</p>
+<p>RES：常驻内存；</p>
+<p>SHR：共享内存；</p>
+<p>计算一个进程实际使用的内存 = 常驻内存（RES）- 共享内存（SHR）</p>
+<p>S：表示进程的状态status（sleeping，其中S表示睡眠，R表示运行）；</p>
+<p>%CPU：表示CPU的占用百分比；</p>
+<p>%MEM：表示内存的占用百分比；</p>
+<p>TIME+：执行的时间；</p>
+<p>COMMAND：进程的名称或者路径；</p>
+<p><strong>在运行top的时候，可以按下方便的快捷键：</strong></p>
+<p>M：表示将结果按照内存（MEM）从高到低进行降序排列；</p>
+<p>P：表示将结果按照CPU使用率从高到低进行降序排列；</p>
+<p>1：当服务器拥有多个cpu的时候可以使用“1”快捷键来切换是否展示显示各个cpu的详细信息；</p>
+<h3 id="6du--sh指令">6、du -sh指令</h3>
+<p>作用：查看目录的真实大小</p>
+<p><strong>语法：#du -sh 目录路径</strong></p>
+<p>选项含义：</p>
+<p>-s：summaries，只显示汇总的大小</p>
+<p>-h：表示以高可读性的形式进行显示</p>
+<p>案例：统计“/root/yunweihenniux”目录的实际大小</p>
+<p><img src="/linux/13ac0ed57b2063f4e3e6d00f0f1d5d50.png" alt=""></p>
+<p>案例：统计“/etc”目录实际大小</p>
+<p><img src="/linux/8a7090a12c8987692b6e3e7acd08ede3.png" alt=""></p>
+<h3 id="7find指令">7、find指令</h3>
+<p><img src="/linux/8894db4d1c9f56298654d7d673d19508.png" alt=""></p>
+<p>作用：用于查找文件（其参数有55个之多）</p>
+<p>语法：#<strong>find 路径范围 选项 选项的值</strong></p>
+<p>选项：</p>
+<p>-name：按照文档名称进行搜索（支持模糊搜索）</p>
+<p>-type：按照文档的类型进行搜索</p>
+<p><strong>文档类型：“-”表示文件（在使用find的时候需要用f来替换），“d”表示文件夹</strong></p>
+<p>…</p>
+<p><img src="/linux/70b3668fb72d07ad4737c9c7aef0eda7.png" alt=""></p>
+<p><img src="/linux/0c6886339b469716e2b86493fc26bcc6.png" alt=""></p>
+<p><img src="/linux/f0ec909d0f42ef63d6bd54bb69570be2.png" alt=""></p>
+<p><img src="/linux/54ae6a554a6db8dbfdef1bbb09e77a5c.png" alt=""></p>
+<p>一个数据块是512字节（0.5k）</p>
+<p>Find /etc -name 文件名 -exec rm {} ;（删除文件）</p>
+<ul>
+<li>可以匹配任意字符</li>
+</ul>
+<p><img src="/linux/bd811bc1f3bca15ef33bdf8a5df30f1a.png" alt=""></p>
+<p>？匹配一个字符</p>
+<p><img src="/linux/7f9eb435e99d6b2c8bb801fbc7699e17.png" alt=""></p>
+<p>案例：使用find来搜索httpd.conf</p>
+<p>#find / -name httpd.conf</p>
+<p><img src="/linux/e503d160aa6bfb17111698a566590c7b.png" alt=""></p>
+<p>案例：搜索etc目录下所有的conf后缀文件</p>
+<p>#find /etc -name *.conf</p>
+<p><img src="/linux/687abd14fe8220f3d6bc3c47bc764f3a.png" alt=""></p>
+<p>案例：使用find来搜索/etc/sane.d/目录下所有的<strong>文件</strong></p>
+<p>#find /etc/sane.d/ -type f</p>
+<p><img src="/linux/d87021ef665e23443db1715fbcdbdf06.png" alt=""></p>
+<p>案例：使用find来搜索/etc/目录下所有的<strong>文件夹</strong></p>
+<p>#find /etc -type d</p>
+<p><img src="/linux/6c9d56012ef474a8b4167e6f5ab801e6.png" alt=""></p>
+<h3 id="8grep用于文件搜索">8、grep用于文件搜索</h3>
+<p><img src="/linux/6a839659dd4bd4f6244af4b3d64ba585.png" alt=""></p>
+<p>-i 不区分大小写</p>
+<p>-v 排除指定字符串</p>
+<p>grep 文件名 -v ^## /etc （去掉以#开头的行之后匹配文件名）</p>
+<h3 id="9service指令重点">9、service指令（重点）</h3>
+<p>作用：用于控制一些软件的服务启动/停止/重启</p>
+<p><strong>语法：#service 服务名 start/stop/restart</strong></p>
+<p>例如：需要启动本机安装的Apache（网站服务器软件），其服务名httpd</p>
+<p>#service httpd start</p>
+<p><img src="/linux/3f80a5ee2cd17d0770f9d63b8c298bbb.png" alt=""></p>
+<p>通过ps命令来检查httpd服务是否启动：</p>
+<p><img src="/linux/0a978a1fd9f5b0086569fa2e4c1dff2e.png" alt=""></p>
+<h3 id="10kill指令重点">10、kill指令（重点）</h3>
+<p><strong>作用：表示杀死进程</strong> （当遇到僵尸进程或者出于某些原因需要关闭进程的时候）</p>
+<p>语法：<strong>#kill 进程PID</strong> （语法需要配合ps一起使用）</p>
+<p>案例：需要kill掉Apache的进程</p>
+<p><img src="/linux/2c607c9e4320ba079fd39924aed107c0.png" alt=""></p>
+<p>与kill命令作用相似但是比kill更加好用的杀死进程的命令：killall</p>
+<p>语法：<strong>#killall 进程名称</strong></p>
+<p><img src="/linux/e812ccfb7bd775e3e3965df9e3a26e87.png" alt=""></p>
+<h3 id="11ifconfig指令重点">11、ifconfig指令（重点）</h3>
+<p><strong>作用：用于操作网卡相关的指令。</strong></p>
+<p>简单语法：#ifconfig （获取网卡信息）</p>
+<p><img src="/linux/c7dbfa4c8e7aa68571caab938227d1e2.png" alt=""></p>
+<p>Eth0表示Linux中的一个网卡，eth0是其名称。Lo（<strong>loop，本地回还网卡，其ip地址一般都是127.0.0.1</strong>）也是一个网卡名称。</p>
+<p><img src="/linux/791c3edef43f873e650248bbc333eea1.png" alt=""></p>
+<p><strong>注意：inet addr就是网卡的ip地址</strong>。</p>
+<h4 id="ifconfig生成子网卡指定虚拟网络接口">Ifconfig生成子网卡（指定虚拟网络接口）</h4>
+<p>使用命令ifconfig eth0:1 10.0.0.101/24、ifconfig eth0:2 10.0.0.102/24等等</p>
+<p>这样的话就可以为eth0网卡生成多个相同端口不同ip的虚拟网络接口，如下：</p>
+<p><img src="/linux/5bf69f53a878d343ea093766ba6a1f44.png" alt=""></p>
+<h5 id="关闭子网卡">关闭子网卡</h5>
+<p>Ifconfig eth0:1 down</p>
+<h5 id="修改ping值">修改ping值</h5>
+<p>ifconfig ens33 192.168.127.2</p>
+<h3 id="12reboot指令">12、reboot指令</h3>
+<p>作用：重新启动计算机</p>
+<p><strong>语法1：#reboot</strong>  <strong>重启</strong></p>
+<p>语法2：#reboot -w 模拟重启，但是不重启（只写关机与开机的日志信息）</p>
+<h3 id="13shutdown指令">13、shutdown指令</h3>
+<p>作用：关机 （慎用）</p>
+<p><strong>语法1：#shutdown -h now “关机提示” 或者</strong>  <strong>#shutdown -h 15:25 “关机提示”</strong></p>
+<p>案例：设置Linux系统关机时间在12:00</p>
+<p><img src="/linux/7b954355eebeb989cfbb37d2a126c471.png" alt=""></p>
+<p><strong>如果想要取消关机计划的话，则可以按照以下方式去尝试：</strong></p>
+<p><strong>①针对于centos7.x之前的版本：ctrl+c</strong></p>
+<p><strong>②针对于centos7.x（包含）之后的版本：#shutdown -c</strong></p>
+<p>除了shutdown关机以外，还有以下几个关机命令：</p>
+<p>#init 0</p>
+<p>#halt</p>
+<p>#poweroff</p>
+<h3 id="14uptime指令">14、uptime指令</h3>
+<p>作用：输出计算机的持续在线时间（<strong>计算机从开机到现在运行的时间</strong>）</p>
+<p><strong>语法：#uptime</strong></p>
+<p><img src="/linux/20a730a37ab6558382b27f981616813f.png" alt=""></p>
+<h3 id="15uname指令">15、uname指令</h3>
+<p>作用：获取计算机操作系统相关信息</p>
+<p>语法1：#uname 获取操作系统的类型</p>
+<p><strong>语法2：#uname -a</strong>
+<strong>all，表示获取全部的系统信息（类型、全部主机名、内核版本、发布时间、开源计划）</strong></p>
+<p><img src="/linux/8979002cdf92505ebf42149606ab40f6.png" alt=""></p>
+<h3 id="16netstat--tnlp指令">16、netstat -tnlp指令</h3>
+<p>作用：查看网络连接状态</p>
+<p>语法：#netstat -tnlp</p>
+<p><img src="/linux/5c6d719477b4241cc96c769445b8276a.png" alt=""></p>
+<p>选项说明：</p>
+<p>-t：表示只列出tcp协议的连接；</p>
+<p>-n：表示将地址从字母组合转化成ip地址，将协议转化成端口号来显示；</p>
+<p>-l：表示过滤出“state（状态）”列中其值为LISTEN（监听）的连接；</p>
+<p>-p：表示显示发起连接的进程pid和进程名称；</p>
+<h3 id="17man指令">17、man指令</h3>
+<p>作用：manual，手册（包含了Linux中全部命令手册，英文）</p>
+<p>语法：#man 命令 （退出按下q键）</p>
+<p>Linux中 1 表示命令的帮助，5表示配置文件的帮助，因此要看配置文件的帮助的话：man 5
+passwd</p>
+<p><img src="/linux/758c78d3ffb2e2f3a02a49e0fc03bfa4.png" alt=""></p>
+<p>案例：通过man命令查询cp指令的用法</p>
+<p>#man cp</p>
+<h3 id="18export指令涉及到path">18、export指令（涉及到$PATH）</h3>
+<p>Linux export 命令用于设置或显示环境变量。</p>
+<p>在 shell 中执行程序时，shell 会提供一组环境变量。export
+可新增，修改或删除环境变量，供后续执行的程序使用。export
+的效力仅限于该次登陆操作。</p>
+<p>export [-fnp][变量名称]=[变量设置值]</p>
+<ul>
+<li>
+<p>-f 代表[变量名称]中为函数名称。</p>
+</li>
+<li>
+<p>-n 删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。</p>
+</li>
+<li>
+<p>-p 列出所有的shell赋予程序的环境变量。</p>
+</li>
+</ul>
+<p>举例：在编写git环境变量的时候：</p>
+<p>打开环境变量配置文件，命令 vim /etc/profile ，在底部加上Git相关配置信息：</p>
+<p>PATH=$PATH:/usr/local/git/bin</p>
+<p>export PATH</p>
+<p>其中：$PATH：决定了shell将到哪些目录中寻找命令或程序，PATH的值是一系列目录，当您运行一个程序时，Linux在这些目录下进行搜寻编译链接。</p>
+<p>修改$PATH的方法有很多，比如：</p>
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>export PATH=$PATH:/usr/locar/new/bin</th>
+</tr>
+</thead>
+</table>
+<p>这条命令的意思为:
+使PATH自增:/usr/locar/new/bin，既PATH=PATH+&quot;:/usr/locar/new/bin&quot;;</p>
+<p>**上述方法的PATH 在终端关闭
+后就会消失。**所以还是建议：①通过编辑/etc/profile来改PATH，或者②改home目录下的.bashrc(即：~/.bashrc)</p>
+<h3 id="19source">19、source</h3>
+<p>source filename 与 sh filename 及./filename执行脚本的区别</p>
+<ol>
+<li>
+<p>当shell脚本具有可执行权限时，用sh
+filename与./filename执行脚本是没有区别得。./filename是因为当前目录没有在PATH中，所有”.”是用来表示当前目录的。</p>
+</li>
+<li>
+<p>sh filename
+重新建立一个子shell，在子shell中执行脚本里面的语句，该子shell继承父shell的环境变量，但子shell新建的、改变的变量不会被带回父shell，除非使用export。</p>
+</li>
+<li>
+<p>source
+filename：这个命令其实只是简单地读取脚本里面的语句依次在当前shell里面执行，没有建立新的子shell。那么脚本里面所有新建、改变变量的语句都会保存在当前shell里面。</p>
+</li>
+</ol>
+<h3 id="20sed">20、sed</h3>
+<p>只打印第三行</p>
+<p>sed -n &lsquo;3p&rsquo; /var/log/yum.log</p>
+<p>只查看文件的第3行到第9行</p>
+<p>sed -n &lsquo;3,9p&rsquo; /var/log/yum.log</p>
+<p>显示包含&quot;hhh&quot;的行到包含&quot;omc&quot;的行之间的行</p>
+<p>sed -n &lsquo;/hhh/,/omc/p&rsquo; yum.log</p>
+<p>删除第3到第9行,只是不显示而已</p>
+<p>sed &lsquo;3,9d&rsquo; /var/log/yum.log</p>
+<p>删除包含&quot;hhh&quot;的行到包含&quot;omc&quot;的行之间的行</p>
+<p>sed &lsquo;/hhh/,/omc/d&rsquo; yum.log</p>
+<p>删除包含&quot;omc&quot;的行到第十行的内容</p>
+<p>sed &lsquo;/omc/,10d&rsquo; yum.log</p>
+<p>备注：范围可以用数字、正则表达式、或二者的组合表示</p>
+<p>显示中5到10行里匹配root，把行内所有的root替换为FTL，并打印到屏幕上</p>
+<p>sed &lsquo;5,10 s/root/FTL/g&rsquo; yum.log【仅显示用】</p>
+<p>sed -i &lsquo;5,10 s/root/FTL/g&rsquo; yum.log【-i 会真正替换信息】</p>
+<h3 id="21xargs和echo的连用">21、xargs和echo的连用</h3>
+<p>Echo'/mongodb/sharded_cluster/myshardrs01_27018/mongo.keyfile
+/mongodb/sharded_cluster/myshardrs01_27118/mongo.keyfile
+/mongodb/sharded_cluster/mymongos_27117/mongo.keyfile' | xargs -n 1 cp -v
+/root/mongo.keyfile</p>
+<p>解释：上述代码可以将某一个文件拷贝到其他多个文件中。</p>
+<p>其他类似的还有 | xargs
+cat（使得cat打印管道之前的文件中的内容，如果没有xargs修饰，那么将打印文件名称而不会打印文件内容）
+等等。</p>
+<h4 id="配合echo将内容输入到文件">配合echo将内容输入到文件</h4>
+<p><strong>Echo -e “[ftp]\ncontent=hello” &gt; test.txt</strong></p>
+<p><strong>使用-e可以将\n解析成回车</strong></p>
+<h4 id="使用echo修改root用户的密码">使用echo修改root用户的密码</h4>
+<p><strong>Echo “123456” | passwd root –stdin</strong></p>
+<h3 id="22tee">22、tee</h3>
+<p><img src="/linux/a09db06c8a190fbeb4007c2f47d1539c.png" alt=""></p>
+<p><img src="/linux/737346ed4c7df2a085b0102710db8739.png" alt=""></p>
+<p>这里的EOF表示自定义的结束符</p>
+<h3 id="23info">23、info</h3>
+<p>上面第17条的man指令还可以用info指令来替代</p>
+<h2 id="二练习题">二、练习题</h2>
+<p>1、如何通过命令行重启linux操作系统？ #reboot</p>
+<p>2、<strong>如何在命令行中快速删除光标前/后的内容？</strong>  <strong>前：ctrl + u 后：ctrl + k</strong></p>
+<p>3、如何删除/tmp下所有A开头的文件？ #rm -f /tmp/A*</p>
+<p>4、系统重要文件需要备份，如何把/etc/passwd备份到/tmp目录下？</p>
+<p>#cp /etc/passwd /tmp/</p>
+<p>5、如何查看系统最后创建的3个用户？</p>
+<p>#tail -3 /etc/passwd</p>
+<p>6、什么命令可以统计当前系统中一共有多少账户？</p>
+<p>#wc -l /etc/passwd #cat /etc/passwd|wc -l</p>
+<p>7、如何创建/tmp/test.conf文件？</p>
+<p>#touch /tmp/test.conf</p>
+<p>8、如何通过vim编辑打开/tmp/test.conf?</p>
+<p>#vim /tmp/test.conf</p>
+<p>9、如何查看/etc/passwd的头3行和尾3行？</p>
+<p>#head -3 /etc/passwd</p>
+<p>#tail -3 /etc/passwd</p>
+<p>10、如何<strong>一次性</strong>创建目录/text/1/2/3/4？</p>
+<p>#mkdir -p /text/1/2/3/4</p>
+<p>11、如何最快的返回到当前账户的家目录？</p>
+<p>#cd ~ #cd</p>
+<p>12、如何查看/etc所占的磁盘空间？</p>
+<p>#du -sh /etc</p>
+<p>13、如何删除/tmp下所有的文件？</p>
+<p>#rm -rf /tmp/*</p>
+<p>14、尝试启动Apache的服务，并且检查是否启动成功。</p>
+<p>#service httpd start</p>
+<p>#ps -ef|grep httpd</p>
+<p>15、使用已学命令杀死Apache的进程。</p>
+<p>#killall httpd</p>
+<h2 id="编辑器之神vim编辑器">编辑器之神——vim编辑器</h2>
+<h2 id="一vi介绍">一、vi介绍</h2>
+<p>Vi编辑器是所有Unix及Linux系统下标准的编辑器，类似于windows系统下的notepad（记事本）编辑器，由于在Unix及Linux系统的任何版本，Vi编辑器是完全相同的，因此可以在其他任何介绍vi的地方都能进一步了解它，Vi也是Linux中最基本的文本编辑器，学会它后，我们将在Linux的世界里畅行无阻，<strong>尤其是在终端中</strong>。</p>
+<p>关于vim：</p>
+<p>vi和vim都是Linux中的编辑器，不同的是，<strong>vim比较高级</strong>，可以视为vi的升级版本。vi使用于文本编辑，但是vim更适用于coding（写代码的）。</p>
+<p><strong>Vim重点是光标的移动，模式切换，删除，查找，替换，复制，粘贴，撤销命令的使用</strong>。</p>
+<h2 id="二vim三种模式重点">二、vim三种模式（重点）</h2>
+<p>Vim中存在三种模式（大众的认知）：<strong>命令模式、编辑模式（输入模式）、末行模式（尾行模式）</strong>。</p>
+<p>命令模式：在该模式下是不能对文件直接编辑，可以输入快捷键进行一些操作（删除行，复制行，移动光标，粘贴等等）【打开文件之后默认进入的模式】；</p>
+<p>编辑模式：在该模式下可以对文件的内容进行编辑；</p>
+<p>末行模式：可以在末行输入命令来对文件进行操作（搜索、替换、保存、退出、撤销、高亮等等）；</p>
+<p>Vim的打开文件的方式（4种，要求掌握的就前三种）：</p>
+<p>#vim 文件路径 作用：打开指定的文件</p>
+<p>#vim +数字 文件的路径 作用：打开指定的文件，并且将光标移动到指定行</p>
+<p>#vim +/关键词 文件的路径 作用：打开指定的文件，并且高亮显示关键词</p>
+<p>#vim 文件路径1 文件路径2 文件路径3
+作用：同时打开多个文件（打开多个文件后的操作：vsp、sp、:N、:n、:bp、:bn、:b1~n（例如:b4就表示打开第四个文件）、open
+fileName、only（解释一下only：关闭除光标所在窗口之外的其他窗口）、qa（关闭所有窗口）、ctrl</p>
+<ul>
+<li>w w（或ctrl + w + 上下左右键，表示切换光标到不同的窗口））</li>
+</ul>
+<p><strong>重点：先复制出一个/etc/passwd文件，复制当前家目录下（千万不要在etc下直接修改！！！）</strong></p>
+<p><img src="/linux/7089238792ed7cc2ff774abfa7ab6a3b.png" alt=""></p>
+<p>后续一切vim命令都是基于/root/passwd文件进行操作。</p>
+<p><strong>退出方式：输入:q按下回车即可</strong></p>
+<p><img src="/linux/fcdf9b14f6b09bf00ffc4e5120f7f4ff.png" alt=""></p>
+<h2 id="三命令模式">三、命令模式</h2>
+<p>注意：该模式是打开文件的第一个看到的模式（打开文件即可进入）</p>
+<h3 id="1光标移动">1、光标移动</h3>
+<p>①光标移动到行首</p>
+<p>按键：shift + 6 或 ^（T字母上面的6，不要按小键盘的6）</p>
+<p>②光标移动到行尾</p>
+<p>按键：shift + 4 或 $（R字母的左上角的4，不是小键盘的4）</p>
+<p>③光标移动到首行</p>
+<p>按键：gg</p>
+<p>④光标移动到末行</p>
+<p>按键：G</p>
+<p>⑤翻屏</p>
+<p>向上翻屏：按键ctrl + b （before） 或 PgUp</p>
+<p>向下翻屏：按键ctrl + f （after） 或 PgDn</p>
+<h3 id="2复制操作">2、复制操作</h3>
+<p>①复制光标所在行</p>
+<p>按键：yy</p>
+<p>粘贴：在想要粘贴的地方按下p键</p>
+<p><strong>②以光标所在行为准（包含当前行），向下复制指定的行数</strong></p>
+<p>按键：数字yy</p>
+<p>③<strong>可视化</strong>复制</p>
+<p>按键：ctrl +
+v（可视块）或V（可视行）或v（可视），然后按下↑↓←→方向键来选中需要复制的区块，按下y键进行复制，最后按下p键粘贴</p>
+<h3 id="3剪切删除">3、剪切/删除</h3>
+<p><strong>①剪切/删除光标所在行</strong></p>
+<p>按键：dd （删除之后下一行上移）</p>
+<p>注意：dd严格意义上说是剪切命令，但是如果剪切了不粘贴就是删除的效果。</p>
+<p><strong>②剪切/删除光标所在行为准（包含当前行），向下删除/剪切指定的行</strong></p>
+<p>按键：数字dd （删除之后下一行上移）</p>
+<p>③剪切/删除光标所在的当前行之后的内容，但是删除之后下一行不上移</p>
+<p>按键：D （删除之后当前行会变成空白行）</p>
+<p>④可视化删除</p>
+<p>按键：ctrl +
+v（可视块）或V（可视行）或v（可视），上下左右移动，按下D表示删除选中行，d表示删选中块</p>
+<h3 id="4撤销恢复">4、撤销/恢复</h3>
+<p>撤销：输入:u （不属于命令模式） 或者 u （undo）</p>
+<p>恢复：ctrl + r 恢复（取消）之前的撤销操作</p>
+<h3 id="5扩展1光标的快速移动">5、扩展1：光标的快速移动</h3>
+<p><strong>①快速将光标移动到指定的行</strong></p>
+<p>按键：数字G</p>
+<p><strong>②以当前光标为准向上/向下移动n行</strong></p>
+<p>按键：数字↑，数字↓</p>
+<p>③以当前光标为准向左/向右移动n字符</p>
+<p>按键：数字←，数字→</p>
+<p>④末行模式下的快速移动方式：移动到指定的行</p>
+<p>按键：输入英文“:”，其后输入行数数字，按下回车</p>
+<h3 id="6多行一起向前或者向后移动">6、多行一起向前或者向后移动</h3>
+<p>Vim命令行模式下按v选中多行，再按ctrl + &lt;或者ctrl +</p>
+<blockquote>
+<p>实现多行代码一起向前或者一起向后移动，该功能一般在调整python代码格式的时候用</p>
+</blockquote>
+<h3 id="7代码补全">7、代码补全</h3>
+<p>在编辑模式下按住ctrl + N可以实现代码提示，再按下tab键即可代码补全</p>
+<h3 id="8创建文件名中带有或者的文件时需要转义">8、创建文件名中带有”(”或者“)”的文件时，需要转义</h3>
+<p>Vim 创建文件名(测试一下转义).py</p>
+<h3 id="9没有给定文件名的情况下使用vim">9、没有给定文件名的情况下使用vim</h3>
+<p>比方说直接就vim，之后进行编辑，保存退出的时候提示没有给定文件名，这个时候应该在末行模式下写：w
+文件名.py</p>
+<h2 id="四模式间的切换重点">四、模式间的切换（重点）</h2>
+<p><img src="/linux/ba3485ec5bcca1155a82b3de904545ee.png" alt=""></p>
+<h2 id="五末行模式">五、末行模式</h2>
+<p>进入方式：由命令模式进入，按下“:”或者“/（表示查找）”即可进入</p>
+<p>退出方式：</p>
+<p>a. 按下esc</p>
+<p>b. 连按2次esc键</p>
+<p>c. 删除末行全部输入字符</p>
+<p>①保存操作（write）</p>
+<p>输入：“:w” 保存文件</p>
+<p>输入：“:w 路径” 另存为</p>
+<p>②退出（quit）</p>
+<p>输入：“:q” 退出文件</p>
+<p>③保存并退出</p>
+<p>输入：“:wq” 保存并且退出</p>
+<p>④强制 （!）</p>
+<p>输入：“:q!” 表示强制退出，刚才做的修改操作不做保存</p>
+<p>⑤调用外部命令（了解）</p>
+<p>输入：“:!外部命令”</p>
+<p>例如：</p>
+<p><img src="/linux/f1298f3595e0ec9da23f9efb780ef802.png" alt=""></p>
+<p>当外部命令执行结束之后按下任意键回到vim编辑器打开的内容</p>
+<p><img src="/linux/5d6a52d1d6cb07b80c6942474fd42da3.png" alt=""></p>
+<p>⑥搜索/查找</p>
+<p>输入：“/关键词”</p>
+<p>例如：我想在passwd文件中搜索“sbin”关键词</p>
+<p><img src="/linux/7a5ee47d44621b403de897404e24ccc9.png" alt=""></p>
+<p><strong>在搜索结果中切换上/下一个结果：N/n</strong>  <strong>（next）</strong></p>
+<p>如果需要取消高亮，则需要输入：“:nohl”【no highlight】</p>
+<p>⑦替换</p>
+<p>:s/搜索的关键词/新的内容 替换光标所在行的第一处符合条件的内容</p>
+<p>:s/搜索的关键词/新的内容/g 替换光标所在行的全部符合条件的内容</p>
+<p>:%s/搜索的关键词/新的内容 替换整个文档中每行第一个符合条件的内容</p>
+<p>:%s/搜索的关键词/新的内容/g 替换整个文档的符合条件的内容</p>
+<p>%表示整个文件</p>
+<p>g表示全局（global）</p>
+<p>⑧显示行号（临时）</p>
+<p>输入：“<strong>:set nu</strong>”[number]</p>
+<p>如果想取消显示，则输入：“:set nonu”</p>
+<p>⑨扩展2：使用vim同时打开多个文件，在末行模式下进行切换文件</p>
+<p><strong>查看当前已经打开的文件名称：“:files”</strong></p>
+<p><img src="/linux/5e5bf0b895fe126972330e4ce907a6df.png" alt=""></p>
+<p>在%a的位置有2种显示可能</p>
+<p>%a：a=active，表示当前正在打开的文件；</p>
+<p>#：表示上一个打开的文件</p>
+<p>切换文件的方式：</p>
+<p><strong>a. 如果需要指定切换文件的名称，则可以输入：“:open 已经打开的文件名”</strong></p>
+<p><img src="/linux/29610bfebac92f95e25fcdbbb9fb4371.png" alt=""></p>
+<p><strong>b. 可以通过其他命令来切换上一个文件/下一个文件</strong></p>
+<p>输入：“:bn”切换到下一个文件（back next）</p>
+<p>输入：“:bp”切换到上一个文件（back prev）</p>
+<h2 id="六编辑模式">六、编辑模式</h2>
+<p><img src="/linux/c9c76a517c4c3c6e4e5daa6f56676443.png" alt=""></p>
+<p>重点看前2个进入方式：i（insert）、a（after）。</p>
+<p>退出方式：按下esc键</p>
+<h2 id="七实用功能">七、实用功能</h2>
+<h3 id="1代码着色">1、代码着色</h3>
+<p><img src="/linux/75aedcc46d18366279c1a2717573af49.png" alt=""></p>
+<p>案例：首先创建简单的c语言程序</p>
+<p><img src="/linux/929359149db8ff3a544cbd88892389f1.png" alt=""></p>
+<p>如何控制着色显示与否？</p>
+<p>显示：“:syntax on” syn</p>
+<p>tax：语法</p>
+<p>关闭显示：“:syntax off”</p>
+<h3 id="2vim中计算器的使用">2、vim中计算器的使用</h3>
+<p>当在编辑文件的时候突然需要使用计算器去计算一些公式，则此时需要用计算器，但是需要退出，vim自身集成了一个简易的计算器。</p>
+<p>a. 进入编辑模式</p>
+<p>b. 按下按键“ctrl + R”，然后输入“=”，此时光标会变到最后一行</p>
+<p>c. 输入需要计算的内容，按下回车</p>
+<p><img src="/linux/2c4fe720602424f9d8195619c3072180.png" alt=""></p>
+<h2 id="八扩展3">八、扩展（3）</h2>
+<h3 id="1vim的配置重点">1、vim的配置（重点）</h3>
+<p>Vim是一款编辑器，编辑器也是有配置文件的。</p>
+<p>Vim配置有三种情况：</p>
+<p>a. 在文件打开的时候在末行模式下输入的配置（临时的）</p>
+<p>b. 个人配置文件（~/.vimrc，如果没有可以自行新建）</p>
+<p>c. 全局配置文件（vim自带，/etc/vimrc）</p>
+<p>①新建好个人配置文件之后进入编辑</p>
+<p>②在配置文件中进行配置</p>
+<p>比如显示行号：set nu</p>
+<p><img src="/linux/aba79eaecab347385a41448377fc8fa0.png" alt=""></p>
+<p>配置好之后vim打开文件就会永远显示行号</p>
+<p><strong>问题：如果某个配置项，在个人配置文件与全局配置文件产生冲突的时候应该以谁为准？</strong></p>
+<p>测试步骤：在两个配置文件中针对同一个配置项设置不同的值</p>
+<p>①先在全局的配置中设置不显示行号，在个人的配置文件中设置显示行号，观察结果</p>
+<p>最后显示行号：说明以个人为准</p>
+<p>②先在全局中配置显示行号，在个人中设置不显示行号，观察结果</p>
+<p>最后的显示是不显示行号，说明以个人为准</p>
+<p>结论：<strong>如果针对同一个配置项，个人配置文件中存在，则以个人配置文件为准，如果个人配置文件中不存在这一项，则以全局配置文件为准</strong>。</p>
+<h3 id="2异常退出">2、异常退出</h3>
+<p>什么是异常退出：在编辑文件之后并没有正常的去wq（保存退出），而是遇到突然关闭终端或者断电的情况，则会显示下面的效果，这个情况称之为异常退出：</p>
+<p><img src="/linux/c8a30addadbd6dd1d6c57cef60c230f6.png" alt=""></p>
+<p>解决办法：将交换文件（在编程过程中产生的临时文件）删除掉即可</p>
+<p>#rm -f .passwd.swp</p>
+<p><img src="/linux/b279d4cc1f513364110a7013917911ab.png" alt=""></p>
+<h3 id="3别名机制实用">3、别名机制（实用）</h3>
+<p>作用：相当于创建一些属于自己的自定义命令</p>
+<p>例如：在windows下有cls命令，在Linux下可能因为没有这个命令而不习惯清屏。现在可以通过别名机制来解决这个问题，可以自己创造出cls命令</p>
+<p>别名机制依靠一个别名映射文件：~/.bashrc</p>
+<p>#vim ~/.bashrc</p>
+<p><img src="/linux/5ede670e79e67b116f07419fe692ed08.png" alt=""></p>
+<p><strong>注意：如果想新创造的命令生效，必须要重新登录当前用户。</strong></p>
+<h3 id="4退出方式">4、退出方式</h3>
+<p>回顾：之前vim中退出编辑的文件可以使用“:q”或者“:wq”。</p>
+<p><strong>除了上面的这个语法之外，vim还支持另外一个保存退出方法“:x”。</strong></p>
+<p>说明：</p>
+<p>①“:x”在文件没有修改的情况下，表示直接退出，在文件修改的情况下表示保存并退出；</p>
+<p>②如果文件没有被修改，但是使用wq进行退出的话，则文件的修改时间会被更新；但是如果文件没有被修改，使用x进行退出的话，则文件修改时间不会被更新的；主要是会混淆用户对文件的修改时间的认定。</p>
+<p>因此建议以后使用“:x”来进行对文件的保存退出。</p>
+<p><strong>但是：不要使用X，不要使用X，不要使用X，X表示对文件进行加密操作。</strong></p>
+<h2 id="九作业">九、作业</h2>
+<p>1、参考作业文件“httpd-vhosts.conf”的描述；</p>
+<p>2、使用别名机制，创建出一个快捷命令“kj”，要求实现按下“kj”回车之后能够实现：</p>
+<p>统计出Apache的服务进程数量。</p>
+<h2 id="linux自有服务1">Linux自有服务（1）</h2>
+<p>自有服务，即不需要用户独立去安装的软件的服务，而是当系统安装好之后就可以直接使用的服务（内置）。</p>
+<h2 id="一运行模式">一、运行模式</h2>
+<p>运行模式也可以称之为<strong>运行级别</strong>。</p>
+<p>在linux中存在一个进程：init （initialize，初始化），进程id是1。</p>
+<p>查看进程：#ps -ef|grep init</p>
+<p><img src="/linux/a9bb831480570a1aa9c714e1fb98193b.png" alt=""></p>
+<p>该进程存在一个对应的配置文件：inittab（<strong>系统运行级别配置文件</strong>，位置/etc/inittab）</p>
+<p>文件的主要内容：</p>
+<p><img src="/linux/f5552f1a1d1e1c8097b118c89e8e452b.png" alt=""></p>
+<p>根据上述的描述，可以得知，Centos6.5中存在7中运行级别/模式。</p>
+<p>0 — 表示关机级别（不要将默认的运行级别设置成这个值）</p>
+<p>1 — 单用户模式</p>
+<p>2 — 多用户模式，不带NFS（Network File Syetem）</p>
+<p>3 — 多用户模式，完全的多用户模式（不带桌面的，纯命令行模式）</p>
+<p>4 — 没有被使用的模式（被保留模式）</p>
+<p>5 — X11，完整的图形化界面模式</p>
+<p>6 — 表示重启级别（不要将默认的运行级别设置成这个值）</p>
+<p>与该级别相关的几个命令：</p>
+<p>#init 0 表示关机</p>
+<p>#init 3 表示切换到不带桌面的模式</p>
+<p>#init 5 切换到图形界面</p>
+<p>#init 6 重启电脑</p>
+<p>注意：init指令需要超级管理员的权限，普通用户无法执行。</p>
+<p><strong>这些命令其实都是调用的init进程，将数字（运行级别）传递给进程，进程去读配置文件执行对应的操作。</strong></p>
+<p>①切换到纯命令行模式下（<strong>临时切换，重启之后又恢复</strong>）</p>
+<p>#init 3</p>
+<p><img src="/linux/6545fd07cacb5ffe6dad90a63e4578cb.png" alt=""></p>
+<p>切换之后需要输入用户名和密码，在<strong>输入密码的时候没有“*”提示输入，只要自己确认输入的密码没有错误，按下回车即可</strong>。</p>
+<p>②回到桌面模式</p>
+<p>#init 5</p>
+<p><strong>③设置模式永久为命令行模式</strong></p>
+<p><img src="/linux/9deac8ea4757fdba1ab44c98eb3de93f.png" alt=""></p>
+<p>将/etc/inittab文件中的initdefault值设置成3，然后重启操作系统。</p>
+<h2 id="二用户与用户组管理重点">二、用户与用户组管理（重点）</h2>
+<p>Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账号，然后以这个账号的身份进入系统。</p>
+<p>用户的账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问；另一方面也可以帮助用户组织文件，并为用户提供安全性保护。</p>
+<p>每个用户账号都拥有一个惟一的用户名和各自的密码。</p>
+<p>用户在登录时键入正确的用户名和密码后，就能够进入系统和自己的主目录。</p>
+<p>要想实现用户账号的管理，要完成的工作主要有如下几个方面：</p>
+<p>用户账号的添加、删除、修改以及用户密码的管理。</p>
+<p>用户组的管理。</p>
+<p><strong>注意三个文件：</strong></p>
+<p>/etc/passwd 存储用户的关键信息</p>
+<p>/etc/group 存储用户组的关键信息</p>
+<p>/etc/shadow 存储用户的密码信息</p>
+<h3 id="1用户管理">1、用户管理</h3>
+<p>①添加用户</p>
+<p>常用语法：#useradd 选项 用户名</p>
+<p>常用选项：</p>
+<p>-g：表示指定用户的用户主组，选项的值可以是用户组的id，也可以是组名</p>
+<p>-G：表示指定用户的用户附加组，选项的值可以是用户组的id，也可以是组名</p>
+<p>-u：uid，用户的id（用户的标识符），<strong>系统默认会从500之后按顺序分配uid</strong>，如果不想使用系统分配的，可以通过该选项自定义【类似于腾讯QQ的自选靓号情况】</p>
+<p>-c comment：添加注释</p>
+<p>案例：创建用户zhangsan，不带任何选项</p>
+<p><img src="/linux/d7ef5616a25bd763080af5f06db4cbd2.png" alt=""></p>
+<p>验证是否成功：</p>
+<p>a. 验证/etc/passwd的最后一行，查看是否有zhangsan的信息；</p>
+<p>b. 验证是否存在家目录（在Centos下创建好用户之后随之产生一个同名家目录）；</p>
+<p>扩展：认识passwd文件</p>
+<p><img src="/linux/275fb93f8341a8d18572b610e585c72a.png" alt=""></p>
+<p>用户名:密码:用户ID:用户组ID:注释:家目录:解释器shell</p>
+<p>用户名：创建新用户名称，后期登录的时候需要输入；</p>
+<p>密码：此密码位置一般情况都是“x”，表示密码的占位；</p>
+<p>用户ID：用户的识别符；</p>
+<p>用户组ID：该用户所属的主组ID；</p>
+<p>注释：解释该用户是做什么用的；</p>
+<p>家目录：用户登录进入系统之后默认的位置；</p>
+<p>解释器shell：等待用户进入系统之后，用户输入指令之后，该解释器会收集用户输入的指令，传递给内核处理；</p>
+<p><strong>注意：在不添加选项的时候，执行useradd之后会执行一系列的操作</strong></p>
+<p><strong>a. 创建同名的家目录；</strong></p>
+<p><strong>b. 创建同名的用户组；</strong></p>
+<p>案例：添加选项，创建用户lisi，让lisi属于501主组，附加组500，自选靓号666。</p>
+<p><img src="/linux/f98a4324dbda9dacffec5219ee0bf40d.png" alt=""></p>
+<p><img src="/linux/bbffbebc51367ade116240931ae1767c.png" alt=""></p>
+<p><img src="/linux/8f1c5647445f066215b029431c77846e.png" alt=""></p>
+<p><strong>注意：查看用户的主组可以查看passwd文件，查看附加组可以查看group文件。</strong></p>
+<p>②修改用户</p>
+<p>常用语法：#usermod 选项 用户名</p>
+<p>Usermod：user modify，用户修改</p>
+<p>常用选项：</p>
+<p>-g：表示指定用户的用户主组，选项的值可以是用户组的id，也可以是组名</p>
+<p>-G：表示指定用户的用户附加组，选项的值可以是用户组的id，也可以是组名</p>
+<p>-u：uid，用户的id（用户的标识符），<strong>系统默认会从500之后按顺序分配uid</strong>，如果不想使用系统分配的，可以通过该选项自定义【类似于腾讯QQ的自选靓号情况】</p>
+<p>-l：修改用户名</p>
+<p>案例：修改zhangsan用户主组为500，附加组改为501</p>
+<p>#usermod -g 500 -G 501 zhangsan</p>
+<p>案例：修改zhangsan用户用户名，改为wangerma</p>
+<p><strong>#usermod -l 新的用户名 旧的用户名</strong></p>
+<p>#usermod -l wangerma zhangsan</p>
+<p>③设置密码</p>
+<p>Linux不允许没有密码的用户登录到系统，因此前面创建的用户目前都处于锁定状态，需要设置密码之后才能登录计算机。</p>
+<p><strong>常用语法：#passwd 用户名</strong></p>
+<p>案例：设置wangerma用户的密码</p>
+<p><img src="/linux/293fe615752d4950b599fa96cf85d380.png" alt=""></p>
+<p>在设置密码的时候也是没有任何输入提示的，放心输入，确保两次输入的密码一致，按下回车即可。</p>
+<p>也可以使用弱密码，但是不建议，否则会看到以下的提示：</p>
+<p><img src="/linux/2d59f340821673ce40b54e26b2153777.png" alt=""></p>
+<p>设置密码之后shadow文件中的体现：能够看出lisi用户没有密码的。</p>
+<p><img src="/linux/1605ede610e3d0560e621273d437f470.png" alt=""></p>
+<p>在设置用户密码之后可以登录帐号，例如此处需要登录wangerma</p>
+<p>切换用户命令：#su [用户名] （switch user）</p>
+<p>如果用户名不指定则表示切换到root用户。</p>
+<p><img src="/linux/142cc7aeed00a6bd609f70d6e16616e4.png" alt=""></p>
+<p>切换用户需要注意的事项：</p>
+<p>a. 从root往普通用户切换不需要密码，但是反之则需要root密码；</p>
+<p>b. 切换用户之后前后的工作路径是不变的；</p>
+<p>c. 普通用户没有办法访问root用户家目录，但是反之则可以；</p>
+<p>④删除用户</p>
+<p>常用语法：#userdel 选项 用户名</p>
+<p>Userdel：user delete（用户删除）</p>
+<p>常用选项：</p>
+<p>-r：表示删除用户的同时，删除其家目录；</p>
+<p>案例：删除wangerma用户</p>
+<p><img src="/linux/ba037df6ee1c65ebed52af07f1c3e031.png" alt=""></p>
+<p><strong>注意：已经登录的wangerma用户删除的时候提示删除失败，但是没有登录的lisi用户可以正常删除</strong>。</p>
+<p>解决办法：简单粗暴，kill对应用户的全部进程</p>
+<p><img src="/linux/02f40d92101f3e3b606fd92c682aefe7.png" alt=""></p>
+<p>提示：所有跟用户操作的命令（除passwd外）只有root超级管理员有权限执行。</p>
+<h3 id="2用户组管理">2、用户组管理</h3>
+<p>每个用户都有一个用户组，系统可以对一个用户组中的所有用户进行集中管理。不同Linux
+系统对用户组的规定有所不同，如Linux下的用户属于与它同名的用户组，<strong>这个用户组在创建用户时同时创建</strong>。</p>
+<p>用户组的管理涉及用户组的<strong>添加、删除和修改</strong>。组的增加、删除和修改实际上就是对/etc/group文件的更新。</p>
+<p><img src="/linux/6e371e7cacb4dffb22f741f784cd4b21.png" alt=""></p>
+<p>文件结构：</p>
+<p><strong>用户组名:密码:用户组ID:组内用户名</strong></p>
+<p>密码：X表示占位符，虽然用户组可以设置密码，但是绝大部分的情况下不设置密码；</p>
+<p>组内用户名：表示附加组是该组的用户名称；</p>
+<p>①用户组添加</p>
+<p>常用语法：#groupadd 选项 用户组名</p>
+<p>常用选项：</p>
+<p>-g：类似用户添加里的“-u”，-g表示选择自己设置一个自定义的用户组ID数字，如果自己不指定，则默认从500之后递增；</p>
+<p>案例：使用groupadd指令创建一个新的用户组，命名为Administrators</p>
+<p><img src="/linux/03748a261415d570fe3eb1586b5698ff.png" alt=""></p>
+<p>②用户组编辑</p>
+<p>常用语法：#groupmod 选项 用户组名</p>
+<p>常用选项：</p>
+<p>-g：类似用户修改里的“-u”，-g表示选择自己设置一个自定义的用户组ID数字</p>
+<p>-n：类似于用户修改“-l”，表示设置新的用户组的名称</p>
+<p>案例：修改Administrators用户组，将组ID从502改成520，将名称改为admins</p>
+<p><img src="/linux/c0a1e09e1b544c11d6ad4ec681a944d5.png" alt=""></p>
+<p>③用户组删除</p>
+<p>常用语法：#groupdel 用户组名</p>
+<p><img src="/linux/87bd2d77cf8fe833c5a14aaf3a9426cc.png" alt=""></p>
+<p>注意：当如果需要删除一个组，但是<strong>这个组是某个用户的主组时</strong>，则不允许删除；如果确实需要删除，则先从组内移出所有用户。</p>
+<p><img src="/linux/bee1f429eb704ed09f81298d2ec0aada.png" alt=""></p>
+<h2 id="三网络设置">三、网络设置</h2>
+<p>首先知道网卡配置文件位置：/etc/sysconfig/network-scripts</p>
+<p><img src="/linux/dab2feae5d2d84acae9a374bb0c1d181.png" alt=""></p>
+<p>在目录中网卡的配置文件命名格式：ifcfg-网卡名称</p>
+<p><img src="/linux/5476618c56d2cfcb5e7ef3d46d284f6a.png" alt=""></p>
+<p>ONBOOT：是否开机启动</p>
+<p>BOOTPROTO：ip地址分配方式，DHCP表示动态主机分配协议</p>
+<p>HWADDR：硬件地址，MAC地址</p>
+<p>如果后续需要重启网卡怎么去操作呢？</p>
+<p><strong>#service network restart</strong></p>
+<p><img src="/linux/10e1157d61cd5a5f0e2b352898812c7b.png" alt=""></p>
+<p>在有的分支版本中可能没有service命令来快速操作服务，但是有一个共性的目录：/etc/init.d</p>
+<p>这个目录中放着很对服务的快捷方式。</p>
+<p>此处重启网卡命令还可以使用：</p>
+<p><strong>#/etc/init.d/network restart</strong></p>
+<p><img src="/linux/1ce2f0ae92eec568d326e0bea2d60180.png" alt=""></p>
+<p>**扩展1：**如果修改网卡的配置文件，但是配置文件的目录层次很深，此时可以在浅的目录中创建一个快捷方式（软连接），方便以后去查找</p>
+<p><strong>#ln -s 软链接原始文件的路径 快捷方式的路径</strong></p>
+<p>1.软链接，以路径的形式存在。类似于Windows操作系统中的快捷方式<br>
+2.软链接可以 跨文件系统 ，硬链接不可以（如c盘到d盘是不行的）<br>
+3.软链接可以对一个不存在的文件名进行链接<br>
+4.软链接可以对目录进行链接</p>
+<p><strong>#ln 硬链接（用的比软链接少）</strong></p>
+<p>1.硬链接，以文件副本的形式存在。但不占用实际空间（可用于同步更新也可用于备份）<br>
+2.不允许给目录创建硬链接<br>
+3.硬链接只有在同一个文件系统中才能创建</p>
+<p><img src="/linux/982c83c2a4570f96397cf874bc898b9d.png" alt=""></p>
+<p><img src="/linux/58041a87b7bdf9ff571522a505a7f081.png" alt=""></p>
+<p>通过ls -l可以列出如下的效果：</p>
+<p><img src="/linux/7a80365be5b2478ab963a18eb310abc0.png" alt=""></p>
+<p>其中，文件类型位置的“l”表示其类型为link（连接类型），后面的“-&gt;”指向的是原始文件路径。</p>
+<p><strong>扩展2：如何去重启单个网卡？</strong></p>
+<p>停止某个网卡：#ifdown 网卡名</p>
+<p>开启某个网卡：#ifup 网卡名</p>
+<p>例如：需要停止-启动（重启）eth0网卡，则可以输入</p>
+<p>#ifdown eth0</p>
+<p>#ifup eth0</p>
+<p><strong>提示：在实际工作的时候不要随意禁网卡。</strong></p>
+<h2 id="四ssh服务重点">四、ssh服务（重点）</h2>
+<p>ssh（secure
+shell，安全外壳协议），该协议有2个常用的作用：<strong>远程连接协议</strong>、远程文件传输协议。</p>
+<p>协议使用<strong>端口</strong>号：默认是22</p>
+<p>可以是被修改的，如果需要修改，则需要修改ssh服务的配置文件：</p>
+<p>#/etc/ssh/ssh_config</p>
+<p><img src="/linux/88a88bc5d83628ff87a198d093e6917b.png" alt=""></p>
+<p>端口号可以修改，但是得注意2个事项：</p>
+<p>a. 注意范围，端口范围是从0-65535；</p>
+<p>b. 不能使用别的服务已经占用的端口；</p>
+<p><strong>服务启动/停止/重启</strong></p>
+<p>#service sshd start/stop/restart</p>
+<p>#/etc/init.d/sshd start/stop/restart</p>
+<p><img src="/linux/39392555f2457120df16599067cc0253.png" alt=""></p>
+<h3 id="1远程终端">1、远程终端</h3>
+<p>终端工具主要帮助运维人员连接远程的服务器，常见终端工具有：Xshell、secureCRT、Putty等。以putty为例：</p>
+<p>①获取服务器ip地址，可以通过ifconfig命令进行查看，然后顺手测试ip的连接相通性</p>
+<p><img src="/linux/7b38108c60f1e6d602e566201cf699dd.png" alt=""></p>
+<p>②打开putty，输入相关的信息</p>
+<p><img src="/linux/eebb54ec4e1a6558ea77955a0f911fe3.png" alt=""></p>
+<p>③在弹出key确认的时候点击“是”，以后不会再提示</p>
+<p><img src="/linux/b9f43c99da8fc4a2060298905088a58a.png" alt=""></p>
+<p>④输入登录信息</p>
+<p><img src="/linux/c745410cd64c27d447f42faf96a9d970.png" alt=""></p>
+<h3 id="2ssh服务文件传输">2、SSH服务文件传输</h3>
+<p>可视化的界面传输工具：Filezilla</p>
+<p>安装好之后可以查看到桌面图标：</p>
+<p><img src="/linux/ebde5fc6cf7430a33a37eec69771d3d1.png" alt=""></p>
+<p>①选择“文件”- “站点管理器（Ctrl + S）”</p>
+<p><img src="/linux/404c29098a8fc1af0e77bdef29533d1a.png" alt=""></p>
+<p>②点击“文件”菜单下方的“▽”选择需要连接的服务器，连接好之后的效果</p>
+<p><img src="/linux/6c5c3ba6d96aea4d7f74ab5de898c5e6.png" alt=""></p>
+<p>③从本地windows上传文件到linux中方式</p>
+<p>支持直接拖拽文件，也可以右键本地需要上传的文件，然后点选“上传”即可</p>
+<p><img src="/linux/a8687f602aa571705138c0f8482ccf47.png" alt=""></p>
+<p>④下载linux文件到本地</p>
+<p>支持服务器文件直接拖拽到本地，也可以在右侧窗口选择需要下载的文件，右键，点选“下载”。</p>
+<p><strong>扩展3：通过命令行工具来传输文件/文件夹</strong></p>
+<p>工具：PSCP.exe（必须通过cmd命令行打开），为了使用方便可以将其放到环境变量目录中</p>
+<p>如果不清楚哪些路径是环境变量路径，只需要将其放到C:/Windows目录下即可。</p>
+<p><img src="/linux/5271b89d310ab8e081357f237242f232.png" alt=""></p>
+<p>用法：</p>
+<p><strong>a. pscp 选项 用户名@linux主机地址:资源路径 windows本地的地址 （下载到win）</strong></p>
+<p><strong>b. pscp 选项 资源路径 用户名@linux主机地址:远程路径 （上传到linux）</strong></p>
+<p>c. pscp 选项 -ls 用户名@linux主机地址 （列出远程路径下结构）</p>
+<p>①下载到本地windows</p>
+<p>要求将远程linux服务器下的/etc整个目录下载到本地E:\tmp下</p>
+<p>#pscp -r <a href="root@192.168.21.128:/etc">root@192.168.21.128:/etc</a> E:\tmp</p>
+<p>在CMD中输入之后输入密码</p>
+<p><img src="/linux/b92fc8a0ab9fa319f4a27dd51987029b.png" alt=""></p>
+<p><img src="/linux/8a46e42e88c8c5c570704062ec2b96d3.png" alt=""></p>
+<p>②上传文件到linux</p>
+<p>将“E:\coursedocs\运维学科\北京运维01期\01-基础班\20180329_Linux自有服务”所有的内容传输到linux下root用户的家目录</p>
+<p>#pscp -r
+“E:\coursedocs\运维学科\北京运维01期\01-基础班\20180329_Linux自有服务”
+<a href="root@192.168.21.128:/root">root@192.168.21.128:/root</a></p>
+<p><img src="/linux/8f52a0e5a2365b54383b738148a01b58.png" alt=""></p>
+<h2 id="五作业">五、作业</h2>
+<p>1、能够分别使用Filezilla和PSCP工具传输给定文件到“/usr/src/data”目录下，如目录不存在则自行创建。</p>
+<h2 id="linux自有服务2">Linux自有服务（2）</h2>
+<p>自有服务，即不需要用户独立去安装的软件的服务，而是当系统安装好之后就可以直接使用的服务（内置）。</p>
+<h2 id="一设置主机名">一、设置主机名</h2>
+<p>回顾：</p>
+<p>#hostname</p>
+<p>#hostname -f FQDN（全限定域名）</p>
+<p>①临时设置主机名（立竿见影），需要切换用户使之生效</p>
+<p>#hostname 设置的主机名</p>
+<p><img src="/linux/4c4b374f2f31392ed481191384f3906a.png" alt=""></p>
+<p>②永久设置主机名（需要重启）</p>
+<p>先找到一个文件</p>
+<p>/etc/sysconfig/network 【主机名的配置文件】</p>
+<p><img src="/linux/6752f2960837547c9aa6827208f7793c.png" alt=""></p>
+<p>修改其中的HOSTNAME为自己需要设置的永久主机名</p>
+<p><img src="/linux/d84b2be74b0fed2ffad95cab40b4ec5f.png" alt=""></p>
+<p><strong>③修改linux服务器的hosts文件，将yunwei指向本地（设置FQDN）</strong></p>
+<p>Hosts文件的位置：/etc/hosts</p>
+<p><img src="/linux/afe39314578c24a22bbb736bdde9b76d.png" alt=""></p>
+<p>问题：不设置FQDN会怎么样？</p>
+<p>①很多开源服务器软件（例如Apache）则无法启动，或出现报错；</p>
+<p>②方便记忆，看到主机名对其作用有一个初步判断；</p>
+<p>③如果不设置则会影响本地的域名的解析（本地访问）；</p>
+<h2 id="二chkconfig">二、chkconfig</h2>
+<p>作用：相当于windows下“安全卫士”、“电脑管家”之类的安全辅助工具<strong>提供“开机启动项”的一个管理服务</strong>。</p>
+<p>在linux下不是所有的软件安装完成之后都有开机启动服务，有的可能需要自己去添加。除此之外还可以查看和删除。</p>
+<p>①开机启动<strong>服务查询</strong></p>
+<p>#chkconfig &ndash;list</p>
+<p><img src="/linux/43933867ca5cb14e6ad094edf2563dcc.png" alt=""></p>
+<p>其中0-6表示各个启动级别</p>
+<p>例如：以httpd为例，其3级别为关闭（off），则表示其在3启动形式下默认开机不启动</p>
+<p>5对应的也是关闭，则表示其在桌面环境下也是开机不启动。</p>
+<p>再例如：kdump服务，在2，3，4，5的级别下默认开机启动的，其他级别下默认开机不启动</p>
+<p>②删除服务</p>
+<p>#chkconfig &ndash;del 服务名</p>
+<p>例如删除httpd服务</p>
+<p><img src="/linux/aa45b38d0f239015e2ecf63bd6811147.png" alt=""></p>
+<p>③添加开机启动服务</p>
+<p>#chkconfig &ndash;add 服务名 【必须要保证服务正常运行，才可以添加】</p>
+<p><img src="/linux/63b0cefaeb7cf0fea20c5522344ec1bb.png" alt=""></p>
+<p><strong>④设置服务在某个级别下开机启动/不启动【重点命令】</strong></p>
+<p><strong>#chkconfig &ndash;level 连在一起的启动级别 服务名on/off</strong></p>
+<p>案例：设置httpd服务在3，5级别下默认开机启动</p>
+<p><img src="/linux/44a3e13f31d4cc43b294ecf9617aec7a.png" alt=""></p>
+<p>案例：设置httpd服务在5的级别下默认开机不启动</p>
+<p><img src="/linux/64dc13f44d3bef1cfae3561c79ffbb32.png" alt=""></p>
+<h3 id="设置开机自启的文件">设置开机自启的文件</h3>
+<p>使用命令 vim /etc/rc.local 里面添加想要开机自启的内容即可，如下：</p>
+<p><img src="/linux/59d43be7f5ec17944bdfcec56287b2f8.png" alt=""></p>
+<h2 id="三ntp服务">三、ntp服务</h2>
+<p>作用：ntp主要是用于<strong>对计算机的时间同步管理</strong>操作。</p>
+<p>时间是对服务器来说是很重要的，一般很多网站都需要读取服务器时间来记录相关信息，如果时间不准，则可能造成很大的影响。</p>
+<p>例如：当前虚拟机里的linux时间就是不准确的</p>
+<p><img src="/linux/f5a74099520a18bc4679b47a307666b7.png" alt=""></p>
+<p>同时服务器时间方式有2个：<strong>一次性同步（手动同步）、通过服务自动同步</strong>。</p>
+<p>上游的概念：</p>
+<p><img src="/linux/d46cd47e8c188e31711442dc219d86e2.png" alt=""></p>
+<p>①一次性同步时间（简单）</p>
+<p><strong>#ntpdate 时间服务器的域名或ip地址</strong></p>
+<p>Ip地址查看可以访问：http://www.ntp.org.cn/pool.php</p>
+<p><img src="/linux/9450d4174ec63a386131d8b872f0a703.png" alt=""></p>
+<p>②设置时间同步服务</p>
+<p>服务名：ntpd</p>
+<p>启动ntpd服务</p>
+<p>#service ntpd start 或者 /etc/init.d/ntpd start</p>
+<p><img src="/linux/260bc32b8ae6501e61a22c9dc560cb60.png" alt=""></p>
+<p>设置ntpd服务开机启动：</p>
+<h2 id="chkconfig---listgrep-ntpd">chkconfig &ndash;list|grep ntpd</h2>
+<h2 id="chkconfig---level-35-ntpd-on">chkconfig &ndash;level 35 ntpd on</h2>
+<p><img src="/linux/eb6f975a551eb883cd3b3606c3c8266f.png" alt=""></p>
+<h2 id="四防火墙服务">四、防火墙服务</h2>
+<p>防火墙：<strong>防范一些网络攻击</strong>。有<strong>软件防火墙</strong>、硬件防火墙之分。</p>
+<p><img src="/linux/e9f472ed1e51c3de58afd1e522fdb560.png" alt=""></p>
+<p>防火墙选择让请求通过，从而保证网络安全性。</p>
+<p><strong>在当前的centos6.5中防火墙有一个名称：iptables</strong> 【7.x中默认使用的是firewalld】</p>
+<p>①查看iptables是否开机启动</p>
+<p><img src="/linux/117cf8d098d5202a7442f2edb111c0d9.png" alt=""></p>
+<p>②iptables服务启动/重启/关闭</p>
+<p>#service iptables start/restart/stop</p>
+<p>/etc/init.d/iptables start /restart/stop</p>
+<p><strong>③查看iptables的状态（规则）</strong></p>
+<p>]## service iptables status</p>
+<p>如果iptables没有启动，则提示服务没启动，如果已经启动，则显示防火墙的相关的规则信息</p>
+<p><img src="/linux/265dc4ddf1e803d6d11b4a329fc42579.png" alt=""></p>
+<p>④查看规则的命令</p>
+<p>#iptables -L -n</p>
+<p>含义：</p>
+<p>-L：表示列出规则</p>
+<p>-n：表示将单词表达形式改成数字形式显示</p>
+<p>⑤简单设置防火墙规则</p>
+<p>例如，需要允许80端口通过防火墙，则规则可以用以下的命令来设置</p>
+<p><strong>#iptables -I INPUT -p tcp &ndash;dport 80 -j ACCEPT #允许访问80端口</strong></p>
+<p>Iptables：主命令</p>
+<p>-I：表示将规则放到最前面</p>
+<p>-A：add，添加规则（最后）</p>
+<p>INPUT：进站请求【出站output】</p>
+<p>-p：protocol，指定协议（icmp/tcp/udp）</p>
+<p>&ndash;dport：指定端口号</p>
+<p>-j：指定行为结果，允许（accept）/禁止（reject）/丢弃（drop）</p>
+<p><img src="/linux/b1852c759619152933e8226483b66832.png" alt=""></p>
+<p>添加完成之后需要保存操作：</p>
+<p><strong>/etc/init.d/iptables save</strong></p>
+<p><img src="/linux/2a998b6202c109140dc4b9ac44d8c038.png" alt=""></p>
+<p>测试80端口访问：</p>
+<p><img src="/linux/98e605a73604ef3003ba8cb3ff02dd44.png" alt=""></p>
+<h2 id="五rpm管理重点">五、rpm管理（重点）</h2>
+<p>作用：rpm的作用类似于windows上的电脑管家中“软件管理”、安全卫士里面“软件管家”等产品，主要作用是对linux服务器上的软件包进行对应管理操作，<strong>管理分为：查询、卸载、安装</strong>。</p>
+<p>①查询某个软件的安装情况</p>
+<p><strong>#rpm -qa|grep 关键词</strong></p>
+<p>选项：</p>
+<p>-q：查询，query</p>
+<p>-a：全部，all</p>
+<p>案例：查询linux上是否安装firefox</p>
+<p><img src="/linux/1f5325f908f36c2d4681e173fde9ee84.png" alt=""></p>
+<p>案例：查询是否安装qq</p>
+<p><img src="/linux/bec016cb9ca0a8df5dd54e3c4cd6e556.png" alt=""></p>
+<p>②卸载某个软件</p>
+<p>#rpm -e 软件的名称</p>
+<p><img src="/linux/0e05213c4781a6b8500506fa34cb89cf.png" alt=""></p>
+<p>火狐卸载的时候是没有依赖关系的，所以可以直接卸载。</p>
+<p>但是在卸载Apache的时候提示无法卸载：</p>
+<p><img src="/linux/2495ef9982e3145d4d2fcf0244cea075.png" alt=""></p>
+<p>当存在依赖关系的时候又不想去解决这个问题的时候可以：</p>
+<p>#rpm -e 软件包名 &ndash;nodeps</p>
+<p><img src="/linux/3c0e47e6983dfd605d84ba3fb8c573e4.png" alt=""></p>
+<p>③软件的安装</p>
+<p>要想装软件，和windows下一样，先得找到安装包。</p>
+<p>软件包的获得方式：</p>
+<p>a. 去官网去下载；</p>
+<p>b. 不介意老版本的话，可以从光盘（或者镜像文件）中读取；</p>
+<p>此处以光盘文件为例：</p>
+<p><strong>查看块状设备的信息：</strong></p>
+<p>#lsblk （list block devices） 查看块状设备的信息</p>
+<p><img src="/linux/33085c4dde89da8fc81e806a29d24995.png" alt=""></p>
+<p>Name：名称</p>
+<p>Size：设备大小</p>
+<p>Type：类型</p>
+<p>MountPoint：挂载点（类似windows下盘符）</p>
+<p><strong>扩展：光盘的挂载和解挂</strong></p>
+<p>a. 解挂操作</p>
+<p>命令：umount</p>
+<p><strong>语法：#umount 当前设备的挂载点（路径）</strong></p>
+<p><img src="/linux/74f879a65d400ab6abe8a80acb4b4f51.png" alt=""></p>
+<p>此时，相当于U盘在windows上已经被弹出了，但是没有拔下电脑USB接口。</p>
+<p>b. 挂载光盘</p>
+<p>命令：mount</p>
+<p><strong>语法：#mount 设备原始地址 要挂载的位置路径</strong></p>
+<p>设备原始地址：地址统一都在/dev下，然后根据大小确定具体name值，拼凑在一起组成原始地址，例如当前：“/dev/sr0”</p>
+<p>要挂载的位置路径：挂载目录一般都在mnt下，也可以在mnt下建目录，此处以“/mnt/dvd”为例</p>
+<p><img src="/linux/46ccd37f1ea44bc8c08bdf9eaea5184c.png" alt=""></p>
+<p><strong>Mount -o loop …</strong></p>
+<p><strong>其中-o表示option，loop表示将要挂载的内容当成硬盘分区挂载到目录</strong></p>
+<p><strong>有什么不明白的就用man mount</strong></p>
+<p><strong>安装软件的命令：</strong></p>
+<p><strong>#rpm -ivh 软件包完整名称</strong></p>
+<p>选项：</p>
+<p>-i：install，安装</p>
+<p>-v：显示进度条</p>
+<p>-h：表示以“#”形式显示进度条</p>
+<p><img src="/linux/4172357fd766faa18af692e798963aff.png" alt=""></p>
+<h2 id="六croncrontab计划任务重点">六、cron/crontab计划任务（重点）</h2>
+<p>作用：操作系统不可能24小时都有人在操作，有些时候想在指定的时间点去执行任务（例如：每天夜里2点去重新启动Apache），此时不可能真有人每天夜里2点去执行命令，此时可以交给计划任务程序去执行操作。</p>
+<p>语法：#crontab 选项</p>
+<p>常用选项：</p>
+<p><strong>-l：list，列出指定用户的计划任务列表</strong></p>
+<p><strong>-e：edit，编辑指定用户的计划任务列表</strong></p>
+<p>-u：user，指定的用户名，如果不指定，则表示当前用户</p>
+<p>-r：remove，删除指定用户的计划任务列表</p>
+<p>①列出</p>
+<p><img src="/linux/ec55ac26eb419ef8b7ecc12955f0c73e.png" alt=""></p>
+<p><strong>②编辑计划任务（重点）</strong></p>
+<p>计划任务的规则语法格式，以行为单位，一行则为一个计划：</p>
+<p>分 时 日 月 周 需要执行的命令</p>
+<p>例如：如果想要每天的0点0分执行reboot指令，则可以写成</p>
+<p>0 0 * * * reboot</p>
+<p><strong>取值范围：</strong></p>
+<p>分：0~59</p>
+<p>时：0~23</p>
+<p>日：1~31</p>
+<p>月：1~12</p>
+<p>周：0~7，0和7表示星期天</p>
+<p><strong>四个符号：</strong></p>
+<p>*：表示取值范围中的每一个数字</p>
+<p>-：做连续区间表达式的，要想表示1~7，则可以写成：1-7</p>
+<p>/：表示每多少个，例如：想每10分钟一次，则可以在分的位置写：*/10</p>
+<p>,：表示多个取值，比如想在1点，2点6点执行，则可以在时的位置写：1,2,6</p>
+<p>问题1：每月1、10、22日的4:45重启network服务</p>
+<p>45 4 1,10,22 * * service network restart</p>
+<p>问题2：每周六、周日的1:10重启network服务</p>
+<p>10 1 * * 6,0 service network restart</p>
+<p>问题3：每天18:00至23:00之间每隔30分钟重启network服务</p>
+<p>*/30 18-23 * * * service network restart</p>
+<p>问题4：每隔两天的上午8点到11点的第3和第15分钟执行一次重启</p>
+<p>3,15 8-11 */2 * * reboot</p>
+<p>案例：真实测试案例，每1分钟往root家目录中的RT.txt中输入当前的时间信息，为了看到效果使用追加输出</p>
+<p>计划任务：*/1 * * * * ls ~&raquo; /root/RT.txt</p>
+<p><strong>Crontab权限问题：本身是任何用户都可以创建自己的计划任务</strong>。</p>
+<p>但是超级管理员可以通过配置来设置某些用户不允许设置计划任务 ：</p>
+<p>配置文件位于（黑名单）：</p>
+<p>/etc/cron.deny 里面写用户名，一行一个</p>
+<p><img src="/linux/622225a00b61e63e60c843b663d81630.png" alt=""></p>
+<p><img src="/linux/4a1da6418e5c99a186ceb9a3268a904f.png" alt=""></p>
+<p>还有一个配置文件：（白名单）</p>
+<p>/etc/cron.allow （本身不存在，自己创建）</p>
+<p><strong>注意：白名单优先级高于黑名单，如果一个用户同时存在两个名单文件中，则会被默认允许创建计划任务。</strong></p>
+<h2 id="linux的权限管理操作">Linux的权限管理操作</h2>
+<p><strong>Linux的权限操作与用户、用户组是兄弟操作。</strong></p>
+<h2 id="一权限概述">一、权限概述</h2>
+<p>总述：Linux系统一般将文件可存/取访问的身份分为3个类别：owner、group、others，且3种身份各有read、write、execute等权限。</p>
+<h3 id="1权限介绍">1、权限介绍</h3>
+<p>什么是权限？</p>
+<p>在多用户（可以不同时）计算机系统的管理中，权限是指某个特定的用户具有特定的系统资源使用权力，像是文件夹、特定系统指令的使用或存储量的限制。</p>
+<p>在Linux中分别有读、写、执行权限：</p>
+<p>读权限：</p>
+<p>对于文件夹来说，读权限影响用户是否能够列出目录结构</p>
+<p>对于文件来说，读权限影响用户是否可以查看文件内容</p>
+<p>写权限：</p>
+<p>对文件夹来说，写权限影响用户是否可以在文件夹下“创建/删除/复制到/移动到”文档</p>
+<p>对于文件来说，写权限影响用户是否可以编辑文件内容</p>
+<p>执行权限：</p>
+<p>一般都是对于文件来说，特别脚本文件。</p>
+<h3 id="2身份介绍">2、身份介绍</h3>
+<h4 id="owner身份文件所有者默认为文档的创建者">Owner身份（文件所有者，默认为文档的创建者）</h4>
+<p>由于Linux是多用户、多任务的操作系统，因此可能常常有多人同时在某台主机上工作，但每个人均可在主机上设置文件的权限，让其成为个人的“私密文件”，即个人所有者。因为设置了适当的文件权限，除本人（文件所有者）之外的用户无法查看文件内容。</p>
+<p>例如某个MM给你发了一封Email情书，你将情书转为文件之后存档在自己的主文件夹中。为了不让别人看到情书的内容，你就能利用所有者的身份去设置文件的适当权限，这样，即使你的情敌想偷看你的情书内容也是做不到的。</p>
+<h4 id="group身份与文件所有者同组的用户">Group身份（与文件所有者同组的用户）</h4>
+<p>与文件所有者同组最有用的功能就体现在<strong>多个团队在同一台主机上开发资源的时候</strong>。例如主机上有A、B两个团体，A中有a1,a2,a3三个成员，B中有b1,b2两个成员，这两个团体要共同完成一份报告F。由于设置了适当的权限，A、B团体中的成员都能互相修改对方的数据，但是团体C的成员则不能修改F的内容，甚至连查看的权限都没有。同时，团体的成员也能设置自己的私密文件，让团队的其它成员也读取不了文件数据。<strong>在Linux中，每个账户支持多个用户组。如用户a1、b1即可属于A用户组，也能属于B用户组【主组和附加组】</strong>。</p>
+<h4 id="others身份其他人相对于所有者">Others身份（其他人，相对于所有者）</h4>
+<p>这个是个相对概念。打个比方，大明、二明、小明一家三兄弟住在一间房，房产证上的登记者是大明（owner所有者），那么，大明一家就是一个用户组，这个组有大明、二明、小明三个成员；另外有个人叫张三，和他们三没有关系，那么这个张三就是其他人了。</p>
+<p>同时，大明、二明、小明有各自的房间，三者虽然能自由进出各自的房间，但是小明不能让大明看到自己的情书、日记等，这就是文件所有者（用户）的意义。</p>
+<h4 id="root用户超级用户">Root用户（超级用户）</h4>
+<p>在Linux中，还有一个神一样存在的用户，这就是root用户，因为在所有用户中它拥有最大的权限
+，所以管理着普通用户。</p>
+<h3 id="3linux的权限介绍">3、Linux的权限介绍</h3>
+<p>要设置权限，就需要知道文件的一些基本属性和权限的分配规则。在Linux中，ls命令常用来查看文件的属性，用于显示文件的文件名和相关属性。</p>
+<p>#ls -l 路径 【ls -l 等价于 ll】</p>
+<p><img src="/linux/a3b303078e4de1bf16905b52cd110343.png" alt=""></p>
+<p>标红的部分就是Linux的文档权限属性信息。</p>
+<p><strong>Linux中存在用户、用户组和其他人概念</strong>，各自有不同的权限，对于一个文档来说，其权限具体分配如下：</p>
+<p><img src="/linux/ef471ff7574d72a6dabc26b5c9fa6f51.png" alt="bVk3s0"></p>
+<p>十位字符表示含义：</p>
+<p>第1位：表示文档类型，取值常见的有“d表示文件夹”、“-表示文件”、“l表示软连接”、“s表示套接字”等等；</p>
+<p>第2-4位：表示文档所有者的权限情况，第2位表示读权限的情况，取值有r、-；第3位表示写权限的情况，w表示可写，-表示不可写，第4位表示执行权限的情况，取值有x、-。</p>
+<p>第5-7位：表示与所有者同在一个组的用户的权限情况，第5位表示读权限的情况，取值有r、-；第6位表示写权限的情况，w表示可写，-表示不可写，第7位表示执行权限的情况，取值有x、-。</p>
+<p>第8-10位：表示除了上面的前2部分的用户之外的其他用户的权限情况，第8位表示读权限的情况，取值有r、-；第9位表示写权限的情况，w表示可写，-表示不可写，第10位表示执行权限的情况，取值有x、-。</p>
+<p>权限分配中,均是rwx的三个参数组合，<strong>且位置顺序不会变化</strong>。没有对应权限就用 –
+代替。</p>
+<p><strong>例如：以下一个文档权限是怎么样的？</strong></p>
+<p><img src="/linux/cbcfe06d781d8ff1ab5081d490c37254.png" alt=""></p>
+<p>a. 其是文件夹类型</p>
+<p>b. 所有者：拥有全部权限（读写执行）</p>
+<p>c. 同组用户：可读、可执行</p>
+<p>d. 其他用户：可读、可执行</p>
+<h2 id="二权限设置">二、权限设置</h2>
+<p><strong>语法：#chmod 选项 权限模式 文档</strong></p>
+<p>注意事项：</p>
+<p>常用选项：</p>
+<p>-R：递归设置权限 （当文档类型为文件夹的时候）</p>
+<p>权限模式：就是该文档需要设置的权限信息</p>
+<p>文档：可以是文件，也可以是文件夹，可以是相对路径也可以是绝对路径。</p>
+<p><strong>注意点：如果想要给文档设置权限，操作者要么是root用户，要么就是文档的所有者。</strong></p>
+<h3 id="1字母形式">1、字母形式</h3>
+<p><img src="/linux/4489bc17d3c2d3213ddabf222ade7e74.png" alt=""></p>
+<p>给谁设置：</p>
+<p>u：表示所有者身份owner（user）</p>
+<p>g：表示给所有者同组用户设置（group）</p>
+<p>o：表示others，给其他用户设置权限</p>
+<p>a：表示all，给所有人（包含ugo部分）设置权限</p>
+<p><strong>如果在设置权限的时候不指定给谁设置，则默认给所有用户设置</strong></p>
+<p>权限字符：</p>
+<p>r：读</p>
+<p>w：写</p>
+<p>x：表示执行</p>
+<p>-：表示没有权限</p>
+<p>权限分配方式：</p>
+<p>+：表示给具体的用户新增权限（相对当前）</p>
+<p>-：表示删除用户的权限（相对当前）</p>
+<p>=：表示将权限设置成具体的值（注重结果）【赋值】</p>
+<p><strong>例如：需要给anaconda-ks.cfg文件（-rw&mdash;&mdash;-.）设置权限，要求所有者拥有全部的权限，同组用户拥有读和执行权限，其他用户只读权限。</strong></p>
+<p>答案：</p>
+<p>①#chmod u+x,g+rx,o+r anaconda-ks.cfg</p>
+<p><img src="/linux/ceb67ef94dbbb8fa8a8e744b939c5672.png" alt=""></p>
+<p>②#chmod u=rwx,g=rx,o=r anaconda-ks.cfg</p>
+<p><img src="/linux/307d6bfb32c22e185cceb2db81bcc109.png" alt=""></p>
+<p><strong>提示：当文档拥有执行权限（任意部分），则其颜色在终端中是绿色。</strong></p>
+<p>#chmod ug=rwx 形式，如果有两部分权限一样则可以合在一起写的</p>
+<p><strong>例如：如果anaconda-ks.cfg文件什么权限都没有，可以使用root用户设置所有人都有执行权限，则可以写成</strong></p>
+<p>①#chmod +x anaconda-ks.cfg</p>
+<p>②#chmod a=x anaconda-ks.cfg</p>
+<p>③#chmod a+x anaconda-ks.cfg</p>
+<h3 id="2数字形式">2、数字形式</h3>
+<p>经常会在一些技术性的网页上看到类似于**#chmod 777 a.txt**
+这样的一个权限，这种形式称之为数字形式权限（777）。</p>
+<p><strong>读：r 4</strong></p>
+<p><strong>写：w</strong>  <strong>2</strong></p>
+<p><strong>执行：x</strong>  <strong>1</strong></p>
+<p>没有任何权限：0</p>
+<p><img src="/linux/15c08f5b800cddc1d87b821df3d2498d.png" alt=""></p>
+<p>例如：需要给anaconda-ks.cfg设置权限，权限要求所有者拥有全部权限，同组用户拥有读执行权限，其他用户只读。</p>
+<p><strong>全部权限（u）：读+写+执行=4+2+1=7</strong></p>
+<p><strong>读和执行（g）：读+执行=4+1=5</strong></p>
+<p><strong>读权限（o）：读=4</strong></p>
+<p>由上得知权限为：754</p>
+<p>#chmod 754 anaconda-ks.cfg</p>
+<p><img src="/linux/527091c77979e0a52037c9741ddffa92.png" alt=""></p>
+<p><strong>面试题：用超级管理员设置文档的权限命令是#chmod -R 731
+aaa，请问这个命令有没有什么不合理的地方？</strong></p>
+<p>拥有者：7=4+2+1=读+写+执行</p>
+<p>同组用户：3=2+1=写+执行</p>
+<p>其他用户：1=1=执行</p>
+<p>注意：<strong>在写权限的时候千万不要设置类似于上面的这种“奇葩权限”</strong>。如果一个权限数字中但凡出现2与3的数字，则该权限有不合理的情况。</p>
+<h3 id="3注意事项">3、注意事项</h3>
+<p>使用root用户创建一个文件夹（/oo），权限默认，权限如下：</p>
+<p><img src="/linux/8fbf5b78821018cdca91c5feb6ca04de.png" alt=""></p>
+<p>需要在oo目录下创建文件（oo/xx.txt），需要给777权限：</p>
+<p><img src="/linux/398a5ba4cac6728af11b42f699df23ed.png" alt=""></p>
+<p>切换到test用户（不是文档所有者，也不是同组用户，属于other部分）：</p>
+<p>问题1：test用户是否可以打开oo/xx.txt文件？【能打开】</p>
+<p>问题2：test用户是否可以编辑oo/xx.txt文件？【可以】</p>
+<p>问题3：test用户是否可以删除oo/xx.txt文件？【不可以，同样还不允许创建文件/文件夹、移动文件、重命名文件】</p>
+<p><img src="/linux/006dd947c03900069a9b387ddc923ca9.png" alt=""></p>
+<p><strong>在Linux中，如果要删除一个文件，不是看文件有没有对应的权限，而是看文件所在的目录是否有写权限，如果有才可以删除</strong>。</p>
+<h2 id="三属主与属组设置">三、属主与属组设置</h2>
+<p>属主：所属的用户（文件的主人）</p>
+<p>属组：所属的用户组</p>
+<p><img src="/linux/2611388ec54e6dc667bf51a501fbb035.png" alt=""></p>
+<p>前面的那个root就是属主</p>
+<p>后面的那个root就是属组</p>
+<p>这两项信息在文档创建的时候会使用创建者的信息（用户名、用户所属的主组名称）。</p>
+<p>如果有时候去删除某个用户，则该用户对应的文档的属主和属组信息就需要去修改。</p>
+<h3 id="1chown重点">1、chown（重点）</h3>
+<p><strong>作用：更改文档的所属用户</strong></p>
+<p>语法：#chown -R username 文档路径</p>
+<p>案例：将刚才root用户创建的oo目录，所有者更改为test</p>
+<p>#chown test oo/</p>
+<p><img src="/linux/bb42f795e7c285cdaada0f2c08a238a1.png" alt=""></p>
+<h3 id="2chgrp了解">2、chgrp（了解）</h3>
+<p><strong>作用：更改文档的所属用户组</strong></p>
+<p>语法：#chgrp -R groupname 文档的路径</p>
+<p>案例：将刚才root用户创建的oo目录，所有者更改为test，并且将所属用户组也改为test</p>
+<p>#chgrp test oo/</p>
+<p><img src="/linux/79697c2796d9ce40012184d9ed25582a.png" alt=""></p>
+<p><strong>思考，如何通过一个命令实现既可以更改所属的用户，也可以修改所属的用户组呢？</strong></p>
+<p>答：可以实现的，通过chown命令</p>
+<p>语法：#chown -R username:groupname 文档路径</p>
+<p>案例：要求只使用chown指令，将oo目录的所属用户和用户组改回成root，并且包含其子目录</p>
+<p><img src="/linux/0aaf0b70591a241512d91f2f85d9f718.png" alt=""></p>
+<h2 id="四扩展1">四、扩展（1）</h2>
+<p>问题：reboot、shutdown、init、halt、user管理，在普通用户身份上都是操作不了，但是有些特殊的情况下又需要有执行权限。又不可能让root用户把自己的密码告诉普通用户，这个问题该怎么解决？</p>
+<p><strong>该问题是可以被解决的，可以使用sudo（switch user
+do）命令来进行权限设置。Sudo可以让管理员（root）事先定义某些特殊命令谁可以执行</strong>。</p>
+<p>默认sudo中是没有除root之外用户的规则，要想使用则先<strong>配置</strong>sudo。</p>
+<p><strong>Sudo配置文件：/etc/sudoers</strong></p>
+<p><img src="/linux/05be2474dcd07717d8690a3cc54f9aa6.png" alt=""></p>
+<p>a. 配置sudo文件请使用“#visudo”，打开之后其使用方法和vim一致</p>
+<p>b. 配置普通用户的权限</p>
+<p><img src="/linux/2c488c950f74bd56d56e686288da6042.png" alt=""></p>
+<p>Root表示用户名，如果是用户组，则可以写成“%组名”</p>
+<p>ALL：表示允许登录的主机（地址白名单）</p>
+<p>(ALL)：表示以谁的身份执行，ALL表示root身份</p>
+<p>ALL：表示当前用户可以执行的命令，多个命令可以使用“,”分割</p>
+<p><strong>案例：本身test用户不能添加用户，要求使用sudo配置，将其设置为可以添加用户，并且可以修改密码（但是不能修改root用户密码）。</strong></p>
+<p>注意：在写sudo规则的时候不建议写直接形式的命令，而是写命令的完整路径。</p>
+<p>路径可以使用which命令来查看</p>
+<p>语法：#which 指令名称</p>
+<p><img src="/linux/eb2e29c9ffa3a210eca88479caeb6c89.png" alt=""></p>
+<p><img src="/linux/2fd92348a8c7bfae3f30f156554cd70a.png" alt=""></p>
+<p><img src="/linux/5f3d894b6fe2954fb7464e802b4c1ecf.png" alt=""></p>
+<p>在添加好对应的规则之后就可以切换用户，切换到普通用户test，再去执行：</p>
+<p><img src="/linux/0335e0e0017877c062d4a0723805394f.png" alt=""></p>
+<p>此时要想使用刚才的规则，则以以下命令进行：</p>
+<p><strong>#sudo 需要执行的指令</strong></p>
+<p><img src="/linux/3caf0a83b6dbd1ab4104945b232e8b21.png" alt=""></p>
+<p><strong>在输入sudo指令之后需要输入当前的用户密码进行确认的操作（不是root用户密码），输入之后在接下来5分钟内再次执行sudo指令不需要密码</strong>。</p>
+<p>特别注意：此处按照案例要求，不能让test用户修改root密码，因此规则还需要调整，不然其可以修改root密码的：</p>
+<p><strong>禁止修改root密码的配置（先允许全部，再拒绝root密码设置）：</strong> /usr/bin/passwd
+[A-Za-z]*, <strong>!/usr/bin/passwd root</strong></p>
+<p><img src="/linux/47484a102767bb8d4489b399f4033f4b.png" alt=""></p>
+<p>补充：在普通用户下怎么查看自己具有哪些特殊权限呢？</p>
+<p><strong>#sudo -l</strong></p>
+<p><img src="/linux/04de7510aa457824363faf5dc06d4380.png" alt=""></p>
+<p>最后：sudo不是任何Linux分支都有的命令，常见centos与ubuntu都存在sudo命令。</p>
+<p><strong>作业：给普通用户设置一个关机命令执行权限。</strong></p>
+<h2 id="linux的网络基础">Linux的网络基础</h2>
+<h2 id="一网络相关概述">一、网络相关概述</h2>
+<h3 id="1网络发展">1、网络发展</h3>
+<p><strong>信息传递</strong></p>
+<ul>
+<li>
+<p>远古时期，人们就通过简单的语言、壁画等方式交换信息</p>
+</li>
+<li>
+<p>千百年来，人们一直在用语言、图符、钟鼓、烟火、竹简、纸书等传递信息</p>
+</li>
+<li>
+<p>古代人的烽火狼烟、飞鸽传信、驿马邮递</p>
+</li>
+<li>
+<p>现代社会中，交通警的指挥手语、航海中的旗语等</p>
+</li>
+<li>
+<p>这些信息传递的基本方式都是依靠人的视觉与听觉</p>
+</li>
+</ul>
+<p><strong>电的产生</strong></p>
+<ul>
+<li>
+<p>1831年，法拉第制出了世界上最早的第一台发电机</p>
+</li>
+<li>
+<p>1866年，德国人西门子（Siemens）制成世界上第一台大功率发电机</p>
+</li>
+<li>
+<p>1837年，美国人塞缪乐·莫乐斯成功地研制出世界上第一台电磁式电报机</p>
+</li>
+<li>
+<p>1844年5月24日，莫乐斯在国会大厦联邦最高法院会议厅进行了“用莫尔斯电码”发出了人类历史上的第一份电报，从而实现了长途电报通信</p>
+</li>
+</ul>
+<p><strong>网络诞生</strong></p>
+<ul>
+<li>
+<p>1957年，前苏联发射了第一颗人造卫星，震惊了美国</p>
+</li>
+<li>
+<p>1958年美国成立了国防部<strong>高级研究计划署</strong>（ARPA，Advanced Research Projects
+Agency），应对冷战形势，ARPA是一个管理机构，没有实验室和科学家</p>
+</li>
+</ul>
+<p><img src="/linux/513119edbe3ae9a7cdd812e7633e6649.png" alt="http://upload.wiki/linux.org/wikipedia/commons/thumb/0/00/Arpanet_1974.svg/800px-Arpanet_1974.svg.png"></p>
+<ul>
+<li>1969年，ARPANET（阿帕网）开始联机，<strong>因此1969年被称为Internet元年</strong></li>
+</ul>
+<p><strong>网络分类（记忆）</strong></p>
+<ul>
+<li>
+<p><strong>局域网</strong>（Local Area
+Network，<strong>LAN</strong>）是指范围在几百米到十几公里内办公楼群或校园内的计算机相互连接所构成的计算机网络。</p>
+</li>
+<li>
+<p>城域网（Metropolitan Area
+Network，MAN）所采用的技术基本上与局域网相类似，只是规模上要大一些。城域网既可以覆盖相距不远的几栋办公楼，也可以覆盖一个城。</p>
+</li>
+<li>
+<p><strong>广域网</strong>（Wide Area Network，<strong>WAN</strong>）通常跨接很大的物理范围，如一个国家。</p>
+</li>
+</ul>
+<p>除了上述的划分，<strong>网络还可以按照所有者分</strong>为公网、私网是两种Internet的接入方式。公网接入方式：上网的计算机得到的IP地址是Internet上的非保留地址，公网的计算机和Internet上的其他计算机可随意互相访问。私网则反之。</p>
+<h3 id="2ip地址重点记忆">2、ip地址（重点记忆）</h3>
+<p>IP是英文Internet
+Protocol的缩写，意思是“网络之间互连的协议”，也就是为计算机网络相互连接进行通信而设计的<strong>协议</strong>。</p>
+<p><strong>IP地址类型分为：公有地址、私有地址。</strong></p>
+<p>公有地址</p>
+<p>公有地址（Public address）由Inter NIC（Internet Network Information
+Center因特网信息中心）负责。这些IP地址分配给注册并向Inter
+NIC提出申请的组织机构。通过它直接访问因特网。</p>
+<p><strong>私有地址（重点）</strong></p>
+<p>私有地址（Private
+address）属于<strong>非注册地址</strong>，专门为组织机构内部使用。以下列出留用的内部私有地址：</p>
+<p>A类 10.0.0.0&ndash;10.255.255.255</p>
+<p>B类 172.16.0.0&ndash;172.31.255.255</p>
+<p><strong>C类 192.168.0.0&ndash;192.168.255.255</strong></p>
+<p><strong>IP地址按类型可以分为三类：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>最大网络数</th>
+<th>IP地址范围</th>
+<th>最大主机数</th>
+<th>私有IP地址范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>126（2^7-2)</td>
+<td>1.0.0.0-127.255.255.255</td>
+<td>16777214</td>
+<td>10.0.0.0-10.255.255.255</td>
+</tr>
+<tr>
+<td>B</td>
+<td>16384(2^14)</td>
+<td>128.0.0.0-191.255.255.255</td>
+<td>65534</td>
+<td>172.16.0.0-172.31.255.255</td>
+</tr>
+<tr>
+<td>C</td>
+<td>2097152(2^21)</td>
+<td>192.0.0.0-223.255.255.255</td>
+<td>254</td>
+<td>192.168.0.0-192.168.255.255</td>
+</tr>
+</tbody>
+</table>
+<p>网络运维相关技能：ip分类、<strong>子网划分</strong>、划分vlan、ACL、综合布线、各种Serve的搭建。</p>
+<p>127.0.0.1 本机ip</p>
+<h4 id="查看宿主机的所有ipip-a">查看宿主机的所有ip（ip a）</h4>
+<p><img src="/linux/a031b06ace59d3b1635826affcbe213a.png" alt=""></p>
+<h3 id="3网卡">3、网卡</h3>
+<p><img src="/linux/a350884dcce9e1f4f61b8ea2158cbd68.png" alt=""></p>
+<p>网卡是一个网络组件，属于硬件范畴，主要负责计算机之间数据的<strong>封装和解封</strong>。</p>
+<p>MAC地址：网卡的物理地址，网卡设备的编号，<strong>默认</strong>情况是全球唯一的（16进制）。</p>
+<p><img src="/linux/26c338c7ee5f9aeb3cf8934d10692ff7.png" alt=""></p>
+<p><strong>与IP地址的区别：</strong></p>
+<ul>
+<li>
+<p>长度不同。IP地址为32位，MAC地址为48位。</p>
+</li>
+<li>
+<p>分配依据不同。</p>
+</li>
+<li>
+<p><strong>网络寻址方式不同</strong>。OSI参考模型，ip地址是基于第三层工作（网络层），mac地址是第二层（数据链路层）</p>
+</li>
+</ul>
+<h3 id="4网线">4、网线</h3>
+<p>网线是连接局域网必不可少的。在局域网中常见的网线主要有双绞线（RJ45接口）、铜轴电缆、光缆三种。</p>
+<p><img src="/linux/75e26c79f52451fb4cfb8f2a8ca80221.png" alt=""></p>
+<p><img src="/linux/7fbf90e73e4c4933a7920e9219357cf6.jpeg" alt="7aec54e736d12f2e9b9fcc5546c2d56285356868"></p>
+<p><img src="/linux/064f30889a82b0dd3709ec6ffe064c46.jpeg" alt=""></p>
+<p>双绞线 铜轴电缆 光纤</p>
+<h3 id="5交换机">5、交换机</h3>
+<p>交换机（Switch）意为“开关”，是一种用于电（光）信号转发的网络设备，交换机它可以为接入交换机的任意两个网络节点提供<strong>独享</strong>的电信号通路。</p>
+<p><img src="/linux/4716e37fea63c9c4307b0cbe97695158.png" alt=""></p>
+<p>目前，交换机品牌比较有名的是：华为、华三（h3c）、思科、锐捷。</p>
+<h3 id="6路由器">6、路由器</h3>
+<p>路由器（Router）又称网关设备（Gateway）是用于<strong>连接多个逻辑上分开、相对独立的网络</strong>。</p>
+<p><img src="/linux/1512aaffba01b0e223ca4b880ce8f79d.png" alt=""></p>
+<p><img src="/linux/912320ec9a4ce7fe4bd7d21fa4447a1d.png" alt=""></p>
+<h3 id="7拓扑结构图扩展">7、拓扑结构图（扩展）</h3>
+<p>所谓“拓扑”就是把实体抽象成与其大小、形状无关的“点”，而把连接实体的线路抽象成“线”，进而以图的形式来表示这些点与线之间关系的方法，<strong>其目的在于研究这些点、线之间的相连关系</strong>。表示点和线之间关系的图被称为拓扑结构图。</p>
+<p>常见的几种拓扑结构图：</p>
+<p><img src="/linux/dc87be702bcfad90f121534796a11b23.png" alt="star"></p>
+<p><img src="/linux/712e3490de3ce1856dfea00cfce27d34.png" alt="bus"></p>
+<p><img src="/linux/a8b4e3a3c1d61703b2cdf9bcd91571a7.png" alt="ring"></p>
+<p><img src="/linux/7c9909c31ba362d0f37335e434e2ff32.png" alt="tree"></p>
+<p><img src="/linux/5049ea7dd90528895761703f59e7e745.png" alt="net"></p>
+<p><img src="/linux/ed0bb35d3ad5cf1ad15d2f16ecc57060.png" alt="x"></p>
+<p><img src="/linux/f706bd28973dd9673e11bb77be58f21c.jpeg" alt="bee"></p>
+<h2 id="二网络相关命令">二、网络相关命令</h2>
+<h3 id="1ping">1、ping</h3>
+<p><strong>作用：检测当前主机与目标主机之间的连通性</strong>（不是100%准确，有的服务器是禁ping）</p>
+<p>语法：#ping 主机地址（ip地址、主机名、域名等）</p>
+<p>例如：测试和baidu.com之间的连通性。</p>
+<p><img src="/linux/b6a81ebea49dba8266d19ace7dd131c8.png" alt=""></p>
+<p>该命令可以跨平台，windows下也可以使用，语法一致。（区别在于Linux下默认一直发送，windows下默认发送4个数据包）</p>
+<p><img src="/linux/9f0e942fe8613d7b2c092c6d164d6e2b.png" alt=""></p>
+<h4 id="iproute">iproute*</h4>
+<p>当系统没有ping命令的时候我们可以用yum安装iproute*:</p>
+<p>yum install -y iproute*</p>
+<h3 id="2netstat">2、netstat</h3>
+<p><strong>作用：表示查看网络的连接信息</strong></p>
+<p>语法：#netstat -tnlp
+（-t：tcp协议，-n：将字母转化成数字，-l：列出状态为监听，-p：显示进程相关信息）</p>
+<p>#netstat -an （-a：表示全部，-n：将字母转化为数字）</p>
+<p>TCP/IP协议需要使用这个命令。</p>
+<h3 id="3traceroute">3、traceroute</h3>
+<p><strong>作用：查找当前主机与目标主机之间所有的网关</strong>（路由器，会给沿途各个路由器发送icmp数据包，路由器可能会不给响应）。</p>
+<p>该命令不是内置命令，需要安装，但是目前的已经安装好了（之前选了开发工具）。</p>
+<p>语法：#traceroute 主机地址</p>
+<p><img src="/linux/d23f04f8f644590a262016bac61d832b.png" alt=""></p>
+<p>类似于查看快递的跟踪路由：</p>
+<p><img src="/linux/01456bd151992e5ef4aac87356cb7683.png" alt=""></p>
+<p>扩展：在windows下也有类似的命令：tracert 主机地址</p>
+<p><img src="/linux/c8693084a33b8d414ac15b2691470598.png" alt=""></p>
+<p>在线工具网址：<a href="http://tool.chinaz.com">http://tool.chinaz.com</a></p>
+<h3 id="4arp">4、arp</h3>
+<p>地址解析协议，即ARP（Address Resolution
+Protocol），是<strong>根据IP地址获取（MAC）物理地址的协议</strong>。</p>
+<p><img src="/linux/da53fba56f5512e6904d0f2b7192c4d2.png" alt="412446465591791121"></p>
+<p><strong>当一个主机发送数据时，首先查看本机MAC地址缓存中有没有目标主机的MAC地址，
+如果有就使用缓存中的结果；如果没有，ARP协议就会发出一个广播包，该广播包要求查询目标主机IP地址对应的MAC地址，拥有该IP地址的主机会发出回应，回应中包括了目标主机的MAC地址，这样发送方就得到了目标主机的MAC地址。如果目标主机不在本地子网中，则ARP解析到的MAC地址是默认网关的MAC地址</strong>。</p>
+<p>常用语法：#arp -a 查看本地缓存mac表</p>
+<p>#arp -d 主机地址 删除指定的缓存记录</p>
+<p><img src="/linux/f0d886d87ad8592452fcbac6d81df9c3.png" alt=""></p>
+<p>该命令在windows下同样适用。</p>
+<h3 id="5tcpdump了解">5、tcpdump(了解)</h3>
+<p>作用：抓包，抓取数据表</p>
+<p>常用语法：</p>
+<p>#tcpdump 协议 port 端口</p>
+<p>#tcpdump 协议 port 端口 host 地址</p>
+<p>#tcpdump -i 网卡设备名</p>
+<p>查看22端口（ssh）的数据包：</p>
+<p><img src="/linux/b9819edb3f35c54448cca60c4f0090c4.png" alt=""></p>
+<p>00:09:17.xxxx 监听数据的时分秒</p>
+<p>IP：使用的协议类型</p>
+<p>192.168.21.1 数据包的一个方向（来自）</p>
+<blockquote>
+<p>数据的流向</p>
+</blockquote>
+<p>192.168.21.136 数据包的另外一个方向（到达）</p>
+<h2 id="三项目上线流程必须掌握">三、项目上线流程（必须掌握）</h2>
+<h3 id="1服务器选配购买">1、服务器选配购买</h3>
+<p>项目上线服务器必须是外网服务器。</p>
+<p>一般服务器有2种情况：购买真实服务器、<strong>购买云服务器</strong>。</p>
+<p>购买真实服务器一次性成本过高，所以现在基本都是选择云服务器。</p>
+<p>云服务的厂商：<strong>阿里云</strong>、腾讯云、知道创宇（加速乐）、华为云、盛大云、新浪云（sae）、亚马逊云等等。</p>
+<p>以后以阿里云为例：</p>
+<p>官网：http://www.aliyun.com</p>
+<p>①打开阿里云官网，选择产品中的“云服务器ECS”</p>
+<p><img src="/linux/0c837d0c474f10908907d7035678be75.png" alt=""></p>
+<p>在页面上点击“立即购买”：</p>
+<p><img src="/linux/124cd1b0f634a8eecaa367e9140dde84.png" alt=""></p>
+<p>②选择具体的配置</p>
+<p><img src="/linux/385d817a64ec6be93615771dc2fa67cb.png" alt=""></p>
+<p><img src="/linux/b1afbd7e6502cd7fe242db25421f2497.png" alt=""></p>
+<p><img src="/linux/58f35fe9503a0ae67ca1994da39d769c.png" alt=""></p>
+<p><img src="/linux/63c9dffae746c7bd73725287880699bd.png" alt=""></p>
+<p><img src="/linux/69b53d25184d0766cf4346025a53def1.png" alt=""></p>
+<p><img src="/linux/be120e260a9b868b5a6af11ca788c6d4.png" alt=""></p>
+<p><img src="/linux/90c7ca26fca90218a23b8a72173d83cb.png" alt=""></p>
+<p><img src="/linux/7dbcc0bdb02a315388f86fffb33b8044.png" alt=""></p>
+<p>安全组需要先在控制面板中创建，创建好之后才能在这里进行选择（安全组类似于防火墙，可以设置相关规则）：</p>
+<p><img src="/linux/2044062c3b8f9cdb53daa14240e974e9.png" alt=""></p>
+<p><img src="/linux/6546b4eb71c7f597d8ab2eb1aa288446.png" alt=""></p>
+<p><img src="/linux/2c877a742ececa2f566a8b6090a13fab.png" alt=""></p>
+<p>进入后台查看信息：</p>
+<p><img src="/linux/990a853414eabaf8c613f4943e79b78b.png" alt=""></p>
+<p>需要重置密码的话，则可以选择右侧“更多”选择“重置密码”，然后重启服务器，最后可以通过远程终端连接服务器：</p>
+<p><img src="/linux/a6e66322bec632e6af8240669557214d.png" alt=""></p>
+<h3 id="2域名购买">2、域名购买</h3>
+<p>①在首页产品中找到域名注册</p>
+<p><img src="/linux/3fb265d7a2317b8975231b511c3d9029.png" alt=""></p>
+<p>域名注册得先查看是否可以注册：</p>
+<p><img src="/linux/8438fde36214e3bc43e0a14540101ec4.png" alt=""></p>
+<p>选择需要的域名：</p>
+<p><img src="/linux/1a56b9547c50b14256da50838b542235.png" alt=""></p>
+<p>确认购买信息：</p>
+<p><img src="/linux/c3e1be3cc9238281e7e8c16153f3928f.png" alt=""></p>
+<p><img src="/linux/58f50de332dd9ed5b827e84cc5d9499f.png" alt=""></p>
+<p>购买之后就可以在后台控制面板中去查看域名情况。</p>
+<h3 id="3域名备案">3、域名备案</h3>
+<p>备案：当申请域名的人要想在国内使用域名，则需要向当地的通信管理局（省级）去申请报备。</p>
+<p>备案前提：想要使用境内服务器的话，则必须得备案。</p>
+<p>在管理后台点击“ICP备案系统”</p>
+<p><img src="/linux/25dd89eda2704405bef4c5242c9ec65a.png" alt=""></p>
+<p>点击新增主体备案：</p>
+<p><img src="/linux/ec30a22437d1c22618e1f2dffc2a169f.png" alt=""></p>
+<p>填写完基本信息之后点击增加网站：</p>
+<p><img src="/linux/5ab62eb553b2d91e8ec6b2267264999f.png" alt=""></p>
+<p>备案服务号可以在控制台顶部去获取：</p>
+<p><img src="/linux/4b0782426feba72e6461c152cee66656.png" alt=""></p>
+<p>申请到备案服务号之后填写继续：</p>
+<p><img src="/linux/fbc0beeb7e07827eee95c7bd01b85612.png" alt=""></p>
+<p>会让用户下载一个图片：网站真实性核验单</p>
+<p>下载打印，填写好上传到阿里云备案系统中。</p>
+<p>后面等待初审，初审通过之后继续下一步（初审时间一般1天即可）</p>
+<p>拍照</p>
+<p><img src="/linux/150fe844405d81ffe4515f84365fb98d.png" alt=""></p>
+<p>上传照片</p>
+<p>等待管局审核（到这个步骤基本是已经通过，审核周期一般是15个工作日）。</p>
+<p>等待审核通过，就会收到工信部发送的短信与邮件通知，邮件中有备案号和备案密码（备案密码用于注销备案）。</p>
+<h3 id="4域名解析">4、域名解析</h3>
+<p>点击“解析”</p>
+<p><img src="/linux/26ce9b98f2b4c6890de430ff1c2e25be.png" alt=""></p>
+<p>解析：将域名绑定到一个服务器地址的操作</p>
+<p>DNS：domain name server，用于将域名转化成ip地址的服务器。</p>
+<p><img src="/linux/87e9f4103eb75b1430a6de7bc7787b27.png" alt=""></p>
+<p>点击右上角的添加记录：</p>
+<p><img src="/linux/9caefe1a7749bb1bfdf599cc52d13982.png" alt=""></p>
+<p>选择记录：</p>
+<p><img src="/linux/0e477335daa7d7454ecce5ba61342042.png" alt=""></p>
+<p>例如：需要将<a href="http://www.linux123.xyz">www.linux123.xyz</a>解析到之前购买的云主机上，则解析可以设置如下：</p>
+<p><img src="/linux/68fe2389517acd932e1b5d01cec0fda3.png" alt=""></p>
+<p>解析之后可以通过在线ping命令检测效果：</p>
+<p><img src="/linux/c06c865eeb3648fcf1d88e813087f668.png" alt=""></p>
+<h3 id="5配置生产环境最后1天">5、配置生产环境（最后1天）</h3>
+<h3 id="6上传代码">6、上传代码</h3>
+<p>此时需要使用上传工具：pscp，filezilla。</p>
+<p>和之前使用的方式一样。</p>
+<h2 id="shell基础">Shell基础</h2>
+<h2 id="一关于shell">一、关于shell</h2>
+<h3 id="1什么是shell">1、什么是shell</h3>
+<p><strong>什么是shell？</strong></p>
+<p>Shell（外壳） 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。<strong>Shell
+既是一种命令语言</strong>，<strong>又是一种程序设计语言</strong>。</p>
+<p>Shell
+是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。</p>
+<p><strong>什么是脚本？</strong></p>
+<p>脚本简单地说就是一条条的文字命令，这些文字命令是可以看到的（如可以用记事本打开查看、编辑）。</p>
+<p>常见的脚本： <strong>JavaScript（JS，前端）</strong>，VBScript，
+<strong>ASP，JSP，PHP（后端）</strong>，SQL（数据库操作语言），Perl，<strong>Shell</strong>，python，Ruby，JavaFX，Lua等。</p>
+<p><strong>为什么要学习和使用shell？</strong></p>
+<p>Shell属于内置的脚本</p>
+<p>程序开发的效率非常高，依赖于功能强大的命令可以迅速地完成开发任务（批处理）</p>
+<p>语法简单，代码写起来比较轻松，简单易学</p>
+<p><strong>常见的shell种类？</strong></p>
+<p>在linux中有很多类型的shell，不同的shell具备不同的功能，shell还决定了脚本中函数的语法，Linux中默认的shell是**/bin/bash（重点）**，流行的shell有ash、bash、ksh、csh、zsh等，不同的shell都有自己的特点以及用途。</p>
+<p>csh</p>
+<p>C shell
+使用的是“类C”语法,csh是具有C语言风格的一种shell，其内部命令有52个，较为庞大。目前使用的并不多，已经被/bin/tcsh所取代。</p>
+<p>ksh</p>
+<p>Korn shell 的语法与 Bourne shell 相同，同时具备了 C shell
+的易用特点。许多安装脚本都使用 ksh
+，ksh有42条内部命令，与bash相比有一定的限制性。</p>
+<p>tcsh</p>
+<p>tcsh是csh的增强版，与 C shell 完全兼容。</p>
+<p>sh</p>
+<p>是一个快捷方式，已经被/bin/bash所取代。</p>
+<p>nologin</p>
+<p>指用户不能登录</p>
+<p><img src="/linux/e2a41a239b464a78f27f9d3e37ce2ea7.png" alt=""></p>
+<p>zsh</p>
+<p>目前Linux里最庞大的一种shell：zsh。它有84个内部命令，使用起来也比较复杂。一般情况下，不会使用该shell。</p>
+<p><strong>bash</strong></p>
+<p><strong>大多数Linux系统默认使用的shell</strong>，bash shell 是 Bourne shell
+的一个免费版本，它是最早的 Unix
+shell，bash还有一个特点，可以通过help命令来查看帮助。包含的功能几乎可以涵盖shell所具有的功能，所以一般的shell脚本都会指定它为执行路径。</p>
+<h3 id="2shell入门">2、shell入门</h3>
+<p>编写规范：</p>
+<p>代码规范：</p>
+<p>#!/bin/bash [指定告知系统当前这个脚本要使用的shell解释器]</p>
+<p>Shell相关指令</p>
+<p>文件命名规范：</p>
+<p>文件名.sh .sh是linux下bash shell 的默认后缀</p>
+<p>使用流程：</p>
+<p>①创建.sh文件 touch/vim</p>
+<p>②编写shell代码</p>
+<p>③执行shell脚本 脚本必须得有执行权限</p>
+<p>案例1：创建test.sh，实现第一个shell脚本程序，输出hello world.</p>
+<p>输出命令：#echo 123</p>
+<p>注意：输出的内容如果包含字母和符号（不包含变量），则需要用引号包括起来。如果是纯数字可以包也可以不包。</p>
+<p><img src="/linux/32968207c3f48fa7cdd88ee7c1f7599b.png" alt=""></p>
+<p><img src="/linux/a85a8b7feddf00bbf01c8304f0ed64c9.png" alt=""></p>
+<p>注意，这里在运行时一定要写成 ./test.sh，而不是
+test.sh，运行其它二进制的程序也一样，直接写 test.sh，Linux 系统会去
+PATH（环境变量） 里寻找有没有叫 test.sh 的，而只有 /bin, /sbin,
+/usr/bin，/usr/sbin 等在 PATH 里，你的当前目录通常不在 PATH 里，所以写成 test.sh
+是会找不到命令的，要用 ./test.sh 告诉系统说，就在当前目录找。</p>
+<p>案例2：使用root用户帐号创建并执行test2.sh，实现创建一个shelltest用户，并在其家目录中新建文件try.html。</p>
+<p><img src="/linux/b087a702d46f760633d2efa31348584a.png" alt=""></p>
+<p>脚本执行的另外一个方式：/bin/bash 脚本的路径（了解）</p>
+<p><img src="/linux/933fae5f9eb8442d19271a8082303ced.png" alt=""></p>
+<p>Shell脚本分为简单的写法（简单命令的堆积）和复杂写法（程序的设计）</p>
+<h2 id="二shell进阶重点">二、shell进阶（重点）</h2>
+<h3 id="1变量重点">1、变量（重点）</h3>
+<h4 id="11变量的含义">1.1、变量的含义</h4>
+<p>a. 什么是量</p>
+<p>量就是数据.</p>
+<p>b. 什么是变量</p>
+<p>数据可以发生改变就是变量.</p>
+<p><strong>在一个脚本周期内,其值可以发生改变的量就是变量.</strong></p>
+<p>c. 什么叫做一个脚本周期</p>
+<p>一个脚本周期我们可以简单的理解为当前的shell文件</p>
+<p>变量是shell中不可或缺的一部分，也是<strong>最基础、最重要</strong>的组成部分。</p>
+<h4 id="12变量的定义与使用重点">1.2、变量的定义与使用（重点）</h4>
+<p>变量，先定义后使用。</p>
+<p><strong>定义形如：class_name=&ldquo;yunwe &ldquo;</strong></p>
+<p><strong>使用形如：echo $class_name</strong></p>
+<p>变量就是由2部分组成,一个是变量名（左边），另外一部分是变量的值（右边）</p>
+<p>变量名和变量值是什么关系??</p>
+<p>变量名和变量值是<strong>使用和被使用</strong>关系; 我们的变量名来使用变量值;</p>
+<p>在使用变量的时候一定需要在变量名前面添加一个$符号，该要求在其他语言中也存在的（例如php）。</p>
+<p>变量名的规范</p>
+<p>注意，变量名后面的等号左右不能有空格，这可能和你熟悉的所有编程语言都不一样。同时，变量名的命名须遵循如下规则：</p>
+<p>命名只能使用英文字母，数字和下划线，首个字符不能以数字开头。</p>
+<p>中间不能有空格，可以使用下划线“_”。</p>
+<p>不能使用标点符号。</p>
+<p>不能使用bash里的关键字（可用help命令查看保留关键字）。</p>
+<p>问题：以下哪个shell变量名是合法的？</p>
+<p><strong>A. var</strong> B.?var C. user*name D.echo</p>
+<p>案例1：使用变量改写入门脚本中的第1个shell脚本。</p>
+<p><img src="/linux/e1de652d926e2743dc1ecc86e742d6ac.png" alt=""></p>
+<p><img src="/linux/a7f99e6e38f977d3ddea0b9ae8e40b74.png" alt=""></p>
+<p><strong>关于单双引号的问题：</strong></p>
+<p><strong>双引号能够识别变量，双引号能够实现转义（类似于“*”）</strong></p>
+<p><strong>单引号是不能识别变量，只会原样输出，单引号是不能转义的</strong></p>
+<p>案例2：定义一个变量，输出当前时间，要求格式为“年-月-日 时:分:秒”。</p>
+<p><img src="/linux/cdf6b8c374405ece616f6de974b93343.png" alt=""></p>
+<p><strong>注意：反引号（esc键下方的那个键），当在脚本中需要执行一些指令并且将执行的结果赋给变量的时候需要使用“反引号”。</strong></p>
+<p><img src="/linux/86202de15359f33af6cb4a6336f3fc16.png" alt=""></p>
+<h4 id="13只读变量了解">1.3、只读变量（了解）</h4>
+<p>语法：readonly 变量名</p>
+<p>案例：定义变量a并且其值为10，随后设置其为只读变量，再去尝试重新赋值</p>
+<p><img src="/linux/e4bd2bae875526e88c6d04b66d454817.png" alt=""></p>
+<p><img src="/linux/860756f5c2bc9add92103f3981edf985.png" alt=""></p>
+<h4 id="14接收用户输入重点">1.4、接收用户输入（重点）</h4>
+<p><strong>语法：read -p 提示信息</strong>  <strong>变量名</strong></p>
+<p>案例：编写一个脚本test6.sh，要求执行之后提示用户输入文件的名称（路径），然后自动为用户创建该文件</p>
+<p><img src="/linux/56cd421cda753afc243f5300a679ccca.png" alt=""></p>
+<p><img src="/linux/858c9eeb8d2aa22b3b39743556f5b81e.png" alt=""></p>
+<h4 id="15删除变量了解">1.5、删除变量（了解）</h4>
+<p>语法：unset 变量名</p>
+<p>案例：定义变量b=20，再输出b的值，随后删除b，最后再输出下b</p>
+<p><img src="/linux/8a1bbe7968f2eb5cc1188eb4b4bf14ff.png" alt=""></p>
+<p><img src="/linux/2241ce2c1313d461c2559f3d952c4126.png" alt=""></p>
+<h3 id="2条件判断语句">2、条件判断语句</h3>
+<p>老婆给当程序员的老公打电话：<strong>下班顺路买一斤包子带回来，如果看到卖西瓜的，买一个</strong>。当晚，程序员老公手捧一个包子进了家门…老婆怒道：你怎么就买了一个包子？！老公答曰：因为看到了卖西瓜的。</p>
+<p>把程序员老婆的话当作一段需求分析一下吧。买一斤包子是一个确定无疑的需求项，无论后面是什么情况什么条件，前面这一斤包子是肯定要买的。看到卖西瓜的是一个条件判断，后面“买一个”是一个模糊不清的需求项，买一个什么呢？需求里没说啊。客户把这个当作开发人员默认了解的内容了。可是作为一个成熟合格的程序员，该老婆的丈夫应该马上跟进确认需求“买一个什么？”，要不然程序可怎么写呢？所以笑话里该程序员是不合格的，起码是不积极不负责的。在没有明确需求的情况下，他只能按照自己的理解来完成工作了。那比较可能的结果就有如下几种：</p>
+<p>1 看到卖西瓜的，买一个西瓜</p>
+<p><strong>如果 看到卖西瓜的</strong></p>
+<p><strong>那么</strong></p>
+<p><strong>买一个西瓜</strong></p>
+<p><strong>否则</strong></p>
+<p><strong>买一斤包子</strong></p>
+<p>2 看到卖西瓜的，买一个包子</p>
+<p><strong>如果 看到卖西瓜的</strong></p>
+<p><strong>那么</strong></p>
+<p><strong>买一个包子</strong></p>
+<p>3 看到卖西瓜的，买一个卖西瓜的</p>
+<p>4 看到卖西瓜的，买一个老婆一直想买的东西</p>
+<p>5 看到卖西瓜的，随便买一个东西</p>
+<p><strong>上述1和2下面的条件汉字描述称之为“伪代码”，也是属于条件表达式的语法。</strong></p>
+<p>语法1（一个条件）：</p>
+<p><strong>if condition</strong></p>
+<p><strong>then</strong></p>
+<p><strong>command1</strong></p>
+<p><strong>command2</strong></p>
+<p><strong>&hellip;</strong></p>
+<p><strong>fi</strong></p>
+<p>单行写法（一般在命令行中执行的时候）：if [ condition ]; then command; fi</p>
+<p>语法2（两个条件）：</p>
+<p><strong>if condition</strong></p>
+<p><strong>then</strong></p>
+<p><strong>command1</strong></p>
+<p><strong>command2</strong></p>
+<p><strong>&hellip;</strong></p>
+<p><strong>else</strong></p>
+<p><strong>command</strong></p>
+<p><strong>fi</strong></p>
+<p>语法3（多个条件）：</p>
+<p><strong>if condition1</strong></p>
+<p><strong>then</strong></p>
+<p><strong>command1</strong></p>
+<p><strong>elif condition2</strong></p>
+<p><strong>then</strong></p>
+<p><strong>command2</strong></p>
+<p><strong>else</strong></p>
+<p><strong>commandN</strong></p>
+<p><strong>fi</strong></p>
+<h3 id="3运算符">3、运算符</h3>
+<p>在shell中，运算符和其他编程脚本语言一样，常见的有算数运算符、关系运算符、</p>
+<p>逻辑运算符、字符串运算符、<strong>文件测试运算符</strong>等</p>
+<h4 id="31算数运算符">3.1、算数运算符</h4>
+<p>下表列出了常用的算术运算符，假定变量 a 为 10，变量 b 为 20：</p>
+<table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>举例</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>加法</td>
+<td><code>expr $a + $b</code> 结果为 30。</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减法</td>
+<td><code>expr $a - $b</code> 结果为 -10。</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘法</td>
+<td><code>expr $a \* $b</code> 结果为 200。</td>
+</tr>
+<tr>
+<td>/</td>
+<td>除法</td>
+<td><code>expr $b / $a</code> 结果为 2。</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取余</td>
+<td><code>expr $b % $a</code> 结果为 0。</td>
+</tr>
+<tr>
+<td>=</td>
+<td>赋值</td>
+<td>a=$b 将把变量 b 的值赋给 a。</td>
+</tr>
+<tr>
+<td>==</td>
+<td>相等。用于比较两个数字，相同则返回 true（真）。</td>
+<td>[ $a == $b ] 返回 false（假）。</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不相等。用于比较两个数字，不相同则返回 true。</td>
+<td>[ $a != $b ] 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<p>**注意：**条件表达式要放在方括号之间，并且要有空格，例如: <strong>[$a==$b]</strong>
+是错误的，必须写成 <strong>[ $a == $b ]</strong>。</p>
+<p>原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如 awk 和 expr，expr
+最常用。</p>
+<p>expr 是一款表达式计算工具，使用它能完成表达式的求值操作。</p>
+<p>例如，两个数相加(注意使用的是反引号 ` 而不是单引号 &lsquo;)：</p>
+<p>#!/bin/bash</p>
+<p>val=<code>expr 2 + 2</code></p>
+<p>echo &ldquo;两数之和为 : $val&rdquo;</p>
+<p>两点注意：</p>
+<p>表达式和运算符之间要有空格，例如 2+2 是不对的，必须写成 2 +
+2，这与我们熟悉的大多数编程语言不一样。</p>
+<p>完整的表达式要被 <code> </code> 包含，注意这个字符不是常用的单引号，在 Esc 键下边。</p>
+<p><img src="/linux/4b6928d49ca2cdc697f8379caf5eab80.png" alt=""></p>
+<p><img src="/linux/01d38072cdf1597fe89a4256aca004ea.png" alt=""></p>
+<h4 id="32关系运算符">3.2、关系运算符</h4>
+<p><strong>关系运算符只支持数字，不支持字符串，除非字符串的值是数字</strong>。</p>
+<p>下表列出了常用的关系运算符，假定变量 a 为 10，变量 b 为 20：</p>
+<table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>举例</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-eq</td>
+<td>检测<strong>两个数是否相等</strong>，相等返回 true。</td>
+<td>[ $a -eq $b ] 返回 false。</td>
+</tr>
+<tr>
+<td>-ne</td>
+<td>检测<strong>两个数是否相等</strong>，不相等返回 true。</td>
+<td>[ $a -ne $b ] 返回 true。</td>
+</tr>
+<tr>
+<td>-gt</td>
+<td>检测左边的数<strong>是否大于</strong>右边的，如果是，则返回 true。</td>
+<td>[ $a -gt $b ] 返回 false。</td>
+</tr>
+<tr>
+<td>-lt</td>
+<td>检测左边的数<strong>是否小于</strong>右边的，如果是，则返回 true。</td>
+<td>[ $a -lt $b ] 返回 true。</td>
+</tr>
+<tr>
+<td>-ge</td>
+<td>检测左边的数<strong>是否大于等于</strong>右边的，如果是，则返回 true。</td>
+<td>[ $a -ge $b ] 返回 false。</td>
+</tr>
+<tr>
+<td>-le</td>
+<td>检测左边的数<strong>是否小于等于</strong>右边的，如果是，则返回 true。</td>
+<td>[ $a -le $b ] 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<p>-eq：equal</p>
+<p>-ne：not equal</p>
+<p>-gt：great than</p>
+<p>-lt：less than</p>
+<p>-ge：great than or equal</p>
+<p>-le：less than or equal</p>
+<p>案例：使用a=10，b=20来实现本案例</p>
+<p><img src="/linux/eff5da40020d09d75281c43ac2c3e7c0.png" alt=""></p>
+<p><img src="/linux/e0f5a18b7c9c56280944363276ef6ce7.png" alt=""></p>
+<p><strong>课堂作业：</strong></p>
+<p>写一个脚本，判断当前输入的用户是否存在。如果存在则提示“用户存在”否则提示“用户不存在”。</p>
+<p><img src="/linux/7a7348004138f91875522fa50db612cd.png" alt=""></p>
+<h4 id="33逻辑运算符">3.3、逻辑运算符</h4>
+<p>下表列出了常用的布尔运算符，假定变量 a 为 10，变量 b 为 20：</p>
+<table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>举例</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>!</td>
+<td>非运算，表达式为 true 则返回 false，否则返回 true。</td>
+<td>[ ! false ] 返回 true。</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>或（或者）运算，<strong>有一个表达式为 true 则返回 true</strong>。</td>
+<td>[ $a -lt 20 -o $b -gt 100 ] 返回 true。</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>与（并且）运算，<strong>两个表达式都为 true</strong> 才返回 true。</td>
+<td>[ $a -lt 20 -a $b -gt 100 ] 返回 false。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>或运算：一个为真即为真，全部为假才是假</strong></p>
+<p><strong>与运算：一个为假即为假，全部为真才是真</strong></p>
+<p><img src="/linux/43edfeff1f9f3fa374c10fd6bc69460c.png" alt=""></p>
+<h4 id="34字符串运算符">3.4、字符串运算符</h4>
+<p>下表列出了常用的字符串运算符，假定变量 a 为 &ldquo;abc&rdquo;，变量 b 为 &ldquo;efg&rdquo;：</p>
+<table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>举例</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>检测两个字符串是否相等，相等返回 true。</td>
+<td>[ $a = $b ] 返回 false。</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>检测两个字符串是否相等，不相等返回 true。</td>
+<td>[ $a != $b ] 返回 true。</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>检测字符串长度是否为0，为0返回 true。</td>
+<td>[ -z $a ] 返回 false。</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>检测字符串长度是否为0，不为0返回 true。</td>
+<td>[ -n $a ] 返回 true。</td>
+</tr>
+<tr>
+<td>str</td>
+<td>检测字符串是否为空，不为空返回 true。</td>
+<td>[ $a ] 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<p>案例：将上述的语法验证下</p>
+<p><img src="/linux/14d961869f1a658ddedcb4b60cba2bba.png" alt=""></p>
+<h4 id="35文件测试运算符重点">3.5、文件测试运算符（重点）</h4>
+<p>文件测试运算符用于检测 Unix/Linux 文件的各种属性。</p>
+<p>属性检测描述如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>操作符</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>举例</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b file</td>
+<td>检测文件是否是块设备文件，如果是，则返回 true。</td>
+<td>[ -b $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-c file</td>
+<td>检测文件是否是字符设备文件，如果是，则返回 true。</td>
+<td>[ -c $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-d file</td>
+<td><strong>检测文件是否是目录，如果是，则返回 true。</strong></td>
+<td>[ -d $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-f file</td>
+<td><strong>检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。</strong></td>
+<td>[ -f $file ] 返回 true。</td>
+</tr>
+<tr>
+<td>-g file</td>
+<td>检测文件是否设置了 SGID 位，如果是，则返回 true。</td>
+<td>[ -g $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-k file</td>
+<td>检测文件是否设置了粘着位(Sticky Bit)，如果是，则返回 true。</td>
+<td>[ -k $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-p file</td>
+<td>检测文件是否是有名管道，如果是，则返回 true。</td>
+<td>[ -p $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-u file</td>
+<td>检测文件是否设置了 SUID 位，如果是，则返回 true。</td>
+<td>[ -u $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-r file</td>
+<td><strong>检测文件是否可读，如果是，则返回 true。</strong></td>
+<td>[ -r $file ] 返回 true。</td>
+</tr>
+<tr>
+<td>-w file</td>
+<td><strong>检测文件是否可写，如果是，则返回 true。</strong></td>
+<td>[ -w $file ] 返回 true。</td>
+</tr>
+<tr>
+<td>-x file</td>
+<td><strong>检测文件是否可执行，如果是，则返回 true。</strong></td>
+<td>[ -x $file ] 返回 true。</td>
+</tr>
+<tr>
+<td>-s file</td>
+<td><strong>检测文件是否为空（文件大小是否大于0），不为空返回 true</strong>。</td>
+<td>[ -s $file ] 返回 true。</td>
+</tr>
+<tr>
+<td>-e file</td>
+<td><strong>检测文件（包括目录）是否存在，如果是，则返回 true。</strong></td>
+<td>[ -e $file ] 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<p>案例：测试上述标绿色的效果</p>
+<p><img src="/linux/d4e26e2e87ef1d4c9ecb68405ca849da.png" alt=""></p>
+<p>注意：权限几个判断，如果只有一个部分符合，则认为是有权限的。</p>
+<h3 id="4shell脚本附带选项重点">4、shell脚本附带选项（重点）</h3>
+<p>问题描述：在linux shell中如何处理tail -10 access.log这样的命令行选项？</p>
+<p>步骤：</p>
+<p>调用tail指令</p>
+<p><strong>系统把后续选项传递给tail</strong></p>
+<p>Tail先去打开指定的文件</p>
+<p>取出最后10行</p>
+<p>问题：自己写的shell是否也可以像内置命令一样传递一些选项呢？</p>
+<p>答：可以的，传递方式与上述的描述是一样的，关键是怎么接收。例如：</p>
+<p>传递：</p>
+<p>#./test.sh a b c</p>
+<p>接收：</p>
+<p>在脚本中可以用“$1”来表示a，“$2”来表示b，以此类推。</p>
+<p><strong>接收可以用“$”加上选项对应的序号即可。</strong></p>
+<p>测试：编写test14.sh，传递a，b，c，输出其值</p>
+<p><img src="/linux/25360d71b65478a0b11e3d5bbecf3c20.png" alt=""></p>
+<p>其实$1、$2是变量。</p>
+<p>练习：创建自定义<strong>指令“user”</strong>，可以直接执行，要求该指令具备以下语法和功能：</p>
+<p>a. #user -add 用户名 【添加用户】</p>
+<p>b. #user -del 用户名 【删除用户及其家目录】</p>
+<p><img src="/linux/75ea616cc7a334123d448604d89af060.png" alt=""></p>
+<p>同时题目中要求是指令，所以可以再去添加个别名：</p>
+<p><img src="/linux/22ee8ce83da0b6c786f9e7bd93c8cd10.png" alt=""></p>
+<h2 id="三作业">三、作业</h2>
+<p>1、尝试写一个shell的简易计算器功能，实现加减乘除。</p>
+<p>2、作业：使用-e文件测试运算符，改写“1.4接收用户输入”的案例，在创建文件的时候需要先判断是否存在，如果存在则提示用户并且不执行创建操作，如果不存在则创建。</p>
+<p>3、尝试创建一个shell脚本，该脚本要求可以类似于“touch”指令一样，能够使用“touch
+文件路径”的形式进行创建文件操作，并且要求创建好的文件权限默认为755。</p>
+<h2 id="mysql基础">MySQL基础</h2>
+<h2 id="一关于数据库">一、关于数据库</h2>
+<h3 id="1什么是数据库">1、什么是数据库</h3>
+<p><img src="/linux/43f0f1897487f1bca9181b3e3de7f931.png" alt=""></p>
+<p>如果一个项目是<strong>动态</strong>（内容会变化的，网页后缀.jsp、.php、.shtml等）内容的话，则数据库是必不可少的一个环节。</p>
+<h3 id="2mysql简介">2、MySQL简介</h3>
+<p>MySQL是一个关系型<strong>数据库管理系统</strong>，由瑞典MySQL AB
+公司开发，2008年被Sun公司收购，目前属于 Oracle 旗下产品。MySQL
+是<strong>最流行的数据库管理系统之一</strong>，在 WEB 应用方面，MySQL是<strong>最好的</strong> RDBMS
+(Relational Database Management System，关系数据库管理系统)
+应用软件。其和php是黄金搭档**（LAMP/LNMP）**。</p>
+<h3 id="3常见的其他数据库软件">3、常见的其他数据库软件</h3>
+<p>目前市场上还有：Oracle（重量级的数据库）、MS SQL
+Server（微软）、Access（微软）、PostgreSQL、DB2、Mariadb（MySQL分支，完全兼容MySQL）。</p>
+<h2 id="二mysql的安装与初始化">二、MySQL的安装与初始化</h2>
+<p>操作之前先确保计算机时间准确。</p>
+<h3 id="1linux下的软件安装方式初步">1、Linux下的软件安装方式（初步）</h3>
+<h4 id="a-源码包建议">a. 源码包（建议）</h4>
+<p>优点</p>
+<blockquote>
+<p>开源，如果有足够的能力，可以修改源代码</p>
+</blockquote>
+<blockquote>
+<p>编译安装，更加适合自己的系统，稳定高效</p>
+</blockquote>
+<p>缺点</p>
+<blockquote>
+<p>安装步骤较多，<strong>容易出错</strong></p>
+</blockquote>
+<blockquote>
+<p>编译过程时间较长</p>
+</blockquote>
+<p>案例：使用源码编译安装方式安装ncurses（一种常用的终端库）</p>
+<p>扩展：解包</p>
+<p>常用语法：</p>
+<p>#tar -zxvf *.tar.gz （大多数）</p>
+<p>#tar -jxvf *.tar.bz2</p>
+<p>选项含义：</p>
+<p>-z或&ndash;gzip或&ndash;ungzip：通过gzip指令处理文件；</p>
+<p>-x或&ndash;extract或&ndash;get：从文件中还原文件；</p>
+<p>-v：显示操作过程；</p>
+<p>-f或&ndash;file：指定一个文件；</p>
+<p>-j：支持bzip2解压文件；</p>
+<p>①先将软件包传递到服务器上“/usr/local/src”</p>
+<p><img src="/linux/06ab6e6bbf1392c8a25dc667e9880bb1.png" alt=""></p>
+<p>②解压需要安装的源码包</p>
+<h2 id="tar--zxvf-ncurses-61targz">tar -zxvf ncurses-6.1.tar.gz</h2>
+<p><img src="/linux/9798d42475069f3b40692f1414a23b19.png" alt=""></p>
+<p>③切换到源码文件夹，然后执行后续操作</p>
+<p><strong>配置（config/configure/bootstrap） → 编译（make/bootstrapd） → 安装（make
+install/bootstrapd install） (在make之后还可以make test测试make的结果)</strong></p>
+<p><strong>配置操作主要是指定软件的安装目录、需要的依赖在什么地方、指定不需要可选依赖、配置文件的路径、通用数据存储位置等等。</strong></p>
+<p>指定安装的路径：&ndash;prefix=路径</p>
+<p>需要依赖的路径：&ndash;with-PACKAGE名=[包所在的路径]</p>
+<p>不需要依赖：&ndash;without-PACHAGE名</p>
+<h2 id="configure---prefixusrlocalncurses">./configure &ndash;prefix=/usr/local/ncurses</h2>
+<p><img src="/linux/14b1a047f4d86359657e4a9a654e6cdc.png" alt=""></p>
+<h2 id="make">make</h2>
+<p><img src="/linux/21aaaededa443b61c8334091dd991f69.png" alt=""></p>
+<h2 id="make-install">make install</h2>
+<p><img src="/linux/7f53872981f052123334afb4773046af.png" alt=""></p>
+<p>成功之后查看目录（可选）：</p>
+<p><img src="/linux/bef87d8d3532f503f4cc71ff2471f880.png" alt=""></p>
+<h4 id="b-二进制包rpm">b. 二进制包（rpm）</h4>
+<p>优点: 包管理系统简单，只需要几个命令就可以实现包的安装，升级，查询和卸载</p>
+<p>缺点: 经过编译，不再可以看到源代码</p>
+<p>回顾rpm相关指令：</p>
+<p>#rpm -qa|grep 关键词</p>
+<p>#rpm -e 关键词 [&ndash;nodeps] （加上&ndash;nodeps表示排除依赖删除）</p>
+<p>#rpm -ivh 完整名称</p>
+<p>#rpm -Uvh 完整名称</p>
+<p><strong>#rpm -qf 文件路径</strong>   <strong>【查询指定文件属于哪个包】</strong></p>
+<p><img src="/linux/0d5ff63e8f6933189c2183c0146ebf74.png" alt=""></p>
+<p>案例：使用二进制包安装lynx（一款纯命令行的浏览器）</p>
+<p>在光盘中就有这个包</p>
+<p><img src="/linux/83c16a7b5ace5399b40a372f18453f2c.png" alt=""></p>
+<p>例如查看百度：#lynx &ndash;dump <a href="http://www.baidu.com">www.baidu.com</a></p>
+<h4 id="c-yum等傻瓜式安装">c. yum等傻瓜式安装</h4>
+<p>优点: 安装简单，快捷</p>
+<p>缺点: 完全丧失了自定义性</p>
+<p>注意：如果不更改软件来源的情况下，是需要联网才能使用yum的。</p>
+<p>常用的yum指令：</p>
+<p>#yum list [installed] 列出当前已经装的和可以装的软件（全部）</p>
+<p>#yum search 名 搜索指定的关键词的包</p>
+<p>#yum [-y] install 包名 安装指定的包（-y表示允许不再确认）</p>
+<p>#yum [-y] update [包名] 更新指定的包，不指定包则更新全部软件</p>
+<p>#yum [-y] remove 包名 卸载指定的包</p>
+<p>案例：使用yum指令卸载火狐浏览器</p>
+<p>#yum remove firefox</p>
+<p><img src="/linux/3bcdec5d1bd9a6e138c18bbf24f40fe4.png" alt=""></p>
+<p>案例：使用yum指令安装火狐浏览器</p>
+<p>#yum install firefox</p>
+<h3 id="2安装mysql重点">2、安装MySQL（重点）</h3>
+<p>注：此处安装以yum安装为例</p>
+<h4 id="21mysql安装">2.1、MySQL安装</h4>
+<p>#yum install mysql-server</p>
+<p><img src="/linux/0a08c8e70471fea80857d6af8b63f5da.png" alt=""></p>
+<p>完成的：</p>
+<p><img src="/linux/26aa53feee529783314dc3b027007410.png" alt=""></p>
+<h4 id="22mysql初始化">2.2、MySQL初始化</h4>
+<p>#service mysqld start</p>
+<p><img src="/linux/5bd3b44e0bfcdeb2765fedbc5f20a914.png" alt=""></p>
+<p>查看端口号（<strong>默认端口号3306</strong>）：</p>
+<p><img src="/linux/78f531a0fb48299a64559df8d4d85c5b.png" alt=""></p>
+<h2 id="mysql_secure_installation">mysql_secure_installation</h2>
+<p>Enter current password for root (enter for
+none):请输入当前root用户的密码，如果没有按回车，注意此root并非linux的root用户。</p>
+<p>Set root password?是否设置root密码？</p>
+<p>需要设置的密码：qhabOfhlluB9</p>
+<p>Remove anonymous users?是否移除匿名用户，选择移除（Y）</p>
+<p>Disallow root login remotely?是否不允许root远程登录（默认不允许）</p>
+<p>Remove test database and access to it?是否移除测试数据库（建议先不移除）</p>
+<p>Reload privilege tables
+now?是否重新加载权限表（当我们更改了mysql用户相关的信息之后建议去重载权限）</p>
+<p><img src="/linux/8897e2b43ae7de485c980fcc75157c86.png" alt=""></p>
+<h4 id="23mysql的启动控制">2.3、MySQL的启动控制</h4>
+<p>语法：service mysqld start/stop/restart</p>
+<p>进入mysql的方式：</p>
+<p>#mysql -u用户名 -p</p>
+<p>退出MySQL到linux命令行：</p>
+<p>mysql &gt; exit</p>
+<h4 id="24默认目录文件位置了解">2.4、默认目录/文件位置（了解）</h4>
+<p>数据库存储目录：/var/lib/mysql</p>
+<p>配置文件：/etc/my.cnf</p>
+<p><img src="/linux/76410d603cde2818bb0512df89cb7bc6.png" alt=""></p>
+<h2 id="三mysql的基本操作难点">三、MySQL的基本操作（难点）</h2>
+<h3 id="1名词介绍">1、名词介绍</h3>
+<p>以Excel文件举例：</p>
+<p><strong>数据库</strong>：可以看作是整个excel文件。</p>
+<p><strong>数据表</strong>：可以看作是一个excel文件中的工作表。</p>
+<p>行（<strong>记录</strong>）：可以看作是一个工作表中的一行</p>
+<p>列（<strong>字段</strong>）：可以看作是一个工作表总的一列</p>
+<h3 id="2库操作重点">2、库操作（重点）</h3>
+<p>以下命令在MySQL终端命令行中执行（大小写均可）：</p>
+<p>SHOW DATABASES; 显示当前MySQL中全部的数据库</p>
+<p>CREATE DATABASE 库名; 创建数据库</p>
+<p>DROP DATABASE 库名; 删除数据库</p>
+<p>USE 库名; 切换数据库</p>
+<p>Show databases效果</p>
+<p><img src="/linux/4690336e61d104b863bba71fb0133437.png" alt=""></p>
+<p>创建数据库：创建yunwei数据库</p>
+<p><img src="/linux/5d71adea00ae4dca2e7387ece8d746dd.png" alt=""></p>
+<p>删除数据库：删除yunwei数据库</p>
+<p><img src="/linux/f04afaedf74968a6fa5024a7473b6327.png" alt=""></p>
+<p>切换数据库：切换到test数据库</p>
+<p><img src="/linux/e45fb1fff89c2c62c83db4467c72dc04.png" alt=""></p>
+<h3 id="3表操作">3、表操作</h3>
+<p>SHOW TABLES; 显示<strong>当前</strong>数据库中所有的表名（必须先use数据库）</p>
+<p><strong>CREATE TABLE 表名称</strong>    <strong>在当前数据库下创建数据表</strong></p>
+<p><strong>(</strong></p>
+<p><strong>列名称1 数据类型 [NOT NULL AUTO_INCREMENT],</strong></p>
+<p><strong>列名称2 数据类型,</strong></p>
+<p><strong>列名称3 数据类型,</strong></p>
+<p><strong>&hellip;.,</strong></p>
+<p><strong>PRIMARY KEY(主键字段名)</strong></p>
+<p><strong>);</strong></p>
+<p>常见的数据类型：int（整型）、char（定长字符）、varchar（不定长字符）。</p>
+<p>主键一般就是序号所在的那一列（主键不能重复）。</p>
+<p>DESC 表名; 描述一个数据表（查看表结构）</p>
+<p>DROP TABLE [IF EXISTS] 表名; 删除一个数据表</p>
+<p>案例：使用上述的语法</p>
+<p>查看所有的数据表</p>
+<p><img src="/linux/6466f789ebea6dd79560537f917a678a.png" alt=""></p>
+<p>创建数据表（去test库中创建）</p>
+<p>要求：表名xg，要求有字段如下：</p>
+<p>Id字段，11位整型，不为空，自增，主键</p>
+<p>Username字段，varchar类型，20长度</p>
+<p>Password字段，char类型，32长度</p>
+<p>SQL（standard query language）语句：</p>
+<p>Create table xg(</p>
+<p>Id int(11) not null auto_increment,</p>
+<p>Username varchar(20),</p>
+<p>Password char(32),</p>
+<p>Primary key(id)</p>
+<p>);</p>
+<p><img src="/linux/872928851783b7c2ba3d83c5c5802041.png" alt=""></p>
+<p>查看表结构：</p>
+<p><img src="/linux/3e3508b03497410e14313bfc10742354.png" alt=""></p>
+<p>删除数据表：</p>
+<p><img src="/linux/23f15fd3105c3618fad01d453cb522cf.png" alt=""></p>
+<h3 id="4记录字段操作重点">4、记录/字段操作（重点）</h3>
+<h4 id="41增加记录">4.1、增加记录</h4>
+<p>语法1：INSERT INTO 表名称 VALUES (值1, 值2,&hellip;.);</p>
+<p><strong>语法2：INSERT INTO 表名称 (列1, 列2,&hellip;) VALUES (值1, 值2,&hellip;.);</strong></p>
+<p>案例：往数据表xg表中新增一个记录username为zhangsan，password为123456（加密结果E10ADC3949BA59ABBE56E057F20F883E）</p>
+<p>Sql语句：</p>
+<p>insert into xg (username,password) values
+(‘zhangsan’,’E10ADC3949BA59ABBE56E057F20F883E’)</p>
+<p><img src="/linux/bae7f31f75d688263ffe3101706322c3.png" alt=""></p>
+<p>要求前面的列名与值要一一对应。</p>
+<h4 id="42更新记录">4.2、更新记录</h4>
+<p>语法：<strong>UPDATE</strong> 表名称 SET 列名称1 = 新值1,列名称2 = 新值2… <strong>WHERE 列名称 =
+某值</strong>;</p>
+<p>案例：使用更新语句更新<strong>id大于等于2</strong>的记录，将其密码改为：25F9E794323B453885F5181F1B624D0B</p>
+<p>SQL语句：</p>
+<p>Update xg set password = ‘25F9E794323B453885F5181F1B624D0B’ where id &gt;= 2;</p>
+<p><img src="/linux/8155cb335552062e3c4036f003306d65.png" alt=""></p>
+<p><strong>以后在执行影响行数的sql操作的时候一定需要注意条件是否写错或者漏写。</strong></p>
+<h4 id="43查询记录">4.3、查询记录</h4>
+<p><strong>SELECT</strong> 列名称1,列名称2… FROM 表名称 WHERE 条件;</p>
+<p>SELECT * FROM 表名称 WHERE 条件;</p>
+<p>案例：查询刚才新增的记录</p>
+<p>只查询用户名和密码，并且是id=2的：</p>
+<p>Select username,password from xg where id = 2;</p>
+<p><img src="/linux/07d4161a2c0d91e4374d2eae8fb210bb.png" alt=""></p>
+<p>查询全部：</p>
+<p>Select * from xg;</p>
+<p><img src="/linux/3666ffd185b31391e777437db871ff02.png" alt=""></p>
+<h4 id="44删除记录">4.4、删除记录</h4>
+<p><strong>DELETE</strong> FROM 表名称 <strong>WHERE 列名称 = 值</strong>;</p>
+<p>案例：删除id为2的记录</p>
+<p>Delete from xg where id = 2;</p>
+<p><img src="/linux/1b497a59ac5bca198139fedac5dfe7fa.png" alt=""></p>
+<h3 id="5备份与还原重点">5、备份与还原（重点）</h3>
+<h4 id="51备份导出">5.1、备份（导出）</h4>
+<p>全量备份（数据+结构）：#mysqldump -uroot -p123456 -A &gt; 备份文件路径</p>
+<p><strong>指定库备份（数据+结构）：## mysqldump -uroot -p123456 库名 &gt; 备份文件路径</strong></p>
+<p>多个库备份（数据+结构）：## mysqldump -uroot -p123456 &ndash;databases db1 db2 &gt;
+备份文件路径</p>
+<p>案例：备份整个库</p>
+<h2 id="mysqldump--uroot--pqhabofhllub9--a--rootsql_201804061609sql">mysqldump -uroot -pqhabOfhlluB9 -A &gt; /root/sql_201804061609.sql</h2>
+<p><img src="/linux/c17112f1fc82c41b8e9f39ed852fec13.png" alt=""></p>
+<p><strong>案例：每1分钟自动备份1次test数据库</strong></p>
+<p><img src="/linux/7c255610a3d4cec9514d87fcb0ec3fd4.png" alt=""></p>
+<p>计划任务编写：</p>
+<p><img src="/linux/09fa4b48ac4124f8054646932a13f3a0.png" alt=""></p>
+<p>等待几分钟观察目录情况：</p>
+<p><img src="/linux/21920344d242a8a503a0910508333c1f.png" alt=""></p>
+<h4 id="52还原导入">5.2、还原（导入）</h4>
+<p>还原部分分**（1）mysql命令行source方法** 和 （2）系统命令行方法</p>
+<p>1.还原全部数据库:</p>
+<p>(1) mysql命令行：mysql&gt; source 备份文件路径</p>
+<p>(2) 系统命令行： #mysql -uroot -p123456 &lt; 备份文件路径</p>
+<p><strong>2.还原单个数据库(需指定数据库)</strong></p>
+<p><strong>(1) mysql&gt; use 库名</strong></p>
+<p><strong>mysql&gt; source 备份文件路径</strong></p>
+<p>(2) #mysql -uroot -p123456 库名 &lt; 备份文件路径</p>
+<p>3.还原单个数据库的多个表(需指定数据库)</p>
+<p>(1) mysql&gt; use 库名</p>
+<p>mysql&gt; source 备份文件路径</p>
+<p>(2) mysql -uroot -p123456 库名 &lt; 备份文件路径</p>
+<p>4.还原多个数据库，（一个备份文件里有多个数据库的备份，此时不需要指定数据库）</p>
+<p>(1) mysql命令行：mysql&gt; source 备份文件路径</p>
+<p>(2) 系统命令行： mysql -uroot -p123456 &lt; 备份文件路径</p>
+<p>案例1：人为删除xg表（模拟数据表丢失），然后通过最后一次备份还原数据表。</p>
+<p>先删除数据表</p>
+<p><img src="/linux/717a1f832187b26e5a81563c023bb056.png" alt=""></p>
+<p>还原操作：</p>
+<p><img src="/linux/918028e7bd2b66bf924a57f6abc0a0c7.png" alt=""></p>
+<p>案例2：需要还原sql文件到test库（mobile.sql 31万条数据）</p>
+<p><img src="/linux/b5915e45eda6110c5e106a940bf116e9.png" alt=""></p>
+<p>设置Mysql连接字符集：</p>
+<p>Mysql&gt; <strong>set names utf8</strong>; 【三码一致，<strong>服务器端+传输过程中+客户端</strong>】</p>
+<p><img src="/linux/483e95807c105f7e3f1de357613e815b.png" alt=""></p>
+<h2 id="四扩展">四、扩展</h2>
+<h3 id="1mysql的远程管理工具">1、mysql的远程管理工具</h3>
+<p>分为两大类：B/S架构、C/S架构。</p>
+<p>B/S：B是指浏览器，S是指服务器。例如：百度搜索应用就属于BS架构软件。</p>
+<p>C/S：C是指客户端，S是指服务器。例如：QQ、电脑端微信等应用程序都是CS架构。</p>
+<p>在BS中，mysql有个典型的管理工具：PMA（phpMyAdmin）</p>
+<p><img src="/linux/165bb18b219375cb93cc6c3c62009a2f.png" alt=""></p>
+<p>CS中比较典型的软件：<strong>navicat</strong>、mysql workbrach</p>
+<p><img src="/linux/bef5c64f621d0a7796235b797b040f86.png" alt=""></p>
+<p>要解决的问题：允许mysql远程登录</p>
+<p><img src="/linux/cd6b3ffce27b6a30fab778fc81f3ac29.png" alt=""></p>
+<p>a. 先进入数据库选择mysql数据库；</p>
+<p>b. 执行sql语句：select host,user from user;</p>
+<p><img src="/linux/b3306a04f89cbde4822bf668c7d0dc0a.png" alt=""></p>
+<p>c. 将其中的一个记录的host值改为“%”，表示可以允许任何地方登录</p>
+<p><img src="/linux/2f2b182be720658cf7d2ba914368036a.png" alt=""></p>
+<p>d. 刷新权限表或者重启mysql</p>
+<p><strong>刷新权限：mysql&gt; flush privileges;</strong></p>
+<p><img src="/linux/fea42a02c2c405b978900524ad214790.png" alt=""></p>
+<p>e. navicat登录成功</p>
+<p><img src="/linux/c1feaa89ba7d95c9f3c6c821ada2ff15.png" alt=""></p>
+<h2 id="五作业-1">五、作业</h2>
+<p>1、导入sql文件（mobile.sql）到test数据库，并使用该数据表进行数据的增删改查练习。</p>
+<p>2、请编写一个简单的shell脚本，文件名为autoBakup.sh，并写出计划任务指令，能够实现每天0点整自动备份整个MySQL数据库。</p>
+<h2 id="yum项目上线实战-网站运维">Yum项目上线实战 （网站运维）</h2>
+<h2 id="一编译安装与卸载nginx">一、编译安装与卸载Nginx</h2>
+<p>Nginx：是一款比较流行的web服务器软件，类似于Apache。</p>
+<p><img src="/linux/ad8d1e4bf3a2d2d40ab82baf36899979.png" alt=""></p>
+<h3 id="1安装nginx">1、安装nginx</h3>
+<p>①下载nginx</p>
+<p>下载地址：https://nginx.org/en/download.html</p>
+<p>使用在服务器端下载的方式进行下载（此处不使用filezilla）：</p>
+<p><strong>#wget 地址</strong></p>
+<p>例如当前需要下载nginx到“/usr/local/src”</p>
+<p>#wget <a href="https://nginx.org/download/nginx-1.13.11.tar.gz">https://nginx.org/download/nginx-1.13.11.tar.gz</a></p>
+<p><img src="/linux/2a40f26a56350ee42eeeeb7e63cc28ac.png" alt=""></p>
+<p><img src="/linux/3e2a3343c09494e28e9d17287f30ba77.png" alt=""></p>
+<p><strong>#类似wget的还有curl，curl可以上传文件，发送post请求等</strong></p>
+<p>用curl测试ip：curl -I ip号</p>
+<p><strong>#注意，wget和curl还有许多其他的功能，例如限速、断点处开始下载等</strong></p>
+<p>②解压nginx安装包</p>
+<h2 id="tar--zxvf-nginx-11311targz">tar -zxvf nginx-1.13.11.tar.gz</h2>
+<p>③进入nginx解压目录</p>
+<p>开始进行配置、编译、安装操作</p>
+<p>在配置时候报错：没有PCRE库</p>
+<p><img src="/linux/865a7037e85a94c2a5ff498052755b3c.png" alt=""></p>
+<p>直接yum安装pcre-devel：</p>
+<p>#yum install pcre-devel</p>
+<p><img src="/linux/d891fdf365b0befa65409518404da94a.png" alt=""></p>
+<p>报错缺少zlib库：</p>
+<p><img src="/linux/9a3a263fbd2bb553e1b7e82bf61e44b7.png" alt=""></p>
+<p>直接使用yum安装zlib库：</p>
+<p>#yum install zlib-devel</p>
+<p><img src="/linux/6a0072ddaa3ce5a67e366cb71d891cac.png" alt=""></p>
+<p>还需要自己去下载一个zlib的源码包，然后解压出来：</p>
+<p><img src="/linux/18b7ae6aaa644241c814fcb84f70ac8d.png" alt=""></p>
+<p><img src="/linux/28af934a596294d30977078b798da403.png" alt=""></p>
+<p>最终的nginx配置命令：</p>
+<p>#./configure &ndash;prefix=/usr/local/nginx &ndash;with-pcre
+&ndash;with-zlib=/usr/local/src/zlib-1.2.11</p>
+<p>开始安装：</p>
+<p>#make</p>
+<p><img src="/linux/0dceb8af609aaea5346247f54678b4be.png" alt=""></p>
+<p>最后安装：</p>
+<p>#make install</p>
+<p><img src="/linux/ab516dc69444c02c79342880a30204f3.png" alt=""></p>
+<p>安装好的目录：</p>
+<p><img src="/linux/c901eff5b680c359e8d5a4fb4e847a5a.png" alt=""></p>
+<p>④运行nginx</p>
+<p>先停止Apache，然后再运行nginx</p>
+<p><img src="/linux/0a7e8182f818a29b31d450460e301a84.png" alt=""></p>
+<p>#/usr/local/nginx/sbin/nginx 【启动命令】</p>
+<p>#/usr/local/nginx/sbin/nginx -s reload 【重载，重载配置文件】</p>
+<p>启动效果：</p>
+<p><img src="/linux/9ba4bb4c8f0c7e190c05f0b1703e13b9.png" alt=""></p>
+<p>⑤了解：卸载编译安装的软件</p>
+<p>#rm -rf 软件的安装目录</p>
+<p><strong>注意：卸载一个编译安装的软件的时候必须先停止。</strong></p>
+<h2 id="二关于lamp">二、关于LAMP</h2>
+<p><strong>LAMP：Linux + Apache + MySQL + PHP</strong>  <strong>LAMP架构（组合）</strong></p>
+<p>LNMP：Linux + Nginx + MySQL + php-fpm LNMP架构（组合）</p>
+<p>LNMPA：Linux + Nginx + MySQL + PHP + Apache Nginx代理方式</p>
+<p><img src="/linux/c56ec57b44d9ed8d2517c46d86062179.png" alt=""></p>
+<p><img src="/linux/63a378fdf8290bacc7da5a381403fefb.png" alt=""></p>
+<p><img src="/linux/d4afed26d371a53348e464bdd7ae958c.png" alt=""></p>
+<h2 id="三lamp环境部署">三、LAMP环境部署</h2>
+<p>首先登录控制台获取需要连接的主机ip地址：</p>
+<p><img src="/linux/0433875cef820700b07efd1e0e4bf8e3.png" alt=""></p>
+<p>后续可以进行远程登录。</p>
+<p><img src="/linux/93ef7477c262337642f46c177f86aaa3.png" alt=""></p>
+<p>在整个LAMP中需要自己安装的也就只有<strong>Apache + PHP + Mysql</strong>。后续以yum为例。</p>
+<h3 id="1php与apache的安装">1、PHP与Apache的安装</h3>
+<p><strong>#yum install php</strong>  <strong>【在安装好php的同时会一起顺带安装Apache】</strong></p>
+<p><img src="/linux/97897ac0299cabae57385e4041f78b27.png" alt=""></p>
+<p>启动Apache：#service httpd start</p>
+<p><img src="/linux/4d8b5702d141e980f6008e9f9e9438f8.png" alt=""></p>
+<p><strong>此处会有一个警告，无法确定主机的FQDN，如果需要处理，则需要修改Apache的配置文件（/etc/httpd/conf/httpd.conf）</strong></p>
+<h2 id="vim-etchttpdconfhttpdconf">vim /etc/httpd/conf/httpd.conf</h2>
+<p>在文件中搜索“ServerName”</p>
+<p><img src="/linux/05d2ce2a1dd247b5a960474563e55cab.png" alt=""></p>
+<p>将前面的“#”去除，保存退出，重启apache</p>
+<p><img src="/linux/dffc624d8c89edef7e1cb2eb41cd5df7.png" alt=""></p>
+<p>测试访问，在地址栏中输入ip地址直接访问（关闭防火墙）：</p>
+<p><img src="/linux/30ce72e1e11efab050ba70aa6d04d18a.png" alt=""></p>
+<p>测试php是否可以运行（默认的Apache站点目录：/var/www/html）：</p>
+<p>创建一个index.php文件</p>
+<p><img src="/linux/5a6921a2032aebd7f41d061ec581de71.png" alt=""></p>
+<p>运行php看到页面：</p>
+<p><img src="/linux/0c0fca4f6d1613c77049282a178eb1dc.png" alt=""></p>
+<h3 id="2mysql的安装与初始化">2、MySQL的安装与初始化</h3>
+<p>#yum install mysql-server</p>
+<p><img src="/linux/d05dea61f78bfaffd61dbcfab3fdcfdd.png" alt=""></p>
+<p>初始化操作：</p>
+<p>#service mysqld start 【启动】</p>
+<p><img src="/linux/4618e01159ed2eff601ab4e53e9ddb61.png" alt=""></p>
+<h2 id="mysql_secure_installation-1">mysql_secure_installation</h2>
+<p><img src="/linux/bc0e15e4b4bf6eee8ef4a6726ef01184.png" alt=""></p>
+<p>测试进行命令行登录：</p>
+<p>#mysql -uroot -p</p>
+<p>如果需要远程登录则需要修改登录主机：</p>
+<p><img src="/linux/587fa302bd15ad16382c4ade6de554d9.png" alt=""></p>
+<p>重启MYSQL或者刷新权限：</p>
+<p>Mysql&gt; flush privileges;</p>
+<p><img src="/linux/ac0a7c29fa0632dcc0ea38921758735f.png" alt=""></p>
+<p>阿里云上的安全组端口放行：</p>
+<p><img src="/linux/d4bc5d068df67ce39be5dde1b90ebb9e.png" alt=""></p>
+<p>使用navicat进行登录：</p>
+<p><img src="/linux/1dee864ef8b4e5e0f1cbf11e508e82d7.png" alt=""></p>
+<h3 id="3项目上线">3、项目上线</h3>
+<p>解压项目包，将upload其中的内容上传到服务器站点目录（/var/www/html）</p>
+<p><img src="/linux/e743feb6dd7e5c1f0f151533bcbf8e59.png" alt=""></p>
+<p>①使用filezilla上传需要的代码文件</p>
+<p>②传完之后打开网站的首页，会运行DZ的安装向导</p>
+<p>a. 选择同意协议</p>
+<p><img src="/linux/4c542407f91549d14b29260524669e09.png" alt=""></p>
+<p>b. 赋予指定目录写权限</p>
+<p><img src="/linux/a804c52a1141d3ba3e20c647361fdce4.png" alt=""></p>
+<h2 id="chmod-777--r-varwwwhtml">chmod 777 -R /var/www/html</h2>
+<p><img src="/linux/3288821e8ed7af48154623ad543fadd1.png" alt=""></p>
+<p>#yum install php-mysqli</p>
+<p><img src="/linux/a8ad3baa2da82ab29935b405a3d3e0e3.png" alt=""></p>
+<p>重启Apache：</p>
+<p><img src="/linux/37b74c2cf63c409d90f1d19342fc5e83.png" alt=""></p>
+<p>重启之后保证所有的配置项都是绿色的勾才可以下一步。</p>
+<p>c. 选择DZ的安装方式</p>
+<p><img src="/linux/65823b7f2911ae0ec208b59d7ad3c04a.png" alt=""></p>
+<p>d. 填写数据库与管理员的信息</p>
+<p><img src="/linux/40f1afc532893bf01bd9df7f79c51d91.png" alt=""></p>
+<p>e. 安装完成</p>
+<p><img src="/linux/aa5792daebc87ac737c89aae038cc766.png" alt=""></p>
+<p>f. 首页</p>
+<p><img src="/linux/2f1540aa9088a56cdb867cd046cecd0b.png" alt=""></p>
+<h2 id="其他">其他</h2>
+<h3 id="linux中的0-6">linux中的0-6</h3>
+<p><img src="/linux/f4d53350fbeae8cbf84e6a181eb299a6.png" alt=""></p>
+<h3 id="图片查看器">图片查看器</h3>
+<p><img src="/linux/ebb31976c405a22f59387ca8b2eaac51.png" alt=""></p>
+<h3 id="ulimit取消linux同时打开文件个数限制">ulimit取消linux同时打开文件个数限制</h3>
+<p>Linux默认能同时打开的文件个数为65535个，一般情况按照日期进行限制就不会出现访问一下子超过65535导致系统宕机的情况，同时也可以使用指令：ulimit
+-n 65535</p>
+<h3 id="权限管理命令umask">权限管理命令：umask</h3>
+<p><img src="/linux/2c374c3b58b2030ad2da30475bb4d22d.png" alt=""></p>
+<p><img src="/linux/c8368c6fffada4661479dc8d38d1afc5.png" alt=""></p>
+<p><img src="/linux/3487aa6a093e1add90f9ed51dfcb3f36.png" alt=""></p>
+<p><img src="/linux/672ef738f3dea6160888ba4091452e6a.png" alt=""></p>
+<h3 id="其他文件搜索命令">其他文件搜索命令</h3>
+<h4 id="locate">locate</h4>
+<p><img src="/linux/059316edf3399e42b55c829007e0fe09.png" alt=""></p>
+<p>locate -i（忽略文件大小写）</p>
+<p>注意：Locate找不到存在tmp中的文件</p>
+<h4 id="which">which</h4>
+<p><img src="/linux/2acbb5aa3a1df54f5be456e44c727a89.png" alt=""></p>
+<h4 id="whereis">whereis</h4>
+<p><img src="/linux/ca2e389f0b4531a74f0e4ccd036c3f70.png" alt=""></p>
+<h3 id="更新文件资料库">更新文件资料库</h3>
+<p>updated</p>
+<h3 id="whatis">whatis</h3>
+<p>得到命令的简短信息</p>
+<p><img src="/linux/c16c26f26254339f888c4e19da63b6c6.png" alt=""></p>
+<h3 id="apropos">apropos</h3>
+<p>查看配置文件的信息</p>
+<p><img src="/linux/fafe03acbc98bd72c8c8f9576bb8ecd3.png" alt=""></p>
+<h3 id="help">help</h3>
+<p>查看命令的选项</p>
+<p><img src="/linux/1c5f19db1a3e6e6565f2f0a4ec92f4fd.png" alt=""></p>
+<p>找不到路径的命令都是系统内置命令，例如cd，umask，此时用help umask即可。</p>
+<h3 id="tac">tac</h3>
+<p>反向浏览文件（不支持-n）</p>
+<h3 id="rmdir">rmdir</h3>
+<p>删除文件夹</p>
+<h3 id="moreless">more/less</h3>
+<p>可搜索，可上翻，也可以像vim一样在里面找关键词，如果有多个匹配关键词可用n键选择下一个</p>
+<h3 id="文件和文件夹中rwx的意义">文件和文件夹中rwx的意义</h3>
+<p><img src="/linux/51b7a224a3828bd8690eb4c6034c435a.png" alt=""></p>
+<h3 id="linux各目录的作用兄弟连版">linux各目录的作用（兄弟连版）</h3>
+<p><img src="/linux/cd33b1f44cbc7589846070e813355408.png" alt=""></p>
+<p><img src="/linux/a745dafef8a83c4108ec57b0cbab9471.png" alt=""></p>
+<p><img src="/linux/aeba2d991a52aa66ea9f90a73d6d736a.png" alt=""></p>
+<h3 id="分区格式化设备文件名挂载">分区、格式化、设备文件名、挂载</h3>
+<p><img src="/linux/849b213dceb654298d563800d5802d10.png" alt=""></p>
+<p><img src="/linux/f0744c5cb3786da099d7f7cadc05435b.png" alt=""></p>
+<p><img src="/linux/ffd9e2b2b4dab61dd2459827efdcdb7b.png" alt=""></p>
+<p><img src="/linux/57b090fa44dd60e6388cb84de974b234.png" alt=""></p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Linux</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#linux发展史与安装">Linux发展史与安装</a></li>
+    <li><a href="#一linux发展史">一、Linux发展史</a>
+      <ul>
+        <li><a href="#1linux前身-unix">1、Linux前身-Unix</a></li>
+        <li><a href="#2linux诞生">2、Linux诞生</a></li>
+        <li><a href="#3开源文化">3、开源文化</a></li>
+        <li><a href="#4linux系统特点">4、Linux系统特点</a></li>
+        <li><a href="#5linux分支">5、Linux分支</a></li>
+      </ul>
+    </li>
+    <li><a href="#二linux系统的安装">二、Linux系统的安装</a>
+      <ul>
+        <li><a href="#1安装方式">1、安装方式</a></li>
+        <li><a href="#2虚拟机软件了解">2、虚拟机软件（了解）</a></li>
+        <li><a href="#3虚拟机的安装">3、虚拟机的安装</a></li>
+        <li><a href="#4linux版本的选择">4、Linux版本的选择</a></li>
+        <li><a href="#5新建虚拟机">5、新建虚拟机</a></li>
+        <li><a href="#6linux操作系统安装">6、Linux操作系统安装</a></li>
+        <li><a href="#7终端">7、终端</a></li>
+        <li><a href="#8使用vmware备份操作系统">8、使用VMware备份操作系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#三linux系统的文件">三、Linux系统的文件</a>
+      <ul>
+        <li><a href="#1文件与文件夹目录">1、文件与文件夹（目录）</a></li>
+        <li><a href="#2linux系统的文件目录结构">2、Linux系统的文件目录结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#linux的基本指令">Linux的基本指令</a></li>
+    <li><a href="#一指令与选项">一、指令与选项</a></li>
+    <li><a href="#二基础指令重点">二、基础指令（重点）</a>
+      <ul>
+        <li><a href="#1ls指令">1、ls指令</a></li>
+        <li><a href="#2pwd指令">2、pwd指令</a></li>
+        <li><a href="#3cd指令">3、cd指令</a></li>
+        <li><a href="#4mkdir指令">4、mkdir指令</a></li>
+        <li><a href="#5touch指令">5、touch指令</a></li>
+        <li><a href="#6cp指令">6、cp指令</a></li>
+        <li><a href="#7mv指令">7、mv指令</a></li>
+        <li><a href="#8rm指令">8、rm指令</a></li>
+        <li><a href="#9vim指令">9、vim指令</a></li>
+        <li><a href="#10输出重定向">10、输出重定向</a></li>
+        <li><a href="#11cat指令">11、cat指令</a></li>
+        <li><a href="#12history指令">12、history指令</a></li>
+        <li><a href="#13env指令">13、env指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#三进阶指令重点">三、进阶指令（重点）</a>
+      <ul>
+        <li><a href="#1df指令">1、df指令</a></li>
+        <li><a href="#2free指令">2、free指令</a></li>
+        <li><a href="#3head指令">3、head指令</a></li>
+        <li><a href="#4tail指令">4、tail指令</a></li>
+        <li><a href="#5less指令">5、less指令</a></li>
+        <li><a href="#6wc指令">6、wc指令</a></li>
+        <li><a href="#7date指令重点">7、date指令（重点）</a></li>
+        <li><a href="#8cal指令">8、cal指令</a></li>
+        <li><a href="#9clearctrl--l指令">9、clear/ctrl + L指令</a></li>
+        <li><a href="#10管道重要">10、管道（重要）</a></li>
+      </ul>
+    </li>
+    <li><a href="#linux的基本指令2">Linux的基本指令（2）</a></li>
+    <li><a href="#一高级指令">一、高级指令</a>
+      <ul>
+        <li><a href="#1hostname指令">1、hostname指令</a></li>
+        <li><a href="#2id指令">2、id指令</a></li>
+        <li><a href="#3whoami指令">3、whoami指令</a></li>
+        <li><a href="#4ps--ef指令重点">4、ps -ef指令（重点）</a></li>
+        <li><a href="#5top指令重点">5、top指令（重点）</a></li>
+        <li><a href="#6du--sh指令">6、du -sh指令</a></li>
+        <li><a href="#7find指令">7、find指令</a></li>
+        <li><a href="#8grep用于文件搜索">8、grep用于文件搜索</a></li>
+        <li><a href="#9service指令重点">9、service指令（重点）</a></li>
+        <li><a href="#10kill指令重点">10、kill指令（重点）</a></li>
+        <li><a href="#11ifconfig指令重点">11、ifconfig指令（重点）</a></li>
+        <li><a href="#12reboot指令">12、reboot指令</a></li>
+        <li><a href="#13shutdown指令">13、shutdown指令</a></li>
+        <li><a href="#14uptime指令">14、uptime指令</a></li>
+        <li><a href="#15uname指令">15、uname指令</a></li>
+        <li><a href="#16netstat--tnlp指令">16、netstat -tnlp指令</a></li>
+        <li><a href="#17man指令">17、man指令</a></li>
+        <li><a href="#18export指令涉及到path">18、export指令（涉及到$PATH）</a></li>
+        <li><a href="#19source">19、source</a></li>
+        <li><a href="#20sed">20、sed</a></li>
+        <li><a href="#21xargs和echo的连用">21、xargs和echo的连用</a></li>
+        <li><a href="#22tee">22、tee</a></li>
+        <li><a href="#23info">23、info</a></li>
+      </ul>
+    </li>
+    <li><a href="#二练习题">二、练习题</a></li>
+    <li><a href="#编辑器之神vim编辑器">编辑器之神——vim编辑器</a></li>
+    <li><a href="#一vi介绍">一、vi介绍</a></li>
+    <li><a href="#二vim三种模式重点">二、vim三种模式（重点）</a></li>
+    <li><a href="#三命令模式">三、命令模式</a>
+      <ul>
+        <li><a href="#1光标移动">1、光标移动</a></li>
+        <li><a href="#2复制操作">2、复制操作</a></li>
+        <li><a href="#3剪切删除">3、剪切/删除</a></li>
+        <li><a href="#4撤销恢复">4、撤销/恢复</a></li>
+        <li><a href="#5扩展1光标的快速移动">5、扩展1：光标的快速移动</a></li>
+        <li><a href="#6多行一起向前或者向后移动">6、多行一起向前或者向后移动</a></li>
+        <li><a href="#7代码补全">7、代码补全</a></li>
+        <li><a href="#8创建文件名中带有或者的文件时需要转义">8、创建文件名中带有”(”或者“)”的文件时，需要转义</a></li>
+        <li><a href="#9没有给定文件名的情况下使用vim">9、没有给定文件名的情况下使用vim</a></li>
+      </ul>
+    </li>
+    <li><a href="#四模式间的切换重点">四、模式间的切换（重点）</a></li>
+    <li><a href="#五末行模式">五、末行模式</a></li>
+    <li><a href="#六编辑模式">六、编辑模式</a></li>
+    <li><a href="#七实用功能">七、实用功能</a>
+      <ul>
+        <li><a href="#1代码着色">1、代码着色</a></li>
+        <li><a href="#2vim中计算器的使用">2、vim中计算器的使用</a></li>
+      </ul>
+    </li>
+    <li><a href="#八扩展3">八、扩展（3）</a>
+      <ul>
+        <li><a href="#1vim的配置重点">1、vim的配置（重点）</a></li>
+        <li><a href="#2异常退出">2、异常退出</a></li>
+        <li><a href="#3别名机制实用">3、别名机制（实用）</a></li>
+        <li><a href="#4退出方式">4、退出方式</a></li>
+      </ul>
+    </li>
+    <li><a href="#九作业">九、作业</a></li>
+    <li><a href="#linux自有服务1">Linux自有服务（1）</a></li>
+    <li><a href="#一运行模式">一、运行模式</a></li>
+    <li><a href="#二用户与用户组管理重点">二、用户与用户组管理（重点）</a>
+      <ul>
+        <li><a href="#1用户管理">1、用户管理</a></li>
+        <li><a href="#2用户组管理">2、用户组管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#三网络设置">三、网络设置</a></li>
+    <li><a href="#四ssh服务重点">四、ssh服务（重点）</a>
+      <ul>
+        <li><a href="#1远程终端">1、远程终端</a></li>
+        <li><a href="#2ssh服务文件传输">2、SSH服务文件传输</a></li>
+      </ul>
+    </li>
+    <li><a href="#五作业">五、作业</a></li>
+    <li><a href="#linux自有服务2">Linux自有服务（2）</a></li>
+    <li><a href="#一设置主机名">一、设置主机名</a></li>
+    <li><a href="#二chkconfig">二、chkconfig</a>
+      <ul>
+        <li><a href="#设置开机自启的文件">设置开机自启的文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#三ntp服务">三、ntp服务</a></li>
+    <li><a href="#chkconfig---listgrep-ntpd">chkconfig &ndash;list|grep ntpd</a></li>
+    <li><a href="#chkconfig---level-35-ntpd-on">chkconfig &ndash;level 35 ntpd on</a></li>
+    <li><a href="#四防火墙服务">四、防火墙服务</a></li>
+    <li><a href="#五rpm管理重点">五、rpm管理（重点）</a></li>
+    <li><a href="#六croncrontab计划任务重点">六、cron/crontab计划任务（重点）</a></li>
+    <li><a href="#linux的权限管理操作">Linux的权限管理操作</a></li>
+    <li><a href="#一权限概述">一、权限概述</a>
+      <ul>
+        <li><a href="#1权限介绍">1、权限介绍</a></li>
+        <li><a href="#2身份介绍">2、身份介绍</a></li>
+        <li><a href="#3linux的权限介绍">3、Linux的权限介绍</a></li>
+      </ul>
+    </li>
+    <li><a href="#二权限设置">二、权限设置</a>
+      <ul>
+        <li><a href="#1字母形式">1、字母形式</a></li>
+        <li><a href="#2数字形式">2、数字形式</a></li>
+        <li><a href="#3注意事项">3、注意事项</a></li>
+      </ul>
+    </li>
+    <li><a href="#三属主与属组设置">三、属主与属组设置</a>
+      <ul>
+        <li><a href="#1chown重点">1、chown（重点）</a></li>
+        <li><a href="#2chgrp了解">2、chgrp（了解）</a></li>
+      </ul>
+    </li>
+    <li><a href="#四扩展1">四、扩展（1）</a></li>
+    <li><a href="#linux的网络基础">Linux的网络基础</a></li>
+    <li><a href="#一网络相关概述">一、网络相关概述</a>
+      <ul>
+        <li><a href="#1网络发展">1、网络发展</a></li>
+        <li><a href="#2ip地址重点记忆">2、ip地址（重点记忆）</a></li>
+        <li><a href="#3网卡">3、网卡</a></li>
+        <li><a href="#4网线">4、网线</a></li>
+        <li><a href="#5交换机">5、交换机</a></li>
+        <li><a href="#6路由器">6、路由器</a></li>
+        <li><a href="#7拓扑结构图扩展">7、拓扑结构图（扩展）</a></li>
+      </ul>
+    </li>
+    <li><a href="#二网络相关命令">二、网络相关命令</a>
+      <ul>
+        <li><a href="#1ping">1、ping</a></li>
+        <li><a href="#2netstat">2、netstat</a></li>
+        <li><a href="#3traceroute">3、traceroute</a></li>
+        <li><a href="#4arp">4、arp</a></li>
+        <li><a href="#5tcpdump了解">5、tcpdump(了解)</a></li>
+      </ul>
+    </li>
+    <li><a href="#三项目上线流程必须掌握">三、项目上线流程（必须掌握）</a>
+      <ul>
+        <li><a href="#1服务器选配购买">1、服务器选配购买</a></li>
+        <li><a href="#2域名购买">2、域名购买</a></li>
+        <li><a href="#3域名备案">3、域名备案</a></li>
+        <li><a href="#4域名解析">4、域名解析</a></li>
+        <li><a href="#5配置生产环境最后1天">5、配置生产环境（最后1天）</a></li>
+        <li><a href="#6上传代码">6、上传代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#shell基础">Shell基础</a></li>
+    <li><a href="#一关于shell">一、关于shell</a>
+      <ul>
+        <li><a href="#1什么是shell">1、什么是shell</a></li>
+        <li><a href="#2shell入门">2、shell入门</a></li>
+      </ul>
+    </li>
+    <li><a href="#二shell进阶重点">二、shell进阶（重点）</a>
+      <ul>
+        <li><a href="#1变量重点">1、变量（重点）</a></li>
+        <li><a href="#2条件判断语句">2、条件判断语句</a></li>
+        <li><a href="#3运算符">3、运算符</a></li>
+        <li><a href="#4shell脚本附带选项重点">4、shell脚本附带选项（重点）</a></li>
+      </ul>
+    </li>
+    <li><a href="#三作业">三、作业</a></li>
+    <li><a href="#mysql基础">MySQL基础</a></li>
+    <li><a href="#一关于数据库">一、关于数据库</a>
+      <ul>
+        <li><a href="#1什么是数据库">1、什么是数据库</a></li>
+        <li><a href="#2mysql简介">2、MySQL简介</a></li>
+        <li><a href="#3常见的其他数据库软件">3、常见的其他数据库软件</a></li>
+      </ul>
+    </li>
+    <li><a href="#二mysql的安装与初始化">二、MySQL的安装与初始化</a>
+      <ul>
+        <li><a href="#1linux下的软件安装方式初步">1、Linux下的软件安装方式（初步）</a></li>
+      </ul>
+    </li>
+    <li><a href="#tar--zxvf-ncurses-61targz">tar -zxvf ncurses-6.1.tar.gz</a></li>
+    <li><a href="#configure---prefixusrlocalncurses">./configure &ndash;prefix=/usr/local/ncurses</a></li>
+    <li><a href="#make">make</a></li>
+    <li><a href="#make-install">make install</a>
+      <ul>
+        <li></li>
+        <li><a href="#2安装mysql重点">2、安装MySQL（重点）</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql_secure_installation">mysql_secure_installation</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#三mysql的基本操作难点">三、MySQL的基本操作（难点）</a>
+      <ul>
+        <li><a href="#1名词介绍">1、名词介绍</a></li>
+        <li><a href="#2库操作重点">2、库操作（重点）</a></li>
+        <li><a href="#3表操作">3、表操作</a></li>
+        <li><a href="#4记录字段操作重点">4、记录/字段操作（重点）</a></li>
+        <li><a href="#5备份与还原重点">5、备份与还原（重点）</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysqldump--uroot--pqhabofhllub9--a--rootsql_201804061609sql">mysqldump -uroot -pqhabOfhlluB9 -A &gt; /root/sql_201804061609.sql</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#四扩展">四、扩展</a>
+      <ul>
+        <li><a href="#1mysql的远程管理工具">1、mysql的远程管理工具</a></li>
+      </ul>
+    </li>
+    <li><a href="#五作业-1">五、作业</a></li>
+    <li><a href="#yum项目上线实战-网站运维">Yum项目上线实战 （网站运维）</a></li>
+    <li><a href="#一编译安装与卸载nginx">一、编译安装与卸载Nginx</a>
+      <ul>
+        <li><a href="#1安装nginx">1、安装nginx</a></li>
+      </ul>
+    </li>
+    <li><a href="#tar--zxvf-nginx-11311targz">tar -zxvf nginx-1.13.11.tar.gz</a></li>
+    <li><a href="#二关于lamp">二、关于LAMP</a></li>
+    <li><a href="#三lamp环境部署">三、LAMP环境部署</a>
+      <ul>
+        <li><a href="#1php与apache的安装">1、PHP与Apache的安装</a></li>
+      </ul>
+    </li>
+    <li><a href="#vim-etchttpdconfhttpdconf">vim /etc/httpd/conf/httpd.conf</a>
+      <ul>
+        <li><a href="#2mysql的安装与初始化">2、MySQL的安装与初始化</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql_secure_installation-1">mysql_secure_installation</a>
+      <ul>
+        <li><a href="#3项目上线">3、项目上线</a></li>
+      </ul>
+    </li>
+    <li><a href="#chmod-777--r-varwwwhtml">chmod 777 -R /var/www/html</a></li>
+    <li><a href="#其他">其他</a>
+      <ul>
+        <li><a href="#linux中的0-6">linux中的0-6</a></li>
+        <li><a href="#图片查看器">图片查看器</a></li>
+        <li><a href="#ulimit取消linux同时打开文件个数限制">ulimit取消linux同时打开文件个数限制</a></li>
+        <li><a href="#权限管理命令umask">权限管理命令：umask</a></li>
+        <li><a href="#其他文件搜索命令">其他文件搜索命令</a></li>
+        <li><a href="#更新文件资料库">更新文件资料库</a></li>
+        <li><a href="#whatis">whatis</a></li>
+        <li><a href="#apropos">apropos</a></li>
+        <li><a href="#help">help</a></li>
+        <li><a href="#tac">tac</a></li>
+        <li><a href="#rmdir">rmdir</a></li>
+        <li><a href="#moreless">more/less</a></li>
+        <li><a href="#文件和文件夹中rwx的意义">文件和文件夹中rwx的意义</a></li>
+        <li><a href="#linux各目录的作用兄弟连版">linux各目录的作用（兄弟连版）</a></li>
+        <li><a href="#分区格式化设备文件名挂载">分区、格式化、设备文件名、挂载</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

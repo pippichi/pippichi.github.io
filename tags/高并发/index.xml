@@ -10,10 +10,10 @@
     <lastBuildDate>Mon, 20 Apr 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>高并发</title>
-      <link>https://pippichi.github.io/posts/high_concurrency/</link>
+      <link>https://pippichi.github.io/blog/high_concurrency/</link>
       <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pippichi.github.io/posts/high_concurrency/</guid>
+      <guid>https://pippichi.github.io/blog/high_concurrency/</guid>
       <description>&lt;p&gt;The article contains the knowledge of high concurrency&amp;hellip;&lt;/p&gt;</description>
     </item>
     
