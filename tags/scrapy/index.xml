@@ -14,7 +14,8 @@
       <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/blog/scrapy/</guid>
-      <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;</description>
+      <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/scrapy&#34;&gt;scrapy&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

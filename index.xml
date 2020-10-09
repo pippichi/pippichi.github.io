@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PDF file on Learning Records</title>
+    <title>PDF/CODE on Learning Records</title>
     <link>https://pippichi.github.io/</link>
-    <description>Recent content in PDF file on Learning Records</description>
+    <description>Recent content in PDF/CODE on Learning Records</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
@@ -60,7 +60,8 @@ Learn more on GitHub.</description>
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/blog/springboot_basic/</guid>
-      <description>&lt;p&gt;The article contains the basic knowledge of spring boot&amp;hellip;&lt;/p&gt;</description>
+      <description>&lt;p&gt;The article contains the basic knowledge of spring boot&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/springboot&#34;&gt;springboot&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -87,7 +88,8 @@ Learn more on GitHub.</description>
       <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/blog/scrapy/</guid>
-      <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;</description>
+      <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/scrapy&#34;&gt;scrapy&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
