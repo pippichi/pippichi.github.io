@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  SpEL &ndash; Learning Records
+
+    </title>
+    
+    <meta content="Spring Boot, SpEL" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the knowledge of SpEL&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="SpEL | Learning Records">
+    <meta name="twitter:description" content="The article contains the knowledge of SpEL&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF file</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">SpEL</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/spring-boot' class="muted-link">
+  <span class="Label Label--gray">Spring Boot</span>
+</a>
+
+<a href='/tags/spel' class="muted-link">
+  <span class="Label Label--gray">SpEL</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-06-28. Published at: 2020-06-28.">
+        
+          Published: 2020-06-28
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the knowledge of SpEL&hellip;</p>
+<h2 id="用法">用法</h2>
+<h3 id="value">@Value</h3>
+<p>一种是在注解@Value中</p>
+<p><img src="/SpEL/c30a3010aa128f3a151361b9f99ac49e.png" alt=""></p>
+<h3 id="bean配置"><!-- raw HTML omitted -->配置</h3>
+<p>一种是XML配置</p>
+<p><img src="/SpEL/65ca6407a496291fba560d0995b8576f.png" alt=""></p>
+<h3 id="expression">Expression</h3>
+<p>一种是在代码块中使用Expression</p>
+<p><img src="/SpEL/b5bd008b1f0aad14ae2d298244f28793.png" alt=""></p>
+<h2 id="表达式语法">表达式语法</h2>
+<h3 id="字面量赋值">字面量赋值</h3>
+<p><img src="/SpEL/c868520db79e236a05994c14829a748f.png" alt=""></p>
+<h3 id="引用bean属性和方法">引用Bean、属性和方法</h3>
+<p><img src="/SpEL/6c1bb224c6ae364909809dd94f7e6c1b.png" alt=""></p>
+<h3 id="运算符">运算符</h3>
+<p><img src="/SpEL/aa02d8a8874956c31291f78bf46187d4.png" alt=""></p>
+<p><img src="/SpEL/262f11f137850b49a30ae98605379fbd.png" alt=""></p>
+<p><img src="/SpEL/ab0545dc83ac6e53cc3a037e3a9a9b26.png" alt=""></p>
+<p><img src="/SpEL/1ddc2492952c0333ded223d1ba3d1061.png" alt=""></p>
+<p><img src="/SpEL/9ea1ab6a4d60a7d2fe80e05814c87f46.png" alt=""></p>
+<p><img src="/SpEL/64b83b94f43db8de0cbd1ae5393d8f58.png" alt=""></p>
+<h3 id="调用静态方法或静态属性">调用静态方法或静态属性</h3>
+<p><img src="/SpEL/0fa198392b9dc252586c291aa62b57b9.png" alt=""></p>
+<h3 id="获取容器内的变量可以使用bean_id来获取有两个特殊的变量可以直接使用">获取容器内的变量，可以使用“#bean_id”来获取。有两个特殊的变量，可以直接使用</h3>
+<h4 id="this">this</h4>
+<p>this使用当前正在计算的上下文</p>
+<h4 id="root">root</h4>
+<p>root引用容器的root对象</p>
+<p><img src="/SpEL/a7fb410e87ae839b58baded7dce02ce1.png" alt=""></p>
+<h3 id="方法调用">方法调用</h3>
+<p><img src="/SpEL/16cf9f98db5c8a707b9e99805fc4a1a8.png" alt=""></p>
+<h3 id="elvis运算符">Elvis运算符</h3>
+<p><img src="/SpEL/fa255e144b0658b6fd13e44269dea8c5.png" alt=""></p>
+<h3 id="安全保证">安全保证</h3>
+<p><img src="/SpEL/ed76c3e9a3c918c2a568dc3ea203f2d1.png" alt=""></p>
+<h3 id="直接使用java代码newinstance-of">直接使用Java代码new/instance of</h3>
+<p><img src="/SpEL/4ca662e6f66e0e1fbbaf7a14d8684a2d.png" alt=""></p>
+<h3 id="集合定义">集合定义</h3>
+<h3 id="spel637686645f402a003ada1356566dc63bpngspel637686645f402a003ada1356566dc63bpng"><a href="/SpEL/637686645f402a003ada1356566dc63b.png">/SpEL/637686645f402a003ada1356566dc63b.png</a></h3>
+<p>集合访问</p>
+<p><img src="/SpEL/39b000e9e020f4d251763f001c10c31a.png" alt=""></p>
+<h3 id="集合修改">集合修改</h3>
+<p><img src="/SpEL/36f5d79b0987fd3e796575561d82dd81.png" alt=""></p>
+<h3 id="集合选择语法listmap选择表达式">集合选择（语法：(list|map).?[选择表达式]）</h3>
+<p><img src="/SpEL/7bc94aa46b246f87db8242f43a81d641.png" alt=""></p>
+<h3 id="listmap投影表达式">(list|map).![投影表达式]</h3>
+<p><img src="/SpEL/9508e0620eba564e6dbcca6af1231d3f.png" alt=""></p>
+<p><img src="/SpEL/6ed03cd82b04eff02ee0cb729ccc0c6c.png" alt=""></p>
+<p><img src="/SpEL/f88859cdafa2b01a1684236a3a25c410.png" alt=""></p>
+<h3 id="bean引用">Bean引用</h3>
+<p><img src="/SpEL/1ee8d059c57220afc5cd5651c305b750.png" alt=""></p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>SpEL</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#用法">用法</a>
+      <ul>
+        <li><a href="#value">@Value</a></li>
+        <li><a href="#bean配置"><!-- raw HTML omitted -->配置</a></li>
+        <li><a href="#expression">Expression</a></li>
+      </ul>
+    </li>
+    <li><a href="#表达式语法">表达式语法</a>
+      <ul>
+        <li><a href="#字面量赋值">字面量赋值</a></li>
+        <li><a href="#引用bean属性和方法">引用Bean、属性和方法</a></li>
+        <li><a href="#运算符">运算符</a></li>
+        <li><a href="#调用静态方法或静态属性">调用静态方法或静态属性</a></li>
+        <li><a href="#获取容器内的变量可以使用bean_id来获取有两个特殊的变量可以直接使用">获取容器内的变量，可以使用“#bean_id”来获取。有两个特殊的变量，可以直接使用</a></li>
+        <li><a href="#方法调用">方法调用</a></li>
+        <li><a href="#elvis运算符">Elvis运算符</a></li>
+        <li><a href="#安全保证">安全保证</a></li>
+        <li><a href="#直接使用java代码newinstance-of">直接使用Java代码new/instance of</a></li>
+        <li><a href="#集合定义">集合定义</a></li>
+        <li><a href="#spel637686645f402a003ada1356566dc63bpngspel637686645f402a003ada1356566dc63bpng"><a href="/SpEL/637686645f402a003ada1356566dc63b.png">/SpEL/637686645f402a003ada1356566dc63b.png</a></a></li>
+        <li><a href="#集合修改">集合修改</a></li>
+        <li><a href="#集合选择语法listmap选择表达式">集合选择（语法：(list|map).?[选择表达式]）</a></li>
+        <li><a href="#listmap投影表达式">(list|map).![投影表达式]</a></li>
+        <li><a href="#bean引用">Bean引用</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

@@ -958,6 +958,14 @@ cat（使得cat打印管道之前的文件中的内容，如果没有xargs修饰
 <p>这里的EOF表示自定义的结束符</p>
 <h3 id="23info">23、info</h3>
 <p>上面第17条的man指令还可以用info指令来替代</p>
+<h3 id="24diff">24、diff</h3>
+<p>可以用于比较两个文件的差异</p>
+<p>diff file1 file2</p>
+<p>参数：</p>
+<p>不加参数的话直接分别显示差异处</p>
+<p>-c  显示两个文件差异处的上下文</p>
+<p>-u  显示两个文件差异处合并后的内容（也就是将两个文件的差异处放在一起显示给用户）</p>
+<p>其他的还有git格式的diff，用起来几乎一样，具体参阅网络资料</p>
 <h2 id="二练习题">二、练习题</h2>
 <p>1、如何通过命令行重启linux操作系统？ #reboot</p>
 <p>2、<strong>如何在命令行中快速删除光标前/后的内容？</strong>  <strong>前：ctrl + u 后：ctrl + k</strong></p>
@@ -3131,6 +3139,7 @@ now?是否重新加载权限表（当我们更改了mysql用户相关的信息�
         <li><a href="#21xargs和echo的连用">21、xargs和echo的连用</a></li>
         <li><a href="#22tee">22、tee</a></li>
         <li><a href="#23info">23、info</a></li>
+        <li><a href="#24diff">24、diff</a></li>
       </ul>
     </li>
     <li><a href="#二练习题">二、练习题</a></li>

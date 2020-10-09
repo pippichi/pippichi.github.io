@@ -45,6 +45,15 @@
     </item>
     
     <item>
+      <title>SpEL</title>
+      <link>https://pippichi.github.io/tags/spel/</link>
+      <pubDate>Sun, 28 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/spel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>MySQL</title>
       <link>https://pippichi.github.io/tags/mysql/</link>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
@@ -77,6 +86,24 @@
       <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Django</title>
+      <link>https://pippichi.github.io/tags/django/</link>
+      <pubDate>Mon, 13 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/django/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Django REST framework</title>
+      <link>https://pippichi.github.io/tags/django-rest-framework/</link>
+      <pubDate>Mon, 13 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/django-rest-framework/</guid>
       <description></description>
     </item>
     

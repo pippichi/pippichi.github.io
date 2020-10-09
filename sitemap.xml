@@ -14,6 +14,7 @@
   
   <url>
     <loc>https://pippichi.github.io/about/</loc>
+    <lastmod>2020-10-09T00:00:00+08:00</lastmod>
   </url>
   
   <url>
@@ -64,6 +65,16 @@
   <url>
     <loc>https://pippichi.github.io/blog/springboot_senior/</loc>
     <lastmod>2020-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/spel/</loc>
+    <lastmod>2020-06-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/blog/spel/</loc>
+    <lastmod>2020-06-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -124,6 +135,21 @@
   <url>
     <loc>https://pippichi.github.io/blog/high_concurrency/</loc>
     <lastmod>2020-04-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/django/</loc>
+    <lastmod>2020-04-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/blog/django_senior/</loc>
+    <lastmod>2020-04-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/django-rest-framework/</loc>
+    <lastmod>2020-04-13T00:00:00+00:00</lastmod>
   </url>
   
   <url>

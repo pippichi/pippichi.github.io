@@ -446,6 +446,95 @@ error，这个就比较严重了，由于没有返回error，下一步程序会�
 <p>这其实是Promise里面的机制，去看看Promise的源码就会比较清楚了。</p>
 <h2 id="取消请求">取消请求</h2>
 <p><img src="/axios/51840b4c1c18bfcc75cdc1343734ecca.png" alt=""></p>
+<p>首先要new一个CancelToken对象</p>
+<p><img src="/axios/3f1462b71704fe5813c0f98106da6702.png" alt=""></p>
+<p>注意如果用axios.get的方式去写的话他的其他属性的写法格式是怎么写的（是在url后面的大括号里面写的），参照上图</p>
+<h3 id="执行器new的内部的函数">执行器（new的内部的函数）</h3>
+<p><img src="/axios/c4febfb001820b62bc3e83a499a42a25.png" alt=""></p>
+<p>注意，对象里面传进去了一个函数，这样的函数也叫做执行器，Promise里面也有类似的函数，也就是在new对象的时候同步执行，注意是同步执行，也就是说她在new的内部会立即执行，也就是说这个函数是个回调函数，而且上图这个函数还传了一个形参，我们来看看这个形参怎么用：</p>
+<p><img src="/axios/e03c18591f9609931961ac474112c875.png" alt=""></p>
+<p>他到外面去调用了，说明这是一个函数类型的形参</p>
+<p><img src="/axios/eaa775ea6221781f7127ca0dc8cbf191.png" alt=""></p>
+<p>注意这个函数类型的形参现在还不能调用，因为一旦调用了，她会立即取消请求，所以我们把它保存起来（上图的全局变量cancel就是用于保存的），在之后再调用</p>
+<p>那么我们在什么时候用呢？</p>
+<p><img src="/axios/8944906eb4b226ef5f6e23060884d6b5.png" alt=""></p>
+<p>应该在按取消按钮的时候用，那么我们就把他写到取消请求的函数里面去，而且考虑到用户可能没有发送请求就直接去按取消按钮了，那么这个时候CancelToken还没有new出来：</p>
+<p><img src="/axios/3a313fd3facf2ef47d322a76dfb613fe.png" alt=""></p>
+<p>也就是没有经历上图这一步</p>
+<p>那在这个时候如果去调用cancel()函数（这个时候cancel为null）显然是会报错的，所以我们做出改进：</p>
+<p><img src="/axios/5a8fb2ff7cf7c861fb6c230fb5d75534.png" alt=""></p>
+<p>先判断cancel是否是一个函数（如果是说明已经发送请求）</p>
+<p>但是还有一个问题，当请求发出后已经结束了或者出了某些问题导致结束，这个时候再去按取消请求按钮是没有意义的，所以我们应该在请求结束以及出错处理块里面将cancel置为null</p>
+<p><img src="/axios/c0c699358e876f658bb92ad90261d0c7.png" alt=""></p>
+<p>结果：</p>
+<p><img src="/axios/71a55b0d74263c66cde0652136955905.png" alt=""></p>
+<p>我们发现当取消请求的时候程序事实上跳到error块里面去处理了，也就是进入了失败的流程</p>
+<p>而且这个error还是一个特别的对象，这里我们输出error</p>
+<p><img src="/axios/e10f9904cb571075130870bb260f3c7c.png" alt=""></p>
+<p><img src="/axios/f7744351f9348c5ca13c9a1be245e50d.png" alt=""></p>
+<p>发现他不是一般的Error对象，而是axios给我们提供的Cancel对象，里面有message属性，但是没有stack属性（那是因为他不是一个Error对象，我们讲Error对象才真正的有message和stack属性）。也就是说我们现在命名的是error，但是他不是一般的Error对象：</p>
+<p><img src="/axios/ca017a321d9d4a06e18a7333d5cde10d.png" alt=""></p>
+<p>那么什么情况下他会是Error对象呢？</p>
+<p>在发送错误请求的时候会是Error对象：</p>
+<p><img src="/axios/f4411a55ae524875a51fdbfd4b2f9b19.png" alt=""></p>
+<p><img src="/axios/3067094aeef0279900a266da287ae22f.png" alt=""></p>
+<p>我们发现返回的是Error对象，而且打印的是stack信息（上图红圈圈部分）</p>
+<h3 id="取消请求比较常用的方式">取消请求比较常用的方式</h3>
+<p>我们在点击一个按钮之后又点击了另一个按钮，但是上一个按钮的事件还没有执行完毕，这个时候我们希望能取消上一个按钮的请求</p>
+<p><img src="/axios/0d50e0a89a5b79a415d33eef4b4eb453.png" alt=""></p>
+<p>只需要在请求的按钮事件最前面写上上述代码即可</p>
+<p>但是这样会有一个小问题：</p>
+<p><img src="/axios/9b07f460ce973b54dd727bee03f0daae.png" alt=""></p>
+<p>我们会发现实际测试的时候有些成功被取消了而有些没有</p>
+<p>我们知道取消请求之后她会进入错误流程，也就是会进入error块，这个时候需要区别这个错误到底是Error类型（普通错误）还是Cancel类型（被取消请求事件触发的错误）</p>
+<h4 id="axiosiscancel">axios.isCancel()</h4>
+<p>用于判断错误类型是否是Cancel类型</p>
+<p><img src="/axios/7226aac787499f56f78ac20c844a8132.png" alt=""></p>
+<p>当我们这样写之后，程序就会对这两种错误区别对待，这个时候就能解决上面那个小问题了</p>
+<p><img src="/axios/ac75e222e038bfb86b6f4817e4de272c.png" alt=""></p>
+<h4 id="error是回调函数异步执行">error是回调函数，异步执行</h4>
+<p>那么为什么区别对待两种错误之后程序就正常了呢？</p>
+<p>那是因为error它是一个异步的回调函数，异步的特点就是会在同步后面执行，现在从头开始走一遍流程：</p>
+<ol>
+<li>
+<p>我发送请求1；</p>
+</li>
+<li>
+<p>我立即发送请求2，要取消请求1；</p>
+</li>
+<li>
+<p>点击请求2按钮后首先触发cancel()函数，跳到了请求1的error回调函数里面，但还没有执行；</p>
+</li>
+<li>
+<p>请求2赋值新的cancel；</p>
+</li>
+<li>
+<p>执行error回调函数将cancel置为null；</p>
+</li>
+<li>
+<p>再次点击请求2或者请求1，由于cancel已经被置空，这个时候不会执行cancel()函数，也就是上面的请求2不会被取消，导致了bug</p>
+</li>
+</ol>
+<p>所以这么一分析它的原因就在cancel=null这句话上，</p>
+<p>所以对于Cancel行为，我们不要将cancel置为空：</p>
+<p><img src="/axios/ada1d43661051469a4b4f1fe7a7cacf3.png" alt=""></p>
+<h4 id="出现error之后继续传递error">出现error之后继续传递error</h4>
+<p>发生错误之后如果我们想要传递这个错误的话则需要在error块最后return
+一个错误Promise或者throw这个error；而如果到这里就结束了那就不用return，一般情况下到这就完了，就不用return了</p>
+<h4 id="拦截器的使用">拦截器的使用</h4>
+<p>我们发现上面的代码极其繁琐，重复度高，其实可以用拦截器来做优化</p>
+<h5 id="添加请求拦截器-1">添加请求拦截器</h5>
+<p><img src="/axios/76374c51f4c29b6262c3ed9f308dd7ec.png" alt=""></p>
+<p>可以把cancelToken这个属性写成拦截器中的config的属性，如上图</p>
+<h5 id="添加响应拦截器-1">添加响应拦截器</h5>
+<p>分析一下，取消请求的错误其实不需要处理，真正需要向下传递的其实是一般的错误，所以我们在响应拦截器中关于Cancel行为的error直接中断就行了</p>
+<p><img src="/axios/de475bb955e340f3ce8b00b463d17914.png" alt=""></p>
+<p>注意上图我们是如何中断Cancel类型的error的，首先判断是否是Cancel，<strong>是的话进去直接通过
+return new
+Promise(()=&gt;{})去中断</strong>（上面我们手写过Promise，如果里面传递了一个空的函数的话就相当于传入了一个空的Promise，该Promise啥都不处理自然就中断了），如果是一般错误就直接return
+Promise.reject(error)</p>
+<p><img src="/axios/417d47ffa215706ffcbbd92d2ef279a8.png" alt=""></p>
+<p>上图是写完拦截器之后的axios请求函数，可以看到是非常简洁的，而且这里的error只处理一般的错误不处理Cancel行为的错误</p>
 <h2 id="技巧">技巧</h2>
 <p>不懂就看GitHub上面的axios文档</p>
   </section>
@@ -510,7 +599,12 @@ error，这个就比较严重了，由于没有返回error，下一步程序会�
         <li><a href="#interceptors拦截器">Interceptors拦截器</a></li>
       </ul>
     </li>
-    <li><a href="#取消请求">取消请求</a></li>
+    <li><a href="#取消请求">取消请求</a>
+      <ul>
+        <li><a href="#执行器new的内部的函数">执行器（new的内部的函数）</a></li>
+        <li><a href="#取消请求比较常用的方式">取消请求比较常用的方式</a></li>
+      </ul>
+    </li>
     <li><a href="#技巧">技巧</a></li>
   </ul>
 </nav></div>

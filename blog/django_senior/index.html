@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Django -senior &ndash; Learning Records
+
+    </title>
+    
+    <meta content="Django, Django REST framework, Python" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the senior knowledge of Django and Django REST framework&amp;hellip;
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="Django -senior | Learning Records">
+    <meta name="twitter:description" content="The article contains the senior knowledge of Django and Django REST framework&hellip;|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF file</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Django -senior</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/django' class="muted-link">
+  <span class="Label Label--gray">Django</span>
+</a>
+
+<a href='/tags/django-rest-framework' class="muted-link">
+  <span class="Label Label--gray">Django REST framework</span>
+</a>
+
+<a href='/tags/python' class="muted-link">
+  <span class="Label Label--gray">Python</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-04-13. Published at: 2020-04-13.">
+        
+          Published: 2020-04-13
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the senior knowledge of Django and Django REST framework&hellip;</p>
+<h2 id="select_related和prefetch_related">Select_related和prefetch_related</h2>
+<p>用于优化SQL查询</p>
+<h3 id="select_related用于处理一对一和多对一">Select_related用于处理一对一和多对一</h3>
+<p><img src="/django_senior/ceee6945736a1c7404ec6635bfaa0a9b.png" alt=""></p>
+<h3 id="prefetch_related用于处理多对多和一对多">Prefetch_related用于处理多对多和一对多</h3>
+<p><img src="/django_senior/ec391a5fefa41590a64e86ed2697f5f8.png" alt=""></p>
+<h4 id="使用none清空之前的prefetch_related">使用none清空之前的prefetch_related</h4>
+<p><img src="/django_senior/e78898e1b8fcb98b51cdeb845749a18a.png" alt=""></p>
+<h3 id="select_related比prefetch_related效率要高">Select_related比prefetch_related效率要高</h3>
+<p>能用select_related就用它</p>
+<h3 id="select_related和prefetch_related可以连用">Select_related和prefetch_related可以连用</h3>
+<p><img src="/django_senior/17230c74ec65847a8bfc4f03b1697865.png" alt=""></p>
+<p>要注意的是只有在prefetch_related之前的select_related有效，在它后面的会被直接无视</p>
+<h3 id="prefetch_related中的prefetch">prefetch_related中的Prefetch</h3>
+<p><img src="/django_senior/35eded3d96749df0d58ebcd97c852c17.png" alt=""></p>
+<p>具体作用还没搞清楚，猜测是级联表的时候给某些表单独先做一些操作，比方说上面就是相当于先给contact_info表按照created_at倒序排列，再进行级联（但是这样好像没什么意义，也有可能是先级联，级联之后的表再按照contact_info的created_at倒序排列）</p>
+<h2 id="values和values_list">Values和values_list</h2>
+<h3 id="values返回字典多个字典用list包裹">Values()返回字典，多个字典用list包裹</h3>
+<p><img src="/django_senior/a6241cbee425b42460f0da3502cd14df.png" alt=""></p>
+<p><img src="/django_senior/525c835985b6610321e346314b880d3d.png" alt=""></p>
+<p>其中可以传参选出特定的字段</p>
+<h3 id="values_list返回元组多个元组用list包裹">Values_list()返回元组，多个元组用list包裹</h3>
+<p>与values()类似，也可以传参</p>
+<p><img src="/django_senior/f115f86aa59bf0e4d8a71168ecd9154b.png" alt=""></p>
+<p>当传参的个数只有一个的时候，可以使用flat=True去掉元组的括号</p>
+<p><img src="/django_senior/82f666fec0d25efca32b5910f32b5ef9.png" alt=""></p>
+<p>但是如果有多个字段，使用flat=True会报错</p>
+<h2 id="values后面接annotate">Values后面接annotate</h2>
+<p><img src="/django_senior/3286501a5ed7f9283682b573fb20973f.png" alt=""></p>
+<p>上图写法表示按照投资者id和开放日id分组，并为每组计算ShareChanges中latest_share的总和</p>
+<h2 id="aggregate">Aggregate</h2>
+<h3 id="sum">Sum</h3>
+<p><img src="/django_senior/2b7f72f8a8baac4e78b8af916b00e3c8.png" alt=""></p>
+<h3 id="total">Total</h3>
+<p>和sum联用</p>
+<p><img src="/django_senior/eee91673d3c7d0767ca627829e0222ea.png" alt=""></p>
+<h3 id="min">Min</h3>
+<p><img src="/django_senior/79b82b7afe4b22ce5b61d17217e5a4ac.png" alt=""></p>
+<h3 id="max">Max</h3>
+<p><img src="/django_senior/79b82b7afe4b22ce5b61d17217e5a4ac.png" alt=""></p>
+<h2 id="filter中的order_by">Filter中的order_by</h2>
+<p><img src="/django_senior/904ff77f53584dc1059ff9fe1beecb7a.png" alt=""></p>
+<h2 id="action注解中的detail">@action注解中的detail</h2>
+<p>Detail为False的话就直接是前缀/方法名</p>
+<p>Detail为True的话会自动变成router登记前缀/{pk}/方法名</p>
+<h2 id="优化序列化器">优化序列化器</h2>
+<p>优化的时候不想要序列化器中的method_field起作用，因为这些方法域会因为可能找不到该字段而进到数据库中查找，这会导致多次调用数据库，导致新能下降</p>
+<p><img src="/django_senior/c1a1ce47e49455245b33c910c4531420.png" alt=""></p>
+<p><strong>那么怎么优化呢？</strong></p>
+<p>我们深入Django源码，发现调用序列化器所有的字段域的时候会有一个叫做self.fields的域，里面有所有即将被序列化的字段，其中包括了序列化器中的类方法域，那么如果想要跳过这些类方法域的序列化，其实只需要删除self.fields中相应的字段即可，我们可以通过传参来实现（<strong>注意这里必须写exclude_fields，到时候下面传参的时候也是写这个字段</strong>）：</p>
+<p><img src="/django_senior/0171aa56b4495ff6d463c7c075e0dd7c.png" alt=""></p>
+<p>再来看看self.fields，其实就是Meta中的fields：</p>
+<p><img src="/django_senior/288dd1227a89e002ebce40dc3a7fb5a8.png" alt=""></p>
+<p>之后在调用序列化器的时候在后面加上参数表明想要删掉的字段：</p>
+<p><img src="/django_senior/cee62340c519040c2ce2b550468c02a2.png" alt=""></p>
+<h2 id="一对多优化">一对多优化</h2>
+<p><a href="https://www.jianshu.com/p/7a0ddbb02ae3">https://www.jianshu.com/p/7a0ddbb02ae3</a></p>
+<h3 id="contenttype">ContentType</h3>
+<p><img src="/django_senior/0eb8c9df6b18ab2b64df2b77942a7596.png" alt=""></p>
+<p><img src="/django_senior/3442b251ffbbb5d363e0ab0ec9dc9bf1.png" alt=""></p>
+<p><img src="/django_senior/a30a007a824b9b6abac23ed15f91d1a1.png" alt=""></p>
+<p><img src="/django_senior/d64d9f3679dc5f9791dabf3843bc405c.png" alt=""></p>
+<h3 id="genericforeignkey">GenericForeignKey</h3>
+<p><img src="/django_senior/6974bc56f40070d9a441f949c09c24f1.png" alt=""></p>
+<p><img src="/django_senior/9da790a78bcaeaf61c9370c7a722d9b3.png" alt=""></p>
+<p><img src="/django_senior/178ed9d284016d07cce40794b76460a5.png" alt=""></p>
+<p><img src="/django_senior/677c6b86a41063f293899c82ae1a5b2d.png" alt=""></p>
+<h3 id="genericrelation">GenericRelation</h3>
+<p><img src="/django_senior/3f258d3c2ecc6631346b3737349d4bf8.png" alt=""></p>
+<p><img src="/django_senior/2e7f4da3fb54e0e64e5249d69c54db99.png" alt=""></p>
+<h3 id="优化使用related_query_name">优化使用（related_query_name）</h3>
+<p><img src="/django_senior/af1dffb3ed6755f130eedfbe52f43d15.png" alt=""></p>
+<p><img src="/django_senior/017d0a4db6c0dcad2ee0b63f3cdbeb50.png" alt=""></p>
+<p><img src="/django_senior/ebd58db062a17bcc504120a39b1b5b59.png" alt=""></p>
+<h2 id="系统自带的user">系统自带的user</h2>
+<p><img src="/django_senior/83d2ed94d10ece549784f268876a17d8.png" alt=""></p>
+<p>上图使用的django.contrib.auth.settings.AUTH_USER_MODEL是系统自带的user</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Django -senior</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#select_related和prefetch_related">Select_related和prefetch_related</a>
+      <ul>
+        <li><a href="#select_related用于处理一对一和多对一">Select_related用于处理一对一和多对一</a></li>
+        <li><a href="#prefetch_related用于处理多对多和一对多">Prefetch_related用于处理多对多和一对多</a></li>
+        <li><a href="#select_related比prefetch_related效率要高">Select_related比prefetch_related效率要高</a></li>
+        <li><a href="#select_related和prefetch_related可以连用">Select_related和prefetch_related可以连用</a></li>
+        <li><a href="#prefetch_related中的prefetch">prefetch_related中的Prefetch</a></li>
+      </ul>
+    </li>
+    <li><a href="#values和values_list">Values和values_list</a>
+      <ul>
+        <li><a href="#values返回字典多个字典用list包裹">Values()返回字典，多个字典用list包裹</a></li>
+        <li><a href="#values_list返回元组多个元组用list包裹">Values_list()返回元组，多个元组用list包裹</a></li>
+      </ul>
+    </li>
+    <li><a href="#values后面接annotate">Values后面接annotate</a></li>
+    <li><a href="#aggregate">Aggregate</a>
+      <ul>
+        <li><a href="#sum">Sum</a></li>
+        <li><a href="#total">Total</a></li>
+        <li><a href="#min">Min</a></li>
+        <li><a href="#max">Max</a></li>
+      </ul>
+    </li>
+    <li><a href="#filter中的order_by">Filter中的order_by</a></li>
+    <li><a href="#action注解中的detail">@action注解中的detail</a></li>
+    <li><a href="#优化序列化器">优化序列化器</a></li>
+    <li><a href="#一对多优化">一对多优化</a>
+      <ul>
+        <li><a href="#contenttype">ContentType</a></li>
+        <li><a href="#genericforeignkey">GenericForeignKey</a></li>
+        <li><a href="#genericrelation">GenericRelation</a></li>
+        <li><a href="#优化使用related_query_name">优化使用（related_query_name）</a></li>
+      </ul>
+    </li>
+    <li><a href="#系统自带的user">系统自带的user</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>
