@@ -18,15 +18,6 @@
     </item>
     
     <item>
-      <title>SpEL</title>
-      <link>https://pippichi.github.io/blog/spel/</link>
-      <pubDate>Sun, 28 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pippichi.github.io/blog/spel/</guid>
-      <description>&lt;p&gt;The article contains the knowledge of SpEL&amp;hellip;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>Spring Boot -basic</title>
       <link>https://pippichi.github.io/blog/springboot_basic/</link>
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
@@ -34,6 +25,15 @@
       <guid>https://pippichi.github.io/blog/springboot_basic/</guid>
       <description>&lt;p&gt;The article contains the basic knowledge of spring boot&amp;hellip;&lt;/p&gt;
 &lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/springboot&#34;&gt;springboot&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SpEL</title>
+      <link>https://pippichi.github.io/blog/spel/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/spel/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of SpEL&amp;hellip;&lt;/p&gt;</description>
     </item>
     
   </channel>

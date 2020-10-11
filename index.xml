@@ -46,15 +46,6 @@ Learn more on GitHub.</description>
     </item>
     
     <item>
-      <title>SpEL</title>
-      <link>https://pippichi.github.io/blog/spel/</link>
-      <pubDate>Sun, 28 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pippichi.github.io/blog/spel/</guid>
-      <description>&lt;p&gt;The article contains the knowledge of SpEL&amp;hellip;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>Spring Boot -basic</title>
       <link>https://pippichi.github.io/blog/springboot_basic/</link>
       <pubDate>Mon, 01 Jun 2020 00:00:00 +0000</pubDate>
@@ -83,13 +74,13 @@ Learn more on GitHub.</description>
     </item>
     
     <item>
-      <title>Scrapy</title>
-      <link>https://pippichi.github.io/blog/scrapy/</link>
-      <pubDate>Sat, 02 May 2020 00:00:00 +0000</pubDate>
+      <title>Spring -basic</title>
+      <link>https://pippichi.github.io/blog/spring/</link>
+      <pubDate>Wed, 20 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pippichi.github.io/blog/scrapy/</guid>
-      <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;
-&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/scrapy&#34;&gt;scrapy&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+      <guid>https://pippichi.github.io/blog/spring/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of Spring&amp;hellip;&lt;/p&gt;
+&lt;p&gt;注意：该总结不包括Spring三剑客三本书中的内容，三剑客的总结都写在书上。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -116,7 +107,8 @@ Learn more on GitHub.</description>
       <pubDate>Mon, 13 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/blog/django_senior/</guid>
-      <description>&lt;p&gt;The article contains the senior knowledge of Django and Django REST framework&amp;hellip;&lt;/p&gt;</description>
+      <description>&lt;p&gt;The article contains the senior knowledge of Django and Django REST framework&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/django&#34;&gt;django&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -126,6 +118,15 @@ Learn more on GitHub.</description>
       
       <guid>https://pippichi.github.io/blog/pillow/</guid>
       <description>&lt;p&gt;The article contains the knowledge of pillow&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SpEL</title>
+      <link>https://pippichi.github.io/blog/spel/</link>
+      <pubDate>Sun, 05 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/spel/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of SpEL&amp;hellip;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -252,6 +253,16 @@ Learn more on GitHub.</description>
       
       <guid>https://pippichi.github.io/blog/feature_engineering/</guid>
       <description>&lt;p&gt;The article contains the knowledge of feature engineering&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Scrapy</title>
+      <link>https://pippichi.github.io/blog/scrapy/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/scrapy/</guid>
+      <description>&lt;p&gt;The article contains the knowledge of Scrapy&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/scrapy&#34;&gt;scrapy&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>

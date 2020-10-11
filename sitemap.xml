@@ -58,6 +58,11 @@
   </url>
   
   <url>
+    <loc>https://pippichi.github.io/tags/spring/</loc>
+    <lastmod>2020-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pippichi.github.io/tags/spring-boot/</loc>
     <lastmod>2020-07-01T00:00:00+00:00</lastmod>
   </url>
@@ -65,16 +70,6 @@
   <url>
     <loc>https://pippichi.github.io/blog/springboot_senior/</loc>
     <lastmod>2020-07-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pippichi.github.io/tags/spel/</loc>
-    <lastmod>2020-06-28T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pippichi.github.io/blog/spel/</loc>
-    <lastmod>2020-06-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -108,18 +103,8 @@
   </url>
   
   <url>
-    <loc>https://pippichi.github.io/tags/python/</loc>
-    <lastmod>2020-05-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pippichi.github.io/tags/scrapy/</loc>
-    <lastmod>2020-05-02T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pippichi.github.io/blog/scrapy/</loc>
-    <lastmod>2020-05-02T00:00:00+00:00</lastmod>
+    <loc>https://pippichi.github.io/blog/spring/</loc>
+    <lastmod>2020-05-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -153,6 +138,11 @@
   </url>
   
   <url>
+    <loc>https://pippichi.github.io/tags/python/</loc>
+    <lastmod>2020-04-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pippichi.github.io/tags/pillow/</loc>
     <lastmod>2020-04-10T00:00:00+00:00</lastmod>
   </url>
@@ -160,6 +150,16 @@
   <url>
     <loc>https://pippichi.github.io/blog/pillow/</loc>
     <lastmod>2020-04-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/spel/</loc>
+    <lastmod>2020-04-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/blog/spel/</loc>
+    <lastmod>2020-04-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -280,6 +280,16 @@
   <url>
     <loc>https://pippichi.github.io/blog/feature_engineering/</loc>
     <lastmod>2019-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/scrapy/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/blog/scrapy/</loc>
+    <lastmod>2019-02-01T00:00:00+00:00</lastmod>
   </url>
   
 </urlset>

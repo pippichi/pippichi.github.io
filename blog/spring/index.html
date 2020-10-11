@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Spring -basic &ndash; Learning Records
+
+    </title>
+    
+    <meta content="Spring" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the basic knowledge of Spring&amp;hellip;
+注意：该总结不包括Spring三剑客三本书中的内容，三剑客的总结都写在书上。
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="Spring -basic | Learning Records">
+    <meta name="twitter:description" content="The article contains the basic knowledge of Spring&hellip;
+注意：该总结不包括Spring三剑客三本书中的内容，三剑客的总结都写在书上。|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Spring -basic</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/basic' class="muted-link">
+  <span class="Label Label--gray-darker">Basic</span>
+</a>
+
+
+
+<a href='/tags/spring' class="muted-link">
+  <span class="Label Label--gray">Spring</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-05-20. Published at: 2020-05-20.">
+        
+          Published: 2020-05-20
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the basic knowledge of Spring&hellip;</p>
+<p>注意：该总结不包括Spring三剑客三本书中的内容，三剑客的总结都写在书上。</p>
+<h2 id="sping">Sping</h2>
+<p>下载spring：</p>
+<p><img src="/spring/5ea4b88cd7128e67b7af71a8d88d909e.png" alt=""></p>
+<p><img src="/spring/d99141dfd3276dd667717d71547bd488.png" alt=""></p>
+<p><img src="/spring/dd65e6acb5ea469a2a7837a2727f1db7.png" alt=""></p>
+<p><img src="/spring/f78c843f58af28061c3227ba389c9097.png" alt=""></p>
+<p><img src="/spring/b55fd41ecacaedc68bea86a735f25110.png" alt=""></p>
+<p>复制地址之后拼上前缀打开网址：</p>
+<p><img src="/spring/079165f4530cfcfab9bbaa004bdf0082.png" alt=""></p>
+<h2 id="spring5_demo1">spring5_demo1</h2>
+<p><img src="/spring/281781b3d3e000a6d2be40834ed6af41.png" alt=""></p>
+<p>最基础的几个包就是上图的Core Container</p>
+<p><img src="/spring/39a995e9b4dc3ae2fd7d69aeae68b7dd.png" alt=""></p>
+<p>之后在IDEA里面建立最基础的Java项目，根目录里面建立lib文件，将上述的几个包复制过来，然后导入：</p>
+<p><img src="/spring/382016497fadd994ce08f1612e631199.png" alt=""></p>
+<p><img src="/spring/04f274b3b0a6790b701b9b8e7ba69a2c.png" alt=""></p>
+<p>搭建完基础设施之后装配bean并测试：</p>
+<p><img src="/spring/686ad5e363eb0b1df627d13c62e37af7.png" alt=""></p>
+<h2 id="ioc概念与原理">IOC概念与原理</h2>
+<p><img src="/spring/89c80891a851c2a9b6475f931bf33896.png" alt=""></p>
+<p><img src="/spring/07bb67b99e70943f04c49a648f294cec.png" alt=""></p>
+<h2 id="ioc演变">IOC演变</h2>
+<h3 id="原始方式牵一发动全身">原始方式（牵一发动全身）</h3>
+<p><img src="/spring/55dfe53b8099dd80d1416084f240198c.png" alt=""></p>
+<h3 id="工厂模式目的虽然耦合度不可能没有但尽量给他降到最低">工厂模式（目的：虽然耦合度不可能没有，但尽量给他降到最低）</h3>
+<p><img src="/spring/ff957794e0311aef07e98d17c7ae6e2c.png" alt=""></p>
+<h3 id="经过上面两个模式之后演变而来的ioc">经过上面两个模式之后演变而来的IOC</h3>
+<p><img src="/spring/a1d7fb66f11f6e94ab3c45aa8f3fe114.png" alt=""></p>
+<p><img src="/spring/664a3cda889e672c15765eaba8629127.png" alt=""></p>
+<h2 id="ioc接口">IOC接口</h2>
+<p><img src="/spring/b4a91b9a0cbaa1aba652ab3ace45eec9.png" alt=""></p>
+<h2 id="ioc操作bean管理">IOC操作Bean管理</h2>
+<p><img src="/spring/363d6eb6d09d51be5ec751ddfb9c6b86.png" alt=""></p>
+<p><img src="/spring/83a1c994aec232cddf0d9fd707ad3084.png" alt=""></p>
+<h3 id="xml的null标签用于设置属性为null">xml的null标签（用于设置属性为null）</h3>
+<p><img src="/spring/ade79add8dee88ce464e58fe7265f707.png" alt=""></p>
+<h3 id="xml属性值包含特殊符号">xml属性值包含特殊符号</h3>
+<p><img src="/spring/09ecf3aed1b1c198aaef15431658fb01.png" alt=""></p>
+<h3 id="xml配置文件注入">xml配置文件注入</h3>
+<p><img src="/spring/1dcd3fc6d4d23bb840c0aab02f97ed8e.png" alt=""></p>
+<h3 id="内部bean">内部bean</h3>
+<p><img src="/spring/9b11b1d4e47f1856d1bbbb39dac9f6bb.png" alt=""></p>
+<h3 id="级联赋值">级联赋值</h3>
+<p>方式一：</p>
+<p><img src="/spring/95cc75e37a7f613487f5a1a6e81a9139.png" alt=""></p>
+<p>方式二：</p>
+<p><img src="/spring/ebe093a5759d0fe12ddb00c5d232a906.png" alt=""></p>
+<p>注意，这种方式要给dept加get方法</p>
+<h3 id="注入list集合类型值是对象">注入list集合类型，值是对象</h3>
+<p><img src="/spring/2490d3359b267e23502fdc4998334e29.png" alt=""></p>
+<p><img src="/spring/ba8e2491b9032b9f893412a598e0160e.png" alt=""></p>
+<h3 id="提取list集合类型属性注入使用">提取list集合类型属性注入使用</h3>
+<p><img src="/spring/09af2702aaa9a223fb4b39acec950abb.png" alt=""></p>
+<p><img src="/spring/33573cecfda5898a55568e5c4083b8fa.png" alt=""></p>
+<h2 id="工厂beanfactorybean">工厂Bean（FactoryBean）</h2>
+<p><img src="/spring/9ddbfe99e57e558caa66c2559f573140.png" alt=""></p>
+<p><img src="/spring/7d233f2d4fdc548c11b63590a39ab801.png" alt=""></p>
+<p><img src="/spring/21baf96428bcc9a59cb4f2eaa170307a.png" alt=""></p>
+<p>这里有三个方法，第一个返回bean的实例（注意，这里原本类型是Object，我们将他改为了Course），第二个返回bean的类型，第三个表示bean是否是单例。</p>
+<p>这跟普通的Bean不一样，普通的配置什么就返回什么，工厂Bean可以返回跟配置的Bean的类型完全不一样的Bean，只需要继承FactoryBean并指定泛型、实现方法即可，如上图</p>
+<p>现在就不能把类型写成MyBean了：</p>
+<p><img src="/spring/a7eaf6ba72a69ef3dab994fc8d8be2a4.png" alt=""></p>
+<p>而应该写成Course：</p>
+<p><img src="/spring/aaf890c7fa8bc7dd10ef176297e3b7b8.png" alt=""></p>
+<h2 id="bean的生命周期">bean的生命周期</h2>
+<p><img src="/spring/8ef66774039772b7e8555ddde79f561e.png" alt=""></p>
+<p>把任意实现的初始化和销毁方法注册到xml的bean中，用于演示bean的初始化和销毁的过程：</p>
+<p><img src="/spring/8345ac71687c16ca26a6936e8e4ef4db.png" alt=""></p>
+<p>销毁的时候使用ClassPathXmlApplicationContext的close()方法即可</p>
+<h3 id="后置处理器beanpostprocessor">后置处理器（BeanPostProcessor）</h3>
+<p>其实bean的生命周期有7步，还有两步在上面的5步生命周期中的第三步的前面和后面</p>
+<p><img src="/spring/c92e3ee6e7ddbc182f8b98661b127a73.png" alt=""></p>
+<p>实现接口BeanPostProcessor的方法即可</p>
+<p>最后拿到完整的bean生命周期的过程：</p>
+<p><img src="/spring/bf2e4b73da3a75071c7fe864cac1f218.png" alt=""></p>
+<h2 id="xml中的autowire">xml中的autowire</h2>
+<p><img src="/spring/191b69b8ab856bcff526a6174569b973.png" alt=""></p>
+<h3 id="byname">byName</h3>
+<p>根据id值（属性名称）自动注入</p>
+<p><img src="/spring/3cfc6de5456a0c7a4c8cc1f056ba04d4.png" alt=""></p>
+<h3 id="bytype">byType</h3>
+<p>根据类型值自动注入，注意这个时候不能注册多个同类型的bean，会报错</p>
+<p><img src="/spring/37e4d558737754978cd3da90669464e1.png" alt=""></p>
+<h2 id="ioc操作bean管理外部属性文件">IOC操作Bean管理（外部属性文件）</h2>
+<p><img src="/spring/1854699467bbc6322ad203dc2bc2c9d5.png" alt=""></p>
+<p><img src="/spring/9da2ee5a3e6595409449de9e7d8915d6.png" alt=""></p>
+<p><img src="/spring/32caa716f59902688cb35be169a40e42.png" alt=""></p>
+<p>引入context空间</p>
+<p><img src="/spring/568ff261e9be0313493f9f3632785e16.png" alt=""></p>
+<p>创建配置文件</p>
+<p><img src="/spring/44805aadce3ca174eb670d454de13b6e.png" alt=""></p>
+<p>引入外部配置文件</p>
+<p><img src="/spring/e904b45551d6e4ec6c54a03181b13288.png" alt=""></p>
+<h2 id="注解">注解</h2>
+<p><img src="/spring/8de8e6cde14f8ba1ec54a11a4653a820.png" alt=""></p>
+<h3 id="引入aop依赖并开启组件扫描">引入aop依赖并开启组件扫描</h3>
+<p><img src="/spring/1a1a46bee1fdfb96ecd99c1a8309f84b.png" alt=""></p>
+<p><img src="/spring/fafb7e0dfeb546d307136266cef8fa9e.png" alt=""></p>
+<p>多个包用逗号隔开，也可以写这些包的上层</p>
+<p><img src="/spring/7a85f2e237112bb753c2d0c4774badba.png" alt=""></p>
+<h4 id="自定义组件扫描规则">自定义组件扫描规则</h4>
+<p><img src="/spring/4cb70c418939fc5afff5648911c0b1dd.png" alt=""></p>
+<p>首先use_default_filters设置为false表示不让他自动扫描全局，而是通过我们设置的规则取扫描</p>
+<p>之后配置include-filter，其中type是annotation，表示扫描所有带有Controller注解的组件</p>
+<p><img src="/spring/6ca06ab7457987412b00900b3a3f1245.png" alt=""></p>
+<p>当然还有exclude-filter，表示不扫描哪些组件</p>
+<h3 id="最后创建类并在类上面创建对象注解">最后创建类并在类上面创建对象注解</h3>
+<p><img src="/spring/c5bcfbf84c318a1565e7ac9868ec636a.png" alt=""></p>
+<p>这四个都可以</p>
+<h3 id="基于注解方式实现属性注入">基于注解方式实现属性注入</h3>
+<p><img src="/spring/bc357f581312019bc7b2cd2ca95ea7d1.png" alt=""></p>
+<p>主要讲一下@Resource</p>
+<p>@Autowired是根据类型注入，@Qualifier是根据名称注入，而@Resource既可以根据类型注入也可以根据名称注入</p>
+<p><img src="/spring/2d1a455af4cc87437bff90eb704b4def.png" alt=""></p>
+<h2 id="抛弃xml使用全注解">抛弃xml，使用全注解</h2>
+<h3 id="configuration与componentscan">@Configuration与@ComponentScan</h3>
+<p>创建配置类，替代配置文件</p>
+<p><img src="/spring/2db049d79bda96f6cfe24fdf222f876d.png" alt=""></p>
+<h3 id="annotationconfigapplication">AnnotationConfigApplication</h3>
+<p>原先我们是获取xml文件，现在获取配置类</p>
+<p><img src="/spring/8e20b259ce346c88ca84c4230e7a2fba.png" alt=""></p>
+<p>之后通过context获取bean</p>
+<p><img src="/spring/6b51d9a205cde2fb955330a67fc04a49.png" alt=""></p>
+<h2 id="aop底层原理">AOP底层原理</h2>
+<p>底层使用的是动态代理，分两种情况：1、有接口；2、无接口</p>
+<h3 id="有接口情况下使用jdk动态代理">有接口情况下使用JDK动态代理</h3>
+<p><img src="/spring/12ceb1a45a3b281cc5ab6f1ad1467540.png" alt=""></p>
+<p>通过接口UserDao来创建代理对象，通过代理对象增强方法</p>
+<h4 id="使用proxy类中的方法创建代理对象">使用Proxy类中的方法创建代理对象</h4>
+<p><img src="/spring/62a2d56f4d3e4cfc2b7b40a5a6a9737b.png" alt=""></p>
+<p><img src="/spring/24513bab85ea160d327f9c6ee46fd663.png" alt=""></p>
+<p><img src="/spring/00b88a70d348acfe939b853b5b795311.png" alt=""></p>
+<p>实现Proxy代理，可以像下图这样写一个内部的InvocationHandler类，并在内部实现他</p>
+<p><img src="/spring/f7e0c0f568787f3a901b4509dac40036.png" alt=""></p>
+<p>也可以像下图这样先创建该类，再写回</p>
+<p><img src="/spring/e776fafb478bab2426fe3445585e5d2a.png" alt=""></p>
+<p>现在我们来仔细看看如何实现这个类</p>
+<p><img src="/spring/d0fc125c58073504125d488419640bbe.png" alt=""></p>
+<p>首先注入我们希望做功能扩展的类，为了更加通用直接写Object</p>
+<p>完了之后写里面的增强逻辑：</p>
+<p><img src="/spring/d92c20d44e8b3e6eee4cba84eba1eb63.png" alt=""></p>
+<p>最后写回newInstance方法并返回一个代理：</p>
+<p><img src="/spring/0ef2a9c1dc87053bf33c7283f4726e66.png" alt=""></p>
+<p>现在我们像上图那样调用add方法就会有增强效果了</p>
+<h3 id="无接口情况下使用cglib动态代理">无接口情况下使用CGLIB动态代理</h3>
+<p><img src="/spring/35a67e056ec143909b788ae7c993630e.png" alt=""></p>
+<p>没有接口的情况下，一般情况下我们可以像上面绿色的代码块一样创建一个子类来扩展方法，但事实上我们用的是动态代理，如上图右侧黑色代码块，由于没有接口，因此创建的是User类的代理对象（该代理对象也是User的子类，能完成绿色代码块的类似的功能，但是他不是new出来的）</p>
+<h2 id="aop术语">AOP术语</h2>
+<p><img src="/spring/4e66b3b0a4e7e6c71726325c319c76ac.png" alt=""></p>
+<h2 id="aop准备工作">AOP准备工作</h2>
+<h3 id="aop依赖包">AOP依赖包</h3>
+<p><img src="/spring/458551b82096d232c8d263d89aa9c5ef.png" alt=""></p>
+<h3 id="aop切入点表达式">AOP切入点表达式</h3>
+<p><img src="/spring/ef3f8517aba736663884dc13386df84a.png" alt=""></p>
+<p><img src="/spring/90479c959c78ecded3164ced4695158b.png" alt=""></p>
+<h3 id="开启aspect生成代理对象">开启Aspect生成代理对象</h3>
+<p><img src="/spring/78b6a257d4d51cf111d8c50f4eed6124.png" alt=""></p>
+<h2 id="aop中当有多个增强类的时候的增强顺序">AOP中当有多个增强类的时候的增强顺序</h2>
+<h3 id="order">@Order()</h3>
+<p><img src="/spring/231ee568ff6cced4d3d48e0ecd55708f.png" alt=""></p>
+<p><img src="/spring/d94ea79b52a5ca38ab62d1f4b04dd181.png" alt=""></p>
+<h2 id="基于xml的aop">基于XML的AOP</h2>
+<p><img src="/spring/440d25c02e4ac9f939bc3fd7c2ed1ba2.png" alt=""></p>
+<p><img src="/spring/e64c46a52eaa425d889c8401cd9ef672.png" alt=""></p>
+<p><img src="/spring/b651eb37ddbe58a3140467bf36bcd521.png" alt=""></p>
+<p><img src="/spring/4b92806a57cbd753fc990820eac4c499.png" alt=""></p>
+<p><img src="/spring/832c9f3a0e186d3fed7c565751b23101.png" alt=""></p>
+<h2 id="使用配置类全注解开发">使用配置类全注解开发</h2>
+<h3 id="enableaspectjautoproxyproxytargetclass--true">@EnableAspectJAutoProxy(proxyTargetClass = true)</h3>
+<p>上面讲到使用xml开启Aspect生成代理对象：</p>
+<p><img src="/spring/e7cc5610019e9c94fd3db7eb935b1d1b.png" alt=""></p>
+<p>现在可以用@EnableAspectJAutoProxy(proxyTargetClass = true)：</p>
+<p><img src="/spring/cf4ca15b8cafa1f59de4cdb1de438e54.png" alt=""></p>
+<h2 id="jdbc">JDBC</h2>
+<h3 id="添加依赖">添加依赖</h3>
+<p><img src="/spring/353ebe559662280d96f93c07a0105737.png" alt=""></p>
+<p><img src="/spring/ad4741b43778099ff28268ff4defeae9.png" alt=""></p>
+<p>（tx是针对事务操作的依赖包）</p>
+<h3 id="配置数据库连接池并注入jdbctemplate">配置数据库连接池并注入jdbcTemplate</h3>
+<p><img src="/spring/27ac72b794927ee214a0540cd925eef5.png" alt=""></p>
+<p><img src="/spring/8088707d64dcc361f325a386e1f88c60.png" alt=""></p>
+<p>之后在配置文件开启组件扫描之后即可创建Service层和Dao层（可以用@Service和@Repository注解进行注释）</p>
+<h3 id="rowmapper">RowMapper</h3>
+<p>使用这个接口里面的实现类完成数据的封装（集合、类等等都可以用这个），当然我们也可以自己实现这个接口</p>
+<h4 id="beanpropertyrowmapper">BeanPropertyRowMapper&lt;&gt;()</h4>
+<p>这是Spring提供的RowMapper的一个实现</p>
+<p><img src="/spring/e77a03c98360d83e5faf237cf88e552f.png" alt=""></p>
+<p><img src="/spring/47afab8a023860f96808a7d541ff21e3.png" alt=""></p>
+<h3 id="batchupdate批量处理数据">batchUpdate批量处理数据</h3>
+<p><img src="/spring/72883ca7fd4c1cf6ae57cf1b57912785.png" alt=""></p>
+<p>底层实现事实上就是一个遍历导入数据</p>
+<p><img src="/spring/bd3853b39e7d7bced4f599d0c27b56f6.png" alt=""></p>
+<p><img src="/spring/0c59079ac6785d908e4331ba59096b3e.png" alt=""></p>
+<h2 id="事务">事务</h2>
+<p><img src="/spring/3c4b14f745a4438cb172c2be7b7cc811.png" alt=""></p>
+<h3 id="编程式事务管理不建议">编程式事务管理（不建议）</h3>
+<p><img src="/spring/4634eda0c65a8db929182840b76554a2.png" alt=""></p>
+<h3 id="声明式事务管理">声明式事务管理</h3>
+<p><img src="/spring/a582a0f93da31234ee5b020471362431.png" alt=""></p>
+<p><img src="/spring/b7f8d6a7a164dbace29be12d7175a46c.png" alt=""></p>
+<h4 id="创建事务管理器">创建事务管理器</h4>
+<p><img src="/spring/83d0fd1f0b189453463f37e40ab14267.png" alt=""></p>
+<p>引入tx名称空间</p>
+<p><img src="/spring/77720181e3f090b0e232bcf8f150441c.png" alt=""></p>
+<p>开启事务注解</p>
+<p><img src="/spring/00c6c4de3b6c77ab2df01175efc0505d.png" alt=""></p>
+<h4 id="transactional">@Transactional</h4>
+<p><img src="/spring/64080d728f7fda8e5fb1368e8fec0ef6.png" alt=""></p>
+<p>在Service类上面（或者Service类里面的方法上面）添加事务注解@Transactional</p>
+<p>注意，这个注解可以加在类上面也可以加在方法上面</p>
+<h3 id="事务操作声明式事务管理参数配置">事务操作（声明式事务管理参数配置）</h3>
+<p><img src="/spring/40b628c6eb6b445badc8bb29be010b8c.png" alt=""></p>
+<h4 id="propagation">propagation</h4>
+<p>事务传播行为</p>
+<p><img src="/spring/809a19b406a72b00752489996bb76d37.png" alt=""></p>
+<p>比方说上图，一个方法标注了@Transactional另一个没有标注，那在使用add()方法的时候事务该如何处理。这个就叫事务的传播行为</p>
+<h5 id="7种行为">7种行为</h5>
+<p><img src="/spring/5d6b28fe087ef89f6ef09537f00587ae.png" alt=""></p>
+<h6 id="required">REQUIRED</h6>
+<p><img src="/spring/6497b1cf4426a0560a96626a5e12defd.png" alt=""></p>
+<h6 id="required_newbr">REQUIRED_NEW<!-- raw HTML omitted --></h6>
+<p><img src="/spring/b567ec9ba77fbbc32c6a3bf880d87f1b.png" alt=""></p>
+<h5 id="配置方法">配置方法</h5>
+<p><img src="/spring/743511e4270ad48fba3125bc77b54ab0.png" alt=""></p>
+<p>Spring默认用的就是REQUIRED</p>
+<h4 id="isolation">isolation</h4>
+<p>事务隔离级别</p>
+<p><img src="/spring/8d1f55c1a7691c9911041536520e0239.png" alt=""></p>
+<h5 id="4个隔离级别">4个隔离级别</h5>
+<p><img src="/spring/798de134723b37b8f6ce062de8750706.png" alt=""></p>
+<h5 id="配置方法-1">配置方法</h5>
+<p><img src="/spring/1227ea364fa725f8b34a5048b1c6ca82.png" alt=""></p>
+<h4 id="timeout">timeout</h4>
+<p>超时时间</p>
+<p><img src="/spring/edf8601eb17ceb2c76a2731628fbf2bc.png" alt=""></p>
+<h5 id="设置方法">设置方法</h5>
+<p><img src="/spring/5c6254a32c5db70f63dfed2a3b702cbb.png" alt=""></p>
+<p>默认是-1，表示没有时间限制</p>
+<h4 id="readonly">readOnly</h4>
+<p>是否只读</p>
+<p><img src="/spring/afec0d1362fada498071ab073df94b47.png" alt=""></p>
+<h5 id="配置方法-2">配置方法</h5>
+<p><img src="/spring/e42c79994f11664d852ca75123dea893.png" alt=""></p>
+<h4 id="rollbackfor">rollbackFor</h4>
+<p>回滚</p>
+<p><img src="/spring/6e4be479b0fce64bb51772cc88a0d34e.png" alt=""></p>
+<p>该属性后面写异常的class，这些class的异常会进行回滚</p>
+<h4 id="norollbackfor">noRollbackFor</h4>
+<p>不回滚</p>
+<p><img src="/spring/d7c98c6f55d095de82e9bdc7ced6eb38.png" alt=""></p>
+<p>该属性后面写异常的class，这些class的异常不会进行回滚</p>
+<h3 id="事务操作xml">事务操作（XML）</h3>
+<p><img src="/spring/c4aad3c31e80992c566f37db6ad2ca4d.png" alt=""></p>
+<p>由于是xml配置的，因此开启事务注解这句话就不需要了：</p>
+<p><img src="/spring/3c82967bee980a53cf0f4dea052d11be.png" alt=""></p>
+<h4 id="配置通知">配置通知</h4>
+<p><img src="/spring/bf461629ed1809cc702fbfbbbc1b35be.png" alt=""></p>
+<p>注意，这里的method的name可以指定全名，比方说上面的accountMoney，也可以让spring帮忙匹配，比方说上面注释掉的那一行中的account*</p>
+<h4 id="配置切入点和切面">配置切入点和切面</h4>
+<p><img src="/spring/67177277e54574855c2e5d69722d5ffc.png" alt=""></p>
+<p>切面中的advice-ref的值就是配置通知里面的advice的id</p>
+<h3 id="事务操作完全注解声明式事务管理">事务操作（完全注解声明式事务管理）</h3>
+<h4 id="enabletransactionmanagement">@EnableTransactionManagement</h4>
+<p>之前需要配置开启事务的注解：</p>
+<p><img src="/spring/c3aabf28d5caf2f8027e55d06e8fdbf6.png" alt=""></p>
+<p>现在直接用@EnableTransactionManagement来开启</p>
+<p><img src="/spring/c228ab326e7d6b1aa965b5c37e56b87c.png" alt=""></p>
+<p><img src="/spring/215e1ecd6af6cfbf1cdd34f207ea18bb.png" alt=""></p>
+<p><img src="/spring/38eebfedd3e71e3c12542f319b3335a6.png" alt=""></p>
+<h4 id="测试">测试</h4>
+<p><img src="/spring/1ced297d71bdd1f61bf53d9660656605.png" alt=""></p>
+<h2 id="spring5新功能">Spring5新功能</h2>
+<h3 id="日志">日志</h3>
+<p><img src="/spring/a1f718b87c24b96de513663637e99c9a.png" alt=""></p>
+<p><img src="/spring/da7b4bd9c31428987d33182a0a6500c8.png" alt=""></p>
+<p><img src="/spring/490d77f8eaf7146e4f3c88786c8c98f3.png" alt=""></p>
+<p>这个log4j2.xml的内容是一个模板的，如下：</p>
+<p><img src="/spring/59ea5f3432175ef0ae4e8304c0c1a44c.png" alt=""></p>
+<p>还可以手动输出log：</p>
+<p><img src="/spring/3200e048b0b0618c2bc28aeb15054c6b.png" alt=""></p>
+<h3 id="nullable">@Nullable</h3>
+<p><img src="/spring/565111ee68226b8e09dc8f7aa36aabe4.png" alt=""></p>
+<h3 id="核心容器支持函数式风格genericapplicationcontext">核心容器支持函数式风格GenericApplicationContext</h3>
+<p>之前如果我们自己new一个对象spring是不知道的也不会帮我们管理这个对象，我们需要将对象注册到spring中他才能帮我们管理（当然我们直接给对象添加注解，如@Bean、@Component等这样的话spring就直接可以管理这些对象了）</p>
+<p>现在我们可以通过函数式编程里面的GenericApplicationContext对象来进行对象注册：</p>
+<p><img src="/spring/a4cd8089b8358ac5f91eff9febc6a4d3.png" alt=""></p>
+<p>首先refresh()把内容清空，准备在里面进行注册，</p>
+<p>之后调用registerBean()来注册对象，如上图</p>
+<p><img src="/spring/5d20529e7e87d5340e3db412cf13abad.png" alt=""></p>
+<p>之后可以获取注册的对象，第一种方法是使用全类名，如上图</p>
+<p><img src="/spring/fcd16accf4a425edb6c6d59928ab842e.png" alt=""></p>
+<p>第二种方法是指定对象的名称，如上图</p>
+<h3 id="junit5">JUnit5</h3>
+<h4 id="整合junit4">整合Junit4</h4>
+<p>先看看如何整合Junit4</p>
+<p><img src="/spring/7e900fd2e5753e9565c8ace1f684a8be.png" alt=""></p>
+<h5 id="runwith与contextconfiguration">@RunWith与@ContextConfiguration</h5>
+<p><img src="/spring/fb3f04dff2a3146b349d14e80c498b8b.png" alt=""></p>
+<p>之前我们测试都是要写context的，很麻烦，现在可以用注解的形式来做：</p>
+<p><img src="/spring/c9d73bd973d4b32ce50e19794d2f3907.png" alt=""></p>
+<p>使用这两个注解之后可以直接用@Autowire注入要测试的组件</p>
+<h4 id="整合junit5">整合Junit5</h4>
+<p><img src="/spring/ac34ce25950039c24ea53ec6275905ce.png" alt=""></p>
+<h5 id="extendwith与contextconfiguration">@ExtendWith与@ContextConfiguration</h5>
+<p><img src="/spring/44c05d9e4799f082744074859008e5eb.png" alt=""></p>
+<h5 id="springjunitconfig">@SpringJunitConfig</h5>
+<p>对上述写法的一种简化：</p>
+<p><img src="/spring/9baeb3398894a871504199fcfa4b4198.png" alt=""></p>
+<h3 id="springwebflux">SpringWebFlux</h3>
+<p><img src="/spring/acb2b6efe7ae00e1029c498b5df61811.png" alt=""></p>
+<p><img src="/spring/ef51f16098ebf8d35b8fe0dd4f7117c1.png" alt=""></p>
+<p><img src="/spring/657ac939953d3decb79bf4d4f32d5cd6.png" alt=""></p>
+<p><img src="/spring/d69403d5f39f8b65e6b5056092a03671.png" alt=""></p>
+<p><img src="/spring/b261f0e206fe316da1f3403b8bc34029.png" alt=""></p>
+<p><img src="/spring/7ef4576c5f2648798310e793bd20e839.png" alt=""></p>
+<p><img src="/spring/4b1cc55bedf253dd1a34c282627b2690.png" alt=""></p>
+<h4 id="响应式编程">响应式编程</h4>
+<p><img src="/spring/27cabfc44929c8ad7ca8e19a0ae1cdbe.png" alt=""></p>
+<p><img src="/spring/2f6130899f6179ca74f1cde6767dc84a.png" alt=""></p>
+<p><img src="/spring/d8c4287cba36efc608e6b13959b20e45.png" alt=""></p>
+<h4 id="flow">Flow</h4>
+<p>上面用到的是Java8中的Observable和Observer，这两个类在Java9之后就过时了，被Flow取代，而且Flow才是真正意义上的响应式，SpringWebFlux底层的Reactor的相关API用的也是Java9及以后版本中的响应式内容，并且Reactor的响应式比Java9的Flow更加强大（事实上它是对Java9的Flow的一种封装）</p>
+<p><img src="/spring/a91909d1a3dc81560c37834ce08417bd.png" alt=""></p>
+<p>上图是Java9中的Flow的基本用法，里面有发布者和订阅者，订阅者的onNext表示他所做出的行为，发布者会根据这些行为做出一些响应</p>
+<h4 id="响应式编程reactor实现">响应式编程（Reactor实现）</h4>
+<h5 id="flux和mono">Flux和Mono</h5>
+<p><img src="/spring/5d0368e4638d75281a0ec68ef9681d06.png" alt=""></p>
+<p><img src="/spring/34ae92f4c8ab2da7db8a2b361a2b54ad.png" alt=""></p>
+<p><img src="/spring/22155003ca251c8b72a1889a5565dd0f.png" alt=""></p>
+<p><img src="/spring/dec9a50d7a1fabf0d75f92d7f687ffe1.png" alt=""></p>
+<h5 id="基本用法">基本用法</h5>
+<p><img src="/spring/08a74126829f5d9f87023cff83e26eb5.png" alt=""></p>
+<p>此外Flux.error(Throwable error)可用于发送错误信号</p>
+<p>此时如果直接执行的话是不会有任何输出的，需要使用订阅才会有输出：</p>
+<p><img src="/spring/42360bc611965d33a5929024cecafdde.png" alt=""></p>
+<h5 id="三种信号特点">三种信号特点</h5>
+<p><img src="/spring/356eeaf99b6fb520dc45c84be3b6daff.png" alt=""></p>
+<h5 id="操作符">操作符</h5>
+<p><img src="/spring/efc2b51448175c6a2da18bc748da8c56.png" alt=""></p>
+<p><img src="/spring/ce1f012543db959f68774ddbd9a1caa1.png" alt=""></p>
+<p><img src="/spring/78a8785b018ae04c9ea674a525f23047.png" alt=""></p>
+<p><img src="/spring/56b3ec5836e1cc65f3de8af6d2b66439.png" alt=""></p>
+<h5 id="netty">Netty</h5>
+<p><img src="/spring/cc283e33800f7fad32cddc506373cf78.png" alt=""></p>
+<p>先来看看BIO 阻塞方式：</p>
+<p><img src="/spring/2ed1c9161027deae30efef35b710bc47.png" alt=""></p>
+<p>每一个请求都要完成之后才能进行下一个请求，这就是阻塞方式</p>
+<p>现在看看NIO 非阻塞：</p>
+<p><img src="/spring/748504f524f89075ba66434b1969142e.png" alt=""></p>
+<p>有Connext、Accept、Read、Write四个状态，Selector选择器只需要关注Channel中的这几个状态并完成任务即可</p>
+<p>它通过多个channel在selector中进行注册实现多路复用</p>
+<h4 id="springwebflux和springmvc很相似">SpringWebFlux和SpringMVC很相似</h4>
+<p><img src="/spring/270388337a6ef1a716d195a93aa42d43.png" alt=""></p>
+<p>MVC是DispatchServlet，WebFlux是DispatchHandler</p>
+<p>先将starter改为webflux：</p>
+<p><img src="/spring/86d2085c8a7f35ebed6918912c0aa4b3.png" alt=""></p>
+<p>上图改成：</p>
+<p><img src="/spring/e12829fb35d730e66570c198f22f366e.png" alt=""></p>
+<h5 id="webhandler中的handle">WebHandler中的handle</h5>
+<p><img src="/spring/eb6fba5916b1dfd5012b70fd2d8b7a27.png" alt=""></p>
+<p>跟MVC里面的流程基本是一样的</p>
+<p><img src="/spring/72fd8203028f9b21e6b29d80e4e4c0a6.png" alt=""></p>
+<p>HandlerMapping具体找到哪个方法</p>
+<p>HandlerAdapter实现请求的处理，也就是实现具体的业务方法</p>
+<p>HandlerResultHandler对响应的结果进行处理</p>
+<p><img src="/spring/4ad8356b7545e2add3f5a099cb3d8867.png" alt=""></p>
+<p>WebHandler还有很多其他的实现类：</p>
+<p><img src="/spring/9ca01833b7a207bca2cc20e163e953db.png" alt=""></p>
+<p>ResourceWebHandler用于处理静态资源文件</p>
+<p>WebHandlerDecorator是一种装饰器，用于扩展功能</p>
+<p>RouterFunctionWebHandler是做路由的相关处理的</p>
+<h4 id="springwebflux基于注解的编程模型">SpringWebflux（基于注解的编程模型）</h4>
+<p><img src="/spring/fa8fc21fbb6cce667bbd98257db1683e.png" alt=""></p>
+<p><img src="/spring/ee175d40a2bff9f82fe3fb2c34548e45.png" alt=""></p>
+<p><img src="/spring/790ba2d6e447dc575d72c05b8215329c.png" alt=""></p>
+<p><img src="/spring/2515e3e2cb9abaee37e79bc004acba11.png" alt=""></p>
+<p>特别要注意的区别是这里的service，现在都用上了Mono和Flux，如果没有返回值（比如上图的添加用户），那就使用Mono<!-- raw HTML omitted --></p>
+<p>接下来编写UserService的实现类：</p>
+<p><img src="/spring/2a1ae3b57bdca94cd35734d473810d4b.png" alt=""></p>
+<p><img src="/spring/b3317a6f7241628049fe89a650e39d6a.png" alt=""></p>
+<p><img src="/spring/40dde828a5a1c73241f36cccfd4fc54a.png" alt=""></p>
+<p>注意，我们之前讲Flux和Mono最终都有一个结束信号，不然就是一个无限的数据流了，这里的完成信号是Mono.empty()，当然也可以用一个错误信号来表示完成</p>
+<p>最后编写Controller：</p>
+<p><img src="/spring/40edaaa9a3769eaba6f9b69f5ce7edcf.png" alt=""></p>
+<p>别的都没问题，就是要注意这个添加的接口，注意他的写法</p>
+<h4 id="springwebflux基于函数式编程模型">SpringWebflux（基于函数式编程模型）</h4>
+<p><img src="/spring/0003a597f4a38e086f0e5f28ed4923e9.png" alt=""></p>
+<p>路由通过适配器找到handler中的某一个具体的操作来执行</p>
+<p><img src="/spring/3ccedbcf025091816c23f6532454a67c.png" alt=""></p>
+<p>首先把上面基于注解的工程复制一份，将Controller删掉，service和entity不用动，之后我们编写自己的HandlerFunction：</p>
+<p>直接创建一个普通的Java类，不需要继承类或者实现接口，就普普通通的一个Java类，里面去写类似Controller的方法：</p>
+<p><img src="/spring/583fa87f7b764b16d4e5b27cef50eb46.png" alt=""></p>
+<p>由于SpringWebflux请求和响应不再是ServletRequest和ServletResponse了，而是ServerRequest和ServerResponse，因此传入Mono的是ServerResponse，表示最终返回的是一个流，那么怎么把一个Mono对象变成流呢？这里我们用到了之前讲的flatMap，并且用它来构造ServerResponse，如上图</p>
+<p>那么该id的对象可能为空，因此需要做空值处理：</p>
+<p><img src="/spring/65af001a42ecad2d671d10e913c0f948.png" alt=""></p>
+<p><img src="/spring/22227f240b47b05cdf8c819cccfa8572.png" alt=""></p>
+<p>上图的build表示订阅，当里面发生变化的时候通知我，我来执行具体的操作</p>
+<p>注意，上图的两个方法的返回，一个用了flatMap，一个没用，其实这两个返回完全是等价的，只是两种不同的写法</p>
+<p>下面来初始化Netty服务器，顺便编写RouterFunction：</p>
+<p><img src="/spring/6ff923f7402e9ccd5433a425302d2395.png" alt=""></p>
+<p>这里报了一个错，我们到getAllUsers方法里面：</p>
+<p><img src="/spring/468b8a01f6970928fafa4d999837547a.png" alt=""></p>
+<p>发现他没有将ServerRequest传入（虽然方法里面没有用到这个request，但是也要传入，不然就会在上上图中的路由里面报错）</p>
+<p>接下来创建适配器和服务器</p>
+<p><img src="/spring/118f5de1a0eee6390898f39131d62287.png" alt=""></p>
+<p>最终调用：</p>
+<p><img src="/spring/dc8d74eb6dd36fe510143e3346b9c34c.png" alt=""></p>
+<h4 id="webclient">WebClient</h4>
+<p>先开启服务器，之后用WebClient调用方法</p>
+<p><img src="/spring/a4e196e41dd987b12a46febdf823d79f.png" alt=""></p>
+<p>再来一个查询所有：</p>
+<p><img src="/spring/36b38e050986b93bbc9cb3a3c111b095.png" alt=""></p>
+<p>这里使用了map，注意写法</p>
+<p>doOnNext表示一个一个往下执行</p>
+<p>blockFirst()就类似于订阅这个操作，不订阅就不会执行或输出任何操作</p>
+<p><img src="/spring/b1513cf760861ffa0edf1c461232b7ac.png" alt=""></p>
+<h4 id="总结">总结</h4>
+<p><img src="/spring/256a62179342447419873b789ae88e7f.png" alt=""></p>
+<p><img src="/spring/098755d63cee3fe6eab3108468671c1e.png" alt=""></p>
+<p><img src="/spring/330e9c3d20174294a04787bda040ece4.png" alt=""></p>
+<p><img src="/spring/e1e0454b3cf19271d8db28f4df85bcff.png" alt=""></p>
+<p><img src="/spring/908278c8a1d1207b20e156245913b42c.png" alt=""></p>
+<p><img src="/spring/516ce419f3f488f1396de1098e10c460.png" alt=""></p>
+<p><img src="/spring/cacfaea4e3733874f47655469b336ee6.png" alt=""></p>
+<p><img src="/spring/f45bb349b3f8d443325177d2f944ca34.png" alt=""></p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Spring -basic</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#sping">Sping</a></li>
+    <li><a href="#spring5_demo1">spring5_demo1</a></li>
+    <li><a href="#ioc概念与原理">IOC概念与原理</a></li>
+    <li><a href="#ioc演变">IOC演变</a>
+      <ul>
+        <li><a href="#原始方式牵一发动全身">原始方式（牵一发动全身）</a></li>
+        <li><a href="#工厂模式目的虽然耦合度不可能没有但尽量给他降到最低">工厂模式（目的：虽然耦合度不可能没有，但尽量给他降到最低）</a></li>
+        <li><a href="#经过上面两个模式之后演变而来的ioc">经过上面两个模式之后演变而来的IOC</a></li>
+      </ul>
+    </li>
+    <li><a href="#ioc接口">IOC接口</a></li>
+    <li><a href="#ioc操作bean管理">IOC操作Bean管理</a>
+      <ul>
+        <li><a href="#xml的null标签用于设置属性为null">xml的null标签（用于设置属性为null）</a></li>
+        <li><a href="#xml属性值包含特殊符号">xml属性值包含特殊符号</a></li>
+        <li><a href="#xml配置文件注入">xml配置文件注入</a></li>
+        <li><a href="#内部bean">内部bean</a></li>
+        <li><a href="#级联赋值">级联赋值</a></li>
+        <li><a href="#注入list集合类型值是对象">注入list集合类型，值是对象</a></li>
+        <li><a href="#提取list集合类型属性注入使用">提取list集合类型属性注入使用</a></li>
+      </ul>
+    </li>
+    <li><a href="#工厂beanfactorybean">工厂Bean（FactoryBean）</a></li>
+    <li><a href="#bean的生命周期">bean的生命周期</a>
+      <ul>
+        <li><a href="#后置处理器beanpostprocessor">后置处理器（BeanPostProcessor）</a></li>
+      </ul>
+    </li>
+    <li><a href="#xml中的autowire">xml中的autowire</a>
+      <ul>
+        <li><a href="#byname">byName</a></li>
+        <li><a href="#bytype">byType</a></li>
+      </ul>
+    </li>
+    <li><a href="#ioc操作bean管理外部属性文件">IOC操作Bean管理（外部属性文件）</a></li>
+    <li><a href="#注解">注解</a>
+      <ul>
+        <li><a href="#引入aop依赖并开启组件扫描">引入aop依赖并开启组件扫描</a></li>
+        <li><a href="#最后创建类并在类上面创建对象注解">最后创建类并在类上面创建对象注解</a></li>
+        <li><a href="#基于注解方式实现属性注入">基于注解方式实现属性注入</a></li>
+      </ul>
+    </li>
+    <li><a href="#抛弃xml使用全注解">抛弃xml，使用全注解</a>
+      <ul>
+        <li><a href="#configuration与componentscan">@Configuration与@ComponentScan</a></li>
+        <li><a href="#annotationconfigapplication">AnnotationConfigApplication</a></li>
+      </ul>
+    </li>
+    <li><a href="#aop底层原理">AOP底层原理</a>
+      <ul>
+        <li><a href="#有接口情况下使用jdk动态代理">有接口情况下使用JDK动态代理</a></li>
+        <li><a href="#无接口情况下使用cglib动态代理">无接口情况下使用CGLIB动态代理</a></li>
+      </ul>
+    </li>
+    <li><a href="#aop术语">AOP术语</a></li>
+    <li><a href="#aop准备工作">AOP准备工作</a>
+      <ul>
+        <li><a href="#aop依赖包">AOP依赖包</a></li>
+        <li><a href="#aop切入点表达式">AOP切入点表达式</a></li>
+        <li><a href="#开启aspect生成代理对象">开启Aspect生成代理对象</a></li>
+      </ul>
+    </li>
+    <li><a href="#aop中当有多个增强类的时候的增强顺序">AOP中当有多个增强类的时候的增强顺序</a>
+      <ul>
+        <li><a href="#order">@Order()</a></li>
+      </ul>
+    </li>
+    <li><a href="#基于xml的aop">基于XML的AOP</a></li>
+    <li><a href="#使用配置类全注解开发">使用配置类全注解开发</a>
+      <ul>
+        <li><a href="#enableaspectjautoproxyproxytargetclass--true">@EnableAspectJAutoProxy(proxyTargetClass = true)</a></li>
+      </ul>
+    </li>
+    <li><a href="#jdbc">JDBC</a>
+      <ul>
+        <li><a href="#添加依赖">添加依赖</a></li>
+        <li><a href="#配置数据库连接池并注入jdbctemplate">配置数据库连接池并注入jdbcTemplate</a></li>
+        <li><a href="#rowmapper">RowMapper</a></li>
+        <li><a href="#batchupdate批量处理数据">batchUpdate批量处理数据</a></li>
+      </ul>
+    </li>
+    <li><a href="#事务">事务</a>
+      <ul>
+        <li><a href="#编程式事务管理不建议">编程式事务管理（不建议）</a></li>
+        <li><a href="#声明式事务管理">声明式事务管理</a></li>
+        <li><a href="#事务操作声明式事务管理参数配置">事务操作（声明式事务管理参数配置）</a></li>
+        <li><a href="#事务操作xml">事务操作（XML）</a></li>
+        <li><a href="#事务操作完全注解声明式事务管理">事务操作（完全注解声明式事务管理）</a></li>
+      </ul>
+    </li>
+    <li><a href="#spring5新功能">Spring5新功能</a>
+      <ul>
+        <li><a href="#日志">日志</a></li>
+        <li><a href="#nullable">@Nullable</a></li>
+        <li><a href="#核心容器支持函数式风格genericapplicationcontext">核心容器支持函数式风格GenericApplicationContext</a></li>
+        <li><a href="#junit5">JUnit5</a></li>
+        <li><a href="#springwebflux">SpringWebFlux</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

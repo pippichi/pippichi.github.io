@@ -19,6 +19,16 @@
     </item>
     
     <item>
+      <title>Spring -basic</title>
+      <link>https://pippichi.github.io/blog/spring/</link>
+      <pubDate>Wed, 20 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/spring/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of Spring&amp;hellip;&lt;/p&gt;
+&lt;p&gt;注意：该总结不包括Spring三剑客三本书中的内容，三剑客的总结都写在书上。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>MySQL -basic</title>
       <link>https://pippichi.github.io/blog/mysql_basic/</link>
       <pubDate>Fri, 01 May 2020 00:00:00 +0000</pubDate>
