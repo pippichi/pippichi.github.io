@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
-    <lastBuildDate>Sat, 01 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/senior/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/senior/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>移动端web开发布局</title>
+      <link>https://pippichi.github.io/blog/%E7%A7%BB%E5%8A%A8web%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Fri, 11 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/%E7%A7%BB%E5%8A%A8web%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80/</guid>
+      <description>&lt;p&gt;移动端web开发布局，包括流式布局、flex布局、@media(媒体查询)+rem+less、flexible.js+rem，以及一些移动端开发的常用知识和技巧&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Docker</title>
       <link>https://pippichi.github.io/blog/docker/</link>
