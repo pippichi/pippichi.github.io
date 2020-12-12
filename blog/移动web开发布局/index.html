@@ -840,20 +840,20 @@ if (!doNotTrack) {
 <p>在flexible.js内部我们可以知道他具体将设备切割成了多少份：</p>
 <p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209202618620.png" alt="image-20201209202618620"></p>
 <h3 id="rem布局案例使用上述适配方案1">rem布局案例（使用上述适配方案1）</h3>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209084823087.png" alt="image-20201209084823087"></p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209084847333.png" alt="image-20201209084847333"></p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209084854258.png" alt="image-20201209084854258"></p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209085207506.png" alt="image-20201209085207506"></p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209085951128.png" alt="image-20201209085951128"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209084823087.png" alt="image-20201209084823087"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209084847333.png" alt="image-20201209084847333"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209084854258.png" alt="image-20201209084854258"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209085207506.png" alt="image-20201209085207506"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209085951128.png" alt="image-20201209085951128"></p>
 <p>技巧：</p>
 <ul>
 <li>
 <p>我们默认是将屏幕划分成15份的，所以可以给这个15一个变量来存储，这样到时候如果我们想改成20，那直接改这个变量就行了</p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209101439913.png" alt="image-20201209101439913"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209101439913.png" alt="image-20201209101439913"></p>
 </li>
 <li>
 <p>手机里面的像素跟媒体查询里面的像素是一一对应的</p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209101615306.png" alt="image-20201209101615306"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209101615306.png" alt="image-20201209101615306"></p>
 <p>比方说上如的375像素，那么媒体查询里面的宽度的像素就是375px</p>
 </li>
 <li>
@@ -861,29 +861,29 @@ if (!doNotTrack) {
 </li>
 <li>
 <p>由于在pc端浏览器打开的时候会显得太大，所以我们一般会在文件最开头写一个写死的html字体大小：</p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209102618711.png" alt="image-20201209102618711"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209102618711.png" alt="image-20201209102618711"></p>
 <p>注意它是一定要写到最上面的，这是因为代码的层叠性，下面的会覆盖上面的</p>
 </li>
 </ul>
 <p>上面的样式是写在common.less里面的，跟我们要写的主页的样式没有什么关系，所以现在我们还需要建立一个写主页样式的less文件</p>
 <p>但是呢，新建的less文件还是需要使用到common.less文件中的内容的，这个时候就可以使用less的导入语法@import 将文件导入（注意，这里的文件可以是less也可以是css）</p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209104547089.png" alt="image-20201209104547089"></p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209104044752.png" alt="image-20201209104044752"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209104547089.png" alt="image-20201209104547089"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209104044752.png" alt="image-20201209104044752"></p>
 <p>同时，这个时候在html里面我们也不需要再导入common.less文件了，因为common.less文件已经被引入进index.less里面了，所以html直接导入index.css即可</p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209104215834.png" alt="image-20201209104215834"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209104215834.png" alt="image-20201209104215834"></p>
 <p>下面可以正式开始写样式了（直接写到index.less就行了）：</p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209105016155.png" alt="image-20201209105016155"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209105016155.png" alt="image-20201209105016155"></p>
 <p>注意：</p>
 <ul>
 <li>
 <p>这里line-height设置为1.5，意思是当前元素和当前元素的子元素的行高都设置为字体大小的1.5倍；如果line-height设置为150%，意思是当前元素的行高设置为字体大小的1.5倍而当前元素的子元素的行高都要等于当前元素字体大小的1.5倍，如下：</p>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209110158396.png" alt="image-20201209110158396"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209110158396.png" alt="image-20201209110158396"></p>
 </li>
 <li>
 <p>这里没有指定max-width，而是直接把width写死写满为15rem。这其实是两种思路，我们既可以像以前那样写max-width来限定最大宽度，也可以直接写width为15rem，因为前面已经做好了rem适配（common.less），我们知道用了rem之后不管屏幕被拉到多宽，他的最大宽度也会被限定死</p>
 </li>
 </ul>
-<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets%5Cimage-20201209104802848.png" alt="image-20201209104802848"></p>
+<p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209104802848.png" alt="image-20201209104802848"></p>
 <p>注意，宽度用rem，由于前面分了15份，所以满宽度就是15rem</p>
 <p><img src="/%E7%A7%BB%E5%8A%A8WEB%E5%BC%80%E5%8F%91%E5%B8%83%E5%B1%80.assets/image-20201209192939904.png" alt="image-20201209192939904"></p>
 <p>注意，这里的rem都是量出来的，比方说上图的height，首先量出来高是66px，然后去除以html的字体大小，也就是这里的@baseFont（这里我们定的就是50），最后最最重要也是最容易出错的地方就是单位，应该写上rem而不是px，因为最后算出来的数值的单位就是rem，这个地方极易出错</p>
