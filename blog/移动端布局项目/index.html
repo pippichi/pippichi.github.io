@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  移动端布局项目 &ndash; Learning Records
+
+    </title>
+    
+    <meta content="Css" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="移动端布局项目，知识点包括UI切图、Swiper的使用、Bootstrap的使用、响应式布局以及如何将项目发布到gitee并实现远程访问gitee上的静态网页
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="移动端布局项目 | Learning Records">
+    <meta name="twitter:description" content="移动端布局项目，知识点包括UI切图、Swiper的使用、Bootstrap的使用、响应式布局以及如何将项目发布到gitee并实现远程访问gitee上的静态网页|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">移动端布局项目</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/css' class="muted-link">
+  <span class="Label Label--gray">Css</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-12-16. Published at: 2020-12-16.">
+        
+          Published: 2020-12-16
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>移动端布局项目，知识点包括UI切图、Swiper的使用、Bootstrap的使用、响应式布局以及如何将项目发布到gitee并实现远程访问gitee上的静态网页</p>
+<h2 id="回顾之前的切图方式ps切图cutterman切图">回顾之前的切图方式（ps切图、cutterman切图）</h2>
+<p>首先我们要有一个psd原文件</p>
+<p>ps切图有很多方式：图层切图、切片切图、PS插件切图等</p>
+<h3 id="图层切图">图层切图</h3>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094519931.png" alt="image-20201212094519931"></p>
+<p>首先选中我们需要的图片的图层，之后右键快速导出为PNG：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094207611.png" alt="image-20201212094207611"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094215811.png" alt="image-20201212094215811"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094227963.png" alt="image-20201212094227963"></p>
+<p>当遇到这种两个图片需要合成一张导出的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094407668.png" alt="image-20201212094407668"></p>
+<p>先合并图层，再导出</p>
+<h3 id="切片切图">切片切图</h3>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094558324.png" alt="image-20201212094558324"></p>
+<p>首先选中切片工具：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094621707.png" alt="image-20201212094621707"></p>
+<p>然后用切片工具选中我们想要的图层：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094654458.png" alt="image-20201212094654458"></p>
+<p>之后导出：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094714584.png" alt="image-20201212094714584"></p>
+<p>选择格式：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094816643.png" alt="image-20201212094816643"></p>
+<p>GIF可能会有颜色失真，这里我们选择jpg格式</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212094925599.png" alt="image-20201212094925599"></p>
+<p>之后选择品质，品质越大图片越清晰，但是图片也越大</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212095022595.png" alt="image-20201212095022595"></p>
+<p>然后选存储</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212095041445.png" alt="image-20201212095041445"></p>
+<p>但是这里还有一个问题，看上图最后一行 切片 ，我们选择的是所有切片，这样的话不仅仅是我们选中的切片会被导出，其他所有的切片都会被导出，如果我们需要的仅仅是导出选中的图片，那我们需要选择 &ldquo;选中的切片&rdquo;，如下：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212095344278.png" alt="image-20201212095344278"></p>
+<p>最后保存就行了</p>
+<p>这时候我们切出去的图片不是透明的（又背景色）：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212095437545.png" alt="image-20201212095437545"></p>
+<p>那想要一个透明的怎么办呢？</p>
+<p>很简单，把背景色给关了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212095508810.png" alt="image-20201212095508810"></p>
+<p>之后再导出：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212150437739.png" alt="image-20201212150437739"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212150455322.png" alt="image-20201212150455322"></p>
+<p>此时不能选jpg格式的了，因为我们想要透明的背景，此时可以选png-8也可以选png-24，反正只要是png的就行</p>
+<p>选择导出，选择“选中的切片”：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212150624588.png" alt="image-20201212150624588"></p>
+<h4 id="移动切片">移动切片</h4>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212150801441.png" alt="image-20201212150801441"></p>
+<p>移动切片我们需要选择上图的“切片选择工具”</p>
+<p>使用这个工具我们就可以移动切片的框框了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212150939520.png" alt="image-20201212150939520"></p>
+<p>包括移动、放大、缩小</p>
+<p>要删除切片框框可以选中切片后delete</p>
+<h3 id="cutterman插件切图">Cutterman插件切图</h3>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212151257340.png" alt="image-20201212151257340"></p>
+<p>网址：http://www.cutterman.cn/zh/cutterman</p>
+<p>下载完之后双击安装，再重启ps之后我们去扩展功能找到cutterman插件：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212152142716.png" alt="image-20201212152142716"></p>
+<p>打开之后是个登录的对话框，注册登录即可：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212152208548.png" alt="image-20201212152208548"></p>
+<p>操作步骤：</p>
+<ul>
+<li>
+<p>选择输出文件夹；</p>
+</li>
+<li>
+<p>选中需要的图片（选中图层）；</p>
+</li>
+<li>
+<p>选择是ios还是安卓还是web</p>
+</li>
+<li>
+<p>选择格式（二倍图、三倍图、jpg、png、gif等）</p>
+</li>
+<li>
+<p>导出图片</p>
+</li>
+</ul>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212152705889.png" alt="image-20201212152705889"></p>
+<p>单个图片的切图没什么好解释的，那么如果是多图层呢？</p>
+<p>以前我们的做法是先合并成一个图层，再导出，cutterman是不需要这样的，cutterman只需要选中若干图层，之后选中合并导出选中的图层，如下：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212153049584.png" alt="image-20201212153049584"></p>
+<p>然后一键导出就行了</p>
+<p>而且，最重要的是，原先我们还需要关闭白色背景层，再选中导出为png，最终才能导出一张背景透明的png图，</p>
+<p>现在不需要了，直接选中格式为png24，出来的就是背景透明的png格式的图：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212153314046.png" alt="image-20201212153314046"></p>
+<h4 id="选区切图">选区切图</h4>
+<p>cutterman还有一个牛逼的地方，它可以选中图层之后使用选区工具导出选中区域的图片：</p>
+<p>具体步骤见下图红字：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212153622614.png" alt="image-20201212153622614"></p>
+<h2 id="项目heimamm">项目heimamm</h2>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212213128890.png" alt="image-20201212213128890"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201211202927951.png" alt="image-20201211202927951"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201211203021119.png" alt="image-20201211203021119"></p>
+<p>尽量避免使用id选择器、通配符*以及 !important</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201211204157819.png" alt="image-20201211204157819"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212212659040.png" alt="image-20201212212659040"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212212852638.png" alt="image-20201212212852638"></p>
+<h3 id="mock切图插件">mock切图插件</h3>
+<p>这里主要讲mockplus这个网站，我们先去注册账号，下载ps插件：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212092813606.png" alt="image-20201212092813606"></p>
+<p>双击下载的插件安装程序安装插件之后打开ps，之后我们就可以在扩展程序找到该插件了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212093501367.png" alt="image-20201212093501367"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212093517391.png" alt="image-20201212093517391"></p>
+<p>操作步骤：</p>
+<ul>
+<li>
+<p>创建项目</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212162202118.png" alt="image-20201212162202118"></p>
+<p>点击下拉框，创建项目</p>
+</li>
+<li>
+<p>选中需要导出的图层，选中之后点击“标记切图”，注意，标记切图操作是可以重复多次的，也就是说我们可以在上传之前多次选中图片并标记图片（当然，也可以取消标记），标记完成之后就可以点击上传按钮导出切片图了</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212162355490.png" alt="image-20201212162355490"></p>
+</li>
+</ul>
+<p>点击查看项目：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212162622381.png" alt="image-20201212162622381"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212162655523.png" alt="image-20201212162655523"></p>
+<p>双击图片：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212162716125.png" alt="image-20201212162716125"></p>
+<p>我们发现都不用测量了，鼠标放上去直接就能显示尺寸以及颜色等信息：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212162836183.png" alt="image-20201212162836183"></p>
+<p>最牛逼的是，他连css都给我们写好了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212162942837.png" alt="image-20201212162942837"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212162958386.png" alt="image-20201212162958386"></p>
+<p>还能选择图片输出的格式：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212163039444.png" alt="image-20201212163039444"></p>
+<p>那么我们刚才在ps标记为切图的那些图呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212163158047.png" alt="image-20201212163158047"></p>
+<p>我们可以选择这些切图的类型（iOS、安卓、web）：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212211003862.png" alt="image-20201212211003862"></p>
+<p>还能选择是几倍图以及是png还是svg等等：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212211100347.png" alt="image-20201212211100347"></p>
+<p>选中之后下载：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212211151885.png" alt="image-20201212211151885"></p>
+<p>下载之后解压压缩包，就能看到图片了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212211351367.png" alt="image-20201212211351367"></p>
+<p>上述操作一般都是美工来做的，那么美工做完要怎么分享给前端人员呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212211550651.png" alt="image-20201212211550651"></p>
+<p>这里有个分享，点击之后：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212211607278.png" alt="image-20201212211607278"></p>
+<p>这里有个链接地址，分享给前端人员之后他们就可以进来这个页面测量获取元素的各种信息了</p>
+<p>我们注意上图还有一个选项叫做： “同时邀请对方成为项目成员”</p>
+<p>选上这个之后被分享的人员还能对图片进行修改之类的操作</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212212200760.png" alt="image-20201212212200760"></p>
+<p>同时，我们还能修改页面的大小尺寸，如上图这个 “自定义宽度” 选项，这里我们设置了 750 px，我们可以看到这个宽度下右边这个“HR面试”这个图片长宽是139px，如上图</p>
+<h3 id="正式开始项目具体代码在文件项目-heimamm">正式开始项目（具体代码在文件：项目-heimamm）</h3>
+<p>由于使用的是flexible.js，因此还是跟以前一样我们需要约束当屏幕大于750px的时候，html字体大小就不要变化：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212214616129.png" alt="image-20201212214616129"></p>
+<p>我们给一个默认值37.5（iPhone678的宽度就是375像素，flexible.js是分成10等份的，因此每一份37.5像素），并且用了一个!important以防该样式被覆盖</p>
+<p>由于使用了rem，我们使用了cssrem插件，因此我们还需要设置他的根字体大小比例：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212215041701.png" alt="image-20201212215041701"></p>
+<p>以前我们是直接去vscode的设置里面找到相应变量做修改的（具体的看之前的rem案例）</p>
+<p>其实还可以这么改，如上图，找到插件的扩展设置，点击之后找到root font size：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201212215234683.png" alt="image-20201212215234683"></p>
+<p>这里设置为37.5，也就是1rem = 37.5px</p>
+<p>那为什么我们的max-width设置为750，讲道理这里应该是75px，但我们却设置为37.5px呢？</p>
+<p>其实不应该从这个方向来看问题，应该从两点思考：</p>
+<ul>
+<li>iPhone678（目标屏幕）的具体宽度，我们知道iPhone678的宽度就是375px，从这点来看设置37.5是合理的</li>
+<li>最终元素的宽度，由于我们使用了cssrem插件，他会把我们写的px自动转换成rem，仔细想一想开发人员的操作：假设我们需要一个100px宽度的盒子，我们会直接写100px，转成rem是插件的事情，我们不需要管，也就是说最终他都是一个100px的盒子，跟设置成37.5还是75没有关系，只是比例不同，也就是他计算出来的rem的大小不同，仅此而已，如果我们想设置成75px，那也是完全可以的</li>
+</ul>
+<p>那么为什么这里max-width是750而不是375呢？</p>
+<p>这是为了照顾大屏，其实这里完全可以设置375的，但是设置375只照顾到了iPhone678，因为iPhone678的宽度就是375，而像ipad这种的就是768甚至更宽</p>
+<p>使用mock切图插件，很多以前需要手动量出来的东西现在不需要了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213094036572.png" alt="image-20201213094036572"></p>
+<p>点击复制文本内容</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213094102484.png" alt="image-20201213094102484"></p>
+<p>粘贴过来</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213094241460.png" alt="image-20201213094241460"></p>
+<p>点击元素，复制他的背景色，粘贴过来</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213094320882.png" alt="image-20201213094320882"></p>
+<p>其他的诸如文字大小，文字颜色等等的都可以这么复制粘贴过来</p>
+<p>如何测量元素内外边距：</p>
+<p>首先点击目标元素，然后鼠标移动到需要测量与该元素之间距离的另外一个元素即可：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213100921266.png" alt="image-20201213100921266"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213100950631.png" alt="image-20201213100950631"></p>
+<p>总体来看，我们可以把整个页面布局分为：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213101945550.png" alt="image-20201213101945550"></p>
+<p>我们可以采取这种策略：用&lt;section&gt;&lt;/section&gt;把模块1和模块2包起来，中间有一条灰色的缝隙，那就是body的背景色</p>
+<p>body加上背景色：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213102156939.png" alt="image-20201213102156939"></p>
+<p>有些样式布局差不多的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213102740495.png" alt="image-20201213102740495"></p>
+<p>我们可以给他们指定一个公共样式</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213103159560.png" alt="image-20201213103159560"></p>
+<p>里面的话还是一个大盒子，上面装一小块，下面的轮播图装一小块</p>
+<p>出现这种情况：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213105250085.png" alt="image-20201213105250085"></p>
+<p>那必定是vertical-align的问题：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213105207726.png" alt="image-20201213105207726"></p>
+<p>那我们是给上图的span加vertical-align:middle呢，还是给span里面的img加？</p>
+<p>因为span才是和文字同级别的（通俗来讲span和文字同级别，但是img是span的儿子），所以我们应该给span加vertical-align:middle</p>
+<p>加完之后：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213105535602.png" alt="image-20201213105535602"></p>
+<h3 id="swiper插件">swiper插件</h3>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213111022342.png" alt="image-20201213111022342"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213105755767.png" alt="image-20201213105755767"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213105938384.png" alt="image-20201213105938384"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213105946680.png" alt="image-20201213105946680"></p>
+<p>下完后重点是要里面的两个文件：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110215671.png" alt="image-20201213110215671"></p>
+<p>把这个swiper.min.js复制粘贴过来</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110111032.png" alt="image-20201213110111032"></p>
+<p>再去找swiper.min.css，并把它复制粘贴到项目目录下的css文件夹</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110136371.png" alt="image-20201213110136371"></p>
+<h4 id="查找样式">查找样式</h4>
+<p>之后去官网找到我们需要的样式：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110414366.png" alt="image-20201213110414366"></p>
+<p>比方说就这个样式：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110437855.png" alt="image-20201213110437855"></p>
+<p>然后去找他的网页源代码：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110641996.png" alt="image-20201213110641996"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110651922.png" alt="image-20201213110651922"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110706382.png" alt="image-20201213110706382"></p>
+<p>从源代码里我们发现：需要在头部引入上述的css文件，并在尾部引入上述的js文件：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110725590.png" alt="image-20201213110725590"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110735130.png" alt="image-20201213110735130"></p>
+<p>我们照着他来就行了：</p>
+<p>引入js和css：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110958137.png" alt="image-20201213110958137"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213110933107.png" alt="image-20201213110933107"></p>
+<p>之后回到上面的源代码网页，按需复制：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213111214165.png" alt="image-20201213111214165"></p>
+<p>目标是做成这样的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213111359303.png" alt="image-20201213111359303"></p>
+<p>我们先给他准备一个父盒子，然后把他粘贴进去：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213111324663.png" alt="image-20201213111324663"></p>
+<p>再去复制样式：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213111453490.png" alt="image-20201213111453490"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213111524371.png" alt="image-20201213111524371"></p>
+<p>注意，这里一定要把样式写到父盒子里面，因为我们要制作的页面中，除了这块轮播图，下面还有一块轮播图，两者样式是不一样的，所以用一个父盒子把他们隔开，将样式都写到父盒子里面：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213111805529.png" alt="image-20201213111805529"></p>
+<p>到现在为止，我们复制了html代码和css代码，还需复制js代码：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213112313659.png" alt="image-20201213112313659"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213112326596.png" alt="image-20201213112326596"></p>
+<p>现在我们已经能实现基本的效果了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213112651357.png" alt="image-20201213112651357"></p>
+<p>只不过需要进一步定制，那么怎么定制呢？</p>
+<p>首先找到swiper官方API文档：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213113149491.png" alt="image-20201213113149491"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213113222641.png" alt="image-20201213113222641"></p>
+<p>这里第一个就是初始化，new Swiper，也就是这个：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213113259569.png" alt="image-20201213113259569"></p>
+<p>再一个就是我们的网页中有两个轮播图，当我们编写下面那个轮播图的时候我们还是使用的一样的轮播图代码：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213135803747.png" alt="image-20201213135803747"></p>
+<p>所以这里我们把这段代码包在立即执行函数里面（为什么要这么做呢？那是因为上述代码中swiper是一个局部变量，如果我们下面还需要用到这个轮播图，再命名swiper就不合适了，变量名会冲突，而只要把他包在立即执行函数里面，我们就不必担心这样的问题了，下次用到轮播图我们还是可以命名为swiper）：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213140259825.png" alt="image-20201213140259825"></p>
+<h4 id="定制内容">定制内容</h4>
+<p>接下来我们开始定制上述轮播图的内容</p>
+<p>首先我们去找pagination：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213151448253.png" alt="image-20201213151448253"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213151526593.png" alt="image-20201213151526593"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213151556146.png" alt="image-20201213151556146"></p>
+<p>这里可以改分页器的样式</p>
+<p>但是我们的案例里面没有分页器：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213151637131.png" alt="image-20201213151637131"></p>
+<p>所以分页器这个功能就可以删掉了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213152652581.png" alt="image-20201213152652581"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213151818529.png" alt="image-20201213151818529"></p>
+<p>小圆点就没了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213151837934.png" alt="image-20201213151837934"></p>
+<p>接下来去找箭头：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213151901974.png" alt="image-20201213151901974"></p>
+<p>那怎么照呢？</p>
+<p>技巧：</p>
+<p>直接打开一个案例，找有箭头的demo</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213151949476.png" alt="image-20201213151949476"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213151957977.png" alt="image-20201213151957977"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213152016192.png" alt="image-20201213152016192"></p>
+<p>在网页源代码中找到人家是怎么写出这个箭头的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213152045832.png" alt="image-20201213152045832"></p>
+<p>一看源代码发现是多了一段navigation的代码</p>
+<p>之后就简单了，直接去swiperAPI页面找到navigation那一块就行了</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213152255872.png" alt="image-20201213152255872"></p>
+<p>这里我们图个方便直接复制了demo的navigation代码：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213152306594.png" alt="image-20201213152306594"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213152322822.png" alt="image-20201213152322822"></p>
+<p>改完之后有没有效果呢？</p>
+<p>我们发现并没有什么反应：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213152412222.png" alt="image-20201213152412222"></p>
+<p>那是因为这里我们只复制了js代码，但是html里面我们还没有加上箭头</p>
+<p>再返回上述示例demo的代码，我们发现在html里面他还有两行代码：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213152603248.png" alt="image-20201213152603248"></p>
+<p>我们给他加上：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213152715936.png" alt="image-20201213152715936"></p>
+<p>这样就有了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213153137964.png" alt="image-20201213153137964"></p>
+<p>然后我们分析一下：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213153411258.png" alt="image-20201213153411258"></p>
+<p>这里的每一个Slide的div其实就是下图的这么一块（上面一张图，下面一句话）</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213153353746.png" alt="image-20201213153353746"></p>
+<p>那很简单，直接一个a标签里面放img，一个p标签里面放文字，再用flex布局即可</p>
+<p>看了一下默认的css，我们发现他已经是flex布局了，那就更简单了，补充一下我们需要的样式就行了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213153726665.png" alt="image-20201213153726665"></p>
+<p>这里我们给他纵向显示</p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213153820832.png" alt="image-20201213153820832"></p>
+<p>之后只需要再修饰一下a以及a内部的img以及显示文字的p的样式就行了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213154737536.png" alt="image-20201213154737536"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213154940093.png" alt="image-20201213154940093"></p>
+<p>我们发现中间这张竟然没有把右边的压到下面</p>
+<p>分析一下中间这张其实应该是active的，那我们去那段复制下来的css样式里面找，发现最后有几行：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213155209918.png" alt="image-20201213155209918"></p>
+<p>写着slide-active，那八九不离十了，这个应该就是中间这张图片的样式</p>
+<p>哪里可以再验证一下呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213155644355.png" alt="image-20201213155644355"></p>
+<p>我们发现中间这张图特别大一点的，两边的图比较小，而样式代码中有个scale代码，一看代码发现中间的图就是原来大小，两边的被缩放到原来的0.8，至此我们更加坚信这个就是用来调整中间图片样式的css代码块了（其实直接看css代码命名的英文就能大概知道了）</p>
+<p>那我们给他加上z-index：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213155702523.png" alt="image-20201213155702523"></p>
+<p>后面只需要微调一下就行了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213155807663.png" alt="image-20201213155807663"></p>
+<p>比方说这里就业指导这一块跟轮播图之间有一点空隙</p>
+<p>调一下就行：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213155858737.png" alt="image-20201213155858737"></p>
+<p>还有一点就是中间的图是不透明的，两边的图半透明</p>
+<p>调一下opacity就行了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213160008872.png" alt="image-20201213160008872"></p>
+<p>还有一个问题：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213160623426.png" alt="image-20201213160623426"></p>
+<p>我们发现轮播图的宽度只需要540px就行了</p>
+<p>修改swiper宽度为540px：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213160930323.png" alt="image-20201213160930323"></p>
+<p>新的问题又来了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213161024061.png" alt="image-20201213161024061"></p>
+<p>两个箭头出不来</p>
+<p>注意，这里没法直接用样式给他移出来，那是因为swiper这个盒子有个overflow: hidden</p>
+<p>所以只能把这两个箭头拿到swiper外面了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213161335336.png" alt="image-20201213161335336"></p>
+<p>但这么一搞两个箭头彻底不见了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213161402207.png" alt="image-20201213161402207"></p>
+<p>那是因为他跑到屏幕外面去了，这里有个子绝父相，所以要给箭头的父亲加一个相对定位</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213161556623.png" alt="image-20201213161556623"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213161602305.png" alt="image-20201213161602305"></p>
+<h5 id="解释一下这里的slidespreview">解释一下这里的slidesPreview</h5>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213161819496.png" alt="image-20201213161819496"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213162112898.png" alt="image-20201213162112898"></p>
+<h5 id="解释一下这里的spacebetween">解释一下这里的spaceBetween</h5>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213162230477.png" alt="image-20201213162230477"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213162248104.png" alt="image-20201213162248104"></p>
+<p>就是指两张图之间的距离，值越大距离越大</p>
+<h5 id="解释一下这里的centeredslides">解释一下这里的centeredSlides</h5>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213162458387.png" alt="image-20201213162458387"></p>
+<p>他主要是来控制中间的图是否处于中间，我们上面一直设置这个值为true，所以中间的图一直在中间，现在我们把这句代码注释掉，中间的图就跑到默认的左边去了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213162349076.png" alt="image-20201213162349076"></p>
+<p>接下来我们来做最后一部分：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213162704963.png" alt="image-20201213162704963"></p>
+<p>因为这一块跟上面那块的布局基本相似，直接复制粘贴过来：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213162924600.png" alt="image-20201213162924600"></p>
+<p>把文字改了，把轮播图删了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213163017159.png" alt="image-20201213163017159"></p>
+<p>新建一个轮播图模块：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213163057199.png" alt="image-20201213163057199"></p>
+<p>注意这里的轮播图不要和上面的冲突了，还是需要细细修改一下的</p>
+<p>首先是js那一块：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213163208214.png" alt="image-20201213163208214"></p>
+<p>之前的轮播图已经用了.swiper-container，那现在这一块就不能用这个了，否则肯定冲突</p>
+<p>解决方法就是再去官网的演示demo找一个相似的轮播图（不要选一样的!）:</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213163429154.png" alt="image-20201213163429154"></p>
+<p>这回我们选这个</p>
+<p>还是像之前一样打开该轮播图的页面将轮播图的html、js、css代码复制到项目</p>
+<p>注意，由于不能有冲突，因此我们新建了一个盒子，那我们的css内容也需要包在这个盒子里面（上面那一块轮播图也是这个操作）：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213163848593.png" alt="image-20201213163848593"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213163932505.png" alt="image-20201213163932505"></p>
+<p>这个时候看似没问题了，其实还是有一定的问题：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213164051182.png" alt="image-20201213164051182"></p>
+<p>我们点击上面轮播图的箭头，下面轮播图也跟着一起动了</p>
+<p>那是因为我们new这两个轮播图的时候new的是同一个：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213164157880.png" alt="image-20201213164157880"></p>
+<p>上图第一个new出来的Swiper对应的div：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213200926989.png" alt="image-20201213200926989"></p>
+<p>我们发现其实Swiper第一个参数就是一个class名，那事情就简单了，只要class名不同，就不会发生冲突</p>
+<p>上图中div除了有一个叫做“swiper-container”的class名，还有一个class名叫做“get_job_fo”，那我们换用这个class名就可以了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213201204468.png" alt="image-20201213201204468"></p>
+<p>同样，第二个轮播图也给他加一个class名：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213201238460.png" alt="image-20201213201238460"></p>
+<p>并且把他对应的那个new出来的Swiper的第一个参数也改成这个新添加上的class名：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213201444683.png" alt="image-20201213201444683"></p>
+<p>这样两个轮播图就不会冲突了（不会出现点击一个轮播图的箭头导致另一个轮播图也发生翻页事件）</p>
+<p>同时这里凸显了立即执行函数的一个优点（上面有提到过）：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213202746444.png" alt="image-20201213202746444"></p>
+<p>这里我们用了两个同名的变量“swiper“来new两个不同的 Swiper 对象，由于各自都包在立即执行函数里面，所以是不会有冲突的</p>
+<p>接下来就跟上面一样开始定制了</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213203352196.png" alt="image-20201213203352196"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213204127216.png" alt="image-20201213204127216"></p>
+<p>调整slidesPerView为2.2后的效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201213204310099.png" alt="image-20201213204310099"></p>
+<p>注意：</p>
+<ul>
+<li>h5这一类的标签都有margin值，有时候调好样式但是感觉h5的文字的位置不太对， 那多半就是margin的问题，调一下margin即可；</li>
+<li>还有一点就是h标签的字有时候会很粗，那我们可以使用font-weight来调整字的粗细，上上图我们可以看到font-weight调成了400，还需注意这个font-weight是没有单位的（css基础中讲过）</li>
+</ul>
+<p>接下来制作footer部分：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214204558683.png" alt="image-20201214204558683"></p>
+<p>我们发现轮播图会盖住footer，虽然footer本身有定位，但是轮播图他也有定位，并且z-index似乎比footer的大，因此盖住了footer</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214204543721.png" alt="image-20201214204543721"></p>
+<p>解决方法很简单，给footer加一个大一点的z-index就行了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214204806208.png" alt="image-20201214204806208"></p>
+<p>之后又出现了一个问题：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214210048307.png" alt="image-20201214210048307"></p>
+<p>footer把充电学习挡住了，这是因为footer是固定定位，固定定位不占位置，所以我们在量的时候要记得把footer的高度也量进去：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214210306461.png" alt="image-20201214210306461"></p>
+<p>给挨着footer的上面的元素（这里是充电学习模块）添加一个padding-bottom：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214210607127.png" alt="image-20201214210607127"></p>
+<p>这样就不会被遮住了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214210643617.png" alt="image-20201214210643617"></p>
+<h3 id="将项目推送到码云">将项目推送到码云</h3>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214210906368.png" alt="image-20201214210906368"></p>
+<p>新建仓库：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214211026005.png" alt="image-20201214211026005"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214211125497.png" alt="image-20201214211125497"></p>
+<p>设置好之后点击创建</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214211144311.png" alt="image-20201214211144311"></p>
+<p>之后就很熟悉了，使用git将代码推到码云就行了</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214211607096.png" alt="image-20201214211607096"></p>
+<p>现在代码已经在码云上了，那怎么在线访问网站呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214211645826.png" alt="image-20201214211645826"></p>
+<p>使用gitee pages：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214211745859.png" alt="image-20201214211745859"></p>
+<p>点击启动：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214212050765.png" alt="image-20201214212050765"></p>
+<p>生成了网址：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214212118854.png" alt="image-20201214212118854"></p>
+<p>直接打开就能访问了</p>
+<p>还可以给网址生成二维码：</p>
+<p>百度二维码，点击草料二维码生成器：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214212230055.png" alt="image-20201214212230055"></p>
+<p>把生成的网址粘贴进去，点击生成二维码：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214212301668.png" alt="image-20201214212301668"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214212307525.png" alt="image-20201214212307525"></p>
+<h4 id="第二种将项目推送到gitee的方法不推荐">第二种将项目推送到gitee的方法（不推荐）</h4>
+<p>如果不使用git，我们其实还有第二种方法将项目推到码云</p>
+<p>跟第一种的一样，我们新建仓库，唯一不同的是，这里需要勾选上 “使用Readme文件初始化这个仓库”（因为没有使用git，所以要借助这个Readme文件）：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214212605863.png" alt="image-20201214212605863"></p>
+<p>之后点击文件里面的上传文件：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214212836560.png" alt="image-20201214212836560"></p>
+<p>然后把项目直接拖拽进来就好了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214212902000.png" alt="image-20201214212902000"></p>
+<p>这种方法一次上传的文件个数是有限制的，所以不推荐，还是用git吧</p>
+<p><!-- raw HTML omitted -->注意：<!-- raw HTML omitted --></p>
+<p>项目里面必须要有index.html首页：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214213112125.png" alt="image-20201214213112125"></p>
+<h2 id="响应式布局">响应式布局</h2>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214214337019.png" alt="image-20201214214337019"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214214343251.png" alt="image-20201214214343251"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214214348466.png" alt="image-20201214214348466"></p>
+<p>我们发现响应式布局能自适应屏幕大小的变化</p>
+<ul>
+<li>
+<p>响应式布局是不需要单独写移动端页面的</p>
+</li>
+<li>
+<p>响应不同的设备来变化的</p>
+</li>
+</ul>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214214554494.png" alt="image-20201214214554494"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214214624932.png" alt="image-20201214214624932"></p>
+<h3 id="响应式布局的原理">响应式布局的原理</h3>
+<p>其实就是依赖媒体查询</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214214808187.png" alt="image-20201214214808187"></p>
+<p>我们将设备按照不同大小划分为不同的等级，如上图</p>
+<p>那问题来了，而且这个问题也困扰我很久了：媒体查询怎么控制每一个元素的大小以及他们的布局变化呢？如果每一个元素都需要进行调试那将十分麻烦</p>
+<p>响应式布局给出了解决方案：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214215745859.png" alt="image-20201214215745859"></p>
+<p>他有一个布局容器，根据这个布局容器来修改元素的排列方式</p>
+<p>比方说如果布局元素比较大，那么我们就分成三列：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214215350681.png" alt="image-20201214215350681"></p>
+<p>当宽度变小的时候，元素排成列的方式可能就不太好看了，这个时候他把元素的排列方式改成了行的方式，一行一行来显示：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214215502802.png" alt="image-20201214215502802"></p>
+<p>这就实现了通过给父元素（布局容器）修改它的宽度，从而改变子元素不同的排列方式以及显示方式</p>
+<p>比方说还是这个页面：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214215837537.png" alt="image-20201214215837537"></p>
+<p>布局容器就设置成上图红框框这么大就行了</p>
+<p>再比如说这里的导航栏：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214215938977.png" alt="image-20201214215938977"></p>
+<p>布局容器设置成上图红框框这么大就行了（没必要跟整条黑框一样宽）（我们的布局容器都是有大小宽度的，都是固定的）</p>
+<p>再比如说：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214220152708.png" alt="image-20201214220152708"></p>
+<p>我们将布局容器设置成这么大（上图红框框），没必要跟整个屏幕这么宽</p>
+<p>当我们的屏幕缩小的时候里面的内容也跟着布局容器一起缩小</p>
+<p>那么平时我们一般都是怎么划分响应式的尺寸的呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214221946259.png" alt="image-20201214221946259"></p>
+<p>有几个特征：</p>
+<ul>
+<li>布局容器宽度固定</li>
+<li>仔细看上图，实际设置的宽度尺寸要稍小于屏幕实际的宽度，没别的原因，这只是为了好看，两边留点空隙会更加好看些</li>
+</ul>
+<p>实验：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214220902854.png" alt="image-20201214220902854"></p>
+<p>就这么简单，上图的div就是一个布局容器，一般我们都会给布局容器的class设置为 “container”</p>
+<p>但是仅仅是这些样式还不行，我们还需要实现不同屏幕尺寸下宽度是固定的，这个时候就到媒体查询上场了</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214221343084.png" alt="image-20201214221343084"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214221359121.png" alt="image-20201214221359121"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214221423348.png" alt="image-20201214221423348"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201214221445525.png" alt="image-20201214221445525"></p>
+<p>上面的这些media我们是从小到大写的，并且充分利用了层叠性覆盖样式</p>
+<p>现在我们就实现了基本的响应式，对应不同大小的屏幕，布局容器的宽度将发生变化</p>
+<h3 id="案例响应式导航">案例：响应式导航</h3>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215084849607.png" alt="image-20201215084849607"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085106228.png" alt="image-20201215085106228"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085219980.png" alt="image-20201215085219980"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085157444.png" alt="image-20201215085157444"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085413636.png" alt="image-20201215085413636"></p>
+<h2 id="bootstrap快速开发">Bootstrap快速开发</h2>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085519934.png" alt="image-20201215085519934"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085601001.png" alt="image-20201215085601001"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085702899.png" alt="image-20201215085702899"></p>
+<p>如何使用呢？</p>
+<p>例子：</p>
+<p>bootstrap有html的有js的有css的，那比方说我们就看一个css的</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085748521.png" alt="image-20201215085748521"></p>
+<p>比方说我们想看按钮的css</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085804916.png" alt="image-20201215085804916"></p>
+<p>找到我们心仪的按钮</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085816242.png" alt="image-20201215085816242"></p>
+<p>引入bootstrap的css然后直接把按钮的代码复制过来就行了</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215085854303.png" alt="image-20201215085854303"></p>
+<p>这按钮就直接过来了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090106712.png" alt="image-20201215090106712"></p>
+<p>再比如说组件：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090156833.png" alt="image-20201215090156833"></p>
+<p>下面有很多字体图标</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090202836.png" alt="image-20201215090202836"></p>
+<p>比方说我们想要一个放大镜：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090244915.png" alt="image-20201215090244915"></p>
+<p>只需要把名字复制过来：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090312818.png" alt="image-20201215090312818"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090322878.png" alt="image-20201215090322878"></p>
+<p>放大镜就过来了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090343902.png" alt="image-20201215090343902"></p>
+<p>再比方说导航栏：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090500700.png" alt="image-20201215090500700"></p>
+<p>我们觉得这个导航栏不错，直接点copy：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090533068.png" alt="image-20201215090533068"></p>
+<p>把下面的代码全量复制过来，复制到项目的代码中去就行了（复制到哪里没有规定，想复制到哪就复制到哪）：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090652259.png" alt="image-20201215090652259"></p>
+<p>而且最重要的一点是，它是响应式的，也就是说元素会随着页面大小改变而改变</p>
+<p>总结：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090852802.png" alt="image-20201215090852802"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215090858559.png" alt="image-20201215090858559"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091508442.png" alt="image-20201215091508442"></p>
+<p>用bootstrap开发我们会需要bootstrap的文件，那么这个文件怎么获取呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091142874.png" alt="image-20201215091142874"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091154821.png" alt="image-20201215091154821"></p>
+<p>我们要把上图下载好的bootstrap复制到项目中去</p>
+<p>注意，不要直接覆盖项目中的js、css、fonts，要给他新建一个bootstrap：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091323465.png" alt="image-20201215091323465"></p>
+<p>再粘贴过来：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091334059.png" alt="image-20201215091334059"></p>
+<p>现阶段我们看这两个文件：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091356148.png" alt="image-20201215091356148"></p>
+<p>第二步创建html骨架结构：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091554019.png" alt="image-20201215091554019"></p>
+<p>怎么去看这个骨架怎么搭建呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091624152.png" alt="image-20201215091624152"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091646543.png" alt="image-20201215091646543"></p>
+<p>把上述代码复制过来就行了</p>
+<p>解释一下下图中红线代码：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091812243.png" alt="image-20201215091812243"></p>
+<p>&lt;meta http-equiv=&ldquo;X-UA-Compatible&rdquo; content=&ldquo;IE=edge&rdquo;&gt;</p>
+<p>这句话的意思是要求当前网页使用IE浏览器最高版本的内核来渲染</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215091951355.png" alt="image-20201215091951355"></p>
+<p>还有一个地方不一样：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215092012525.png" alt="image-20201215092012525"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215092048970.png" alt="image-20201215092048970"></p>
+<p>这里的[if lt IE 9]注释是一个条件注释，意思是：if less than IE 9 ，也就是浏览器版本小于IE 9的话那就引入下面的两个js文件</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215092419046.png" alt="image-20201215092419046"></p>
+<p>其中第一个：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215092251081.png" alt="image-20201215092251081"></p>
+<p>html5shiv.min.js是为了解决ie 678 不认识html5新标签而提出的解决方案</p>
+<p>第二个：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215092401133.png" alt="image-20201215092401133"></p>
+<p>respond.min.js是为了解决ie 678不认识媒体查询的问题</p>
+<p>总的来讲这两个js文件就是为了帮我们解决低版本浏览器的一些问题，而且要注意的是他仅限于ie 678</p>
+<p>把这些代码粘贴过来：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215092621087.png" alt="image-20201215092621087"></p>
+<p>接下来需要引入相关的样式文件</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215130425292.png" alt="image-20201215130425292"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215130415325.png" alt="image-20201215130415325"></p>
+<p>最后书写内容测试bootstrap是否引入：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215130546450.png" alt="image-20201215130546450"></p>
+<p>如果明显没了内外边距，说明就ok了</p>
+<p>现在就可以去官网找合适的组件，直接将代码贴过来用了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215130906202.png" alt="image-20201215130906202"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215130914011.png" alt="image-20201215130914011"></p>
+<p>事实上，bootstrap是通过类来控制组件的显示的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215131054750.png" alt="image-20201215131054750"></p>
+<p>比方说这里来个div，一模一样的把上面button的class复制下来，效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215131101098.png" alt="image-20201215131101098"></p>
+<p>所以说bootstrap是通过控制类名来控制不同的样式的</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215131149552.png" alt="image-20201215131149552"></p>
+<p>如果我们嫌这个元素比较小，想调大点，或者说想自定义样式，直接添加类并做修改即可：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215131745892.png" alt="image-20201215131745892"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215131757176.png" alt="image-20201215131757176"></p>
+<p>注意要把自己的代码写在bootstrap的样式代码下面，这样才能起到自己的样式覆盖掉bootstrap样式的效果</p>
+<p>其他元素的使用都是大同小异的</p>
+<h3 id="bootstrap的布局容器">Bootstrap的布局容器</h3>
+<p>前面讲到的布局容器，是需要我们自己手动修改媒体查询来适应不同宽度屏幕的变化的，其实bootstrap自己就有一个布局容器，他已经帮我们做好了一切，不需要再手动写媒体查询了</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215132206149.png" alt="image-20201215132206149"></p>
+<p>注意，bootstrap为我们做好的布局容器类名就叫 “container” ，而且必须叫这个名字</p>
+<p>实验：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215132433417.png" alt="image-20201215132433417"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215132448166.png" alt="image-20201215132448166"></p>
+<p>果然已经有效果了</p>
+<p>还有一个专门用于流式布局的（container-fluid）：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215132539868.png" alt="image-20201215132539868"></p>
+<p>container-fluid，流式布局，顾名思义，就是以前学的那个流式布局，所有关于长度的度量都变成百分百了，适合于单独的移动端开发</p>
+<p>实验：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215132815165.png" alt="image-20201215132815165"></p>
+<p>相比于container布局容器，当小屏的时候大家都是一样的，但是一旦到大屏，就不一样了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215132828365.png" alt="image-20201215132828365"></p>
+<p>这是因为container-fluid是流式布局，他的宽度是100%，意味着它的宽度跟屏幕一样宽</p>
+<h3 id="bootstrap栅格系统">Bootstrap栅格系统</h3>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215133140732.png" alt="image-20201215133140732"></p>
+<p>什么意思呢？</p>
+<p>首先响应式布局我们是需要一个大的布局盒子的，假设将布局分为十列，那每一列都可以装一定量的元素，这时候我们缩小屏幕的宽度，但是还是分为十列，那每一列装的东西的宽度就会变小了，从而实现了页面里面的内容随着列宽的变化而变化，实现了这么一种自适应的效果</p>
+<p>举个例子，将一个页面的内容划分成10等份，在1000px宽的时候里面的内容划分成三块，占比：3列：6列：1列，这时我们缩小页面宽度到500px，里面的三块内容还是占比3列：6列：1列，占比不变，每一列的宽度变小，元素缩放，就是这么实现自适应的</p>
+<p>这就是栅格系统，简言之就是把页面中的内容划分成若干个等宽的列。这跟以前的rem有点相似，只不过rem是把整个屏幕划分成若干部分</p>
+<p>BootStrap中也有这种栅格系统，只不过他把页面内容划分成了12列：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215134003309.png" alt="image-20201215134003309"></p>
+<p>注意，他是给布局容器（container）划分成了12等份</p>
+<h4 id="栅格系统使用方法">栅格系统使用方法</h4>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215134427101.png" alt="image-20201215134427101"></p>
+<p>意外收获：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215134502000.png" alt="image-20201215134502000"></p>
+<p>原来bootstrap也使用了normalize.css来进行初始化，这意味着使用bootstrap的时候我们就不需要再自己写normalize.css了</p>
+<p>找到栅格系统</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215134700952.png" alt="image-20201215134700952"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215134835643.png" alt="image-20201215134835643"></p>
+<p>栅格系统是通过一系列的行和列的组合来创建页面布局的</p>
+<p>那我们在哪里设置栅格布局呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215135116923.png" alt="image-20201215135116923"></p>
+<p>比方说上面红框部分，红框压着的这一条黑框就是宽度100%的，意味着屏幕有多宽，黑框就有多宽，而栅格系统是给内容做划分的，所以在这里我们没有必要给整条黑框设置栅格，只需要给里面的内容，即上图红框设置栅格即可了</p>
+<p>再举一个例子：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215135430056.png" alt="image-20201215135430056"></p>
+<p>这种的就在外面包一个大的container，里面再包一行一行的container，每一行再分四大列即可了</p>
+<p>注意，container不是只能有一个的，是可以多层嵌套使用的</p>
+<p>再比方说这种全屏通蓝的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215135602337.png" alt="image-20201215135602337"></p>
+<p>这种的就根本不需要使用container（栅格布局）了，直接做出来就好了</p>
+<h4 id="栅格选项参数">栅格选项参数</h4>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215135843193.png" alt="image-20201215135843193"></p>
+<p>看到这里简直恍然大悟啊，原来之前项目里面的.col-md-4是这个意思</p>
+<p>注意，行要放在布局容器container里面，而列需要给它添加前缀才能知道划分12等份之后该列被分到多少份</p>
+<p>举个例子：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215135935578.png" alt="image-20201215135935578"></p>
+<p>写成代码也就是：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215140140833.png" alt="image-20201215140140833"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215140151221.png" alt="image-20201215140151221"></p>
+<p>还能这么分：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215140234985.png" alt="image-20201215140234985"></p>
+<p>只要里面的数字相加等于12就行了</p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215140258081.png" alt="image-20201215140258081"></p>
+<p>我们给他们加边框，看得更加清楚点：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215140336880.png" alt="image-20201215140336880"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215140349414.png" alt="image-20201215140349414"></p>
+<p>那如果孩子们的分数小于12会发生什么呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215140543460.png" alt="image-20201215140543460"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215140513473.png" alt="image-20201215140513473"></p>
+<p>结论：</p>
+<p>则会占不满整个container，会有空白</p>
+<p>那如果孩子们的分数大于12会发生什么呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215140713717.png" alt="image-20201215140713717"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215140704550.png" alt="image-20201215140704550"></p>
+<p>结论：</p>
+<p>多于的那一列会另起一行显示</p>
+<p>刚才是在大屏的情况下，现在我们要求中屏的情况下我们要给他分成3大块：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141059939.png" alt="image-20201215141059939"></p>
+<p>那每一块就自然被分到4列了</p>
+<p>那怎么写呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141221153.png" alt="image-20201215141221153"></p>
+<p>加一个col-md-4就行了，就这么简单</p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141309705.png" alt="image-20201215141309705"></p>
+<p>小屏分两大块，每块占六份：</p>
+<p>添加col-sm-6即可</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141358086.png" alt="image-20201215141358086"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141414725.png" alt="image-20201215141414725"></p>
+<p>超小屏独占12份：</p>
+<p>添加col-xs-12</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141448782.png" alt="image-20201215141448782"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141457529.png" alt="image-20201215141457529"></p>
+<p>注意，每一列左右两边都有15px的内边距：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141543629.png" alt="image-20201215141543629"></p>
+<p>如果想要去掉，自行加padding：0就行了</p>
+<p>同样，container左右两边也有15px的padding值</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141658993.png" alt="image-20201215141658993"></p>
+<p>只不过我们加了row之后它会自动帮我们去掉container的padding值：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141738275.png" alt="image-20201215141738275"></p>
+<h4 id="列嵌套">列嵌套</h4>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215141957214.png" alt="image-20201215141957214"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215144123398.png" alt="image-20201215144123398"></p>
+<p>实验：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215142052784.png" alt="image-20201215142052784"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215142056293.png" alt="image-20201215142056293"></p>
+<p>之所以会这样显示的原理：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215142136437.png" alt="image-20201215142136437"></p>
+<p>加了一个width还加了一个浮动</p>
+<p>所以如果我们想要让他们之间有点缝隙，是不能加margin的，因为浮动不脱标，加margin之后势必会让最后一个盒子掉下来</p>
+<p>那我们实在是想要一点缝隙要怎么办呢？</p>
+<p>可以在大盒子里面再嵌套一个小盒子：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215142356304.png" alt="image-20201215142356304"></p>
+<p>给小盒子宽度设定100%，再给他设定一个padding值即可</p>
+<p>现在我们还想让其中一个盒子里面再分成两个小盒子：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215142506768.png" alt="image-20201215142506768"></p>
+<p>将这个盒子再看成12等份，里面再分即可：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215142621652.png" alt="image-20201215142621652"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215142644094.png" alt="image-20201215142644094"></p>
+<p>观察其中一个小盒子我们会发现：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215142755175.png" alt="image-20201215142755175"></p>
+<p>小盒子自己也有padding值，那为什么没有顶着父亲盒子呢？</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215142825770.png" alt="image-20201215142825770"></p>
+<p>那是因为父盒子也有一个padding值</p>
+<p>也就是说他是这么划分的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215142851194.png" alt="image-20201215142851194"></p>
+<p>除去父盒子的padding值，再划分12等份，这12等份才是分给孩子们的</p>
+<p>那怎么解决这个问题呢？</p>
+<p>就要轮到bootstrap中的row出场了</p>
+<h5 id="row去除padding值">row去除padding值</h5>
+<p>怎么解决上述问题呢？</p>
+<p>很简单，给两个小盒子套一个class属性值为“row”的父盒子（一般是div）：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215143339366.png" alt="image-20201215143339366"></p>
+<p>上图class为 “col-md-4” 的就是父盒子，红框框里面class为 “col-md-6” 的就是两个子盒子，现在两个子盒子外面套了一个row，这样就能取消父元素的padding值了（没有为什么，这是bootstrap给我们准备好的样式之一，外层套一个row就是可以去除内边距）</p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215143225258.png" alt="image-20201215143225258"></p>
+<p>我们发现子盒子完全顶着父盒子了，而且高度也变成和父亲一样高了</p>
+<p>结论：</p>
+<p>如果我们使用嵌套的话最好在外面加一层row，这样可以取消父元素的padding值，而且高度自动和父级一样高</p>
+<h4 id="列偏移">列偏移</h4>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215144249947.png" alt="image-20201215144249947"></p>
+<p>需求：</p>
+<p>我们希望在一行上放置两个盒子，一个靠左一个靠右</p>
+<p>这个时候就要用到列偏移（col-md-offset-*）了，我们将右侧的盒子列偏移到右边位置即可</p>
+<p>实验：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215145911431.png" alt="image-20201215145911431"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215145916526.png" alt="image-20201215145916526"></p>
+<p>偏移的份数就是 12 - 两个子盒子的份数（4 * 2） = 4份</p>
+<p>原理其实就是给右侧盒子添加了一个外边距：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215145953859.png" alt="image-20201215145953859"></p>
+<p>只不过这个外边距是bootstrap来维护的</p>
+<p>除了上面的我们还能这么玩：</p>
+<p>我们还可以让一个盒子居中对齐：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215150311289.png" alt="image-20201215150311289"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215150331643.png" alt="image-20201215150331643"></p>
+<h4 id="列排序">列排序</h4>
+<p>col-md-push-*和col-md-pull-*</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215150730807.png" alt="image-20201215150730807"></p>
+<p>实验：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215150718310.png" alt="image-20201215150718310"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215150723244.png" alt="image-20201215150723244"></p>
+<h4 id="响应式工具">响应式工具</h4>
+<p>hidden-xs、hidden-sm、hidden-md、hidden-lg</p>
+<p>visible-xs、visible-sm、visible-md、visible-lg</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215151635846.png" alt="image-20201215151635846"></p>
+<p>场景：</p>
+<p>有些元素在大屏的时候可以显示，屏幕小一点后就不显示了</p>
+<p>实验：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215151016255.png" alt="image-20201215151016255"></p>
+<p>意思是第三个div在中屏的时候就隐藏</p>
+<p>大屏：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215151043827.png" alt="image-20201215151043827"></p>
+<p>中屏：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215151050979.png" alt="image-20201215151050979"></p>
+<p>小屏：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215151101669.png" alt="image-20201215151101669"></p>
+<p>解释：</p>
+<p>因为我们只给第三个div加了一个中屏隐藏的效果，所以在大屏和小屏和超小屏的时候元素都是会显示的，只有在中屏的时候元素才会消失</p>
+<p>要想在超小屏的时候也隐藏：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215151238687.png" alt="image-20201215151238687"></p>
+<p>再加一个hidden-xs就行了</p>
+<p>与hidden相反的是visible</p>
+<p>实验：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215151558438.png" alt="image-20201215151558438"></p>
+<p>这样的话加了class=&ldquo;visible-lg&quot;的元素只有在大屏的时候才会显示，其他尺寸的都不会显示</p>
+<h3 id="案例">案例</h3>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215151920408.png" alt="image-20201215151920408"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215151947991.png" alt="image-20201215151947991"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215152004382.png" alt="image-20201215152004382"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215152053906.png" alt="image-20201215152053906"></p>
+<p>首先需要一个超大的container，里面包住一个行，行里面再分三列</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215152255546.png" alt="image-20201215152255546"></p>
+<p>首先中屏和大屏是一致的，因此用col-md-就可以了（col-md-是大于等于970以上的，包含大屏）</p>
+<p>策略是先写完pc端的大屏幕的情况，回过头来再修改小屏的情况</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215152640415.png" alt="image-20201215152640415"></p>
+<p>搭建html骨架结构</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215152910341.png" alt="image-20201215152910341"></p>
+<p>引入相关文件：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215153007933.png" alt="image-20201215153007933"></p>
+<p>上面也说了，由于有了bootstrap文件，我们就不需要再写normalize.js（初始化css样式文件）了，所以这里我们就不需要再引入normalize.js了</p>
+<p>全部弄好之后我们建立container布局容器，结果问题出现：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215211908906.png" alt="image-20201215211908906"></p>
+<p>我们记得刚才美工给的设计图尺寸是1280px的，但是这里的宽度是1170px的</p>
+<p>所以我们需要手动去修改，在bootstrap的基础上再给一档1280px的媒体查询</p>
+<p>在这里有一个技巧，我们发现1280px和1170px情况下的屏幕布局并没有什么差别，甚至1000px下布局都没什么差别，唯一区别就是元素宽度变窄了，因此这里我们不需要额外再加一个1280px的媒体查询，直接把bootstrap的最大的一档媒体查询改成1280px也没问题</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215212433981.png" alt="image-20201215212433981"></p>
+<p>手动修改1280px以上屏幕宽度时的container布局容器的宽度：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215212854246.png" alt="image-20201215212854246"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215212915723.png" alt="image-20201215212915723"></p>
+<p>这样就改过来了，然后1280和1170布局没有差别所以无需额外地设置不同的布局</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215213159133.png" alt="image-20201215213159133"></p>
+<p>先将内层元素顶住父盒子，上面讲过了外层套一个row就行了（去除内边距）</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215214040108.png" alt="image-20201215214040108"></p>
+<p>按照上面的页面布局分析，我们将他们分成三块，占比：2：7：3</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215214148713.png" alt="image-20201215214148713"></p>
+<p>我们插入图片之后发现图片两边还是存在padding值：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215214746051.png" alt="image-20201215214746051"></p>
+<p>按照以前，那很简单加个row就搞定了，但是仔细分析一下样式我们发现图片右边的padding值还是需要的，因此只去掉左边的padding值就行了，所以不要直接用row，单独修改该元素的padding-left值为0就行了</p>
+<p>注意，这里不能拿col-md-2这个class名去改：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215215006961.png" alt="image-20201215215006961"></p>
+<p>因为一旦把col-md-2改了，所有带上col-md-2的元素都会被改</p>
+<p>那这里我们改header的样式：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215215117042.png" alt="image-20201215215117042"></p>
+<p>但是刷新之后并没有反应：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215215326619.png" alt="image-20201215215326619"></p>
+<p>显然是权重的问题</p>
+<p>元素的padding值来自于col-md-2这个类：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215215413395.png" alt="image-20201215215413395"></p>
+<p>类的权重为10，而元素的权重为01，显然拼不过类</p>
+<p>加一个important：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215215614018.png" alt="image-20201215215614018"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215215630593.png" alt="image-20201215215630593"></p>
+<p>不要忘了给img添加一个width:100%的样式，不然的话img的宽度就不会随着父盒子宽度变化而变化了，比方说我们将屏幕缩小，图片就显示不全了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215215823357.png" alt="image-20201215215823357"></p>
+<p>添加width: 100%</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215215719945.png" alt="image-20201215215719945"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215215922578.png" alt="image-20201215215922578"></p>
+<p>这里的图标：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215220651889.png" alt="image-20201215220651889"></p>
+<p>鼠标放上去跟着字体一起变黑，显然就是用字体图标做的</p>
+<p>以前我们使用iconmoon的时候非常麻烦，需要引一堆字体，才能使用</p>
+<p>现在bootstrap自己就给我们提供了字体图标：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215220815500.png" alt="image-20201215220815500"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215220822550.png" alt="image-20201215220822550"></p>
+<p>使用很简单：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215220840151.png" alt="image-20201215220840151"></p>
+<p>直接找到图标，复制类名</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215220931905.png" alt="image-20201215220931905"></p>
+<p>因为是a需要，所以直接给a添加类名就行了，如上图</p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215221043232.png" alt="image-20201215221043232"></p>
+<p>原理：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215221058117.png" alt="image-20201215221058117"></p>
+<p>就是给a加了一个before</p>
+<p>只不过这个图标没有居中对齐，这个很简单，直接加水平居中垂直居中就行了</p>
+<p>所以这里我们得出一个结论：使用bootstrap的时候如果要修改它本身的代码，我们得先去看看他是怎么实现的，然后再看着改就行了</p>
+<p>给a的before添加样式：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215221350743.png" alt="image-20201215221350743"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201215221424838.png" alt="image-20201215221424838"></p>
+<p>下面来做中间模块</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216192943524.png" alt="image-20201216192943524"></p>
+<p>注意，上面的这一块可以用li来做：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216193147739.png" alt="image-20201216193147739"></p>
+<p>因为是响应式布局，所以高度我们不用太担心，因为宽度小到一定程度之后他就改样式了（所以在这里高度我们就直接写死了），主要还是要注意宽度</p>
+<p>我们只需要把第一个li的高度设置为其他li高度的两倍就行了，宽度的话第一个li的宽度50%，其余li的宽度25%就行了</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216193848189.png" alt="image-20201216193848189"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216194011223.png" alt="image-20201216194011223"></p>
+<p>但是我们注意到li之间还需要给一点空隙：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216194147916.png" alt="image-20201216194147916"></p>
+<p>但是宽度我们已经给了50%和四个25%，如果再给他margin，显然盒子会被挤掉下来</p>
+<p>所以很简单，我们给li一个内边距就行了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216194337223.png" alt="image-20201216194337223"></p>
+<p>接下来：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216200027548.png" alt="image-20201216200027548"></p>
+<p>这一块我们用栅格系统来做，每一行里面分成左边9份右边3份</p>
+<p>一看需求，我们发现屏幕sm、md、lg的时候都是左边9份右边3份：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216200444347.png" alt="image-20201216200444347"></p>
+<p>但是到xs，也就是超小屏的时候，发生了较大的变化：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216200531275.png" alt="image-20201216200531275"></p>
+<p><!-- raw HTML omitted -->因此我们得出重要结论：<!-- raw HTML omitted --></p>
+<ul>
+<li>这一个模块在超小屏的时候样式变化，在超小屏之上的时候样式都是同一个</li>
+<li>所以我们就可以给他定在sm-9，sm-3就行了（这样我们可以保证在sm屏以上时的结构不会发生变化）</li>
+</ul>
+<h4 id="bootstrap自带的清除浮动clearfix">Bootstrap自带的清除浮动（clearfix）</h4>
+<p>接下来我们给这个模块加一个上边框：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216201451454.png" alt="image-20201216201451454"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216201502008.png" alt="image-20201216201502008"></p>
+<p>但是我们并没有发现他多了一个上边框：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216201553292.png" alt="image-20201216201553292"></p>
+<p>那是因为上面的news模块里面的li使用了浮动，导致publish盒子的上边框跑到news模块上面去了</p>
+<p>这种情况就需要清除浮动</p>
+<p>我们当然可以自己清除浮动，但是bootstrap已经给我们准备好了清除浮动的类：clearfix</p>
+<p>哪里需要清除浮动就把这个类加到哪里</p>
+<p>这里是news模块需要清除浮动：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216201932385.png" alt="image-20201216201932385"></p>
+<p>效果：</p>
+<p>上边框就出来了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216202120418.png" alt="image-20201216202120418"></p>
+<h4 id="bootstrap自带的h标签">Bootstrap自带的h标签</h4>
+<p>接下来写标题：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216202211908.png" alt="image-20201216202211908"></p>
+<p>经过测量我们需要24px大小的字体</p>
+<p>我们当然可以自己设置字体大小，但是bootstrap自己就有定制的24px大小字体：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216202255135.png" alt="image-20201216202255135"></p>
+<p>在排版里我们可以发现bootstrap自己定制的h3字体就是24px的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216202335421.png" alt="image-20201216202335421"></p>
+<p>那就很简单了，由于我们项目已经引入了bootstrap，所以直接用h3标签就行了（此h3非彼h3，这个h3用的是bootstrap定制的h3标签）：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216202349240.png" alt="image-20201216202349240"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216202706059.png" alt="image-20201216202706059"></p>
+<h4 id="bootstrap自带的p标签">Bootstrap自带的p标签</h4>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216202726853.png" alt="image-20201216202726853"></p>
+<p>跟上面的h标签一样，还有一个p标签：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216202825449.png" alt="image-20201216202825449"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216202835489.png" alt="image-20201216202835489"></p>
+<p>大小样式都给我们定义好了，秩只需要修改颜色就好了</p>
+<p>神奇的是，我们也不需要自己修改颜色，bootstrap已经帮我们弄好了</p>
+<h4 id="bootstrap辅助类">Bootstrap辅助类</h4>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216202931710.png" alt="image-20201216202931710"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216203023199.png" alt="image-20201216203023199"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216203034675.png" alt="image-20201216203034675"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216203050366.png" alt="image-20201216203050366"></p>
+<p>类似的还有很多：</p>
+<p>背景色</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216203103394.png" alt="image-20201216203103394"></p>
+<p>三角符号</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216203149574.png" alt="image-20201216203149574"></p>
+<p>接下来看下图的 ”热搜“ 的制作：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216204929824.png" alt="image-20201216204929824"></p>
+<p>以前我们自己写的时候会很麻烦</p>
+<p>现在直接用Bootstrap的就行了，因为这个东西看着像按钮，所以去bootstrap里面的按钮模块：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205051460.png" alt="image-20201216205051460"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205109648.png" alt="image-20201216205109648"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205142351.png" alt="image-20201216205142351"></p>
+<p>我们还可以去掉他的小圆角：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205207611.png" alt="image-20201216205207611"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205213362.png" alt="image-20201216205213362"></p>
+<p>除此之外，字的颜色也可以使用bootstrap的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205237986.png" alt="image-20201216205237986"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205251641.png" alt="image-20201216205251641"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205321583.png" alt="image-20201216205321583"></p>
+<h5 id="进一步修饰小屏幕">进一步修饰小屏幕</h5>
+<p>经过测验，现在我们已经解决了970px 1170px 1280px以上的屏幕布局</p>
+<p>但是小屏幕还需要进一步修饰</p>
+<p>问题一：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205657704.png" alt="image-20201216205657704"></p>
+<p>图片过大，那是因为这个图片我们设置了100%宽度，现在他独占一行了，所以会很大</p>
+<p>解决方法就是让图片不进行100%宽度缩放，就采用它本身的宽度，然后水平垂直居中对齐就好了：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205822221.png" alt="image-20201216205822221"></p>
+<p>我们把width: 100% 改成max-width:100%</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216210000202.png" alt="image-20201216210000202"></p>
+<p>也就是最大宽度100%</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216205951865.png" alt="image-20201216205951865"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216210145494.png" alt="image-20201216210145494"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216210152950.png" alt="image-20201216210152950"></p>
+<p>现在小屏幕及以上的屏幕都ok了，但是超小屏下：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216210107846.png" alt="image-20201216210107846"></p>
+<p>显得太大了</p>
+<p>我们看看原版是什么样的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216210126125.png" alt="image-20201216210126125"></p>
+<p>解决方法：</p>
+<ul>
+<li>我们如果进入超小屏，logo里面的图片就隐藏</li>
+<li>我们事先准备好一个盒子 在logo里面，他平时是隐藏起来的，只有在超小屏下显示</li>
+</ul>
+<p>这里用到了响应式布局中的隐藏（hidden）和显示（visible）</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216210601809.png" alt="image-20201216210601809"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216210735442.png" alt="image-20201216210735442"></p>
+<p>接下来还有一个问题就是导航栏：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216210838649.png" alt="image-20201216210838649"></p>
+<p>小屏幕下的导航栏太大了，太占空间了</p>
+<p>我们看看原版的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216210909695.png" alt="image-20201216210909695"></p>
+<p>解决方法：</p>
+<p>使用媒体查询</p>
+<ul>
+<li>当我们进入小屏幕还有超小屏幕的时候 我们 nav 里面的li 浮动起来 并且宽度为 20%</li>
+</ul>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216211120027.png" alt="image-20201216211120027"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216211131409.png" alt="image-20201216211131409"></p>
+<p>还有一个问题：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216211200762.png" alt="image-20201216211200762"></p>
+<p>超小屏下字体太大：</p>
+<p>解决方法：</p>
+<p>使用媒体查询</p>
+<ul>
+<li>当我们进入超小屏幕的时候 我们 nav 文字会变成14px</li>
+</ul>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216211303796.png" alt="image-20201216211303796"></p>
+<p>接下来是小屏幕下的article部分：</p>
+<p>我们先看看人家的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216211905768.png" alt="image-20201216211905768"></p>
+<p>再看看我们自己的：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216211920458.png" alt="image-20201216211920458"></p>
+<p>解决方法：</p>
+<p>小屏幕下第一个li占一行（width: 100%），后面的li两个一行（width: 50%）</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216212159246.png" alt="image-20201216212159246"></p>
+<p>接下来是超小屏幕下publish模块的问题：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216212338292.png" alt="image-20201216212338292"></p>
+<p>1、图片太大了</p>
+<p>2、内容太多了</p>
+<p>原版就显示了两行字：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216212402518.png" alt="image-20201216212402518"></p>
+<p>还是用hidden：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216212439734.png" alt="image-20201216212439734"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216212514789.png" alt="image-20201216212514789"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216212526144.png" alt="image-20201216212526144"></p>
+<p>下面那行小字内容还是太多了</p>
+<p>解决方法：</p>
+<p>字中间加一个span并加上hidden就行了</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216212600232.png" alt="image-20201216212600232"></p>
+<p>再改个字体大小：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216212705299.png" alt="image-20201216212705299"></p>
+<p>效果：</p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216212713691.png" alt="image-20201216212713691"></p>
+<h2 id="移动端布局总结">移动端布局总结</h2>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216212856456.png" alt="image-20201216212856456"></p>
+<p><img src="%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE.assets/image-20201216213027347.png" alt="image-20201216213027347"></p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>移动端布局项目</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#回顾之前的切图方式ps切图cutterman切图">回顾之前的切图方式（ps切图、cutterman切图）</a>
+      <ul>
+        <li><a href="#图层切图">图层切图</a></li>
+        <li><a href="#切片切图">切片切图</a></li>
+        <li><a href="#cutterman插件切图">Cutterman插件切图</a></li>
+      </ul>
+    </li>
+    <li><a href="#项目heimamm">项目heimamm</a>
+      <ul>
+        <li><a href="#mock切图插件">mock切图插件</a></li>
+        <li><a href="#正式开始项目具体代码在文件项目-heimamm">正式开始项目（具体代码在文件：项目-heimamm）</a></li>
+        <li><a href="#swiper插件">swiper插件</a></li>
+        <li><a href="#将项目推送到码云">将项目推送到码云</a></li>
+      </ul>
+    </li>
+    <li><a href="#响应式布局">响应式布局</a>
+      <ul>
+        <li><a href="#响应式布局的原理">响应式布局的原理</a></li>
+        <li><a href="#案例响应式导航">案例：响应式导航</a></li>
+      </ul>
+    </li>
+    <li><a href="#bootstrap快速开发">Bootstrap快速开发</a>
+      <ul>
+        <li><a href="#bootstrap的布局容器">Bootstrap的布局容器</a></li>
+        <li><a href="#bootstrap栅格系统">Bootstrap栅格系统</a></li>
+        <li><a href="#案例">案例</a></li>
+      </ul>
+    </li>
+    <li><a href="#移动端布局总结">移动端布局总结</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>
