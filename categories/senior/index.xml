@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
-    <lastBuildDate>Wed, 16 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/senior/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/senior/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>webpack</title>
+      <link>https://pippichi.github.io/blog/webpack/</link>
+      <pubDate>Sat, 19 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/webpack/</guid>
+      <description>&lt;p&gt;webpack学习总结，包含了webpack开发环境与生产环境基本配置、优化配置以及其他更多的配置详情&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/webpack&#34;&gt;webpack&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>移动端布局项目</title>
       <link>https://pippichi.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B8%83%E5%B1%80%E9%A1%B9%E7%9B%AE/</link>

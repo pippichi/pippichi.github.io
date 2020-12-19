@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  webpack &ndash; Learning Records
+
+    </title>
+    
+    <meta content="webpack" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="webpack学习总结，包含了webpack开发环境与生产环境基本配置、优化配置以及其他更多的配置详情
+Code in GitHub: webpack
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="webpack | Learning Records">
+    <meta name="twitter:description" content="webpack学习总结，包含了webpack开发环境与生产环境基本配置、优化配置以及其他更多的配置详情
+Code in GitHub:  webpack|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">webpack</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/webpack' class="muted-link">
+  <span class="Label Label--gray">webpack</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-12-19. Published at: 2020-12-19.">
+        
+          Published: 2020-12-19
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>webpack学习总结，包含了webpack开发环境与生产环境基本配置、优化配置以及其他更多的配置详情</p>
+<p>Code in GitHub:  <strong><a href="https://github.com/pippichi/webpack">webpack</a></strong></p>
+<h2 id="npm初始化packagejson">npm初始化package.json</h2>
+<p><img src="/webpack.assets/image-20201218102203763.png" alt="image-20201218102203763"></p>
+<h2 id="全局安装webpack">全局安装webpack</h2>
+<p><img src="/webpack.assets/image-20201218102304886.png" alt="image-20201218102304886"></p>
+<h2 id="npm安装开发依赖-d">npm安装开发依赖（-D）</h2>
+<p><img src="/webpack.assets/image-20201218102354336.png" alt="image-20201218102354336"></p>
+<h2 id="node找包原则">node找包原则</h2>
+<p>从当前包开始向上级目录找，找到为止</p>
+<p>技巧：由于这个特性，我们可以把package.json放到最外面，免得每次创建demo都要初始化一次package.json，关键是他要是找不到这个package.json就用不了里面的包，所以这里我们干脆直接把package.json写最外面</p>
+<p><img src="/webpack.assets/image-20201218105635319.png" alt="image-20201218105635319"></p>
+<h2 id="运行指令进行打包">运行指令进行打包</h2>
+<p>webpack ./src/index.js(入口文件) -o ./build/built.js(输出文件) &ndash;mode=production/development(环境)</p>
+<p><img src="/webpack.assets/image-20201218102756916.png" alt="image-20201218102756916"></p>
+<p>开发环境和生产环境的区别就是生产环境代码经过了压缩</p>
+<h2 id="每次打包之后都会生成哈希值">每次打包之后都会生成哈希值</h2>
+<p><img src="/webpack.assets/image-20201218205020353.png" alt="image-20201218205020353"></p>
+<p>这个哈希值非常有用，在配置文件中可以通过使用 [hash] 或者 [hash:10]来使用这个hash值（[hash:10]表示取hash值前十个字符）</p>
+<h2 id="引入打包后资源">引入打包后资源</h2>
+<p><img src="/webpack.assets/image-20201218102901977.png" alt="image-20201218102901977"></p>
+<h2 id="webpack能处理的资源">webpack能处理的资源</h2>
+<p>经过尝试我们发现webpack能处理js和json，但是不能处理css和img等其他资源</p>
+<p>生产环境和开发环境将ES6模块化编译成浏览器能识别的模块化</p>
+<p><img src="/webpack.assets/image-20201218103425396.png" alt="image-20201218103425396"></p>
+<h2 id="webpackconfigjs">webpack.config.js</h2>
+<p>作用：</p>
+<p><img src="/webpack.assets/image-20201218104038214.png" alt="image-20201218104038214"></p>
+<p>上面说了，css、img等无法被webpack处理，要借助loader，因此需要在配置文件配置loader，不仅是loader，很多其他的东西都得在这个配置文件里面配置</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="err">/*</span>
+  <span class="err">webpack.config.js</span>  <span class="err">webpack的配置文件</span>
+    <span class="err">作用:</span> <span class="err">指示</span> <span class="err">webpack</span> <span class="err">干哪些活（当你运行</span> <span class="err">webpack</span> <span class="err">指令时，会加载里面的配置）</span>
+
+    <span class="err">所有构建工具都是基于nodejs平台运行的~模块化默认采用commonjs。</span>
+<span class="err">*/</span>
+
+<span class="err">//</span> <span class="err">resolve用来拼接绝对路径的方法</span>
+<span class="err">const</span> <span class="p">{</span> <span class="err">resolve</span> <span class="p">}</span> <span class="err">=</span> <span class="err">require(&#39;path&#39;);</span>
+
+<span class="err">module.exports</span> <span class="err">=</span> <span class="p">{</span>
+  <span class="err">//</span> <span class="err">webpack配置</span>
+  <span class="err">//</span> <span class="err">入口起点</span>
+  <span class="err">entry:</span> <span class="err">&#39;./src/index.js&#39;,</span>
+  <span class="err">//</span> <span class="err">输出</span>
+  <span class="err">output:</span> <span class="err">{</span>
+    <span class="err">//</span> <span class="err">输出文件名</span>
+    <span class="err">filename:</span> <span class="err">&#39;built.js&#39;,</span>
+    <span class="err">//</span> <span class="err">输出路径</span>
+    <span class="err">//</span> <span class="err">__dirname</span> <span class="err">nodejs的变量，代表当前文件的目录绝对路径</span>
+    <span class="err">path:</span> <span class="err">resolve(__dirname,</span> <span class="err">&#39;build&#39;)</span>
+  <span class="p">}</span><span class="err">,</span>
+  <span class="err">//</span> <span class="err">loader的配置</span>
+  <span class="err">module:</span> <span class="p">{</span>
+    <span class="err">rules:</span> <span class="err">[</span>
+      <span class="err">//</span> <span class="err">详细loader配置</span>
+      <span class="err">//</span> <span class="err">不同文件必须配置不同loader处理</span>
+      <span class="err">{</span>
+        <span class="err">//</span> <span class="err">匹配哪些文件</span>
+        <span class="err">test:</span> <span class="err">/\.css$/,</span>
+        <span class="err">//</span> <span class="err">使用哪些loader进行处理</span>
+        <span class="err">use:</span> <span class="err">[</span>
+          <span class="err">//</span> <span class="err">use数组中loader执行顺序：从右到左，从下到上</span> <span class="err">依次执行</span>
+          <span class="err">//</span> <span class="err">创建style标签，将js中的样式资源插入进行，添加到head中生效</span>
+          <span class="err">&#39;style-loader&#39;,</span>
+          <span class="err">//</span> <span class="err">将css文件变成commonjs模块加载js中，里面内容是样式字符串</span>
+          <span class="err">&#39;css-loader&#39;</span>
+        <span class="err">]</span>
+      <span class="p">}</span><span class="err">,</span>
+      <span class="p">{</span>
+        <span class="err">test:</span> <span class="err">/\.less$/,</span>
+        <span class="err">use:</span> <span class="err">[</span>
+          <span class="err">&#39;style-loader&#39;,</span>
+          <span class="err">&#39;css-loader&#39;,</span>
+          <span class="err">//</span> <span class="err">将less文件编译成css文件</span>
+          <span class="err">//</span> <span class="err">需要下载</span> <span class="err">less-loader和less</span>
+          <span class="err">&#39;less-loader&#39;</span>
+        <span class="err">]</span>
+      <span class="p">}</span>
+    <span class="err">]</span>
+  <span class="err">},</span>
+  <span class="err">//</span> <span class="err">plugins的配置</span>
+  <span class="err">plugins:</span> <span class="p">[</span>
+    <span class="err">//</span> <span class="err">详细plugins的配置</span>
+  <span class="p">]</span><span class="err">,</span>
+  <span class="err">//</span> <span class="err">模式</span>
+  <span class="err">mode:</span> <span class="err">&#39;development&#39;,</span> <span class="err">//</span> <span class="err">开发模式</span>
+  <span class="err">//</span> <span class="err">mode:</span> <span class="err">&#39;production&#39;</span>
+<span class="err">}</span>
+
+</code></pre></div><p>上面展示了一个配置demo，还有很多其他的配置demo可以去代码里面查看</p>
+<h2 id="安装css-loader和style-loader">安装css-loader和style-loader</h2>
+<p>使用npm安装这两个包，之后再执行webpack打包：</p>
+<p><img src="/webpack.assets/image-20201218105911302.png" alt="image-20201218105911302"></p>
+<p>这个时候我们发现他多了一个css文件</p>
+<p>实验：</p>
+<p><img src="/webpack.assets/image-20201218110115030.png" alt="image-20201218110115030"></p>
+<p>把打包好的built.js引入，打开网页：</p>
+<p><img src="/webpack.assets/image-20201218110136926.png" alt="image-20201218110136926"></p>
+<p>样式生效了</p>
+<p>同理less文件的打包：</p>
+<p><img src="/webpack.assets/image-20201218110427274.png" alt="image-20201218110427274"></p>
+<p>注意，use数组里面的东西执行顺序从下到上的，比方说上述执行顺序就是：1、less-loader；2、css-loader；3、style-loader</p>
+<h2 id="图片打包">图片打包</h2>
+<p>具体配置见代码</p>
+<p>优点：</p>
+<p>打包的时候如果同一张图片我们引用了多次，比方说在less里用了一次，在html又用了一次，webpack都只会打包一次不会重复打包</p>
+<h2 id="webpack-dev-server">webpack-dev-server</h2>
+<p>配置见代码</p>
+<p>注意：</p>
+<p>webpack-dev-server打包是在内存中打包，不像webpack直接在build文件夹生成打包后代码文件，一旦终止webpack-dev-server服务器，内存中的文件将被删除，最后在build文件夹下不会有任何打包后文件。</p>
+<h2 id="eslint-disable-next-line">eslint-disable-next-line</h2>
+<p>取消eslint对于下面一行代码的审查：</p>
+<p><img src="/webpack.assets/image-20201218211607345.png" alt="image-20201218211607345"></p>
+<h2 id="生产环境中提取css为单独的文件minicssextractplugin">生产环境中提取css为单独的文件（MiniCssExtractPlugin）</h2>
+<p>我们知道开发环境中打包后css是嵌在js文件中的，生产环境下我们需要使用MiniCssExtractPlugin插件把他单独拿出来</p>
+<h2 id="生产环境兼容性">生产环境兼容性</h2>
+<p>注意，兼容性配置默认会去找生产环境的配置，跟配置文件中最后我们写的mode：development / production 没有任何关系</p>
+<p>所以如果想要使用开发环境中的兼容性配置，需要在配置文件中写上nodejs的环境变量：</p>
+<p><img src="/webpack.assets/image-20201218142845597.png" alt="image-20201218142845597"></p>
+<h3 id="browserslist参数">browserslist参数</h3>
+<p>具体配置见代码，这个参数可配置的东西远不止代码中的这些，更多配置去GitHub搜索</p>
+<h2 id="查看兼容性的网站can-i-use">查看兼容性的网站（can i use）</h2>
+<p>比方说预加载这个共能兼容性比较差，具体的可以去can i use网站查看</p>
+<h2 id="语法检查eslint">语法检查eslint</h2>
+<p>GitHub上有个 “airbnb / javascript” 专门规范js的写法（教你怎么规范地写js）</p>
+<p>我们想通过eslint使用这个 airbnb 帮我们检查js语法</p>
+<p><img src="/webpack.assets/image-20201218143943807.png" alt="image-20201218143943807"></p>
+<p>那怎么操作呢？</p>
+<p><img src="/webpack.assets/image-20201218144016935.png" alt="image-20201218144016935"></p>
+<p>去npm搜索eslint</p>
+<p><img src="/webpack.assets/image-20201218144135046.png" alt="image-20201218144135046"></p>
+<p>之后看说明下载就行了</p>
+<h2 id="生产环境自动压缩js">生产环境自动压缩js</h2>
+<p>当我们设置模式为生产环境之后，他会自动加载很多插件，其中包括这个插件：</p>
+<p><img src="/webpack.assets/image-20201218150041623.png" alt="image-20201218150041623"></p>
+<p>UglifyJsPlugin</p>
+<p>他会帮我们自动压缩js代码</p>
+<h2 id="hmr">HMR</h2>
+<p>问题：使用热部署的时候每次改东西都刷新了页面，明明只改了css，js也跟着重新加载了一遍</p>
+<p>，反过来js也一样，简言之我修改了一个模块，其他所有模块全部重新加载</p>
+<p><img src="/webpack.assets/image-20201218153740919.png" alt="image-20201218153740919"></p>
+<p>对于样式文件，HMR正常起效；对于html文件，由于HMR解决的是一个模块变化后需要刷新，其余模块不跟着刷新，但是html自始至终都只有1个文件，也就是说html一旦变化了，也就他自己一个文件刷新，因此html并不需要HMR优化；对于js，HMR默认也是不起效的，需要添加额外代码来让他起效：</p>
+<p><img src="/webpack.assets/image-20201218154448241.png" alt="image-20201218154448241"></p>
+<p>全局找module变量，如果存在且module.hot为true，说明开启了HMR，此时监听print.js（我们自己随便写的一个用来测试的函数），如果print.js这一块发生变化，就重新构建这一块，而其他模块不会跟着重新打包更新</p>
+<p>注意：</p>
+<ul>
+<li>
+<p>HMR对入口文件（index.js）是无效的，因为index.js一旦变化，就要重新加载，势必也会重新加载那些被引入到index.js文件的js模块，这是无法阻止的</p>
+</li>
+<li>
+<p>html代码不能使用HMR，同时会导致一个问题：html文件不能热更新了，解决方法就是在entry中将html文件也加进去：</p>
+<p><img src="/webpack.assets/image-20201218155204284.png" alt="image-20201218155204284"></p>
+</li>
+</ul>
+<h2 id="source-map">source-map</h2>
+<p>devtool: &lsquo;eval-source-map&rsquo;</p>
+<p>总结下来开发环境推荐用：</p>
+<p><em>&ndash;&gt; eval-source-map / eval-cheap-module-souce-map</em></p>
+<p>生产环境用：</p>
+<p><em>&ndash;&gt; source-map / cheap-module-souce-map</em></p>
+<h2 id="oneof">oneOf</h2>
+<p>配置文件中有许多loader，但并不是每一个模块都会用到每一个loader，比方说js的，他是不会去用css和less的loader的，但是由于我们都把他们写到一起了，所以他还是会去用，用过后不合适才会跳过，使用oneOf之后，我们可以让他只匹配oneOf中的一个，比方说还是js，他只用两个loader：eslint和babel，而且eslint是需要先使用的，那我们就把eslint单独拎到oneOf外面，其他的一堆包括css、less、babel&hellip;的都放在oneOf里面，这样的话eslint一定会执行，而oneOf中的loader只会执行其中之一，显然这里就只会执行babel，大大提高了效率</p>
+<h2 id="缓存">缓存</h2>
+<p>主要是babel（因为js模块多，结构和样式的模块不会太多，就算多了，处理的东西也不会太多）和整体的资源这两点</p>
+<p>问题：</p>
+<p>如果有100个js模块，我改动1个js，其余的99个应该不要重新编译，这跟之前的HMR很像，但是HMR是需要依赖devServer的，在生产环境下没法用</p>
+<p>这里我们就要开启babel的缓存（babel的缓存很简单，直接添加代码：cacheDirectory: true即可），他先把100个js模块编译后的代码进行缓存，之后如果发现文件没有变的话就直接使用缓存中的东西了</p>
+<h3 id="文件资源强制缓存的问题">文件资源强制缓存的问题</h3>
+<p>当我们的代码发生改变的时候由于被强制缓存了，他在第二次是不会去访问服务器的，而是使用本地的缓存，这就导致更新的代码无法被使用</p>
+<p>那怎么解决这个问题呢？</p>
+<p>我们打算给代码文件名加个后缀哈希值，这样由于文件名变了，他肯定会重新加载的</p>
+<p><img src="/webpack.assets/image-20201218204810676.png" alt="image-20201218204810676"></p>
+<p><img src="/webpack.assets/image-20201218204821702.png" alt="image-20201218204821702"></p>
+<p>这样构建之后的文件文件名就带上哈希值后缀了：</p>
+<p><img src="/webpack.assets/image-20201218204859705.png" alt="image-20201218204859705"></p>
+<p>这个时候强制缓存也没办法了，因为每次打包都会生成不一样的hash值，所以文件名是肯定不一样的，意味着页面肯定会重新加载</p>
+<p>问题来了：js和css用的同一个hash值，导致就算只有一个文件变动了，所有缓存也会失效，怎么解决这个问题呢？</p>
+<p>使用contenthash</p>
+<h3 id="contenthash">contenthash</h3>
+<p>根据文件内容生成hash值</p>
+<p><img src="/webpack.assets/image-20201218210309332.png" alt="image-20201218210309332"></p>
+<p><img src="/webpack.assets/image-20201218210703127.png" alt="image-20201218210703127"></p>
+<p>我们发现js和css的hash总算不一样了，这个时候我们修改js代码，第二次访问网页的时候css还是走的缓存，js就得重新刷新了</p>
+<h3 id="chunkhash">chunkhash</h3>
+<p>根据chunk生成的hash值，如果打包来源于同一个chunk，那么hash值就一样</p>
+<p><img src="/webpack.assets/image-20201218205945682.png" alt="image-20201218205945682"></p>
+<p>什么叫做chunk呢？</p>
+<p><img src="/webpack.assets/image-20201218210115646.png" alt="image-20201218210115646"></p>
+<p>入口文件index.js中需要引入css、js等依赖，这些依赖最终会随着入口文件形成一个文件，他就是一个chunk</p>
+<p>注意：</p>
+<p>由于js和css还是在同一个入口文件，所以使用chunkhash最终js和css还是同一个hash</p>
+<h2 id="sideeffects">sideEffects</h2>
+<p>在package.json中写入 &ldquo;sideEffects&rdquo;: false 表示所有代码都没有副作用（都可以进行tree shaking）</p>
+<p>在tree shaking的时候的问题：</p>
+<p><img src="/webpack.assets/image-20201218212217964.png" alt="image-20201218212217964"></p>
+<p>tree shaking的时候可能会把css / @babel/polyfill的文件干掉</p>
+<p>解决方法：</p>
+<p>sideEffects中把css后缀的文件包含进来：</p>
+<p>package.json中写入：</p>
+<p>&ldquo;sideEffects&rdquo;: [&quot;*.css&quot;]</p>
+<h2 id="code-split">code split</h2>
+<p>将原本打包后的一份文件拆成3份</p>
+<p>使用场景：</p>
+<ul>
+<li>并行加载，加快加载速度</li>
+<li>按需加载，我需要了才去加载</li>
+</ul>
+<p>使用方法：</p>
+<p><img src="/webpack.assets/image-20201218212933288.png" alt="image-20201218212933288"></p>
+<p>为了分辨生成的两个build，我们可以使用[name]进行分辨，[name]表示取文件名</p>
+<p>单页面应用配置：整个应用程序只有一个页面，对应的是单入口</p>
+<p>多页面应用配置：整个应用程序有多个页面，对应的是多入口</p>
+<p>像上面这种code split有一个问题：可能会频繁修改页面的个数，今天单页面，明天多页面，这样的话我们的配置代码也得跟着变，非常的麻烦</p>
+<h3 id="splitchunks">splitChunks</h3>
+<p><img src="/webpack.assets/image-20201218214417081.png" alt="image-20201218214417081"></p>
+<p>将node_modules中代码单独打包成一个chunk没啥好说的</p>
+<p>我们看看下面那条：他会自动分析chunk中是否有公共的文件，如果有则会打包成单独的一个chunk</p>
+<p>解释：</p>
+<p>假设我们现在是多入口，在两个入口文件index.js和test.js中都引用了jQuery，现在打包，理想状态下我们希望生成test、index和一个jQuery的打包文件，但是事实上jQuery是会被打包成两个built文件的（重复打包）</p>
+<p>但是当我们使用了splitChunk之后就不会出现重复打包的情况了</p>
+<p>除了上面两点之外，还有一点：</p>
+<p>当我们是单入口文件时，有一个test.js和一个index.js，这个时候我们将test引入index，打包势必只会生成一个built文件，但是我们希望将index里面的test单独打包</p>
+<p>这个时候需要借助js代码：</p>
+<p><img src="/webpack.assets/image-20201218215524390.png" alt="image-20201218215524390"></p>
+<p>当我们使用了import动态导入语法之后test.js就会被单独打包了</p>
+<p>有个问题：</p>
+<p><img src="/webpack.assets/image-20201218220015405.png" alt="image-20201218220015405"></p>
+<p>Chunks这里每次打包都会生成一个id，而且随着文件数量递增，这个id可能会变，这不太好，我们希望他是一个固定的名称而不是id</p>
+<p>解决方法：</p>
+<p>import里面参数前面加一段注释：</p>
+<p><img src="/webpack.assets/image-20201218215842134.png" alt="image-20201218215842134"></p>
+<p>这里他的名字就变成 test 了：</p>
+<p><img src="/webpack.assets/image-20201218220041969.png" alt="image-20201218220041969"></p>
+<p>这里我们使用splitChunk配合import动态导入语法将一整个大的js文件分割成多个小的js文件，从而实现并行加载，速度更快</p>
+<p><img src="/webpack.assets/image-20201218220534844.png" alt="image-20201218220534844"></p>
+<h2 id="懒加载">懒加载</h2>
+<p>这里不是指图片的懒加载，而是指js文件的懒加载</p>
+<p>懒加载就是指不是一上来就加载，而是等触发了某些条件我才去加载</p>
+<p><img src="/webpack.assets/image-20201219094826060.png" alt="image-20201219094826060"></p>
+<p>结果：</p>
+<p><img src="/webpack.assets/image-20201219094901846.png" alt="image-20201219094901846"></p>
+<p>果不其然，./test.js文件被单独打包成一个js文件，因为只有单独打包成一个js文件，才可以被懒加载</p>
+<p>那他会不会重复加载呢？</p>
+<p><img src="/webpack.assets/image-20201219095054288.png" alt="image-20201219095054288"></p>
+<p>是不会的，第二次他会去读取缓存</p>
+<p>注意：</p>
+<p><img src="/webpack.assets/image-20201219095139295.png" alt="image-20201219095139295"></p>
+<p>这里是一个异步的回调函数</p>
+<h2 id="预加载">预加载</h2>
+<p><img src="/webpack.assets/image-20201219095318468.png" alt="image-20201219095318468"></p>
+<p><img src="/webpack.assets/image-20201219095339166.png" alt="image-20201219095339166"></p>
+<p>我们刷新页面后发现其实test已经被预加载好了</p>
+<p>点击按钮（调用test.js里面的函数），发现他读取的是之前预加载的js的缓存：</p>
+<p><img src="/webpack.assets/image-20201219095454754.png" alt="image-20201219095454754"></p>
+<h2 id="预加载和普通加载区别">预加载和普通加载区别</h2>
+<p><img src="/webpack.assets/image-20201219095734167.png" alt="image-20201219095734167"></p>
+<p>但是预加载兼容性不太好，尤其是在移动端</p>
+<h2 id="pwa渐进式网络开发应用程序离线可访问">PWA（渐进式网络开发应用程序，离线可访问）</h2>
+<p>离线访问网站</p>
+<p><img src="/webpack.assets/image-20201219095950576.png" alt="image-20201219095950576"></p>
+<p>淘宝就是用了PWA技术，离线也能访问部分资源</p>
+<p>没问题的资源基本来自ServiceWork</p>
+<p>使用插件之后出现问题：</p>
+<p><img src="/webpack.assets/image-20201219100758101.png" alt="image-20201219100758101"></p>
+<p>eslint不认识window、navigator等全局变量</p>
+<p>解决方法：</p>
+<p>package.json中添加配置：</p>
+<p><img src="/webpack.assets/image-20201219100847103.png" alt="image-20201219100847103"></p>
+<p>同理，要eslint支持nodejs中的变量则需这么写：</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;env&#34;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&#34;node&#34;</span><span class="p">:</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div><p>serviceWorker需要运行在服务器端</p>
+<p>serviceWorker注册成功后：</p>
+<p><img src="/webpack.assets/image-20201219101812378.png" alt="image-20201219101812378"></p>
+<p>我们还能从Cache找到缓存的资源：</p>
+<p><img src="/webpack.assets/image-20201219101842929.png" alt="image-20201219101842929"></p>
+<p>现在我们将服务器关闭或者网络调为offline：</p>
+<p><img src="/webpack.assets/image-20201219101915875.png" alt="image-20201219101915875"></p>
+<p>刷新页面之后页面资源还可以访问：</p>
+<p><img src="/webpack.assets/image-20201219101942672.png" alt="image-20201219101942672"></p>
+<h2 id="多进程打包">多进程打包</h2>
+<p>一般给babel用</p>
+<p>哪个模块要用就给哪个模块加</p>
+<h2 id="externals">externals</h2>
+<p>有些包我们希望使用script标签加url的方式引入，而不希望他也被打包：</p>
+<p><img src="/webpack.assets/image-20201219103308294.png" alt="image-20201219103308294"></p>
+<p>语法：</p>
+<p>库名 : 包名</p>
+<p>如下：</p>
+<p><img src="/webpack.assets/image-20201219103537063.png" alt="image-20201219103537063"></p>
+<p>注意：</p>
+<p>如果使用了externals，我们需要像上上图那样手动给他引入script标签</p>
+<h2 id="dll">Dll</h2>
+<p>像externals一样指定哪些库不参与打包</p>
+<p>还可以对某些库进行单独的打包，将多个库打包成一个chunk</p>
+<p>dll可以和code split联用</p>
+<p>code split将node_module单独打包成一个庞大的文件</p>
+<p>dll可以将node_module中的一部分拆开成几个单独打包，其余的node_module中不想用dll拆开的部分就使用code split打包成一个</p>
+<h2 id="其他参数">其他参数</h2>
+<h3 id="publicpath">publicPath</h3>
+<p>公共前缀</p>
+<h3 id="chunkfilename">chunkFilename</h3>
+<p>非入口chunk名称</p>
+<p>像import动态引入在打包时产生的chunk以及code split中将node_module打包成一个chunk的时候生成的文件名称将会遵循chunkFilename命名</p>
+<p><img src="/webpack.assets/image-20201219113645628.png" alt="image-20201219113645628"></p>
+<p>如果不指定chunkFilename，则遵循filename命名</p>
+<h3 id="library">library</h3>
+<p>之前打包好的文件：</p>
+<p><img src="/webpack.assets/image-20201219121538264.png" alt="image-20201219121538264"></p>
+<p>整个外面包了一层函数，因此里面的内容都在函数作用域下，外面想引用的话是不可以的</p>
+<p>那么我们想把里面的内容暴露出去的话就需要使用library了</p>
+<p><img src="/webpack.assets/image-20201219121726931.png" alt="image-20201219121726931"></p>
+<p>再次打包，我们发现：</p>
+<p><img src="/webpack.assets/image-20201219121750210.png" alt="image-20201219121750210"></p>
+<p>有了一个变量 main （之所以是main是因为名称[name]默认就是“main”）</p>
+<p>这样我们可以通过引入该js文件找到里面的main变量从而来使用这个打包后的js文件中的东西</p>
+<h4 id="librarytarget">libraryTarget</h4>
+<p>不写这个参数只写library那就是简单的暴露一个变量</p>
+<p><img src="/webpack.assets/image-20201219121934884.png" alt="image-20201219121934884"></p>
+<p>定义library这个变量定义到哪里</p>
+<p>比方说上图，意思就是定义到window里：</p>
+<p><img src="/webpack.assets/image-20201219122015748.png" alt="image-20201219122015748"></p>
+<p>其他的还可以添加到node，commonjs等：</p>
+<p><img src="/webpack.assets/image-20201219122209699.png" alt="image-20201219122209699"></p>
+<p>再举一个例子，比方说上图是将变量名添加到commonjs上，那打包之后的文件就是这样的：</p>
+<p><img src="/webpack.assets/image-20201219122316861.png" alt="image-20201219122316861"></p>
+<h4 id="library与dll连用">library与dll连用</h4>
+<p>library一般会与dll连用，使用dll将某些库单独打包，然后使用library去暴露这些打包好的库，从而来使用这些库</p>
+<h3 id="enforce">enforce</h3>
+<p>指定loader的执行顺序</p>
+<p>enforce: &ldquo;pre&quot;表示优先执行</p>
+<p>enforce: &ldquo;post&quot;表示延后执行</p>
+<p>如果不写这个参数那就是正常的中间执行</p>
+<h3 id="resolve">resolve</h3>
+<p>解析模块的规则</p>
+<h4 id="alias">alias</h4>
+<p>指定路径别名</p>
+<p>应用场景：</p>
+<p>在入口文件中我们需要引入文件，但是这个文件可能嵌套了好几层（可能项目里有好几个组件，组件里面还能嵌套组件），导致我们想要引用的文件在很深的地方，手写路径名很容易出错</p>
+<p>alias就可以解决这个问题：</p>
+<p><img src="/webpack.assets/image-20201219124734112.png" alt="image-20201219124734112"></p>
+<p><img src="/webpack.assets/image-20201219124626965.png" alt="image-20201219124626965"></p>
+<h4 id="extensions">extensions</h4>
+<p>配置省略文件路径的后缀名</p>
+<p>例子：</p>
+<p><img src="/webpack.assets/image-20201219124853131.png" alt="image-20201219124853131"></p>
+<p>我现在想省略这个.css</p>
+<p>配置：</p>
+<p><img src="/webpack.assets/image-20201219125030857.png" alt="image-20201219125030857"></p>
+<p>效果：</p>
+<p><img src="/webpack.assets/image-20201219124916534.png" alt="image-20201219124916534"></p>
+<p>原理：从extensions数组中找后缀，尝试index.js发现不对，下一个，尝试index.json发现不对，下一个，尝试index.css，发现对了，那就是这个了</p>
+<p>所以他的问题也显而易见了：index.js和index.css傻傻分不清，因此如果要用extensions，文件名最好不要取一样的</p>
+<h4 id="modules">modules</h4>
+<p>告诉webpack解析模块是去哪里找</p>
+<p>一般来讲node_modules都是从当前目录下找，找不到再去上一层，再找不到再去上上层，如果嵌套比较深的话将会十分麻烦</p>
+<p>可以使用modules直接指定node_modules在哪：</p>
+<p><img src="/webpack.assets/image-20201219125418504.png" alt="image-20201219125418504"></p>
+<p>后面那个参数“node_modules”是为了防止他直接指定路径之后还是找不到node_modules，所以给他写的：</p>
+<p><img src="/webpack.assets/image-20201219125516610.png" alt="image-20201219125516610"></p>
+<h3 id="optimization">optimization</h3>
+<p><img src="/webpack.assets/image-20201219135613255.png" alt="image-20201219135613255"></p>
+<p>问题：</p>
+<p>假设我们给文件取名使用的是[contenthash]</p>
+<p>假设index.js引入a.js，那么index.js打包后生成的文件中会保留a.js所生成的hash值：</p>
+<p><img src="/webpack.assets/image-20201219152219718.png" alt="image-20201219152219718"></p>
+<p>这就出问题了，如果这个时候我们修改a.js的代码，由于使用的是contenthash，a.js打包后生成的文件文件名必定会修改，导致index.js打包后生成的main.js中保存的a.js的hash值发生变化，相当于main.js文件发生了变化，导致最后执行打包命令的时候index.js跟着一起被重新打包，导致了缓存失效</p>
+<p>解决方法就是将main.js中记录的a.js的hash值单独拿出来打包，这样main文件中就不记录a.js的hash值了，自然不会出现上面的问题</p>
+<p>这个配置叫runtimeChunk</p>
+<h4 id="runtimechunk">runtimeChunk</h4>
+<p><img src="/webpack.assets/image-20201219153058702.png" alt="image-20201219153058702"></p>
+<p>现在打包后的文件就会多一个runtime的文件了：</p>
+<p><img src="/webpack.assets/image-20201219153134517.png" alt="image-20201219153134517"></p>
+<p>现在main.js中就不会存储a.js的hash值了，都存到runtime文件中了</p>
+<p>这个时候a.js文件如果在发生变化，是不会影响到main.js的（main.js由于缓存的原因不会重新打包），重新打包的只会是a.js和runtime文件</p>
+<h4 id="minimizer">minimizer</h4>
+<p>上面讲过js文件怎么压缩的：启动生产者模式，就会自动开启Uglifyjs去压缩js，现在这个库已经不维护了，转而使用terser去进行js的压缩</p>
+<p>如果我们不需要修改terser配置，那就别动他了，不需要再去写额外配置了，但如果我们想要修改他的配置，那就可以在minimizer中去写他：</p>
+<p><img src="/webpack.assets/image-20201219153845990.png" alt="image-20201219153845990"></p>
+<p>注意，如果需要source-map，这里一定要启用source-map，如上图，否则它会被压缩掉的</p>
+<p>同理，如果想修改css也可以在这个minimizer中去修改</p>
+<h2 id="跨域问题">跨域问题</h2>
+<p>浏览器和服务器之间存在跨域问题，而服务器与服务器之间是没有跨域问题的</p>
+<p>代理服务器就是利用了这一点，首先浏览器和代理服务器（端口3000）之间没有跨域问题，那么浏览器发送请求到代理服务器，代理服务器再转发到真正的服务器（端口5000），而服务器之间是没有跨域问题的，所以可以正常转发，之后真正的服务器再返回请求给代理服务器，代理服务器再返回信息给浏览器</p>
+<p>所以就有一个应用的例子：</p>
+<p>在配置中的dev server中有个参数proxy，他就是用来解决我们的开发环境遇到的跨域问题的，当开发环境遇到跨域问题，就可以配置proxy来解决跨域问题：</p>
+<p><img src="/webpack.assets/image-20201219131310636.png" alt="image-20201219131310636"></p>
+<h2 id="webpack4与webpack5">webpack4与webpack5</h2>
+<p>webpack4中有一个遗留问题：</p>
+<p>假设我们有三个文件：a.js、b.js、index.js，b引入a，index引入b，index中再去调用a的东西：</p>
+<p><img src="/webpack.assets/image-20201219155112380.png" alt="image-20201219155112380"></p>
+<p>a中有两个变量，其中一个被index通过b.a.name的方式使用了，但是还有一个没有被使用</p>
+<p>此时我们打开生产环境，按照道理来讲a中的那个没有被用的变量应该被tree shaking掉，但是并没有，这就是webpack4遗留的问题：间接调用之后webpack就无法分析哪些东西需要被tree shaking了</p>
+<p>同样在production环境下，在webpack5中测试同样的问题我们会发现不仅没用到的东西被tree shaking了，打包后代码还变得非常简单：</p>
+<p><img src="/webpack.assets/image-20201219155638727.png" alt="image-20201219155638727"></p>
+<p>跟webpack4比起来那简直就不是一个量级的，同样内容的打包5比4小了900多bytes，而且打包后内容还非常干净</p>
+<h3 id="webpack5">webpack5</h3>
+<p>关于5的说明见代码中的第6部分中的README文件：</p>
+<p><img src="/webpack.assets/image-20201219155941930.png" alt="image-20201219155941930"></p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>webpack</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#npm初始化packagejson">npm初始化package.json</a></li>
+    <li><a href="#全局安装webpack">全局安装webpack</a></li>
+    <li><a href="#npm安装开发依赖-d">npm安装开发依赖（-D）</a></li>
+    <li><a href="#node找包原则">node找包原则</a></li>
+    <li><a href="#运行指令进行打包">运行指令进行打包</a></li>
+    <li><a href="#每次打包之后都会生成哈希值">每次打包之后都会生成哈希值</a></li>
+    <li><a href="#引入打包后资源">引入打包后资源</a></li>
+    <li><a href="#webpack能处理的资源">webpack能处理的资源</a></li>
+    <li><a href="#webpackconfigjs">webpack.config.js</a></li>
+    <li><a href="#安装css-loader和style-loader">安装css-loader和style-loader</a></li>
+    <li><a href="#图片打包">图片打包</a></li>
+    <li><a href="#webpack-dev-server">webpack-dev-server</a></li>
+    <li><a href="#eslint-disable-next-line">eslint-disable-next-line</a></li>
+    <li><a href="#生产环境中提取css为单独的文件minicssextractplugin">生产环境中提取css为单独的文件（MiniCssExtractPlugin）</a></li>
+    <li><a href="#生产环境兼容性">生产环境兼容性</a>
+      <ul>
+        <li><a href="#browserslist参数">browserslist参数</a></li>
+      </ul>
+    </li>
+    <li><a href="#查看兼容性的网站can-i-use">查看兼容性的网站（can i use）</a></li>
+    <li><a href="#语法检查eslint">语法检查eslint</a></li>
+    <li><a href="#生产环境自动压缩js">生产环境自动压缩js</a></li>
+    <li><a href="#hmr">HMR</a></li>
+    <li><a href="#source-map">source-map</a></li>
+    <li><a href="#oneof">oneOf</a></li>
+    <li><a href="#缓存">缓存</a>
+      <ul>
+        <li><a href="#文件资源强制缓存的问题">文件资源强制缓存的问题</a></li>
+        <li><a href="#contenthash">contenthash</a></li>
+        <li><a href="#chunkhash">chunkhash</a></li>
+      </ul>
+    </li>
+    <li><a href="#sideeffects">sideEffects</a></li>
+    <li><a href="#code-split">code split</a>
+      <ul>
+        <li><a href="#splitchunks">splitChunks</a></li>
+      </ul>
+    </li>
+    <li><a href="#懒加载">懒加载</a></li>
+    <li><a href="#预加载">预加载</a></li>
+    <li><a href="#预加载和普通加载区别">预加载和普通加载区别</a></li>
+    <li><a href="#pwa渐进式网络开发应用程序离线可访问">PWA（渐进式网络开发应用程序，离线可访问）</a></li>
+    <li><a href="#多进程打包">多进程打包</a></li>
+    <li><a href="#externals">externals</a></li>
+    <li><a href="#dll">Dll</a></li>
+    <li><a href="#其他参数">其他参数</a>
+      <ul>
+        <li><a href="#publicpath">publicPath</a></li>
+        <li><a href="#chunkfilename">chunkFilename</a></li>
+        <li><a href="#library">library</a></li>
+        <li><a href="#enforce">enforce</a></li>
+        <li><a href="#resolve">resolve</a></li>
+        <li><a href="#optimization">optimization</a></li>
+      </ul>
+    </li>
+    <li><a href="#跨域问题">跨域问题</a></li>
+    <li><a href="#webpack4与webpack5">webpack4与webpack5</a>
+      <ul>
+        <li><a href="#webpack5">webpack5</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>
