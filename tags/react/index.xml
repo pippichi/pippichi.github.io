@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>react on Learning Records</title>
+    <link>https://pippichi.github.io/tags/react/</link>
+    <description>Recent content in react on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
+    <lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>react -basic</title>
+      <link>https://pippichi.github.io/blog/react_basic/</link>
+      <pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/react_basic/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of react&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/react_basic&#34;&gt;react_basic&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

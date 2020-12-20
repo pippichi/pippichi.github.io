@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  react -basic &ndash; Learning Records
+
+    </title>
+    
+    <meta content="react" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="The article contains the basic knowledge of react&amp;hellip;
+Code in GitHub: react_basic
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="react -basic | Learning Records">
+    <meta name="twitter:description" content="The article contains the basic knowledge of react&hellip;
+Code in GitHub:  react_basic|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">react -basic</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/basic' class="muted-link">
+  <span class="Label Label--gray-darker">Basic</span>
+</a>
+
+
+
+<a href='/tags/react' class="muted-link">
+  <span class="Label Label--gray">react</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-12-20. Published at: 2020-12-20.">
+        
+          Published: 2020-12-20
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>The article contains the basic knowledge of react&hellip;</p>
+<p>Code in GitHub:  <strong><a href="https://github.com/pippichi/react_basic">react_basic</a></strong></p>
+<h2 id="注意每一章的总结都在代码文件下的readme中">注意，每一章的总结都在代码文件下的README中</h2>
+<p><img src="/react_basic.assets/image-20201220124259171.png" alt="image-20201220124259171"></p>
+<h2 id="回调函数传参">回调函数传参</h2>
+<p>回调函数里面直接这么写不会被当成回调函数，而会立即执行：</p>
+<p><img src="/react_basic.assets/image-20201217163954337.png" alt="image-20201217163954337"></p>
+<p>如果我们就想要这么写回调函数，那应该这么写：</p>
+<p><img src="/react_basic.assets/image-20201217164053641.png" alt="image-20201217164053641"></p>
+<p>onChange调用的函数再返回一个函数</p>
+<p>这样就能实现往回调函数传参了</p>
+<h2 id="函数的参数的值作为对象的key多年以来的疑问">函数的参数的值作为对象的key（多年以来的疑问）</h2>
+<p><img src="/react_basic.assets/image-20201217164229943.png" alt="image-20201217164229943"></p>
+<p>在js中由于没有 &quot;&quot; 来表示到底是变量还是字符串，所以如果想要把一个变量的值作为对象的key只能通过上述方法（在外面套一个 [] ）</p>
+<p>原理：</p>
+<p>原先我们对象取值的时候除了用 . 还能用 [] ：</p>
+<p><img src="/react_basic.assets/image-20201217164419220.png" alt="image-20201217164419220"></p>
+<p>看到上图应该就能理解上上图的做法了</p>
+<h2 id="数组元素加和reduce">数组元素加和（reduce）</h2>
+<p>数组的方法，能对数组里面的元素进行加和</p>
+<h2 id="函数的柯里化">函数的柯里化</h2>
+<p><img src="/react_basic.assets/image-20201217164904614.png" alt="image-20201217164904614"></p>
+<p><img src="/react_basic.assets/image-20201217165104598.png" alt="image-20201217165104598"></p>
+<h3 id="不使用柯里化完成上述操作">不使用柯里化完成上述操作</h3>
+<p>他要函数，直接给他函数就行了</p>
+<p><img src="/react_basic.assets/image-20201217165804676.png" alt="image-20201217165804676"></p>
+<h2 id="新钩子getsnapshotbeforeupdate">新钩子getSnapshotBeforeUpdate</h2>
+<p><img src="/react_basic.assets/image-20201217202533962.png" alt="image-20201217202533962"></p>
+<p>使用场景：</p>
+<p><img src="/react_basic.assets/image-20201217203654674.png" alt="image-20201217203654674"></p>
+<p>新闻每隔一秒生成一条，下面的新闻会被新的新闻挤下去，导致观看体验不好（没看完就被挤下去了）</p>
+<p>这个时候我们就可以使用这个钩子了</p>
+<p>我们可以利用element.scrollHeight和element.scrollTop来控制页面从开始有滚动条的时候就不要再将新闻挤下去，同时新的新闻也是在不断加进去的</p>
+<p><img src="/react_basic.assets/image-20201217204140820.png" alt="image-20201217204140820"></p>
+<h2 id="render中使用index为key的问题">render中使用index为key的问题</h2>
+<p><img src="/react_basic.assets/image-20201217205526133.png" alt="image-20201217205526133"></p>
+<p>点击添加一个小王之后：</p>
+<p><img src="/react_basic.assets/image-20201217205515870.png" alt="image-20201217205515870"></p>
+<p>顺序错乱了</p>
+<p>原因：</p>
+<p><img src="/react_basic.assets/image-20201217205612205.png" alt="image-20201217205612205"></p>
+<p>比方说key为0的，里面的文字有变化，会引发虚拟DOM更新，但是文字后面的input框，乍一看属性什么的都一样，看不出有什么变化，因此对于这个input框，虚拟DOM不会更新，但其实他残留了用户输入的信息，这就是问题出现的原因</p>
+<p>所以render中遍历的时候key最好不要使用index，最好用唯一标识</p>
+<h2 id="react脚手架">react脚手架</h2>
+<h3 id="public文件解读">public文件解读</h3>
+<p>index.html：</p>
+<p>%PUBLIC_URL%</p>
+<p><img src="/react_basic.assets/image-20201218092547379.png" alt="image-20201218092547379"></p>
+<p>theme-color</p>
+<p><img src="/react_basic.assets/image-20201218094547014.png" alt="image-20201218094547014"></p>
+<p>apple-touch-icon</p>
+<p><img src="/react_basic.assets/image-20201218094608846.png" alt="image-20201218094608846"></p>
+<p>这个东西什么用处呢？看下图和下下图的淘宝图标就是他的用处：</p>
+<p><img src="/react_basic.assets/image-20201218094811438.png" alt="image-20201218094811438"></p>
+<p><img src="/react_basic.assets/image-20201218094944064.png" alt="image-20201218094944064"></p>
+<p>应用加壳</p>
+<p><img src="/react_basic.assets/image-20201218095016045.png" alt="image-20201218095016045"></p>
+<p>什么是应用加壳呢？</p>
+<p>比方说我写好的web页面，套一个安卓的壳，就伪装成了一个安卓应用，生成的就是一个apk文件：</p>
+<p><img src="/react_basic.assets/image-20201218095024813.png" alt="image-20201218095024813"></p>
+<p>同理ios的壳</p>
+<p>这其实是一种跨平台技术，我开发了 web端网页 ，加个壳就变成了跟手机app差不多的一个东西，虽然点击这个app打开的实质上还是网页，只不过伪装了，把它弄得像一个手机app</p>
+<p>manifest.json</p>
+<p><img src="/react_basic.assets/image-20201218095548991.png" alt="image-20201218095548991"></p>
+<p><img src="/react_basic.assets/image-20201218095349829.png" alt="image-20201218095349829"></p>
+<p>如果要做应用加壳，那手机里面的类似于打开一个新的app弹出你是否要给予xxx权限给该app 这种东西，反正就是所有手机里关于该app所涉及的文字、图片等都需要通过这个manifest.json文件来配置，当然如果不做应用加壳，这个文件是没用的</p>
+<p>noscript标签</p>
+<p><img src="/react_basic.assets/image-20201218095625415.png" alt="image-20201218095625415"></p>
+<p>robots.txt</p>
+<p><img src="/react_basic.assets/image-20201219211842992.png" alt="image-20201219211842992"></p>
+<p>规定爬虫哪些东西能爬哪些不能爬</p>
+<h3 id="src文件解读">src文件解读</h3>
+<p>React.StrictMode</p>
+<p><img src="/react_basic.assets/image-20201218095815830.png" alt="image-20201218095815830"></p>
+<p>包裹了这个东西之后能帮我们检查代码里面有哪些语法不对的地方，比方说我们写了一个 ref = “”，这个语法都要弃用了，那他就会警告我们</p>
+<p>reportWebVitals</p>
+<p>记录网页性能</p>
+<p><img src="/react_basic.assets/image-20201219212558368.png" alt="image-20201219212558368"></p>
+<p>setupTests</p>
+<p>做组件测试的</p>
+<p><img src="/react_basic.assets/image-20201219212612736.png" alt="image-20201219212612736"></p>
+<h3 id="配置代理">配置代理</h3>
+<p>方式一：</p>
+<p>直接在package.json中配置：</p>
+<p><img src="/react_basic.assets/image-20201219222342307.png" alt="image-20201219222342307"></p>
+<p>这样配置假设我们的react端口是3000，那他通过3000端口发送的东西会被转发到5000端口</p>
+<p>方式二★：</p>
+<p><img src="/react_basic.assets/image-20201219223502061.png" alt="image-20201219223502061"></p>
+<p>建立一个setupProxy</p>
+<p>解释一下这个/api1：</p>
+<p><img src="/react_basic.assets/image-20201219223556997.png" alt="image-20201219223556997"></p>
+<p>首先请求的时候http://localhost:3000这个前缀其实就是本机，所以如果请求http://localhost:3000/students，他会先去本机当前项目中的public文件夹（根目录）找students，如果有就不会发送请求，直接返回本机数据，但如果没有，才会去发送数据。</p>
+<p>其次，setupProxy中配置/api1的意义是当请求的前缀是/api1的时候就转发到5000端口，因此我们必须这么请求：http://localhost:3000/api1/students，这样才能符合要求，但是真正的请求是http://localhost:3000/students（服务器上写的接口url是 /students），所以这才有了setupProxy中的pathRewrite属性，他将请求中的/api1替换成空字符串了，这下它既能匹配到/api1，又能在服务器端请求/students，一下就解决了这个问题</p>
+<h2 id="跨域问题">跨域问题</h2>
+<p>如果我们希望网站被别人访问而不发生跨域问题，可以通过在后端加上特殊的响应头 cors 就可以了</p>
+<h2 id="fetch">fetch</h2>
+<p>fetch关注分离（将过程细化）</p>
+<p>一般来讲我们请求数据如果路径不合法就会直接报错，但是fetch不会，因为它遵循关注分离，对于fetch来讲请求数据跟连上服务器是两码事</p>
+<p>所以fetch的第一个.then是去连服务器的，先告诉你连没连上</p>
+<p>第二个.then才去取数据</p>
+<p>所以使用fetch可能会发生：</p>
+<p>路径不合法也会告诉你连上服务器了，之后再告诉你404请求数据失败</p>
+<h2 id="给箭头函数加async">给箭头函数加async</h2>
+<p>直接加就行了</p>
+<p><img src="/react_basic.assets/image-20201220102852432.png" alt="image-20201220102852432"></p>
+<h2 id="history">history</h2>
+<p>浏览器中的history的API不好用，可以去下一个包：https://cdn.bootcss.com/history/4.7.2/history.js</p>
+<p>里面有两个方法：</p>
+<ul>
+<li>
+<p>createBrowserHistory()</p>
+<p>该方法使用H5推出的history上的API</p>
+<p><img src="/react_basic.assets/image-20201220104532386.png" alt="image-20201220104532386"></p>
+</li>
+<li>
+<p>createHashHistory()</p>
+<p>该方法使用hash值，类似于锚点跳转（跳转后浏览器有记录，但不刷新页面，而且节点前面都带一个 # ）：</p>
+<p><img src="/react_basic.assets/image-20201220104717877.png" alt="image-20201220104717877"></p>
+<p><img src="/react_basic.assets/image-20201220104643940.png" alt="image-20201220104643940"></p>
+</li>
+</ul>
+<p>这两个方法都可以使用push、replace等api跳转页面（注意页面是不会发生刷新的）</p>
+<h3 id="监听">监听</h3>
+<p>使用history.listen监听，如果页面发生跳转就会被监听到</p>
+<p><img src="/react_basic.assets/image-20201220104926886.png" alt="image-20201220104926886"></p>
+<h2 id="router">router</h2>
+<p>react中有两个router：</p>
+<ul>
+<li>
+<p>BrowserRouter</p>
+<p>事实上这个router就对应了上面history中的createBrowserHistory()</p>
+</li>
+<li>
+<p>HashRouter</p>
+<p>事实上这个router就对应了上面history中的createHashHistory()</p>
+</li>
+</ul>
+<p>区别：</p>
+<p>也跟history的createBrowserHistory()和createHashHistory()一样：</p>
+<p>HashRouter多一个 # ：</p>
+<p><img src="/react_basic.assets/image-20201220110942959.png" alt="image-20201220110942959"></p>
+<h3 id="后面的资源都不发送给服务器">#（#后面的资源都不发送给服务器）</h3>
+<p><img src="/react_basic.assets/image-20201220110942959.png" alt="image-20201220110942959"></p>
+<p>比方说上图，后面这个/home就不会发送给服务器</p>
+<h3 id="navlink">navlink</h3>
+<p>比起link，navlink有activeClassName属性，点击哪个标签，哪个标签就加上某个属性高亮</p>
+<p>navlink包住的value其实也是某种意义上的props：</p>
+<p><img src="/react_basic.assets/image-20201220113207436.png" alt="image-20201220113207436"></p>
+<p><img src="/react_basic.assets/image-20201220113225840.png" alt="image-20201220113225840"></p>
+<p>效果：</p>
+<p><img src="/react_basic.assets/image-20201220113155902.png" alt="image-20201220113155902"></p>
+<p>我们可以看到它自带一个children属性</p>
+<p>因此我们也可以给他指定children来指定他的标签文本内容：</p>
+<p><img src="/react_basic.assets/image-20201220120829202.png" alt="image-20201220120829202"></p>
+<p><img src="/react_basic.assets/image-20201220120843909.png" alt="image-20201220120843909"></p>
+<h3 id="switch">switch</h3>
+<p>匹配到一个路由之后就不会再往下匹配了，提高了效率</p>
+<h3 id="路由模糊匹配">路由模糊匹配</h3>
+<p><img src="/react_basic.assets/image-20201220124449638.png" alt="image-20201220124449638"></p>
+<p>route中路径少了没问题，这是模糊匹配，如上图</p>
+<p>但是如果反过来route多了那就不行了</p>
+<h4 id="精准匹配">精准匹配</h4>
+<p>给route添加exact属性：</p>
+<p><img src="/react_basic.assets/image-20201220124828843.png" alt="image-20201220124828843"></p>
+<p>也可以省略{true}：</p>
+<p><img src="/react_basic.assets/image-20201220124847478.png" alt="image-20201220124847478"></p>
+<h4 id="模糊匹配和精准匹配使用原则">模糊匹配和精准匹配使用原则</h4>
+<p>能用模糊就用模糊，只有模糊出问题了（比方说好多东西都往一个页面跳），再去使用精准匹配</p>
+<h3 id="嵌套路由">嵌套路由</h3>
+<p>注意下图两块高亮的地方：</p>
+<p><img src="/react_basic.assets/image-20201220130240934.png" alt="image-20201220130240934"></p>
+<p>为什么点击了 “Message”按钮 “Home”还是高亮呢？</p>
+<p>首先Message是在Home下的二级路由，我们点击Message，触发的路由路径是：</p>
+<p><img src="/react_basic.assets/image-20201220130352263.png" alt="image-20201220130352263"></p>
+<p><!-- raw HTML omitted -->路由的匹配是按照注册顺序来的<!-- raw HTML omitted --></p>
+<p>所以他会去父亲那里找/home/message，由于是模糊匹配，父亲的/home被匹配到了：</p>
+<p><img src="/react_basic.assets/image-20201220130545685.png" alt="image-20201220130545685"></p>
+<p>这次匹配就是下面这两块东西没丢的原因：</p>
+<p><img src="/react_basic.assets/image-20201220130633845.png" alt="image-20201220130633845"></p>
+<p>然后由于/home匹配到了，react挂载了Home组件，又会开启Home下的路由匹配：</p>
+<p><img src="/react_basic.assets/image-20201220131106790.png" alt="image-20201220131106790"></p>
+<p>这回匹配到的就是/home/message了，因此Message会高亮</p>
+<h4 id="精准匹配的问题嵌套的二级路由失效">精准匹配的问题（嵌套的二级路由失效）</h4>
+<p>这就引出了精准匹配存在的问题：</p>
+<p>如果是精准匹配的话在第一次匹配的时候由于路径都不符合，相当于匹配不到，就不会再往下匹配了，导致了这种效果：</p>
+<p>点击Message之后页面变这样了：</p>
+<p><img src="/react_basic.assets/image-20201220131337050.png" alt="image-20201220131337050"></p>
+<p>跳转到Redirect的页面上去了，这里我们设置的Redirect中to指向的是&quot;/about&quot;，因此他由于精准匹配的原因什么都没匹配到就走到/about页面去了</p>
+<h2 id="多级路径下解决样式丢失问题">多级路径下解决样式丢失问题</h2>
+<p><img src="/react_basic.assets/image-20201220122648732.png" alt="image-20201220122648732"></p>
+<p>我们给path加个前缀 /atguigu</p>
+<p>第一次访问页面没问题，第二次访问页面bootstrap样式请求错误</p>
+<p>原因就在于请求bootstrap资源的路径里面也给加上了/atguigu前缀：</p>
+<p><img src="/react_basic.assets/image-20201220122820810.png" alt="image-20201220122820810"></p>
+<p>解决方法：</p>
+<ul>
+<li>
+<p>修改index.html中样式link中href的相对路径的写法</p>
+<p><img src="/react_basic.assets/image-20201220122954901.png" alt="image-20201220122954901"></p>
+<p>去掉了前面的 &lsquo;.&rsquo;</p>
+</li>
+<li>
+<p>写%PUBLIC_URL%前缀</p>
+<p><img src="/react_basic.assets/image-20201220123132264.png" alt="image-20201220123132264"></p>
+</li>
+<li>
+<p>我就想写./css/bootstrap.css这种相对路径的写法</p>
+<p><img src="/react_basic.assets/image-20201220123243994.png" alt="image-20201220123243994"></p>
+<p>那就要到入口文件中把BrowserRouter改成HashRouter：</p>
+<p><img src="/react_basic.assets/image-20201220123328737.png" alt="image-20201220123328737"></p>
+<p>原理：</p>
+<p><img src="/react_basic.assets/image-20201220123429970.png" alt="image-20201220123429970"></p>
+<p>hashrouter我们说过会带一个 “#”，而“#”后面的东西都不会发给服务器（自动忽略了，他会认为“#”后面的是前端的资源）</p>
+<p>所以不管传了什么路径，他都无视，直接请求 “#”前面的，在这里也就是localhost:3000</p>
+</li>
+</ul>
+<h2 id="模板字符串在render中报错的原因">模板字符串在render中报错的原因</h2>
+<p>因为模板字符串是js的东西，所以要在外面加一个大括号：</p>
+<p><img src="/react_basic.assets/image-20201220132900260.png" alt="image-20201220132900260"></p>
+<h2 id="路由组件传递参数">路由组件传递参数</h2>
+<p>首先route自动传递了一些props：</p>
+<p><img src="/react_basic.assets/image-20201220134542551.png" alt="image-20201220134542551"></p>
+<p>路由组件传递参数的三种方法：</p>
+<ul>
+<li>params（match对象）</li>
+<li>search（location对象）</li>
+<li>state（location对象）</li>
+</ul>
+<p>具体的去看代码总结</p>
+<p>要注意的是只有state传的参数不会体现在url后面</p>
+<p>那就有一个问题了：刷新页面state传的参数会消失吗？</p>
+<p>答案是不会，因为我们用的是BrowserRouter，他有某个API ：history.xxx会维护history，而state是保存在location中的，而location又是保存在history中的，因此刷新页面参数不会丢</p>
+<p>但是当我们把历史记录清了，再次刷新页面他就不行了：</p>
+<p><img src="/react_basic.assets/image-20201220135126273.png" alt="image-20201220135126273"></p>
+<p>那至少让他不报错呗：</p>
+<p><img src="/react_basic.assets/image-20201220135320574.png" alt="image-20201220135320574"></p>
+<h2 id="link如何开启history的replace模式">link如何开启history的replace模式</h2>
+<p>link跳转的时候默认是history的push模式</p>
+<p>那怎么开始replace模式呢？</p>
+<p>添加replace={true}</p>
+<p><img src="/react_basic.assets/image-20201220140004940.png" alt="image-20201220140004940"></p>
+<p>也可以直接写replace：</p>
+<p><img src="/react_basic.assets/image-20201220140134558.png" alt="image-20201220140134558"></p>
+<h2 id="编程式路由导航">编程式路由导航</h2>
+<p><img src="/react_basic.assets/image-20201220151228404.png" alt="image-20201220151228404"></p>
+<p>利用history完成路由跳转</p>
+<p>注意上图这边这么写之后最好看看Link和Route那边需不需要对应的修改，尤其是Route</p>
+<p>那么怎么用编程式路由导航实现state传参呢？</p>
+<p><img src="/react_basic.assets/image-20201220151835430.png" alt="image-20201220151835430"></p>
+<p>其实history上的API都已经给我们准备好了，如上图</p>
+<p><img src="/react_basic.assets/image-20201220151934264.png" alt="image-20201220151934264"></p>
+<p>注意：</p>
+<p>只有路由组件的props里面才有history、location、match这几个对象，一般组件中是没有的</p>
+<p>所以在一般组件中无法调用诸如replace、go、push等只有在history中才有的函数</p>
+<p>vue中就没有这些顾虑了，没有什么一般组件和路由组件之分，因此都是可以使用history中的东西的</p>
+<p>那react中如何使用路由组件才有的函数呢？</p>
+<p>用react-router-dom中的withRouter</p>
+<h2 id="withrouter">withRouter</h2>
+<p>哪个一般组件需要使用路由组件函数就在哪个组件下引入并使用withRouter</p>
+<p><img src="/react_basic.assets/image-20201220153810382.png" alt="image-20201220153810382"></p>
+<p>withRouter包裹一般组件，往一般组件身上加上了history、location、match这三个属性</p>
+<p>注意，被withRouter包裹之后返回的是一个新组件</p>
+<h2 id="browserrouter与hashrouter的区别">BrowserRouter与HashRouter的区别</h2>
+<p><img src="/react_basic.assets/image-20201220154541626.png" alt="image-20201220154541626"></p>
+<h2 id="暴露核心配置eject">暴露核心配置（eject）</h2>
+<p>在执行了create-react-app命令之后</p>
+<p><img src="/react_basic.assets/image-20201220173927958.png" alt="image-20201220173927958"></p>
+<p>执行yarn eject</p>
+<p><img src="/react_basic.assets/image-20201220173940568.png" alt="image-20201220173940568"></p>
+<p><img src="/react_basic.assets/image-20201220174005416.png" alt="image-20201220174005416"></p>
+<h2 id="纯函数">纯函数</h2>
+<p><img src="/react_basic.assets/image-20201220204018760.png" alt="image-20201220204018760"></p>
+<p>纯函数特征之一：传入同样的参数，必定得到同样的输出，比方说函数demo(3)返回2，那下次再传入3，demo(3)的返回一定还是2</p>
+<p>纯函数特征之二：不能修改传入参数的值</p>
+<p>纯函数特征之三：不能发送网络请求、输入输出设备等不靠谱的东西（返回的东西说没就没的那种）</p>
+<p>纯函数特征之四：不能调用第一次调用和第二次调用返回的值不一样的东西，例如Date、random等</p>
+<p>redux中的reducers中不可以直接改preState的值，那是因为他底层有个浅比较，比较preState的地址，如果地址一样就不进行更新，所以如果preState是一个数组，而我们直接通过插入元素的方式修改preState：</p>
+<p><img src="/react_basic.assets/image-20201220201620692.png" alt="image-20201220201620692"></p>
+<p>这个时候preState的地址是没变的，意味着他不会进行更新，但是preState里面的值确实变了</p>
+<p>而且上述写法也使得reducers不再是一个纯函数了</p>
+<p>所以不要直接修改preState</p>
+<p>正确写法：</p>
+<p><img src="/react_basic.assets/image-20201220203044395.png" alt="image-20201220203044395"></p>
+<h2 id="redux-devtools">Redux DevTools</h2>
+<p>在浏览器下载这个插件之后再使用yarn下载redux-devtools-extension</p>
+<p><img src="/react_basic.assets/image-20201220205208362.png" alt="image-20201220205208362"></p>
+<p>如何使用：</p>
+<p>去redux的store中：</p>
+<p><img src="/react_basic.assets/image-20201220205345862.png" alt="image-20201220205345862"></p>
+<p>如果我们有其他异步组件就这么写：</p>
+<p><img src="/react_basic.assets/image-20201220205420332.png" alt="image-20201220205420332"></p>
+<h2 id="在app外面包一层provider-storestoreprovider的原因">在App外面包一层&lt;Provider store={store}&gt;&lt;\Provider&gt;的原因</h2>
+<p>是为了让App的所有后代组件（包括App）都能直接收到redux的store</p>
+<p><img src="/react_basic.assets/image-20201220210428086.png" alt="image-20201220210428086"></p>
+<h2 id="优化">优化</h2>
+<p>redux的store里面不单独引入reducers，只单独引入combineReducer，为此我们需要建立一个新的js文件来将所有的reducers汇总成一个combineReducer：</p>
+<p><img src="/react_basic.assets/image-20201220211303009.png" alt="image-20201220211303009"></p>
+<p><img src="/react_basic.assets/image-20201220211340046.png" alt="image-20201220211340046"></p>
+<h2 id="部署">部署</h2>
+<p>运行npm run build，将生成的build文件放到后端，指定spring的静态资源路径，然后配置nginx即可</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>react -basic</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#注意每一章的总结都在代码文件下的readme中">注意，每一章的总结都在代码文件下的README中</a></li>
+    <li><a href="#回调函数传参">回调函数传参</a></li>
+    <li><a href="#函数的参数的值作为对象的key多年以来的疑问">函数的参数的值作为对象的key（多年以来的疑问）</a></li>
+    <li><a href="#数组元素加和reduce">数组元素加和（reduce）</a></li>
+    <li><a href="#函数的柯里化">函数的柯里化</a>
+      <ul>
+        <li><a href="#不使用柯里化完成上述操作">不使用柯里化完成上述操作</a></li>
+      </ul>
+    </li>
+    <li><a href="#新钩子getsnapshotbeforeupdate">新钩子getSnapshotBeforeUpdate</a></li>
+    <li><a href="#render中使用index为key的问题">render中使用index为key的问题</a></li>
+    <li><a href="#react脚手架">react脚手架</a>
+      <ul>
+        <li><a href="#public文件解读">public文件解读</a></li>
+        <li><a href="#src文件解读">src文件解读</a></li>
+        <li><a href="#配置代理">配置代理</a></li>
+      </ul>
+    </li>
+    <li><a href="#跨域问题">跨域问题</a></li>
+    <li><a href="#fetch">fetch</a></li>
+    <li><a href="#给箭头函数加async">给箭头函数加async</a></li>
+    <li><a href="#history">history</a>
+      <ul>
+        <li><a href="#监听">监听</a></li>
+      </ul>
+    </li>
+    <li><a href="#router">router</a>
+      <ul>
+        <li><a href="#后面的资源都不发送给服务器">#（#后面的资源都不发送给服务器）</a></li>
+        <li><a href="#navlink">navlink</a></li>
+        <li><a href="#switch">switch</a></li>
+        <li><a href="#路由模糊匹配">路由模糊匹配</a></li>
+        <li><a href="#嵌套路由">嵌套路由</a></li>
+      </ul>
+    </li>
+    <li><a href="#多级路径下解决样式丢失问题">多级路径下解决样式丢失问题</a></li>
+    <li><a href="#模板字符串在render中报错的原因">模板字符串在render中报错的原因</a></li>
+    <li><a href="#路由组件传递参数">路由组件传递参数</a></li>
+    <li><a href="#link如何开启history的replace模式">link如何开启history的replace模式</a></li>
+    <li><a href="#编程式路由导航">编程式路由导航</a></li>
+    <li><a href="#withrouter">withRouter</a></li>
+    <li><a href="#browserrouter与hashrouter的区别">BrowserRouter与HashRouter的区别</a></li>
+    <li><a href="#暴露核心配置eject">暴露核心配置（eject）</a></li>
+    <li><a href="#纯函数">纯函数</a></li>
+    <li><a href="#redux-devtools">Redux DevTools</a></li>
+    <li><a href="#在app外面包一层provider-storestoreprovider的原因">在App外面包一层&lt;Provider store={store}&gt;&lt;\Provider&gt;的原因</a></li>
+    <li><a href="#优化">优化</a></li>
+    <li><a href="#部署">部署</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

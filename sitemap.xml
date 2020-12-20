@@ -4,12 +4,12 @@
   
   <url>
     <loc>https://pippichi.github.io/blog/</loc>
-    <lastmod>2020-12-19T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://pippichi.github.io/</loc>
-    <lastmod>2020-12-19T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -18,17 +18,32 @@
   </url>
   
   <url>
-    <loc>https://pippichi.github.io/categories/</loc>
-    <lastmod>2020-12-19T00:00:00+00:00</lastmod>
+    <loc>https://pippichi.github.io/categories/basic/</loc>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pippichi.github.io/categories/senior/</loc>
-    <lastmod>2020-12-19T00:00:00+00:00</lastmod>
+    <loc>https://pippichi.github.io/categories/</loc>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/react/</loc>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/blog/react_basic/</loc>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://pippichi.github.io/tags/</loc>
+    <lastmod>2020-12-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/categories/senior/</loc>
     <lastmod>2020-12-19T00:00:00+00:00</lastmod>
   </url>
   
@@ -95,11 +110,6 @@
   <url>
     <loc>https://pippichi.github.io/blog/springboot_senior/</loc>
     <lastmod>2020-07-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pippichi.github.io/categories/basic/</loc>
-    <lastmod>2020-06-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>

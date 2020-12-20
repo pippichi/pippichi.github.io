@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
-    <lastBuildDate>Sat, 19 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://pippichi.github.io/about/</link>
@@ -16,6 +16,16 @@
       <guid>https://pippichi.github.io/about/</guid>
       <description>Welcome.
 Learn more on GitHub.</description>
+    </item>
+    
+    <item>
+      <title>react -basic</title>
+      <link>https://pippichi.github.io/blog/react_basic/</link>
+      <pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/react_basic/</guid>
+      <description>&lt;p&gt;The article contains the basic knowledge of react&amp;hellip;&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/react_basic&#34;&gt;react_basic&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
