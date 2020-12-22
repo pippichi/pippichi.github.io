@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  react扩展知识 &ndash; Learning Records
+
+    </title>
+    
+    <meta content="react" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="总结了setState两种写法、lazyLoad、State Hook、Effect Hook、Ref Hook、Fragment、Context、组件优化、render props、错误边界等
+Code in GitHub: react_basic
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="react扩展知识 | Learning Records">
+    <meta name="twitter:description" content="总结了setState两种写法、lazyLoad、State Hook、Effect Hook、Ref Hook、Fragment、Context、组件优化、render props、错误边界等
+Code in GitHub:  react_basic|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">react扩展知识</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/react' class="muted-link">
+  <span class="Label Label--gray">react</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-12-22. Published at: 2020-12-22.">
+        
+          Published: 2020-12-22
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>总结了setState两种写法、lazyLoad、State Hook、Effect Hook、Ref Hook、Fragment、Context、组件优化、render props、错误边界等</p>
+<p>Code in GitHub:  <strong><a href="https://github.com/pippichi/react_basic/tree/master/react_extension">react_basic</a></strong></p>
+<h2 id="1-setstate">1. setState</h2>
+<h3 id="setstate更新状态的2种写法">setState更新状态的2种写法</h3>
+<pre><code>	(1). setState(stateChange, [callback])------对象式的setState
+            1.stateChange为状态改变对象(该对象可以体现出状态的更改)
+            2.callback是可选的回调函数, 它在状态更新完毕、界面也更新后(render调用后)才被调用
+					
+	(2). setState(updater, [callback])------函数式的setState
+            1.updater为返回stateChange对象的函数。
+            2.updater可以接收到state和props。
+            4.callback是可选的回调函数, 它在状态更新、界面也更新后(render调用后)才被调用。
+总结:
+		1.对象式的setState是函数式的setState的简写方式(语法糖)
+		2.使用原则：
+				(1).如果新状态不依赖于原状态 ===&gt; 使用对象方式
+				(2).如果新状态依赖于原状态 ===&gt; 使用函数方式
+				(3).如果需要在setState()执行后获取最新的状态数据, 
+					要在第二个callback函数中读取
+</code></pre><p>第二种方法中还能接收到props：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201220221420182.png" alt="image-20201220221420182"></p>
+<p>第二种方法也能传回调函数：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201220221728761.png" alt="image-20201220221728761"></p>
+<hr>
+<h2 id="2-lazyload">2. lazyLoad</h2>
+<h3 id="路由组件的lazyload">路由组件的lazyLoad</h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js">	<span class="c1">//1.通过React的lazy函数配合import()函数动态加载路由组件 ===&gt; 路由组件代码会被分开打包
+</span><span class="c1"></span>	<span class="kr">const</span> <span class="nx">Login</span> <span class="o">=</span> <span class="nx">lazy</span><span class="p">(()=&gt;</span><span class="kr">import</span><span class="p">(</span><span class="s1">&#39;@/pages/Login&#39;</span><span class="p">))</span>
+	
+	<span class="c1">//2.通过&lt;Suspense&gt;指定在加载得到路由打包文件前显示一个自定义loading界面
+</span><span class="c1"></span>	<span class="o">&lt;</span><span class="nx">Suspense</span> <span class="nx">fallback</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">loading</span><span class="p">.....</span><span class="o">&lt;</span><span class="err">/h1&gt;}&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Switch</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="s2">&#34;/xxx&#34;</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">Xxxx</span><span class="p">}</span><span class="o">/&gt;</span>
+            <span class="o">&lt;</span><span class="nx">Redirect</span> <span class="nx">to</span><span class="o">=</span><span class="s2">&#34;/login&#34;</span><span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="err">/Switch&gt;</span>
+    <span class="o">&lt;</span><span class="err">/Suspense&gt;</span>
+</code></pre></div><hr>
+<h2 id="3-hooks">3. Hooks</h2>
+<h4 id="1-react-hookhooks是什么">1. React Hook/Hooks是什么?</h4>
+<pre><code>(1). Hook是React 16.8.0版本增加的新特性/新语法
+(2). 可以让你在函数组件中使用 state 以及其他的 React 特性
+</code></pre><h4 id="2-三个常用的hook">2. 三个常用的Hook</h4>
+<pre><code>(1). State Hook: React.useState()
+(2). Effect Hook: React.useEffect()
+(3). Ref Hook: React.useRef()
+</code></pre><h4 id="3-state-hook">3. State Hook</h4>
+<pre><code>(1). State Hook让函数组件也可以有state状态, 并进行状态数据的读写操作
+(2). 语法: const [xxx, setXxx] = React.useState(initValue)  
+(3). useState()说明:
+        参数: 第一次初始化指定的值在内部作缓存
+        返回值: 包含2个元素的数组, 第1个为内部当前状态值, 第2个为更新状态值的函数
+(4). setXxx()2种写法:
+        setXxx(newValue): 参数为非函数值, 直接指定新的状态值, 内部用其覆盖原来的状态值
+        setXxx(value =&gt; newValue): 参数为函数, 接收原本的状态值, 返回新的状态值, 内部用其覆盖原来的状态值。这种函数的写法跟setState一样
+</code></pre><p>useState()中参数：第一次初始化指定的值在内部做缓存的解释：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221212710736.png" alt="image-20201221212710736"></p>
+<p>当我们点击按钮+1的时候他是会重绘页面的，也就是会重新调用上面这个函数，那问题来了，每次调用函数都会执行一次React.useState(0)，这样会不会导致count又被初始化成0呢？答案是不会的，react在内部做了处理，将第一次初始化的值在内部做了缓存</p>
+<p>那有两种以上的state需要维护的时候怎么办呢？</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221213210695.png" alt="image-20201221213210695"></p>
+<p>很简单，写两个React.useState()</p>
+<h4 id="4-effect-hook">4. Effect Hook</h4>
+<pre><code>(1). Effect Hook 可以让你在函数组件中执行副作用操作(用于模拟类组件中的生命周期钩子)
+(2). React中的副作用操作:
+        发ajax请求数据获取
+        设置订阅 / 启动定时器
+        手动更改真实DOM
+(3). 语法和说明: 
+        useEffect(() =&gt; { 
+          // 在此可以执行任何带副作用操作
+          return () =&gt; { // 在组件卸载前执行
+            // 在此做一些收尾工作, 比如清除定时器/取消订阅等
+          }
+        }, [stateValue]) // 如果指定的是[], 回调函数只会在第一次render()后执行
+    
+(4). 可以把 useEffect Hook 看做如下三个函数的组合
+        componentDidMount()
+        componentDidUpdate()
+    	componentWillUnmount() 
+</code></pre><p>useEffect()有第二个参数，如果不写：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221214340457.png" alt="image-20201221214340457"></p>
+<p>默认监控所有参数，所有参数中哪怕有一个变了，就给调用这个useEffect</p>
+<p>如果写一个空数组（就相当于componentDidMount）：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221214456293.png" alt="image-20201221214456293"></p>
+<p>那就谁也不监控，那useEffect只调用启动页面时的那一次</p>
+<p>如果写了一点东西在数组里面（就相当于componentDidUpdate）：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221214553056.png" alt="image-20201221214553056"></p>
+<p>我只监测count这个变量，count一发生变化就调用useEffect</p>
+<p>那有没有相当于componentWillUnMount的用法呢？</p>
+<p>有的！</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221215151076.png" alt="image-20201221215151076"></p>
+<p>上图红色函数返回的那个函数其实就相当于componentWillUnMount</p>
+<p>具体调用：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221215328378.png" alt="image-20201221215328378"></p>
+<p>直接return一个函数，这个return的函数其实就是componentWillUnMount的钩子</p>
+<h4 id="5-ref-hook">5. Ref Hook</h4>
+<pre><code>(1). Ref Hook可以在函数组件中存储/查找组件内的标签或任意其它数据
+(2). 语法: const refContainer = useRef()
+(3). 作用:保存标签对象,功能与React.createRef()一样
+</code></pre><hr>
+<h2 id="4-fragment">4. Fragment</h2>
+<h3 id="使用">使用</h3>
+<pre><code>&lt;Fragment&gt;&lt;Fragment&gt;
+&lt;&gt;&lt;/&gt;
+</code></pre>
+<p>如果要用于遍历，我们知道react中遍历必须要传一个key，那就得用Fragment：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221220517624.png" alt="image-20201221220517624"></p>
+<p>Fragment里面是可以传入key的，但是注意：除了key，别的都不能传，那是因为Fragment到最后变成真实DOM的时候react会帮我们去掉他，但是有可能有遍历Fragment的需求啊，用到遍历就必须要传一个key进去，所以Fragment传key是可以的，传别的参数会报错</p>
+<p>如果内部的东西简单，或者用不着遍历，可以直接写空标签：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221220813108.png" alt="image-20201221220813108"></p>
+<p>但是注意：空标签什么参数都传不了，连key也不行，这是与Fragment的区别，因此如果需要遍历的话，用空标签就不行了</p>
+<h3 id="作用">作用</h3>
+<blockquote>
+<p>可以不用必须有一个真实的DOM根标签了</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<h2 id="5-context">5. Context</h2>
+<p>输出某个组件的实例对象：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222205711420.png" alt="image-20201222205711420"></p>
+<p>里面的context就是我们要用的</p>
+<h3 id="理解">理解</h3>
+<blockquote>
+<p>一种组件间通信方式, 常用于【祖组件】与【后代组件】间通信</p>
+</blockquote>
+<h3 id="使用-1">使用</h3>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="mi">1</span><span class="p">)</span> <span class="nx">创建Context容器对象</span><span class="err">：</span>
+	<span class="kr">const</span> <span class="nx">XxxContext</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createContext</span><span class="p">()</span>  
+	
+<span class="mi">2</span><span class="p">)</span> <span class="nx">渲染子组时</span><span class="err">，</span><span class="nx">外面包裹xxxContext</span><span class="p">.</span><span class="nx">Provider</span><span class="p">,</span> <span class="nx">通过value属性给后代组件传递数据</span><span class="err">：</span>
+	<span class="o">&lt;</span><span class="nx">xxxContext</span><span class="p">.</span><span class="nx">Provider</span> <span class="nx">value</span><span class="o">=</span><span class="p">{</span><span class="nx">数据</span><span class="p">}</span><span class="o">&gt;</span>
+		<span class="nx">子组件</span>
+    <span class="o">&lt;</span><span class="err">/xxxContext.Provider&gt;</span>
+	<span class="nx">有点类似react</span><span class="o">-</span><span class="nx">redux中的</span><span class="o">&lt;</span><span class="nx">Provider</span><span class="o">&gt;</span><span class="nx">标签</span><span class="err">（</span><span class="nx">在Provider标签中传入state</span><span class="err">，</span><span class="nx">就能将state传给App以及App的所有子组件</span><span class="err">）</span>
+    
+<span class="mi">3</span><span class="p">)</span> <span class="nx">后代组件读取数据</span><span class="err">：</span>
+
+	<span class="c1">//第一种方式:仅适用于类组件 
+</span><span class="c1"></span>	  <span class="kr">static</span> <span class="nx">contextType</span> <span class="o">=</span> <span class="nx">xxxContext</span>  <span class="c1">// 声明接收context
+</span><span class="c1"></span>	  <span class="k">this</span><span class="p">.</span><span class="nx">context</span> <span class="c1">// 读取context中的value数据
+</span><span class="c1"></span>	  
+	<span class="c1">//第二种方式: 函数组件与类组件都可以
+</span><span class="c1"></span>	  <span class="o">&lt;</span><span class="nx">xxxContext</span><span class="p">.</span><span class="nx">Consumer</span><span class="o">&gt;</span>
+	    <span class="p">{</span>
+	      <span class="nx">value</span> <span class="p">=&gt;</span> <span class="p">(</span> <span class="c1">// value就是context中的value数据
+</span><span class="c1"></span>	        <span class="nx">要显示的内容</span>
+	      <span class="p">)</span>
+	    <span class="p">}</span>
+	  <span class="o">&lt;</span><span class="err">/xxxContext.Consumer&gt;</span>
+</code></pre></div><p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222210639522.png" alt="image-20201222210639522"></p>
+<p>操作就是首先React.createContext()创建Context对象，取出其中的Provider，然后像上图这样使用。之后B组件及其后代都可以使用username这个变量了</p>
+<p>那后代怎么收呢？</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222211029000.png" alt="image-20201222211029000"></p>
+<p>首先必须声明该组件想要使用创建的Context，如上图，声明之后使用this.context即可收到</p>
+<p>还需要注意的是：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222211235301.png" alt="image-20201222211235301"></p>
+<p>这个value是固定的，必须写value，写别的不好使</p>
+<p>传多个参数：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222211351428.png" alt="image-20201222211351428"></p>
+<p>上面是类组件，如果是函数组件呢？</p>
+<p>那就需要再从创建的Context中取出Consumer：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222211806158.png" alt="image-20201222211806158"></p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222211838269.png" alt="image-20201222211838269"></p>
+<p>这里的value就是传给Provider的value，使用Consumer之后直接从value中取就行了</p>
+<h3 id="注意">注意</h3>
+<pre><code>在应用开发中一般不用context, 一般都用它的封装react插件
+</code></pre>
+<!-- raw HTML omitted -->
+<h2 id="6-组件优化">6. 组件优化</h2>
+<h3 id="component的2个问题">Component的2个问题</h3>
+<blockquote>
+<ol>
+<li>
+<p>只要执行setState(),即使不改变状态数据, 组件也会重新render() ==&gt; 效率低</p>
+</li>
+<li>
+<p>只当前组件重新render(), 就会自动重新render子组件，纵使子组件没有用到父组件的任何数据 ==&gt; 效率低</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="效率高的做法">效率高的做法</h3>
+<blockquote>
+<p>只有当组件的state或props数据发生改变时才重新render()</p>
+</blockquote>
+<h3 id="原因">原因</h3>
+<blockquote>
+<p>Component中的shouldComponentUpdate()总是返回true</p>
+</blockquote>
+<h3 id="解决">解决</h3>
+<pre><code>办法1: 
+    重写shouldComponentUpdate()方法
+    比较新旧state或props数据, 如果有变化才返回true, 如果没有返回false
+办法2:  
+    使用PureComponent
+    PureComponent重写了shouldComponentUpdate(), 只有state或props数据有变化才返回true
+    注意: 
+        只是进行state和props数据的浅比较, 如果只是数据对象内部数据变了, 返回false  
+        不要直接修改state数据, 而是要产生新数据
+项目中一般使用PureComponent来优化
+</code></pre>
+<p>使用shouldComponentUpdate()钩子实例：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222213830055.png" alt="image-20201222213830055"></p>
+<p>这种写法适用于维护的state或者props中只有少数几个变量的时候，那手写shouldComponentUpdate()是可以的，但是一般情况下维护的变量个数都有好几个，因此一般情况下就直接使用PureComponent</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222214224831.png" alt="image-20201222214224831"></p>
+<p>将Component换成PureComponent：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222214310011.png" alt="image-20201222214310011"></p>
+<p>PureComponent已经帮我们写完了shouldComponentUpdate()中的判断，不需要我们手写了</p>
+<p>但是PureComponent仍旧存在一些小问题：</p>
+<p>如果我们setState这么写：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222214602493.png" alt="image-20201222214602493"></p>
+<p>这样的setState就会失效</p>
+<p>那是因为PureComponent底层做了一个浅对比，之前this.setState({carName: &ldquo;xxx&rdquo;})的时候传进去的对象跟state中维护的对象地址都不一样的，是两个对象，但是上图中obj先拿到了state的引用地址，之后调用this.setState的时候仍旧将obj这个对象放进去了，因此这里传入的对象地址跟state的对象地址就是同一个，由于PureComponent底层是浅对比，因此他会认为这两个对象没区别，就会跳过更新了（shouldComponentUpdate()阀门返回false）</p>
+<p>同理，下面这种情况也是不行的：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222215613082.png" alt="image-20201222215613082"></p>
+<p>应该这么写：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222215655014.png" alt="image-20201222215655014"></p>
+<!-- raw HTML omitted -->
+<h2 id="7-render-props">7. render props</h2>
+<h3 id="如何向组件内部动态传入带内容的结构标签">如何向组件内部动态传入带内容的结构(标签)?</h3>
+<pre><code>Vue中: 
+    使用slot技术, 也就是通过组件标签体传入结构  &lt;A&gt;&lt;B/&gt;&lt;/A&gt;
+React中:
+    使用children props: 通过组件标签体传入结构
+    使用render props: 通过组件标签属性传入结构,而且可以携带数据，一般用render函数属性
+</code></pre>
+<h3 id="children-props">children props</h3>
+<pre><code>&lt;A&gt;
+  &lt;B&gt;xxxx&lt;/B&gt;
+&lt;/A&gt;
+{this.props.children}
+问题: 如果B组件需要A组件内的数据, ==&gt; 做不到 
+</code></pre>
+<p>之前我们是怎么确认父子关系的？</p>
+<p>A里面用到B了，那B就是A的儿子</p>
+<p>其实除了这种确认父子，还有一种情况可以确认父子：</p>
+<p>首先还是A和B，一开始不知道A和B啥关系，直到我们在A的父亲里面写了这个东西：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222220906195.png" alt="image-20201222220906195"></p>
+<p>注意，光写上图红框框中的还不够，A中还得调用B，B才能render出来：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222220955565.png" alt="image-20201222220955565"></p>
+<p>为什么在children中能找到B呢？</p>
+<p>那是因为A的标签体中写了B：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222221030819.png" alt="image-20201222221030819"></p>
+<p>那问题来了，这个时候的A怎么向B中传递数据？</p>
+<p>使用render props</p>
+<h3 id="render-props">render props</h3>
+<pre><code>&lt;A render={(data) =&gt; &lt;C data={data}&gt;&lt;/C&gt;}&gt;&lt;/A&gt;
+A组件: {this.props.render(内部state数据)}
+C组件: 读取A组件传入的数据显示 {this.props.data} 
+</code></pre>
+<p>首先其实除了上面两种确认父子关系的方法，还存在第三种方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">A</span> <span class="nx">render</span><span class="o">=</span><span class="p">{()</span> <span class="p">=&gt;</span> <span class="o">&lt;</span><span class="nx">B</span><span class="o">/&gt;</span><span class="p">}</span> <span class="o">/&gt;</span>
+</code></pre></div><p>这么写之后只需在A中拿到render函数并调用render()也可以渲染B，并且B就是A的儿子</p>
+<p>这样其实就可以实现传参了：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222221425862.png" alt="image-20201222221425862"></p>
+<p>这就解耦了！！</p>
+<p>下次把B换成C，直接实现AC父子，不需要再去A的代码里面改东西了！！</p>
+<p>这就跟vue的插槽技术很像，先预留一个位置，到时候放什么都可以</p>
+<!-- raw HTML omitted -->
+<h2 id="8-错误边界">8. 错误边界</h2>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222222748098.png" alt="image-20201222222748098"></p>
+<p>子组件出问题保证父组件可以加载，此时的子组件可以写一些别的东西，比方说网络繁忙之类的，而不是整个页面报错</p>
+<p>这个时候就需要使用错误边界了</p>
+<p>注意，错误边界需要在会发生错误的组件的父组件里面做</p>
+<h4 id="理解-1">理解：</h4>
+<p>错误边界(Error boundary)：用来捕获后代组件错误，渲染出备用页面</p>
+<h4 id="特点">特点：</h4>
+<p>只能捕获后代组件生命周期产生的错误，不能捕获自己组件产生的错误和其他组件在合成事件、定时器中产生的错误</p>
+<h5 id="使用方式">使用方式：</h5>
+<p>getDerivedStateFromError配合componentDidCatch</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 生命周期函数，一旦后台组件报错，就会触发
+</span><span class="c1"></span><span class="kr">static</span> <span class="nx">getDerivedStateFromError</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+    <span class="c1">// 在render之前触发
+</span><span class="c1"></span>    <span class="c1">// 返回新的state
+</span><span class="c1"></span>    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">hasError</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="nx">componentDidCatch</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">info</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 统计页面的错误。发送请求发送到后台去
+</span><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">info</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>当parent的子组件出现错误的时候，会触发getDerivedStateFromError的调用，并携带错误信息</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222223445611.png" alt="image-20201222223445611"></p>
+<p>父组件需要维护一个错误信息变量来接受从getDerivedFromError传过来的error</p>
+<p>接到数据之后，怎么用就是我们的事了：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222223608638.png" alt="image-20201222223608638"></p>
+<p><!-- raw HTML omitted -->注意！！！<!-- raw HTML omitted --></p>
+<p>错误边界只能在生产模式下使用，开发模式用不了</p>
+<p>还有一点：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222224554027.png" alt="image-20201222224554027"></p>
+<p>他捕获的是生命周期产生的错误，别的错误是捕获不了的</p>
+<p>render显然是生命周期函数，所以对于render产生的错误，是可以捕获的</p>
+<p>但是像这种：</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222224504323.png" alt="image-20201222224504323"></p>
+<p>这个test函数显然不是生命周期中的函数，因此对于test产生的错误就捕获不到</p>
+<p>componentDidCatch</p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201222224228461.png" alt="image-20201222224228461"></p>
+<p>渲染的时候子组件出了问题，就会调用componentDidCatch这个生命周期钩子</p>
+<p>一般我们在里面给后台发送信息，用于提醒编码人员修改bug</p>
+<h2 id="9-组件通信方式总结">9. 组件通信方式总结</h2>
+<h4 id="组件间的关系">组件间的关系：</h4>
+<ul>
+<li>父子组件</li>
+<li>兄弟组件（非嵌套组件）</li>
+<li>祖孙组件（跨级组件）</li>
+</ul>
+<h4 id="几种通信方式">几种通信方式：</h4>
+<pre><code>    1.props：
+        (1).children props
+        (2).render props
+    2.消息订阅-发布：
+        pubs-sub、event等等
+    3.集中式管理：
+        redux、dva等等
+    4.conText:
+        生产者-消费者模式
+</code></pre>
+<h4 id="比较好的搭配方式">比较好的搭配方式：</h4>
+<pre><code>    父子组件：props
+    兄弟组件：消息订阅-发布、集中式管理
+    祖孙组件(跨级组件)：消息订阅-发布、集中式管理、conText(开发用的少，封装插件用的多)
+</code></pre>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>react扩展知识</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-setstate">1. setState</a>
+      <ul>
+        <li><a href="#setstate更新状态的2种写法">setState更新状态的2种写法</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-lazyload">2. lazyLoad</a>
+      <ul>
+        <li><a href="#路由组件的lazyload">路由组件的lazyLoad</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-hooks">3. Hooks</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#4-fragment">4. Fragment</a>
+      <ul>
+        <li><a href="#使用">使用</a></li>
+        <li><a href="#作用">作用</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-context">5. Context</a>
+      <ul>
+        <li><a href="#理解">理解</a></li>
+        <li><a href="#使用-1">使用</a></li>
+        <li><a href="#注意">注意</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-组件优化">6. 组件优化</a>
+      <ul>
+        <li><a href="#component的2个问题">Component的2个问题</a></li>
+        <li><a href="#效率高的做法">效率高的做法</a></li>
+        <li><a href="#原因">原因</a></li>
+        <li><a href="#解决">解决</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-render-props">7. render props</a>
+      <ul>
+        <li><a href="#如何向组件内部动态传入带内容的结构标签">如何向组件内部动态传入带内容的结构(标签)?</a></li>
+        <li><a href="#children-props">children props</a></li>
+        <li><a href="#render-props">render props</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-错误边界">8. 错误边界</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#9-组件通信方式总结">9. 组件通信方式总结</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

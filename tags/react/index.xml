@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
-    <lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>react扩展知识</title>
+      <link>https://pippichi.github.io/blog/react%E6%89%A9%E5%B1%95/</link>
+      <pubDate>Tue, 22 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/react%E6%89%A9%E5%B1%95/</guid>
+      <description>&lt;p&gt;总结了setState两种写法、lazyLoad、State Hook、Effect Hook、Ref Hook、Fragment、Context、组件优化、render props、错误边界等&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/react_basic/tree/master/react_extension&#34;&gt;react_basic&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>react -basic</title>
       <link>https://pippichi.github.io/blog/react_basic/</link>
