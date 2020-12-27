@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  Linux补充 &ndash; Learning Records
+
+    </title>
+    
+    <meta content="Linux" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="对于Linux的一些额外的补充
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="Linux补充 | Learning Records">
+    <meta name="twitter:description" content="对于Linux的一些额外的补充|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">Linux补充</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/linux' class="muted-link">
+  <span class="Label Label--gray">Linux</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-12-27. Published at: 2020-12-27.">
+        
+          Published: 2020-12-27
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>对于Linux的一些额外的补充</p>
+<h2 id="linux防火墙添加暴露端口号">linux防火墙添加暴露端口号</h2>
+<h3 id="查看开放的端口号">查看开放的端口号</h3>
+<p>firewall-cmd &ndash;list-all</p>
+<h3 id="设置开放的端口号">设置开放的端口号</h3>
+<p>firewall-cmd &ndash;add-service=http &ndash;permanent</p>
+<p>sudo firewall-cmd &ndash;add-port=80/tcp &ndash;permanent</p>
+<h3 id="加完开放端口号之后重启防火墙">加完开放端口号之后重启防火墙</h3>
+<p>firewall-cmd &ndash;reload</p>
+<h2 id="linux强制杀死进程">linux强制杀死进程</h2>
+<p>kill -9</p>
+<p>原先的kill比较柔和，告诉程序自己关闭并退出</p>
+<p>kill -9 表示强制杀死进程，这个信号不能被忽略，且接受这个信号的进程在收到信号的时候不能执行任何清理</p>
+<h2 id="查看网卡及路由映射">查看网卡及路由映射</h2>
+<p>ip a</p>
+<h2 id="配置主机ip别名">配置主机ip别名</h2>
+<p>vim /etc/hosts</p>
+<p>添加行：</p>
+<p>ip_address   some_name</p>
+<p>例子：</p>
+<p>127.0.0.1    LVS_DEVEL</p>
+<p>意思就是LVS_DEVEL就是127.0.0.1的别名</p>
+<p>应用场景:</p>
+<p>配置nginx集群的时候会用到keepalived.conf</p>
+<p>里面有个global_defs（全局定义属性）</p>
+<p>在global_defs中可以配置router_id属性，表示访问到的主机，原来是这么写的：</p>
+<p>router_id  127.0.0.1</p>
+<p>现在可以这么写：</p>
+<p>router_id   LVS_DEVEL</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>Linux补充</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#linux防火墙添加暴露端口号">linux防火墙添加暴露端口号</a>
+      <ul>
+        <li><a href="#查看开放的端口号">查看开放的端口号</a></li>
+        <li><a href="#设置开放的端口号">设置开放的端口号</a></li>
+        <li><a href="#加完开放端口号之后重启防火墙">加完开放端口号之后重启防火墙</a></li>
+      </ul>
+    </li>
+    <li><a href="#linux强制杀死进程">linux强制杀死进程</a></li>
+    <li><a href="#查看网卡及路由映射">查看网卡及路由映射</a></li>
+    <li><a href="#配置主机ip别名">配置主机ip别名</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

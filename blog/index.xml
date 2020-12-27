@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
-    <lastBuildDate>Tue, 22 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux补充</title>
+      <link>https://pippichi.github.io/blog/linux%E8%A1%A5%E5%85%85/</link>
+      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/linux%E8%A1%A5%E5%85%85/</guid>
+      <description>&lt;p&gt;对于Linux的一些额外的补充&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>nginx补充</title>
+      <link>https://pippichi.github.io/blog/nginx%E8%A1%A5%E5%85%85/</link>
+      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/nginx%E8%A1%A5%E5%85%85/</guid>
+      <description>&lt;p&gt;学习nginx基础课件.pdf和nginx基础课件解读（依赖基础课件）.pdf时的一些记录&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>react扩展知识</title>
       <link>https://pippichi.github.io/blog/react%E6%89%A9%E5%B1%95/</link>
