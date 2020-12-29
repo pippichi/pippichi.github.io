@@ -160,6 +160,34 @@ if (!doNotTrack) {
 <p>router_id  127.0.0.1</p>
 <p>现在可以这么写：</p>
 <p>router_id   LVS_DEVEL</p>
+<h2 id="centos7分区满了如何扩容">centos7分区满了如何扩容</h2>
+<p>使用df -h查看分区使用情况，可以了解各分区使用情况</p>
+<p>首先退出虚拟机，设置扩展磁盘容量（原先是20g，这里我们重新设置50g）</p>
+<p>启动虚拟机使用fdisk -l查看磁盘总大小，此时我们会发现磁盘容量已经变大了，但是还没有被分配</p>
+<p>键入命令：fdisk /dev/sda</p>
+<p>​	键入：m（获取帮助）</p>
+<p>​	键入：n（增加分区）</p>
+<p>​	键入： p（增加主分区）</p>
+<p>​	键入：回车（起始跟结束扇区）（注意这里最好直接回车，随便写东西进去可能会造成空间浪费）</p>
+<p>​	键入：w（退出）</p>
+<p>现在系统就有三块了：sda1、sda2、sda3（新的），原先只有两块（sda1、sda2）</p>
+<p>接下来创建物理卷</p>
+<p>键入命令：pvcreate /dev/sda3（如果提示sda3找不到，就键入：partprobe或者重启虚拟机）</p>
+<p>接下来使用vgscan查询物理卷</p>
+<p>可能会输出：</p>
+<p>“Reading volumn groups from cache.”</p>
+<p>&ldquo;Found volumn group &ldquo;centos1&rdquo; using metadata type lvm2&rdquo;</p>
+<p>注意上面第二句话中的“centos1”，说明查到了本机物理卷的名称为“centos”</p>
+<p>接下来使用新增物理卷扩展“centos1”</p>
+<p>键入命令：vgextend centos1 /dev/sda3</p>
+<p>接下来扩展lv</p>
+<p>键入命令：lvextend -L +24G /dev/mapper/centos1-root（要扩展的分区名）</p>
+<p>此时已经完成了空间分配</p>
+<p>接着用df -h，发现实际容量并没有变化，那是因为系统还不认识刚刚添加进来的磁盘的文件系统，所以还需要对文件系统进行扩容</p>
+<p>键入：xfs_growfs /dev/mapper/centos1-root（要扩展的分区名）</p>
+<p>或者</p>
+<p>键入：resize2fs -f /dev/mapper/centos1-root（要扩展的分区名）</p>
+<p>至此，完成扩容。</p>
   </section>
 
   <section>
@@ -188,6 +216,7 @@ if (!doNotTrack) {
     <li><a href="#linux强制杀死进程">linux强制杀死进程</a></li>
     <li><a href="#查看网卡及路由映射">查看网卡及路由映射</a></li>
     <li><a href="#配置主机ip别名">配置主机ip别名</a></li>
+    <li><a href="#centos7分区满了如何扩容">centos7分区满了如何扩容</a></li>
   </ul>
 </nav></div>
   
