@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  MySQL补充 &ndash; Learning Records
+
+    </title>
+    
+    <meta content="MySQL" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="对于MySQL的一些额外的补充
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="MySQL补充 | Learning Records">
+    <meta name="twitter:description" content="对于MySQL的一些额外的补充|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">MySQL补充</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/mysql' class="muted-link">
+  <span class="Label Label--gray">MySQL</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2020-12-29. Published at: 2020-12-29.">
+        
+          Published: 2020-12-29
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>对于MySQL的一些额外的补充</p>
+<h2 id="使用yum安装mysql8">使用yum安装MySQL8</h2>
+<p>先使用yum list installed |grep mysql* 来查看是否有残留mysql</p>
+<p>如果有使用yum remove mysql* 删除所有残留mysql</p>
+<p>接下来删除 /var/lib/mysql下的所有残留文件</p>
+<p>接下来依次执行命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">wget</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">c</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">dev</span><span class="p">.</span><span class="n">mysql</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">get</span><span class="o">/</span><span class="n">mysql80</span><span class="o">-</span><span class="n">community</span><span class="o">-</span><span class="k">release</span><span class="o">-</span><span class="n">el7</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="n">noarch</span><span class="p">.</span><span class="n">rpm</span>
+<span class="n">yum</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">mysql80</span><span class="o">-</span><span class="n">community</span><span class="o">-</span><span class="k">release</span><span class="o">-</span><span class="n">el7</span><span class="o">-</span><span class="mi">3</span><span class="p">.</span><span class="n">noarch</span><span class="p">.</span><span class="n">rpm</span>
+<span class="n">yum</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">mysql</span><span class="o">-</span><span class="n">community</span><span class="o">-</span><span class="n">server</span>
+<span class="n">systemctl</span> <span class="n">start</span> <span class="n">mysqld</span><span class="p">.</span><span class="n">service</span>
+<span class="n">systemctl</span> <span class="n">status</span>  <span class="n">mysqld</span><span class="p">.</span><span class="n">service</span>
+</code></pre></div><p>不出意外的话这个时候应该就好了</p>
+<p>查看systemctl中所有enable的项，查看mysql服务是否开机自启：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">systemctl</span> <span class="n">list</span><span class="o">-</span><span class="n">unit</span><span class="o">-</span><span class="n">files</span><span class="o">|</span><span class="n">grep</span> <span class="n">enabled</span>
+</code></pre></div><p>接下来修改密码：</p>
+<p>运行命令查看初始化的时候自动生成的密码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">grep</span> <span class="s2">&#34;password&#34;</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">mysqld</span><span class="p">.</span><span class="n">log</span>
+</code></pre></div><p>在靠近最后一行的位置我们会找到生成的密码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="p">...</span><span class="n">A</span> <span class="n">temporary</span> <span class="n">password</span> <span class="k">is</span> <span class="n">generated</span> <span class="k">for</span> <span class="n">root</span><span class="o">@</span><span class="n">localhost</span><span class="p">:</span> <span class="n">xxx</span>
+</code></pre></div><p>得到密码之后我们就能登录MySQL了</p>
+<p>首次登录啥都不能干，只能重置密码，这个时候可能会遇到设置密码过于简单系统无法通过的情况，暂时没办法，只能先设置一个难度级别高的密码</p>
+<p>设置完密码之后就可以去修改设置密码的级别了</p>
+<p>执行命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;validate_password%&#39;</span><span class="p">;</span>
+</code></pre></div><p>我们会看到对于密码设置的诸多限制，有：</p>
+<ul>
+<li>validate_password_length</li>
+<li>validate_password_number_count</li>
+<li>validate_password.policy</li>
+<li>validate_password.check_user_name</li>
+<li>validate_password_mixed_case_count</li>
+<li>validate_password_special_char_count</li>
+<li>&hellip;</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-tex" data-lang="tex">密码的长度是由validate<span class="nb">_</span>password<span class="nb">_</span>length决定的，而validate<span class="nb">_</span>password<span class="nb">_</span>length的计算公式是：
+validate<span class="nb">_</span>password<span class="nb">_</span>length = validate<span class="nb">_</span>password<span class="nb">_</span>number<span class="nb">_</span>count + validate<span class="nb">_</span>password<span class="nb">_</span>special<span class="nb">_</span>char<span class="nb">_</span>count + (2 * validate<span class="nb">_</span>password<span class="nb">_</span>mixed<span class="nb">_</span>case<span class="nb">_</span>count)
+</code></pre></div><p>这里我们举个例子改两个参数：</p>
+<div class="highlight"><pre class="chroma"><code class="language-tex" data-lang="tex">set global validate<span class="nb">_</span>password.policy=0;
+set global validate<span class="nb">_</span>password.length=1;
+</code></pre></div><p>现在就能将刚才设置的很难的密码改成简单的了：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">alter</span> <span class="k">user</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> <span class="k">identified</span> <span class="k">by</span> <span class="s1">&#39;xxx&#39;</span><span class="p">;</span>
+</code></pre></div><p>最后一步，设置允许远程连接</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">grant</span> <span class="k">all</span> <span class="k">privileges</span> <span class="k">on</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">to</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span> <span class="k">identified</span> <span class="k">by</span> <span class="s1">&#39;password&#39;</span><span class="p">;</span>  <span class="o">//</span> <span class="err">这里可能会提示一个语法错误。有人说是</span><span class="n">mysql8的分配权限不能带密码隐式创建账号了</span><span class="err">，要先创建账号再设置权限。也有的说</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">11</span><span class="err">之后移除了</span><span class="n">grant</span> <span class="err">添加用户的功能。</span>
+</code></pre></div><p>那我们试试下面这种方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="err">创建用户：</span><span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span> <span class="k">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;xxx&#39;</span><span class="p">;</span>
+<span class="err">允许远程连接：</span><span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span><span class="p">;</span>
+<span class="err">经过测试，使用</span> <span class="k">update</span> <span class="k">user</span> <span class="kt">set</span> <span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;%&#39;</span>  <span class="k">where</span> <span class="k">user</span> <span class="o">=</span> <span class="s1">&#39;root&#39;</span><span class="p">;</span> <span class="err">也可以修改</span>
+</code></pre></div><p>如果使用客户端连接提示了plugin caching_sha2_password错误，这是因为MySQL8.0的密码策略默认为caching_sha2_password</p>
+<p>使用命令修改策略：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">ALTER</span> <span class="k">USER</span> <span class="s1">&#39;root&#39;</span><span class="o">@</span><span class="s1">&#39;%&#39;</span> <span class="k">IDENTIFIED</span> <span class="k">WITH</span> <span class="n">mysql_native_password</span> <span class="k">BY</span> <span class="s1">&#39;xxx&#39;</span><span class="p">;</span> 
+</code></pre></div><p>最后查看我们创建或修改的用户：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="n">host</span><span class="p">,</span> <span class="k">user</span><span class="p">,</span> <span class="n">plugin</span> <span class="k">from</span> <span class="k">user</span><span class="p">;</span>
+</code></pre></div><p>然后关闭防火墙，测试连接成功！</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>MySQL补充</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#使用yum安装mysql8">使用yum安装MySQL8</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

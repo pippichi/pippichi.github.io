@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2019</copyright>
-    <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/senior/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/senior/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL补充</title>
+      <link>https://pippichi.github.io/blog/mysql%E8%A1%A5%E5%85%85/</link>
+      <pubDate>Tue, 29 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/mysql%E8%A1%A5%E5%85%85/</guid>
+      <description>&lt;p&gt;对于MySQL的一些额外的补充&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Linux补充</title>
       <link>https://pippichi.github.io/blog/linux%E8%A1%A5%E5%85%85/</link>

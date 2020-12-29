@@ -4,12 +4,12 @@
   
   <url>
     <loc>https://pippichi.github.io/blog/</loc>
-    <lastmod>2020-12-27T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://pippichi.github.io/</loc>
-    <lastmod>2020-12-27T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -19,7 +19,27 @@
   
   <url>
     <loc>https://pippichi.github.io/categories/</loc>
-    <lastmod>2020-12-27T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/mysql/</loc>
+    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/blog/mysql%E8%A1%A5%E5%85%85/</loc>
+    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/categories/senior/</loc>
+    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pippichi.github.io/tags/</loc>
+    <lastmod>2020-12-29T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -39,16 +59,6 @@
   
   <url>
     <loc>https://pippichi.github.io/blog/nginx%E8%A1%A5%E5%85%85/</loc>
-    <lastmod>2020-12-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pippichi.github.io/categories/senior/</loc>
-    <lastmod>2020-12-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pippichi.github.io/tags/</loc>
     <lastmod>2020-12-27T00:00:00+00:00</lastmod>
   </url>
   
@@ -139,11 +149,6 @@
   
   <url>
     <loc>https://pippichi.github.io/categories/additional/</loc>
-    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pippichi.github.io/tags/mysql/</loc>
     <lastmod>2020-05-29T00:00:00+00:00</lastmod>
   </url>
   
