@@ -163,17 +163,60 @@ if (!doNotTrack) {
 <p>解决冲突：</p>
 <p><img src="/git/157d35890cbf4a5cb5d5d0d5a9b99e1b.png" alt=""></p>
 <h2 id="git-tag">git tag</h2>
-<p>git tag -a v1.4 -m &lsquo;my version 1.4&rsquo; （-a制定标签名字）</p>
+<h3 id="创建标签">创建标签</h3>
+<p>标签分为两种：轻量标签和附注标签</p>
+<p>轻量标签很像一个不会改变的分支&ndash;它只是某个特定提交的引用。而附注标签是存储在git数据库中的一个完整对象，它们是可以被校验的，其中包含打标签者的名字、电子邮件地址、日期时间，此外还有一个标签信息，并且可以使用GNU Privacy Guard（GPG）签名并验证。通常会建议创建附注标签，这样就可以拥有以上所有信息。但如果只是想用一个临时的标签，或者因为某些原因不想保存这些信息，那也可以使用轻量标签。</p>
+<h4 id="附注标签">附注标签</h4>
+<p>git tag -a v1.4 -m &lsquo;my version 1.4&rsquo; （-a制定标签名字，-m指定一条将会存储在标签中的信息。如果没有为附注标签指定一条信息，git会启动编辑器要求你输入信息）</p>
 <p>git tag（打标签）</p>
 <p><img src="/git/7b0b7e58e0825ad93c37662fd50ad252.png" alt=""></p>
-<h3 id="git-show-xxx">git show xxx</h3>
-<p>git show xx(显示标签中的信息)</p>
+<h4 id="轻量标签">轻量标签</h4>
+<p>另一种给提交打标签的方式是使用轻量标签。 轻量标签本质上是将提交校验和存储到一个文件中——没有保存任何其他信息。 创建轻量标签，不需要使用 <code>-a</code>、<code>-s</code> 或 <code>-m</code> 选项，只需要提供标签名字</p>
+<p>git tag ”标签名“</p>
+<p>这个时候使用git show &ldquo;标签名&quot;查找该轻量标签，我们将不会看到额外的标签信息，只会显示出提交信息</p>
+<h3 id="查看标签信息和与之对应的提交信息">查看标签信息和与之对应的提交信息</h3>
+<p>git show 显示所有标签</p>
+<p>git show “标签名&rdquo; 显示某个标签</p>
+<p>输出会显示打标签者的信息、打标签的日期时间、附注信息以及具体的提交信息</p>
 <p><img src="/git/3a390a01504a299a448ae0aaa1467d0d.png" alt=""></p>
 <p>标签测试:</p>
 <p><img src="/git/164303cfad12a2488f01077cb6542734.png" alt=""></p>
 <p>完成文件修改之后，git tag -a xxx1 -m xxx2,设置标签名xxx1</p>
 <p>将某一个标签推上去Git push origin xxx(标签名)</p>
 <p>将所有标签推上去 git push origin –tags</p>
+<h3 id="列出标签">列出标签</h3>
+<p>git tag</p>
+<h3 id="模糊查找特定标签">模糊查找特定标签</h3>
+<p>git tag -l &ldquo;v18.5*&rdquo;</p>
+<p>那就会列出所有v18.5开头的标签，比如v18.5.1、v18.5等</p>
+<h3 id="后期打标签">后期打标签</h3>
+<p>当提交了多次代码之后我们希望给其中的某几次提交的代码打上标签</p>
+<p>此时可以使用命令：git log &ndash;pretty=oneline 显示提交信息，如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">$</span> <span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span>
+<span class="n">15027957951b64cf874c3557a0f3547bd83b3ff6</span> <span class="n">Merge</span> <span class="n">branch</span> <span class="err">&#39;</span><span class="n">experiment</span><span class="err">&#39;</span>
+<span class="n">a6b4c97498bd301d84096da251c98a07c7723e65</span> <span class="n">beginning</span> <span class="n">write</span> <span class="n">support</span>
+<span class="n">0d52aaab4479697da7686c15f77a3d64d9165190</span> <span class="n">one</span> <span class="n">more</span> <span class="n">thing</span>
+</code></pre></div><p>再使用命令给某次提交打标签：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">$</span> <span class="n">git</span> <span class="n">tag</span> <span class="o">-</span><span class="n">a</span> <span class="n">v1</span><span class="o">.</span><span class="na">2</span> <span class="n">0d52aaa</span>
+</code></pre></div><h3 id="删除标签">删除标签</h3>
+<p>删除本地仓库标签：git tag -d &ldquo;标签名&rdquo;</p>
+<p>删除远程仓库的标签，有两种方法：</p>
+<ul>
+<li>
+<p>git push origin :refs/tags/&ldquo;标签名&rdquo;</p>
+<p>这种操作的意义是，将冒号前面的空值推送到远程标签名，从而高效地删除它</p>
+</li>
+<li>
+<p>git push origin &ndash;delete &ldquo;标签名&rdquo;</p>
+</li>
+</ul>
+<h3 id="检出标签">检出标签</h3>
+<p>如果你想查看某个标签所指向的文件版本，可以使用 <code>git checkout</code> 命令， 虽然这会使你的仓库处于“分离头指针（detached HEAD）”的状态——这个状态有些不好的副作用:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="s">&#34;标签名&#34;</span>
+</code></pre></div><p>在“分离头指针”状态下，如果你做了某些更改然后提交它们，标签不会发生变化， 但你的新提交将不属于任何分支，并且将无法访问，除非通过确切的提交哈希才能访问。 因此，如果你需要进行更改，比如你要修复旧版本中的错误，那么通常需要创建一个新分支：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">$</span> <span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="s">&#34;新标签名&#34;</span> <span class="s">&#34;分支名&#34;</span>
+<span class="n">举个例子</span><span class="err">：</span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">version2</span> <span class="n">v2</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span> <span class="n">意思是切到新分支version2上面并指向标签v2</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0的文件版本</span>
+</code></pre></div><p>如果在这之后又进行了一次提交，<code>version2</code> 分支就会因为这个改动向前移动， 此时它就会和 <code>v2.0.0</code> 标签稍微有些不同，这时就要当心了。</p>
 <h2 id="git回滚">git回滚</h2>
 <h3 id="git-revert">git revert</h3>
 <p>在git log查询到commit_id之后，使用git revert
@@ -182,6 +225,7 @@ commit_id，之后再推送到远端即可回滚。</p>
 reset不一样的地方（git
 reset会使之前的记录全部消失，回滚之后就不能再回去了，所以平时应该避免使用reset，多多使用revert）</p>
 <h3 id="git-reset">git reset</h3>
+<p>作用：当我们add和commit之后发现还需要修改代码或者说这次commit是错误的（对于已有文件的改动那问题也不大，但是有种情况就是本地代码库中git托管了某些新建的文件，有时候可能是大量的新建文件，这个时候想要通过git rm恢复到之前这些文件不被托管的状态是很麻烦的），这个时候如果再次commit也是可以的，只不过那些我们本不希望被托管的文件还是会被git托管，并且这样会多一次commit记录（git push之后使用git log可以看到多次commit记录），一般情况下再次commit的话上一次的commit理论上是无意义的。所以综合来看最理想的做法就是取消上一次的commit（本质上就是取消本地代码库中上一次add和commit造成的git对于代码的管理），这个时候git reset就能派上用场了，它不仅能完全取消上一次的commit（相当于没有上一次commit），还能保留工作区的所有未被git管理的代码。</p>
 <p>选择当前指针指向的位置 git reset –hard HEAD</p>
 <p>回退到上一个版本 git reset –hard HEAD^</p>
 <p>回退到上两个版本 git reset –hard HEAD^^</p>
@@ -199,8 +243,16 @@ push –set-upstream origin branch1）</p>
 <h3 id="删除分支">删除分支</h3>
 <p>把本地的分支删除 git branch -d xxx，之后要是想将远程的分支也删除 git push origin
 &ndash;delete :xxx</p>
-<h3 id="查看删除后的分支">查看删除后的分支</h3>
-<p>查看删除后的分支： git branch -a</p>
+<h3 id="查看本地分支">查看本地分支</h3>
+<p>git branch</p>
+<h3 id="查看全部分支包含本地的和远程的">查看全部分支（包含本地的和远程的）</h3>
+<p>git branch -a</p>
+<h3 id="如果分支太多可以配合grep模糊查找">如果分支太多，可以配合grep模糊查找</h3>
+<p>git branch | grep &ldquo;branchName&rdquo;</p>
+<h3 id="清理本地无效分支远程已经删除但是本地没有删除的分支">清理本地无效分支（远程已经删除但是本地没有删除的分支）</h3>
+<p>git fetch -p</p>
+<h3 id="根据指定版本号创建分支">根据指定版本号创建分支</h3>
+<p>git checkout -b branchName commitId</p>
 <h2 id="git-merge">git merge</h2>
 <p>合并分支 先将分支切换到master：git checkout master，然后git merge branch1即可</p>
 <h2 id="fork">fork</h2>
@@ -273,7 +325,13 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
     <li><a href="#git-commit">git commit</a></li>
     <li><a href="#git-tag">git tag</a>
       <ul>
-        <li><a href="#git-show-xxx">git show xxx</a></li>
+        <li><a href="#创建标签">创建标签</a></li>
+        <li><a href="#查看标签信息和与之对应的提交信息">查看标签信息和与之对应的提交信息</a></li>
+        <li><a href="#列出标签">列出标签</a></li>
+        <li><a href="#模糊查找特定标签">模糊查找特定标签</a></li>
+        <li><a href="#后期打标签">后期打标签</a></li>
+        <li><a href="#删除标签">删除标签</a></li>
+        <li><a href="#检出标签">检出标签</a></li>
       </ul>
     </li>
     <li><a href="#git回滚">git回滚</a>
@@ -285,7 +343,11 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
     <li><a href="#git-branch">git branch</a>
       <ul>
         <li><a href="#删除分支">删除分支</a></li>
-        <li><a href="#查看删除后的分支">查看删除后的分支</a></li>
+        <li><a href="#查看本地分支">查看本地分支</a></li>
+        <li><a href="#查看全部分支包含本地的和远程的">查看全部分支（包含本地的和远程的）</a></li>
+        <li><a href="#如果分支太多可以配合grep模糊查找">如果分支太多，可以配合grep模糊查找</a></li>
+        <li><a href="#清理本地无效分支远程已经删除但是本地没有删除的分支">清理本地无效分支（远程已经删除但是本地没有删除的分支）</a></li>
+        <li><a href="#根据指定版本号创建分支">根据指定版本号创建分支</a></li>
       </ul>
     </li>
     <li><a href="#git-merge">git merge</a></li>
