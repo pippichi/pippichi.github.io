@@ -1009,6 +1009,197 @@ check(id&gt;0)或者drop check check_name</p>
 <p><img src="/mysql_basic/4a27abc3c88b9df176b4ec55df7e5385.png" alt=""></p>
 <p><img src="/mysql_basic/488761d6d41897d7a3d4e90c54158bbc.png" alt=""></p>
 <p><img src="/mysql_basic/213fc2e9c35927fa1539766be629190f.png" alt=""></p>
+<h2 id="mysql触发器">MySQL触发器</h2>
+<p>Trigger：当一件事情发生了，会引发另外的一件事情发生，我们称之为触发器。</p>
+<p>在MySQL里触发器的意思就是，当我们对一张表操作的时候，会触发对其他表相关的一些操作。</p>
+<p>MySQL是关系型的数据库，表与表之间是有联系的，当我们修改一张表的时候，也希望另一张表也做相应的修改。</p>
+<p>比如A是学员表，B是成绩表，如果A表中一个学院的名字改了，那么B表中的学员的名字也要做相应的修改。</p>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="err">名字</span> <span class="err">时间</span><span class="p">(</span><span class="n">AFTER</span><span class="o">|</span><span class="k">BEFORE</span><span class="p">)</span> <span class="err">动作</span><span class="p">(</span><span class="k">INSERT</span><span class="o">|</span><span class="k">UPDATE</span><span class="o">|</span><span class="k">DELETE</span><span class="p">)</span> <span class="k">ON</span> <span class="err">表</span><span class="mi">1</span>
+<span class="k">FOR</span> <span class="k">EACH</span> <span class="n">ROW</span>
+<span class="n">BEGIN</span>
+<span class="n">sql语句</span> <span class="err">表</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">END</span> <span class="o">//</span>
+<span class="n">DELIMITER</span> <span class="p">;</span>
+</code></pre></div><p>解释：某个动作(insert|update|delete)，这里我们称该动作叫d1，在表1执行的时候，某些sql语句会在表2执行，执行时间(after|before)为d1的前面或者后面</p>
+<p><!-- raw HTML omitted -->那FOR EACH ROW是什么意思呢？<!-- raw HTML omitted --></p>
+<p>意思是BEGIN END符中间的sql语句（按上图来讲就是“sql语句 表2;”这一块），一行一行地执行</p>
+<h3 id="new和old">New和Old</h3>
+<p>New：指的是表1修改后的那行</p>
+<p>Old：指的是表1修改之前那行的内容</p>
+<p>例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">DROP</span> <span class="k">TRIGGER</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">x1</span><span class="p">;</span>
+<span class="n">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="n">x1</span> <span class="n">AFTER</span> <span class="k">UPDATE</span> <span class="k">ON</span> <span class="err">表</span><span class="mi">1</span>
+<span class="k">FOR</span> <span class="k">EACH</span> <span class="n">ROW</span>
+<span class="n">BEGIN</span>
+<span class="k">UPDATE</span> <span class="err">表</span><span class="mi">2</span> <span class="kt">SET</span> <span class="n">money</span><span class="o">=</span><span class="mi">400</span> <span class="k">WHERE</span> <span class="n">id</span><span class="o">=</span><span class="n">old</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="n">END</span> <span class="o">//</span>
+<span class="n">DELIMITER</span> <span class="p">;</span>
+</code></pre></div><p>这个时候修改表1的id为1的那一行，表2的id为1的那一行也会更改</p>
+<p><!-- raw HTML omitted -->但是如果把上面的old换成new<!-- raw HTML omitted -->，假设表1存在某条记录：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>test</td>
+</tr>
+</tbody>
+</table>
+<p>我们执行语句：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">update</span> <span class="err">表</span><span class="mi">1</span> <span class="kt">set</span> <span class="n">id</span><span class="o">=</span><span class="mi">30</span> <span class="k">where</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="p">;</span>
+</code></pre></div><p>这个时候表1确实会被改动，因为确实存在这样一条记录。</p>
+<p>此时old.id=2，而new.id=30</p>
+<p>假设表2又没有id为30的，那这个时候表2就不会有数据被改动</p>
+<p>例子2：</p>
+<p>表1：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>99</td>
+</tr>
+<tr>
+<td>2</td>
+<td>59</td>
+</tr>
+<tr>
+<td>3</td>
+<td>63</td>
+</tr>
+</tbody>
+</table>
+<p>表2：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>state</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>pass</td>
+</tr>
+<tr>
+<td>2</td>
+<td>fail</td>
+</tr>
+<tr>
+<td>3</td>
+<td>pass</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">DROP</span> <span class="k">TRIGGER</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">x1</span><span class="p">;</span>
+<span class="n">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="n">x1</span> <span class="n">AFTER</span> <span class="k">UPDATE</span> <span class="k">ON</span> <span class="err">表</span><span class="mi">1</span>
+<span class="k">FOR</span> <span class="k">EACH</span> <span class="n">ROW</span>
+<span class="n">BEGIN</span>
+<span class="k">IF</span> <span class="n">new</span><span class="p">.</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="mi">60</span> <span class="k">THEN</span>
+<span class="k">UPDATE</span> <span class="err">表</span><span class="mi">2</span> <span class="kt">SET</span> <span class="n">state</span><span class="o">=</span><span class="s2">&#34;pass&#34;</span> <span class="k">WHERE</span> <span class="n">id</span><span class="o">=</span><span class="n">new</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="k">ELSEIF</span> <span class="n">new</span><span class="p">.</span><span class="n">score</span> <span class="o">&lt;</span> <span class="mi">60</span> <span class="k">then</span>
+<span class="k">UPDATE</span> <span class="err">表</span><span class="mi">2</span> <span class="kt">SET</span> <span class="n">state</span><span class="o">=</span><span class="s2">&#34;fail&#34;</span> <span class="k">WHERE</span> <span class="n">id</span><span class="o">=</span><span class="n">new</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="n">END</span> <span class="k">IF</span><span class="p">;</span>
+<span class="n">END</span> <span class="o">//</span>
+<span class="n">DELIMITER</span> <span class="p">;</span>
+</code></pre></div><p>上面的new.id也可以都换成old.id</p>
+<p>这个时候如果修改表1的score，表2的state也会进行相应的修改</p>
+<p>例子3：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">DROP</span> <span class="k">TRIGGER</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="n">x1</span><span class="p">;</span>
+<span class="n">DELIMITER</span> <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="n">x1</span> <span class="k">BEFORE</span> <span class="k">INSERT</span> <span class="k">ON</span> <span class="err">表</span><span class="mi">1</span>
+<span class="k">FOR</span> <span class="k">EACH</span> <span class="n">ROW</span>
+<span class="n">BEGIN</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="err">表</span><span class="mi">2</span> <span class="k">VALUES</span><span class="p">(</span><span class="s2">&#34;xx&#34;</span><span class="p">);</span>
+<span class="n">END</span> <span class="o">//</span>
+<span class="n">DELIMITER</span> <span class="p">;</span>
+</code></pre></div><p>由于是before</p>
+<p>因此先执行表2的插入操作，再执行表1的insert动作</p>
+<h3 id="在触发器中定义变量">在触发器中定义变量：</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">DELIMITER</span> <span class="err">$</span>
+<span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="n">user_log</span> <span class="n">AFTER</span> <span class="k">INSERT</span> <span class="k">ON</span> <span class="n">users</span> 
+<span class="k">FOR</span> <span class="k">EACH</span> <span class="n">ROW</span>
+<span class="n">BEGIN</span>
+<span class="k">DECLARE</span> <span class="n">s1</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="k">character</span> <span class="kt">set</span> <span class="n">utf8</span><span class="p">;</span>
+<span class="k">DECLARE</span> <span class="n">s2</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="k">character</span> <span class="kt">set</span> <span class="n">utf8</span><span class="p">;</span><span class="c1">#后面发现中文字符编码出现乱码，这里设置字符集
+</span><span class="c1"></span><span class="kt">SET</span> <span class="n">s2</span> <span class="o">=</span> <span class="s2">&#34; is created&#34;</span><span class="p">;</span>
+<span class="kt">SET</span> <span class="n">s1</span> <span class="o">=</span> <span class="nf">CONCAT</span><span class="p">(</span><span class="n">NEW</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="n">s2</span><span class="p">);</span>     <span class="c1">#函数CONCAT可以将字符串连接
+</span><span class="c1"></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="nf">logs</span><span class="p">(</span><span class="n">log</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="n">s1</span><span class="p">);</span>
+<span class="n">END</span> <span class="err">$</span>
+<span class="n">DELIMITER</span> <span class="p">;</span>
+</code></pre></div><h3 id="查看触发器">查看触发器</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span> <span class="n">TRIGGERS</span><span class="p">;</span>
+</code></pre></div><p>如果SHOW TRIGGERS 语句无法查看指定的触发器，我们还可以在triggers表中查看触发器信息：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">triggers</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">triggers</span> <span class="k">WHERE</span> <span class="n">TRIGGER_NAME</span><span class="o">=</span><span class="s2">&#34;xxx&#34;</span><span class="p">;</span>
+</code></pre></div><h3 id="查看触发器创建语句">查看触发器创建语句</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span> <span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="s2">&#34;xxx&#34;</span><span class="p">;</span>
+</code></pre></div><h3 id="删除触发器">删除触发器</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">DROP</span> <span class="k">TRIGGER</span> <span class="k">IF</span> <span class="k">EXISTS</span> <span class="s2">&#34;trigger_name&#34;</span>
+</code></pre></div><h3 id="限制和注意事项">限制和注意事项</h3>
+<p>触发器会有以下两种限制：</p>
+<ul>
+<li>
+<p>触发程序不能调用将数据返回客户端的存储程序，也不能使用采用CALL语句的动态SQL语句，但是允许存储程序通过参数将数据返回触发程序，也就是存储过程或者函数通过OUT或者INOUT类型的参数将数据返回触发器是可以的，但是不能调用直接返回数据的过程。</p>
+</li>
+<li>
+<p>不能再触发器中使用以显示或隐式方式开始或结束事务的语句，如START TRANS-ACTION,COMMIT或ROLLBACK。</p>
+</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>MySQL的触发器是按照BEFORE触发器、行操作、AFTER触发器的顺序执行的，其中任何一步发生错误都不会继续执行剩下的操作，如果对事务表进行的操作，如果出现错误，那么将会被回滚，如果是对非事务表进行操作，那么就无法回滚了，数据可能会出错。</li>
+<li>MySQL的触发器中不能对同一个表进行增删改操作，否则会出错。</li>
+</ul>
+<h3 id="总结-1">总结</h3>
+<p>触发器是基于行触发的，所以删除、新增或者修改操作可能都会激活触发器，所以不要编写过于复杂的触发器，也不要增加过得的触发器，这样会对数据的插入、修改或者删除带来比较严重的影响，同时也会带来可移植性差的后果，所以在设计触发器的时候一定要有所考虑。</p>
+<p>触发器是一种特殊的存储过程，它在插入，删除或修改特定表中的数据时触发执行，它比数据库本身标准的功能有更精细和更复杂的数据控制能力。</p>
+<p>数据库触发器有以下的作用：</p>
+<ul>
+<li>安全性。可以基于数据库的值使用户具有操作数据库的某种权利。</li>
+</ul>
+<p># 可以基于时间限制用户的操作，例如不允许下班后和节假日修改数据库数据。</p>
+<p># 可以基于数据库中的数据限制用户的操作，例如不允许股票的价格的升幅一次超过10%。</p>
+<ul>
+<li>审计。可以跟踪用户对数据库的操作。</li>
+</ul>
+<p># 审计用户操作数据库的语句。</p>
+<p># 把用户对数据库的更新写入审计表。</p>
+<ul>
+<li>实现复杂的数据完整性规则</li>
+</ul>
+<p># 实现非标准的数据完整性检查和约束。触发器可产生比规则更为复杂的限制。与规则不同，触发器可以引用列或数据库对象。例如，触发器可回退任何企图吃进超过自己保证金的期货。</p>
+<p># 提供可变的缺省值。</p>
+<ul>
+<li>实现复杂的非标准的数据库相关完整性规则。触发器可以对数据库中相关的表进行连环更新。例如，在auths表author_code列上的删除触发器可导致相应删除在其它表中的与之匹配的行。</li>
+</ul>
+<p># 在修改或删除时级联修改或删除其它表中的与之匹配的行。</p>
+<p># 在修改或删除时把其它表中的与之匹配的行设成NULL值。</p>
+<p># 在修改或删除时把其它表中的与之匹配的行级联设成缺省值。</p>
+<p># 触发器能够拒绝或回退那些破坏相关完整性的变化，取消试图进行数据更新的事务。当插入一个与其主健不匹配的外部键时，这种触发器会起作用。例如，可以在books.author_code 列上生成一个插入触发器，如果新值与auths.author_code列中的某值不匹配时，插入被回退。</p>
+<ul>
+<li>
+<p>同步实时地复制表中的数据。</p>
+</li>
+<li>
+<p>自动计算数据值，如果数据的值达到了一定的要求，则进行特定的处理。例如，如果公司的帐号上的资金低于5万元则立即给财务人员发送警告数据。</p>
+</li>
+</ul>
 <h2 id="mysql游标">MySQL游标</h2>
 <p>用于循环集合</p>
 <p>CURSOR 游标</p>
@@ -1019,7 +1210,7 @@ check(id&gt;0)或者drop check check_name</p>
 <p>PREPARE预编译之后execute执行</p>
 <p><img src="/mysql_basic/32bb014d1904524bd1a2dc71dd6ee265.png" alt=""></p>
 <p><img src="/mysql_basic/cc4836e8bf53c85654de2acaba177a66.png" alt=""></p>
-<h2 id="总结-1">总结</h2>
+<h2 id="总结-2">总结</h2>
 <p><img src="/mysql_basic/c7c43f2a6c4e7e37d7572756c4b34cbe.png" alt=""></p>
 <p><img src="/mysql_basic/61ae3729fbcb0bd195eb1205a6789178.png" alt=""></p>
 <p><img src="/mysql_basic/52d64e9120f3a021781866782c4c67e5.png" alt=""></p>
@@ -1269,9 +1460,20 @@ check(id&gt;0)或者drop check check_name</p>
         <li><a href="#案例-1">案例</a></li>
       </ul>
     </li>
+    <li><a href="#mysql触发器">MySQL触发器</a>
+      <ul>
+        <li><a href="#new和old">New和Old</a></li>
+        <li><a href="#在触发器中定义变量">在触发器中定义变量：</a></li>
+        <li><a href="#查看触发器">查看触发器</a></li>
+        <li><a href="#查看触发器创建语句">查看触发器创建语句</a></li>
+        <li><a href="#删除触发器">删除触发器</a></li>
+        <li><a href="#限制和注意事项">限制和注意事项</a></li>
+        <li><a href="#总结-1">总结</a></li>
+      </ul>
+    </li>
     <li><a href="#mysql游标">MySQL游标</a></li>
     <li><a href="#论mysql执行一个字符串">论mysql执行一个字符串</a></li>
-    <li><a href="#总结-1">总结</a></li>
+    <li><a href="#总结-2">总结</a></li>
     <li><a href="#测试题">测试题</a></li>
   </ul>
 </nav></div>

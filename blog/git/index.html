@@ -144,8 +144,30 @@ if (!doNotTrack) {
 <p><img src="/git/893ebb45a22726cae25133d1adc607bb.png" alt=""></p>
 <h2 id="git-add">git add</h2>
 <p>Git add xxx/Git add .</p>
-<h2 id="git-删除缓存中的文件">git 删除缓存中的文件</h2>
-<p>Git rm &ndash;cached file_name</p>
+<h2 id="gitgnore失效问题">.gitgnore失效问题</h2>
+<p>有时候我们在.gitgnore编写了规则，但却不起作用，那很可能是这种情况：使用IDEA的时候开启了自动接受git管理的功能，导致新增的文件自动被add进git本地工作栈，导致该文件被git管理，这个时候就算在.gitgnore添加了该文件的排除规则也不会起作用，原因就是它已经被git管理了</p>
+<p>那么如何解除呢？</p>
+<p>使用git rm &ndash;cached filename，这样就可以不受git管理了</p>
+<p>如果执行了上面这行代码之后还是无法解除，那就只能执行git rm或git rm -f命令将文件从工作区和暂存区删除，一般情况下这么操作之后问题都会得到解决</p>
+<h2 id="git-rm">git rm</h2>
+<h3 id="rm命令">rm命令</h3>
+<p>作用：删除工作区的文件</p>
+<p>如果要影响暂存区中文件，需要add和commit</p>
+<p>如果要影响版本库中文件，需要add和commit和push</p>
+<h3 id="git-rm命令">git rm命令</h3>
+<p>作用：删除工作区文件，同时将此次删除放入暂存区</p>
+<p>注意：<!-- raw HTML omitted -->要删除的文件是没有修改过的<!-- raw HTML omitted -->，就是说和当前版本库文件的内容相同</p>
+<p>如果要影响到暂存区文件，不需要再add了，直接commit即可</p>
+<p>如果要影响到版本库文件，不需要再add了，直接commit和push即可</p>
+<h3 id="git-rm--f命令">git rm -f命令</h3>
+<p>作用：删除工作区和暂存区文件，并将此次删除放入暂存区</p>
+<p>注意：<!-- raw HTML omitted -->要删除的文件已经修改过<!-- raw HTML omitted -->，就是说和当前版本库文件的内容不同</p>
+<p>如果要影响到暂存区文件，不需要再add了，直接commit即可</p>
+<p>如果要影响到版本库文件，不需要再add了，直接commit和push即可</p>
+<h3 id="git-rm---cached命令">git rm &ndash;cached命令（★）</h3>
+<p>作用：删除暂存区文件，但保留工作区的文件，并将此次删除放入暂存区（相当于是取消了git对该文件的跟踪）</p>
+<p>如果要影响暂存区中文件，不需要再add了，直接commit即可</p>
+<p>如果要影响版本库中文件，不需要再add了，直接commit和push即可（此时版本库中的该文件也会被删除，最终的结果就是只有工作区会保留该文件，而暂存区和版本库中该文件都会被删除）</p>
 <h2 id="查看git当前状态">查看git当前状态</h2>
 <p>Git status</p>
 <h2 id="git-log">git log</h2>
@@ -318,7 +340,15 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
       </ul>
     </li>
     <li><a href="#git-add">git add</a></li>
-    <li><a href="#git-删除缓存中的文件">git 删除缓存中的文件</a></li>
+    <li><a href="#gitgnore失效问题">.gitgnore失效问题</a></li>
+    <li><a href="#git-rm">git rm</a>
+      <ul>
+        <li><a href="#rm命令">rm命令</a></li>
+        <li><a href="#git-rm命令">git rm命令</a></li>
+        <li><a href="#git-rm--f命令">git rm -f命令</a></li>
+        <li><a href="#git-rm---cached命令">git rm &ndash;cached命令（★）</a></li>
+      </ul>
+    </li>
     <li><a href="#查看git当前状态">查看git当前状态</a></li>
     <li><a href="#git-log">git log</a></li>
     <li><a href="#git-reflog用于查看所有版本的回退信息">git reflog用于查看所有版本的回退信息</a></li>
