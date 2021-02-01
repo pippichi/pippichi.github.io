@@ -168,6 +168,10 @@ if (!doNotTrack) {
 <p>作用：删除暂存区文件，但保留工作区的文件，并将此次删除放入暂存区（相当于是取消了git对该文件的跟踪）</p>
 <p>如果要影响暂存区中文件，不需要再add了，直接commit即可</p>
 <p>如果要影响版本库中文件，不需要再add了，直接commit和push即可（此时版本库中的该文件也会被删除，最终的结果就是只有工作区会保留该文件，而暂存区和版本库中该文件都会被删除）</p>
+<h3 id="git-rm--rf---cached-foldname">git rm -rf &ndash;cached foldname</h3>
+<p>git rm &ndash;cached是删除单个缓存文件，git rm -rf &ndash;cached是删除整个缓存目录</p>
+<h3 id="git-rm--r---cached-">git rm -r &ndash;cached .</h3>
+<p>如果想要删除的已缓存文件或文件夹比较多或者在使用.gitgnore时想要忽略的文件或文件夹比较多，可以使用该命令重置所有缓存（该命令会移除所有缓存索引），再次提交（add、commit）后将刷新.gitgnore指示的忽略文件</p>
 <h2 id="查看git当前状态">查看git当前状态</h2>
 <p>Git status</p>
 <h2 id="git-log">git log</h2>
@@ -347,6 +351,8 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
         <li><a href="#git-rm命令">git rm命令</a></li>
         <li><a href="#git-rm--f命令">git rm -f命令</a></li>
         <li><a href="#git-rm---cached命令">git rm &ndash;cached命令（★）</a></li>
+        <li><a href="#git-rm--rf---cached-foldname">git rm -rf &ndash;cached foldname</a></li>
+        <li><a href="#git-rm--r---cached-">git rm -r &ndash;cached .</a></li>
       </ul>
     </li>
     <li><a href="#查看git当前状态">查看git当前状态</a></li>
