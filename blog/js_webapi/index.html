@@ -1103,7 +1103,49 @@ px，相当于默认写了li的宽度为100%，那么我们有5个li，我们将
 <p><img src="/js_webapi/b5d32060e020a82b375a4d3b7ef170ec.png" alt=""></p>
 <h4 id="change事件">change事件</h4>
 <p><img src="/js_webapi/b5d32060e020a82b375a4d3b7ef170ec.png" alt=""></p>
-<h2 id="技巧">技巧</h2>
+<h2 id="cookie的设置以及cookie中可能存在的敏感信息的加密解密">Cookie的设置以及Cookie中可能存在的敏感信息的加密解密</h2>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// hours为空字符串时,cookie的生存期至浏览器会话结束。
+</span><span class="c1">// hours为数字0时,建立的是一个失效的cookie,这个cookie会覆盖已经建立过的同名、同path的cookie（如果这个cookie存在）。
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">setCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">hours</span><span class="p">,</span> <span class="nx">path</span><span class="p">){</span>
+    <span class="c1">// 注意：escape()也可以换用window.btoa()
+</span><span class="c1"></span>    <span class="nx">name</span> <span class="o">=</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span><span class="c1">// escape可以加密数据
+</span><span class="c1"></span>    <span class="nx">value</span> <span class="o">=</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="c1">// escape可以加密数据
+</span><span class="c1"></span>    <span class="kd">let</span> <span class="nx">expires</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span><span class="c1">// 过期时间
+</span><span class="c1"></span>    <span class="nx">expires</span><span class="p">.</span><span class="nx">setTime</span><span class="p">(</span><span class="nx">expires</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">+</span> <span class="nx">hours</span><span class="o">*</span><span class="mi">3600000</span><span class="p">);</span><span class="c1">// 设置过期时间
+</span><span class="c1"></span>    <span class="nx">path</span> <span class="o">=</span> <span class="nx">path</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span> <span class="o">?</span> <span class="s2">&#34;&#34;</span> <span class="o">:</span> <span class="s2">&#34;;path=&#34;</span> <span class="o">+</span> <span class="nx">path</span><span class="p">;</span><span class="c1">// path不为空则设path=path
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">_expires</span> <span class="o">=</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">hours</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&#34;string&#34;</span> <span class="o">?</span> <span class="s2">&#34;&#34;</span> <span class="o">:</span> <span class="s2">&#34;;expires=&#34;</span> <span class="o">+</span> <span class="nx">expires</span><span class="p">.</span><span class="nx">toUTCString</span><span class="p">();</span><span class="c1">// hours参数类型字符串则为空,否则转为UTCString
+</span><span class="c1"></span>    <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&#34;=&#34;</span> <span class="o">+</span> <span class="nx">value</span> <span class="o">+</span> <span class="nx">_expires</span> <span class="o">+</span> <span class="nx">path</span><span class="p">;</span><span class="c1">// cookie:name=value;expires=time;path=path,过期时间,路径
+</span><span class="c1"></span><span class="p">}</span>
+<span class="c1">// 获取cookie值
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">getCookieValue</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+    <span class="c1">// 注意：escape()也可以换用window.btoa()
+</span><span class="c1"></span>    <span class="nx">name</span> <span class="o">=</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span><span class="c1">// escape可以加密数据
+</span><span class="c1">// 读cookie属性，这将返回文档的所有cookie
+</span><span class="c1"></span>    <span class="kd">let</span> <span class="nx">allcookies</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">;</span>
+<span class="c1">// 查找名为name的cookie的开始位置
+</span><span class="c1"></span>    <span class="nx">name</span> <span class="o">+=</span> <span class="s2">&#34;=&#34;</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">pos</span> <span class="o">=</span> <span class="nx">allcookies</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+<span class="c1">// 如果找到了具有该名字的cookie，那么提取并使用它的值
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">pos</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">){</span><span class="c1">// 如果pos值为-1则说明搜索&#34;version=&#34;失败
+</span><span class="c1"></span>        <span class="kd">let</span> <span class="nx">start</span> <span class="o">=</span> <span class="nx">pos</span> <span class="o">+</span> <span class="nx">name</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="c1">// cookie值开始的位置
+</span><span class="c1"></span>        <span class="kd">let</span> <span class="nx">end</span> <span class="o">=</span> <span class="nx">allcookies</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&#34;;&#34;</span><span class="p">,</span><span class="nx">start</span><span class="p">);</span><span class="c1">// 从cookie值开始的位置起搜索第一个&#34;;&#34;的位置,即cookie值结尾的位置
+</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nx">end</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="nx">end</span> <span class="o">=</span> <span class="nx">allcookies</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>    <span class="c1">// 如果end值为-1说明cookie列表里只有一个cookie
+</span><span class="c1"></span>        <span class="kd">let</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">allcookies</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span><span class="nx">end</span><span class="p">);</span> <span class="c1">// 提取cookie的值
+</span><span class="c1"></span>        <span class="c1">// 注意：unescape()也可以换用window.atob()
+</span><span class="c1"></span>        <span class="k">return</span> <span class="nx">unescape</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span><span class="c1">// 对它解码
+</span><span class="c1"></span>    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">return</span> <span class="s2">&#34;&#34;</span><span class="p">;</span><span class="c1">// 搜索失败，返回空字符串
+</span><span class="c1"></span><span class="p">}</span>
+ 
+<span class="c1">// 删除cookie
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">deleteCookie</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span><span class="nx">path</span><span class="p">){</span>
+    <span class="c1">// 注意：escape()也可以换用window.btoa()
+</span><span class="c1"></span>    <span class="nx">name</span> <span class="o">=</span> <span class="nx">escape</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">expires</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="nx">path</span> <span class="o">=</span> <span class="nx">path</span> <span class="o">==</span> <span class="s2">&#34;&#34;</span> <span class="o">?</span> <span class="s2">&#34;&#34;</span> <span class="o">:</span> <span class="s2">&#34;;path=&#34;</span> <span class="o">+</span> <span class="nx">path</span><span class="p">;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&#34;=&#34;</span><span class="o">+</span> <span class="s2">&#34;;expires=&#34;</span> <span class="o">+</span> <span class="nx">expires</span><span class="p">.</span><span class="nx">toUTCString</span><span class="p">()</span> <span class="o">+</span> <span class="nx">path</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="技巧">技巧</h2>
 <p>1、多使用短路运算符</p>
 <p><img src="/js_webapi/d909164283bd9c387309799debddda47.png" alt=""></p>
 <p>&amp;&amp; 和 || 都有情况可以使用的，但是需要思考一下</p>
@@ -1177,6 +1219,7 @@ px，相当于默认写了li的宽度为100%，那么我们有5个li，我们将
         <li><a href="#案例-6">案例</a></li>
       </ul>
     </li>
+    <li><a href="#cookie的设置以及cookie中可能存在的敏感信息的加密解密">Cookie的设置以及Cookie中可能存在的敏感信息的加密解密</a></li>
     <li><a href="#技巧">技巧</a></li>
   </ul>
 </nav></div>
