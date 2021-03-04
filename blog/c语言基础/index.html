@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  c语言基础 &ndash; Learning Records
+
+    </title>
+    
+    <meta content="c" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="c语言基础知识
+Code in GitHub: c
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="c语言基础 | Learning Records">
+    <meta name="twitter:description" content="c语言基础知识
+Code in GitHub:  c|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">c语言基础</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/basic' class="muted-link">
+  <span class="Label Label--gray-darker">Basic</span>
+</a>
+
+
+
+<a href='/tags/c' class="muted-link">
+  <span class="Label Label--gray">c</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2021-03-04. Published at: 2021-03-04.">
+        
+          Published: 2021-03-04
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>c语言基础知识</p>
+<p>Code in GitHub:  <strong><a href="https://github.com/pippichi/c">c</a></strong></p>
+<h2 id="堆栈静态区">堆、栈、静态区</h2>
+<p>内存分为堆、栈、静态区</p>
+<ul>
+<li>
+<p>栈</p>
+<p>存放局部变量、函数形参等</p>
+<p>我们常说的栈溢出就是指这块栈区资源被耗尽从而导致的错误</p>
+</li>
+<li>
+<p>堆</p>
+<p>存放动态开辟的内存（如使用malloc、calloc等开辟）</p>
+</li>
+<li>
+<p>静态区</p>
+<p>存放全局变量、static修饰的变量等</p>
+</li>
+</ul>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210304092535791.png" alt="image-20210304092535791"></p>
+<h3 id="举例说明函数调用时的压栈情况">举例说明函数调用时的压栈情况</h3>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210304092952503.png" alt="image-20210304092952503"></p>
+<p>解释：</p>
+<ul>
+<li>首先内存中为main函数开辟一块空间，并在这块空间中从上到下的为main函数的局部变量开辟空间，如上图内存最底部的这一块</li>
+<li>然后要调用函数了（这里是Add函数），首先将实参传入（注意！绝大部分c编译器传实参的时候是倒着传的，比方说这里是Add(a, b)，那么它是先传b再传a），为实参b开辟空间，再为实参a开辟空间，如上图蓝色框框那一块（我们这里说说是a和b，实际上它是形参x和y，因为Add函数的形参是x和y，因此实际上是先为y开辟空间，再为x开辟空间）</li>
+<li>然后为Add函数开辟空间，并在这块空间中从上到下的为Add函数的局部变量开辟空间（这里是变量z），如上图紫色框框那一块</li>
+<li>然后从内存中x那块区域和y那块区域拿到数据，相加之后放到Add的那块空间中的z的空间中</li>
+</ul>
+<h3 id="压栈操作">压栈操作</h3>
+<p>数据结构：</p>
+<ul>
+<li>
+<p>线性数据结构</p>
+<ul>
+<li>顺序表 - 内存中开辟一块连续的内存空间</li>
+<li>链表 - 内存中不连续，随机找位置存储</li>
+<li>栈</li>
+<li>队列</li>
+</ul>
+</li>
+<li>
+<p>树形数据结构</p>
+<ul>
+<li>二叉树</li>
+<li>&hellip;</li>
+</ul>
+</li>
+<li>
+<p>图</p>
+</li>
+</ul>
+<p>所以上面说的函数调用时的压栈操作说的就是栈的操作</p>
+<p>因此在函数传参的时候，比方说传入一个结构体，如果传结构体对象，参数压栈系统开销较大，因此类似结构体传参的时候，我们要传地址</p>
+<h3 id="栈区的默认使用规则">栈区的默认使用规则</h3>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210304132228767.png" alt="image-20210304132228767"></p>
+<ul>
+<li>
+<p>栈区的默认使用是先使用高地址处空间，再使用低地址处空间</p>
+<p>也就是说如果有如上图的数组arr，那么数组最后一个元素10将会先入栈被放置到高地址处空间，而数组第一个元素1将会最后一个入栈被放置到低地址处空间</p>
+</li>
+<li>
+<p>这样做的话也可以保证这一点就是：数组随着下标的增长地址是由低到高变化</p>
+</li>
+<li>
+<p>且值得注意的是：for循环中的i变量是放到数组末尾元素地址后面的第三个地址那块空间的</p>
+</li>
+</ul>
+<p>那么为什么上图变量i会在数组arr后面呢？（变量i在栈空间的高地址处）那是因为看上面的代码，我们将变量i声明在数组arr前面；如果变量i声明在arr后面，那在栈空间中变量i就会处于低地址处</p>
+<h2 id="打印">打印</h2>
+<p>%d - 整型</p>
+<p>%c - 字符</p>
+<p>%s - 字符串</p>
+<p>%f - 浮点数字，小数</p>
+<p>%lf - 双精度浮点数（double）</p>
+<p>%p - 以地址形式打印</p>
+<p>%o - 8进制数字</p>
+<p>%x - 16进制数字</p>
+<h3 id="技巧">技巧</h3>
+<p>%2d - 打印两位数，不够的用空格补齐（右对齐），类似的还有%3d、%4d等</p>
+<p>%-2d - 打印两位数，不够的用空格补齐（左对齐），类似的还有%-3d、%-4d等</p>
+<h2 id="c语言库函数文档">c语言库函数文档</h2>
+<ul>
+<li>
+<p>微软的MSDN</p>
+</li>
+<li>
+<p><a href="http://www.cplusplus.com">http://www.cplusplus.com</a></p>
+</li>
+<li>
+<p><a href="http://en.cppreference.com">http://en.cppreference.com</a> （第一手资料）</p>
+</li>
+</ul>
+<h2 id="类型long">类型long</h2>
+<p>C语言标准规定</p>
+<p>sizeof(long)&gt;=sizeof(int)</p>
+<p>所以有些编译器中long长度就是4byte，而有些地方是8byte</p>
+<h2 id="小数强制转float">小数强制转float</h2>
+<p>float w = 95.1;</p>
+<p>直接这么写的话默认95.1会被编译器认为是一个double类型的小数，如果把一个double类型的放到float类型里面去会发生精度丢失</p>
+<p>因此应该这么写：</p>
+<p>float w = 95.1f;</p>
+<p>加一个f，明确告诉编译器这是一个float类型的小数</p>
+<h2 id="scanf中蕴含的取地址操作的知识点">scanf中蕴含的取地址操作的知识点</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">n1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">n2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n2</span><span class="p">);</span> <span class="c1">// 或者scanf(&#34;%d,%d&#34;, &amp;n1, &amp;n2); 这样写的话输入的时候数字之间的逗号不能丢掉！同理scanf(&#34;%d#%d&#34;, &amp;n1, &amp;n2);那么数字之间的#不能丢掉！
+</span></code></pre></div><p>首先使用int在内存中申请两个地址，用于存放n1和n2，之后使用scanf的时候我们希望将数存到n1和n2，怎么做到的呢？直接告诉它n1和n2的地址在哪，找到地址就能存了，那么怎么告诉它呢？使用&amp;即可。</p>
+<p>那如果是需要将输入内容保存到一个字符串数组呢？可以使用&amp;也可以不使用&amp;：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="n">pwd</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">pwd</span><span class="p">);</span>
+<span class="c1">// 经过实验也可以这么写：
+</span><span class="c1"></span><span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pwd</span><span class="p">);</span>
+</code></pre></div><h2 id="c语言如何定义变量">C语言如何定义变量</h2>
+<p><!-- raw HTML omitted -->c语言定义变量时必须将变量定义到块中的最前面！<!-- raw HTML omitted --></p>
+<p>比如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">a1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">a2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a2</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;sum = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>这样是不行的，因为sum定义到scanf下面去了，正确的做法是将sum定义到前面：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">a1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">a2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%d%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a2</span><span class="p">);</span>
+    <span class="n">sum</span> <span class="o">=</span> <span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;sum = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="关键字">关键字</h2>
+<h3 id="extern">extern</h3>
+<p>情景：</p>
+<ul>
+<li>
+<p>在一个文件中声明一个全局变量，在另一个文件中如何使用这个外部定义的全局变量呢？需要这么声明一下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">extern</span> <span class="kt">int</span> <span class="n">xxx</span><span class="p">;</span>
+</code></pre></div></li>
+<li>
+<p>如果是要引入外部的函数呢？</p>
+<p>t1.c文件中有函数：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>我们希望在main.c中引入该函数：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 在main函数上方声明外部函数add
+</span><span class="c1"></span><span class="k">extern</span> <span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="sizeof">sizeof</h3>
+<p>比方说有变量 int a</p>
+<p>则可以这么写：</p>
+<table>
+<thead>
+<tr>
+<th>表达式</th>
+<th>是否合法</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sizeof(a)</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>sizeof(int)</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>sizeof a</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr>
+<td>sizeof int</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>再比如有数组 int arr[10] = {0}，则：</p>
+<p>sizeof(arr) = 40</p>
+<p>sizeof(int [10]) = 40</p>
+<p>sizeof(int [5]) = 20</p>
+<p>则可计算数组长度：</p>
+<p>sizeof(arr) / sizeof(arr[0]) = 10</p>
+<h4 id="sizeof中的表达式只是一个摆设不直接运算">sizeof中的表达式只是一个摆设，不直接运算</h4>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">short</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="k">sizeof</span><span class="p">(</span><span class="n">s</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">5</span><span class="p">);</span> <span class="c1">// 2，因为sizeof(s = a + 5)实际上是先算a + 5，再将a + 5的值赋到s上，我们知道a + 5的值肯定是一个整形，但是s是短整型，因此将a + 5的结果赋到s上之后它还是一个短整型，此时再算sizeof(s)，而s是短整型，因此sizeof(s) 值为2
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span> <span class="c1">// 0，因为sizeof(s = a + 5)中s = a + 5相当于一个摆设，虽然它写在这里，但是实际上它是不直接计算的，因此s的值还是为0
+</span></code></pre></div><h4 id="sizeof返回的是一个无符号数">★sizeof返回的是一个无符号数</h4>
+<p>因为sizeof是用于计算变量/类型所占内存的大小，因此它一定是大于等于0的，因此它返回的一定是一个无符号数</p>
+<p>案例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// 全局变量不初始化默认是0
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">i</span><span class="o">--</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;0&#34;</span><span class="p">);</span>
+    <span class="k">else</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;1&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// 输出为0
+</span><span class="c1">// 解释：首先i是全局变量，没有初始化因此是0，然后i--，i变成-1，然后i和sizeof(i)比较，由于sizeof()返回的是无符号数，而i是有符号数，我们之前讲过无符号数和有符号数之间比较的时候有符号数会先转换成无符号数，那么这个时候i就会发生这样的转换，而i是-1，它的二进制最高位是1，如果转成无符号数那将会是一个非常大的数，一定大于sizeof(i)，所以输出0
+</span></code></pre></div><h3 id="auto">auto</h3>
+<p>局部变量出了作用域自动销毁，因此局部变量也叫自动变量，c语言中自动变量（局部变量）前面有一个关键字auto修饰，只不过一般情况下我们把它省略了：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">auto</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// 局部变量-自动变量
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>等价于：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// 局部变量-自动变量
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><h3 id="register">register</h3>
+<p>寄存器关键字</p>
+<p>我们知道计算机存储数据有四种容器：</p>
+<pre><code>按照速度排名：
+寄存器 &gt; 高速缓存 &gt; 内存 &gt; 硬盘 
+</code></pre><pre><code>寄存器和高速缓存存在的原因：
+CPU速度越来越快导致内存读取速度跟不上CPU的处理速度，因此出现了高速缓存和寄存器
+以后CPU都去寄存器读取数据，数据的流向变成了：从内存到高速缓存，再从高速缓存到寄存器，再从寄存器到CPU；CPU找数据的方式也变成从上到下：先去寄存器找，找不到再去高速缓存找，高速缓存再找不到再去内存找
+</code></pre><h4 id="使用方法">使用方法</h4>
+<p>当我们频繁用到某个变量的时候就建议把它放到寄存器：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="k">register</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// 建议把a定义成寄存器变量
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>那么为什么是建议呢？很简单，因为寄存器造价贵，在计算机中的个数比较少可能就几十个，所以要省着用</p>
+<p>那最终到底它会不会被定义成寄存器变量呢？这个由编译器说了算</p>
+<h3 id="signed">signed</h3>
+<p>有符号数，平时我们定义有符号数的时候是这么定义的：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+</code></pre></div><p>其实它省略了一个关键字signed</p>
+<p>也就是说它等价于：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">signed</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+</code></pre></div><h3 id="static-">static ★</h3>
+<ul>
+<li>
+<p>用于修饰局部变量从而延长局部变量的生命周期</p>
+<p><!-- raw HTML omitted -->重点例子：<!-- raw HTML omitted --></p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">test</span><span class="p">(){</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// 一个静态的局部变量
+</span><span class="c1"></span>    <span class="n">a</span><span class="o">++</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;a = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">){</span>
+        <span class="n">test</span><span class="p">();</span>
+        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><pre><code>答案：2 3 4 5 6
+</code></pre><p>解释：</p>
+<p>由于使用static修饰了a变量，在第二次以及之后几次进入test的时候static int a = 1;这句代码是会直接跳过不执行的，而且a变量也不会因为出了作用域而被销毁，也就会出现输出2 3 4 5 6的结果</p>
+</li>
+<li>
+<p>用于修饰全局变量</p>
+<p>改变全局变量的作用域 - 让静态的全局变量只能在自己所在的源文件内部使用，出了源文件就没法再使用了</p>
+<p>比方说有一个文件t1.c中定义了static修饰的全局变量，那这个时候就不能在另一个文件t2.c中访问这个全局变量了，只能在t1.c这个文件自身内部访问到这个static修饰的全局变量</p>
+</li>
+<li>
+<p>用于修饰函数</p>
+<p>比方说我在t1.c里面设置一个函数：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>然后我们在main.c中引入这个函数：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">extern</span> <span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">Add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>这个时候函数是正常可用的</p>
+<p>但如果我们给函数加一个static：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">static</span> <span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>然后还是一样，在main.c中引入该函数Add</p>
+<p>此时就会报错了：找不到外部符号Add</p>
+<blockquote>
+<p>不准确的说static改变了函数的作用域</p>
+<p>准确的说static改变了函数的链接属性（main.c中使用t1.c中的函数就是一种链接）</p>
+<p>当外部函数没有static修饰的时候它具有外部链接属性，而当外部函数被static修饰之后它具有内部链接属性</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="const">const</h3>
+<p>const修饰的变量不能修改</p>
+<p>存在这么一种非法写法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// num被const修饰了，说明num不能更改
+</span><span class="c1"></span>    <span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num</span><span class="p">;</span> <span class="c1">// 指针没有被const限制，且拿到了num的地址，那这个指针它就是可以去修改num的值，显然这样是非法的
+</span><span class="c1"></span>    <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> 
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">num</span><span class="p">);</span> <span class="c1">// 20
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>因此我们应该使用const关键字限制指针：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="c1">// 报错（左值指定为const对象），那么这里*p是不能改变的，*p是const对象
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">num</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><ul>
+<li>
+<p>const放在指针变量的 * 的左边时，修饰的是*p，也就是说：不能通过p来改变*p（按照上面的代码来讲其实就是num）的值</p>
+</li>
+<li>
+<p>const放在指针变量的 * 的右边时，修饰的是指针变量p本身，p不能被改变</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">const</span> <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">int</span><span class="o">*</span> <span class="k">const</span> <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">;</span> <span class="c1">// 报错（左值指定为const对象）
+</span></code></pre></div></li>
+<li>
+<p>const同时放在指针变量的 * 的左边和右边时，修饰的是*p和指针变量p本身，此时既不能通过p来改变*p，p自身也不能被改变</p>
+</li>
+</ul>
+<p>案例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 手写strcpy函数
+</span><span class="c1"></span><span class="kt">char</span><span class="o">*</span> <span class="nf">my_strcpy</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">dest</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">src</span><span class="p">){</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">dest</span><span class="p">;</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">dest</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">src</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="c1">// 把src指向的字符串拷贝到dest指向的空间，包含‘\0&#39;字符
+</span><span class="c1"></span>    <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">dest</span><span class="o">++</span> <span class="o">=</span> <span class="o">*</span><span class="n">src</span><span class="o">++</span><span class="p">){</span>
+        <span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="define">#define</h2>
+<p>不是c语言关键字，是预处理指令</p>
+<h3 id="定义标识符常量">定义标识符常量</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define X 10
+</span></code></pre></div><h3 id="定义宏">定义宏</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define MAX(A, B) (A&gt;B?A:B)
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">MAX</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="c语言函数">c语言函数</h2>
+<h3 id="getchar和putchar">getchar()和putchar()</h3>
+<p>getchar()用于接收键盘的字符，putchar()用于将字符输出（相当于printf()）</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">ch</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+<span class="n">putchar</span><span class="p">(</span><span class="n">ch</span><span class="p">);</span> <span class="c1">// 用于输出getchar()获取的字符，相当于printf(&#34;%c\n&#34;, ch)
+</span></code></pre></div><p>案例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 由于scanf读到空格就停止了，而我们又希望将空格后面的字符也全部都读掉以防止在scanf后面使用getchar()函数的时候getchar()误读到一些字符。那么可以怎么做呢？
+</span><span class="c1"></span><span class="kt">char</span> <span class="n">password</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+<span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">ch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="c1">// 我们知道用户输入字符到最后会按下回车键以结束，而这个回车键就是\n，所以我们可以通过判断getchar()是否读到\n来判断是否已经读完了用户所输入的所有字符
+</span><span class="c1">// 通过这个原理，我们就可以编写以下while循环了：
+</span><span class="c1"></span><span class="k">while</span> <span class="p">((</span><span class="n">ch</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">())</span> <span class="o">!=</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">;</span> <span class="c1">// 只写一个;表示循环里面什么也不做
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><h2 id="vs下的一些问题">VS下的一些问题</h2>
+<h3 id="不安全的库函数">不安全的库函数</h3>
+<p>vs下scanf是不推荐使用的，vs编译器给我们提供了一个scanf_s来代替scanf，但是缺乏了跨平台的特性（比方说gcc他就不认识scanf_s，只认识标准C语言提供的scanf）</p>
+<p>其他的还有例如strcpy、strlen、strcat等都是不安全的，那么VS编辑器都会为我们提供对应的安全的版本：strcpy_s、strlen_s、strcat_s等</p>
+<p>同样，如果在VS编辑器下不使用这些_s的库函数而是使用标准C语言提供的函数，那VS编辑器都会报错（2013版本之后）</p>
+<p><!-- raw HTML omitted -->解决方法：<!-- raw HTML omitted --></p>
+<p>在头文件头部加一句话</p>
+<p>如果是在VS编辑器下可以使用 _CRT_SECURE_NO_WARNINGS</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define _CRT_SECURE_NO_WARNINGS 1
+</span></code></pre></div><p>那么有没有什么一劳永逸的方法呢？</p>
+<p>可以在newc++file.cpp文件中加如这句话：</p>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210130132310427.png" alt="image-20210130132310427"></p>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210130132331165.png" alt="image-20210130132331165"></p>
+<h2 id="变量">变量</h2>
+<p>局部变量不初始化默认是随机值</p>
+<p>全局变量不初始化默认是0</p>
+<h2 id="常量">常量</h2>
+<p>C语言的常量分以下几种：</p>
+<ul>
+<li>
+<p>字面常量</p>
+<p>直接写出一个数字，这种的叫字面常量</p>
+</li>
+<li>
+<p>const修饰的常变量</p>
+</li>
+<li>
+<p>#define定义的标识符常量</p>
+</li>
+<li>
+<p>枚举常量</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">enum</span> <span class="n">Sex</span> <span class="p">{</span>
+  <span class="n">MALE</span><span class="p">,</span>
+  <span class="n">FEMALE</span><span class="p">,</span>
+  <span class="n">SECRET</span>
+<span class="p">};</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">enum</span> <span class="n">Sex</span> <span class="n">x</span> <span class="o">=</span> <span class="n">MALE</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">MALE</span><span class="p">);</span> <span class="c1">// 0
+</span><span class="c1"></span>  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">FEMALE</span><span class="p">);</span> <span class="c1">// 1
+</span><span class="c1"></span>  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">SECRET</span><span class="p">);</span> <span class="c1">// 2
+</span><span class="c1"></span>  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h2 id="字符串">字符串</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// &#34;abc&#34; -- &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;\0&#39;  --  &#39;\0&#39;是字符串的结束标志
+</span><span class="c1"></span>	<span class="kt">char</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;abc&#34;</span><span class="p">;</span>
+	<span class="c1">// 等价于：
+</span><span class="c1"></span>	<span class="kt">char</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;b&#39;</span><span class="p">,</span> <span class="sc">&#39;c&#39;</span><span class="p">,</span> <span class="mi">0</span> <span class="p">};</span>
+	<span class="c1">// 因为 &#39;\0&#39; 的ascii码值就是0，因此还等价于：
+</span><span class="c1"></span>	<span class="kt">char</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;b&#39;</span><span class="p">,</span> <span class="sc">&#39;c&#39;</span><span class="p">,</span> <span class="sc">&#39;\0&#39;</span> <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="strlen">strlen</h3>
+<p>strlen和sizeof没有什么关联</p>
+<p>strlen用来计算字符串长度 &ndash; 只能针对字符串求长度 &ndash; <!-- raw HTML omitted -->求的其实是字符串中'\0&rsquo;之前的字符的个数<!-- raw HTML omitted --> &ndash; 库函数 &ndash; 使用得引入头文件</p>
+<p>sizeof用来计算变量、数组、类型的大小 &ndash; 单位是字节 &ndash; 它是操作符</p>
+<h3 id="strcpy">strcpy</h3>
+<p>用于赋值字符串到变量</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="n">arr1</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;bit&#34;</span><span class="p">;</span> <span class="c1">// &#39;b&#39;,&#39;i&#39;,&#39;t&#39;,&#39;\0&#39;
+</span><span class="c1"></span><span class="kt">char</span> <span class="n">arr2</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;######&#34;</span><span class="p">;</span> <span class="c1">// &#39;#&#39;,&#39;#&#39;,&#39;#&#39;,&#39;#&#39;,&#39;#&#39;,&#39;#&#39;,&#39;\0&#39;,&#39;\0&#39;,&#39;\0&#39;,&#39;\0&#39;
+</span><span class="c1"></span><span class="n">strcpy</span><span class="p">(</span><span class="n">arr2</span><span class="p">,</span> <span class="n">arr1</span><span class="p">);</span> <span class="c1">// 此时arr2会变成：&#39;b&#39;,&#39;i&#39;,&#39;t&#39;,&#39;\0&#39;,&#39;#&#39;,&#39;#&#39;,&#39;\0&#39;,&#39;\0&#39;,&#39;\0&#39;,&#39;\0&#39;
+</span><span class="c1">// 由于&#39;\0&#39;是字符串的结束标志，因此输出arr2的时候还是只会输出&#34;bit&#34;
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">arr2</span><span class="p">);</span> <span class="c1">// 输出bit
+</span></code></pre></div><h3 id="strcmp">strcmp</h3>
+<p>‘==’ 不能用来比较两个字符串是否相等，应该使用库函数strcmp</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="n">strcmp</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="c1">// 等于0说明两个字符串相等；如果str1 &gt; str2则返回大于0的数字；如果str1 &lt; str2则返回小于0的数字
+</span></code></pre></div><h3 id="字符串中的-">字符串中的 \</h3>
+<p>转义符号</p>
+<p>面试题：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// \t算一个字符
+</span><span class="c1"></span>    <span class="c1">// 重点解释一下\32，\32的意思是32是一个八进制数，需要先转成10进制，也就是3 * 8^1 + 3 * 8^0 = 26，再将26转成ascii码对应的字符，因此这里\32表示一个字符
+</span><span class="c1"></span>    <span class="c1">// 如果是 \32 那意思就是把32当成8进制数（所以\382这样的写法是错误的，错在中间这个8，八进制数最多到7），如果是 \x32 则表示将32当成16进制数
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s">&#34;c:</span><span class="se">\t</span><span class="s">est</span><span class="se">\32\t</span><span class="s">est.c&#34;</span><span class="p">));</span>
+    <span class="c1">// 答案是13
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><h2 id="文件结束标志符eof">文件结束标志符EOF</h2>
+<p>EOF -&gt; end of file -&gt; -1，代表文件结束</p>
+<p>可能在循环中使用到：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">ch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="c1">// 如何让下面的循环停下来呢？ ctrl + z
+</span><span class="c1"></span><span class="k">while</span><span class="p">((</span><span class="n">ch</span><span class="o">=</span><span class="n">getchar</span><span class="p">())</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">){</span><span class="n">putchar</span><span class="p">(</span><span class="n">ch</span><span class="p">);}</span>
+</code></pre></div><h2 id="二进制数的操作">二进制数的操作</h2>
+<h3 id="负数">负数</h3>
+<p>只要是整数，在内存中存储的都是二进制的补码，负数也不例外，而我们使用它的时候是使用它的原码</p>
+<pre><code>// 知识点
+// 正数的原码、反码、补码三码统一（或者叫三码相同）
+// 负数就不多说了
+</code></pre><p>比方说：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">main</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="o">~</span><span class="n">a</span><span class="p">;</span>
+    <span class="c1">// 由于int有四字节，也就是8 * 4 = 32bit位：00000000000000000000000000000000
+</span><span class="c1"></span>    <span class="c1">// 所以b就是a的反码：11111111111111111111111111111111（此时这个就是存在内存中的b的补码）
+</span><span class="c1"></span>    <span class="c1">// 那么当我们取出b的时候是用它的原码，思考一下原码到补码是什么操作：符号位不动，其余位取反最后加1，那么反过来就是先减1，再符号位不动，其余位取反
+</span><span class="c1"></span>    <span class="c1">// 那么我们可以得到b的原码：10000000000000000000000000000001（也就是说b此时就是-1）
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+    <span class="c1">// 输出为-1
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="指针">指针</h2>
+<p>在计算机科学中，指针是编程语言中的一个对象，利用地址，它的值直接指向存在电脑存储器中另一个地方的值。由于通过地址能找到所需的变量单元，可以说，地址指向该变量单元。因此，将地址形象化的称为“指针”。意思是通过它能找到以它为地址的内存单元。</p>
+<h3 id="指针类型">指针类型</h3>
+<p>既然指针在32位机器下大小是4字节，64位机器下大小是8字节，我们发现它的大小是固定的，那为什么还需要区分int型指针、double型指针、char型指针呢？反正不管是哪个类型的变量的地址我指针变量一定存的下，那我直接来个通用类型的指针变量不就行了吗？</p>
+<p>如果有上述的想法说明对于指针的理解还不够深入</p>
+<p>举个例子说明指针类型的重要性：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0x11223344</span><span class="p">;</span> <span class="c1">// a在内存中存的就是十六进制11 22 33 44
+</span><span class="c1">// 使用int型指针存放a的地址
+</span><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">pa</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pa</span><span class="p">);</span> <span class="c1">// 00AFFEF4
+</span><span class="c1"></span><span class="o">*</span><span class="n">pa</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 这里我们会发现a在内存中的值变成了十六进制00 00 00 00
+</span><span class="c1"></span>
+<span class="c1">// 下面我们换用char型指针存放a的地址
+</span><span class="c1"></span><span class="kt">char</span><span class="o">*</span> <span class="n">pc</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span> 
+<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pc</span><span class="p">);</span> <span class="c1">// 00AFFEF4 ，我们发现跟上面的pa的值是一样的，说明pa跟pc都能正常存放变量a的地址
+</span><span class="c1"></span><span class="o">*</span><span class="n">pc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 这里我们会发现a在内存中的值变成了十六进制11 22 33 00。解释一下为什么是11 22 33 00 而不是00 22 33 44，那是因为在内存中这些数是倒着放进去的：44 33 22 11，这个时候*pc = 0相当于就是把44变成了00，因此再读出来的时候也就变成了11 22 33 00
+</span><span class="c1">// 我们终于发现了两个不同类型的指针在做同一个解引用操作的时候结果不一样，这就是指针类型带来的区别
+</span></code></pre></div><p><!-- raw HTML omitted -->指针类型的意义：<!-- raw HTML omitted --></p>
+<p>任何类型的指针确实可以存放任何类型的变量的地址，但是！当进行解引用操作的时候，就不一样了</p>
+<p>一句话来讲就是：指针类型决定了指针进行解引用操作的时候，能够访问空间的大小：</p>
+<blockquote>
+<p>int* p; *p能够访问4个字节 // 解释：int型指针说明它指向的是int型变量，能访问4个字节</p>
+<p>char* p; *p能够访问1个字节 // 解释：char型指针说明它指向的是char型变量，能访问1个字节</p>
+<p>double* p; *p能够访问8个字节 // 解释：double型指针说明它指向的是double型变量，能访问8个字节</p>
+</blockquote>
+<p>这就是不同类型指针的区别！</p>
+<p>事实上，不同类型的指针还有另外一个不同点（计算地址加减的时候）：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mh">0x11223344</span><span class="p">;</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">pa</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="kt">char</span><span class="o">*</span> <span class="n">pc</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pa</span><span class="p">);</span> <span class="c1">// 0095FB58
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pa</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 0095FB5C
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pc</span><span class="p">);</span> <span class="c1">// 0095FB58
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 0095FB59
+</span><span class="c1">// pa和pc存放的都是变量a的地址，但是pa走一步，地址就加4，pc走一步，地址就加1，说明他们的步长不一样
+</span></code></pre></div><p><!-- raw HTML omitted -->指针类型的另外一个意义：<!-- raw HTML omitted --></p>
+<p>指针类型决定了：指针走一步走多远（指针的步长）</p>
+<blockquote>
+<p>int* p;  p + 1 &ndash;&gt; 4 // 解释：int型指针加1，存放的地址就加4，说明int型指针的步长是4字节，对于它来说，加1就是跳过1个整型</p>
+<p>char* p; p + 1 &ndash;&gt; 1 // 解释：char型指针加1，存放的地址就加1，说明char型指针的步长是1字节，对于它来说，加1就是跳过1个字符型</p>
+<p>double* p; p + 1 &ndash;&gt; 8 // 解释：double型指针加1，存放的地址就加8，说明double型指针的步长是8字节，对于它来说，加1就是跳过1个双精度浮点型</p>
+</blockquote>
+<p>这就是指针步长的意思！</p>
+<p>指针步长的应用：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">arr</span><span class="p">;</span> <span class="c1">// 数组名-首元素的地址
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="o">*</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// 意思是数组中每个数的值都改成1
+</span><span class="c1"></span><span class="p">}</span>
+<span class="c1">// 而当我们将上述代码的int* p = arr;改 成char* p = arr;此时for循环中*(p + i) = 1;的意义就变成了一个字节一个字节的改，将他们都改成1
+</span></code></pre></div><p>这就很灵活了！你想怎么动内存，就把地址交给一个合理的指针。</p>
+<h3 id="野指针">野指针</h3>
+<p>野指针就是指指针指向的位置是不可知的（随机的，不正确的，没有明确限制的）</p>
+<p>什么情况会导致野指针：</p>
+<ul>
+<li>
+<p>指针不初始化</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span><span class="p">;</span> <span class="c1">// 局部变量不初始化，默认是随机值
+</span><span class="c1">// 同理指针变量
+</span><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span> <span class="c1">// 局部的指针变量不初始化，就会被初始化随机值
+</span><span class="c1">// 这就很可怕了，比方说这个时候我们做*p = 20;它将会把内存中不知道哪一块的地方的值改成20
+</span></code></pre></div></li>
+<li>
+<p>指针越界访问</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">arr</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">11</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">++</span><span class="p">)</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// 当指针指向的范围超出数组arr的范围的时候，p就是野指针
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div></li>
+<li>
+<p>指针指向的空间释放</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span><span class="o">*</span> <span class="nf">test</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">test</span><span class="p">();</span>
+    <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// 首先test()函数内部的a是个局部变量，当test()函数执行结束之后a会被销毁(a那块内存空间就还给系统了)
+</span><span class="c1">// 此时main函数内部我们再去操作之前a的地址，通过p指针改变那一块内存的值，就会出问题了，因为那块内存现在根本不属于我们而是属于系统
+</span></code></pre></div><p>同理下面这种非常容易出错的情况：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span><span class="o">*</span> <span class="nf">test</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="k">return</span> <span class="n">arr</span><span class="p">;</span> <span class="c1">// 产生野指针！返回了数组的起始地址，但是test()执行完毕后arr数组会被销毁
+</span><span class="c1"></span><span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">test</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>除非变量不销毁，比方说变量被static修饰：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span><span class="o">*</span> <span class="nf">test</span><span class="p">(){</span>
+    <span class="c1">// 被static修饰的变量在test()执行结束之后不销毁，因此不会产生野指针
+</span><span class="c1"></span>    <span class="k">static</span> <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">test</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h4 id="如何避免野指针">如何避免野指针</h4>
+<ul>
+<li>指针初始化</li>
+<li>小心指针越界</li>
+<li>指针指向空间释放之后立马让指针置NULL</li>
+<li>指针使用之前检查有效性</li>
+</ul>
+<h3 id="内存">内存</h3>
+<p>内存中的地址编号怎么来的：</p>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210211100637687.png" alt="image-20210211100637687"></p>
+<p>如果是32位，则会有32根地址线，每根地址线都有正负电，代表1和0，那么就会有如上图所示的2^32种可能，从上到下排下来其实就是0、1、2、3、&hellip;这样的编号，那么每一个编号其实就是内存中的一个地址编号</p>
+<h4 id="内存一个地址占多大空间">内存一个地址占多大空间</h4>
+<p>首先我们知道计算机中有空间单位：bit byte kb mb gb tb pb</p>
+<p>假设一个地址占1bit，那么32位的机器能有多大呢？如上图32位能表示2^32个地址，也就是2^32bit，那么除以8就是byte，再除以1024就是kb，再除以1024就是mb，再除以1024就是gb，到最后gb单位的时候我们发现才0.5g，这导致就算我们给个1g内存也是没用的，因为它最大也就能表示0.5g</p>
+<blockquote>
+<p>一个内存地址空间是以一个byte来划分的</p>
+</blockquote>
+<p>例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div><p>由于int是4字节的，所以会申请4字节内存空间：</p>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210211112649231.png" alt="image-20210211112649231"></p>
+<h3 id="取地址操作符">取地址操作符&amp;</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// 4字节
+</span><span class="c1">// &amp;a; // 取地址
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>
+</code></pre></div><p>注意打印地址用的是%p，显示的值是以16进制形式显示的</p>
+<h3 id="使用指针变量存放地址">使用指针变量存放地址</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+</code></pre></div><p>解读：p现在是一个指针变量，他的类型是int*，p变量里面存的是a的地址</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+<span class="c1">// 这两个东西打印出来是一样的
+</span></code></pre></div><h3 id="通过指针找到变量">通过指针找到变量</h3>
+<p>那么我们存指针变量是为什么呢？</p>
+<p>是因为有朝一日我们要用到这个变量，这个时候就需要这么用：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 假设p是一个指针变量
+</span><span class="c1"></span><span class="o">*</span><span class="n">p</span> <span class="c1">// * -- 解引用操作符
+</span><span class="c1">// *p能找到指针p指向的变量
+</span></code></pre></div><p>例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&#34;a = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span> <span class="c1">// 输出： a = 20
+</span></code></pre></div><p>图解：</p>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210211114331828.png" alt="image-20210211114331828"></p>
+<h3 id="指针占用的空间">指针占用的空间</h3>
+<p>我们知道指针是用来存放内存地址的，所以32位机上指针需要表示的就是32个bit位，也就是4字节，这就是一个指针占用的内存大小，那如果是64位机，那就是8字节</p>
+<h3 id="指针和操作的优先级">指针和++操作的优先级</h3>
+<p>++操作优先级更高，因此*p++它就相当于*(p++)，如何避免这样的情况呢？写成(*p)++即可</p>
+<h3 id="指针运算">指针运算</h3>
+<ul>
+<li>
+<p>指针+-数</p>
+<p>这个就不多赘述了，上面“指针类型”小节有举例子</p>
+<p>值得注意的是下面这个例子，以前不常写：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define N_VALUES 10
+</span><span class="cp"></span><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">N_VALUES</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">N_VALUES</span><span class="p">];){</span><span class="o">*</span><span class="n">p</span><span class="o">++</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;}</span>
+</code></pre></div></li>
+<li>
+<p>指针+-指针</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">-</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">// 9
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span> <span class="c1">// -9    
+</span></code></pre></div><p>得出结论：指针减去指针得到的数的绝对值是指针之间元素的个数</p>
+<p>案例：求字符串长度：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">my_strlen</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">str</span><span class="p">){</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">start</span> <span class="o">=</span> <span class="n">str</span><span class="p">;</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">end</span> <span class="o">=</span> <span class="n">str</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">end</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span><span class="p">){</span>
+        <span class="n">end</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>
+<p>指针比较大小</p>
+<p>看下面两段代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define N_VALUES 10
+</span><span class="cp"></span><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">N_VALUES</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">N_VALUES</span><span class="p">];</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];){</span><span class="o">*--</span><span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">for</span><span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">N_VALUES</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span> <span class="n">p</span> <span class="o">&gt;=</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span> <span class="n">p</span><span class="o">--</span><span class="p">){</span><span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;}</span>
+</code></pre></div><p>实际在大部分的编译器上是可以顺利完成任务的，然而我们还是应该避免第二种写法，因为标准不保证它可行。</p>
+<p><!-- raw HTML omitted -->标准规定：<!-- raw HTML omitted --></p>
+<blockquote>
+<p>允许指向数组元素的指针与指向数组最后一个元素后面的那个内存位置的指针比较，但是不允许与指向第一个元素之前的那个内存位置的指针进行比较</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="多级指针">多级指针</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">// 类型：int
+</span><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">pa</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span> <span class="c1">// 类型：int*
+</span><span class="c1"></span><span class="kt">int</span><span class="o">**</span> <span class="n">ppa</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">pa</span><span class="p">;</span> <span class="c1">// 类型：int**，ppa就是二级指针
+</span><span class="c1"></span><span class="kt">int</span><span class="o">***</span> <span class="n">pppa</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ppa</span><span class="p">;</span> <span class="c1">// 类型：int***，三级指针
+</span></code></pre></div><p>如何理解int**：</p>
+<p>我们知道int*中的*表示它是一个指针，前面的int表示它所指向的变量的类型是int</p>
+<p>那么int**中最后一个*表示它是一个指针，前面的int*表示它所指向的变量类型是int型的指针</p>
+<p>同理int***</p>
+<p>那么上面的代码其实可以改写成：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">*</span> <span class="n">pa</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
+<span class="kt">int</span><span class="o">*</span> <span class="o">*</span> <span class="n">ppa</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">pa</span><span class="p">;</span>
+<span class="kt">int</span><span class="o">**</span> <span class="o">*</span> <span class="n">pppa</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ppa</span><span class="p">;</span>
+<span class="c1">// 这样写也是合法的，也更容易理解
+</span></code></pre></div><h3 id="指针数组和数组指针">指针数组和数组指针</h3>
+<p>指针数组 &ndash; 数组 - 存放指针的数组</p>
+<p>数组指针 &ndash; 指针</p>
+<h2 id="结构体">结构体</h2>
+<p>结构是一些值的集合，这些值称为成员变量。结构的每个成员可以是不同类型的变量。</p>
+<p>结构是一种我们自己创造出来的类型，用于表达复杂对象</p>
+<ul>
+<li>
+<p>语法1：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">tag</span><span class="p">{</span>
+    <span class="n">member</span><span class="o">-</span><span class="n">list</span><span class="p">;</span> <span class="c1">// 结构体成员变量
+</span><span class="c1"></span><span class="p">}</span><span class="n">variable</span><span class="o">-</span><span class="n">list</span><span class="p">;</span> <span class="c1">// 全局的结构体变量，一般不用（因为全局的变量比较难维护）
+</span></code></pre></div><p>比方说：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">Stu</span><span class="p">{</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span> <span class="c1">// 成员变量
+</span><span class="c1"></span>    <span class="kt">short</span> <span class="n">age</span><span class="p">;</span> <span class="c1">// 成员变量
+</span><span class="c1"></span><span class="p">}</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">;</span> <span class="c1">// s1, s2, s3是三个全局的结构体变量（一般不用，全局的变量难以维护）
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="c1">// struct Stu是结构体类型（类似于int，double，long）
+</span><span class="c1"></span>    <span class="k">struct</span> <span class="n">Stu</span> <span class="n">s</span><span class="p">;</span> <span class="c1">// s是局部的结构体变量
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>
+<p>语法2：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">tag</span><span class="p">{</span>
+    <span class="n">member</span><span class="o">-</span><span class="n">list</span><span class="p">;</span>
+<span class="p">}</span><span class="n">alias</span><span class="p">;</span> <span class="c1">// typedef定义结构体别名
+</span></code></pre></div><p>比方说：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">Stu</span><span class="p">{</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span> 
+    <span class="kt">short</span> <span class="n">age</span><span class="p">;</span> 
+<span class="p">}</span><span class="n">Stu</span><span class="p">;</span> <span class="c1">// 别名Stu
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="k">struct</span> <span class="n">Stu</span> <span class="n">s</span><span class="p">;</span>
+    <span class="n">Stu</span> <span class="n">s</span><span class="p">;</span> <span class="c1">// 使用别名创建结构体变量
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<p>使用方式：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">Book</span><span class="p">{</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+    <span class="kt">short</span> <span class="n">price</span><span class="p">;</span>
+<span class="p">};</span> <span class="c1">// 因为是一个结构体声明，声明是一条语句，因此这里的;不能少
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="k">struct</span> <span class="n">Book</span> <span class="n">b1</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#34;C语言&#34;</span><span class="p">,</span> <span class="mi">55</span><span class="p">};</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;书名：%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">b1</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;价格：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">b1</span><span class="p">.</span><span class="n">price</span><span class="p">);</span>
+    <span class="n">b1</span><span class="p">.</span><span class="n">price</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;价格：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">b1</span><span class="p">.</span><span class="n">price</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 嵌套结构体初始化：
+</span><span class="c1"></span><span class="k">struct</span> <span class="n">S</span><span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">struct</span> <span class="n">T</span><span class="p">{</span>
+    <span class="kt">char</span> <span class="n">ch</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+    <span class="k">struct</span> <span class="n">S</span> <span class="n">s</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="n">ch</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;hello&#34;</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">T</span> <span class="n">t</span> <span class="o">=</span> <span class="p">{</span><span class="n">ch</span><span class="p">,</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="sc">&#39;c&#39;</span><span class="p">}};</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="结构体中字符串的赋值strcpy">结构体中字符串的赋值（strcpy）</h3>
+<p>还是上面那个结构体，我们修改price的时候一切正常，但是像修改price一样修改name字符串的时候就会有问题了，因为结构体中的字符串name本质上存的是一个地址，所以如果直接b1.name = &ldquo;C++&quot;；这样改的话肯定不行，应该使用string.h头文件的strcpy函数：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// strcpy(修改目的地, 修改来源)
+</span><span class="c1"></span><span class="n">strcpy</span><span class="p">(</span><span class="n">b1</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#34;C++&#34;</span><span class="p">);</span>
+</code></pre></div><h3 id="结构体指针">结构体指针</h3>
+<p>比方说上面那个结构体Book，它这个类型的指针就是：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">Book</span><span class="o">*</span> <span class="n">p</span><span class="p">;</span>
+<span class="c1">// 注意这里struct Book*是一起的，表示该变量是指针变量，是struct Book类型的指针变量
+</span></code></pre></div><p>因此我们可以：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">Book</span> <span class="n">b1</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#34;C语言&#34;</span><span class="p">,</span> <span class="mi">55</span><span class="p">};</span>
+<span class="k">struct</span> <span class="n">Book</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">b1</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">).</span><span class="n">name</span><span class="p">);</span>
+</code></pre></div><h4 id="箭头符号-">箭头符号(-&gt;)</h4>
+<p>可以用一种更加方便的方式访问结构体指针指向的结构体中的成员变量：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 刚才我们访问成员变量name的时候是这么访问的：(*p).name
+</span><span class="c1">// 其实还可以这么写：
+</span><span class="c1"></span><span class="n">p</span><span class="o">-&gt;</span><span class="n">name</span> <span class="c1">// 表示p所指向的那个结构体的成员变量name
+</span></code></pre></div><h3 id="结构体类型">结构体类型</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 比方说下面这段代码就是创建了一个结构体类型-struct Stu
+</span><span class="c1">// struct 结构体关键字， Stu 结构体标签， struct Stu 结构体类型
+</span><span class="c1"></span><span class="k">struct</span> <span class="n">Stu</span><span class="p">{</span>
+    <span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="c1">// 那么怎么使用这个结构体类型呢？
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="c1">// 使用struct Stu这个结构体类型创建了一个学生对象s1，并初始化
+</span><span class="c1"></span>    <span class="k">struct</span> <span class="n">Stu</span> <span class="n">s1</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#34;张三&#34;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s">&#34;2021101010&#34;</span><span class="p">};</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">s1</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="悬空else">悬空else</h2>
+<p>else跟离它最近的if匹配，所以以下代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">if</span><span class="p">(</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="k">else</span>
+    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</code></pre></div><p>输出是：啥也不输出</p>
+<p>解释：最后一个else匹配到了第二个if</p>
+<h2 id="switch">switch</h2>
+<p>注意case后面不一定需要写东西，也不一定一定要加上break，也不一定一定要加default：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">switch</span> <span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+	<span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+	<span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+	<span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+		<span class="k">break</span><span class="p">;</span>
+	<span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="k">case</span> <span class="mi">5</span><span class="o">:</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span> <span class="c1">// 注意！最后一个case最好加上break，因为下次可能还要再加case，如果下次加了新case但是忘记给这个case加上break，则可能出现bug
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><p>输出：</p>
+<pre><code>2
+3
+4
+</code></pre><p>switch语句如果不加break就会一直往下走，包括如果下面有default语句也会执行里面的代码，直到走完整个switch语句，例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">func</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">b</span><span class="p">;</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">a</span><span class="p">){</span>
+        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">2</span><span class="o">:</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">3</span><span class="o">:</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">16</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// 问func(1)的值是多少？ 答案：0
+</span></code></pre></div><h2 id="for循环">for循环</h2>
+<p>问：下面这段代码循环几次？</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">,</span><span class="n">k</span><span class="o">++</span><span class="p">){</span>
+    <span class="n">k</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>答：0次</p>
+<p>解释：</p>
+<p>因为for循环第一个分号后面（也就是第二个参数）其实是一个判断语句，我们知道判断语句0为假，1为真，那么k=0表示将k赋值为0，那么k等于0，导致该判断语句值为0，也就是说该判断语句为假，所以它一次都不会循环。当然，如果我们这里把k赋值为非0，比方说k=1，那么就会变死循环。</p>
+<h2 id="sleep">Sleep</h2>
+<p>让程序暂停多少秒再执行</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;windows.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">Sleep</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span> <span class="c1">// 表示睡1000ms
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="system">system</h2>
+<p>用于执行系统函数</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 经过实验发现，windows系统有一个命令叫“cls”，执行这个命令会清空cmd窗口
+</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">system</span><span class="p">(</span><span class="s">&#34;cls&#34;</span><span class="p">);</span> <span class="c1">// 执行这个代码的意思就是清空cmd窗口
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="关机命令">关机命令</h3>
+<p>shutdown -s -t 60 表示60秒钟之后关机</p>
+<p>shutdown -a 表示取消关机命令</p>
+<p>制作简单的关机病毒：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="n">input</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="n">system</span><span class="p">(</span><span class="s">&#34;shutdown -s -t 60&#34;</span><span class="p">);</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+	    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;你的电脑将在60之后关机，如果输入：我是猪才可解除关机</span><span class="se">\n</span><span class="s">请输入：&#34;</span><span class="p">);</span>
+    	<span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="s">&#34;我是猪&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">system</span><span class="p">(</span><span class="s">&#34;shutdown -a&#34;</span><span class="p">);</span>
+			<span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>将上述程序使用gcc编译成.exe文件，并添加到系统的service服务中，设置它的启动方式为自动启动，这样每次开机都会走一遍上面这个流程</p>
+<h3 id="暂停命令">暂停命令</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span> <span class="c1">// 可以让程序执行到这里的时候暂停
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="goto和标签">goto和标签</h2>
+<p>goto语句最常用的用法就是终止程序在某些深度嵌套的结构的处理过程，例如一次跳出两层或多层循环，如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">for</span><span class="p">(...)</span>
+    <span class="k">for</span><span class="p">(...)</span>
+        <span class="k">for</span><span class="p">(...)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">disaster</span><span class="p">)</span>
+                <span class="k">goto</span> <span class="n">error</span><span class="p">;</span>
+<span class="nl">error</span><span class="p">:</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">disaster</span><span class="p">)</span>
+        <span class="c1">// 处理错误情况
+</span></code></pre></div><p>虽然goto在c语言中可以滥用，但是可能会出现一些破坏性的行为，因此能不用最好不要使用</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+<span class="nl">again</span><span class="p">:</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;hello!&#34;</span><span class="p">);</span>
+    <span class="k">goto</span> <span class="n">again</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>上面的程序将会一直输出hello!</p>
+<p>再比如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;nihao!&#34;</span><span class="p">);</span>
+    <span class="k">goto</span> <span class="n">again</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;skip&#34;</span><span class="p">);</span>
+<span class="nl">again</span><span class="p">:</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;hello!&#34;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>上面的程序将输出：nihao!hello!</p>
+<p>下面我们使用goto和标签来写一个关机游戏：用户需要输入“我是猪”才能取消关机，否则60秒之后将关机</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="n">input</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+    <span class="n">system</span><span class="p">(</span><span class="s">&#34;shutdown -s -t 60&#34;</span><span class="p">);</span>
+<span class="nl">again</span><span class="p">:</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;你的电脑60秒之后关机，如果输入：我是猪，就取消关机</span><span class="se">\n</span><span class="s">请输入：&#34;</span><span class="p">);</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">input</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="s">&#34;我是猪&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+        <span class="n">system</span><span class="p">(</span><span class="s">&#34;shutdown -a&#34;</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      	<span class="k">goto</span> <span class="n">again</span><span class="p">;</span>  
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="函数声明与定义">函数声明与定义</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 函数声明
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// 或者这么写：int Add(int, int); 因为实际上我们不会使用到x和y，所以形参可以省略x和y，直接写int
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="p">...</span>
+    <span class="c1">// 函数调用
+</span><span class="c1"></span>    <span class="n">Add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+<span class="c1">// 函数定义
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>上面这种写法就属于脱裤子放屁，因为一般情况下我们直接把Add函数写到main函数上面去就可以了，就不需要再提前声明了</p>
+<p><!-- raw HTML omitted -->那么什么时候函数声明才能真正发挥它的作用呢？<!-- raw HTML omitted --></p>
+<p>在正式写代码的时候，往往会把自定义函数写到一个新的模块当中去，比方说新建一个源文件add.c并将Add函数定义到这个文件中去，然后再新建一个头文件add.h并将Add函数的声明放到这个文件中去</p>
+<p>最后如果我们要使用这个函数，直接引入头文件add.h即可：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&#34;add.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){...}</span>
+</code></pre></div><p>注意，如果是引入库文件，#include后面是使用尖括号，如果是引入自己的文件，#include后面使用双引号</p>
+<h2 id="ifndefifdefelseendif">#ifndef、#ifdef、#else、#endif</h2>
+<ul>
+<li>
+<p>用于头文件</p>
+<p>场景：避免多次引入同一个头文件</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#ifndef __ADD_H__  </span><span class="c1">// 命名规则：__自定义名称_H__
+</span><span class="c1"></span><span class="cp">#define __ADD_H__
+</span><span class="cp"></span>  
+<span class="c1">// 函数的声明
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+  
+<span class="cp">#endif
+</span></code></pre></div></li>
+<li>
+<p>用于普通代码中</p>
+<p>场景：判断这个宏是否被定义</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define MAX(x,y) (((x)&gt;(y))?(x):(y))
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+<span class="cp">#ifdef MAX    </span><span class="c1">//判断这个宏是否被定义
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;3 and 5 the max is:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">MAX</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+<span class="cp">#endif
+</span><span class="cp"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+</ul>
+<h2 id="数组">数组</h2>
+<p>一维数组在内存中是连续存放的：</p>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210224143156839.png" alt="image-20210224143156839"></p>
+<p>二维数组在内存中也是连续存放的：</p>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210224144858325.png" alt="image-20210224144858325"></p>
+<h3 id="初始化">初始化</h3>
+<p>指定数组大小：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="n">arr</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">&#39;a&#39;</span><span class="p">,</span> <span class="sc">&#39;b&#39;</span><span class="p">};</span>
+<span class="kt">char</span> <span class="n">arr</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;ab&#34;</span><span class="p">;</span>
+<span class="c1">// 上面两种都是不完全初始化，剩下的元素默认初始化为0
+</span><span class="c1">// 需要注意的是第一种&#39;b&#39;后面那个0就是单纯意义上的0，而第二种&#39;b&#39;后面那个0其实是&#39;\0&#39;
+</span></code></pre></div><p>不指定数组大小：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;abc&#34;</span><span class="p">;</span> <span class="c1">// 必须初始化，因为他需要根据初始化的内容确定数组的大小，比方说这里的arr他的大小就是4（最后还有一个&#39;\0&#39;）
+</span></code></pre></div><p>二维数组初始化：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 下面的几种初始化都是可以的
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span> <span class="c1">// 不完全初始化，第一行放置1，2，3，4，第二行放置5，0，0，0，第三行放置0，0，0，0
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}};</span> <span class="c1">// 不完全初始化，第一行放置1，2，3，0，第二行放置4，5，0，0，0，第三行放置0，0，0，0
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 数组的行和列只有行能省略，列一定不能省略
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">arr</span><span class="p">[][]</span> <span class="o">=</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">}};</span> <span class="err">❌</span>
+<span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">][]</span> <span class="o">=</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">}};</span> <span class="err">❌</span>
+<span class="kt">int</span> <span class="n">arr</span><span class="p">[][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">}};</span> <span class="err">✔</span>
+<span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">}};</span> <span class="err">✔</span>
+</code></pre></div><h3 id="取地址">取地址</h3>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">};</span>
+<span class="c1">// 虽然此时arr、&amp;arr[0]和&amp;arr这三个值是一样的，但是只有arr和&amp;arr[0]是等价的，都是指数组第一个元素的地址，其中&amp;arr就不一样了，它代表整个数组的地址
+</span><span class="c1">// 如何验证上面的说法呢？
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">arr</span><span class="p">);</span> <span class="c1">// 00D3F900
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">arr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 00D3F904
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// 00D3F900
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 00D3F904
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">);</span> <span class="c1">// 00D3F900 
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">arr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 00D3F91C
+</span></code></pre></div><p>有这两种情况：</p>
+<ul>
+<li>sizeof(数组名) - 数组名表示整个数组，sizeof(数组名)计算的是整个数组的大小，单位是字节</li>
+<li>&amp;数组名，数组名代表整个数组，&amp;数组名，取出的是整个数组的地址</li>
+</ul>
+<p>除了这两种情况之外，所有的数组名都表示数组首元素的地址</p>
+<h3 id="数组的类型">数组的类型</h3>
+<p>我们知道c语言中类型有：整形、长整型、浮点型等，那数组是否也有类型呢？答案是有的。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</code></pre></div><p>比方说上面的代码，arr是一个数组，arr也是该数组的数组名，那么去掉arr这个数组名，剩下的就是该数组的类型。该数组类型是：int [10]</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="k">sizeof</span><span class="p">(</span><span class="n">arr</span><span class="p">);</span> <span class="c1">// 40
+</span><span class="c1"></span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span> <span class="p">[</span><span class="mi">10</span><span class="p">]);</span> <span class="c1">// 40
+</span><span class="c1"></span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span> <span class="p">[</span><span class="mi">5</span><span class="p">]);</span> <span class="c1">// 20
+</span></code></pre></div><h3 id="数组越界访问可能导致死循环">数组越界访问可能导致死循环</h3>
+<p>案例：</p>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210304132228767.png" alt="image-20210304132228767"></p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 上图代码：
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">};</span>
+    <span class="c1">// VC6.0 环境下 &lt;=10 就死循环了
+</span><span class="c1"></span>    <span class="c1">// gcc编译器下 &lt;= 11 就死循环了
+</span><span class="c1"></span>    <span class="c1">// VS2013 环境下 &lt;= 12 死循环
+</span><span class="c1"></span>    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">system</span><span class="p">(</span><span class="s">&#34;pause&#34;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>分析：</p>
+<ul>
+<li>
+<p>首先栈区的默认使用是先使用高地址处空间，再使用低地址处空间</p>
+</li>
+<li>
+<p>且数组随着下标的增长地址是由低到高变化</p>
+</li>
+<li>
+<p>★且for循环中的i变量是放到数组末尾元素地址后面的第三个地址那块空间的</p>
+</li>
+</ul>
+<p>所以当我们越界访问数组的时候，是可能访问到for循环中的变量i的，如果此时将变量i的值改掉，那就可能导致死循环，如上图代码，我们在最后将i的值改成了0，那么i将会一直小于等于12，程序也就进入了死循环</p>
+<p>那么为什么变量i会在数组arr后面呢？（变量i在栈空间的高地址处）那是因为看上面的代码，我们将变量i声明在数组arr前面；如果变量i声明在arr后面，那在栈空间中变量i就会处于低地址处</p>
+<h2 id="左移与右移">左移与右移</h2>
+<p>左移很简单，符号位不动，右边补0</p>
+<p>右移：</p>
+<ul>
+<li>
+<p>算术右移</p>
+<p>右边丢弃，左边补原符号位</p>
+</li>
+<li>
+<p>逻辑右移</p>
+<p>右边丢弃，左边补0</p>
+</li>
+</ul>
+<p>逻辑右移就是我们想当然的那种右移</p>
+<p><!-- raw HTML omitted -->通常情况下计算机的右移都是算术右移<!-- raw HTML omitted --></p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 解释一下为什么-1右移之后还是-1
+</span><span class="c1">// 因为计算机的数都是以补码的形式存储的，-1的原码是：1000...0001，因此-1的补码是1111...1111，此时显然不管向右移多少位都还是1111...1111，而1111...1111的原码永远是1000...0001，也就是-1
+</span><span class="c1">// 同理-4右移1位是-2，-2右移一位是-1
+</span></code></pre></div><h2 id="逗号表达式">逗号表达式</h2>
+<p>逗号表达式就是用逗号隔开的多个表达式。逗号表达式，从左向右依次执行。整个表达式的结果是最后一个表达式的结果</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 逗号表达式，a &gt; b表达式不产生结果，a = b + 10表达式执行后a变12，a表达式虽然执行但是不产生结果，最后b = a + 1表达式执行后b变13并将b的值赋给c，因此c也为13
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">if</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">// 逗号表达式，先执行a = b + 1再执行c = a / 2，最后执行d &gt; 0，并将d &gt; 0的结果作为if语句的判断结果
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 有代码：
+</span><span class="c1"></span><span class="n">a</span> <span class="o">=</span> <span class="n">get_val</span><span class="p">();</span>
+<span class="n">count_val</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="k">while</span><span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+    <span class="c1">// 业务处理
+</span><span class="c1"></span>    <span class="n">a</span> <span class="o">=</span> <span class="n">get_val</span><span class="p">();</span>
+    <span class="n">count_val</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// 我们发现上述代码中a = get_val()和count_val(a)重复出现了两次，非常罗嗦
+</span><span class="c1">// 改写：
+</span><span class="c1"></span><span class="k">while</span><span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="n">get_val</span><span class="p">(),</span> <span class="n">count_val</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+    <span class="c1">// 业务处理
+</span><span class="c1"></span><span class="p">}</span>
+<span class="c1">// 重复的语句被写成了一行，虽然比较难以理解，但是简洁了不少
+</span></code></pre></div><p>习题：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 有函数如下，请问实参的个数是多少？
+</span><span class="c1"></span><span class="n">exec</span><span class="p">((</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">),</span> <span class="p">(</span><span class="n">v3</span><span class="p">,</span> <span class="n">v4</span><span class="p">),</span> <span class="n">v5</span><span class="p">,</span> <span class="n">v6</span><span class="p">);</span>
+<span class="c1">// 由于是逗号表达式，所以像(v1, v2)这种的都算一个，因此(v1, v2)相当于就是v2，(v3, v4)相当于就是v4。所以是4个实参
+</span><span class="c1"></span>
+<span class="c1">// 再比如：
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">5</span><span class="p">};</span> <span class="c1">// (3, 4)就相当于4，所以该数组初始化的其实就是1，2，4，5
+</span></code></pre></div><h3 id="逗号表达式优先级相对是比较低的">逗号表达式优先级相对是比较低的</h3>
+<p>逗号表达式优先级低于赋值(=)</p>
+<p>★案例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">// 此时a=5
+</span><span class="c1"></span><span class="n">c</span> <span class="o">=</span> <span class="o">++</span><span class="n">a</span><span class="p">;</span> <span class="c1">// 此时a=6 c=6
+</span><span class="c1"></span><span class="n">b</span> <span class="o">=</span> <span class="o">++</span><span class="n">c</span><span class="p">,</span> <span class="n">c</span><span class="o">++</span><span class="p">,</span> <span class="o">++</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">++</span><span class="p">,</span> <span class="n">c</span><span class="o">++</span><span class="p">;</span> <span class="c1">// 由于逗号表达式优先级低于赋值，因此这行代码实际上是先执行了b = ++c，再执行后面的c++，++a，a++，c++。因此此时a=8 c=9 b=7
+</span><span class="c1"></span><span class="n">b</span> <span class="o">+=</span> <span class="n">a</span><span class="o">++</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span> <span class="c1">// +=优先级低于+，因此先执行a++ + c = 17，在执行+=，因此a=9 b=24 c=9
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;a = %d b = %d c = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span> <span class="c1">// a = 9 b = 24 c = 9
+</span></code></pre></div><p>上面这个案例就一反常态了，原本b = ++c, c++, ++a, a++, c++; b按照常理思维来讲一定等于逗号表达式最后一个表达式的值，但是由于符号优先级的原因，逗号表达式优先级低于赋值，导致了b等于逗号表达式第一个表达式的值。</p>
+<p>所以在注意逗号表达式特性的同时也一定要注意符号优先级的影响！</p>
+<h2 id="操作数">操作数</h2>
+<p>对于 1 + 2，这个1和2就是+的操作数</p>
+<p>而对于[] ，它有两个操作数：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 有数组：
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="n">a</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="c1">// 此时[]的操作数是a和4
+</span><span class="c1">// 因此[]的操作数一个是数组名，一个是下标值
+</span></code></pre></div><p>对于函数调用的操作符()，它的操作数个数&gt;=1</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">get</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">){</span> <span class="c1">// 注意这里的()不是操作符，而是函数定义的语法规则   
+</span><span class="c1"></span>	<span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span> <span class="c1">// 这里的()才是函数调用的操作符，且它的操作数是函数名get以及参数x和y这三个，同理如果函数get一个参数都不需要传入，那()的操作数就是函数名get这一个
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div><h2 id="隐式类型转换">隐式类型转换</h2>
+<h3 id="整型提升">整型提升</h3>
+<p>C的整型算术运算总是至少以缺省整型类型的精度来进行的。为了获得这个精度，表达式中的字符和短整型操作数在使用之前被转换为普通整型，这种转换称为<!-- raw HTML omitted -->整型提升<!-- raw HTML omitted -->。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
+<span class="c1">// 这里的b和c的值被提升为普通整型，然后再执行加法运算
+</span><span class="c1">// 加法运算完成之后，结果将被截断，然后再存储于a中
+</span></code></pre></div><p>★让我们来详细解释一下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="c1">// 首先3是一个32位整型：00000000000000000000000000000011
+</span><span class="c1"></span>    <span class="c1">// 它要放到char型变量a中，只能截断，那么我们截8位：00000011
+</span><span class="c1"></span>    <span class="kt">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="c1">// 127是一个32位整型：00000000000000000000000001111111
+</span><span class="c1"></span>    <span class="c1">// 它要放到char型变量b中，只能截断，那么我们截8位：01111111
+</span><span class="c1"></span>    <span class="kt">char</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">127</span><span class="p">;</span>
+    <span class="c1">// 此时计算a + b，在计算之前需要先将a和b做整型提升，规则是先看该变量是有符号数还是无符号数，如果是无符号数那很简单直接高位补0，如果是有符号数，则看高位是1还是0如果是1则高位补1如果是0则高位补0，由于char的变量属于有符号数，因此如果最高位是1则是负数，如果是0则是正数，如果是负数则应该向前补1直到补满32位为止，如果是正数则应该向前补0直到补满32位为止，那么这里a和b都是正数，都补0
+</span><span class="c1"></span>    <span class="c1">// 补完之后a变成00000000000000000000000000000011，b变成00000000000000000000000001111111
+</span><span class="c1"></span>    <span class="c1">// 执行a + b，得到32位整型：00000000000000000000000010000010
+</span><span class="c1"></span>    <span class="c1">// 要将这个32位整型放到char型变量c中，只能截断，那么我们截8位：10000010
+</span><span class="c1"></span>    <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+    <span class="c1">// 按照%d输出，则c又需要做整型提升，又因为char型变量是有符号的，最高位表示符号，而这里c的最高位是1，因此需要向前补1直到补满32位为止：11111111111111111111111110000010
+</span><span class="c1"></span>    <span class="c1">// 此时11111111111111111111111110000010这个数很明显是个负数，那么负数在计算机中都是以补码的形式存储的，在输出的时候需要先转成原码：10000000000000000000000001111110，该原码的值就是-126
+</span><span class="c1"></span>    <span class="c1">// 因此输出-126
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%u</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">));</span> <span class="c1">// 1
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%u</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">+</span><span class="n">c</span><span class="p">));</span> <span class="c1">// 4 发生表达式运算，因此需要整型提升，因此变成了int型，因此变成了4字节。同理sizeof(-c) = 4
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%u</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">!</span><span class="n">c</span><span class="p">));</span> <span class="c1">// 1
+</span></code></pre></div><h4 id="整型提升的意义">整型提升的意义</h4>
+<p>表达式的整型运算要在CPU的相应运算器件内执行，CPU内整形运算器（ALU）的操作数的字节长度一般就是int的字节长度，同时也是CPU的通用寄存器的长度</p>
+<p>因此即使两个char类型的相加，在CPU执行时实际上也要先转换为CPU内整型操作数的标准长度</p>
+<p>通用CPU（general-purpose CPU）是难以直接实现两个8比特字节直接相加运算（虽然机器指令中可能有这种字节相加指令）。所以，表达式中各种长度可能小于int长度的整型值，都必须先转换为int或unsigned int，然后才能送入CPU去执行运算</p>
+<h3 id="算术转换">算术转换</h3>
+<h4 id="寻常算术转换">寻常算术转换</h4>
+<p>如果某个操作符的各个操作数属于不同的类型，那么除非其中一个操作数的类型转换为另一个操作数的类型，否则操作就无法进行。下面的层次体系称为<!-- raw HTML omitted -->寻常算术转换<!-- raw HTML omitted --></p>
+<blockquote>
+<p>long double</p>
+<p>double</p>
+<p>float</p>
+<p>unsigned long int</p>
+<p>long int</p>
+<p>unsigned int</p>
+<p>int</p>
+</blockquote>
+<p>如果某个操作数的类型在上面这个列表中排名较低，那么首先要转换为另外一个操作数的类型后执行运算</p>
+<p>当然，算术转换需要合理，不然会出现精度丢失</p>
+<p>案例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// 全局变量不初始化默认是0
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">i</span><span class="o">--</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;0&#34;</span><span class="p">);</span>
+    <span class="k">else</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;1&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// 输出为0
+</span><span class="c1">// 解释：首先i是全局变量，没有初始化因此是0，然后i--，i变成-1，然后i和sizeof(i)比较，由于sizeof()返回的是无符号数，而i是有符号数，我们之前讲过无符号数和有符号数之间比较的时候有符号数会先转换成无符号数，那么这个时候i就会发生这样的转换，而i是-1，它的二进制最高位是1，如果转成无符号数那将会是一个非常大的数，一定大于sizeof(i)，所以输出0
+</span></code></pre></div><h2 id="程序调试">程序调试</h2>
+<h3 id="debug和release">Debug和Release</h3>
+<p>Debug是调试版本，它包含调试信息，并且不做任何优化，便于程序员调试程序</p>
+<p>Release是发布版本，往往进行了各种优化（包括功能上的优化，有些在Debug版本下的死循环在Release版本下可能就不会出现），使得程序在代码大小和运行速度上都是最优的，以便用户更好地使用</p>
+<p>举个例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">};</span>
+    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>我们知道上面这段代码是会死循环的（具体请看数组章节的“数组越界访问导致死循环”）</p>
+<p>那么我们知道如果使变量i存放在栈空间低位的话，就可以避免死循环，而Release版本给我们做了各种优化，其中就包括内存分布结构优化，那么它把上述代码原本在栈空间高位的变量i结构优化到栈空间低位，也正是因为这个原因，Release版本才不会进入死循环，而Debug版本由于没有经过优化，是会死循环的</p>
+<p>如何来验证这一点呢？</p>
+<p>我们分别用Debug版本和Release版本来执行下面的代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">};</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">arr</span><span class="p">);</span> <span class="c1">// Release：00B3FD04  Debug：00B3FD00
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">);</span> <span class="c1">// Release：00B3FD00 Debug：00B3FD04
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// 结果发现，Debug版本没有经过优化，变量i存放的栈空间的地址相较于arr来讲是在高位的（i的存放地址大于arr）；而Release版本则在低位（i的存放地址小于arr）
+</span></code></pre></div><p>而Release版本的优化并不都是好的，有时候优化导致代码发生一定程度的变化，导致了Debug版本没bug但是Release版本有bug</p>
+<h3 id="断点处输入条件值">断点处输入条件值</h3>
+<p><img src="/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80.assets/image-20210304113101503.png" alt="image-20210304113101503"></p>
+<p>打断点处右键点击断点即可输入条件，一般用于for循环输入条件让它停在第几层循环</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>c语言基础</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#堆栈静态区">堆、栈、静态区</a>
+      <ul>
+        <li><a href="#举例说明函数调用时的压栈情况">举例说明函数调用时的压栈情况</a></li>
+        <li><a href="#压栈操作">压栈操作</a></li>
+        <li><a href="#栈区的默认使用规则">栈区的默认使用规则</a></li>
+      </ul>
+    </li>
+    <li><a href="#打印">打印</a>
+      <ul>
+        <li><a href="#技巧">技巧</a></li>
+      </ul>
+    </li>
+    <li><a href="#c语言库函数文档">c语言库函数文档</a></li>
+    <li><a href="#类型long">类型long</a></li>
+    <li><a href="#小数强制转float">小数强制转float</a></li>
+    <li><a href="#scanf中蕴含的取地址操作的知识点">scanf中蕴含的取地址操作的知识点</a></li>
+    <li><a href="#c语言如何定义变量">C语言如何定义变量</a></li>
+    <li><a href="#关键字">关键字</a>
+      <ul>
+        <li><a href="#extern">extern</a></li>
+        <li><a href="#sizeof">sizeof</a></li>
+        <li><a href="#auto">auto</a></li>
+        <li><a href="#register">register</a></li>
+        <li><a href="#signed">signed</a></li>
+        <li><a href="#static-">static ★</a></li>
+        <li><a href="#const">const</a></li>
+      </ul>
+    </li>
+    <li><a href="#define">#define</a>
+      <ul>
+        <li><a href="#定义标识符常量">定义标识符常量</a></li>
+        <li><a href="#定义宏">定义宏</a></li>
+      </ul>
+    </li>
+    <li><a href="#c语言函数">c语言函数</a>
+      <ul>
+        <li><a href="#getchar和putchar">getchar()和putchar()</a></li>
+      </ul>
+    </li>
+    <li><a href="#vs下的一些问题">VS下的一些问题</a>
+      <ul>
+        <li><a href="#不安全的库函数">不安全的库函数</a></li>
+      </ul>
+    </li>
+    <li><a href="#变量">变量</a></li>
+    <li><a href="#常量">常量</a></li>
+    <li><a href="#字符串">字符串</a>
+      <ul>
+        <li><a href="#strlen">strlen</a></li>
+        <li><a href="#strcpy">strcpy</a></li>
+        <li><a href="#strcmp">strcmp</a></li>
+        <li><a href="#字符串中的-">字符串中的 \</a></li>
+      </ul>
+    </li>
+    <li><a href="#文件结束标志符eof">文件结束标志符EOF</a></li>
+    <li><a href="#二进制数的操作">二进制数的操作</a>
+      <ul>
+        <li><a href="#负数">负数</a></li>
+      </ul>
+    </li>
+    <li><a href="#指针">指针</a>
+      <ul>
+        <li><a href="#指针类型">指针类型</a></li>
+        <li><a href="#野指针">野指针</a></li>
+        <li><a href="#内存">内存</a></li>
+        <li><a href="#取地址操作符">取地址操作符&amp;</a></li>
+        <li><a href="#使用指针变量存放地址">使用指针变量存放地址</a></li>
+        <li><a href="#通过指针找到变量">通过指针找到变量</a></li>
+        <li><a href="#指针占用的空间">指针占用的空间</a></li>
+        <li><a href="#指针和操作的优先级">指针和++操作的优先级</a></li>
+        <li><a href="#指针运算">指针运算</a></li>
+        <li><a href="#多级指针">多级指针</a></li>
+        <li><a href="#指针数组和数组指针">指针数组和数组指针</a></li>
+      </ul>
+    </li>
+    <li><a href="#结构体">结构体</a>
+      <ul>
+        <li><a href="#结构体中字符串的赋值strcpy">结构体中字符串的赋值（strcpy）</a></li>
+        <li><a href="#结构体指针">结构体指针</a></li>
+        <li><a href="#结构体类型">结构体类型</a></li>
+      </ul>
+    </li>
+    <li><a href="#悬空else">悬空else</a></li>
+    <li><a href="#switch">switch</a></li>
+    <li><a href="#for循环">for循环</a></li>
+    <li><a href="#sleep">Sleep</a></li>
+    <li><a href="#system">system</a>
+      <ul>
+        <li><a href="#关机命令">关机命令</a></li>
+        <li><a href="#暂停命令">暂停命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#goto和标签">goto和标签</a></li>
+    <li><a href="#函数声明与定义">函数声明与定义</a></li>
+    <li><a href="#ifndefifdefelseendif">#ifndef、#ifdef、#else、#endif</a></li>
+    <li><a href="#数组">数组</a>
+      <ul>
+        <li><a href="#初始化">初始化</a></li>
+        <li><a href="#取地址">取地址</a></li>
+        <li><a href="#数组的类型">数组的类型</a></li>
+        <li><a href="#数组越界访问可能导致死循环">数组越界访问可能导致死循环</a></li>
+      </ul>
+    </li>
+    <li><a href="#左移与右移">左移与右移</a></li>
+    <li><a href="#逗号表达式">逗号表达式</a>
+      <ul>
+        <li><a href="#逗号表达式优先级相对是比较低的">逗号表达式优先级相对是比较低的</a></li>
+      </ul>
+    </li>
+    <li><a href="#操作数">操作数</a></li>
+    <li><a href="#隐式类型转换">隐式类型转换</a>
+      <ul>
+        <li><a href="#整型提升">整型提升</a></li>
+        <li><a href="#算术转换">算术转换</a></li>
+      </ul>
+    </li>
+    <li><a href="#程序调试">程序调试</a>
+      <ul>
+        <li><a href="#debug和release">Debug和Release</a></li>
+        <li><a href="#断点处输入条件值">断点处输入条件值</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2019 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>
