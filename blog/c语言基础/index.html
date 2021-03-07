@@ -1282,6 +1282,13 @@ CPU速度越来越快导致内存读取速度跟不上CPU的处理速度，因�
 <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%u</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">c</span><span class="p">));</span> <span class="c1">// 1
 </span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%u</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">+</span><span class="n">c</span><span class="p">));</span> <span class="c1">// 4 发生表达式运算，因此需要整型提升，因此变成了int型，因此变成了4字节。同理sizeof(-c) = 4
 </span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%u</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">!</span><span class="n">c</span><span class="p">));</span> <span class="c1">// 1
+</span></code></pre></div><p><!-- raw HTML omitted -->无符号数做整型提升时：<!-- raw HTML omitted --></p>
+<p>我们知道有符号数做整型提升时是按照最高位符号位去补的，而无符号数就简单多了，因为它的最高位不是符号位，所以直接补0</p>
+<p>例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// 首先-1是整型，因此它在计算机中是这么存储的：11111111111111111111111111111111
+</span><span class="c1">// 由于变量a是char型，因此截取低位8位：11111111
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;a=%d&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span> <span class="c1">// 输出按照%d来输出，因此需要做整型提升（由于是无符号数，因此高位用0填补）：11111111 -&gt; 00000000000000000000000011111111
+</span><span class="c1">// 最后输出255
 </span></code></pre></div><h4 id="整型提升的意义">整型提升的意义</h4>
 <p>表达式的整型运算要在CPU的相应运算器件内执行，CPU内整形运算器（ALU）的操作数的字节长度一般就是int的字节长度，同时也是CPU的通用寄存器的长度</p>
 <p>因此即使两个char类型的相加，在CPU执行时实际上也要先转换为CPU内整型操作数的标准长度</p>
