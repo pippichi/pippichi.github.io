@@ -625,7 +625,7 @@ CPU速度越来越快导致内存读取速度跟不上CPU的处理速度，因�
 <span class="c1">// 下面我们换用char型指针存放a的地址
 </span><span class="c1"></span><span class="kt">char</span><span class="o">*</span> <span class="n">pc</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span> 
 <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pc</span><span class="p">);</span> <span class="c1">// 00AFFEF4 ，我们发现跟上面的pa的值是一样的，说明pa跟pc都能正常存放变量a的地址
-</span><span class="c1"></span><span class="o">*</span><span class="n">pc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 这里我们会发现a在内存中的值变成了十六进制11 22 33 00。解释一下为什么是11 22 33 00 而不是00 22 33 44，那是因为在内存中这些数是倒着放进去的：44 33 22 11，这个时候*pc = 0相当于就是把44变成了00，因此再读出来的时候也就变成了11 22 33 00
+</span><span class="c1"></span><span class="o">*</span><span class="n">pc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 这里我们会发现a在内存中的值变成了十六进制11 22 33 00。解释一下为什么是11 22 33 00 而不是00 22 33 44，那是因为整型数在内存中有可能是按照字节倒着存进去的（小端模式）：44 33 22 11，这个时候*pc = 0相当于就是把44变成了00，因此再读出来的时候也就变成了11 22 33 00
 </span><span class="c1">// 我们终于发现了两个不同类型的指针在做同一个解引用操作的时候结果不一样，这就是指针类型带来的区别
 </span></code></pre></div><p><!-- raw HTML omitted -->指针类型的意义：<!-- raw HTML omitted --></p>
 <p>任何类型的指针确实可以存放任何类型的变量的地址，但是！当进行解引用操作的时候，就不一样了</p>
