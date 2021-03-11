@@ -184,6 +184,58 @@ set global validate<span class="nb">_</span>password.length=1;
 </code></pre></div><p>最后查看我们创建或修改的用户：</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="n">host</span><span class="p">,</span> <span class="k">user</span><span class="p">,</span> <span class="n">plugin</span> <span class="k">from</span> <span class="k">user</span><span class="p">;</span>
 </code></pre></div><p>然后关闭防火墙，测试连接成功！</p>
+<h2 id="筛选并查看变量">筛选并查看变量</h2>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="n">variables</span> <span class="k">where</span> <span class="n">variable_name</span> <span class="k">like</span> <span class="s1">&#39;wait%&#39;</span> <span class="k">and</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">;</span>
+</code></pre></div><h2 id="generated-column">generated column</h2>
+<p>定义Generated column列的语法如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="err">列名</span> <span class="err">类型</span> <span class="p">[</span><span class="n">GENERATED</span> <span class="n">ALWAYS</span><span class="p">]</span> <span class="k">AS</span> <span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="p">[</span><span class="n">VIRTUAL</span> <span class="o">|</span> <span class="n">STORED</span><span class="p">]</span> <span class="p">[</span><span class="k">NOT</span> <span class="no">NULL</span> <span class="o">|</span> <span class="no">NULL</span><span class="p">]</span> <span class="p">[</span><span class="k">UNIQUE</span> <span class="p">[</span><span class="k">KEY</span><span class="p">]]</span> <span class="p">[[</span><span class="k">PRIMARY</span><span class="p">]</span> <span class="k">KEY</span><span class="p">]</span> <span class="p">[</span><span class="n">COMMENT</span> <span class="s1">&#39;string&#39;</span><span class="p">]</span>
+</code></pre></div><ul>
+<li>AS（expr）用于生成计算列值的表达式。</li>
+<li>VIRTUAL或STORED关键字表示是否存储计算列的值
+<ul>
+<li>VIRTUAL：列值不存储，虚拟列不占用存储空间，默认设置为VIRTUAL。</li>
+<li>STORED：在添加或更新行时计算并存储列值。存储列需要存储空间，并且可以创建索引。</li>
+</ul>
+</li>
+</ul>
+<p>计算列表达式的要求：</p>
+<ul>
+<li>允许使用文本、内置函数和运算符，但不能使用返回值不确定的函数，比如NOW()。</li>
+<li>不允许使用存储函数和用户定义函数。</li>
+<li>不允许使用存储过程和函数参数。</li>
+<li>不允许使用变量（系统变量、用户定义变量和存储程序的局部变量）。</li>
+<li>不允许子查询。</li>
+<li>计算列在定义时可以引用其他的计算列，但只能引用表定义中较早出现的列。</li>
+<li>可以在计算列上创建索引，但不能在VIRTUAL类型的计算列上创建聚集索引。</li>
+</ul>
+<h2 id="binary类型">Binary类型</h2>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">test_bin</span> <span class="p">(</span>
+   <span class="n">bin_id</span> <span class="k">BINARY</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span>
+<span class="p">)</span> <span class="kp">Engine</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span> 
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="nf">test_bin</span><span class="p">(</span><span class="n">bin_id</span><span class="p">)</span> <span class="k">VALUES</span><span class="p">(</span><span class="nf">UNHEX</span><span class="p">(</span><span class="err">‘</span><span class="n">FA34E10293CB42848573A4E39937F479</span><span class="err">‘</span><span class="p">));</span>
+<span class="c1">-- 或 --
+</span><span class="c1"></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="nf">test_bin</span><span class="p">(</span><span class="n">bin_id</span><span class="p">)</span> <span class="k">VALUES</span><span class="p">(</span><span class="n">x</span><span class="err">‘</span><span class="n">FA34E10293CB42848573A4E39937F479</span><span class="err">‘</span><span class="p">);</span>
+<span class="k">SELECT</span> <span class="nf">HEX</span><span class="p">(</span><span class="n">bin_id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">bin_id</span> <span class="k">FROM</span> <span class="n">test_bin</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="nf">HEX</span><span class="p">(</span><span class="n">bin_id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">bin_id</span> <span class="k">FROM</span> <span class="n">test_bin</span> <span class="k">WHERE</span> <span class="n">bin_id</span> <span class="o">=</span> <span class="nf">UNHEX</span><span class="p">(</span><span class="err">‘</span><span class="n">FA34E10293CB42848573A4E39937F479</span><span class="err">‘</span><span class="p">);</span>
+<span class="k">SELECT</span> <span class="nf">HEX</span><span class="p">(</span><span class="n">bin_id</span><span class="p">)</span> <span class="k">AS</span> <span class="n">bin_id</span> <span class="k">FROM</span> <span class="n">test_bin</span> <span class="k">WHERE</span> <span class="n">bin_id</span> <span class="o">=</span> <span class="n">x</span><span class="err">‘</span><span class="n">FA34E10293CB42848573A4E39937F479</span><span class="err">‘</span><span class="p">;</span>
+</code></pre></div><p>Binary妙用：</p>
+<p>假设表t_user有字段name类型是varchar，那么要求根据name来做筛选</p>
+<p>where自居的字符串比较是不区分大小写的，但是可以使用binary关键字设定where子句区分大小写：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t_user</span> <span class="k">where</span> <span class="k">binary</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Zhangsan&#39;</span><span class="p">;</span> <span class="c1">-- 搜不到东西 --
+</span><span class="c1"></span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t_user</span> <span class="k">where</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Zhangsan&#39;</span><span class="p">;</span> <span class="c1">-- 可以搜到name为zhangsan的 -- 
+</span></code></pre></div><h2 id="unsigned类型">unsigned类型</h2>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 其实就跟c语言中的unsigned差不多 --
+</span><span class="c1"></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">t</span><span class="p">(</span>
+    <span class="n">a</span> <span class="kt">INT</span> <span class="k">UNSIGNED</span><span class="p">,</span>
+    <span class="n">b</span> <span class="kt">INT</span> <span class="k">UNSIGNED</span>
+<span class="p">)</span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="p">;</span>
+</code></pre></div><h2 id="zerofill">ZEROFILL</h2>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">t</span><span class="p">(</span>
+    <span class="n">a</span> <span class="kt">INT</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="k">ZEROFILL</span><span class="p">,</span>
+<span class="p">)</span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="p">;</span>
+<span class="c1">-- 向表t插入a为10的一条数据
+</span><span class="c1">-- 执行select语句查询a结果为0010
+</span></code></pre></div>
   </section>
 
   <section>
@@ -203,6 +255,11 @@ set global validate<span class="nb">_</span>password.length=1;
       <b>MySQL补充</b><nav id="TableOfContents">
   <ul>
     <li><a href="#使用yum安装mysql8">使用yum安装MySQL8</a></li>
+    <li><a href="#筛选并查看变量">筛选并查看变量</a></li>
+    <li><a href="#generated-column">generated column</a></li>
+    <li><a href="#binary类型">Binary类型</a></li>
+    <li><a href="#unsigned类型">unsigned类型</a></li>
+    <li><a href="#zerofill">ZEROFILL</a></li>
   </ul>
 </nav></div>
   
