@@ -46,15 +46,6 @@
     </item>
     
     <item>
-      <title>MySQL -additional</title>
-      <link>https://pippichi.github.io/blog/mysql_additional/</link>
-      <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pippichi.github.io/blog/mysql_additional/</guid>
-      <description>&lt;p&gt;The article contains the additional knowledge of MySQL&amp;hellip;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>axios -additional</title>
       <link>https://pippichi.github.io/blog/axios_source_code/</link>
       <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>

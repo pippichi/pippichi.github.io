@@ -193,21 +193,58 @@ set global validate<span class="nb">_</span>password.length=1;
 <li>AS（expr）用于生成计算列值的表达式。</li>
 <li>VIRTUAL或STORED关键字表示是否存储计算列的值
 <ul>
-<li>VIRTUAL：列值不存储，虚拟列不占用存储空间，默认设置为VIRTUAL。</li>
-<li>STORED：在添加或更新行时计算并存储列值。存储列需要存储空间，并且可以创建索引。</li>
+<li>VIRTUAL：默认就是设置为VIRTUAL。不存储该列值，即MySQL只是将这一列的元信息保存在数据字典中，并不会将这一列数据持久化到磁盘上，而是当读取该行时，触发触发器对该列进行计算显示。InnoDB支持Virtual Generated Column。</li>
+<li>STORED：在添加或更新行时计算并存储列值。存储列需要存储空间，并且可以创建索引。所以相对于Virtual Column列需要更多的磁盘空间，与Virtual Column相比并没有优势。因此，MySQL 5.7中，不指定Generated Column的类型，默认是Virtual Column。</li>
+<li>在表中允许Virtual Column和Stored Column的混合使用</li>
+<li><strong>提高效率：由于mysql在普通索引上加函数会造成索引失效，造成查询性能下降，Generated Column（函数索引）刚好可以解决这个问题，可以在Generated Column加上索引来提高效率</strong></li>
 </ul>
 </li>
 </ul>
+<p>注意：还可以在generated column上建立索引以加快查找速度</p>
 <p>计算列表达式的要求：</p>
 <ul>
-<li>允许使用文本、内置函数和运算符，但不能使用返回值不确定的函数，比如NOW()。</li>
-<li>不允许使用存储函数和用户定义函数。</li>
-<li>不允许使用存储过程和函数参数。</li>
-<li>不允许使用变量（系统变量、用户定义变量和存储程序的局部变量）。</li>
-<li>不允许子查询。</li>
-<li>计算列在定义时可以引用其他的计算列，但只能引用表定义中较早出现的列。</li>
-<li>可以在计算列上创建索引，但不能在VIRTUAL类型的计算列上创建聚集索引。</li>
+<li>
+<p>允许使用文本、内置函数和运算符，但不能使用返回值不确定的函数，比如NOW()。</p>
+</li>
+<li>
+<p>不允许使用存储函数和用户定义函数。</p>
+</li>
+<li>
+<p>不允许使用存储过程和函数参数。</p>
+</li>
+<li>
+<p>不允许使用变量（系统变量、用户定义变量和存储程序的局部变量）。</p>
+</li>
+<li>
+<p>不允许子查询。</p>
+</li>
+<li>
+<p>计算列在定义时可以引用其他的计算列，但只能引用表定义中较早出现的列。</p>
+</li>
+<li>
+<p>可以在计算列上创建索引，但不能在VIRTUAL类型的计算列上创建聚集索引。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">create</span> <span class="k">table</span> <span class="nf">t1</span><span class="p">(</span><span class="n">a</span> <span class="kt">int</span><span class="p">,</span> <span class="n">b</span> <span class="kt">int</span> <span class="p">,</span> <span class="n">c</span> <span class="kt">int</span> <span class="n">GENERATED</span> <span class="n">ALWAYS</span> <span class="k">AS</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">),</span> <span class="k">primary</span> <span class="k">key</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
+<span class="n">ERROR</span> <span class="mi">3106</span> <span class="p">(</span><span class="n">HY000</span><span class="p">):</span> <span class="s1">&#39;Defining a virtual generated column as primary key&#39;</span> <span class="k">is</span> <span class="k">not</span> <span class="n">supported</span> <span class="k">for</span> <span class="n">generated</span> <span class="n">columns</span><span class="p">.</span>
+  
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">create</span> <span class="k">table</span> <span class="nf">t1</span><span class="p">(</span><span class="n">a</span> <span class="kt">int</span><span class="p">,</span> <span class="n">b</span> <span class="kt">int</span> <span class="p">,</span> <span class="n">c</span> <span class="kt">int</span> <span class="n">GENERATED</span> <span class="n">ALWAYS</span> <span class="k">AS</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span> <span class="n">STORED</span><span class="p">,</span> <span class="k">primary</span> <span class="k">key</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="n">rows</span> <span class="nf">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">11</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></div></li>
+<li>
+<p>不能在Virtual Generated Column上创建全文索引和空间索引</p>
+</li>
+<li>
+<p>Virtual Generated Column不能作为外键</p>
+</li>
 </ul>
+<h3 id="generated-column上创建索引与oracle的函数索引的区别">Generated Column上创建索引与Oracle的函数索引的区别</h3>
+<p>首先创建表：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">t1</span> <span class="p">(</span><span class="n">first_name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">last_name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>
+</code></pre></div><p>假设这时候需要建一个full_name的索引，在Oracle中，我们可以直接在创建索引的时候使用函数，如下所示：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">alter</span> <span class="k">table</span> <span class="n">t1</span> <span class="k">add</span> <span class="k">index</span> <span class="nf">full_name_idx</span><span class="p">(</span><span class="nf">CONCAT</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">last_name</span><span class="p">));</span> 
+</code></pre></div><p>但是，上面这条语句在MySQL中就会报错。在MySQL中，我们可以先新建一个Generated Column，然后再在这个Generated Column上建索引，如下所示：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">alter</span> <span class="k">table</span> <span class="n">t1</span> <span class="k">add</span> <span class="k">column</span> <span class="n">full_name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="n">GENERATED</span> <span class="n">ALWAYS</span> <span class="k">AS</span> <span class="p">(</span><span class="nf">CONCAT</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">last_name</span><span class="p">));</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">t1</span> <span class="k">add</span> <span class="k">index</span> <span class="nf">full_name_idx</span><span class="p">(</span><span class="n">full_name</span><span class="p">);</span>
+</code></pre></div><p>乍一看，MySQL需要在表上增加一列，才能够实现类似Oracle的函数索引，似乎代价会高很多。但是，我们在上面提过，对于Virtual Generated Column，MySQL只是将这一列的元信息保存在数据字典中，并不会将这一列数据持久化到磁盘上，因此，在MySQL的Virtual Generated Column上建立索引和Oracle的函数索引类似，并不需要更多的代价，只是使用方式有点不一样而已。</p>
 <h2 id="binary类型">Binary类型</h2>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">test_bin</span> <span class="p">(</span>
    <span class="n">bin_id</span> <span class="k">BINARY</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span>
@@ -230,12 +267,588 @@ set global validate<span class="nb">_</span>password.length=1;
     <span class="n">b</span> <span class="kt">INT</span> <span class="k">UNSIGNED</span>
 <span class="p">)</span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="p">;</span>
 </code></pre></div><h2 id="zerofill">ZEROFILL</h2>
+<p>zerofill 默认是unsigned</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">t</span><span class="p">(</span>
     <span class="n">a</span> <span class="kt">INT</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="k">ZEROFILL</span><span class="p">,</span>
 <span class="p">)</span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">INNODB</span><span class="p">;</span>
 <span class="c1">-- 向表t插入a为10的一条数据
 </span><span class="c1">-- 执行select语句查询a结果为0010
-</span></code></pre></div>
+</span></code></pre></div><h2 id="comment">COMMENT</h2>
+<p>用于对字段进行说明</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">mytest</span><span class="o">`</span><span class="p">(</span>
+	<span class="o">`</span><span class="kt">text</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span> <span class="n">COMMENT</span> <span class="s1">&#39;内容&#39;</span>
+<span class="p">)</span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="kp">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</code></pre></div><h2 id="内连接外连接">内连接、外连接</h2>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span><span class="n">a1</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="n">a2</span><span class="p">.</span><span class="n">name</span> <span class="k">from</span> <span class="n">b</span> <span class="k">left</span> <span class="k">join</span> <span class="n">a</span> <span class="k">as</span> <span class="n">a1</span> <span class="k">on</span> <span class="n">b</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">a1</span><span class="p">.</span><span class="n">id</span><span class="p">)</span>
+<span class="k">left</span> <span class="k">join</span> <span class="n">a</span> <span class="k">as</span> <span class="n">a2</span> <span class="k">on</span> <span class="n">b</span><span class="p">.</span><span class="n">hid</span> <span class="o">=</span> <span class="n">a2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="err">表</span><span class="mi">1</span> <span class="k">as</span> <span class="n">x1</span> <span class="k">inner</span> <span class="k">join</span> <span class="err">表</span><span class="mi">2</span> <span class="k">as</span> <span class="n">x2</span> <span class="k">on</span> <span class="n">x1</span><span class="p">.</span><span class="s1">&#39;id&#39;</span><span class="o">=</span><span class="n">x2</span><span class="p">.</span><span class="s1">&#39;hyuid&#39;</span> <span class="k">and</span>
+<span class="s1">&#39;hyuid&#39;</span><span class="o">=</span><span class="mi">1600702113</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span><span class="k">select</span> <span class="n">goods_id</span><span class="p">,</span><span class="n">cat_id</span><span class="p">,</span><span class="n">goods_name</span> <span class="k">from</span> <span class="n">goods</span> <span class="k">order</span> <span class="k">by</span> <span class="n">cat_id</span>
+<span class="k">asc</span><span class="p">,</span><span class="n">goods_id</span> <span class="k">desc</span><span class="p">)</span> <span class="k">as</span> <span class="n">temp</span> <span class="k">group</span> <span class="k">by</span> <span class="n">cat_id</span><span class="p">;</span>
+</code></pre></div><h2 id="外键约束on-delete和on-update的使用">外键约束（on delete和on update）的使用</h2>
+<p><strong>外键约束（On Delete和On Update）都有Restrict，No Action, Cascade,Set Null属性。</strong></p>
+<p><strong>外键约束1&ndash;ON DELETE</strong>
+A.restrict(约束):当在父表（即外键的来源表）中删除对应记录时，首先检查该记录是否有对应外键，如果有则不允许删除。
+B.no action:意思同restrict.即如果存在从数据，不允许删除主数据。
+C.cascade(级联):当在父表（即外键的来源表）中删除对应记录时，首先检查该记录是否有对应外键，如果有则也删除外键在子表（即包含外键的表）中的记录。
+D.set null:当在父表（即外键的来源表）中删除对应记录时，首先检查该记录是否有对应外键，如果有则设置子表中该外键值为null（不过这就要求该外键允许取null）</p>
+<p><strong>外键约束2&ndash;ON UPDATE</strong>
+A.restrict(约束):当在父表（即外键的来源表）中更新对应记录时，首先检查该记录是否有对应外键，如果有则不允许更新。
+B.no action:意思同restrict.
+C.cascade(级联):当在父表（即外键的来源表）中更新对应记录时，首先检查该记录是否有对应外键，如果有则也更新外键在子表（即包含外键的表）中的记录。
+D.set null:当在父表（即外键的来源表）中更新对应记录时，首先检查该记录是否有对应外键，如果有则设置子表中该外键值为null（不过这就要求该外键允许取null）。</p>
+<p>注：NO ACTION和RESTRICT的区别：只有在及个别的情况下会导致区别，前者是在其他约束的动作之后执行，后者具有最高的优先权执行。</p>
+<p>案例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span>  <span class="o">`</span><span class="n">filedb</span><span class="o">`</span><span class="p">.</span><span class="o">`</span><span class="n">tblfile</span><span class="o">`</span> <span class="p">(</span>
+  <span class="o">`</span><span class="n">FileID</span><span class="o">`</span> <span class="kt">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">unsigned</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">FileOwner</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s1">&#39;外键，引用用户表&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">FileName</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s1">&#39;文件原始名称&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">FilePath</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s1">&#39;文件存放路径&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">FileType</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s1">&#39;文件类型&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">FileSubject</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s1">&#39;文件标题&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">FileCreated</span><span class="o">`</span> <span class="kt">datetime</span> <span class="k">DEFAULT</span> <span class="s1">&#39;0000-00-00 00:00:00&#39;</span> <span class="n">COMMENT</span> <span class="s1">&#39;创建时间&#39;</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">FileID</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">KEY</span> <span class="o">`</span><span class="n">FK_tblfile_1</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">FileOwner</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">CONSTRAINT</span> <span class="o">`</span><span class="n">FK_tblfile_1</span><span class="o">`</span> <span class="k">FOREIGN</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">FileOwner</span><span class="o">`</span><span class="p">)</span> <span class="k">REFERENCES</span> <span class="o">`</span><span class="n">tbluser</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">UserID</span><span class="o">`</span><span class="p">)</span> <span class="k">ON</span> <span class="k">DELETE</span> <span class="kt">SET</span> <span class="no">NULL</span> <span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">CASCADE</span> 
+<span class="p">)</span> <span class="kp">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="kp">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">2</span> <span class="k">DEFAULT</span> <span class="kp">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+<span class="c1">-- 那么如果我删除用户表中ST001对应记录时，则根据ON DELETE SET NULL规则，文件表中FileOwner应该被设置为null，动手尝试后也确实如此；如果我将用户表中ST001改为ST003，则根据ON UPDATE CASCADE规则，文件表中FileOwner应该连锁设置为ST003，也的确如此。
+</span></code></pre></div><p><strong>on delete和on update也可以作用于timestamp时间戳类型的字段</strong></p>
+<p>案例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">mytest</span><span class="o">`</span><span class="p">(</span>
+	<span class="o">`</span><span class="kt">text</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span> <span class="n">COMMENT</span> <span class="s1">&#39;内容&#39;</span><span class="p">,</span>
+    <span class="o">`</span><span class="n">created_at</span><span class="o">`</span> <span class="kt">timestamp</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span> <span class="n">COMMENT</span> <span class="s1">&#39;创建时间&#39;</span><span class="p">,</span>
+    <span class="o">`</span><span class="n">updated_at</span><span class="o">`</span> <span class="kt">timestamp</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span> <span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">CURRENT_TIMESTAMP</span> <span class="n">COMMENT</span> <span class="s1">&#39;更新时间&#39;</span>
+<span class="p">)</span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="kp">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</code></pre></div><p>外键的使用对于减少数据库冗余性，以及保证数据完整性和一致性有很大作用。</p>
+<p>另外注意，如果两张表之间存在外键关系，则MySQL不能直接删除表(Drop Table)，而应该先删除外键，之后才可以删除。</p>
+<h2 id="外键约束以及建立索引-create-index">外键约束以及建立索引（ create index）</h2>
+<p>// 添加外键约束以及建立索引（底层B+树，提高效率）如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="k">table</span> <span class="nf">Three_student</span><span class="p">(</span>
+    <span class="n">id</span> <span class="kt">int</span> <span class="kp">auto_increment</span>
+    <span class="k">primary</span> <span class="k">key</span><span class="p">,</span>
+    <span class="n">s_name</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+    <span class="n">s_grade_id</span> <span class="kt">int</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+    <span class="k">constraint</span> <span class="n">Three_student_s_grade_id_ffbb8485_fk_Three_grade_id</span>
+    <span class="k">foreign</span> <span class="k">key</span> <span class="p">(</span><span class="n">s_grade_id</span><span class="p">)</span> <span class="k">references</span> <span class="nf">Three_grade</span> <span class="p">(</span><span class="n">id</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">create</span> <span class="k">INDEX</span> <span class="n">Three_student_s_grade_id_ffbb8485_fk_Three_grade_id</span> <span class="k">on</span> <span class="nf">Three_student</span><span class="p">(</span><span class="n">s_grade_id</span><span class="p">);</span>
+</code></pre></div><h2 id="mysql的current_timestamp">Mysql的CURRENT_TIMESTAMP</h2>
+<p>在创建时间字段的时候（比方说常见的created_at和updated_at）</p>
+<p>创建一条数据记录的时候，我们可能会希望created_at和updated_at这两个字段能够自动创建</p>
+<p><strong>DEFAULT CURRENT_TIMESTAMP</strong></p>
+<p>表示当插入数据的时候，该字段默认值为当前时间</p>
+<p><strong>ON UPDATE CURRENT_TIMESTAMP</strong></p>
+<p>表示每次更新这条数据的时候，该字段都会更新成当前时间</p>
+<p>这两个操作是MySQL数据库本身在维护的，所以可以根据这个特性来生成【创建时间】和【更新时间】两个字段，且不需要代码来维护</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">mytest</span><span class="o">`</span><span class="p">(</span>
+	<span class="o">`</span><span class="kt">text</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span> <span class="n">COMMENT</span> <span class="s1">&#39;内容&#39;</span><span class="p">,</span>
+    <span class="o">`</span><span class="n">created_at</span><span class="o">`</span> <span class="kt">timestamp</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span> <span class="n">COMMENT</span> <span class="s1">&#39;创建时间&#39;</span><span class="p">,</span>
+    <span class="o">`</span><span class="n">updated_at</span><span class="o">`</span> <span class="kt">timestamp</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span> <span class="k">ON</span> <span class="k">UPDATE</span> <span class="k">CURRENT_TIMESTAMP</span> <span class="n">COMMENT</span> <span class="s1">&#39;更新时间&#39;</span>
+<span class="p">)</span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="kp">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</code></pre></div><h2 id="联合algorithm创建视图">联合algorithm创建视图</h2>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="n">algorithm</span> <span class="o">=</span> <span class="n">merge</span> <span class="n">view</span> <span class="n">v</span>
+<span class="k">as</span>
+<span class="k">select</span> <span class="err">语句</span><span class="p">;</span>
+</code></pre></div><p>必要时使用algorithm可以用于提高效率；以上写法并不会建立临时表。</p>
+<p>如果algorithm = temptable 则指定生成临时表</p>
+<p>如果拿不准用什么，algorithm= undefined，让系统帮我们定</p>
+<h2 id="ifnullnullif其他">Ifnull|nullif|其他</h2>
+<ul>
+<li>
+<p>表看成集合的话一行是一个元素</p>
+</li>
+<li>
+<p>数据库实现量表的笛卡儿积：select * from 表1,表2;</p>
+</li>
+<li>
+<p>可以直接写 select 2&gt;1;或者select 2&lt;1或者select &lsquo;list&rsquo;=null;</p>
+</li>
+<li>
+<p>null的比较需要用特殊的运算符,遇到其他运算符一律返回null is null , is not
+null; 例如：select * from name where snum is not null;</p>
+</li>
+<li>
+<p>在开发中，会员的信息优化往往是把频繁用到的信息，优先考虑效率，存储到一张表中，不常用的信息和比较占据空间的信息，优先考虑空间占用，存储到辅表中。</p>
+</li>
+<li>
+<p>myisam\innodb\bdb utf8\gbk\latin1&hellip;</p>
+</li>
+<li>
+<p>对于结果中的列如果想再筛选，用having</p>
+</li>
+<li>
+<p>用myisam引擎时count(<em>)和count(1)没有区别。而用lnnodb引擎时，count(</em>)效率很低，因为他真的要去数一遍。</p>
+</li>
+<li>
+<p>ifnull(&lsquo;aaa&rsquo;,0)&ndash;&gt;aaa; ifnull(null,0)&ndash;&gt;0; ifnull('',0)&ndash;&gt;'';</p>
+</li>
+<li>
+<p>nullif(a,b) 判断a和b是否相等，相等返回1，不等返回null；</p>
+</li>
+<li>
+<p>数据库设计（项目经理、架构师）：触发器、事物、锁、索引优化、引擎优化、表的涉及、读写分离</p>
+</li>
+<li>
+<p>数据库的管理者（DBA 知识）：权限管理、数据备份、运行监控、性能监测</p>
+</li>
+</ul>
+<h2 id="索引">索引</h2>
+<p>创建索引时，需要保证索引是应用在sql查询语句的条件(一般作为where子句的条件)。</p>
+<p>实际上索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录。索引大大提高查询速度，但降低了更新表的速度。</p>
+<p>在where条件中，对某列使用了函数，则此列的索引不发挥作用。</p>
+<p>mysql在使用like查询的时候只有使用后面的%时，才会使用到索引。</p>
+<h3 id="创建索引">创建索引</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="k">index</span> <span class="err">索引名</span> <span class="k">on</span> <span class="err">表名</span><span class="p">(</span><span class="err">属性名</span><span class="p">(</span><span class="n">length</span><span class="p">));</span>
+<span class="c1">-- 如果是char,varchar类型，length可以小于字段实际长度；如果是blob，text，必须指定length
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">alter</span> <span class="k">table</span> <span class="err">表名</span> <span class="k">add</span> <span class="k">index</span> <span class="err">索引名</span><span class="p">(</span><span class="err">列名</span><span class="p">);</span>
+</code></pre></div><h3 id="创建表时添加索引">创建表时添加索引</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="k">table</span> <span class="err">表名（</span>
+    <span class="n">id</span> <span class="kt">int</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+    <span class="n">uname</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+    <span class="k">index</span><span class="p">[</span><span class="err">索引名</span><span class="p">](</span><span class="nf">uname</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+<span class="p">);</span>
+</code></pre></div><h3 id="删除索引">删除索引</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">drop</span> <span class="k">index</span><span class="p">[</span><span class="err">索引名</span><span class="p">]</span> <span class="k">on</span> <span class="err">表名</span><span class="p">;</span>
+</code></pre></div><h3 id="唯一索引">唯一索引</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="k">unique</span> <span class="k">index</span> <span class="err">索引名</span> <span class="k">on</span> <span class="err">表名（列名</span><span class="p">(</span><span class="n">length</span><span class="p">);</span> <span class="c1">-- 创建
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">alter</span> <span class="k">table</span> <span class="err">表名</span> <span class="k">add</span> <span class="k">unique</span> <span class="k">index</span><span class="p">[</span><span class="err">索引名</span><span class="p">]</span> <span class="p">(</span><span class="err">列名</span><span class="p">(</span><span class="n">length</span><span class="p">));</span> <span class="c1">-- 修改
+</span></code></pre></div><h3 id="创建表时添加唯一索引">创建表时添加唯一索引</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="k">table</span> <span class="err">表名（</span>
+    <span class="n">id</span> <span class="kt">int</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+    <span class="n">uname</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+    <span class="k">unique</span> <span class="k">index</span><span class="p">[</span><span class="err">索引名</span><span class="p">](</span><span class="nf">uname</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+<span class="p">);</span>
+</code></pre></div><h3 id="有四种方式来添加数据表的索引">有四种方式来添加数据表的索引</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 1
+</span><span class="c1"></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tbl_name</span> <span class="k">ADD</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">column_list</span><span class="p">);</span> <span class="c1">-- 该语句添加一个主键，这意味着索引值必须是唯一的，且不能为NULL。
+</span><span class="c1"></span>
+<span class="c1">-- 2
+</span><span class="c1"></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tbl_name</span> <span class="k">ADD</span> <span class="k">UNIQUE</span> <span class="nf">index_name</span> <span class="p">(</span><span class="n">column_list</span><span class="p">);</span> <span class="c1">-- 这条语句创建索引的值必须是唯一的（除了NULL外，NULL可能会出现多次）。
+</span><span class="c1"></span>
+<span class="c1">-- 3
+</span><span class="c1"></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tbl_name</span> <span class="k">ADD</span> <span class="k">INDEX</span> <span class="nf">index_name</span> <span class="p">(</span><span class="n">column_list</span><span class="p">);</span> <span class="c1">-- 添加普通索引，索引值可出现多次。
+</span><span class="c1"></span>
+<span class="c1">-- 4
+</span><span class="c1"></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tbl_name</span> <span class="k">ADD</span> <span class="k">FULLTEXT</span> <span class="nf">index_name</span> <span class="p">(</span><span class="n">column_list</span><span class="p">);</span> <span class="c1">-- 该语句指定了索引为 FULLTEXT ，用于全文索引。
+</span></code></pre></div><p>举个例子，比如你在为某商场做一个会员卡的系统。</p>
+<p>这个系统有一个会员表</p>
+<p>有下列字段：</p>
+<p>会员编号 INT</p>
+<p>会员姓名 VARCHAR(10)</p>
+<p>会员身份证号码 VARCHAR(18)</p>
+<p>会员电话 VARCHAR(10)</p>
+<p>会员住址 VARCHAR(50)</p>
+<p>会员备注信息 TEXT</p>
+<p>那么这个 会员编号，作为主键，使用 PRIMARY</p>
+<p>会员姓名 如果要建索引的话，那么就是普通的 INDEX</p>
+<p>会员身份证号码 如果要建索引的话，那么可以选择 UNIQUE （唯一的，不允许重复）</p>
+<p>会员备注信息 ，如果需要建索引的话，可以选择 FULLTEXT，全文搜索。</p>
+<h2 id="全文索引">全文索引</h2>
+<p>like + % 在文本比较少时是合适的，但是对于大量的文本数据检索，是不可想象的。全文索引在大量的数据面前，能比 like + % 快 N 倍，速度不是一个数量级，但是全文索引可能存在精度问题。</p>
+<p>我们知道各种搜索引擎，他们的索引对象是超大量的数据，并且通常其背后都不是关系型数据库，不过全文索引的基本原理跟他们差不多。</p>
+<p>注意：只有字段的数据类型为 char、varchar、text 及其系列才可以建全文索引。</p>
+<h3 id="版本支持">版本支持</h3>
+<ul>
+<li>MySQL 5.6 以前的版本，只有 MyISAM 存储引擎支持全文索引；</li>
+<li>MySQL 5.6 及以后的版本，MyISAM 和 InnoDB 存储引擎均支持全文索引;</li>
+</ul>
+<p>测试或使用全文索引时，要先看一下自己的 MySQL 版本、存储引擎和数据类型是否支持全文索引。</p>
+<h3 id="创建全文索引">创建全文索引</h3>
+<ul>
+<li>
+<p>创建表时创建全文索引</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="k">table</span> <span class="nf">fulltext_test</span> <span class="p">(</span>
+    <span class="n">id</span> <span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="n">content</span> <span class="kt">text</span> <span class="k">NOT</span> <span class="no">NULL</span><span class="p">,</span>
+    <span class="n">tag</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">id</span><span class="p">),</span>
+    <span class="k">FULLTEXT</span> <span class="k">KEY</span> <span class="nf">content_tag_fulltext</span><span class="p">(</span><span class="n">content</span><span class="p">,</span><span class="n">tag</span><span class="p">)</span>  <span class="c1">-- 创建联合全文索引列
+</span><span class="c1"></span><span class="p">)</span> <span class="kp">ENGINE</span><span class="o">=</span><span class="n">MyISAM</span> <span class="k">DEFAULT</span> <span class="kp">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</code></pre></div></li>
+<li>
+<p>在已存在的表上创建全文索引</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="k">fulltext</span> <span class="k">index</span> <span class="n">content_tag_fulltext</span> <span class="k">on</span> <span class="nf">fulltext_test</span><span class="p">(</span><span class="n">content</span><span class="p">,</span><span class="n">tag</span><span class="p">);</span>
+</code></pre></div></li>
+<li>
+<p>通过SQL语句ALTER TABLE创建全文索引</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">alter</span> <span class="k">table</span> <span class="n">fulltext_test</span> <span class="k">add</span> <span class="k">fulltext</span> <span class="k">index</span> <span class="nf">content_tag_fulltext</span><span class="p">(</span><span class="n">content</span><span class="p">,</span><span class="n">tag</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="修改全文索引">修改全文索引</h3>
+<p>一般不修改，直接删掉重建</p>
+<h3 id="删除全文索引">删除全文索引</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">drop</span> <span class="k">index</span> <span class="n">content_tag_fulltext</span> <span class="k">on</span> <span class="n">fulltext_test</span><span class="p">;</span> <span class="c1">-- 直接使用 DROP INDEX 删除全文索引
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">alter</span> <span class="k">table</span> <span class="n">fulltext_test</span> <span class="k">drop</span> <span class="k">index</span> <span class="n">content_tag_fulltext</span><span class="p">;</span> <span class="c1">-- 通过 SQL 语句 ALTER TABLE 删除全文索引
+</span></code></pre></div><h3 id="使用全文索引">使用全文索引</h3>
+<p>和常用的模糊匹配使用 like + % 不同，全文索引有自己的语法格式，使用 match 和 against 关键字</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">fulltext_test</span> <span class="k">where</span> <span class="k">match</span><span class="p">(</span><span class="n">content</span><span class="p">,</span><span class="n">tag</span><span class="p">)</span> <span class="nf">against</span><span class="p">(</span><span class="s1">&#39;xxx xxx&#39;</span><span class="p">);</span>
+</code></pre></div><p><strong>注意：</strong> match() 函数中指定的列必须和全文索引中指定的列完全相同，否则就会报错，无法使用全文索引，这是因为全文索引不会记录关键字来自哪一列。如果想要对某一列使用全文索引，请单独为该列创建全文索引。</p>
+<p>有了上面的知识，就可以测试一下全文索引了。</p>
+<p>首先创建测试表，插入测试数据</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="k">table</span> <span class="nf">test</span> <span class="p">(</span>
+    <span class="n">id</span> <span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">unsigned</span> <span class="k">not</span> <span class="no">null</span> <span class="kp">auto_increment</span><span class="p">,</span>
+    <span class="n">content</span> <span class="kt">text</span> <span class="k">not</span> <span class="no">null</span><span class="p">,</span>
+    <span class="k">primary</span> <span class="k">key</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+    <span class="k">fulltext</span> <span class="k">key</span> <span class="nf">content_index</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<span class="p">)</span> <span class="kp">engine</span><span class="o">=</span><span class="n">MyISAM</span> <span class="k">default</span> <span class="kp">charset</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="nf">test</span> <span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">),(</span><span class="s1">&#39;b&#39;</span><span class="p">),(</span><span class="s1">&#39;c&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="nf">test</span> <span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;aa&#39;</span><span class="p">),(</span><span class="s1">&#39;bb&#39;</span><span class="p">),(</span><span class="s1">&#39;cc&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="nf">test</span> <span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;aaa&#39;</span><span class="p">),(</span><span class="s1">&#39;bbb&#39;</span><span class="p">),(</span><span class="s1">&#39;ccc&#39;</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="nf">test</span> <span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">&#39;aaaa&#39;</span><span class="p">),(</span><span class="s1">&#39;bbbb&#39;</span><span class="p">),(</span><span class="s1">&#39;cccc&#39;</span><span class="p">);</span>
+</code></pre></div><p>按照全文索引的使用语法执行下面查询</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="k">match</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="nf">against</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="k">match</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="nf">against</span><span class="p">(</span><span class="s1">&#39;aa&#39;</span><span class="p">);</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="k">match</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="nf">against</span><span class="p">(</span><span class="s1">&#39;aaa&#39;</span><span class="p">);</span>
+</code></pre></div><p>根据我们的惯性思维，应该会显示 4 条记录才对，然而结果是 1 条记录也没有，只有在执行下面的查询时:</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">test</span> <span class="k">where</span> <span class="k">match</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="nf">against</span><span class="p">(</span><span class="s1">&#39;aaaa&#39;</span><span class="p">);</span>
+</code></pre></div><p>才会搜到 aaaa 这 1 条记录。</p>
+<p>为什么？这个问题有很多原因，其中最常见的就是 最小搜索长度 导致的。另外插一句，使用全文索引时，测试表里至少要有 4 条以上的记录，否则，会出现意想不到的结果。</p>
+<p>MySQL 中的全文索引，有两个变量，最小搜索长度和最大搜索长度，对于长度小于最小搜索长度和大于最大搜索长度的词语，都不会被索引。通俗点就是说，想对一个词语使用全文索引搜索，那么这个词语的长度必须在以上两个变量的区间内。</p>
+<p>这两个的默认值可以使用以下命令查看</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;%ft%&#39;</span><span class="p">;</span>
+</code></pre></div><p>可以看到这两个变量在 MyISAM 和 InnoDB 两种存储引擎下的变量名和默认值</p>
+<pre><code>// MyISAM
+ft_min_word_len = 4;
+ft_max_word_len = 84;
+
+// InnoDB
+innodb_ft_min_token_size = 3;
+innodb_ft_max_token_size = 84;
+</code></pre><p>可以看到最小搜索长度 MyISAM 引擎下默认是 4，InnoDB 引擎下是 3，也即，MySQL 的全文索引只会对长度大于等于 4 或者 3 的词语建立索引，而刚刚搜索的只有 <em>aaaa</em> 的长度大于等于 4。</p>
+<h4 id="配置最小搜索长度">配置最小搜索长度</h4>
+<p>全文索引的相关参数都无法进行动态修改，必须通过修改 MySQL 的配置文件来完成。修改最小搜索长度的值为 1，首先打开 MySQL 的配置文件 /etc/my.cnf，在 [mysqld] 的下面追加以下内容</p>
+<pre><code>[mysqld]
+innodb_ft_min_token_size = 1
+ft_min_word_len = 1
+</code></pre><p>然后重启 MySQL 服务器，并修复全文索引。注意，修改完参数以后，一定要修复下索引，不然参数不会生效。</p>
+<p>两种修复方式，可以使用下面的命令修复</p>
+<pre><code>repair table test quick;
+</code></pre><p>或者直接删掉重新建立索引，再次执行上面的查询，<em>a、aa、aaa</em> 就都可以查出来了。</p>
+<p>但是，这里还有一个问题，搜索关键字 <em>a</em> 时，为什么 <em>aa、aaa、aaaa</em> 没有出现结果中，讲这个问题之前，先说说两种全文索引。</p>
+<h3 id="两种全文索引">两种全文索引</h3>
+<h4 id="自然语言的全文索引">自然语言的全文索引</h4>
+<p>默认情况下，或者使用 in natural language mode 修饰符时，match() 函数对文本集合执行自然语言搜索，上面的例子都是自然语言的全文索引。</p>
+<p>自然语言搜索引擎将计算每一个文档对象和查询的相关度。这里，相关度是基于匹配的关键词的个数，以及关键词在文档中出现的次数。在整个索引中出现次数越少的词语，匹配时的相关度就越高。相反，非常常见的单词将不会被搜索，如果一个词语的在超过 50% 的记录中都出现了，那么自然语言的搜索将不会搜索这类词语。上面提到的，测试表中必须有 4 条以上的记录，就是这个原因。</p>
+<p>这个机制也比较好理解，比如说，一个数据表存储的是一篇篇的文章，文章中的常见词、语气词等等，出现的肯定比较多，搜索这些词语就没什么意义了，需要搜索的是那些文章中有特殊意义的词，这样才能把文章区分开。</p>
+<h4 id="布尔全文索引">布尔全文索引</h4>
+<p>在布尔搜索中，我们可以在查询中自定义某个被搜索的词语的相关性，当编写一个布尔搜索查询时，可以通过一些前缀修饰符来定制搜索。</p>
+<p>MySQL 内置的修饰符，上面查询最小搜索长度时，搜索结果 ft_boolean_syntax 变量的值就是内置的修饰符，下面简单解释几个，更多修饰符的作用可以查手册</p>
+<ul>
+<li><strong>+</strong> 必须包含该词</li>
+<li><strong>-</strong> 必须不包含该词</li>
+<li><strong>&gt;</strong> 提高该词的相关性，查询的结果靠前</li>
+<li><strong>&lt;</strong> 降低该词的相关性，查询的结果靠后</li>
+<li><strong>(*)星号</strong> 通配符，只能接在词后面</li>
+</ul>
+<p>对于上面提到的问题，可以使用布尔全文索引查询来解决，使用下面的命令，<em>a、aa、aaa、aaaa</em> 就都被查询出来了。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="n">test</span> <span class="k">where</span> <span class="k">match</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="nf">against</span><span class="p">(</span><span class="s1">&#39;a*&#39;</span> <span class="k">in</span> <span class="n">boolean</span> <span class="n">mode</span><span class="p">);</span>
+</code></pre></div><h3 id="小结">小结</h3>
+<p>MySQL 的全文索引最开始仅支持英语，因为英语的词与词之间有空格，使用空格作为分词的分隔符是很方便的。亚洲文字，比如汉语、日语、汉语等，是没有空格的，这就造成了一定的限制。不过 MySQL 5.7.6 开始，引入了一个 ngram 全文分析器来解决这个问题，并且对 MyISAM 和 InnoDB 引擎都有效。</p>
+<p>事实上，MyISAM 存储引擎对全文索引的支持有很多的限制，例如表级别锁对性能的影响、数据文件的崩溃、崩溃后的恢复等，这使得 MyISAM 的全文索引对于很多的应用场景并不适合。所以，多数情况下的建议是使用别的解决方案，例如 Sphinx、Lucene 等等第三方的插件，亦或是使用 InnoDB 存储引擎的全文索引。</p>
+<p><strong>几个注意点：</strong></p>
+<ul>
+<li>使用全文索引前，搞清楚版本支持情况；</li>
+<li>全文索引比 like + % 快 N 倍，但是可能存在精度问题；</li>
+<li>如果需要全文索引的是大量数据，建议先添加数据，再创建索引；</li>
+<li>对于中文，可以使用 MySQL 5.7.6 之后的版本，或者第三方插件。</li>
+</ul>
+<h3 id="全文索引测试示例">全文索引测试示例</h3>
+<p>由于建立全文索引的表的存储引擎类型必须为MyISAM</p>
+<p>因此新建一个utf8 MyISAM类型的表并建立一个全文索引：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">articles</span> <span class="p">(</span>
+    <span class="n">id</span> <span class="kt">INT</span> <span class="k">UNSIGNED</span> <span class="kp">AUTO_INCREMENT</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+    <span class="n">title</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">200</span><span class="p">),</span>
+    <span class="n">body</span> <span class="kt">TEXT</span><span class="p">,</span>
+    <span class="k">FULLTEXT</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span><span class="n">body</span><span class="p">)</span>
+<span class="p">)</span> <span class="kp">ENGINE</span><span class="o">=</span><span class="n">MyISAM</span> <span class="k">DEFAULT</span>
+</code></pre></div><p>其中FULLTEXT(title, body)
+给title和body这两列建立全文索引，之后检索的时候注意必须同时指定这两列。</p>
+<p>给这个表添加点测试数据</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">INSERT</span> <span class="k">INTO</span> <span class="nf">articles</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span><span class="n">body</span><span class="p">)</span> <span class="k">VALUES</span>
+<span class="p">(</span><span class="s1">&#39;MySQL Tutorial&#39;</span><span class="p">,</span><span class="s1">&#39;DBMS stands for DataBase ...&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;How To Use MySQL Well&#39;</span><span class="p">,</span><span class="s1">&#39;After you went through a ...&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Optimizing MySQL&#39;</span><span class="p">,</span><span class="s1">&#39;In this tutorial we will show ...&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;1001 MySQL Tricks&#39;</span><span class="p">,</span><span class="s1">&#39;1. Never run mysqld as root. 2. ...&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;MySQL vs. YourSQL&#39;</span><span class="p">,</span><span class="s1">&#39;In the following database comparison ...&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;MySQL Security&#39;</span><span class="p">,</span><span class="s1">&#39;When configured properly, MySQL ...&#39;</span><span class="p">);</span>
+</code></pre></div><p>全文检索测试</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">articles</span> <span class="k">WHERE</span> <span class="k">MATCH</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span><span class="n">body</span><span class="p">)</span> <span class="nf">AGAINST</span> <span class="p">(</span><span class="s1">&#39;database&#39;</span><span class="p">);</span>
+</code></pre></div><p>注意：</p>
+<ul>
+<li>
+<p>MATCH (title,body) 里面的值必须是前面建立全文索引的两个字段不能少。</p>
+</li>
+<li>
+<p>FULLTEXT用于搜索很长一篇文章的时候，效果最好。用在比较短的文本，如果就一两行字的，普通的
+INDEX 也可以。</p>
+</li>
+</ul>
+<h2 id="空间索引spatial">空间索引spatial</h2>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">shop_info</span><span class="o">`</span> <span class="p">(</span>
+  <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span> <span class="n">COMMENT</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">shop_name</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s1">&#39;门店名称&#39;</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">geom_point</span><span class="o">`</span> <span class="n">geometry</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s1">&#39;经纬度&#39;</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">SPATIAL</span> <span class="k">KEY</span> <span class="o">`</span><span class="n">geom_index</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">geom_point</span><span class="o">`</span><span class="p">)</span>
+<span class="p">)</span> <span class="kp">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="kp">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span>
+</code></pre></div><p>初始化测试数据：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">delimiter</span>  <span class="o">//</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="nf">init_shop_info</span><span class="p">()</span> 
+<span class="n">BEGIN</span> 
+	<span class="k">DECLARE</span> <span class="n">count</span> <span class="kt">INT</span><span class="p">;</span>
+	<span class="k">DECLARE</span> <span class="n">batch</span> <span class="kt">INT</span><span class="p">;</span>
+	<span class="k">DECLARE</span> <span class="n">initLong</span> <span class="kt">INT</span><span class="p">;</span>
+	<span class="k">DECLARE</span> <span class="n">initLat</span> <span class="kt">INT</span><span class="p">;</span>
+	<span class="kt">SET</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">SET</span> <span class="n">initLong</span> <span class="o">=</span> <span class="mi">121</span><span class="p">;</span>
+	<span class="kt">SET</span> <span class="n">initLat</span> <span class="o">=</span> <span class="mi">31</span><span class="p">;</span>
+	<span class="k">WHILE</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">5000000</span> <span class="n">DO</span>
+		<span class="kt">SET</span> <span class="n">batch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="n">START</span> <span class="n">TRANSACTION</span><span class="p">;</span> 
+		<span class="k">WHILE</span> <span class="n">batch</span> <span class="o">&lt;</span> <span class="mi">1000</span> <span class="n">DO</span>
+			<span class="k">insert</span> <span class="k">into</span> <span class="nf">shop_info</span><span class="p">(</span><span class="n">shop_name</span><span class="p">,</span> <span class="n">geom_point</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="nf">concat</span><span class="p">(</span><span class="s1">&#39;shop&#39;</span><span class="p">,</span> <span class="n">count</span><span class="p">),</span> <span class="nf">Point</span><span class="p">(</span><span class="n">initLong</span> <span class="o">+</span> <span class="nf">Rand</span><span class="p">(),</span><span class="n">initLat</span> <span class="o">+</span> <span class="nf">Rand</span><span class="p">()));</span>
+			<span class="kt">SET</span> <span class="n">batch</span> <span class="o">=</span> <span class="n">batch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+			<span class="kt">SET</span> <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="n">END</span> <span class="k">WHILE</span><span class="p">;</span>
+		<span class="n">COMMIT</span><span class="p">;</span> 
+	<span class="n">END</span> <span class="k">WHILE</span><span class="p">;</span>
+<span class="n">END</span> <span class="o">//</span>
+<span class="n">delimiter</span> <span class="p">;</span>
+<span class="k">call</span> <span class="nf">init_shop_info</span><span class="p">();</span>
+</code></pre></div><p>执行SQL获取附近2KM以内的记录</p>
+<p><strong>粗精度</strong></p>
+<p>为了指定位置周围创建边界矩形（以便可以利用其上的空间索引），可以使用经度和纬度之间的平均距离111公里。每纬度近似111km，而每经度则超过111km。因此创建出来的边界矩形会比实际需求的边界大。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 东经121.5
+</span><span class="c1"></span><span class="kt">set</span> <span class="o">@</span><span class="n">longitude</span> <span class="o">=</span> <span class="mi">121</span><span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+<span class="c1">-- 北纬31.5
+</span><span class="c1"></span><span class="kt">set</span> <span class="o">@</span><span class="n">latitude</span> <span class="o">=</span> <span class="mi">31</span><span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+<span class="c1">-- 2KM范围内
+</span><span class="c1"></span><span class="kt">set</span> <span class="o">@</span><span class="n">distance</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">id</span><span class="p">,</span> <span class="nf">x</span><span class="p">(</span><span class="n">geom_point</span><span class="p">)</span> <span class="n">longitude</span><span class="p">,</span> <span class="nf">y</span><span class="p">(</span><span class="n">geom_point</span><span class="p">)</span> <span class="n">latitude</span><span class="p">,</span> <span class="nf">ST_Distance_Sphere</span><span class="p">(</span><span class="nf">Point</span><span class="p">(</span><span class="o">@</span><span class="n">longitude</span><span class="p">,</span> <span class="o">@</span><span class="n">latitude</span><span class="p">),</span> <span class="n">geom_point</span><span class="p">)</span> <span class="k">as</span> <span class="n">distance</span> 
+<span class="k">from</span> <span class="n">shop_info</span> 
+<span class="k">where</span> <span class="nf">MBRContains</span><span class="p">(</span><span class="nf">ST_MakeEnvelope</span><span class="p">(</span>
+			<span class="nf">point</span><span class="p">((</span><span class="o">@</span><span class="n">longitude</span><span class="o">+</span><span class="p">(</span><span class="o">@</span><span class="n">distance</span><span class="o">/</span><span class="mi">1000</span><span class="o">/</span><span class="mi">111</span><span class="p">)),</span> <span class="p">(</span><span class="o">@</span><span class="n">latitude</span><span class="o">+</span><span class="p">(</span><span class="o">@</span><span class="n">distance</span><span class="o">/</span><span class="mi">1000</span><span class="o">/</span><span class="mi">111</span><span class="p">))),</span>
+			<span class="nf">point</span><span class="p">((</span><span class="o">@</span><span class="n">longitude</span><span class="o">-</span><span class="p">(</span><span class="o">@</span><span class="n">distance</span><span class="o">/</span><span class="mi">1000</span><span class="o">/</span><span class="mi">111</span><span class="p">)),</span> <span class="p">(</span><span class="o">@</span><span class="n">latitude</span><span class="o">-</span><span class="p">(</span><span class="o">@</span><span class="n">distance</span><span class="o">/</span><span class="mi">1000</span><span class="o">/</span><span class="mi">111</span><span class="p">))))</span>
+		<span class="p">,</span> <span class="n">geom_point</span><span class="p">)</span> 
+<span class="k">order</span> <span class="k">by</span> <span class="n">distance</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div><p><strong>细精度</strong></p>
+<p>如果需要边界矩形更精确，则可以使用<code>cos(radians(${latitude})) * 111</code>进行经度计算。示例SQL如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 东经121.5
+</span><span class="c1"></span><span class="kt">set</span> <span class="o">@</span><span class="n">longitude</span> <span class="o">=</span> <span class="mi">121</span><span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+<span class="c1">-- 北纬31.5
+</span><span class="c1"></span><span class="kt">set</span> <span class="o">@</span><span class="n">latitude</span> <span class="o">=</span> <span class="mi">31</span><span class="p">.</span><span class="mi">5</span><span class="p">;</span>
+<span class="c1">-- 2KM范围内
+</span><span class="c1"></span><span class="kt">set</span> <span class="o">@</span><span class="n">distance</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">;</span>
+
+<span class="k">select</span> <span class="n">id</span><span class="p">,</span> <span class="nf">x</span><span class="p">(</span><span class="n">geom_point</span><span class="p">)</span> <span class="n">longitude</span><span class="p">,</span> <span class="nf">y</span><span class="p">(</span><span class="n">geom_point</span><span class="p">)</span> <span class="n">latitude</span><span class="p">,</span> <span class="nf">ST_Distance_Sphere</span><span class="p">(</span><span class="nf">Point</span><span class="p">(</span><span class="o">@</span><span class="n">longitude</span><span class="p">,</span> <span class="o">@</span><span class="n">latitude</span><span class="p">),</span> <span class="n">geom_point</span><span class="p">)</span> <span class="k">as</span> <span class="n">distance</span> 
+<span class="k">from</span> <span class="n">shop_info</span> 
+<span class="k">where</span> <span class="nf">MBRContains</span><span class="p">(</span><span class="nf">ST_MakeEnvelope</span><span class="p">(</span>
+			<span class="nf">point</span><span class="p">((</span><span class="o">@</span><span class="n">longitude</span><span class="o">+</span><span class="p">(</span><span class="o">@</span><span class="n">distance</span><span class="o">/</span><span class="mi">1000</span><span class="o">/</span><span class="mi">111</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="nf">radians</span><span class="p">(</span><span class="o">@</span><span class="n">latitude</span><span class="p">)))),</span> <span class="p">(</span><span class="o">@</span><span class="n">latitude</span><span class="o">+</span><span class="p">(</span><span class="o">@</span><span class="n">distance</span><span class="o">/</span><span class="mi">1000</span><span class="o">/</span><span class="mi">111</span><span class="p">))),</span>
+			<span class="nf">point</span><span class="p">((</span><span class="o">@</span><span class="n">longitude</span><span class="o">-</span><span class="p">(</span><span class="o">@</span><span class="n">distance</span><span class="o">/</span><span class="mi">1000</span><span class="o">/</span><span class="mi">111</span><span class="o">*</span><span class="nf">cos</span><span class="p">(</span><span class="nf">radians</span><span class="p">(</span><span class="o">@</span><span class="n">latitude</span><span class="p">)))),</span> <span class="p">(</span><span class="o">@</span><span class="n">latitude</span><span class="o">-</span><span class="p">(</span><span class="o">@</span><span class="n">distance</span><span class="o">/</span><span class="mi">1000</span><span class="o">/</span><span class="mi">111</span><span class="p">))))</span>
+		<span class="p">,</span> <span class="n">geom_point</span><span class="p">)</span> 
+<span class="k">order</span> <span class="k">by</span> <span class="n">distance</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div><p>注意：</p>
+<ul>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/spatial-convenience-functions.html#function_st-makeenvelope">ST_MakeEnvelope</a>和<a href="https://dev.mysql.com/doc/refman/5.7/en/spatial-convenience-functions.html#function_st-distance-sphere">ST_Distance_Sphere</a>从MYSQL 5.7.6版本开始支持</li>
+<li><code>ST_Distance_Sphere</code>返回的单位为米</li>
+</ul>
+<h3 id="geometry类型">geometry类型</h3>
+<p>当需要将多边形每个角上的坐标点存入MySQL的时候，就需要用到geometry类型了</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">gim</span><span class="o">`</span> <span class="p">(</span>
+  <span class="o">`</span><span class="n">path</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">512</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">box</span><span class="o">`</span> <span class="n">geometry</span> <span class="k">NOT</span> <span class="no">NULL</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">path</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">SPATIAL</span> <span class="k">KEY</span> <span class="o">`</span><span class="n">box</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">box</span><span class="o">`</span><span class="p">)</span>
+<span class="p">)</span> <span class="p">;</span>
+</code></pre></div><p>插入数据</p>
+<p>数据的插入和普通的数据插入一样，只是<code>geometry</code>数据需要使用<code>st_geomfromtext</code>等函数来构造，相关的文档参考在这里<a href="https://dev.mysql.com/doc/refman/5.7/en/gis-data-formats.html">gis-data-formats</a>还有这个<a href="https://dev.mysql.com/doc/refman/5.7/en/populating-spatial-columns.html">populating-spatial-columns</a>。</p>
+<p>这里只展示一个简单数据插入，这里我使用的是单多边形，只有四个点（逆时针顺序），<strong>使用WKT描述几何数据</strong>。</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">insert</span> <span class="k">into</span> <span class="nf">gim</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">box</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="s1">&#39;%s&#39;</span><span class="p">,</span><span class="nf">ST_GeomFromText</span><span class="p">(</span>
+			<span class="s1">&#39;Polygon((116.18866 39.791107, 116.124115 39.791107, 116.18866 39.833679, 116.124115 39.833679, 116.18866 39.791107))&#39;</span><span class="p">));</span>
+</code></pre></div><p>查询这里和普通的查询也一样，只是<code>where</code>字句后面使用空间过滤相关选项就是。
+使用空间索引进行查询的相关文档在这里<a href="https://dev.mysql.com/doc/refman/5.7/en/using-spatial-indexes.html">using-spatial-indexes</a></p>
+<p>MySQL的文档中只提及了<code>MBRContains</code>和<code>MBRWithin</code>两种方式，经过测试，<code>MBRIntersects</code>、<code>MBREqual</code>、<code>MBROverlaps</code>、<code>MBRTouches</code>、<code>MBRDisjoint</code>都可以使用。
+<strong>SpatiaLite</strong>中有一幅关于空间检索的图，放在这里做个参考。
+<strong>SpatiaLite</strong>有一篇详细介绍空间索引的文档，链接在这里http://www.gaia-gis.it/spatialite-2.1/SpatiaLite-manual.html
+<img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313134136777.png" alt="image-20210313134136777"></p>
+<p>一个简单的查询示例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">gim</span> <span class="k">where</span> <span class="nf">MBRContains</span><span class="p">(</span><span class="nf">st_geomfromtext</span><span class="p">(</span><span class="s1">&#39;polygon((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306))&#39;</span><span class="p">),</span><span class="n">box</span><span class="p">);</span>
+</code></pre></div><p>返回结果：</p>
+<pre><code>+------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| path                                                                   | box                                                                                                                     |
++------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| file:///root1/åŒ—äº¬/åŒ—äº¬åˆ†åŒº/æœé˜³åŒº/æœé˜³åŒº2016/J50G004039.tif | POLYGON((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306)) |
+| file:///root1/åŒ—äº¬/åŒ—äº¬åˆ†åŒº/æœé˜³åŒº/æœé˜³åŒº2005/J50G004039.tif | POLYGON((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306)) |
+| file:///root1/åŒ—äº¬/åŒ—äº¬åˆ†åŒº/æœé˜³åŒº/æœé˜³åŒº2003/J50G004039.tif | POLYGON((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306)) |
+| file:///root1/åŒ—äº¬/åŒ—äº¬åˆ†å¹…/J50G004039.tif                       | POLYGON((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306)) |
++------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+4 rows in set
+
+</code></pre><p>其他的还可以使用<code>MBRIntersects</code>、<code>MBREqual</code>、<code>MBROverlaps</code>、<code>MBRTouches</code>、<code>MBRDisjoint</code>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="n">url</span> <span class="k">from</span> <span class="n">ngcc_metadata</span> <span class="k">where</span> <span class="nf">MBRIntersects</span><span class="p">(</span><span class="nf">st_geomfromtext</span><span class="p">(</span><span class="s1">&#39;polygon((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306))&#39;</span><span class="p">),</span><span class="o">`</span><span class="mi">5</span><span class="o">`</span><span class="p">);</span>
+
+<span class="k">select</span> <span class="n">url</span> <span class="k">from</span> <span class="n">ngcc_metadata</span> <span class="k">where</span> <span class="nf">MBREqual</span><span class="p">(</span><span class="nf">st_geomfromtext</span><span class="p">(</span><span class="s1">&#39;polygon((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306))&#39;</span><span class="p">),</span><span class="o">`</span><span class="mi">5</span><span class="o">`</span><span class="p">);</span>
+
+<span class="k">select</span> <span class="n">url</span> <span class="k">from</span> <span class="n">ngcc_metadata</span> <span class="k">where</span> <span class="nf">MBROverlaps</span><span class="p">(</span><span class="nf">st_geomfromtext</span><span class="p">(</span><span class="s1">&#39;polygon((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306))&#39;</span><span class="p">),</span><span class="o">`</span><span class="mi">5</span><span class="o">`</span><span class="p">);</span>
+
+<span class="k">select</span> <span class="n">url</span> <span class="k">from</span> <span class="n">ngcc_metadata</span> <span class="k">where</span> <span class="nf">MBRTouches</span><span class="p">(</span><span class="nf">st_geomfromtext</span><span class="p">(</span><span class="s1">&#39;polygon((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306))&#39;</span><span class="p">),</span><span class="o">`</span><span class="mi">5</span><span class="o">`</span><span class="p">);</span>
+
+<span class="k">select</span> <span class="n">url</span> <span class="k">from</span> <span class="n">ngcc_metadata</span> <span class="k">where</span> <span class="nf">MBRDisjoint</span><span class="p">(</span><span class="nf">st_geomfromtext</span><span class="p">(</span><span class="s1">&#39;polygon((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306))&#39;</span><span class="p">),</span><span class="o">`</span><span class="mi">5</span><span class="o">`</span><span class="p">);</span>
+</code></pre></div><p>更多的或者更具体的使用方法请参考官方文档</p>
+<h2 id="mysql查询某个表的字段名">mysql查询某个表的字段名</h2>
+<h3 id="描述表字段信息">描述表字段信息</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">DESC</span> <span class="n">TableName</span><span class="p">;</span>
+</code></pre></div><h3 id="查表字段及其信息">查表字段及其信息</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span> <span class="n">COLUMNS</span> <span class="k">FROM</span> <span class="n">TableName</span><span class="p">;</span>
+</code></pre></div><h3 id="information_schema库详解存放mysql的元数据">information_schema库详解（存放MySQL的元数据）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">SCHEMATA</span> <span class="c1"># 提供了关于数据库的信息。
+</span><span class="c1"></span><span class="kp">TABLES</span>  <span class="c1"># 给出了关于数据库中的表的信息。
+</span><span class="c1"></span><span class="n">COLUMNS</span> <span class="c1"># 给出了表中的列信息。
+</span><span class="c1"></span><span class="n">STATISTICS</span> <span class="c1"># 给出了关于表索引的信息。
+</span><span class="c1"></span><span class="n">USER_PRIVILEGES</span> <span class="c1"># 给出了关于全程权限的信息。该信息源自mysql.user授权表。
+</span><span class="c1"></span><span class="n">SCHEMA_PRIVILEGES</span> <span class="c1"># 给出了关于方案（数据库）权限的信息。该信息来自mysql.db授权表。
+</span><span class="c1"></span><span class="n">TABLE_PRIVILEGES</span> <span class="c1"># 给出了关于表权限的信息。该信息源自mysql.tables_priv授权表。
+</span><span class="c1"></span><span class="n">COLUMN_PRIVILEGES</span> <span class="c1"># 给出了关于列权限的信息。该信息源自mysql.columns_priv授权表。
+</span><span class="c1"></span><span class="n">CHARACTER_SETS</span> <span class="c1"># 提供了关于可用字符集的信息。
+</span><span class="c1"></span><span class="n">COLLATIONS</span> <span class="c1"># 提供了关于各字符集的对照信息。
+</span><span class="c1"></span><span class="n">COLLATION_CHARACTER_SET_APPLICABILITY</span> <span class="c1"># 指明了可用于校对的字符集。
+</span><span class="c1"></span><span class="n">TABLE_CONSTRAINTS</span> <span class="c1"># 描述了存在约束的表。
+</span><span class="c1"></span><span class="n">KEY_COLUMN_USAGE</span> <span class="c1"># 描述了具有约束的键列。
+</span><span class="c1"></span><span class="n">ROUTINES</span> <span class="c1"># 提供了关于存储子程序（存储程序和函数）的信息。此时，ROUTINES表不包含自定义函数（UDF）。
+</span><span class="c1"></span><span class="n">VIEWS</span> <span class="c1"># 给出了关于数据库中的视图的信息。
+</span><span class="c1"></span><span class="n">TRIGGERS</span> <span class="c1"># 提供了关于触发程序的信息。
+</span></code></pre></div><p>用法实例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 比方说USER_PRIVILEGES
+</span><span class="c1"></span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">USER_PRIVILEGES</span><span class="p">;</span>
+</code></pre></div><p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313123233459.png" alt="image-20210313123233459"></p>
+<h4 id="查字段">查字段</h4>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> 
+	<span class="n">COLUMN_NAME</span> 
+<span class="k">from</span> 
+	<span class="n">information_schema</span><span class="p">.</span><span class="n">COLUMNS</span> 
+<span class="k">where</span> <span class="n">table_name</span> <span class="o">=</span> <span class="s2">&#34;TableName&#34;</span> <span class="k">and</span> <span class="n">table_schema</span> <span class="o">=</span> <span class="s2">&#34;DatabaseName&#34;</span><span class="p">;</span>
+</code></pre></div><h4 id="查看字段详细信息">查看字段详细信息</h4>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span>
+  <span class="n">COLUMN_NAME</span> <span class="s2">&#34;字段名称&#34;</span><span class="p">,</span>
+  <span class="n">COLUMN_TYPE</span> <span class="s2">&#34;字段类型长度&#34;</span><span class="p">,</span>
+  <span class="k">IF</span><span class="p">(</span><span class="n">EXTRA</span><span class="o">=</span><span class="s2">&#34;auto_increment&#34;</span><span class="p">,</span><span class="nf">CONCAT</span><span class="p">(</span><span class="n">COLUMN_KEY</span><span class="p">,</span><span class="s2">&#34;(&#34;</span><span class="p">,</span> <span class="k">IF</span><span class="p">(</span><span class="n">EXTRA</span><span class="o">=</span><span class="s2">&#34;auto_increment&#34;</span><span class="p">,</span><span class="s2">&#34;自增长&#34;</span><span class="p">,</span><span class="n">EXTRA</span><span class="p">),</span><span class="s2">&#34;)&#34;</span><span class="p">),</span><span class="n">COLUMN_KEY</span><span class="p">)</span> <span class="s2">&#34;主外键&#34;</span><span class="p">,</span>
+  <span class="n">IS_NULLABLE</span> <span class="s2">&#34;空标识&#34;</span><span class="p">,</span>
+  <span class="n">COLUMN_COMMENT</span> <span class="s2">&#34;字段说明&#34;</span>
+<span class="k">FROM</span>
+    <span class="n">information_schema</span><span class="p">.</span> <span class="n">COLUMNS</span>
+<span class="k">WHERE</span> <span class="n">TABLE_SCHEMA</span> <span class="o">=</span> <span class="s2">&#34;DatabaseName&#34;</span> <span class="k">AND</span> <span class="n">TABLE_NAME</span> <span class="o">=</span> <span class="s2">&#34;TableName&#34;</span><span class="p">;</span>
+</code></pre></div><h4 id="查询字段个数">查询字段个数</h4>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> 
+	<span class="nf">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">from</span> 
+	<span class="n">information_schema</span><span class="p">.</span><span class="n">COLUMNS</span> 
+<span class="k">where</span> <span class="n">table_name</span> <span class="o">=</span> <span class="s2">&#34;TableName&#34;</span> <span class="k">and</span> <span class="n">table_schema</span> <span class="o">=</span> <span class="s2">&#34;DatabaseName&#34;</span><span class="p">;</span>
+</code></pre></div><h4 id="查询某字段所在行数">查询某字段所在行数</h4>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">set</span> <span class="o">@</span><span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span>
+	<span class="k">select</span> <span class="o">@</span><span class="n">temp</span><span class="p">:</span><span class="o">=@</span><span class="n">temp</span><span class="o">+</span><span class="mi">1</span> <span class="k">as</span> <span class="n">new_id</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">COLUMN_NAME</span> <span class="k">as</span> <span class="n">col_name</span> <span class="k">from</span><span class="p">(</span>
+		<span class="k">select</span> 
+        	<span class="n">COLUMN_NAME</span> 
+        <span class="k">from</span> 
+        	<span class="n">information_schema</span><span class="p">.</span><span class="n">COLUMNS</span>
+        <span class="k">where</span> 
+        	<span class="n">table_schema</span><span class="o">=</span><span class="s2">&#34;DatabaseName&#34;</span> <span class="k">and</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&#34;TableName&#34;</span>
+    <span class="p">)</span> <span class="n">t</span>
+<span class="p">)</span> <span class="n">t</span>
+<span class="k">where</span> <span class="n">col_name</span><span class="o">=</span><span class="s2">&#34;需要查询的字段的名称&#34;</span><span class="p">;</span>
+</code></pre></div><h4 id="处理成插入的字段">处理成插入的字段</h4>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">-- 一列，逗号在前
+</span><span class="c1"></span><span class="kt">SET</span> <span class="o">@</span><span class="n">mytemp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">SELECT</span> 
+    <span class="p">(</span><span class="k">CASE</span> <span class="n">t</span><span class="p">.</span><span class="n">newid</span> 
+            <span class="k">WHEN</span> <span class="mi">1</span>
+            <span class="k">THEN</span> <span class="nf">CONCAT</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">COLUMN_NAME</span><span class="p">)</span>
+            <span class="k">ELSE</span> <span class="nf">CONCAT</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">COLUMN_NAME</span><span class="p">)</span>
+            <span class="n">END</span> 
+    <span class="p">)</span><span class="n">COLUMN_NAME</span>
+<span class="c1">--   t.newid,t.COLUMN_NAME
+</span><span class="c1"></span><span class="k">FROM</span> <span class="p">(</span>
+    
+    <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="p">(</span>
+        <span class="k">SELECT</span> <span class="p">(</span><span class="o">@</span><span class="n">mytemp</span><span class="p">:</span><span class="o">=@</span><span class="n">mytemp</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">AS</span> <span class="n">newid</span><span class="p">,</span><span class="n">t</span><span class="p">.</span><span class="n">COLUMN_NAME</span> <span class="k">FROM</span> 
+            <span class="p">(</span>
+                <span class="k">SELECT</span>
+                    <span class="n">COLUMN_NAME</span>                
+                <span class="k">FROM</span>
+                    <span class="n">information_schema</span><span class="p">.</span><span class="n">COLUMNS</span>
+                <span class="k">WHERE</span>
+                    <span class="n">TABLE_SCHEMA</span> <span class="o">=</span> <span class="s1">&#39;DatabaseName&#39;</span>
+                <span class="k">AND</span> <span class="n">TABLE_NAME</span> <span class="o">=</span> <span class="s1">&#39;TableName&#39;</span>
+            <span class="p">)</span><span class="n">t</span>
+    <span class="p">)</span> <span class="n">t</span>
+<span class="p">)</span><span class="n">t</span>
+
+<span class="c1">-- 用分组的方法（一行）
+</span><span class="c1"></span><span class="k">SELECT</span>
+    <span class="nf">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="n">count_num</span><span class="p">,</span><span class="nf">GROUP_CONCAT</span><span class="p">(</span><span class="n">COLUMN_NAME</span><span class="p">)</span>        
+<span class="k">FROM</span>
+    <span class="n">information_schema</span><span class="p">.</span><span class="n">COLUMNS</span>
+<span class="k">WHERE</span>
+    <span class="n">TABLE_SCHEMA</span> <span class="o">=</span> <span class="s1">&#39;DatabaseName&#39;</span>
+<span class="k">AND</span> <span class="n">TABLE_NAME</span> <span class="o">=</span> <span class="s1">&#39;TableName&#39;</span>
+</code></pre></div><p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313122301028.png" alt="image-20210313122301028"></p>
+<h4 id="查询某个库除了主键以外的约束">查询某个库除了主键以外的约束</h4>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span>
+    <span class="n">TABLE_NAME</span> <span class="s1">&#39;表名&#39;</span><span class="p">,</span>
+    <span class="n">COLUMN_NAME</span> <span class="s1">&#39;字段名&#39;</span><span class="p">,</span>
+    <span class="n">CONSTRAINT_NAME</span> <span class="s1">&#39;约束名&#39;</span><span class="p">,</span>
+    <span class="n">REFERENCED_TABLE_NAME</span> <span class="s1">&#39;父表名&#39;</span><span class="p">,</span>
+    <span class="n">REFERENCED_COLUMN_NAME</span>  <span class="s1">&#39;父表字段名&#39;</span>
+<span class="k">FROM</span>
+    <span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">KEY_COLUMN_USAGE</span>
+    <span class="k">WHERE</span>
+    <span class="n">TABLE_SCHEMA</span> <span class="o">=</span> <span class="s1">&#39;net_management&#39;</span> 
+    <span class="k">AND</span> <span class="n">CONSTRAINT_name</span> <span class="o">!=</span> <span class="s1">&#39;PRIMARY&#39;</span><span class="p">;</span>
+</code></pre></div><p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313122521004.png" alt="image-20210313122521004"></p>
+<h4 id="查询某个库的约束和约束类型">查询某个库的约束和约束类型</h4>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span>
+    <span class="n">kcu</span><span class="p">.</span><span class="n">CONSTRAINT_NAME</span> <span class="s1">&#39;约束名称&#39;</span><span class="p">,</span>
+    <span class="k">LEFT</span><span class="p">(</span><span class="n">tc</span><span class="p">.</span><span class="n">CONSTRAINT_TYPE</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="s1">&#39;约束类型&#39;</span><span class="p">,</span>
+    <span class="n">kcu</span><span class="p">.</span><span class="n">TABLE_SCHEMA</span> <span class="s1">&#39;子库&#39;</span><span class="p">,</span>
+    <span class="n">kcu</span><span class="p">.</span><span class="n">TABLE_NAME</span> <span class="s1">&#39;子表&#39;</span><span class="p">,</span>
+    <span class="n">kcu</span><span class="p">.</span><span class="n">COLUMN_NAME</span> <span class="s1">&#39;子表字段&#39;</span><span class="p">,</span>
+    <span class="n">kcu</span><span class="p">.</span><span class="n">REFERENCED_TABLE_NAME</span> <span class="s1">&#39;父库&#39;</span><span class="p">,</span>
+    <span class="n">kcu</span><span class="p">.</span><span class="n">REFERENCED_TABLE_SCHEMA</span> <span class="s1">&#39;父表&#39;</span><span class="p">,</span>
+    <span class="n">kcu</span><span class="p">.</span><span class="n">REFERENCED_COLUMN_NAME</span> <span class="s1">&#39;父表字段&#39;</span>
+<span class="k">FROM</span>
+    <span class="n">information_schema</span><span class="p">.</span><span class="n">KEY_COLUMN_USAGE</span> <span class="n">kcu</span> 
+<span class="k">LEFT</span> <span class="k">JOIN</span>     
+   <span class="n">information_schema</span><span class="p">.</span><span class="o">`</span><span class="n">TABLE_CONSTRAINTS</span><span class="o">`</span> <span class="n">tc</span>
+   <span class="k">ON</span> <span class="n">kcu</span><span class="p">.</span><span class="n">TABLE_SCHEMA</span> <span class="o">=</span> <span class="n">tc</span><span class="p">.</span><span class="n">TABLE_SCHEMA</span> 
+   <span class="k">AND</span> <span class="n">kcu</span><span class="p">.</span><span class="n">TABLE_NAME</span> <span class="o">=</span> <span class="n">tc</span><span class="p">.</span><span class="n">TABLE_NAME</span>
+   <span class="k">AND</span> <span class="n">kcu</span><span class="p">.</span><span class="n">CONSTRAINT_NAME</span> <span class="o">=</span> <span class="n">tc</span><span class="p">.</span><span class="n">CONSTRAINT_NAME</span>
+<span class="k">WHERE</span>
+   <span class="n">kcu</span><span class="p">.</span><span class="n">TABLE_SCHEMA</span> <span class="o">=</span> <span class="s1">&#39;zx_public&#39;</span>  
+   <span class="c1">-- AND kcu.CONSTRAINT_NAME!=&#39;PRIMARY&#39;
+</span><span class="c1"></span>   <span class="c1">-- AND kcu.TABLE_NAME = &#39;res_site&#39;
+</span><span class="c1"></span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">kcu</span><span class="p">.</span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="n">kcu</span><span class="p">.</span><span class="n">TABLE_NAME</span><span class="p">,</span><span class="n">tc</span><span class="p">.</span><span class="n">CONSTRAINT_TYPE</span><span class="p">;</span>
+</code></pre></div><p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313122848369.png" alt="image-20210313122848369"></p>
+<h2 id="函数">函数</h2>
+<h3 id="group_concat">group_concat()</h3>
+<p>语法：</p>
+<p>group_concat([DISTINCT] 要连接的字段 [Order BY 排序字段 ASC/DESC] [Spearator &lsquo;分隔符&rsquo;])</p>
+<p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313113431061.png" alt="image-20210313113431061"></p>
+<p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313113523239.png" alt="image-20210313113523239"></p>
+<p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313113537599.png" alt="image-20210313113537599"></p>
+<h4 id="参数设置与限制说明">参数设置与限制说明</h4>
+<p><strong>查看服务器中的设置</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;%group_concat%&#39;</span><span class="p">;</span>
+</code></pre></div><p>结果：</p>
+<p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313113735564.png" alt="image-20210313113735564"></p>
+<p>以上设置说明当前是默认长度1kb</p>
+<p><strong>改变参数值</strong></p>
+<p>法一：修改配置文件中参数，新增group_concat_max_len = 10240</p>
+<p>法二：在会话中实现，全局或当前session中：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">SET</span> <span class="n">GLOBAL</span> <span class="n">group_concat_max_len</span> <span class="o">=</span> <span class="mi">10240</span><span class="p">;</span>
+<span class="kt">SET</span> <span class="n">SESSION</span> <span class="n">group_concat_max_len</span> <span class="o">=</span> <span class="mi">10240</span><span class="p">;</span>
+</code></pre></div>
   </section>
 
   <section>
@@ -256,10 +869,60 @@ set global validate<span class="nb">_</span>password.length=1;
   <ul>
     <li><a href="#使用yum安装mysql8">使用yum安装MySQL8</a></li>
     <li><a href="#筛选并查看变量">筛选并查看变量</a></li>
-    <li><a href="#generated-column">generated column</a></li>
+    <li><a href="#generated-column">generated column</a>
+      <ul>
+        <li><a href="#generated-column上创建索引与oracle的函数索引的区别">Generated Column上创建索引与Oracle的函数索引的区别</a></li>
+      </ul>
+    </li>
     <li><a href="#binary类型">Binary类型</a></li>
     <li><a href="#unsigned类型">unsigned类型</a></li>
     <li><a href="#zerofill">ZEROFILL</a></li>
+    <li><a href="#comment">COMMENT</a></li>
+    <li><a href="#内连接外连接">内连接、外连接</a></li>
+    <li><a href="#外键约束on-delete和on-update的使用">外键约束（on delete和on update）的使用</a></li>
+    <li><a href="#外键约束以及建立索引-create-index">外键约束以及建立索引（ create index）</a></li>
+    <li><a href="#mysql的current_timestamp">Mysql的CURRENT_TIMESTAMP</a></li>
+    <li><a href="#联合algorithm创建视图">联合algorithm创建视图</a></li>
+    <li><a href="#ifnullnullif其他">Ifnull|nullif|其他</a></li>
+    <li><a href="#索引">索引</a>
+      <ul>
+        <li><a href="#创建索引">创建索引</a></li>
+        <li><a href="#创建表时添加索引">创建表时添加索引</a></li>
+        <li><a href="#删除索引">删除索引</a></li>
+        <li><a href="#唯一索引">唯一索引</a></li>
+        <li><a href="#创建表时添加唯一索引">创建表时添加唯一索引</a></li>
+        <li><a href="#有四种方式来添加数据表的索引">有四种方式来添加数据表的索引</a></li>
+      </ul>
+    </li>
+    <li><a href="#全文索引">全文索引</a>
+      <ul>
+        <li><a href="#版本支持">版本支持</a></li>
+        <li><a href="#创建全文索引">创建全文索引</a></li>
+        <li><a href="#修改全文索引">修改全文索引</a></li>
+        <li><a href="#删除全文索引">删除全文索引</a></li>
+        <li><a href="#使用全文索引">使用全文索引</a></li>
+        <li><a href="#两种全文索引">两种全文索引</a></li>
+        <li><a href="#小结">小结</a></li>
+        <li><a href="#全文索引测试示例">全文索引测试示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#空间索引spatial">空间索引spatial</a>
+      <ul>
+        <li><a href="#geometry类型">geometry类型</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql查询某个表的字段名">mysql查询某个表的字段名</a>
+      <ul>
+        <li><a href="#描述表字段信息">描述表字段信息</a></li>
+        <li><a href="#查表字段及其信息">查表字段及其信息</a></li>
+        <li><a href="#information_schema库详解存放mysql的元数据">information_schema库详解（存放MySQL的元数据）</a></li>
+      </ul>
+    </li>
+    <li><a href="#函数">函数</a>
+      <ul>
+        <li><a href="#group_concat">group_concat()</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
   
