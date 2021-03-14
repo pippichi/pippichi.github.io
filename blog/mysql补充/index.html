@@ -184,6 +184,180 @@ set global validate<span class="nb">_</span>password.length=1;
 </code></pre></div><p>最后查看我们创建或修改的用户：</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="n">host</span><span class="p">,</span> <span class="k">user</span><span class="p">,</span> <span class="n">plugin</span> <span class="k">from</span> <span class="k">user</span><span class="p">;</span>
 </code></pre></div><p>然后关闭防火墙，测试连接成功！</p>
+<h2 id="check检查表的状况查看表是否损坏">CHECK检查表的状况（查看表是否损坏）</h2>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CHECK</span> <span class="k">TABLE</span> <span class="n">t1</span><span class="p">;</span>
+</code></pre></div><p>返回结果：</p>
+<table>
+<thead>
+<tr>
+<th>Table表名称</th>
+<th>Op进行修复</th>
+<th>Msg_type状态、错误、信息或警告之一</th>
+<th>Msg_text消息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>db1.t1</td>
+<td>check</td>
+<td>status</td>
+<td>OK</td>
+</tr>
+</tbody>
+</table>
+<h2 id="repair-table修复表">repair table修复表★</h2>
+<p>REPAIR [LOCAL | NO_WRITE_TO_BINLOG] TABLE  tbl_name[,tbl_name] &hellip; [QUICK] [EXTENDED] [USE_FRM]</p>
+<p>REPAIR TABLE用于修复被破坏的表。默认情况下，REPAIR TABLE与myisamchk &ndash;recovertbl_name具有相同的效果。REPAIR TABLE对MyISAM和ARCHIVE表起作用。</p>
+<p>通常，您基本上不必运行此语句。但是，如果灾难发生，REPAIR TABLE很有可能从MyISAM表中找回所有数据。如果您的表经常被破坏，您应该尽力找到原因，以避免使用REPAIR TABLE。</p>
+<p>本语句会返回表：</p>
+<table>
+<thead>
+<tr>
+<th>Table表名称</th>
+<th>Op进行修复</th>
+<th>Msg_type状态、错误、信息或警告之一</th>
+<th>Msg_text消息</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>..</td>
+<td>..</td>
+<td>..</td>
+<td>..</td>
+</tr>
+</tbody>
+</table>
+<p>对于每个被修复的表，REPAIR TABLE语句会产生多行的信息。上一行含有一个Msg_type状态值。Msg_test通常应为OK。如果您没有得到OK，您应该尝试使用myisamchk &ndash;safe-recover修复表，因为REPAIR TABLE尚不会执行所有的myisamchk选项。</p>
+<p>QUICK、EXTENDED、USE_FRM三个参数的区别：</p>
+<ul>
+<li>
+<p>QUICK</p>
+<p>如果给定了QUICK，则REPAIR TABLE会尝试只修复索引树。这种类型的修复与使用myisamchk &ndash;recover &ndash;quick相似。</p>
+</li>
+<li>
+<p>EXTENDED</p>
+<p>如果您使用EXTENDED，则MySQL会一行一行地创建索引行，代替使用分类一次创建一个索引。这种类型的修复与使用myisamchk &ndash;safe-recover相似。</p>
+</li>
+<li>
+<p>USE_FRM</p>
+<p>对于REPAIR TABLE，还有一种USE_FRM模式可以利用。如果.MYI索引文件缺失或标题被破坏，则使用此模式。在这种模式下，MySQL可以使用来自.frm文件重新创建.MYI文件。这种修复不能使用myisamchk来完成。注释：只能在您不能使用常规REPAIR模式是，才能使用此模式。.MYI标题包含重要的表元数据（特别是，当前的AUTO_INCREMENT值和Delete链接）。这些元数据在REPAIR&hellip;USE_FRM中丢失。如果表被压缩，则不能使用USE_FRM。因为本信息也存储在.MYI文件中。</p>
+</li>
+</ul>
+<p>NO_WRITE_TO_BINLOG（别名LOCAL）的作用：</p>
+<p>REPAIR TABLE语句被写入二进制日志中，除非使用了自选的NO_WRITE_TO_BINLOG关键词（或其别名LOCAL）。</p>
+<p><strong>警告</strong>：如果在REPAIR TABLE运行过程中，服务器停机，则在重新启动之后，在执行其它操作之前，您必须立刻对表再执行一个REPAIR TABLE语句。（通过制作一个备份来启动是一个好办法。）再最不利情况下，您可以有一个新的干净的索引文件，不含有关数据文件的信息。然后，您执行的下一个操作会覆盖数据文件。这很少发生，但是是有可能的。</p>
+<p>mysql repair table-Can’t open file: ‘[Table]mytable.MYI’.</p>
+<p>也许很多人遇到过类似Can’t open file: ‘[Table]mytable.MYI’ 这样的错误信息,却不知道怎么解决他,下面我们做个介绍:</p>
+<p>多数情况下,数据库被破坏只是指索引文件受到了破坏,真正的数据被破坏掉的情况非常少。大多数形式的数据库破坏的的修复相当简单。</p>
+<p>下面讲的方法只对MyISAM格式的表有效。其他类型的损坏需要从备份中恢复。</p>
+<ul>
+<li>
+<p>REPAIR TABLE SQL statement(mysql服务必须处于运行状态)。</p>
+<p>语法:repair table 表名 [选项]</p>
+<p>选项如下:
+　　　　QUICK 用在数据表还没被修改的情况下,速度最快
+　　　　EXTENDED 试图去恢复每个数据行,会产生一些垃圾数据行,万般无奈的情况下用
+　　　　USE_FRM 用在.MYI文件丢失或者头部受到破坏的情况下。利用.frm的定义来重建索引</p>
+<p>　　　　多数情况下,简单得用”repair table tablename”不加选项就可以搞定问题。但是当.MYI文件丢失或者头部受到破坏时,这样的方式不管用,例如:</p>
+<table>
+<thead>
+<tr>
+<th>Table</th>
+<th>Op</th>
+<th>Msg_type</th>
+<th>Msg_text</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sports_results.mytable</td>
+<td>repair</td>
+<td>error</td>
+<td>Can’t open file: ‘[Table]mytable.MYI’(errno:2)</td>
+</tr>
+</tbody>
+</table>
+<p>修复失败的原因是索引文件丢失或者其头部遭到了破坏,为了利用相关定义文件来修复,需要用USE_FRM选项:</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"> <span class="n">REPAIR</span> <span class="k">TABLE</span> <span class="n">mytable</span> <span class="n">USE_FRM</span><span class="p">;</span> 
+</code></pre></div><p>操作之后我们可以看到：</p>
+<table>
+<thead>
+<tr>
+<th>Table</th>
+<th>Op</th>
+<th>Msg_type</th>
+<th>Msg_text</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sports_results.mytable</td>
+<td>repair</td>
+<td>warning</td>
+<td>Number of rows changed from 0 to 2</td>
+</tr>
+<tr>
+<td>sports_results.mytable</td>
+<td>repair</td>
+<td>status</td>
+<td>OK</td>
+</tr>
+</tbody>
+</table>
+<p>我们可以看到Msg_test表项的输出信息”ok”,表名已经成功修复受损表。</p>
+</li>
+<li>
+<p>命令mysqlcheck(mysql服务可以处于运行状态)。</p>
+<p>语法:mysqlcheck -r 数据库名 表名 -uuser -ppass</p>
+<p>　　Command: %mysqlcheck -r sports_results mytable -uuser -ppwd</p>
+<p>　　Result:　　 sports_results.mytable OK
+　　</p>
+<p>　　利用mysqlcheck可以一次性修复多个表。只要在数据库名后列出相应表名即可(用空格隔开)。或者数据库名后不加表名,将会修复数据库中的所有表,例如:</p>
+<p>　　Command: %mysqlcheck -r sports_results mytable events -uuser -ppwd</p>
+<p>　　Result:　　 sports_results.mytable OK
+　　Result:　　 sports_results.events OK</p>
+<p>　　Command: %mysqlcheck -r sports_results -uuser -ppwd
+　　　　</p>
+<p>　　Result:　　 sports_results.mytable OK
+　　Result:　　 sports_results.events OK</p>
+</li>
+<li>
+<p>命令myisamchk(必须停掉mysql服务,或者所操作的表处于不活动状态)。</p>
+<p>用这种方式时,mysql服务必须停掉,或者所操作的表处于不活动状态(选项skip-external-locking没被使用)。记着一定要在相关.MYI文件的路径下或者自己定义其路径。
+　　</p>
+<p>　　语法:myisamchk [选项] [表名]
+　　</p>
+<p>　　下面是其选项和描述
+　　　　–backup, -B 在进行修复前作相关表得备份
+　　　　–correct-checksum 纠正校验和
+　　　　–data-file-length=#, -D # 重建表时,指定数据文件得最大长度
+　　　　–extend-check, -e 试图去恢复每个数据行,会产生一些垃圾数据行,万般无奈的情况下用
+　　　　–force, -f 当遇到文件名相同的.TMD文件时,将其覆盖掉。
+　　　　keys-used=#, -k # 指定所用的keys可加快处理速度,每个二进制位代表一个key.第一个key为0
+　　　　–recover, -r 最常用的选项,大多数破坏都可以通过它来修复。</p>
+<p>　　　　　　　　如果你的内存足够大,可以增大参数sort_buffer_size的值来加快恢复的速度。但是遇到唯一键由于破坏而不唯一的表时,这种方式不管用。</p>
+<p>　　　　–safe-recover -o 最彻底的修复方式,但是比-r方式慢,一般在-r修复失败后才使用。</p>
+<p>　　　　　　　　这种方式读出所有的行,并以行为基础来重建索引。它的硬盘空间需求比-r方式稍微小一点,因为它没创建分类缓存。你可以增加key_buffer_size的值来加快修复的速度。
+　　　　–sort-recover, -n mysql用它类分类索引,尽管结果是临时文件会非常大
+　　　　–character-sets-dir=… 包含字符集设置的目录
+　　　　–set-character-set=name 为索引定义一个新的字符集
+　　　　–tmpdir=path, -t 如果你不想用环境变量TMPDIR的值的话,可以自定义临时文件的存放位置
+　　　　–quick, -q 最快的修复方式,当数据文件没有被修改时用,当存在多键时,第二个-q将会修改 数据文件
+　　　　–unpack, -u 解开被myisampack打包的文件</p>
+<p>　　　　myisamchk应用的一个例子</p>
+<p>　　　　　　% myisamchk -r mytable
+　　　　　　- recovering (with keycache) MyISAM-table ‘mytable.MYI’</p>
+<p>　　　　　　Data records: 0</p>
+</li>
+</ul>
+<p>在修复表的时候，最好先作一下备份。所以你需要两倍于原始表大小的硬盘空间。请确保在进行修复前你的硬盘空间还没有用完。</p>
+<h2 id="innodb数据损坏修复">InnoDB数据损坏修复</h2>
+<p>InnoDB是带有事务的存储引擎，并且其内部机制会自动修复大部分数据损坏错误，它会在服务器启动时进行修复。
+不过，有时候数据损坏得很严重并且InnoDB无法在没有用户交互的情况下完成修复，在这种情况下，有&ndash;innodb_force_recovery启动选项。该选项可以设置0~6(0 不强制修复 1是最低级别 6最高级别)。
+如果发生损坏，可以从1开始尝试修复，直到可以启动服务器并且可以访问有问题的表为止.
+启动后使用select into outfile将表转储到文件中，然后使用drop和create命令重新创建表，最后用&ndash;innodb_force_recovery=0重新启动服务器，然后加载文件数据。
+当需要在&ndash;innodb_force_recovery选项是正数的情况下修复数据库时，错误日志通常会有明确的提示信息。</p>
 <h2 id="筛选并查看变量">筛选并查看变量</h2>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="n">variables</span> <span class="k">where</span> <span class="n">variable_name</span> <span class="k">like</span> <span class="s1">&#39;wait%&#39;</span> <span class="k">and</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">;</span>
 </code></pre></div><h2 id="generated-column">generated column</h2>
@@ -532,18 +706,107 @@ ft_min_word_len = 1
 <p>自然语言搜索引擎将计算每一个文档对象和查询的相关度。这里，相关度是基于匹配的关键词的个数，以及关键词在文档中出现的次数。在整个索引中出现次数越少的词语，匹配时的相关度就越高。相反，非常常见的单词将不会被搜索，如果一个词语的在超过 50% 的记录中都出现了，那么自然语言的搜索将不会搜索这类词语。上面提到的，测试表中必须有 4 条以上的记录，就是这个原因。</p>
 <p>这个机制也比较好理解，比如说，一个数据表存储的是一篇篇的文章，文章中的常见词、语气词等等，出现的肯定比较多，搜索这些词语就没什么意义了，需要搜索的是那些文章中有特殊意义的词，这样才能把文章区分开。</p>
 <h4 id="布尔全文索引">布尔全文索引</h4>
-<p>在布尔搜索中，我们可以在查询中自定义某个被搜索的词语的相关性，当编写一个布尔搜索查询时，可以通过一些前缀修饰符来定制搜索。</p>
-<p>MySQL 内置的修饰符，上面查询最小搜索长度时，搜索结果 ft_boolean_syntax 变量的值就是内置的修饰符，下面简单解释几个，更多修饰符的作用可以查手册</p>
-<ul>
-<li><strong>+</strong> 必须包含该词</li>
-<li><strong>-</strong> 必须不包含该词</li>
-<li><strong>&gt;</strong> 提高该词的相关性，查询的结果靠前</li>
-<li><strong>&lt;</strong> 降低该词的相关性，查询的结果靠后</li>
-<li><strong>(*)星号</strong> 通配符，只能接在词后面</li>
-</ul>
 <p>对于上面提到的问题，可以使用布尔全文索引查询来解决，使用下面的命令，<em>a、aa、aaa、aaaa</em> 就都被查询出来了。</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="n">test</span> <span class="k">where</span> <span class="k">match</span><span class="p">(</span><span class="n">content</span><span class="p">)</span> <span class="nf">against</span><span class="p">(</span><span class="s1">&#39;a*&#39;</span> <span class="k">in</span> <span class="n">boolean</span> <span class="n">mode</span><span class="p">);</span>
-</code></pre></div><h3 id="小结">小结</h3>
+</code></pre></div><p>在布尔搜索中，我们可以在查询中自定义某个被搜索的词语的相关性，当编写一个布尔搜索查询时，可以通过一些前缀修饰符来定制搜索。</p>
+<p>MySQL 内置的修饰符，上面查询最小搜索长度时，搜索结果 ft_boolean_syntax 变量的值就是内置的修饰符，下面简单解释几个，更多修饰符的作用可以查手册</p>
+<ul>
+<li>
+<p><strong>+</strong> 必须包含该词</p>
+</li>
+<li>
+<p><strong>-</strong> 必须不包含该词</p>
+</li>
+<li>
+<p><strong>&gt;</strong> 提高该词的相关性，查询的结果靠前</p>
+</li>
+<li>
+<p><strong>&lt;</strong> 降低该词的相关性，查询的结果靠后</p>
+</li>
+<li>
+<p><strong>*</strong> 通配符，只能接在词后面</p>
+</li>
+<li>
+<p>**~ **表示允许出现该单词，但是出现时相关性为负</p>
+</li>
+<li>
+<p><strong>()</strong> 子表达式</p>
+</li>
+<li>
+<p><strong>&quot;&quot;</strong> 匹配双引号中的字面值，全文检索引擎会将双引号中的内容按照单词分开，非单词字符不用匹配，比如“test phrase”匹配“test,phrase”</p>
+</li>
+<li>
+<p><strong>(no operator)</strong> 表示所查询的字符是可选的，如果出现，其相关性会更高</p>
+</li>
+<li>
+<p><strong>@distance</strong> 仅仅适用于innodb。测试两个或多个单词出现的距离是否在distance的值之内，distance的单位是单词的个数。下面的测试结果是多个单词之间最远的距离要在distance之间：</p>
+<p>假设数据库article表中有这么一条记录：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>title</th>
+<th>body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>BOOLEN Tutorial</td>
+<td>s1,w2,d3,a4,s5,s6,s7,s8,s9,s10,a11,c12</td>
+</tr>
+</tbody>
+</table>
+<p>执行语句：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">articles</span> <span class="k">WHERE</span> <span class="k">MATCH</span> <span class="p">(</span><span class="n">title</span> <span class="p">,</span> <span class="n">body</span><span class="p">)</span> <span class="nf">AGAINST</span> <span class="p">(</span><span class="s1">&#39;&#34;w2 a4 s9&#34; @9&#39;</span> <span class="k">IN</span> <span class="n">BOOLEAN</span> <span class="n">MODE</span><span class="p">);</span>
+</code></pre></div><p>查询结果：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>title</th>
+<th>body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>BOOLEN Tutorial</td>
+<td>s1,w2,d3,a4,s5,s6,s7,s8,s9,s10,a11,c12</td>
+</tr>
+</tbody>
+</table>
+<p>执行语句：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">articles</span> <span class="k">WHERE</span> <span class="k">MATCH</span> <span class="p">(</span><span class="n">title</span> <span class="p">,</span> <span class="n">body</span><span class="p">)</span> <span class="nf">AGAINST</span> <span class="p">(</span><span class="s1">&#39;&#34;w2 a4 s9&#34; @8&#39;</span> <span class="k">IN</span> <span class="n">BOOLEAN</span> <span class="n">MODE</span><span class="p">);</span>
+</code></pre></div><p>查询结果：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>title</th>
+<th>body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12</td>
+<td>BOOLEN Tutorial</td>
+<td>s1,w2,d3,a4,s5,s6,s7,s8,s9,s10,a11,c12</td>
+</tr>
+</tbody>
+</table>
+<p>执行语句：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">articles</span> <span class="k">WHERE</span> <span class="k">MATCH</span> <span class="p">(</span><span class="n">title</span> <span class="p">,</span> <span class="n">body</span><span class="p">)</span> <span class="nf">AGAINST</span> <span class="p">(</span><span class="s1">&#39;&#34;w2 a4 s9&#34; @7&#39;</span> <span class="k">IN</span> <span class="n">BOOLEAN</span> <span class="n">MODE</span><span class="p">);</span>
+</code></pre></div><p>查询结果：</p>
+<p>Empty set</p>
+<p>执行语句：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">articles</span> <span class="k">WHERE</span> <span class="k">MATCH</span> <span class="p">(</span><span class="n">title</span> <span class="p">,</span> <span class="n">body</span><span class="p">)</span> <span class="nf">AGAINST</span> <span class="p">(</span><span class="s1">&#39;&#34;w2 a4 s9&#34; @6&#39;</span> <span class="k">IN</span> <span class="n">BOOLEAN</span> <span class="n">MODE</span><span class="p">);</span>
+</code></pre></div><p>查询结果：</p>
+<p>Empty set</p>
+<p><strong>解释：w2 a4 s9 三个单词在“s1,w2,d3,a4,s5,s6,s7,s8,s9,s10,a11,c12”这串字符串中w2和a4距离为2，w2和s9距离为7，a4和s9距离为5，因此只需要@x中的x满足x&gt;2且x&gt;7且x&gt;5即可满足要求，即可把该条记录筛选出来。</strong></p>
+</li>
+</ul>
+<h3 id="小结">小结</h3>
 <p>MySQL 的全文索引最开始仅支持英语，因为英语的词与词之间有空格，使用空格作为分词的分隔符是很方便的。亚洲文字，比如汉语、日语、汉语等，是没有空格的，这就造成了一定的限制。不过 MySQL 5.7.6 开始，引入了一个 ngram 全文分析器来解决这个问题，并且对 MyISAM 和 InnoDB 引擎都有效。</p>
 <p>事实上，MyISAM 存储引擎对全文索引的支持有很多的限制，例如表级别锁对性能的影响、数据文件的崩溃、崩溃后的恢复等，这使得 MyISAM 的全文索引对于很多的应用场景并不适合。所以，多数情况下的建议是使用别的解决方案，例如 Sphinx、Lucene 等等第三方的插件，亦或是使用 InnoDB 存储引擎的全文索引。</p>
 <p><strong>几个注意点：</strong></p>
@@ -868,6 +1131,9 @@ INDEX 也可以。</p>
       <b>MySQL补充</b><nav id="TableOfContents">
   <ul>
     <li><a href="#使用yum安装mysql8">使用yum安装MySQL8</a></li>
+    <li><a href="#check检查表的状况查看表是否损坏">CHECK检查表的状况（查看表是否损坏）</a></li>
+    <li><a href="#repair-table修复表">repair table修复表★</a></li>
+    <li><a href="#innodb数据损坏修复">InnoDB数据损坏修复</a></li>
     <li><a href="#筛选并查看变量">筛选并查看变量</a></li>
     <li><a href="#generated-column">generated column</a>
       <ul>
