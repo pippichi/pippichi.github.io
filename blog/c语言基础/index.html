@@ -1269,11 +1269,17 @@ CPU速度越来越快导致内存读取速度跟不上CPU的处理速度，因�
 </span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%u</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="o">!</span><span class="n">c</span><span class="p">));</span> <span class="c1">// 1
 </span></code></pre></div><p><!-- raw HTML omitted -->无符号数做整型提升时：<!-- raw HTML omitted --></p>
 <p>我们知道有符号数做整型提升时是按照最高位符号位去补的，而无符号数就简单多了，因为它的最高位不是符号位，所以直接补0</p>
-<p>例子：</p>
+<p>例子1：</p>
 <div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// 首先-1是整型，因此它在计算机中是这么存储的：11111111111111111111111111111111
 </span><span class="c1">// 由于变量a是char型，因此截取低位8位：11111111
 </span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;a=%d&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span> <span class="c1">// 输出按照%d来输出，因此需要做整型提升（由于是无符号数，因此高位用0填补）：11111111 -&gt; 00000000000000000000000011111111
 </span><span class="c1">// 最后输出255
+</span></code></pre></div><p>例子2：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span> <span class="c1">// 过程：首先200是个有符号整型：00000000 00000000 00000000 11001000，由于是unsigned char，所以截取低八位：11001000
+</span><span class="c1"></span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">// 同理a，得到b：01100100
+</span><span class="c1"></span><span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 同理a，得到c：00000000
+</span><span class="c1"></span><span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span> <span class="c1">// 发生整型提升，先将a和b补位，由于是unsigned char，所以前面直接补0，补完之后做加减法得结果：00000000 00000000 00000001 00101100，由于c是unsigned char，因此截取运算结果的低八位，得c：00101100
+</span><span class="c1"></span><span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d %d&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span> <span class="c1">// 这里的a + b算完之后由于还没有将结果放入char型变量中，因此它就是：00000000 00000000 00000001 00101100，按照%d打印则打印结果为300；c需要按%d打印，先做整型提升，由于是unsigned char，因此整型提升后得：00000000 00000000 00000000 00101100，则打印结果为44
 </span></code></pre></div><h4 id="整型提升的意义">整型提升的意义</h4>
 <p>表达式的整型运算要在CPU的相应运算器件内执行，CPU内整形运算器（ALU）的操作数的字节长度一般就是int的字节长度，同时也是CPU的通用寄存器的长度</p>
 <p>因此即使两个char类型的相加，在CPU执行时实际上也要先转换为CPU内整型操作数的标准长度</p>
