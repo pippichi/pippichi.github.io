@@ -491,21 +491,6 @@ CPU速度越来越快导致内存读取速度跟不上CPU的处理速度，因�
     <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">MAX</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="c语言函数">c语言函数</h2>
-<h3 id="getchar和putchar">getchar()和putchar()</h3>
-<p>getchar()用于接收键盘的字符，putchar()用于将字符输出（相当于printf()）</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">ch</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
-<span class="n">putchar</span><span class="p">(</span><span class="n">ch</span><span class="p">);</span> <span class="c1">// 用于输出getchar()获取的字符，相当于printf(&#34;%c\n&#34;, ch)
-</span></code></pre></div><p>案例：</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="c1">// 由于scanf读到空格就停止了，而我们又希望将空格后面的字符也全部都读掉以防止在scanf后面使用getchar()函数的时候getchar()误读到一些字符。那么可以怎么做呢？
-</span><span class="c1"></span><span class="kt">char</span> <span class="n">password</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
-<span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
-<span class="kt">int</span> <span class="n">ch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="c1">// 我们知道用户输入字符到最后会按下回车键以结束，而这个回车键就是\n，所以我们可以通过判断getchar()是否读到\n来判断是否已经读完了用户所输入的所有字符
-</span><span class="c1">// 通过这个原理，我们就可以编写以下while循环了：
-</span><span class="c1"></span><span class="k">while</span> <span class="p">((</span><span class="n">ch</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">())</span> <span class="o">!=</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">;</span> <span class="c1">// 只写一个;表示循环里面什么也不做
-</span><span class="c1"></span><span class="p">}</span>
 </code></pre></div><h2 id="vs下的一些问题">VS下的一些问题</h2>
 <h3 id="不安全的库函数">不安全的库函数</h3>
 <p>vs下scanf是不推荐使用的，vs编译器给我们提供了一个scanf_s来代替scanf，但是缺乏了跨平台的特性（比方说gcc他就不认识scanf_s，只认识标准C语言提供的scanf）</p>
@@ -1395,11 +1380,6 @@ CPU速度越来越快导致内存读取速度跟不上CPU的处理速度，因�
       <ul>
         <li><a href="#定义标识符常量">定义标识符常量</a></li>
         <li><a href="#定义宏">定义宏</a></li>
-      </ul>
-    </li>
-    <li><a href="#c语言函数">c语言函数</a>
-      <ul>
-        <li><a href="#getchar和putchar">getchar()和putchar()</a></li>
       </ul>
     </li>
     <li><a href="#vs下的一些问题">VS下的一些问题</a>
