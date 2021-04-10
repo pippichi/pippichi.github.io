@@ -763,7 +763,8 @@ by分组之前先排序，之后还会创建临时表，最后还要把临时表
 <p><img src="/mysql_senior/0afe87b361307696fa46b07fb0dfbec6.png" alt=""></p>
 <h4 id="解锁">解锁</h4>
 <p>Unlock tables；</p>
-<h4 id="读锁">读锁</h4>
+<h4 id="读锁共享锁">读锁（共享锁）</h4>
+<p>共享锁可以和其他锁共存</p>
 <h5 id="特点">特点</h5>
 <p>假设有两个客户端c1和c2以及表stu</p>
 <p>如果c1把stu锁了，那么：</p>
@@ -772,7 +773,8 @@ by分组之前先排序，之后还会创建临时表，最后还要把临时表
 <p><img src="/mysql_senior/98f3b0345ae872504d1b13054b67bcff.png" alt=""></p>
 <p><img src="/mysql_senior/f4d9676bcdf7696c0161d56a63a335d0.png" alt=""></p>
 <p><img src="/mysql_senior/8679e3178e15370c3b1fdb4d71771308.png" alt=""></p>
-<h4 id="写锁">写锁</h4>
+<h4 id="写锁排他锁">写锁（排他锁）</h4>
+<p>排他锁和其他锁不能共存</p>
 <h5 id="特点-1">特点</h5>
 <p>假设有两个客户端c1和c2以及表stu</p>
 <p>如果c1把stu锁了，那么：</p>
@@ -804,6 +806,7 @@ by分组之前先排序，之后还会创建临时表，最后还要把临时表
 <p>之后在sql语句最后加for update; 例如：select * from dept where address=’myadd’
 <strong>for update</strong>;</p>
 <p>这个时候另外一个客户端想要修改address=’myadd’这一行就会被阻塞，直到上一个客户端手动commit才能恢复执行</p>
+<p><strong>注意：mysql InnoDB引擎默认的修改数据语句，update,delete,insert都会自动给涉及到的数据加上排他锁，select语句默认不会加任何锁类型，如果加排他锁则可以像上面那样使用select &hellip;for update语句，加共享锁可以使用select &hellip; lock in share mode语句。所以加过排他锁的数据行在其他事务种是不能修改数据的，也不能通过for update和lock in share mode锁的方式查询数据，但可以直接通过select &hellip;from&hellip;查询数据，因为普通查询没有任何锁机制。</strong></p>
 <h4 id="分析行锁命令show-status-like-innodb_row_lock">分析行锁命令（show status like ‘innodb_row_lock%’）</h4>
 <p><img src="/mysql_senior/717cb0fb57531504da098fb470c44773.png" alt=""></p>
 <p><img src="/mysql_senior/72abdb80c1ba09e45f619ee4dc1b5129.png" alt=""></p>

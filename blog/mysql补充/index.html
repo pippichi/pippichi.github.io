@@ -199,7 +199,7 @@ set global validate<span class="nb">_</span>password.length=1;
 <p>很多COLLATE都带有<!-- raw HTML omitted -->_ci<!-- raw HTML omitted -->字样，这是Case Insensitive的缩写，即大小写无关，也就是说&quot;A&quot;和&quot;a&quot;在排序和比较的时候是一视同仁的。selection * from table1 where field1=&ldquo;a&quot;同样可以把field1为&quot;A&quot;的值选出来。与此同时，对于那些<!-- raw HTML omitted -->_cs<!-- raw HTML omitted -->后缀的COLLATE，则是Case Sensitive，即大小写敏感的。</p>
 <h3 id="使用show-collation查看mysql支持的所有collate">使用SHOW COLLATION查看MySQL支持的所有COLLATE</h3>
 <p>在mysql中使用show collation指令可以查看到mysql所支持的所有COLLATE。以utf8mb4为例，该编码所支持的所有COLLATE如下图所示：</p>
-<p><img src="mysql%E8%A1%A5%E5%85%85.assets/image-20210321151555101.png" alt="image-20210321151555101"></p>
+<p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210321151555101.png" alt="image-20210321151555101"></p>
 <p>图中我们能看到很多国家的语言自己的排序规则。在国内比较常用的是utf8mb4_general_ci（默认）、utf8mb4_unicode_ci、utf8mb4_bin这三个。我们来探究一下这三个的区别：</p>
 <p>首先utf8mb4_bin的比较方法其实就是直接将所有字符看作二进制串，然后从最高位往最低位比对。所以很显然它是区分大小写的。</p>
 <p>而utf8mb4_unicode_ci和utf8mb4_general_ci对于中文和英文来说，其实是没有任何区别的。对于我们开发的国内使用的系统来说，随便选哪个都行。只是对于某些西方国家的字母来说，utf8mb4_unicode_ci会比utf8mb4_general_ci更符合他们的语言习惯一些，general是mysql一个比较老的标准了。例如，德语字母“ß”，在utf8mb4_unicode_ci中是等价于&quot;ss&quot;两个字母的（这是符合德国人习惯的做法），而在utf8mb4_general_ci中，它却和字母“s”等价。不过，这两种编码的那些微小的区别，对于正常的开发来说，很难感知到。本身我们也很少直接用文字字段去排序，退一步说，即使这个字母排错了一两个，真的能给系统带来灾难性后果么？从网上找的各种帖子讨论来说，更多人推荐使用utf8mb4_unicode_ci，但是对于使用了默认值的系统，也并没有非常排斥，并不认为有什么大问题。</p>
@@ -248,7 +248,56 @@ set global validate<span class="nb">_</span>password.length=1;
 </tr>
 </tbody>
 </table>
-<h2 id="repair-table修复表">repair table修复表★</h2>
+<h2 id="analyze关键字">ANALYZE关键字</h2>
+<p>MySQL 的Optimizer（优化元件）在优化SQL语句时，首先需要收集一些相关信息，其中就包括表的cardinality（可以翻译为“散列程度”），它表示某个索引对应的列包含多少个不同的值——如果cardinality大大少于数据的实际散列程度，那么索引就基本失效了。</p>
+<p>我们可以使用SHOW INDEX语句来查看索引的散列程度：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span> <span class="k">INDEX</span> <span class="k">FROM</span> <span class="n">PLAYERS</span><span class="p">;</span>
+</code></pre></div><p>假设得到结果：</p>
+<table>
+<thead>
+<tr>
+<th>TABLE</th>
+<th>KEY_NAME</th>
+<th>COLUMN_NAME</th>
+<th>CARDINALITY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PLAYERS</td>
+<td>PRIMARY</td>
+<td>PLAYERNO</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+<p>如果此时PLAYER表中不同的PLAYERNO数量远多于14，索引基本失效</p>
+<p>通过ANALYZE TABLE语句来修复索引：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">ANALYZE</span> <span class="k">TABLE</span> <span class="n">PLAYERS</span><span class="p">;</span>
+<span class="k">SHOW</span> <span class="k">INDEX</span> <span class="k">FROM</span> <span class="n">PLAYERS</span><span class="p">;</span>
+</code></pre></div><p>假设得到结果：</p>
+<table>
+<thead>
+<tr>
+<th>TABLE</th>
+<th>KEY_NAME</th>
+<th>COLUMN_NAME</th>
+<th>CARDINALITY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PLAYERS</td>
+<td>PRIMARY</td>
+<td>PLAYERNO</td>
+<td>1000</td>
+</tr>
+</tbody>
+</table>
+<p>此时索引已经修复，查询效率大大提高</p>
+<p>需要注意的是，如果开启了binlog，那么ANALYZE TABLE的结果也会写入binlog，我们可以在ANALYZE和TABLE之间添加关键字LOCAL取消写入：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">ANALYZE</span> <span class="n">LOCAL</span> <span class="k">TABLE</span> <span class="n">tbl_name</span><span class="p">;</span>
+</code></pre></div><h2 id="repair-table修复表">repair table修复表★</h2>
 <p>REPAIR [LOCAL | NO_WRITE_TO_BINLOG] TABLE  tbl_name[,tbl_name] &hellip; [QUICK] [EXTENDED] [USE_FRM]</p>
 <p>REPAIR TABLE用于修复被破坏的表。默认情况下，REPAIR TABLE与myisamchk &ndash;recovertbl_name具有相同的效果。REPAIR TABLE对MyISAM和ARCHIVE表起作用。</p>
 <p>通常，您基本上不必运行此语句。但是，如果灾难发生，REPAIR TABLE很有可能从MyISAM表中找回所有数据。如果您的表经常被破坏，您应该尽力找到原因，以避免使用REPAIR TABLE。</p>
@@ -352,56 +401,126 @@ set global validate<span class="nb">_</span>password.length=1;
 </li>
 <li>
 <p>命令mysqlcheck(mysql服务可以处于运行状态)。</p>
-<p>语法:mysqlcheck -r 数据库名 表名 -uuser -ppass</p>
-<p>　　Command: %mysqlcheck -r sports_results mytable -uuser -ppwd</p>
-<p>　　Result:　　 sports_results.mytable OK
-　　</p>
-<p>　　利用mysqlcheck可以一次性修复多个表。只要在数据库名后列出相应表名即可(用空格隔开)。或者数据库名后不加表名,将会修复数据库中的所有表,例如:</p>
-<p>　　Command: %mysqlcheck -r sports_results mytable events -uuser -ppwd</p>
-<p>　　Result:　　 sports_results.mytable OK
-　　Result:　　 sports_results.events OK</p>
-<p>　　Command: %mysqlcheck -r sports_results -uuser -ppwd
-　　　　</p>
-<p>　　Result:　　 sports_results.mytable OK
-　　Result:　　 sports_results.events OK</p>
-</li>
+<pre><code>语法:mysqlcheck -r 数据库名 表名 -uuser -ppass
+  
+　　Command: %mysqlcheck -r sports_results mytable -uuser -ppwd
+  
+　　Result:　　 sports_results.mytable OK
+　　
+  
+　　利用mysqlcheck可以一次性修复多个表。只要在数据库名后列出相应表名即可(用空格隔开)。或者数据库名后不加表名,将会修复数据库中的所有表,例如:
+  
+　　Command: %mysqlcheck -r sports_results mytable events -uuser -ppwd
+  
+　　Result:　　 sports_results.mytable OK
+　　Result:　　 sports_results.events OK
+  
+　　Command: %mysqlcheck -r sports_results -uuser -ppwd
+　　　　
+  
+　　Result:　　 sports_results.mytable OK
+　　Result:　　 sports_results.events OK
+</code></pre></li>
 <li>
 <p>命令myisamchk(必须停掉mysql服务,或者所操作的表处于不活动状态)。</p>
-<p>用这种方式时,mysql服务必须停掉,或者所操作的表处于不活动状态(选项skip-external-locking没被使用)。记着一定要在相关.MYI文件的路径下或者自己定义其路径。
-　　</p>
-<p>　　语法:myisamchk [选项] [表名]
-　　</p>
-<p>　　下面是其选项和描述
+<pre><code>用这种方式时,mysql服务必须停掉,或者所操作的表处于不活动状态(选项skip-external-locking没被使用)。记着一定要在相关.MYI文件的路径下或者自己定义其路径。
+　　
+　　语法:myisamchk [选项] [表名]
+　　
+　　下面是其选项和描述
 　　　　–backup, -B 在进行修复前作相关表得备份
 　　　　–correct-checksum 纠正校验和
 　　　　–data-file-length=#, -D # 重建表时,指定数据文件得最大长度
 　　　　–extend-check, -e 试图去恢复每个数据行,会产生一些垃圾数据行,万般无奈的情况下用
 　　　　–force, -f 当遇到文件名相同的.TMD文件时,将其覆盖掉。
 　　　　keys-used=#, -k # 指定所用的keys可加快处理速度,每个二进制位代表一个key.第一个key为0
-　　　　–recover, -r 最常用的选项,大多数破坏都可以通过它来修复。</p>
-<p>　　　　　　　　如果你的内存足够大,可以增大参数sort_buffer_size的值来加快恢复的速度。但是遇到唯一键由于破坏而不唯一的表时,这种方式不管用。</p>
-<p>　　　　–safe-recover -o 最彻底的修复方式,但是比-r方式慢,一般在-r修复失败后才使用。</p>
-<p>　　　　　　　　这种方式读出所有的行,并以行为基础来重建索引。它的硬盘空间需求比-r方式稍微小一点,因为它没创建分类缓存。你可以增加key_buffer_size的值来加快修复的速度。
+　　　　–recover, -r 最常用的选项,大多数破坏都可以通过它来修复。
+  
+　　　　　　　　如果你的内存足够大,可以增大参数sort_buffer_size的值来加快恢复的速度。但是遇到唯一键由于破坏而不唯一的表时,这种方式不管用。
+  
+　　　　–safe-recover -o 最彻底的修复方式,但是比-r方式慢,一般在-r修复失败后才使用。
+  
+　　　　　　　　这种方式读出所有的行,并以行为基础来重建索引。它的硬盘空间需求比-r方式稍微小一点,因为它没创建分类缓存。你可以增加key_buffer_size的值来加快修复的速度。
 　　　　–sort-recover, -n mysql用它类分类索引,尽管结果是临时文件会非常大
 　　　　–character-sets-dir=… 包含字符集设置的目录
 　　　　–set-character-set=name 为索引定义一个新的字符集
 　　　　–tmpdir=path, -t 如果你不想用环境变量TMPDIR的值的话,可以自定义临时文件的存放位置
 　　　　–quick, -q 最快的修复方式,当数据文件没有被修改时用,当存在多键时,第二个-q将会修改 数据文件
-　　　　–unpack, -u 解开被myisampack打包的文件</p>
-<p>　　　　myisamchk应用的一个例子</p>
-<p>　　　　　　% myisamchk -r mytable
-　　　　　　- recovering (with keycache) MyISAM-table ‘mytable.MYI’</p>
-<p>　　　　　　Data records: 0</p>
-</li>
+　　　　–unpack, -u 解开被myisampack打包的文件
+  
+　　　　myisamchk应用的一个例子
+  
+　　　　　　% myisamchk -r mytable
+        recovering (with keycache) MyISAM-table ‘mytable.MYI’
+　　　　　　Data records: 0
+</code></pre></li>
 </ul>
 <p>在修复表的时候，最好先作一下备份。所以你需要两倍于原始表大小的硬盘空间。请确保在进行修复前你的硬盘空间还没有用完。</p>
 <h2 id="innodb数据损坏修复">InnoDB数据损坏修复</h2>
 <p>InnoDB是带有事务的存储引擎，并且其内部机制会自动修复大部分数据损坏错误，它会在服务器启动时进行修复。
-不过，有时候数据损坏得很严重并且InnoDB无法在没有用户交互的情况下完成修复，在这种情况下，有&ndash;innodb_force_recovery启动选项。该选项可以设置0~6(0 不强制修复 1是最低级别 6最高级别)。
-如果发生损坏，可以从1开始尝试修复，直到可以启动服务器并且可以访问有问题的表为止.
+不过，有时候数据损坏得很严重并且InnoDB无法在没有用户交互的情况下完成修复，在这种情况下，有&ndash;innodb_force_recovery启动选项（当然也可以在/etc/my.cnf中配置innodb_force_recovery）。该选项可以设置0~6(0 不强制修复 1是最低级别 6最高级别)：</p>
+<ul>
+<li>1：忽略检查到的corrupt页</li>
+<li>2：阻止主线程的运行，如主线程需要执行full purge操作，则会导致crash</li>
+<li>3：不执行事务回滚操作</li>
+<li>4：不执行插入缓存的合并操作</li>
+<li>5：不查看重做日志，InnoDB存储引擎会将未提交的事务视为已提交</li>
+<li>6：不执行前滚的操作</li>
+</ul>
+<p>如果发生损坏，可以从1开始尝试修复，直到可以启动服务器并且可以访问有问题的表为止。
 启动后使用select into outfile将表转储到文件中，然后使用drop和create命令重新创建表，最后用&ndash;innodb_force_recovery=0重新启动服务器，然后加载文件数据。
 当需要在&ndash;innodb_force_recovery选项是正数的情况下修复数据库时，错误日志通常会有明确的提示信息。</p>
-<h2 id="筛选并查看变量">筛选并查看变量</h2>
+<p>当设置innodb_force_recovery大于0之后，可以对表进行select、create、drop操作，但insert、update、delete这类操作是不允许的。所以在最后表修复完成之后，不要忘了把innodb_force_recovery设置为0或注释掉</p>
+<p>如果仍不能启动，可以使用备份来还原数据库，推荐先物理备份下/var/lib/mysql，之后可以试着删除ib_logfile0、ib_logfile1和ibdata1文件，然后启动mysql服务来还原</p>
+<h2 id="optimize关键字">OPTIMIZE关键字</h2>
+<p>MySQL执行命令delete语句时，如果包括where条件，并不会真正的把数据从表中删除，而是将数据转换成了碎片，通过下面的命令可以查看表中的碎片数量和索引等信息：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="k">table</span> <span class="n">status</span> <span class="k">like</span> <span class="n">tbl_name</span><span class="p">;</span>
+</code></pre></div><p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210410230027928.png" alt="image-20210410230027928"></p>
+<p>查询结果中：</p>
+<p>Index_length 代表索引的数量</p>
+<p>Data_free 代表碎片数量</p>
+<p>然后执行下面命令进行优化整理：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">OPTIMIZE</span> <span class="k">TABLE</span> <span class="n">tbl_name</span><span class="p">;</span>
+</code></pre></div><p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210410230115306.png" alt="image-20210410230115306"></p>
+<p>需要注意的是，如果开启了binlog，那么OPTIMIZE TABLE的结果也会写入binlog，我们可以在OPTIMIZE和TABLE之间添加关键字LOCAL取消写入：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">OPTIMIZE</span> <span class="n">LOCAL</span> <span class="k">TABLE</span> <span class="n">tbl_name</span><span class="p">;</span>
+</code></pre></div><p>OPTIMIZE TABLE只对MyISAM, BDB和InnoDB表起作用。</p>
+<p>注意：在OPTIMIZE TABLE运行过程中，MySQL会锁定表。</p>
+<h2 id="duplicate关键字">DUPLICATE关键字</h2>
+<p>在日常业务开发中经常有这样一个场景，首先创建一条记录，然后插入到数据库，如果数据库已经存在同一主键的记录，执行update操作；否则，执行insert操作。这个操作可以在业务层做，也可以在数据库层面做。业务层一般做法是先查询，如果不存在就插入，如果存在就更新；但是查询和插入不是原子性操作，在并发量比较高的时候，可能两个线程都查询不到某个记录，所以会执行两次插入，其中一条必然会因为唯一性约束冲突而失败。数据库层mysql中INSERT &hellip; ON DUPLICATE KEY UPDATE就可以做这个事情，<strong>并且是原子性操作</strong>。</p>
+<p><strong>INSERT &hellip; ON DUPLICATE KEY UPDATE命令</strong></p>
+<ul>
+<li>
+<p>单条记录下使用</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">INSERT</span> <span class="k">INTO</span> <span class="nf">t1</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="k">ON</span> <span class="n">DUPLICATE</span> <span class="k">KEY</span> <span class="k">UPDATE</span> <span class="n">c</span> <span class="o">=</span> <span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div><p>如上sql假如t1表的主键或者UNIQUE 索引是a，那么当执行sql的时候，如果数据库里面已经存在a=1的记录则更新这条记录的c字段的值为原来值+1，然后返回值为2；如果不存在则插入记录a=1,b=2,c=3，然后返回值为1。</p>
+<p>**如果insert语句中同时出现UNIQUE索引和PRIMARY KEY，则以后者为准。**ON DUPLICATE KEY UPDATE后面可以放多个字段，用英文逗号分割。</p>
+</li>
+<li>
+<p>多条记录下使用</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">INSERT</span> <span class="k">INTO</span> <span class="nf">t1</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span> <span class="k">ON</span> <span class="n">DUPLICATE</span> <span class="k">KEY</span> <span class="k">UPDATE</span> <span class="n">c</span> <span class="o">=</span> <span class="k">VALUES</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">b</span> <span class="o">=</span> <span class="k">VALUES</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+<span class="c1">-- VALUES() 是针对同时插入多条记录时获取正确的待设置值 --
+</span></code></pre></div></li>
+</ul>
+<h2 id="delayed关键字">DELAYED关键字</h2>
+<p>延迟插入操作</p>
+<p>DELAYED调节符应用于INSERT和REPLACE语句。当DELAYED插入操作到达的时候i，服务器把数据行放入一个队列中，并立即给客户端返回一个状态信息，这样客户端就可以在数据表被真正地插入记录之前继续进行着操作了。如果读取者从该数据表中读取数据，队列中的数据就会被保持着，直到没有读取者为止。接着服务器开始插入延迟数据行（delayed-row）队列中的数据行。在插入操作的同时，服务器还要检查是否有新的读取请求到达和等待。如果有，延迟数据行队列就被挂起，允许读取者继续操作。当没有读取者的时候，服务器再次开始插入延迟的数据行。这个过程一直进行，直到队列空了为止。</p>
+<p>下面几点要注意的事项：</p>
+<ul>
+<li>INSERT DELAYED应该仅用于指定值清单的INSERT语句。服务器忽略用于INSERT DELAYED&hellip;SELECT语句的DELAYED</li>
+<li>服务器忽略用于INSERT DELAYED&hellip;ON DUPLICATE UPDATE语句的DELAYED</li>
+<li>因为在行被插入前，语句立刻返回，所以您不能使用LAST_INSETT_ID()来获取AUTO_INCREMENT值。AUTO_INCREMENT值可能由语句生成。</li>
+<li>对于SELECT语句，DELAYED行不可见，直到这些行确实被插入了为止。</li>
+<li>DELAYED在从属复制服务器中被忽略了，因为DELAYED不会在从属服务器中产生与主服务器不一样的数据。注意，目前在队列中的各行只保存在存储器中，直到它们被插入到表中为止。这意味着，如果你强行终止了mysql或者如果mysql意外停止，则所有没有写入磁盘的行都会丢失。</li>
+</ul>
+<h2 id="ignore关键字">IGNORE关键字</h2>
+<p>MySQL提供了ignore用来避免数据的重复插入，若有导致unique key冲突的记录，则该条记录不会被插入到数据库中</p>
+<p>举例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">INSERT</span> <span class="k">IGNORE</span> <span class="k">INTO</span> <span class="o">`</span><span class="n">tbl_name</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">email</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">phone</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">user_id</span><span class="o">`</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;test9@163.com&#39;</span><span class="p">,</span> <span class="s1">&#39;99999&#39;</span><span class="p">,</span> <span class="s1">&#39;9999&#39;</span><span class="p">);</span>
+<span class="c1">-- 如果有重复记录就会忽略，执行后返回数字0 --
+</span></code></pre></div><p>还有个应用是复制表的时候避免重复记录：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">INSERT</span> <span class="k">IGNORE</span> <span class="k">INTO</span> <span class="o">`</span><span class="n">tbl_name</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">col</span><span class="o">`</span><span class="p">)</span> <span class="k">SELECT</span> <span class="o">`</span><span class="n">col</span><span class="o">`</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">tbl_name2</span><span class="o">`</span><span class="p">;</span>
+</code></pre></div><h2 id="筛选并查看变量">筛选并查看变量</h2>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="n">variables</span> <span class="k">where</span> <span class="n">variable_name</span> <span class="k">like</span> <span class="s1">&#39;wait%&#39;</span> <span class="k">and</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">;</span>
 </code></pre></div><h2 id="generated-column">generated column</h2>
 <p>定义Generated column列的语法如下：</p>
@@ -495,7 +614,35 @@ set global validate<span class="nb">_</span>password.length=1;
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">mytest</span><span class="o">`</span><span class="p">(</span>
 	<span class="o">`</span><span class="kt">text</span><span class="o">`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span> <span class="n">COMMENT</span> <span class="s1">&#39;内容&#39;</span>
 <span class="p">)</span><span class="kp">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="kp">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
-</code></pre></div><h2 id="内连接外连接">内连接、外连接</h2>
+</code></pre></div><h2 id="replace-into">REPLACE INTO</h2>
+<p>有这样一种场景：如果没有则插入，如果有则更新。</p>
+<p>我们当然可以用insert、update、select来做到这点，但是效率太低，此时就可以使用replace [into]，into可以省略。</p>
+<ul>
+<li>
+<p>语法1：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">REPLACE</span> <span class="p">[</span><span class="k">INTO</span><span class="p">]</span> <span class="nf">tbl_name</span><span class="p">(</span><span class="n">col_name1</span><span class="p">,</span> <span class="n">col_name2</span><span class="p">,</span> <span class="p">...)</span> <span class="k">VALUES</span> <span class="p">(...);</span>
+</code></pre></div></li>
+<li>
+<p>语法2：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">REPLACE</span> <span class="p">[</span><span class="k">INTO</span><span class="p">]</span> <span class="nf">tbl_name</span><span class="p">(</span><span class="n">col_name1</span><span class="p">,</span> <span class="n">col_name2</span><span class="p">,</span> <span class="p">...)</span> <span class="k">SELECT</span> <span class="p">...;</span>
+</code></pre></div><p>replace select 的用法类似于insert select，这种方法并不一定要求列名匹配，事实上，MYSQL甚至不关心SELECT返回的列名，它需要的是列的位置</p>
+<p>例子1：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">REPLACE</span> <span class="p">[</span><span class="k">INTO</span><span class="p">]</span> <span class="nf">tbl1</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">mood</span><span class="p">)</span> <span class="k">SELECT</span> <span class="n">rname</span><span class="p">,</span> <span class="n">rtitle</span><span class="p">,</span> <span class="n">rmood</span> <span class="k">from</span> <span class="n">tbl2</span><span class="p">;</span>
+<span class="c1">-- 意思是将tbl2中的所有数据导入到tbl1中 -- 
+</span></code></pre></div><p>例子2：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">REPLACE</span> <span class="p">[</span><span class="k">INTO</span><span class="p">]</span> <span class="nf">tbl1</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">update_time</span><span class="p">)</span> <span class="k">SELECT</span> <span class="mi">1</span><span class="p">,</span> <span class="nf">now</span><span class="p">();</span>
+</code></pre></div></li>
+<li>
+<p>语法3：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">REPLACE</span> <span class="p">[</span><span class="k">INTO</span><span class="p">]</span> <span class="n">tbl1</span> <span class="kt">SET</span> <span class="n">col_name</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="p">...;</span>
+</code></pre></div><p>replace set 的用法类似于update set ，如果使用一个例如“SET col_name = col_name + 1”的赋值，则对于右侧的列名称的引用会被作为DEFAULT(col_name)处理。因此，该赋值相当于“SET col_name = DEFAULT(col_name) + 1”</p>
+</li>
+</ul>
+<p>replace into 跟insert功能类似，不同点在于：replace into 首先尝试插入数据到表中，如果发现表中已经有此行数据**（根据主键或者唯一索引判断）**则先删除此行数据，然后插入新的数据，否则，直接插入新的数据。</p>
+<p><strong>要注意的是，插入数据的表必须要有主键或者唯一索引，否则，replace into 会直接插入数据，这将导致表中出现重复的数据。</strong></p>
+<p>在实际使用中语法1和语法2会用的多一些。虽然replace into中的into可以省略，但是最好还是加上，因为这样意思更加直观</p>
+<p>另外，对于那些没有给予值的列，MySQL将自动为这些列赋上默认值。</p>
+<h2 id="内连接外连接">内连接、外连接</h2>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="p">(</span><span class="n">a1</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="n">a2</span><span class="p">.</span><span class="n">name</span> <span class="k">from</span> <span class="n">b</span> <span class="k">left</span> <span class="k">join</span> <span class="n">a</span> <span class="k">as</span> <span class="n">a1</span> <span class="k">on</span> <span class="n">b</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">a1</span><span class="p">.</span><span class="n">id</span><span class="p">)</span>
 <span class="k">left</span> <span class="k">join</span> <span class="n">a</span> <span class="k">as</span> <span class="n">a2</span> <span class="k">on</span> <span class="n">b</span><span class="p">.</span><span class="n">hid</span> <span class="o">=</span> <span class="n">a2</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="err">表</span><span class="mi">1</span> <span class="k">as</span> <span class="n">x1</span> <span class="k">inner</span> <span class="k">join</span> <span class="err">表</span><span class="mi">2</span> <span class="k">as</span> <span class="n">x2</span> <span class="k">on</span> <span class="n">x1</span><span class="p">.</span><span class="s1">&#39;id&#39;</span><span class="o">=</span><span class="n">x2</span><span class="p">.</span><span class="s1">&#39;hyuid&#39;</span> <span class="k">and</span>
@@ -1136,6 +1283,348 @@ INDEX 也可以。</p>
 </span><span class="c1"></span>   <span class="c1">-- AND kcu.TABLE_NAME = &#39;res_site&#39;
 </span><span class="c1"></span><span class="k">ORDER</span> <span class="k">BY</span> <span class="n">kcu</span><span class="p">.</span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="n">kcu</span><span class="p">.</span><span class="n">TABLE_NAME</span><span class="p">,</span><span class="n">tc</span><span class="p">.</span><span class="n">CONSTRAINT_TYPE</span><span class="p">;</span>
 </code></pre></div><p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313122848369.png" alt="image-20210313122848369"></p>
+<h2 id="maxvalue关键字">MAXVALUE关键字</h2>
+<p>代表一个比最大可能的integer的值还要大的数值，用数学语言来讲就是数值的最大上界</p>
+<p>常被用于MySQL范围分区中</p>
+<h2 id="mysql分区partition功能">MySQL分区（partition）功能</h2>
+<p>= 水平分区（根据列属性按行分） =</p>
+<p>举个例子：一个包含十年发票记录的表可以被分区为十个不同的分区，每个分区包含的是其中一年的记录</p>
+<p><strong>水平分区的模式</strong></p>
+<ul>
+<li>Range（范围）- 这种模式允许DBA将数据划分不同范围。例如DBA可以将一个表通过年份划分成三个分区，比如：80年代的数据，90年代的数据以及任何在2000年（包括2000年）后的数据</li>
+<li>Hash（哈希）- 这种模式允许DBA通过对表的一个或多个列的Hash Key进行计算，最后通过这个Hash码不同数值对应的数据区域进行分区，比如DBA可以建立一个对表主键进行分区的表</li>
+<li>Key（键值）- Hash模式的一种延伸，这里的Hash Key是MySQL系统产生的</li>
+<li>List（预定义列表）- 这种模式允许系统通过DBA定义的列表的值所对应的行数据进行分割，比如：DBA建立了一个横跨三个分区的表，分别根据2004年2005年和2006年值所对应的数据</li>
+<li>Composite（复合模式）- 其实就是以上模式的组合使用，比如：在初始化已经进行了Range范围分区的表上，我们可以对其中一个分区再进行hash哈希分区</li>
+</ul>
+<p><strong>垂直分区（按列分）</strong></p>
+<p>举个例子：一个包含了大text和BLOB列的表，这些text和BLOB列不经常被访问，这时候就要把这些不经常使用的text和BLOB划分到另一个分区，在保证它们数据相关性的同时还能提高访问的速度</p>
+<p><strong>分区的优点</strong></p>
+<ul>
+<li>可以提高数据库的性能</li>
+<li>对大表（行较多）的维护更快、更容易，因为数据分布在不同的逻辑文件上</li>
+<li>删除分区或它的数据是容易的，因为它不影响其他表</li>
+</ul>
+<p>注意：pruning，即截断。意思是说当你查询时，只扫描所需要查询的分区，其他部分不会扫描，这就大大提高了性能</p>
+<h3 id="分区表和未分区表试验过程">分区表和未分区表试验过程</h3>
+<p><strong>创建分区表，按日期的年份拆分</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">part_tab</span> <span class="p">(</span> <span class="n">c1</span> <span class="kt">int</span> <span class="k">default</span> <span class="no">NULL</span><span class="p">,</span>  <span class="n">c2</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">default</span> <span class="no">NULL</span><span class="p">,</span>  <span class="n">c3</span> <span class="kt">date</span> <span class="k">default</span> <span class="no">NULL</span><span class="p">)</span> <span class="kp">engine</span><span class="o">=</span><span class="n">myisam</span> 
+<span class="n">PARTITION</span> <span class="k">BY</span> <span class="nf">RANGE</span> <span class="p">(</span><span class="kt">year</span><span class="p">(</span><span class="n">c3</span><span class="p">))</span> 
+<span class="p">(</span><span class="n">PARTITION</span> <span class="n">p0</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">1995</span><span class="p">)</span> <span class="p">,</span> <span class="n">PARTITION</span> <span class="n">p1</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">1996</span><span class="p">)</span> <span class="p">,</span> 
+<span class="n">PARTITION</span> <span class="n">p2</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">1997</span><span class="p">)</span> <span class="p">,</span> <span class="n">PARTITION</span> <span class="n">p3</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">1998</span><span class="p">)</span> <span class="p">,</span> 
+<span class="n">PARTITION</span> <span class="n">p4</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">1999</span><span class="p">)</span> <span class="p">,</span> <span class="n">PARTITION</span> <span class="n">p5</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">2000</span><span class="p">)</span> <span class="p">,</span> 
+<span class="n">PARTITION</span> <span class="n">p6</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">2001</span><span class="p">)</span> <span class="p">,</span> <span class="n">PARTITION</span> <span class="n">p7</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">2002</span><span class="p">)</span> <span class="p">,</span> 
+<span class="n">PARTITION</span> <span class="n">p8</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">2003</span><span class="p">)</span> <span class="p">,</span> <span class="n">PARTITION</span> <span class="n">p9</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">2004</span><span class="p">)</span> <span class="p">,</span> 
+<span class="n">PARTITION</span> <span class="n">p10</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">2010</span><span class="p">),</span> <span class="n">PARTITION</span> <span class="n">p11</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="n">THAN</span> <span class="n">MAXVALUE</span> <span class="p">);</span>
+</code></pre></div><p>注意到最后一行，考虑到可能的最大值</p>
+<p><strong>创建未分区表</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="k">table</span> <span class="nf">no_part_tab</span> <span class="p">(</span>
+    <span class="n">c1</span> <span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">default</span> <span class="no">NULL</span><span class="p">,</span>
+    <span class="n">c2</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">default</span> <span class="no">NULL</span><span class="p">,</span>
+    <span class="n">c3</span> <span class="kt">date</span> <span class="k">default</span> <span class="no">NULL</span>
+<span class="p">)</span> <span class="kp">engine</span><span class="o">=</span><span class="n">myisam</span><span class="p">;</span>
+</code></pre></div><p>通过存储过程灌入800万数据到两个表中，然后测试性能发现分区的表执行了0.5秒，未分区的执行了4.7秒，使用explain来分析执行的情况：</p>
+<pre><code>id: 1
+select_type: SIMPLE
+table: no_part_tab          #未分区的表的表名
+type: ALL
+possible_keys: NULL
+key: NULL
+key_len: NULL
+ref: NULL
+rows: 8000000               #需要查询800万条记录
+Extra: Using where
+</code></pre><pre><code>id: 1
+select_type: SIMPLE
+table: part_tab             #分区的表的表名
+type: ALL
+possible_keys: NULL
+key: NULL
+key_len: NULL
+ref: NULL
+rows: 798458               #只需要查询798458条记录
+Extra: Using where
+</code></pre><p><strong>试验创建索引后情况</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">create</span> <span class="k">index</span> <span class="n">idx_of_c3</span> <span class="k">on</span> <span class="nf">no_part_tab</span> <span class="p">(</span><span class="n">c3</span><span class="p">);</span>
+<span class="k">create</span> <span class="k">index</span> <span class="n">idx_of_c3</span> <span class="k">on</span> <span class="nf">part_tab</span> <span class="p">(</span><span class="n">c3</span><span class="p">);</span>
+</code></pre></div><p>创建索引后的数据库文件大小列表：</p>
+<pre><code>2008-05-24 09:23             8,608 no_part_tab.frm
+2008-05-24 09:24       255,999,996 no_part_tab.MYD
+2008-05-24 09:24        81,611,776 no_part_tab.MYI
+2008-05-24 09:25                 0 part_tab#P#p0.MYD
+2008-05-24 09:26             1,024 part_tab#P#p0.MYI
+2008-05-24 09:26        25,550,656 part_tab#P#p1.MYD
+2008-05-24 09:26         8,148,992 part_tab#P#p1.MYI
+2008-05-24 09:26        25,620,192 part_tab#P#p10.MYD
+2008-05-24 09:26         8,170,496 part_tab#P#p10.MYI
+2008-05-24 09:25                 0 part_tab#P#p11.MYD
+2008-05-24 09:26             1,024 part_tab#P#p11.MYI
+2008-05-24 09:26        25,656,512 part_tab#P#p2.MYD
+2008-05-24 09:26         8,181,760 part_tab#P#p2.MYI
+2008-05-24 09:26        25,586,880 part_tab#P#p3.MYD
+2008-05-24 09:26         8,160,256 part_tab#P#p3.MYI
+2008-05-24 09:26        25,585,696 part_tab#P#p4.MYD
+2008-05-24 09:26         8,159,232 part_tab#P#p4.MYI
+2008-05-24 09:26        25,585,216 part_tab#P#p5.MYD
+2008-05-24 09:26         8,159,232 part_tab#P#p5.MYI
+2008-05-24 09:26        25,655,740 part_tab#P#p6.MYD
+2008-05-24 09:26         8,181,760 part_tab#P#p6.MYI
+2008-05-24 09:26        25,586,528 part_tab#P#p7.MYD
+2008-05-24 09:26         8,160,256 part_tab#P#p7.MYI
+2008-05-24 09:26        25,586,752 part_tab#P#p8.MYD
+2008-05-24 09:26         8,160,256 part_tab#P#p8.MYI
+2008-05-24 09:26        25,585,824 part_tab#P#p9.MYD
+2008-05-24 09:26         8,159,232 part_tab#P#p9.MYI
+2008-05-24 09:25             8,608 part_tab.frm
+2008-05-24 09:25                68 part_tab.par
+</code></pre><p>再次测试性能发现分区的表执行了0.86秒，未分区的执行了2.42秒</p>
+<p>增加未索引字段查询之后分区的表执行了0.75秒，未分区的执行了11.5秒</p>
+<h4 id="结论">结论</h4>
+<p><strong>初步结论</strong></p>
+<ul>
+<li>分区和未分区占用文件空间大致相同（数据和索引文件）</li>
+<li>如果查询语句中有未建立索引字段，分区时间远远优于未分区时间</li>
+<li>如果查询语句中字段建立了索引，分区和未分区的差别缩小，分区略优于未分区</li>
+</ul>
+<p><strong>最终结论</strong></p>
+<ul>
+<li>对于大数据量，建议使用分区功能</li>
+<li>应去除不必要的字段</li>
+<li>根据手册，增加myisam_max_sort_file_size（MySQL重建索引时允许使用的临时文件最大大小）会增加分区的性能</li>
+</ul>
+<h3 id="分区命令详解">分区命令详解</h3>
+<p><strong>RANGE类型</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">users</span> <span class="p">(</span>
+       <span class="n">uid</span> <span class="kt">INT</span> <span class="k">UNSIGNED</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+       <span class="n">name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+       <span class="n">email</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">PARTITION</span> <span class="k">BY</span> <span class="nf">RANGE</span> <span class="p">(</span><span class="n">uid</span><span class="p">)</span> <span class="p">(</span>
+       <span class="n">PARTITION</span> <span class="n">p0</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">3000000</span><span class="p">)</span>
+       <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data0/data&#39;</span>
+       <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data1/idx&#39;</span><span class="p">,</span>
+ 
+       <span class="n">PARTITION</span> <span class="n">p1</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">6000000</span><span class="p">)</span>
+       <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data2/data&#39;</span>
+       <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data3/idx&#39;</span><span class="p">,</span>
+ 
+       <span class="n">PARTITION</span> <span class="n">p2</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">9000000</span><span class="p">)</span>
+       <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data4/data&#39;</span>
+       <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data5/idx&#39;</span><span class="p">,</span>
+ 
+       <span class="n">PARTITION</span> <span class="n">p3</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="n">THAN</span> <span class="n">MAXVALUE</span>    
+       <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data6/data&#39;</span> 
+       <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data7/idx&#39;</span>
+<span class="p">);</span>
+</code></pre></div><p>在这里，将用户表分成4个分区，以每300万条记录为界限，每个分区都有自己独立的数据、索引文件的存放目录，与此同时，这些目录所在的物理磁盘分区可能也都是完全独立的，可以提高磁盘IO吞吐量</p>
+<p><strong>LIST类型</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">category</span> <span class="p">(</span>
+     <span class="n">cid</span> <span class="kt">INT</span> <span class="k">UNSIGNED</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+     <span class="n">name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">PARTITION</span> <span class="k">BY</span> <span class="nf">LIST</span> <span class="p">(</span><span class="n">cid</span><span class="p">)</span> <span class="p">(</span>
+     <span class="n">PARTITION</span> <span class="n">p0</span> <span class="k">VALUES</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data0/data&#39;</span> 
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data1/idx&#39;</span><span class="p">,</span>
+     
+     <span class="n">PARTITION</span> <span class="n">p1</span> <span class="k">VALUES</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">13</span><span class="p">)</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data2/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data3/idx&#39;</span><span class="p">,</span>
+     
+     <span class="n">PARTITION</span> <span class="n">p2</span> <span class="k">VALUES</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">14</span><span class="p">)</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data4/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data5/idx&#39;</span><span class="p">,</span>
+     
+     <span class="n">PARTITION</span> <span class="n">p3</span> <span class="k">VALUES</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data6/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data7/idx&#39;</span>
+<span class="p">);</span>
+</code></pre></div><p>分成4个区，数据文件和索引文件单独存放</p>
+<p><strong>HASH类型</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">users</span> <span class="p">(</span>
+     <span class="n">uid</span> <span class="kt">INT</span> <span class="k">UNSIGNED</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+     <span class="n">name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">email</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">PARTITION</span> <span class="k">BY</span> <span class="nf">HASH</span> <span class="p">(</span><span class="n">uid</span><span class="p">)</span> <span class="n">PARTITIONS</span> <span class="mi">4</span> <span class="p">(</span>
+     <span class="n">PARTITION</span> <span class="n">p0</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data0/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data1/idx&#39;</span><span class="p">,</span>
+ 
+     <span class="n">PARTITION</span> <span class="n">p1</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data2/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data3/idx&#39;</span><span class="p">,</span>
+ 
+     <span class="n">PARTITION</span> <span class="n">p2</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data4/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data5/idx&#39;</span><span class="p">,</span>
+ 
+     <span class="n">PARTITION</span> <span class="n">p3</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data6/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data7/idx&#39;</span>
+<span class="p">);</span>
+</code></pre></div><p><strong>KEY类型</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">users</span> <span class="p">(</span>
+     <span class="n">uid</span> <span class="kt">INT</span> <span class="k">UNSIGNED</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+     <span class="n">name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">email</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">PARTITION</span> <span class="k">BY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">uid</span><span class="p">)</span> <span class="n">PARTITIONS</span> <span class="mi">4</span> <span class="p">(</span>
+     <span class="n">PARTITION</span> <span class="n">p0</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data0/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data1/idx&#39;</span><span class="p">,</span>
+     
+     <span class="n">PARTITION</span> <span class="n">p1</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data2/data&#39;</span> 
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data3/idx&#39;</span><span class="p">,</span>
+     
+     <span class="n">PARTITION</span> <span class="n">p2</span> 
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data4/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data5/idx&#39;</span><span class="p">,</span>
+     
+     <span class="n">PARTITION</span> <span class="n">p3</span> 
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data6/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data7/idx&#39;</span>
+<span class="p">);</span>
+</code></pre></div><p>分成4个区，数据文件和索引文件单独存放</p>
+<p><strong>子分区</strong></p>
+<p>子分区是针对RANGE/LIST类型的分区表中每个分区的再次分割。再次分割可以是HASH/KEY等类型。</p>
+<p>对RANGE分区再次进行子分区划分，子分区采用HASH类型：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">users</span> <span class="p">(</span>
+     <span class="n">uid</span> <span class="kt">INT</span> <span class="k">UNSIGNED</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+     <span class="n">name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">email</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">PARTITION</span> <span class="k">BY</span> <span class="nf">RANGE</span> <span class="p">(</span><span class="n">uid</span><span class="p">)</span> <span class="n">SUBPARTITION</span> <span class="k">BY</span> <span class="nf">HASH</span> <span class="p">(</span><span class="n">uid</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)</span> <span class="n">SUBPARTITIONS</span> <span class="mi">2</span><span class="p">(</span>
+     <span class="n">PARTITION</span> <span class="n">p0</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">3000000</span><span class="p">)</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data0/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data1/idx&#39;</span><span class="p">,</span>
+ 
+     <span class="n">PARTITION</span> <span class="n">p1</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">6000000</span><span class="p">)</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data2/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data3/idx&#39;</span>
+<span class="p">);</span>
+</code></pre></div><p>或者</p>
+<p>对RANGE分区再次进行子分区划分，子分区采用KEY类型：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">users</span> <span class="p">(</span>
+     <span class="n">uid</span> <span class="kt">INT</span> <span class="k">UNSIGNED</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+     <span class="n">name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+     <span class="n">email</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">DEFAULT</span> <span class="s1">&#39;&#39;</span>
+<span class="p">)</span>
+<span class="n">PARTITION</span> <span class="k">BY</span> <span class="nf">RANGE</span> <span class="p">(</span><span class="n">uid</span><span class="p">)</span> <span class="n">SUBPARTITION</span> <span class="k">BY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span> <span class="n">SUBPARTITIONS</span> <span class="mi">2</span><span class="p">(</span>
+     <span class="n">PARTITION</span> <span class="n">p0</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">3000000</span><span class="p">)</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data0/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data1/idx&#39;</span><span class="p">,</span>
+ 
+     <span class="n">PARTITION</span> <span class="n">p1</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">6000000</span><span class="p">)</span>
+     <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data2/data&#39;</span>
+     <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data3/idx&#39;</span>
+<span class="p">);</span>
+</code></pre></div><h3 id="分区管理">分区管理</h3>
+<p><strong>获取分区信息</strong></p>
+<p>MySQL可以通过如下方式来获取分区表的信息：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="k">create</span> <span class="k">table</span> <span class="n">tbl_name</span><span class="p">;</span> <span class="c1">-- 表详细结构 --
+</span><span class="c1"></span><span class="k">show</span> <span class="k">table</span> <span class="n">status</span><span class="p">;</span> <span class="c1">-- 表的各种参数状态 --
+</span><span class="c1"></span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">partitions</span><span class="p">;</span> <span class="c1">-- 通过数据字典来查看表的分区信息 --
+</span><span class="c1"></span><span class="k">explain</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">tbl_name</span><span class="p">;</span> <span class="c1">-- 通过此语句查到若干信息，里面有一个partitions能显示扫描哪些分区，结合其他字段我们能知道它们的使用情况 --
+</span></code></pre></div><p><strong>删除分区</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tbl_name</span> <span class="k">DROP</span> <span class="n">PARTITION</span> <span class="n">p0</span><span class="p">;</span> <span class="c1">#删除分区 p0
+</span></code></pre></div><p><strong>删除所有分区</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">tbl_name</span> <span class="n">REMOVE</span> <span class="n">PARTITIONING</span><span class="p">;</span>
+</code></pre></div><p><strong>重建分区</strong></p>
+<ul>
+<li>
+<p>RANGE分区重建</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">users</span> <span class="n">REORGANIZE</span> <span class="n">PARTITION</span> <span class="n">p0</span><span class="p">,</span><span class="n">p1</span> <span class="k">INTO</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">p0</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">6000000</span><span class="p">));</span>  <span class="c1">#将原来的 p0,p1 分区合并起来，放到新的 p0 分区中。
+</span></code></pre></div></li>
+<li>
+<p>LIST分区重建</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">users</span> <span class="n">REORGANIZE</span> <span class="n">PARTITION</span> <span class="n">p0</span><span class="p">,</span><span class="n">p1</span> <span class="k">INTO</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">p0</span> <span class="k">VALUES</span> <span class="k">IN</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">));</span><span class="c1">#将原来的 p0,p1 分区合并起来，放到新的 p0 分区中。
+</span></code></pre></div></li>
+<li>
+<p>HASH/KEY分区重建</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">users</span> <span class="n">REORGANIZE</span> <span class="n">PARTITION</span> <span class="n">COALESCE</span> <span class="n">PARTITION</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">#用 REORGANIZE 方式重建分区的数量变成2，在这里数量只能减少不能增加。想要增加可以用 ADD PARTITION 方法。
+</span></code></pre></div></li>
+</ul>
+<p><strong>新增分区</strong></p>
+<ul>
+<li>
+<p>新增RANGE分区</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">#新增一个RANGE分区
+</span><span class="c1"></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">category</span> <span class="k">ADD</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">PARTITION</span> <span class="n">p4</span> <span class="k">VALUES</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">)</span>
+            <span class="n">DATA</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data8/data&#39;</span>
+            <span class="k">INDEX</span> <span class="n">DIRECTORY</span> <span class="o">=</span> <span class="s1">&#39;/data9/idx&#39;</span><span class="p">);</span>
+</code></pre></div></li>
+<li>
+<p>新增HASH/KEY分区</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">users</span> <span class="k">ADD</span> <span class="n">PARTITION</span> <span class="n">PARTITIONS</span> <span class="mi">8</span><span class="p">;</span>   <span class="c1">#将分区总数扩展到8个。
+</span></code></pre></div></li>
+<li>
+<p>给已有的表加上分区</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">alter</span> <span class="k">table</span> <span class="n">results</span> <span class="n">partition</span> <span class="k">by</span> <span class="nf">RANGE</span> <span class="p">(</span><span class="nf">month</span><span class="p">(</span><span class="n">ttime</span><span class="p">))</span> 
+<span class="p">(</span><span class="n">PARTITION</span> <span class="n">p0</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">,</span> <span class="n">PARTITION</span> <span class="n">p1</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">,</span> 
+ <span class="n">PARTITION</span> <span class="n">p2</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="p">,</span> <span class="n">PARTITION</span> <span class="n">p3</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="p">,</span> 
+ <span class="n">PARTITION</span> <span class="n">p4</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="p">,</span> <span class="n">PARTITION</span> <span class="n">p5</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="p">,</span> 
+ <span class="n">PARTITION</span> <span class="n">p6</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="p">,</span> <span class="n">PARTITION</span> <span class="n">p7</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="p">,</span> 
+ <span class="n">PARTITION</span> <span class="n">p8</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">9</span><span class="p">)</span> <span class="p">,</span> <span class="n">PARTITION</span> <span class="n">p9</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">,</span>
+ <span class="n">PARTITION</span> <span class="n">p10</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">11</span><span class="p">),</span> <span class="n">PARTITION</span> <span class="n">p11</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">12</span><span class="p">),</span>
+ <span class="n">PARTITION</span> <span class="n">P12</span> <span class="k">VALUES</span> <span class="n">LESS</span> <span class="nf">THAN</span> <span class="p">(</span><span class="mi">13</span><span class="p">));</span>
+</code></pre></div></li>
+</ul>
+<p><em><strong>默认分区限制分区字段必须是主键（PRIMARY KEY）的一部分，为了除去此限制：</strong></em></p>
+<ul>
+<li>
+<p>方法一</p>
+<p>使用ID：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">np_pk</span>
+    <span class="o">-&gt;</span>     <span class="n">PARTITION</span> <span class="k">BY</span> <span class="nf">HASH</span><span class="p">(</span> <span class="nf">TO_DAYS</span><span class="p">(</span><span class="n">added</span><span class="p">)</span> <span class="p">)</span>
+    <span class="o">-&gt;</span>     <span class="n">PARTITIONS</span> <span class="mi">4</span><span class="p">;</span>
+<span class="c1">#ERROR 1503 (HY000): A PRIMARY KEY must include all columns in the table&#39;s partitioning function
+</span><span class="c1"></span>  
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">np_pk</span>
+    <span class="o">-&gt;</span>     <span class="n">PARTITION</span> <span class="k">BY</span> <span class="nf">HASH</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+    <span class="o">-&gt;</span>     <span class="n">PARTITIONS</span> <span class="mi">4</span><span class="p">;</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="n">rows</span> <span class="nf">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">11</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">Records</span><span class="p">:</span> <span class="mi">0</span> <span class="n">Duplicates</span><span class="p">:</span> <span class="mi">0</span> <span class="n">Warnings</span><span class="p">:</span> <span class="mi">0</span>
+</code></pre></div></li>
+<li>
+<p>方法二</p>
+<p>将原有pk去掉生成新的pk：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">alter</span> <span class="k">table</span> <span class="n">results</span> <span class="k">drop</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">;</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">results</span> <span class="k">add</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">ttime</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+<h3 id="分区维护">分区维护</h3>
+<p>对于分区表，MySQL不支持命令CHECK TABLE，OPTIMIZE TABLE，ANALYZE TABLE，或REPAIR TABLE。作为替代，可以使用ALTER TABLE 的许多扩展来在一个或多个分区上直接地执行这些操作，如下面列出的那样：</p>
+<p><strong>重建分区</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">t1</span> <span class="n">REBUILD</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">)</span><span class="err">；</span>
+</code></pre></div><p>优化分区：如果从分区中删除了大量的行，或者对一个带有可变长度的行（也就是说，有VARCHAR，BLOB，或TEXT类型的列）作了许多修改，可以使用“ALTER TABLE &hellip; OPTIMIZE PARTITION”来收回没有使用的空间，并整理分区数据文件的碎片</p>
+<p><strong>优化分区</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">#在一个给定的分区表上使用“OPTIMIZE PARTITION”等同于在那个分区上运行CHECK PARTITION，ANALYZE PARTITION，和REPAIR PARTITION。 
+</span><span class="c1"></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">t1</span> <span class="k">OPTIMIZE</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">)</span><span class="err">；</span>
+</code></pre></div><p><strong>分析分区</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">#读取并保存分区的键分布
+</span><span class="c1"></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">t1</span> <span class="k">ANALYZE</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">p3</span><span class="p">)</span><span class="err">；</span>
+</code></pre></div><p><strong>修补分区</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">#修补被破坏的分区。
+</span><span class="c1"></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">t1</span> <span class="n">REPAIR</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">p0</span><span class="p">,</span><span class="n">p1</span><span class="p">);</span>
+</code></pre></div><p><strong>检查分区</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="c1">#可以使用几乎与对非分区表使用CHECK TABLE 相同的方式检查分区
+</span><span class="c1">#这个命令可以告诉你表t1的分区p1中的数据或索引是否已经被破坏。如果发生了这种情况，使用“ALTER TABLE ... REPAIR PARTITION”来修补该分区
+</span><span class="c1"></span><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">t1</span> <span class="k">CHECK</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">p1</span><span class="p">)</span><span class="err">；</span>
+<span class="c1">#还可以使用mysqlcheck或myisamchk 应用程序，在对表进行分区时所产生的、单独的MYI文件上进行操作，来完成这些任务。
+</span></code></pre></div><h2 id="mysiam支持的并发插入">MYSIAM支持的并发插入</h2>
+<p>在一定条件下，MYSIAM表也支持查询和插入操作的并发进行</p>
+<p>MYSIAM存储引擎有一个系统变量concurrent_insert，专门用以控制其并发插入的行为，其值可以为0、1、2</p>
+<ul>
+<li>0：不允许并发插入</li>
+<li>1：如果mysiam表中没有空洞（即表的中间没有被删除的行），mysiam允许在一个进程读表的同时，另一个进程从表尾插入记录，这也是mysiam的默认设置，如果有空洞的话虽然不能很好地并发，但是mysql还是可以使用insert delayed来提升插入性能（仅适用于mysiam、memory、archive引擎）</li>
+<li>2：无论mysiam表中是否有空洞，都允许在表尾并发插入记录，这时MySQL允许insert和select语句在中间没有空数据块的mysiam表中并行运行</li>
+</ul>
+<h2 id="引擎">引擎</h2>
+<h3 id="memory引擎">MEMORY引擎</h3>
+<p>内存表，一般用于存放临时数据，关闭数据库服务之后数据全部丢失</p>
+<p>可通过ma_heap_table_size（默认16MB）控制Memory表的大小</p>
 <h2 id="函数">函数</h2>
 <h3 id="group_concat">group_concat()</h3>
 <p>语法：</p>
@@ -1154,7 +1643,61 @@ INDEX 也可以。</p>
 <p>法二：在会话中实现，全局或当前session中：</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">SET</span> <span class="n">GLOBAL</span> <span class="n">group_concat_max_len</span> <span class="o">=</span> <span class="mi">10240</span><span class="p">;</span>
 <span class="kt">SET</span> <span class="n">SESSION</span> <span class="n">group_concat_max_len</span> <span class="o">=</span> <span class="mi">10240</span><span class="p">;</span>
-</code></pre></div>
+</code></pre></div><h3 id="default">DEFAULT()</h3>
+<p>DEFAULT()函数返回表列的默认值</p>
+<p>列的DEFAULT值实在没有用户指定的情况下使用的值</p>
+<p>为了使用该函数，应该为该列分配一个DEFAULT值，否则会产生错误</p>
+<p>用法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="k">DEFAULT</span><span class="p">(</span><span class="n">col_name</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">tbl_name</span><span class="p">;</span>
+</code></pre></div><h3 id="last_insert_id">LAST_INSERT_ID()</h3>
+<p>LAST_INSERT_ID()、LAST_INSERT_ID(<em>expr</em>)</p>
+<p>自动返回最后一个INSERT或 UPDATE 问询为 AUTO_INCREMENT列设置的第一个 发生的值。</p>
+<pre><code>mysql&gt; SELECT LAST_INSERT_ID();
+     -&gt; 195
+</code></pre><p>产生的ID 每次连接后保存在服务器中。这意味着函数向一个给定客户端返回的值是该客户端产生对影响AUTO_INCREMENT列的最新语句第一个 AUTO_INCREMENT值的。这个值不能被其它客户端影响，即使它们产生它们自己的AUTO_INCREMENT值。这个行为保证了你能够找回自己的 ID 而不用担心其它客户端的活动，而且不需要加锁或处理。（因为last_insert_id是针对connection的）</p>
+<p>假如你使用一个非“magic”值来更新某一行的AUTO_INCREMENT 列，则LAST_INSERT_ID() 的值不会变化(换言之, 一个不是 NULL也不是 0的值)。</p>
+<p><strong>重点</strong>: 假如你使用单INSERT语句插入多个行， LAST_INSERT_ID() <em>只</em>返回插入的<em>第一</em>行产生的值。其原因是这使依靠其它服务器复制同样的 INSERT语句变得简单。</p>
+<p>例如：</p>
+<pre><code>mysql&gt; USE test;
+Database changed
+mysql&gt; CREATE TABLE t (
+    -&gt;   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    -&gt;   name VARCHAR(10) NOT NULL
+    -&gt; );
+
+mysql&gt; INSERT INTO t VALUES (NULL, 'Bob');
+
+mysql&gt; SELECT * FROM t;
++----+------+| id | name |
++----+------+|  1 | Bob  |
+
+mysql&gt; SELECT LAST_INSERT_ID();
+     -&gt; 1;
+mysql&gt; INSERT INTO t VALUES  (NULL, 'Mary'), (NULL, 'Jane'), (NULL, 'Lisa');
+mysql&gt; SELECT * FROM t;
++----+------+
+| id | name |
+|  1 | Bob  |
+|  2 | Mary |
+|  3 | Jane |
+|  4 | Lisa |
++----+------+
+mysql&gt; SELECT LAST_INSERT_ID();
+    -&gt;2;
+</code></pre><p>虽然第二个问询将3 个新行插入 t, 对这些行的第一行产生的 ID 为 2, 这也是 LAST_INSERT_ID()返回的值。</p>
+<p>假如你使用 INSERT IGNORE而记录被忽略，则AUTO_INCREMENT 计数器不会增量，而 LAST_INSERT_ID() 返回0, 这反映出没有插入任何记录。</p>
+<p><strong>常用用法</strong></p>
+<p>若给出作为到LAST_INSERT_ID()的参数<em>expr</em> ，则参数的值被函数返回，并作为被LAST_INSERT_ID()返回的下一个值而被记忆。这可用于模拟序列：</p>
+<pre><code>创建一个表，用来控制顺序计数器并使其初始化：
+mysql&gt; CREATE TABLE sequence (id INT NOT NULL);
+mysql&gt; INSERT INTO sequence VALUES (0);
+</code></pre><p>使用该表产生这样的序列数 ：</p>
+<pre><code>mysql&gt; UPDATE sequence SET id=LAST_INSERT_ID(id+1);
+mysql&gt; SELECT LAST_INSERT_ID();
+    -&gt;1;
+</code></pre><p>UPDATE 语句会增加顺序计数器并引发向LAST_INSERT_ID() 的下一次调用，用来返回升级后的值。 SELECT 语句会检索这个值。 mysql_insert_id()、C API函数也可用于获取这个值。</p>
+<p>你可以不用调用LAST_INSERT_ID()而产生序列，但这样使用这个函数的效用在于 ID值被保存在服务器中，作为自动产生的值。它适用于多个用户，原因是多个用户均可使用 UPDATE语句并用SELECT语句(或mysql_insert_id()),得到他们自己的序列值，而不会影响其它产生他们自己的序列值的客户端或被其它产生他们自己的序列值的客户端所影响。</p>
+<p>注意： mysql_insert_id() 仅会在INSERT 和UPDATE语句后面被升级， 因此你不能在执行了其它诸如SELECT或 SET 这样的SQL语句后使用 C API 函数来找回 LAST_INSERT_ID(<em>expr</em>) 对应的值。</p>
   </section>
 
   <section>
@@ -1183,8 +1726,13 @@ INDEX 也可以。</p>
       </ul>
     </li>
     <li><a href="#check检查表的状况查看表是否损坏">CHECK检查表的状况（查看表是否损坏）</a></li>
+    <li><a href="#analyze关键字">ANALYZE关键字</a></li>
     <li><a href="#repair-table修复表">repair table修复表★</a></li>
     <li><a href="#innodb数据损坏修复">InnoDB数据损坏修复</a></li>
+    <li><a href="#optimize关键字">OPTIMIZE关键字</a></li>
+    <li><a href="#duplicate关键字">DUPLICATE关键字</a></li>
+    <li><a href="#delayed关键字">DELAYED关键字</a></li>
+    <li><a href="#ignore关键字">IGNORE关键字</a></li>
     <li><a href="#筛选并查看变量">筛选并查看变量</a></li>
     <li><a href="#generated-column">generated column</a>
       <ul>
@@ -1195,6 +1743,7 @@ INDEX 也可以。</p>
     <li><a href="#unsigned类型">unsigned类型</a></li>
     <li><a href="#zerofill">ZEROFILL</a></li>
     <li><a href="#comment">COMMENT</a></li>
+    <li><a href="#replace-into">REPLACE INTO</a></li>
     <li><a href="#内连接外连接">内连接、外连接</a></li>
     <li><a href="#外键约束on-delete和on-update的使用">外键约束（on delete和on update）的使用</a></li>
     <li><a href="#外键约束以及建立索引-create-index">外键约束以及建立索引（ create index）</a></li>
@@ -1235,9 +1784,26 @@ INDEX 也可以。</p>
         <li><a href="#information_schema库详解存放mysql的元数据">information_schema库详解（存放MySQL的元数据）</a></li>
       </ul>
     </li>
+    <li><a href="#maxvalue关键字">MAXVALUE关键字</a></li>
+    <li><a href="#mysql分区partition功能">MySQL分区（partition）功能</a>
+      <ul>
+        <li><a href="#分区表和未分区表试验过程">分区表和未分区表试验过程</a></li>
+        <li><a href="#分区命令详解">分区命令详解</a></li>
+        <li><a href="#分区管理">分区管理</a></li>
+        <li><a href="#分区维护">分区维护</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysiam支持的并发插入">MYSIAM支持的并发插入</a></li>
+    <li><a href="#引擎">引擎</a>
+      <ul>
+        <li><a href="#memory引擎">MEMORY引擎</a></li>
+      </ul>
+    </li>
     <li><a href="#函数">函数</a>
       <ul>
         <li><a href="#group_concat">group_concat()</a></li>
+        <li><a href="#default">DEFAULT()</a></li>
+        <li><a href="#last_insert_id">LAST_INSERT_ID()</a></li>
       </ul>
     </li>
   </ul>

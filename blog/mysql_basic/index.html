@@ -148,7 +148,27 @@ mysql&gt; grant all privileges on <em>.</em> to &lsquo;yangxin&rsquo;@'%' identi
 <p>二、刷新权限<br>
 对用户做了权限变更之后，一定记得重新加载一下权限，将权限信息从内存中写入数据库。</p>
 <p>mysql&gt; flush privileges;</p>
-<h3 id="查看当前库">查看当前库</h3>
+<h3 id="表文件结构innodbmyisam和memory的">表文件结构（innodb、myisam和memory的）</h3>
+<p><img src="/mysql_basic/image-20210410201523552.png" alt="image-20210410201523552"></p>
+<h3 id="innodb的独立表空间和共享表空间">Innodb的独立表空间和共享表空间</h3>
+<p><strong>共享表空间优点</strong></p>
+<p>表空间可以分成多个文件存放到各个磁盘，所以表也就可以分成多个文件存放在磁盘上，表的大小不受磁盘大小的限制（很多文档描述有点问题）。</p>
+<p>数据和文件放在一起方便管理。</p>
+<p><strong>共享表空间缺点</strong></p>
+<p>所有的数据和索引存放到一个文件，虽然可以把一个大文件分成多个小文件，但是多个表及索引在表空间中混合存储，当数据量非常大的时候，表做了大量删除操作后表空间中将会有大量的空隙，特别是对于统计分析，对于经常删除操作的这类应用最不适合用共享表空间。</p>
+<p>共享表空间分配后不能回缩：当出现临时建索引或是创建一个临时表的操作表空间扩大后，就是删除相关的表也没办法回缩那部分空间了（可以理解为oracle的表空间10G，但是才使用10M，但是操作系统显示mysql的表空间为10G），进行数据库的冷备很慢；</p>
+<p><strong>独立表空间优点</strong></p>
+<p>每个表都有自已独立的表空间，每个表的数据和索引都会存在自已的表空间中，可以实现单表在不同的数据库中移动。</p>
+<p>空间可以回收（除drop table操作处，表空不能自已回收）</p>
+<p>Drop table操作自动回收表空间，如果对于统计分析或是日值表，删除大量数据后可以通过:alter table TableName engine=innodb;回缩不用的空间。</p>
+<p>对于使innodb-plugin的Innodb使用turncate table也会使空间收缩。</p>
+<p>对于使用独立表空间的表，不管怎么删除，表空间的碎片不会太严重的影响性能，而且还有机会处理。</p>
+<p><strong>独立表空间缺点</strong></p>
+<p>单表增加过大，当单表占用空间过大时，存储空间不足，只能从操作系统层面思考解决方法；</p>
+<p><strong>共享表空间和独立表空间之间的互换</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span> <span class="n">VARIABLES</span> <span class="k">LIKE</span> <span class="s2">&#34;innodb_file_per_table&#34;</span><span class="p">;</span>
+<span class="c1">-- ON表示独立表空间管理，OFF表示共享表空间管理 --
+</span></code></pre></div><h3 id="查看当前库">查看当前库</h3>
 <p>mysql&gt; select database();</p>
 <h3 id="执行计划explain">执行计划（EXPLAIN）</h3>
 <p>类似于DESC，在语句前添加关键字EXPLAIN后显示一些信息。https://www.cnblogs.com/yinjw/p/11864477.html</p>
@@ -231,6 +251,8 @@ time_zone=’+9:00’意思是把时区设置为东9区，这个时候TIMESTAMP�
 <p>&ndash;</p>
 <h3 id="查看表结构">查看表结构</h3>
 <p>DESC 表名;</p>
+<h3 id="查看表的各种参数状态">查看表的各种参数状态</h3>
+<p>SHOW TABLE STATUS;</p>
 <h3 id="查看表索引约束">查看表索引约束</h3>
 <p>SHOW INDEX FROM 表名；</p>
 <p><img src="/mysql_basic/cc83e0656a57c18a17389c7995ee87f1.png" alt=""></p>
@@ -240,7 +262,9 @@ time_zone=’+9:00’意思是把时区设置为东9区，这个时候TIMESTAMP�
 <p>加这个字段表示查询的时候不被缓存干扰</p>
 <p>示例：</p>
 <p><img src="/mysql_basic/6dec475adb8cf5eae650f99b4d9f7fea.png" alt=""></p>
-<h2 id="数据类型">数据类型</h2>
+<h3 id="查看innodb引擎状态">查看innodb引擎状态</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="kp">ENGINE</span> <span class="n">innodb</span> <span class="n">status</span><span class="p">;</span>
+</code></pre></div><h2 id="数据类型">数据类型</h2>
 <p><img src="/mysql_basic/c054897ef402f0dd123dd889966a7f7e.png" alt=""></p>
 <p><img src="/mysql_basic/f11198227324e85a34fae1f513732df0.png" alt=""></p>
 <ol>
@@ -382,6 +406,19 @@ null default &lsquo;'（列名 新类型 新约束）;</p>
 <p>Alter table 表 convert to character set ‘utf8’;</p>
 <h3 id="删除表安全方式">删除表（安全方式）</h3>
 <p><img src="/mysql_basic/66c47574c09fa274fd3b830aa253823f.png" alt=""></p>
+<h3 id="临时表">临时表</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="n">TEMPORARY</span> <span class="k">TABLE</span> <span class="n">tbl_name</span><span class="p">...</span>
+</code></pre></div><p>当断开数据库链接的时候，临时表就会自动销毁，当然也可以使用drop table命令删除临时表</p>
+<p>也可以直接将查询结果导入临时表：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="n">TEMPORARY</span> <span class="k">TABLE</span> <span class="n">tbl_name</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">source_tbl_name</span>
+</code></pre></div><p>另外，MySQL也允许在内存中直接创建临时表，因为在内存中速度会很快，语法如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="n">TEMPORARY</span> <span class="k">TABLE</span> <span class="nf">tmp_table</span> <span class="p">(</span>
+    <span class="n">name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span><span class="p">,</span>
+    <span class="n">value</span> <span class="kt">INTEGER</span> <span class="k">NOT</span> <span class="no">NULL</span>
+<span class="p">)</span> <span class="n">TYPE</span> <span class="o">=</span> <span class="n">HEAP</span><span class="p">;</span>
+</code></pre></div><p><strong>myisam、innodb、memory表文件比较：</strong></p>
+<p><img src="/mysql_basic/image-20210410202053333.png" alt="image-20210410202053333"></p>
+<p>由此可见innodb开销相对较大，不适合作为临时表</p>
 <h2 id="增删改查">增删改查</h2>
 <h3 id="增">增</h3>
 <h4 id="方法一">方法一</h4>
@@ -1286,6 +1323,8 @@ check(id&gt;0)或者drop check check_name</p>
       <ul>
         <li><a href="#mysql-80修改密码">mysql 8.0修改密码</a></li>
         <li><a href="#用户授权">用户授权</a></li>
+        <li><a href="#表文件结构innodbmyisam和memory的">表文件结构（innodb、myisam和memory的）</a></li>
+        <li><a href="#innodb的独立表空间和共享表空间">Innodb的独立表空间和共享表空间</a></li>
         <li><a href="#查看当前库">查看当前库</a></li>
         <li><a href="#执行计划explain">执行计划（EXPLAIN）</a></li>
         <li><a href="#配置文件">配置文件</a></li>
@@ -1309,9 +1348,11 @@ check(id&gt;0)或者drop check check_name</p>
         <li><a href="#刷新权限">刷新权限</a></li>
         <li><a href="#sql注释">sql注释</a></li>
         <li><a href="#查看表结构">查看表结构</a></li>
+        <li><a href="#查看表的各种参数状态">查看表的各种参数状态</a></li>
         <li><a href="#查看表索引约束">查看表索引约束</a></li>
         <li><a href="#返回建表时的sql语句">返回建表时的sql语句</a></li>
         <li><a href="#sql_no_cache">SQL_NO_CACHE</a></li>
+        <li><a href="#查看innodb引擎状态">查看innodb引擎状态</a></li>
       </ul>
     </li>
     <li><a href="#数据类型">数据类型</a>
@@ -1336,6 +1377,7 @@ check(id&gt;0)或者drop check check_name</p>
         <li><a href="#跨数据库建表">跨数据库建表</a></li>
         <li><a href="#修改表">修改表</a></li>
         <li><a href="#删除表安全方式">删除表（安全方式）</a></li>
+        <li><a href="#临时表">临时表</a></li>
       </ul>
     </li>
     <li><a href="#增删改查">增删改查</a>
