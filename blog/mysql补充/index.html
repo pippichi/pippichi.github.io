@@ -513,6 +513,82 @@ set global validate<span class="nb">_</span>password.length=1;
 <li>对于SELECT语句，DELAYED行不可见，直到这些行确实被插入了为止。</li>
 <li>DELAYED在从属复制服务器中被忽略了，因为DELAYED不会在从属服务器中产生与主服务器不一样的数据。注意，目前在队列中的各行只保存在存储器中，直到它们被插入到表中为止。这意味着，如果你强行终止了mysql或者如果mysql意外停止，则所有没有写入磁盘的行都会丢失。</li>
 </ul>
+<h2 id="cache-index语句">CACHE INDEX语句</h2>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">CACHE</span> <span class="k">INDEX</span> <span class="err">{</span>
+<span class="n">tbl_index_list</span> <span class="p">[,</span> <span class="n">tbl_index_list</span><span class="p">]</span> <span class="p">...</span>
+<span class="o">|</span> <span class="n">tbl_name</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">partition_list</span><span class="p">)</span>
+<span class="err">}</span>
+<span class="k">IN</span> <span class="n">key_cache_name</span>
+<span class="c1">-- tbl_index_list: tbl_name [{INDEX|KEY} (index_name [, index_name] ...)] --
+</span><span class="c1">-- partition_list: {partition_name[, partition_name] ... | ALL} --
+</span></code></pre></div><p>CACHE INDEX语句将表索引分配给特定的键缓存。它只适用于MyISAM表，包括分区的MyISAM表。分配索引后，如果需要，可以将它们预加载到缓存中，并将索引加载到缓存中。
+以下语句将表t1、t2和t3中的索引分配给名为hot_cache的密钥缓存：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">CACHE</span> <span class="k">INDEX</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t3</span> <span class="k">IN</span> <span class="n">hot_cache</span><span class="p">;</span>
+</code></pre></div><p>CACHE INDEX的语法使您可以指定仅将表中的特定索引分配给高速缓存。但是，该实现将表的所有索引分配给高速缓存，因此，除了表名外，没有其他必要指定任何内容。</p>
+<p>CACHE INDEX可以通过使用参数设置语句或在服务器参数设置中设置其大小来创建语句中 引用的键高速缓存。例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">SET</span> <span class="n">GLOBAL</span> <span class="n">keycache1</span><span class="p">.</span><span class="n">key_buffer_size</span><span class="o">=</span><span class="mi">128</span><span class="o">*</span><span class="mi">1024</span><span class="p">;</span>
+</code></pre></div><p>关键高速缓存参数作为结构化系统变量的成员进行访问。
+在为其分配索引之前，键高速缓存必须存在，否则会发生错误：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">CACHE</span> <span class="k">INDEX</span> <span class="n">t1</span> <span class="k">IN</span> <span class="n">non_existent_cache</span><span class="p">;</span>
+<span class="c1">-- ERROR 1284 (HY000): Unknown key cache &#39;non_existent_cache&#39; -- 
+</span></code></pre></div><p>默认情况下，表索引分配给服务器启动时创建的主（默认）键高速缓存。销毁键高速缓存时，分配给它的所有索引都将重新分配给默认键高速缓存。
+索引分配会全局影响服务器：如果一个客户端将索引分配给给定的缓存，则该缓存将用于涉及该索引的所有查询，无论哪个客户端发出查询。
+CACHE INDEX支持分区MyISAM表。您可以将一个，多个或所有分区的一个或多个索引分配给给定的键高速缓存。例如，您可以执行以下操作：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">pt</span> <span class="p">(</span><span class="n">c1</span> <span class="kt">INT</span><span class="p">,</span> <span class="n">c2</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="k">INDEX</span> <span class="nf">i</span><span class="p">(</span><span class="n">c1</span><span class="p">))</span>
+<span class="kp">ENGINE</span><span class="o">=</span><span class="n">MyISAM</span>
+<span class="n">PARTITION</span> <span class="k">BY</span> <span class="nf">HASH</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
+<span class="n">PARTITIONS</span> <span class="mi">4</span><span class="p">;</span>
+
+<span class="kt">SET</span> <span class="n">GLOBAL</span> <span class="n">kc_fast</span><span class="p">.</span><span class="n">key_buffer_size</span> <span class="o">=</span> <span class="mi">128</span> <span class="mi">1024</span><span class="p">;</span>
+<span class="kt">SET</span> <span class="n">GLOBAL</span> <span class="n">kc_slow</span><span class="p">.</span><span class="n">key_buffer_size</span> <span class="o">=</span> <span class="mi">128</span> <span class="mi">1024</span><span class="p">;</span>
+
+<span class="n">CACHE</span> <span class="k">INDEX</span> <span class="n">pt</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">p0</span><span class="p">)</span> <span class="k">IN</span> <span class="n">kc_fast</span><span class="p">;</span>
+<span class="n">CACHE</span> <span class="k">INDEX</span> <span class="n">pt</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p3</span><span class="p">)</span> <span class="k">IN</span> <span class="n">kc_slow</span><span class="p">;</span>
+</code></pre></div><p>上一组语句执行以下操作：</p>
+<p>创建一个包含4个分区的分区表；这些分区会自动命名为p0，&hellip;，p3; 该表的索引名为 icolumn c1。</p>
+<p>创建两个名为kc_fast和的 密钥缓存kc_slow</p>
+<p>受让人为分区的索引p0的 kc_fast键缓存和用于分区的索引p1和p3 到kc_slow键缓存; 其余分区的索引（p2）使用服务器的默认键缓存。</p>
+<p>如果希望将表中所有分区的索引分配给pt名为的单个键高速缓存 kc_all，则可以使用以下两个语句之一：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="n">CACHE</span> <span class="k">INDEX</span> <span class="n">pt</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="k">ALL</span><span class="p">)</span> <span class="k">IN</span> <span class="n">kc_all</span><span class="p">;</span>
+<span class="n">CACHE</span> <span class="k">INDEX</span> <span class="n">pt</span> <span class="k">IN</span> <span class="n">kc_all</span><span class="p">;</span>
+</code></pre></div><p>上面两个语句是等效的，发出其中一个具有完全相同的效果。换句话说，如果您希望将分区表的所有分区的索引分配给同一键高速缓存，则该PARTITION (ALL)子句是可选的。</p>
+<p>在将多个分区的索引分配给键高速缓存时，这些分区不必是连续的，并且您无需以任何特定顺序列出其名称。未明确分配给键高速缓存的任何分区的索引将自动使用服务器默认键高速缓存。</p>
+<p>分区MyISAM表还支持索引预加载 。</p>
+<h2 id="load-index-into-cache语句">LOAD INDEX INTO CACHE语句</h2>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">LOAD</span> <span class="k">INDEX</span> <span class="k">INTO</span> <span class="n">CACHE</span><span class="err">{</span>
+<span class="n">tbl_index_list</span> <span class="p">[,</span> <span class="n">tbl_index_list</span><span class="p">]</span> <span class="p">...</span>
+<span class="o">|</span> <span class="n">tbl_name</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">partition_list</span><span class="p">)</span>
+<span class="err">}</span>
+
+<span class="c1">-- tbl_index_list:
+</span><span class="c1">--  tbl_name
+</span><span class="c1">--    [PARTITION (partition_list)]
+</span><span class="c1">--    [{INDEX|KEY} (index_name[, index_name] ...)]
+</span><span class="c1">--    [IGNORE LEAVES]
+</span><span class="c1"></span>
+<span class="c1">-- partition_list: {
+</span><span class="c1">--    partition_name[, partition_name] ...
+</span><span class="c1">--  | ALL
+</span><span class="c1">-- }
+</span></code></pre></div><p>LOAD INDEX INTO CACHE语句将表索引预加载到由显式CACHE INDEX语句为其分配的键高速缓存中，否则预加载 到默认键高速缓存中。
+LOAD INDEX INTO CACHE仅适用于MyISAM 表，包括分区MyISAM表。此外，分区表上的索引可以预载一个，几个或所有分区。</p>
+<p>所述IGNORE LEAVES改性剂导致要预装只为索引的非叶结点的块。</p>
+<p>IGNORE LEAVES分区MyISAM表也受支持。</p>
+<p>以下语句为表t1和的索引预加载节点（索引块）t2：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">LOAD</span> <span class="k">INDEX</span> <span class="k">INTO</span> <span class="n">CACHE</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span> <span class="k">IGNORE</span> <span class="n">LEAVES</span><span class="p">;</span>
+</code></pre></div><p>该语句从中预加载所有索引块 t1。它仅从中预加载非叶节点的块t2。</p>
+<p>的语法LOAD INDEX INTO CACHE使您可以指定仅应预加载表中的特定索引。但是，该实现将表的所有索引都预加载到缓存中，因此，除了表名外，没有其他必要指定其他内容。</p>
+<p>可以在分区MyISAM表的特定分区上预加载索引。例如，在以下2条语句中，第一条预加载已分区表pt的分区p0的索引，而第二条预加载同一表的分区p1和p3的索引：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">LOAD</span> <span class="k">INDEX</span> <span class="k">INTO</span> <span class="n">CACHE</span> <span class="n">pt</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">p0</span><span class="p">);</span>
+<span class="k">LOAD</span> <span class="k">INDEX</span> <span class="k">INTO</span> <span class="n">CACHE</span> <span class="n">pt</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p3</span><span class="p">);</span>
+</code></pre></div><p>要预加载table中所有分区的索引 pt，可以使用以下两个语句之一：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">LOAD</span> <span class="k">INDEX</span> <span class="k">INTO</span> <span class="n">CACHE</span> <span class="n">pt</span> <span class="nf">PARTITION</span> <span class="p">(</span><span class="k">ALL</span><span class="p">);</span>
+<span class="k">LOAD</span> <span class="k">INDEX</span> <span class="k">INTO</span> <span class="n">CACHE</span> <span class="n">pt</span><span class="p">;</span>
+</code></pre></div><p>上面两句是等效的。换句话说，如果您希望为分区表的所有分区预加载索引，则该 PARTITION (ALL)子句是可选的。</p>
+<p>当预加载多个分区的索引时，这些分区不必是连续的，并且您无需以任何特定顺序列出其名称。</p>
+<p>LOAD INDEX INTO CACHE &hellip; IGNORE LEAVES失败，除非表中的所有索引具有相同的块大小。要确定表的索引块大小，请使用myisamchk -dv并检查Blocksize列。</p>
 <h2 id="ignore关键字">IGNORE关键字</h2>
 <p>MySQL提供了ignore用来避免数据的重复插入，若有导致unique key冲突的记录，则该条记录不会被插入到数据库中</p>
 <p>举例：</p>
@@ -1732,6 +1808,8 @@ mysql&gt; SELECT LAST_INSERT_ID();
     <li><a href="#optimize关键字">OPTIMIZE关键字</a></li>
     <li><a href="#duplicate关键字">DUPLICATE关键字</a></li>
     <li><a href="#delayed关键字">DELAYED关键字</a></li>
+    <li><a href="#cache-index语句">CACHE INDEX语句</a></li>
+    <li><a href="#load-index-into-cache语句">LOAD INDEX INTO CACHE语句</a></li>
     <li><a href="#ignore关键字">IGNORE关键字</a></li>
     <li><a href="#筛选并查看变量">筛选并查看变量</a></li>
     <li><a href="#generated-column">generated column</a>
