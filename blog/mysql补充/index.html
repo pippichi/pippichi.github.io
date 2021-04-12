@@ -1774,6 +1774,9 @@ mysql&gt; SELECT LAST_INSERT_ID();
 </code></pre><p>UPDATE 语句会增加顺序计数器并引发向LAST_INSERT_ID() 的下一次调用，用来返回升级后的值。 SELECT 语句会检索这个值。 mysql_insert_id()、C API函数也可用于获取这个值。</p>
 <p>你可以不用调用LAST_INSERT_ID()而产生序列，但这样使用这个函数的效用在于 ID值被保存在服务器中，作为自动产生的值。它适用于多个用户，原因是多个用户均可使用 UPDATE语句并用SELECT语句(或mysql_insert_id()),得到他们自己的序列值，而不会影响其它产生他们自己的序列值的客户端或被其它产生他们自己的序列值的客户端所影响。</p>
 <p>注意： mysql_insert_id() 仅会在INSERT 和UPDATE语句后面被升级， 因此你不能在执行了其它诸如SELECT或 SET 这样的SQL语句后使用 C API 函数来找回 LAST_INSERT_ID(<em>expr</em>) 对应的值。</p>
+<h2 id="属性">属性</h2>
+<h3 id="identity">@@identity</h3>
+<p>跟函数last_insert_id()的返回值一样，@@identity表示的是最近一次向具有identity属性(即自增列)的表插入数据时对应的自增列的值,是系统定义的全局变量。</p>
   </section>
 
   <section>
@@ -1882,6 +1885,11 @@ mysql&gt; SELECT LAST_INSERT_ID();
         <li><a href="#group_concat">group_concat()</a></li>
         <li><a href="#default">DEFAULT()</a></li>
         <li><a href="#last_insert_id">LAST_INSERT_ID()</a></li>
+      </ul>
+    </li>
+    <li><a href="#属性">属性</a>
+      <ul>
+        <li><a href="#identity">@@identity</a></li>
       </ul>
     </li>
   </ul>
