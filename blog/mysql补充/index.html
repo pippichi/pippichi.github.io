@@ -596,7 +596,33 @@ LOAD INDEX INTO CACHE仅适用于MyISAM 表，包括分区MyISAM表。此外，�
 <span class="c1">-- 如果有重复记录就会忽略，执行后返回数字0 --
 </span></code></pre></div><p>还有个应用是复制表的时候避免重复记录：</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">INSERT</span> <span class="k">IGNORE</span> <span class="k">INTO</span> <span class="o">`</span><span class="n">tbl_name</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">col</span><span class="o">`</span><span class="p">)</span> <span class="k">SELECT</span> <span class="o">`</span><span class="n">col</span><span class="o">`</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">tbl_name2</span><span class="o">`</span><span class="p">;</span>
-</code></pre></div><h2 id="筛选并查看变量">筛选并查看变量</h2>
+</code></pre></div><h2 id="select--for-update使用方法">SELECT &hellip; FOR UPDATE使用方法</h2>
+<p>作用：</p>
+<p>select for update是为了在查询时，避免其他用户以该表进行插入，修改或删除等操作，造成表的不一致性</p>
+<p>举例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t</span> <span class="k">for</span> <span class="k">update</span><span class="p">;</span> <span class="c1">-- 会等待行锁释放之后，返回查询结果
+</span><span class="c1"></span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t</span> <span class="k">for</span> <span class="k">update</span> <span class="n">nowait</span><span class="p">;</span> <span class="c1">-- 不等待行锁释放，提示锁冲突，不返回结果
+</span><span class="c1"></span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t</span> <span class="k">for</span> <span class="k">update</span> <span class="n">wait</span> <span class="mi">5</span><span class="p">;</span> <span class="c1">-- 等待5秒，若行锁仍未释放，则提示锁冲突，不返回结果
+</span><span class="c1"></span><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t</span> <span class="k">for</span> <span class="k">update</span> <span class="n">skip</span> <span class="n">locked</span><span class="p">;</span> <span class="c1">-- 查询返回查询结果，但忽略有行锁的记录
+</span></code></pre></div><p>select &hellip; for update语句的语法如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="p">...</span> <span class="k">FOR</span> <span class="k">UPDATE</span> <span class="p">[</span><span class="n">OF</span> <span class="n">column_list</span><span class="p">][</span><span class="n">WAIT</span> <span class="n">n</span><span class="o">|</span><span class="n">NOWAIT</span><span class="p">][</span><span class="n">SKIP</span> <span class="n">LOCKED</span><span class="p">];</span>
+<span class="c1">-- 其中：
+</span><span class="c1">-- OF子句用于指定即将更新的列，即锁定行上的特定列
+</span><span class="c1">-- WAIT子句指定等待其他用户释放锁的秒数，防止无限期的等待
+</span><span class="c1"></span>
+<span class="c1">-- 使用FOR UPDATE WAIT子句的优点如下：
+</span><span class="c1">-- 1、防止无限期地等待被锁定的行
+</span><span class="c1">-- 2、允许应用程序中对锁的等待时间进行更多的控制
+</span><span class="c1">-- 3、对于交互式应用程序非常有用，因为这些用户不能等待不确定
+</span><span class="c1">-- 4、若使用了skip locked，则可以越过锁定的行，不会报告由wait n引发的‘资源忙’异常报告
+</span></code></pre></div><p>补充：</p>
+<p>分成两类：加锁范围子句和加锁行为子句</p>
+<p>**加锁范围子句：**在select &hellip; for update之后，可以使用of子句选择对select的特定数据表进行加锁操作。默认情况下，不使用of子句表示在select所有的数据表中加锁</p>
+<p>**加锁行为子句：**当我们进行for update的操作时，与普通select存在很大不同。一般select是不需要考虑数据是否被锁定，最多根据多版本一致读的特性读取之前的版本。加入for update之后，Oracle就要求启动一个新事务，尝试对数据进行加锁。如果当前已经被加锁，默认的行为必然是block等待。使用nowait子句的作用就是避免进行等待，当发现请求加锁资源被锁定未释放的时候，直接报错返回。</p>
+<p>在日常中，我们对for update的使用还是比较普遍的，特别是在如pl/sql developer中手工修改数据。此时只是觉得方便，而对for update真正的含义缺乏理解。</p>
+<p>For update是Oracle提供的手工提高锁级别和范围的特例语句。Oracle的锁机制是目前各类型数据库锁机制中比较优秀的。所以，Oracle认为一般不需要用户和应用直接进行锁的控制和提升。甚至认为死锁这类锁相关问题的出现场景，大都与手工提升锁有关。</p>
+<p>所以，Oracle并不推荐使用for update作为日常开发使用。而且，在平时开发和运维中，使用了for update却忘记提交，会引起很多锁表故障。 <!-- raw HTML omitted -->那么，什么时候需要使用for update？就是那些需要业务层面数据独占时，可以考虑使用for update。场景上，比如火车票订票，在屏幕上显示邮票，而真正进行出票时，需要重新确定一下这个数据没有被其他客户端修改。<!-- raw HTML omitted -->所以，在这个确认过程中，可以使用for update。这是统一的解决方案方案问题，需要前期有所准备。</p>
+<h2 id="筛选并查看变量">筛选并查看变量</h2>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="n">variables</span> <span class="k">where</span> <span class="n">variable_name</span> <span class="k">like</span> <span class="s1">&#39;wait%&#39;</span> <span class="k">and</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">;</span>
 </code></pre></div><h2 id="generated-column">generated column</h2>
 <p>定义Generated column列的语法如下：</p>
@@ -1814,6 +1840,7 @@ mysql&gt; SELECT LAST_INSERT_ID();
     <li><a href="#cache-index语句">CACHE INDEX语句</a></li>
     <li><a href="#load-index-into-cache语句">LOAD INDEX INTO CACHE语句</a></li>
     <li><a href="#ignore关键字">IGNORE关键字</a></li>
+    <li><a href="#select--for-update使用方法">SELECT &hellip; FOR UPDATE使用方法</a></li>
     <li><a href="#筛选并查看变量">筛选并查看变量</a></li>
     <li><a href="#generated-column">generated column</a>
       <ul>
