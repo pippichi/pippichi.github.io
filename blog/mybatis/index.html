@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  MyBatis &ndash; Learning Records
+
+    </title>
+    
+    <meta content="MyBatis" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="对于MyBatis的学习总结
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="MyBatis | Learning Records">
+    <meta name="twitter:description" content="对于MyBatis的学习总结|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">MyBatis</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/mybatis' class="muted-link">
+  <span class="Label Label--gray">MyBatis</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2021-04-13. Published at: 2021-04-13.">
+        
+          Published: 2021-04-13
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>对于MyBatis的学习总结</p>
+<h2 id="mybatis的xml配置文件">mybatis的xml配置文件</h2>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE configuration
+</span><span class="cp">        PUBLIC &#34;-//mybatis.org//DTD Config 3.0//EN&#34;
+</span><span class="cp">        &#34;http://mybatis.org/dtd/mybatis-3-config.dtd&#34;&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+    <span class="c">&lt;!--开启log4j的日志打印。默认就是开启的，可以不配置--&gt;</span>
+    <span class="nt">&lt;settings&gt;</span>
+        <span class="c">&lt;!--当然，这个value除了是LOG4J还可以是SLF4J--&gt;</span>
+    	<span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;logImpl&#34;</span> <span class="na">value=</span><span class="s">&#34;LOG4J&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/settings&gt;</span>
+    <span class="c">&lt;!--配置实体类的别名。工作中一般不用，因为一旦出问题就很难搞了--&gt;</span>
+    <span class="nt">&lt;typeAliases&gt;</span>
+    	<span class="c">&lt;!--给某个实体类配置别名，在Mapper文件中使用别名即可表示对应的实体类，简化代码的编写--&gt;</span>
+        <span class="c">&lt;!-- &lt;typeAlias type=&#34;com.bjsxt.pojo.Emp&#34; alias=&#34;emp&#34;&gt;&lt;/typeAlias&gt; --&gt;</span>
+        <span class="c">&lt;!-- 但是上面这种写法还是很麻烦，设想如果有一百个实体类，那么我们还是要配置一百次设置别名，因此我们换用下面这种：--&gt;</span>
+        <span class="nt">&lt;package</span> <span class="na">name=</span><span class="s">&#34;com.bjsxt.pojo&#34;</span><span class="nt">/&gt;</span> <span class="c">&lt;!-- 默认该包下的所有类的类名即为别名，不区分大小写。这意味着mapper配置文件中的类似com.bjsxt.pojo.Emp的写法都可以直接写成Emp或者emp --&gt;</span>
+    <span class="nt">&lt;/typeAliases&gt;</span>
+	<span class="c">&lt;!--配置数据库环境，default的值为某个environment的id的值，表示当前使用的数据库环境--&gt;</span>
+    <span class="nt">&lt;environments</span> <span class="na">default=</span><span class="s">&#34;mysql1&#34;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!--表示一个具体的数据库环境，可以配置多个--&gt;</span>
+    	<span class="nt">&lt;environment</span> <span class="na">id=</span><span class="s">&#34;mysql1&#34;</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!--表明事务的管理仍然使用原生jdbc的方式--&gt;</span>
+        	<span class="nt">&lt;transactionManager</span> <span class="na">type=</span><span class="s">&#34;JDBC&#34;</span><span class="nt">&gt;&lt;/transactionManager&gt;</span>
+            <span class="c">&lt;!--配置数据库的连接参数，使用数据库连接池技术--&gt;</span>
+            <span class="c">&lt;!--有POOLED、UNPOOLED和JNDI，具体介绍请看本章节的dataSource介绍--&gt;</span>
+            <span class="nt">&lt;dataSource</span> <span class="na">type=</span><span class="s">&#34;POOLED&#34;</span><span class="nt">&gt;</span>
+            	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;driver&#34;</span> <span class="na">value=</span><span class="s">&#34;com.mysql.cj.jdbc.Driver&#34;</span><span class="nt">/&gt;</span>
+            	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;url&#34;</span> <span class="na">value=</span><span class="s">&#34;jdbc:mysql://localhost:3306/db_name?serverTimezone=UTC&#34;</span><span class="nt">/&gt;</span>
+            	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;username&#34;</span> <span class="na">value=</span><span class="s">&#34;root&#34;</span><span class="nt">/&gt;</span>
+            	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;password&#34;</span> <span class="na">value=</span><span class="s">&#34;root&#34;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/dataSource&gt;</span>
+        <span class="nt">&lt;/environment&gt;</span>
+    <span class="nt">&lt;/environments&gt;</span>
+    <span class="c">&lt;!--配置Mapper文件的路径，用来告诉SqlSession mapper配置文件在哪，这样在最开始SqlSession就可以知道mapper配置文件有哪几个，就不需要在使用SqlSession做增删改查的时候再去找对应的mapper文件了--&gt;</span>
+    <span class="nt">&lt;mappers&gt;</span>
+    	<span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;com/bjsxt/mapper/EmpMapper.xml&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/mappers&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div><h3 id="transactionmanager">transactionManager</h3>
+<p><img src="/mybatis.assets/image-20210411185646240.png" alt="image-20210411185646240"></p>
+<p>在mybatis中有两种事务管理器类型（也就是type=”[JDBC|MANAGED]“）;</p>
+<p>JDBC - 这个配置直接简单实用了JDBC的提交和回滚设置。它依赖于从数据源得到的连接来管理事务范围</p>
+<p>MANAGED - 这个配置几乎没做什么。它从来不提交或回滚一个连接。而它会让容器来管理事务的整个生命周期（比如Spring或JEE应用服务器的上下文）</p>
+<h3 id="datasource">dataSource</h3>
+<p>有三种内建的数据源类型（也就是 type=”？？？“）：</p>
+<ul>
+<li>
+<p>UNPOOLED</p>
+<p>这个数据源的实现是每次被请求时简单打开和关闭连接。它有一点慢，这是对简单应用程序的一个很好的选择，因为它不需要及时的可用连接。UNPOOLED类型的数据源仅需配置以下5种属性：</p>
+<ul>
+<li>
+<p>driver</p>
+<p>这是JDBC驱动的Java类的完全限定名</p>
+</li>
+<li>
+<p>url</p>
+<p>这是数据库的JDBC URL地址</p>
+</li>
+<li>
+<p>usernama</p>
+<p>登录数据库的用户名</p>
+</li>
+<li>
+<p>password</p>
+<p>登录数据库的密码</p>
+</li>
+<li>
+<p>defaultTransactionIsolationLevel</p>
+<p>默认的连接事务隔离级别</p>
+</li>
+</ul>
+</li>
+<li>
+<p>POOLED</p>
+<p>这是JDBC连接对象的数据源连接池的实现，用来避免创建新的连接实例时必要的初始连接和认证时间。一种当前Web应用程序用来快速响应请求很流行的方法。除了上述提到UNPOOLED下的属性外，还有更多属性用来配置POOLED的数据源：</p>
+<ul>
+<li>
+<p>poolMaximumActiveConnections</p>
+<p>在任意时间可以存在的活动（也就是正在使用）连接数量，默认值：10</p>
+</li>
+<li>
+<p>poolMaximumIdleConnections</p>
+<p>任意时间可能存在的空闲连接数</p>
+</li>
+<li>
+<p>pool MaximumCheckoutTime</p>
+<p>在被强制返回之前，池中连接被检出（checked out）时间，默认值：20000毫秒（即20秒）</p>
+</li>
+<li>
+<p>poolTimeToWait</p>
+<p>这是一个底层设置，如果获取连接花费了相当长的时间，连接池会打印状态日志并重新尝试获取一个连接（避免在误配置的情况下一直安静的失败），默认值：20000毫秒（即20秒）</p>
+</li>
+<li>
+<p>poolMaximumLocalBadConnectionTolerance</p>
+<p>这是一个关于坏连接容忍度的底层设置，作用于每一个尝试从缓存池获取连接的线程。如果这个线程获取到的是一个坏的连接，那么这个数据源允许这个线程尝试重新获取一个新连接，但这个重新尝试次数不应超过poolMaximumIdleConnections与poolMaximumLocalBadConnectionTolerance之和。默认值：3（新增于3.4.5）</p>
+</li>
+<li>
+<p>poolPingQuery</p>
+<p>发送到数据库的侦测查询，用来检验连接是否正常工作并准备接受请求。默认是”NO PING QUERY SET“，这会导致多数据库驱动失败时带有一个恰当的错误信息</p>
+</li>
+<li>
+<p>poolPingEnabled</p>
+<p>是否启用侦测查询。若开启，需要设置poolPingQuery属性为一个可执行的SQL语句（最好是一个速度非常快的SQL语句），默认值：false。</p>
+</li>
+<li>
+<p>poolPingConnectionsNotUsedFor</p>
+<p>配置poolPingQuery的频率。可以被设置为和数据库连接超时时间一样，来避免不必要的侦测，默认值：0（即所有连接每一时刻都被侦测，当然仅当poolPingEnabled为true时适用）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>JNDI</p>
+<p>这个数据源实现是为了使用如Spring或应用服务器这类容器，容器可集中或在外部配置数据源，然后放置一个JNDI上下文的引用。这个数据源配置只需要两个属性。</p>
+<ul>
+<li>
+<p>initial_context</p>
+<p>这个属性用来在InitialContext种寻找上下文（即，initialContext.lookup(initial_context)）。这是个可选属性，如果忽略，那么将会直接从InitialContext中寻找data_source属性。</p>
+</li>
+<li>
+<p>data_source</p>
+<p>这是引用数据源实例位置的上下文的路径。提供了initial_context配置时会在其返回的上下文中进行查找，没有提供则直接在InitialContext中查找。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="mappers">mappers</h3>
+<p>告诉Mybatis去哪里找映射文件</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--使用相对于classpath的相对路径的资源，注意不是类，不使用. 而是使用/ --&gt;</span>
+<span class="nt">&lt;mappers&gt;</span>
+	<span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;org/mybatis/builder/AuthorMapper.xml&#34;</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;org/mybatis/builder/BlogMapper.xml&#34;</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;mapper</span> <span class="na">resource=</span><span class="s">&#34;org/mybatis/builder/PostMapper.xml&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
+<span class="c">&lt;!--使用全限定路径，以file开始，指定本地的绝对路径--&gt;</span>
+<span class="nt">&lt;mappers&gt;</span>
+    <span class="c">&lt;!--这里的配置文件可能不在项目内，甚至是在网上的，所以这里也是以url的形式来指定的--&gt;</span>
+	<span class="nt">&lt;mapper</span> <span class="na">url=</span><span class="s">&#34;file:///var/mappers/AuthorMapper.xml&#34;</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;mapper</span> <span class="na">url=</span><span class="s">&#34;file:///var/mappers/BlogMapper.xml&#34;</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;mapper</span> <span class="na">url=</span><span class="s">&#34;file:///var/mappers/PostMapper.xml&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
+<span class="c">&lt;!--使用接口的全路径名指定，是接口，所以此时使用. 而不是/ --&gt;</span>
+<span class="nt">&lt;mappers&gt;</span>
+	<span class="nt">&lt;mapper</span> <span class="na">class=</span><span class="s">&#34;org.mybatis.builder.AuthorMapper&#34;</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;mapper</span> <span class="na">class=</span><span class="s">&#34;org.mybatis.builder.BlogMapper&#34;</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;mapper</span> <span class="na">class=</span><span class="s">&#34;org.mybatis.builder.PostMapper&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
+
+<span class="c">&lt;!--★--&gt;</span>
+<span class="c">&lt;!--使用包名指定，包含指定包下所有的接口，必须有接口才行--&gt;</span>
+<span class="nt">&lt;mappers&gt;</span>
+	<span class="nt">&lt;package</span> <span class="na">name=</span><span class="s">&#34;org.mybatis.builder&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/mappers&gt;</span>
+</code></pre></div><p>推荐使用第四种方式，但是前提是一定要显示的提供响应的接口定义，且要求接口名和mapper.xml文件名必须完全相同。</p>
+<h3 id="将易变内容写到配置文件中并用var_name的形式引入到mybatis配置文件">将易变内容写到配置文件中并用${var_name}的形式引入到mybatis配置文件</h3>
+<p>首先创建db.properties：</p>
+<pre><code class="language-properties" data-lang="properties">driver=com.mysql.cj.jdbc.Driver
+url=jdbc:mysql://localhost:3306/db_name?serverTimezone=UTC
+username=root
+password=root
+</code></pre><p>然后用&lt;properties&gt;标签将db.properties引入mybatis.xml：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE configuration
+</span><span class="cp">        PUBLIC &#34;-//mybatis.org//DTD Config 3.0//EN&#34;
+</span><span class="cp">        &#34;http://mybatis.org/dtd/mybatis-3-config.dtd&#34;&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+    <span class="c">&lt;!--引入db.properties--&gt;</span>
+    <span class="nt">&lt;properties</span> <span class="na">resource=</span><span class="s">&#34;db.properties&#34;</span><span class="nt">&gt;&lt;/properties&gt;</span>
+    <span class="c">&lt;!--开启log4j的日志打印。默认就是开启的，可以不配置--&gt;</span>
+    <span class="nt">&lt;settings&gt;</span>
+        <span class="c">&lt;!--当然，这个value除了是LOG4J还可以是SLF4J--&gt;</span>
+    	<span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;logImpl&#34;</span> <span class="na">value=</span><span class="s">&#34;LOG4J&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/settings&gt;</span>
+    ...
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div><h2 id="resouces注意是mybatis的resouces">Resouces（注意是mybatis的Resouces）</h2>
+<p>可以直接写文件名而不用写文件绝对路径来获取文件流</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 获取mybatis配置文件的流对象
+</span><span class="c1"></span><span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">Resources</span><span class="o">.</span><span class="na">getResouceAsStream</span><span class="o">(</span><span class="s">&#34;file_name&#34;</span><span class="o">);</span> <span class="c1">// 自动从当前项目的编译目录下获取配置文件的流对象
+</span></code></pre></div><h2 id="sqlsessionfactory与sqlsession">SqlSessionFactory与SqlSession</h2>
+<p>请结合下面的mapper配置文件</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 获取mybatis配置文件的流对象
+</span><span class="c1"></span><span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">Resources</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;mybatis.xml&#34;</span><span class="o">);</span> <span class="c1">// 自动从当前项目的编译目录下获取配置文件的流对象
+</span><span class="c1">// 获取SqlSessionFactory对象
+</span><span class="c1"></span><span class="n">SqlSessionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SqlSessionFactoryBuilder</span><span class="o">().</span><span class="na">build</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
+<span class="c1">// 获取SqlSession对象
+</span><span class="c1"></span><span class="n">SqlSession</span> <span class="n">sqlSession</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">openSession</span><span class="o">();</span> <span class="c1">// 当SqlSession对象被创建成功后，已经连接好数据库了
+</span><span class="c1"></span>
+<span class="c1">//// 使用SQLSession对象完成数据库的单表查询操作
+</span><span class="c1">// List&lt;Object&gt; objects = sqlSession.selectList(&#34;SELECT * FROM tbl_name&#34;); // sql语句如果写在这里，那耦合度就太高了，应该写到mapper中，如下：
+</span><span class="c1">// 查询所有
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">empList</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper.selEmp&#34;</span><span class="o">);</span> <span class="c1">// &#34;selEmp&#34;表示mapper文件中该条sql语句的id。前缀：com.bjsxt.mapper.EmpMapper 表示mapper文件的namespace
+</span><span class="c1"></span>
+<span class="c1">// 根据id查询
+</span><span class="c1"></span><span class="n">Emp</span> <span class="n">emp</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">selectOne</span><span class="o">(</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper.selEmpById&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+
+<span class="c1">// 多条件的单表查询
+</span><span class="c1">// 使用Map存储查询条件
+</span><span class="c1"></span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">hashMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="n">0</span><span class="o">);</span>
+<span class="n">hashMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper.selEmpBySqlAndDeptno&#34;</span><span class="o">,</span> <span class="n">hashMap</span><span class="o">);</span>
+<span class="c1">// 使用实体类对象存储查询条件
+</span><span class="c1"></span><span class="n">Emp</span> <span class="n">emp1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Emp</span><span class="o">();</span>
+<span class="n">emp1</span><span class="o">.</span><span class="na">setSal</span><span class="o">(</span><span class="n">0</span><span class="o">.</span><span class="na">0</span><span class="o">);</span>
+<span class="n">emp1</span><span class="o">.</span><span class="na">setDeptno</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps2</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper.selEmpBySqlAndDeptno2&#34;</span><span class="o">,</span> <span class="n">emp1</span><span class="o">);</span>
+
+<span class="c1">//// 使用SqlSession对象完成数据库的单表新增、修改、删除操作
+</span><span class="c1">// 新增
+</span><span class="c1">// 创建Emp对象存储要增加的员工信息
+</span><span class="c1"></span><span class="n">Emp</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Emp</span><span class="o">();</span>
+<span class="n">emp</span><span class="o">.</span><span class="na">setEname</span><span class="o">(</span><span class="s">&#34;赵六&#34;</span><span class="o">);</span>
+<span class="n">emp</span><span class="o">.</span><span class="na">setDeptno</span><span class="o">(</span><span class="n">2</span><span class="o">);</span>
+<span class="n">emp</span><span class="o">.</span><span class="na">setSal</span><span class="o">(</span><span class="n">20000</span><span class="o">.</span><span class="na">00</span><span class="o">);</span>
+<span class="n">emp</span><span class="o">.</span><span class="na">setJob</span><span class="o">(</span><span class="s">&#34;程序员&#34;</span><span class="o">);</span>
+<span class="n">emp</span><span class="o">.</span><span class="na">setMgr</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper.insEmp&#34;</span><span class="o">,</span> <span class="n">emp</span><span class="o">);</span>
+<span class="c1">// 提交事务
+</span><span class="c1"></span><span class="n">sqlSession</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span> <span class="c1">// 原生jdbc是自动提交事务的，当然也可以取消自动提交：conn.setAutoCommit(false); 但是mybatis必须手动提交
+</span><span class="c1">// 更新
+</span><span class="c1"></span><span class="n">Emp</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Emp</span><span class="o">();</span>
+<span class="n">emp</span><span class="o">.</span><span class="na">setEmpid</span><span class="o">(</span><span class="n">3</span><span class="o">);</span>
+<span class="n">emp</span><span class="o">.</span><span class="na">setEname</span><span class="o">(</span><span class="s">&#34;王五&#34;</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper.updateEmp&#34;</span><span class="o">,</span> <span class="n">emp</span><span class="o">);</span>
+<span class="n">sqlSession</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+<span class="c1">// 删除
+</span><span class="c1"></span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper.delEmp&#34;</span><span class="o">,</span> <span class="n">4</span><span class="o">);</span>
+<span class="n">sqlSession</span><span class="o">.</span><span class="na">commit</span><span class="o">();</span>
+
+</code></pre></div><h3 id="使用mapper">使用mapper</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 假设有两个相关文件，一个是接口EmpMapper和一个是xml文件EmpMapper.xml
+</span><span class="c1">// 获取SqlSession对象之后，我们需要获取是哪个mapper
+</span><span class="c1">// 获取Mapper接口的实现类。注意，接口的实现类是在SqlSession对象被创建的时候即完成了生成，所以假设有5个接口，与之对应有5个xml文件，那么这5个接口实现会在SqlSession创建的时候就完成，到后面要用的时候直接取就行了
+</span><span class="c1"></span><span class="n">EmpMapper</span> <span class="n">empMapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// 调用EmpMapper接口中的方法
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">selEmpMapper</span><span class="o">();</span>
+
+<span class="c1">//// 有参数查询
+</span><span class="c1">// 一个形参
+</span><span class="c1">// 参数为基本类型
+</span><span class="c1"></span><span class="n">Emp</span> <span class="n">emp</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">selEmpById</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="c1">// 参数为引用类型
+</span><span class="c1"></span><span class="n">Emp</span> <span class="n">emp1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Emp</span><span class="o">();</span>
+<span class="n">emp1</span><span class="o">.</span><span class="na">setEmpid</span><span class="o">(</span><span class="n">2</span><span class="o">);</span>
+<span class="n">Emp</span> <span class="n">emp2</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">selEmpById2</span><span class="o">(</span><span class="n">emp1</span><span class="o">);</span>
+<span class="c1">// 多个参数
+</span><span class="c1">// 参数全部为基本类型
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">selEmpBySalDept</span><span class="o">(</span><span class="n">2</span><span class="o">.</span><span class="na">0</span><span class="o">,</span> <span class="n">1</span><span class="o">);</span>
+<span class="c1">// 参数全部为引用类型
+</span><span class="c1"></span><span class="n">Emp</span> <span class="n">e1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Emp</span><span class="o">();</span>
+<span class="n">e1</span><span class="o">.</span><span class="na">setSal</span><span class="o">(</span><span class="n">3</span><span class="o">.</span><span class="na">0</span><span class="o">);</span>
+<span class="n">Emp</span> <span class="n">e2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Emp</span><span class="o">();</span>
+<span class="n">e2</span><span class="o">.</span><span class="na">setDeptno</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps2</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">selEmpBySalDept2</span><span class="o">(</span><span class="n">e1</span><span class="o">,</span> <span class="n">e2</span><span class="o">);</span>
+<span class="c1">// 参数为引用类型和基本类型的混用
+</span><span class="c1"></span><span class="n">Emp</span> <span class="n">e3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Emp</span><span class="o">();</span>
+<span class="n">e3</span><span class="o">.</span><span class="na">setSal</span><span class="o">(</span><span class="n">4</span><span class="o">.</span><span class="na">0</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps3</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">selEmpBySalDept3</span><span class="o">(</span><span class="n">e3</span><span class="o">,</span> <span class="n">2</span><span class="o">);</span>
+</code></pre></div><p>而且如果使用这种一个接口对应一个xml文件的方法的话，连parameterType都不用写了，因为可以直接把查询参数传到接口中去：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--EmpMapper.xml文件中的sql语句--&gt;</span>
+<span class="c">&lt;!--查询所有员工信息--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpMapper&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select empid, ename, job, mgr from emp
+<span class="nt">&lt;/select&gt;</span>
+<span class="c">&lt;!--有参数的数据库操作--&gt;</span>
+<span class="c">&lt;!--根据Id查询员工信息--&gt;</span>
+<span class="c">&lt;!--参数为一个--&gt;</span>
+<span class="c">&lt;!--类型为基本类型：使用#{0}--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpById&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--下面的#{0}中的0表示接口中形参的下标--&gt;</span>
+	select empid, ename, job, mgr from emp from emp where empid=#{0}
+<span class="nt">&lt;/select&gt;</span>
+<span class="c">&lt;!--类型为引用类型：使用#{实体类的属性名}或者#{Map集合的键名（因为形参类型可能为Map）}--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpById2&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--下面的#{empid中的empid表示接口中形参Emp的属性名empid--&gt;</span>
+	select empid, ename, job, mgr from emp from emp where empid=#{empid}
+<span class="nt">&lt;/select&gt;</span>
+
+<span class="c">&lt;!--参数为多个--&gt;</span>
+<span class="c">&lt;!--参数全部为基本类型：根据工资和部门编号查询员工信息，使用#{param1}，从接口方法从左至右开始，param1，param2，...--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpBySalDept&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--下面的#{param2}表示形参中顺序数下去的第2个参数（注意，这里不让写#{1}了，应该写#{param2}）--&gt;</span>
+	select empid, ename, job, mgr from emp from emp where deptno=#{param2} and sal&gt;#{param1}
+<span class="nt">&lt;/select&gt;</span>
+<span class="c">&lt;!--参数全部为引用类型：根据工资和部门编号查询员工信息，使用#{param1.属性名}或param1为Map集合时应该使用#{param1.键名}--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpBySalDept2&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--下面的#{param2.deptno}表示第二个参数Emp的deptno属性--&gt;</span>
+	select empid, ename, job, mgr from emp from emp where deptno=#{param2.deptno} and sal&gt;#{param1.sal}
+<span class="nt">&lt;/select&gt;</span>
+<span class="c">&lt;!--引用类型和基本类型混用：根据工资和部门编号查询员工信息--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpBySalDept3&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select empid, ename, job, mgr from emp from emp where deptno=#{param2} and sal&gt;#{param1.sal}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">EmpMapper</span><span class="o">{</span>
+    <span class="c1">// 查询所有的员工信息
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpMapper</span><span class="o">();</span>
+    <span class="cm">/**
+</span><span class="cm">    * 带有参数的数据库操作
+</span><span class="cm">    */</span>
+    <span class="c1">//// 只有一个形参
+</span><span class="c1"></span>    <span class="c1">// 根据id查询员工信息：参数类型为基本类型
+</span><span class="c1"></span>    <span class="n">Emp</span> <span class="nf">selEmpById</span><span class="o">(</span><span class="n">Integer</span> <span class="n">empid</span><span class="o">);</span>
+    <span class="c1">// 根据id查询员工信息：参数类型为引用类型
+</span><span class="c1"></span>    <span class="n">Emp</span> <span class="nf">selEmpById2</span><span class="o">(</span><span class="n">Emp</span> <span class="n">emp</span><span class="o">);</span>
+    
+    <span class="c1">//// 参数有多个
+</span><span class="c1"></span>    <span class="c1">// 参数全部为基本类型：根据工资和部门编号查询员工信息
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpBySalDept</span><span class="o">(</span><span class="n">Double</span> <span class="n">sql</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">deptno</span><span class="o">);</span>
+    <span class="c1">// 参数全部为引用类型：根据工资和部门编号查询员工信息
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpBySalDept2</span><span class="o">(</span><span class="n">Emp</span> <span class="n">e1</span><span class="o">,</span> <span class="n">Emp</span> <span class="n">e2</span><span class="o">);</span>
+    <span class="c1">// 引用类型和基本类型混用：根据工资和部门编号查询员工信息
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpBySalDept3</span><span class="o">(</span><span class="n">Emp</span> <span class="n">e1</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">deptno</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="mapper配置文件">mapper配置文件</h2>
+<h3 id="查">查</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE mapper
+</span><span class="cp">		PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34;
+</span><span class="cp">		&#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
+<span class="c">&lt;!--namespace就相当于mapper文件的id--&gt;</span>
+<span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper&#34;</span><span class="nt">&gt;</span>
+	<span class="c">&lt;!--使用Mybatis完成单表的查询--&gt;</span>
+    <span class="c">&lt;!--
+</span><span class="c">		声明查询所有的员工信息
+</span><span class="c">			sql语句中没有参数
+</span><span class="c">				- 使用resultType属性指明返回值存储的实体类的全限定路径
+</span><span class="c">				- 如果查询结果是多条数据，使用selectList(String sqlPath)方法完成查询；如果只有一条，建议使用selectOne(String sqlPath)来完成查询
+</span><span class="c">	--&gt;</span>
+    <span class="c">&lt;!--resultType表示使用哪个实体类去存数据库返回的信息--&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmp&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjxst.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+    	select * from emp
+    <span class="nt">&lt;/select&gt;</span>
+    <span class="c">&lt;!--
+</span><span class="c">		根据ID查询员工信息：
+</span><span class="c">			SQL语句中如果只有一个参数：
+</span><span class="c">				- 使用parameterType属性指明参数的类型
+</span><span class="c">				- 在SQL语句中使用#{任意字符}完成参数的占位
+</span><span class="c">				- 如果查询结果是多条数据，使用selectList(String sqlPath, Object Param)方法完成查询；如果只有一条，建议使用selectOne(String sqlPath, Object Param)来完成查询
+</span><span class="c">	--&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpById&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;int&#34;</span><span class="nt">&gt;</span>
+    	select * from emp where empid=#{myempid}
+    <span class="nt">&lt;/select&gt;</span>
+    
+    <span class="c">&lt;!--
+</span><span class="c">		根据部门和工资查询员工信息
+</span><span class="c">			sql语句中有多个参数的单表查询：
+</span><span class="c">				- 使用parameterType属性指明参数的类型
+</span><span class="c">					注意：parameterType属性表明的是Mybatis接受的实参的类型，不是SQL语句中的参数类型
+</span><span class="c">				- 在SQL语句中使用#{任意字符}完成参数的占位
+</span><span class="c">					注意：
+</span><span class="c">						因为在Mybatis底层会自动给SQL语句中的占位符进行赋值，由我们自己赋值变为自动
+</span><span class="c">						但是我们需要告诉Mybatis哪个值赋值给哪个占位符。所以Mybatis中的SQL语句中使用#{键名}的方式来完成占位以及赋值
+</span><span class="c">				- 如果查询结果是多条数据，使用selectList(String sqlPath, Object Param)方法完成查询；如果只有一条，建议使用selectOne(String sqlPath, Object Param)来完成查询
+</span><span class="c">	--&gt;</span>
+    <span class="c">&lt;!--parameterType=&#34;map&#34;表示使用Map集合封装实参--&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpBySqlAndDeptno&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span><span class="nt">&gt;</span>
+    	select * from emp where sql &gt; #{keyA} and deptno = #{keyB}
+    <span class="nt">&lt;/select&gt;</span>
+    
+    <span class="c">&lt;!--使用实体类对象封装实参，占位使用#{属性名}--&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpBySqlAndDeptno2&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+    	select * from emp where sql &gt; #{sql} and deptno = #{deptno}
+    <span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></div><h3 id="增删改">增、删、改</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE mapper
+</span><span class="cp">		PUBLIC &#34;-//mybatis.org//DTD Mapper 3.0//EN&#34;
+</span><span class="cp">		&#34;http://mybatis.org/dtd/mybatis-3-mapper.dtd&#34;&gt;</span>
+<span class="c">&lt;!--namespace就相当于mapper文件的id--&gt;</span>
+<span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper&#34;</span><span class="nt">&gt;</span>
+	<span class="c">&lt;!--Mybatis的增、删、改，无需使用resultType属性表明返回值类型，默认为int--&gt;</span>
+    <span class="c">&lt;!--新增--&gt;</span>
+    <span class="nt">&lt;insert</span> <span class="na">id=</span><span class="s">&#34;insEmp&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+    	insert into emp values(default, #{ename}, #{job}, #{mgr}, now(), #{sal}, #{comm}, #{deptno})
+    <span class="nt">&lt;/insert&gt;</span>
+    <span class="c">&lt;!--更新--&gt;</span>
+    <span class="nt">&lt;update</span> <span class="na">id=</span><span class="s">&#34;updateEmp&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+    	update emp set ename=#{ename}, where empid=#{empid}
+    <span class="nt">&lt;/update&gt;</span>
+    <span class="c">&lt;!--删除--&gt;</span>
+    <span class="nt">&lt;delete</span> <span class="na">id=</span><span class="s">&#34;delEmp&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;int&#34;</span><span class="nt">&gt;</span>
+    	delete from emp where empid=#{myempid}
+    <span class="nt">&lt;/delete&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></div><h2 id="日志">日志</h2>
+<p>Mybatis的内置日志工厂（LogFactory）提供日志功能，内置日志工厂将日志交给以下其中一种工具作代理：</p>
+<ul>
+<li>SLF4J</li>
+<li>Apache Commons Logging</li>
+<li>Log4j 2</li>
+<li>Log4j</li>
+<li>JDK logging</li>
+<li>NO_LOGGING</li>
+</ul>
+<p>Mybatis内置日志工厂基于运行时自省机制选择合适的日志工具。他会使用第一个查找得到的工具（按上面列举的顺序查找）。如果一个都没找到，日志功能就会被禁用。也就是说在项目中把日志工具环境配置出来后，不用在mybatis进行配置就可以让日志生效</p>
+<p>不少应用服务器（如Tomcat和WebShpere）的类路径种已经包含Commons Logging，所以在这种配置环境下的Mybatis会把它作为日志工具，记住这点非常重要，这意味着，在诸如WebSphere的环境中，它提供了Commons Logging的私有实现，你的Log4J配置将被忽略。mybatis将你的Log4J配置忽略掉是相当郁闷的（事实上，正是因为在这种配置环境下，Mybatis才会选择使用Commons Logging而不是Log4J）。如果你的应用部署在一个了路径已经包含Commons Logging的环境中，而你又想使用其它日志工具，可以通过在mybatis配置文件mybatis-config.xml里面添加一项setting来选择别的日志工具：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;settings&gt;</span>
+	<span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;logImpl&#34;</span> <span class="na">value=</span><span class="s">&#34;LOG4J&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</code></pre></div><p>简单来说，要在mybatis.cfg.xml中配置mybatis所使用的具体日志实现。如果不指定将自动搜索，可能会搜到log4j，但是也有可能会优先搜索到其他的日志实现，所以还是设置一下，让它匹配到log4j：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;settings&gt;</span>
+	<span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;logImpl&#34;</span> <span class="na">value=</span><span class="s">&#34;LOG4J&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</code></pre></div><p>无论使用哪种日志工具对于我们来说目的都是一样的：打印运行过程中日志信息。日志信息中对平时开发最重要的是运行过程中SQL的打印，这也是在开发过程中mybatis日志的重要性</p>
+<h3 id="log4j配置文件">log4j配置文件</h3>
+<p>可以将全局的日志级别调高，避免大量debug信息的干扰，同时将对映射文件的操作调低，可以用来显示SQL语句的调试信息。开发阶段，建议启动控制的日志</p>
+<pre><code class="language-properties" data-lang="properties">#定义全局日志级别
+log4j.rootLogger=error,stdout,logfile
+#包级别日志。这句话必须有，因为我们要打印的日志是mapper包下的东西
+log4j.logger.com.bjsxt.mapper=debug
+#接口级别日志
+#log4j.logger.com.bjsxt.mapper.EmployeeMapper=debug
+#方法级别日志
+#log4j.logger.com.bjsxt.mapper.EmployeeMapper.findById=debug
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.err
+log4j.appender.stdout.layout=org.apache.log4j.SimpleLayout
+
+log4j.appender.logfile=org.apache.log4j.FileAppender
+log4j.appender.logfile.File=d:/bjsxt.log
+log4j.appender.logfile.layout=org.apache.log4j.PatternLayout
+log4j.appender.logfile.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %l %F %p %m%n
+</code></pre><h2 id="mybatis依赖的包">mybatis依赖的包</h2>
+<p><img src="/mybatis.assets/image-20210411182313174.png" alt="image-20210411182313174"></p>
+<h2 id="生命周期">生命周期</h2>
+<p>SqlSessionFactoryBuilder：</p>
+<p>该类用来创建SqlSessionFactory对象，当SqlSessionFactory对象被创建后，该对象也就没有存在的必要了。</p>
+<p>SqlSessionFactory：</p>
+<p>该对象应该在你的应用执行期间一直存在，由于要从该对象中获取SqlSession对象，这样的操作会相当频繁，同时创建SqlSessionFactory对象是一件很耗费资源的事，因此，该对象的生命周期应该为应用返回，即与当前应用具有相同的生命周期。</p>
+<p>SqlSession：</p>
+<p>每个线程都应该有自己的SqlSession实例，SqlSession实力不能被共享，是线程不安全的，因此最佳的范围是请求或方法范围。</p>
+<p>Mapper：</p>
+<p>关闭SqlSession的时候也就关闭了由其所产生的Mapper</p>
+<h2 id="类型别名">类型别名</h2>
+<table>
+<thead>
+<tr>
+<th>别名</th>
+<th>映射的类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_byte</td>
+<td>byte</td>
+</tr>
+<tr>
+<td>_long</td>
+<td>long</td>
+</tr>
+<tr>
+<td>_short</td>
+<td>short</td>
+</tr>
+<tr>
+<td>_int</td>
+<td>int</td>
+</tr>
+<tr>
+<td>_integer</td>
+<td>int</td>
+</tr>
+<tr>
+<td>_double</td>
+<td>double</td>
+</tr>
+<tr>
+<td>_float</td>
+<td>float</td>
+</tr>
+<tr>
+<td>_boolean</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>string</td>
+<td>String</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>integer</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>date</td>
+<td>Date</td>
+</tr>
+<tr>
+<td>decimal</td>
+<td>BigDecimal</td>
+</tr>
+<tr>
+<td>object</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>map</td>
+<td>Map</td>
+</tr>
+<tr>
+<td>hashmap</td>
+<td>HashMap</td>
+</tr>
+<tr>
+<td>list</td>
+<td>List</td>
+</tr>
+<tr>
+<td>arraylist</td>
+<td>ArrayList</td>
+</tr>
+<tr>
+<td>collection</td>
+<td>Collection</td>
+</tr>
+<tr>
+<td>iterator</td>
+<td>Iterator</td>
+</tr>
+</tbody>
+</table>
+<p>有了类型别名我们就可以直接这么写了：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--注意下面的parameterType--&gt;</span>
+<span class="nt">&lt;delete</span> <span class="na">id=</span><span class="s">&#34;delEmp&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;int&#34;</span><span class="nt">&gt;</span>
+    delete from emp where empid=#{myempid}
+<span class="nt">&lt;/delete&gt;</span>
+</code></pre></div><h2 id="include标签和sql标签提取公共sql脚本片段">include标签和sql标签提取公共SQL脚本片段</h2>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	问题：
+</span><span class="c">		我们发现在Mapper.xml文件中不同的sql语句中会存在相同的sql片段，如果每次我们都自己声明，会造成代码维护困难
+</span><span class="c">	解决：
+</span><span class="c">		将相同的sql脚本片段抽取出来，在外部声明，然后在sql标签中调用即可
+</span><span class="c">	实现：
+</span><span class="c">		sql标签：声明公共的sql脚本片段
+</span><span class="c">		include标签：引入公共的sql脚本片段
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;sql</span> <span class="na">id=</span><span class="s">&#34;empSql&#34;</span><span class="nt">&gt;</span>
+	empid,ename,job,mgr
+<span class="nt">&lt;/sql&gt;</span>
+<span class="c">&lt;!--查询所有的员工信息--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpMapper&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select <span class="nt">&lt;include</span> <span class="na">refid=</span><span class="s">&#34;empSql&#34;</span><span class="nt">&gt;&lt;/include&gt;</span> from emp 
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h2 id="param">@Param</h2>
+<p>@Param是MyBatis所提供的(org.apache.ibatis.annotations.Param)，作为Dao层的注解，作用是用于传递参数，从而可以与SQL中的的字段名相对应，一般在2=&lt;参数数&lt;=5时使用最佳。</p>
+<p>@Param解决了参数可读性差的问题</p>
+<p>先来看看原始的方法：</p>
+<p>当只有一个参数时，没什么好说的，传进去一个值也只有一个参数可以匹配。当存在多个参数时，传进去的值就区分不开了，这时可以考虑用Map，例如接口：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Role</span><span class="o">&gt;</span> <span class="nf">findRoleByMap</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">parameter</span><span class="o">);</span>
+</code></pre></div><p>此时的xml文件可以这么写：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;findRoleByMap&#34;</span> <span class="na">parameterType=</span><span class="s">&#34;map&#34;</span> <span class="na">resultType=</span><span class="s">&#34;role&#34;</span><span class="nt">&gt;</span>
+    SELECT id,name FROM t_role
+    WHERE roleName=#{roleName}
+    AND note=#{note}
+<span class="nt">&lt;select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">RoleMapper</span> <span class="n">roleMapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">RoleMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">parameter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="n">parameter</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;roleName&#34;</span><span class="o">,</span> <span class="s">&#34;剑士&#34;</span><span class="o">);</span>
+<span class="n">parameter</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;note&#34;</span><span class="o">,</span> <span class="s">&#34;决战紫禁之巅&#34;</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Role</span><span class="o">&gt;</span> <span class="n">roles</span> <span class="o">=</span> <span class="n">roleMapper</span><span class="o">.</span><span class="na">findRolesByMap</span><span class="o">(</span><span class="n">parameter</span><span class="o">);</span>
+</code></pre></div><p>很明显上面的缺点就在于可读性差，每次必须阅读他的键，才能明白其中的作用，并且不能限定其传递的数据类型，下面是使用@Param的情况，需要将接口改为：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Role</span><span class="o">&gt;</span> <span class="nf">findRoleByAnnotation</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;roleName&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">roleName</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;note&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">note</span><span class="o">);</span>
+</code></pre></div><p>这样我们就可以直接传入对应的值了。</p>
+<p>当然也可以使用Java Bean来传递多个参数，定义一个POJO：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RoleParam</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">roleName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">note</span><span class="o">;</span>
+    <span class="cm">/*getter和setter*/</span>
+<span class="o">}</span>
+</code></pre></div><p>此时接口就变为：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Role</span><span class="o">&gt;</span> <span class="nf">findRoleByBean</span><span class="o">(</span><span class="n">RoleParam</span> <span class="n">role</span><span class="o">);</span>
+</code></pre></div><p>这样对应的xml文件与原始的方法的区别就在于id和parameterType发生了变化，id对应的方法和parameterType对应该类的全限定名。</p>
+<p>而使用更多的场景可能是这样的，对应多个POJO：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Role</span><span class="o">&gt;</span> <span class="nf">findRoleByMix</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;roleP&#34;</span><span class="o">)</span> <span class="n">RoleParam</span> <span class="n">role</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;permissionP&#34;</span><span class="o">)</span> <span class="n">PermissionParam</span> <span class="n">permission</span><span class="o">);</span>
+</code></pre></div><p>这样就可以进行如下映射：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;findRoleByMix&#34;</span> <span class="na">resultType=</span><span class="s">&#34;role&#34;</span><span class="nt">&gt;</span>
+    SELECT id,name FROM t_role
+    WHERE roleName=#{roleP.roleName}
+    AND note=#{rolep.note}
+    AND level=#{permissionP.level}
+<span class="nt">&lt;select&gt;</span>
+</code></pre></div><p>注意：此时并不需要写出parameterType属性，Mybatis会进行自动搜索（这点在上面“使用mapper”这一章节中解释了）。</p>
+<h2 id="使用占位的方式和使用占位的方式">使用#{}占位的方式和使用${}占位的方式</h2>
+<p>现在有一个问题：</p>
+<p>目前我们在使用mybatis完成数据库操作的时候，mybatis底层默认使用PreparedStatement对象完成数据库操作，也就是说Sql语句的赋值都是通过占位赋值的，那么如果我们想通过字符串拼接的方式赋值怎么办？也就是底层使用Statement对象完成数据库操作。</p>
+<p>解决：</p>
+<pre><code>#{}方式占位：底层使用PreparedStatement对象完成数据库操作，sql语句本质上仍然是？占位赋值的
+${}方式占位：底层使用Statement对象完成数据库操作，本质为sql语句的拼接
+</code></pre><p>举例说明：</p>
+<p>首先来看使用#{}占位方式：</p>
+<p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selPs&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp where ename=#{ename}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>mapper接口中的方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// #{}的占位
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selPs</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;ename&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">ename</span><span class="o">);</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">selPs</span><span class="o">(</span><span class="s">&#34;张三&#34;</span><span class="o">);</span> <span class="c1">// 此时底层使用PreparedStatement
+</span></code></pre></div><p>使用${}占位方式：</p>
+<p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selPs&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp where ename=&#39;${ename}&#39;
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>mapper接口中的方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// ${}的占位
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selPs</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;ename&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">ename</span><span class="o">);</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">selPs</span><span class="o">(</span><span class="s">&#34;张三&#34;</span><span class="o">);</span> <span class="c1">// 此时底层使用Statement
+</span></code></pre></div><h2 id="模糊查询">模糊查询</h2>
+<p>在进行模糊查询时，在映射文件中可以使用concat()函数来连接参数和通配符。另外，注意对于特殊字符，比如&lt;，不能直接书写，应该使用字符实体（诸如&amp;lt;等）替换。</p>
+<p>mapper接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 模糊查询：根据员工名查询员工信息
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpByName</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;ename&#34;</span><span class="o">)</span><span class="n">String</span> <span class="n">ename</span><span class="o">);</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--模糊查询：根据员工姓名获取员工信息--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpByName&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--下面的这个concat其实就是MySQL自带的函数，用来拼接字符串--&gt;</span>
+	select * from emp where ename like concat(&#39;%&#39;, #{ename}, &#39;%&#39;)
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">selEmpByName</span><span class="o">(</span><span class="s">&#34;三&#34;</span><span class="o">);</span> 
+</code></pre></div><h3 id="小于或者大于判断">小于或者大于判断</h3>
+<p>mapper接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 小于判断
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpBySal</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;sal&#34;</span><span class="o">)</span> <span class="n">Double</span> <span class="n">sal</span><span class="o">);</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--小于判断--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpBySal&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp where sal <span class="ni">&amp;lt;</span> #{sal}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">selEmpBySal</span><span class="o">(</span><span class="n">4000</span><span class="o">.</span><span class="na">0</span><span class="o">);</span> 
+</code></pre></div><h2 id="分页查询">分页查询</h2>
+<p>mapper接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpByPage</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;ename&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">ename</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;pageStart&#34;</span><span class="o">)</span><span class="kt">int</span> <span class="n">pageStart</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;pageSize&#34;</span><span class="o">)</span><span class="kt">int</span> <span class="n">pageSize</span><span class="o">);</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--分页查询--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpByPage&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp where sal <span class="ni">&amp;lt;</span> #{sal} limit #{pageStart},#{pageSize}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 分页查询
+</span><span class="c1"></span><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">selEmpByPage</span><span class="o">(</span><span class="n">4000</span><span class="o">.</span><span class="na">0</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">5</span><span class="o">);</span> 
+</code></pre></div><h2 id="自增主键回填">自增主键回填</h2>
+<p>Mysql支持主键自增。有时候完成添加后需要立刻获取刚刚自增的主键，由下一个操作来使用。比如结算购物车之后，主订单的主键确定后，需要作为后续订单明细项的外键存在。对于主键的使用，我们可以用UUID（先手动生成一个UUID，再把它作为主键，为什么用UUID呢？因为UUID可以保证不重复），也可以让它自动生成，那么自动生成的时候我们如何拿到主键呢？Mybatis提供了支持，可以非常简单的获取。</p>
+<p><strong>方式1：通过useGeneratedKeys属性实现</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;insert</span> <span class="na">id=</span><span class="s">&#34;save&#34;</span> <span class="na">useGeneratedKeys=</span><span class="s">&#34;true&#34;</span> <span class="na">keyProperty=</span><span class="s">&#34;empno&#34;</span><span class="nt">&gt;</span>
+	insert into emp values(null,#{ename},#{job},#{mgr},#{hireDate},#{sal},#{comm},#{deptno})
+<span class="nt">&lt;/insert&gt;</span>
+</code></pre></div><p>useGeneratedKeys：表示要使用自增的主键</p>
+<p>keyProperty：表示把自增的主键赋给JavaBean的哪个成员变量</p>
+<p>以添加Employee对象为例，添加前Employee对象的empno是空的，添加完毕后可以通过getEmpno()获取自增的主键。</p>
+<p><strong>方式2：通过selectKey元素实现</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;insert</span> <span class="na">id=</span><span class="s">&#34;save&#34;</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;selectKey</span> <span class="na">order=</span><span class="s">&#34;AFTER&#34;</span> <span class="na">keyProperty=</span><span class="s">&#34;empno&#34;</span> <span class="na">resultType=</span><span class="s">&#34;int&#34;</span><span class="nt">&gt;</span>
+		<span class="c">&lt;!--SELECT LAST_INSERT_ID()--&gt;</span>
+        <span class="c">&lt;!--或者可以这么写：--&gt;</span>
+        SELECT @@identity
+    <span class="nt">&lt;/selectKey&gt;</span>
+    insert into emp(empno,ename,sal)values(null,#{ename},#{sal})
+<span class="nt">&lt;/insert&gt;</span>
+</code></pre></div><p>order：取值AFTER|BEFORE，表示在新增之后|之前执行&lt;selectKey&gt;中的命令（由此可见这种方式的功能更加丰富）</p>
+<p>keyProperty：表示将查询到的数据绑定到哪个属性上</p>
+<h2 id="动态sql查询以及更新">动态SQL查询以及更新</h2>
+<h3 id="if标签">if标签</h3>
+<p>接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 根据员工的工作，部门，工资动态查询员工信息 ---if标签的使用
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">findEmp</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;job&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">job</span><span class="o">,</span>
+                 <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;deptno&#34;</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">deptno</span><span class="o">,</span>
+                 <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;sal&#34;</span><span class="o">)</span> <span class="n">Double</span> <span class="n">sal</span><span class="o">);</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	根据员工的工作、部门、工资动态查询员工信息
+</span><span class="c">	使用if标签完成逻辑判定，完成SQL语句的拼接
+</span><span class="c">	使用：
+</span><span class="c">		在SQL标签中声明
+</span><span class="c">	属性：
+</span><span class="c">		test：值为判断的逻辑条件，直接使用@Param注解中声明的名字即可获取实参。不同的条件使用 and or 关键字连接
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;findEmp&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp where 1=1
+    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;job!=null and job!=&#39;&#39;&#34;</span><span class="nt">&gt;</span>
+    	and job=#{job}
+    <span class="nt">&lt;/if&gt;</span>
+    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;deptno!=null and deptno!=&#39;&#39;&#34;</span><span class="nt">&gt;</span>
+    	and deptno=#{deptno}
+    <span class="nt">&lt;/if&gt;</span>
+    <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;sal!=null and sal!=&#39;&#39;&#34;</span><span class="nt">&gt;</span>
+    	and sal &gt; #{sal}
+    <span class="nt">&lt;/if&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// 动态SQL查询
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">findEmp</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</code></pre></div><h3 id="where标签">where标签</h3>
+<p>接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 根据员工的工作，部门，工资动态查询员工信息 ---where标签的使用
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">findEmp</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;job&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">job</span><span class="o">,</span>
+                 <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;deptno&#34;</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">deptno</span><span class="o">,</span>
+                 <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;sal&#34;</span><span class="o">)</span> <span class="n">Double</span> <span class="n">sal</span><span class="o">);</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	根据员工的工作、部门、工资动态查询员工信息
+</span><span class="c">	where标签的使用：
+</span><span class="c">		作用：相当于声明了where关键字
+</span><span class="c">		注意：
+</span><span class="c">			只有当条件成立时才会生成where关键字，并且会自动忽略第一个and关键字
+</span><span class="c">			因为无法预知哪个条件会成立，所以建议每个条件前都声明SQL语句的条件链接符号（and|or）
+</span><span class="c">
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;findEmp&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp
+    <span class="nt">&lt;where&gt;</span>
+    	<span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;job!=null and job!=&#39;&#39;&#34;</span><span class="nt">&gt;</span>
+    		and job=#{job}
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;deptno!=null and deptno!=&#39;&#39;&#34;</span><span class="nt">&gt;</span>
+            and deptno=#{deptno}
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;sal!=null and sal!=&#39;&#39;&#34;</span><span class="nt">&gt;</span>
+            and sal &gt; #{sal}
+        <span class="nt">&lt;/if&gt;</span>
+    <span class="nt">&lt;/where&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// 动态SQL查询
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">findEmp</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</code></pre></div><h3 id="bind标签">bind标签</h3>
+<p>接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 根据员工的工作，部门，工资动态查询员工信息 ---bind标签的使用
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">findEmp</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;job&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">job</span><span class="o">,</span>
+                 <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;deptno&#34;</span><span class="o">)</span> <span class="n">Integer</span> <span class="n">deptno</span><span class="o">,</span>
+                 <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;sal&#34;</span><span class="o">)</span> <span class="n">Double</span> <span class="n">sal</span><span class="o">);</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	根据员工的工作、部门、工资动态查询员工信息
+</span><span class="c">	bind标签的使用：
+</span><span class="c">		作用：将接收到的实参进行进一步的修饰后传递给SQL语句使用
+</span><span class="c">		使用：
+</span><span class="c">			&lt;bind name=&#34;新的键名&#34; value=&#34;原始数据的名字+&#39;拼接的新数据&#39;&#34;/&gt;
+</span><span class="c">			一般在模糊查询的时候使用（拼接%）
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;findEmp&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;bind</span> <span class="na">name=</span><span class="s">&#34;job_alias&#34;</span> <span class="na">value=</span><span class="s">&#34;job+&#39;qq1&#39;&#34;</span><span class="nt">/&gt;</span>
+    select * from emp where job=#{job_alias} and deptno=#{deptno} and sal=#{sal}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// 动态SQL查询
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">findEmp</span><span class="o">(</span><span class="s">&#34;讲师&#34;</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">10000</span><span class="o">.</span><span class="na">0</span><span class="o">);</span>
+</code></pre></div><h3 id="set标签">set标签</h3>
+<p>接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// set标签的使用
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">updateEmp</span><span class="o">(</span><span class="n">Emp</span> <span class="n">emp</span><span class="o">);</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	set标签的作用：
+</span><span class="c">		set标签用在update语句中给字段赋值。借助if的配置，可以只对有具体值的字段进行更新。set元素会自动帮助添加set关键字，自动去掉最后一个if语句的多余的逗号
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;update</span> <span class="na">id=</span><span class="s">&#34;updateEmp&#34;</span><span class="nt">&gt;</span>
+	update emp
+    <span class="nt">&lt;set&gt;</span>
+    	<span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;ename!=null and ename !=&#39;&#39;&#34;</span><span class="nt">&gt;</span>
+        	ename=#{ename},
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;job!=null and job !=&#39;&#39;&#34;</span><span class="nt">&gt;</span>
+        	job=#{job},
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;mgr!=null and mgr !=&#39;&#39;&#34;</span><span class="nt">&gt;</span>
+        	mgr=#{mgr},
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="nt">&lt;if</span> <span class="na">test=</span><span class="s">&#34;sal!=null and sal !=&#39;&#39;&#34;</span><span class="nt">&gt;</span>
+        	sal=#{sal},
+        <span class="nt">&lt;/if&gt;</span>
+        <span class="c">&lt;!--写下面这一句的原因是：如果一个要更新的字段都没有，那么就会生成这样的sql语句：update emp where id=?，显然是会报错的，为了防止这种情况，更新一下empid即可（empid是一定存在的），这样的话就算一个要更新的字段都没，也会生成这样的sql语句：update emp set empid=? where empid=?，这样就不会报错了--&gt;</span>
+        empid=#{empid},
+    <span class="nt">&lt;/set&gt;</span>
+<span class="nt">&lt;/update&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// set标签
+</span><span class="c1"></span><span class="n">Emp</span> <span class="n">emp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Emp</span><span class="o">();</span>
+<span class="n">emp</span><span class="o">.</span><span class="na">setEmpId</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="n">emp</span><span class="o">.</span><span class="na">setEmpName</span><span class="o">(</span><span class="s">&#34;qyf&#34;</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">updateEmp</span><span class="o">(</span><span class="n">emp</span><span class="o">);</span>
+</code></pre></div><h3 id="foreach标签">foreach标签</h3>
+<p>接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">findEmpByIds</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">ids</span><span class="o">);</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	foreach标签的作用：
+</span><span class="c">		foreach标签是非常强大的，它允许你指定一个集合或数组，声明集合项和索引变量，他们可以用在标签内。它也允许你指定开放和关闭的字符串，在迭代之间放置分隔符。这个元素是很智能的，它不会偶然地附加多余的分隔符
+</span><span class="c">		注意：你可以传递一个List实例或者数组作为参数对象传给mybatis。当你这么做的时候，mybatis会自动将它包装在一个Map中，用名称在作为键。List实例将会以“list”作为键，而数组实例将会以“array”作为键
+</span><span class="c">		特别注意：在进行sql优化时有一点就是建议少用in语句，因为对性能有影响。如果in中元素很多的话，会对性能有较大影响，此时就不建议使用foreach语句了
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;findEmpByIds&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp where empid in
+    <span class="nt">&lt;foreach</span> <span class="na">collection=</span><span class="s">&#34;list&#34;</span> <span class="na">open=</span><span class="s">&#34;(&#34;</span> <span class="na">close=</span><span class="s">&#34;)&#34;</span> <span class="na">separator=</span><span class="s">&#34;,&#34;</span> <span class="na">item=</span><span class="s">&#34;id&#34;</span><span class="nt">&gt;</span>
+    	#{id}
+    <span class="nt">&lt;/foreach&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>当然也可以配合@Param使用：</p>
+<p>接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">findEmpByIds</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;ids&#34;</span><span class="o">)</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">ids</span><span class="o">);</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;findEmpByIds&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp where empid in
+    <span class="nt">&lt;foreach</span> <span class="na">collection=</span><span class="s">&#34;ids&#34;</span> <span class="na">open=</span><span class="s">&#34;(&#34;</span> <span class="na">close=</span><span class="s">&#34;)&#34;</span> <span class="na">separator=</span><span class="s">&#34;,&#34;</span> <span class="na">item=</span><span class="s">&#34;id&#34;</span><span class="nt">&gt;</span>
+    	#{id}
+    <span class="nt">&lt;/foreach&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">ids</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="n">ids</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="n">ids</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">2</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">findEmpByIds</span><span class="o">(</span><span class="n">ids</span><span class="o">);</span>
+</code></pre></div><p>如果有这么一个需求：需要联合ids和ename进行查询，ename使用模糊查询。那么可以这么写：</p>
+<p>接口：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">findEmpByNameAndIds</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;ename&#34;</span><span class="o">)</span><span class="n">String</span> <span class="n">ename</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;ids&#34;</span><span class="o">)</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">ids</span><span class="o">);</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;findEmpByNameAndIds&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp where
+    ename like concat(&#39;%&#39;, #{ename}, &#39;%&#39;)
+    and
+    empid in
+    <span class="nt">&lt;foreach</span> <span class="na">collection=</span><span class="s">&#34;ids&#34;</span> <span class="na">open=</span><span class="s">&#34;(&#34;</span> <span class="na">close=</span><span class="s">&#34;)&#34;</span> <span class="na">separator=</span><span class="s">&#34;,&#34;</span> <span class="na">item=</span><span class="s">&#34;id&#34;</span><span class="nt">&gt;</span>
+    	#{id}
+    <span class="nt">&lt;/foreach&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">ids</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="n">ids</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="n">ids</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">2</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">findEmpByNameAndIds</span><span class="o">(</span><span class="s">&#34;张三&#34;</span><span class="o">,</span> <span class="n">ids</span><span class="o">);</span>
+</code></pre></div><h2 id="多表查询">多表查询</h2>
+<h3 id="无级联查询">无级联查询</h3>
+<p>开发者手动完成多表数据组装，需执行多条sql语句</p>
+<p>接口方法：</p>
+<p>EmpMapper.java：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 多对一：查询员工及其部门信息
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpInfoMapper</span><span class="o">();</span>
+
+<span class="c1">// 一对多：查询部门及其员工信息
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpInfoByDeptnoMapper</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;deptno&#34;</span><span class="o">)</span><span class="n">Integer</span> <span class="n">deptno</span><span class="o">);</span>
+</code></pre></div><p>DeptMapper.java：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 多对一：查询员工及其部门信息
+</span><span class="c1">// 根据部门编号获取部门信息
+</span><span class="c1"></span><span class="n">Dept</span> <span class="nf">selDeptByIdMapper</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;deptno&#34;</span><span class="o">)</span><span class="n">Integer</span> <span class="n">deptno</span><span class="o">);</span>
+
+<span class="c1">// 一对多：查询部门及其员工信息
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Dept</span><span class="o">&gt;</span> <span class="nf">selDeptInfoMapper</span><span class="o">();</span>
+</code></pre></div><p>EmpMapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	多对一：查询员工及其部门信息
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpInfoMapper&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp
+<span class="nt">&lt;/select&gt;</span>
+
+<span class="c">&lt;!--
+</span><span class="c">	一对多：查询部门及其员工信息
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpInfoByDeptnoMapper&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Dept&#34;</span><span class="nt">&gt;</span>
+	select * from emp where deptno=#{deptno}
+<span class="nt">&lt;/select&gt;</span>
+
+</code></pre></div><p>DeptMapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	多对一：查询员工及其部门信息
+</span><span class="c">	根据部门编号获取部门信息
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selDeptByIdMapper&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Dept&#34;</span><span class="nt">&gt;</span>
+	select * from dept where deptno=#{deptno}
+<span class="nt">&lt;/select&gt;</span>
+
+<span class="c">&lt;!--
+</span><span class="c">	一对多：查询部门及其员工信息
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selDeptInfoMapper&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Dept&#34;</span><span class="nt">&gt;</span>
+	select * from dept
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件（多对一：查询员工及其部门信息）：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 多对一：查询员工及其部门信息
+</span><span class="c1">// 获取员工mapper
+</span><span class="c1"></span><span class="n">EmpMapper</span> <span class="n">empMapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// 获取部门mapper
+</span><span class="c1"></span><span class="n">DeptMapper</span> <span class="n">deptMapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">DeptMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// 1、查询所有的员工信息
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">selEmpInfoMapper</span><span class="o">();</span>
+<span class="c1">// 2、遍历结果，根据员工的部门编号获取部门信息，并存储到对应的员工对象中
+</span><span class="c1"></span><span class="k">for</span><span class="o">(</span><span class="n">Emp</span> <span class="n">emp</span><span class="o">:</span> <span class="n">emps</span><span class="o">){</span>
+    <span class="c1">// 根据员工的部门编号获取部门信息
+</span><span class="c1"></span>    <span class="n">Dept</span> <span class="n">dept</span> <span class="o">=</span> <span class="n">deptMapper</span><span class="o">.</span><span class="na">selDeptByIdMapper</span><span class="o">(</span><span class="n">emp</span><span class="o">.</span><span class="na">getDeptno</span><span class="o">());</span>
+    <span class="n">emp</span><span class="o">.</span><span class="na">setDept</span><span class="o">(</span><span class="n">dept</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><p>测试文件（一对多：查询部门及其员工信息）：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 一对多：查询部门及其员工信息
+</span><span class="c1">// 获取员工mapper
+</span><span class="c1"></span><span class="n">EmpMapper</span> <span class="n">empMapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// 获取部门mapper
+</span><span class="c1"></span><span class="n">DeptMapper</span> <span class="n">deptMapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">DeptMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// 1、查询所有的部门信息
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Dept</span><span class="o">&gt;</span> <span class="n">depts</span> <span class="o">=</span> <span class="n">deptMapper</span><span class="o">.</span><span class="na">selDeptInfoMapper</span><span class="o">();</span>
+<span class="c1">// 2、循环查询部门的员工信息，并将结果存储到对应的部门对象中
+</span><span class="c1"></span><span class="k">for</span><span class="o">(</span><span class="n">Dept</span> <span class="n">dept</span><span class="o">:</span> <span class="n">depts</span><span class="o">){</span>
+    <span class="c1">// 根据部门编号获取员工信息
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">selEmpInfoByDeptnoMapper</span><span class="o">(</span><span class="n">dept</span><span class="o">.</span><span class="na">getDeptno</span><span class="o">());</span>
+    <span class="c1">// 将结果存储到部门对象中
+</span><span class="c1"></span>    <span class="n">dept</span><span class="o">.</span><span class="na">setEmpList</span><span class="o">(</span><span class="n">emps</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div><h3 id="级联查询">级联查询</h3>
+<p>使用mybatis映射配置自动完成数据的组装，需执行多条sql语句</p>
+<p>接口方法：</p>
+<p>EmpMapper.java：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 级联查询
+</span><span class="c1">// 多对一：查询员工及其部门信息
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpInfoMapper</span><span class="o">();</span>
+</code></pre></div><p>DeptMapper.java：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 级联查询
+</span><span class="c1">// 一对多：查询部门及其员工信息
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Dept</span><span class="o">&gt;</span> <span class="nf">selDeptInfoMapper</span><span class="o">();</span>
+</code></pre></div><p>EmpMapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	级联查询
+</span><span class="c">	多对一：查询员工及其部门信息
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;rm2&#34;</span> <span class="na">type=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;ename2&#34;</span> <span class="na">column=</span><span class="s">&#34;ename&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;job2&#34;</span> <span class="na">column=</span><span class="s">&#34;job&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="c">&lt;!--注意：我们说resultMap中属性和字段一致的就可以省略不写，但是级联查询中很有可能出现两个表存在公共同名字段，那么两个表中的公共的字段不能省略，否则查出来的结果中该公共字段就会为null（原因是mybatis底层在将部门信息赋值到员工的时候会通过员工表的deptno去查询部门信息，这个时候相当于deptno就已经被用过一次了，那么它就不会被使用第二次，导致就不会再给员工信息表中的deptno赋值了，导致了查出来的结果中deptno为null）--&gt;</span>
+    <span class="c">&lt;!--这个地方我们写清楚了公共字段deptno的映射，mybatis底层就一定会给deptno赋值--&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;deptno&#34;</span> <span class="na">column=</span><span class="s">&#34;deptno&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+	<span class="c">&lt;!--mybatis实现级联查询的奥妙在这--&gt;</span>
+    <span class="c">&lt;!--这里的column表示的意义就不一样了，它的作用是告诉select使用deptno的值去查；同时property表示的意义也不一样了，它的作用是select查出来的东西赋值给实体的dept属性--&gt;</span>
+    <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;dept&#34;</span> <span class="na">column=</span><span class="s">&#34;deptno&#34;</span> <span class="na">select=</span><span class="s">&#34;com.bjsxt.mapper.DeptMapper.selDeptByIdMapper&#34;</span><span class="nt">&gt;&lt;/association&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpInfoMapper&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;rm2&#34;</span><span class="nt">&gt;</span>
+	select * from emp
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>DeptMapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--
+</span><span class="c">	级联查询
+</span><span class="c">	一对多：查询部门及其员工信息
+</span><span class="c">--&gt;</span>
+<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;rm&#34;</span> <span class="na">type=</span><span class="s">&#34;com.bjsxt.pojo.Dept&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;deptno&#34;</span> <span class="na">column=</span><span class="s">&#34;deptno&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+	<span class="c">&lt;!--使用collection标签来表明员工信息的获取--&gt;</span>
+    <span class="c">&lt;!--上面多对一的时候我们用了association标签，这里用了collection标签，怎么辨别到底用什么标签呢？很简单，多对一中一个实体对应一个实体，因此结果只可能是一个，所以用association；一对多中一个实体对应多个实体，因此结果可能有多个，所以用collection--&gt;</span>
+    <span class="c">&lt;!--下面的ofType告诉mybatis对于empList的查询结果的类型是什么--&gt;</span>
+    <span class="c">&lt;!--这里的column表示的意义就不一样了，它的作用是告诉select使用deptno的值去查；同时property表示的意义也不一样了，它的作用是select查出来的东西赋值给实体的empList属性--&gt;</span>
+    <span class="nt">&lt;collection</span> <span class="na">property=</span><span class="s">&#34;empList&#34;</span> <span class="na">ofType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span> <span class="na">column=</span><span class="s">&#34;deptno&#34;</span> <span class="na">select=</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper.selEmpInfoByDeptnoMapper&#34;</span><span class="nt">&gt;&lt;/collection&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selDeptInfoMapper&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;rm&#34;</span><span class="nt">&gt;</span>
+	select * from dept
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 级联查询
+</span><span class="c1">// 多对一：查询员工及其部门信息
+</span><span class="c1"></span><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">selEmpInfoMapper</span><span class="o">();</span>
+<span class="c1">// 一对多：查询部门及其员工信息
+</span><span class="c1"></span><span class="n">DeptMapper</span> <span class="n">mapper2</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">DeptMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// 查询
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Dept</span><span class="o">&gt;</span> <span class="n">depts</span> <span class="o">=</span> <span class="n">mapper2</span><span class="o">.</span><span class="na">selDeptInfoMapper</span><span class="o">();</span> <span class="c1">// 注意：由于使用mybatis的级联查询，对于Dept实体中的List&lt;Emp&gt; empList中的Emp的查询，mybatis是按照属性字段名一致为前提去查询的，所以一旦属性字段名不一致，mybatis查出来的Emp中的某些属性字段名不一致的属性将会为null
+</span></code></pre></div><h4 id="延迟加载">延迟加载</h4>
+<p>认识N + 1（或者说1 + N）问题</p>
+<p>示例1：查询所有员工信息（含部门名称）</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">dept</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">dept</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">dept</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+</code></pre></div><p>示例2：查询所有部门信息（含每个部门的员工信息）</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">dept</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">30</span><span class="p">;</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">emp</span> <span class="k">where</span> <span class="n">deptno</span> <span class="o">=</span> <span class="mi">40</span><span class="p">;</span>
+</code></pre></div><p>如果第一个查询有N条记录，随后对数据库进行N此查询，共计1+N次查询，对数据库查询次数多，服务器亚历山大，成为N+1问题。</p>
+<p>如何解决呢？</p>
+<ul>
+<li>
+<p>延迟加载</p>
+<p>关联表的数据只有等到真正使用的时候才进行查询。不使用不查询。多用在关联对象或集合中。</p>
+<p>比如功能：查询所有员工的信息中只显示员工信息，而不显示部门信息；那对部门的sql语句不就白查询了吗，能否默认不查询，等真正使用的时候才查询，延迟一下查询的时间，这不就灵活了吗？</p>
+<p>resultMap可以实现高级映射（使用 association、collection实现一对一及一对多映射），association、collection具备延迟加载设置功能。</p>
+<p>延迟加载的好处：先从单表查询、需要时再从关联表去关联查询，大大提高数据库性能，因为查询单表要比关联查询多张表速度要快</p>
+</li>
+<li>
+<p>连接查询</p>
+<p>一条SQL语句查询到所有的数据。</p>
+</li>
+</ul>
+<p>延迟加载的设置</p>
+<p><strong>方式一</strong>：全局开关：在mybatis.xml配置文件中打开延迟加载的开关。配置完成后所有的association和collection元素都生效</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;settings&gt;</span>
+    <span class="c">&lt;!--lazyLoadingEnabled表示是否开启延迟加载。是mybatis是否启用懒加载的全局开关。当开启时，所有关联对象都会延迟加载。特定关联关系中可通过设置fetchType属性来覆盖该项的开关状态--&gt;</span>
+	<span class="nt">&lt;seting</span> <span class="na">name=</span><span class="s">&#34;lazyLoadingEnabled&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+	<span class="c">&lt;!--aggressiveLazyLoading开启时，任何方法的调用都会加载懒加载对象的所有属性。否则，每个属性会按需加载--&gt;</span>
+    <span class="nt">&lt;seting</span> <span class="na">name=</span><span class="s">&#34;aggressiveLazyLoading&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</code></pre></div><p><strong>方式二</strong>：分开关：指定的association和collection元素中配置fetchType属性。eager：表示立刻加载；lazy：表示延迟加载。将会覆盖全局延迟设置。</p>
+<h3 id="多表联合查询连接查询">多表联合查询（连接查询）</h3>
+<p>使用mybatis映射配置自动完成数据组装，只需执行一条sql语句</p>
+<p>接口方法：</p>
+<p>EmpMapper.java：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 多对一：查询员工及其部门信息
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpInfoMapper</span><span class="o">();</span>
+
+</code></pre></div><p>DeptMapper.java：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 一对多：查询部门及其员工信息
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selDeptInfoMapper</span><span class="o">();</span>
+</code></pre></div><p>EmpMapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--联合查询方式--&gt;</span>
+<span class="c">&lt;!--多对一：查询员工及其部门信息--&gt;</span>
+<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;rm3&#34;</span> <span class="na">type=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	<span class="c">&lt;!--联合查询的时候属性字段映射不能省略！--&gt;</span>
+    <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;empid&#34;</span> <span class="na">column=</span><span class="s">&#34;empid&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;ename&#34;</span> <span class="na">column=</span><span class="s">&#34;ename&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;job&#34;</span> <span class="na">column=</span><span class="s">&#34;job&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;mgr&#34;</span> <span class="na">column=</span><span class="s">&#34;mgr&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;deptno&#34;</span> <span class="na">column=</span><span class="s">&#34;deptno&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+	<span class="c">&lt;!--下面的association标签不用写column了，因为sql语句已经把数据都查出来了，但是需要写javaType指定property的数据的类型--&gt;</span>
+    <span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">&#34;dept&#34;</span> <span class="na">javaType=</span><span class="s">&#34;com.bjsxt.pojo.Dept&#34;</span><span class="nt">&gt;</span>
+		<span class="c">&lt;!--联合查询的时候属性字段映射不能省略！--&gt;</span>
+    	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;deptno&#34;</span> <span class="na">column=</span><span class="s">&#34;deptno&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;dname&#34;</span> <span class="na">column=</span><span class="s">&#34;dname&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;ddesc&#34;</span> <span class="na">column=</span><span class="s">&#34;ddesc&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;/association&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpInfoMapper&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;rm3&#34;</span><span class="nt">&gt;</span>
+	select * from emp e
+    join dept d
+    on e.deptno=d.deptno
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>DeptMapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--联合查询方式--&gt;</span>
+<span class="c">&lt;!--一对多：查询部门及其员工信息--&gt;</span>
+<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;rm3&#34;</span> <span class="na">type=</span><span class="s">&#34;com.bjsxt.pojo.Dept&#34;</span><span class="nt">&gt;</span>
+	<span class="c">&lt;!--联合查询的时候属性字段映射不能省略！--&gt;</span>
+	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;deptno&#34;</span> <span class="na">column=</span><span class="s">&#34;deptno&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;dname&#34;</span> <span class="na">column=</span><span class="s">&#34;dname&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;ddesc&#34;</span> <span class="na">column=</span><span class="s">&#34;ddesc&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;collection</span> <span class="na">property=</span><span class="s">&#34;empList&#34;</span> <span class="na">ofType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+		<span class="c">&lt;!--联合查询的时候属性字段映射不能省略！--&gt;</span>
+    	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;empid&#34;</span> <span class="na">column=</span><span class="s">&#34;empid&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;ename&#34;</span> <span class="na">column=</span><span class="s">&#34;ename&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;job&#34;</span> <span class="na">column=</span><span class="s">&#34;job&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;mgr&#34;</span> <span class="na">column=</span><span class="s">&#34;mgr&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;sal&#34;</span> <span class="na">column=</span><span class="s">&#34;sal&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;comm&#34;</span> <span class="na">column=</span><span class="s">&#34;comm&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+        <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;deptno&#34;</span> <span class="na">column=</span><span class="s">&#34;deptno&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;/collection&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selDeptInfoMapper&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;rm3&#34;</span><span class="nt">&gt;</span>
+	select * from dept d
+    join emp e
+    on e.deptno=d.deptno
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 多表联合查询
+</span><span class="c1">// 多对一：查询员工及其部门信息
+</span><span class="c1"></span><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">selEmpInfoMapper</span><span class="o">();</span>
+
+<span class="c1">// 一对多：查询部门及其员工信息
+</span><span class="c1"></span><span class="n">DeptMapper</span> <span class="n">mapper2</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">DeptMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Dept</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">mapper2</span><span class="o">.</span><span class="na">selDeptInfoMapper</span><span class="o">();</span>
+</code></pre></div><h2 id="查询结果注入规则自动注入auto-mapping与手动注入resultmap">查询结果注入规则：自动注入（Auto-Mapping）与手动注入（ResultMap）</h2>
+<p>接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 自动注入-Autowired
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpByAuto</span><span class="o">();</span>
+<span class="c1">// 手动注入-ResultMap
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpByResultMap</span><span class="o">();</span>
+</code></pre></div><p>mapper.xml文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="c">&lt;!--注入规则--&gt;</span>
+<span class="c">&lt;!--
+</span><span class="c">	自动注入：mybatis在完成查询后，会自动的按照实体类的属性名和查询结果的字段名一致的规则将数据注入到实体类对象中。
+</span><span class="c">	注意：
+</span><span class="c">		1、实体类的属性名必须和字段名一致
+</span><span class="c">		2、在查询标签上使用resultType表明要注入的实体类的全限定路径
+</span><span class="c">	
+</span><span class="c">	手动注入：如果我们设计的存储查询结果的实体类的属性名和查询结果的字段名不一致，需要手动配置实体类和查询结果之间的映射关系
+</span><span class="c">	使用：
+</span><span class="c">		1、在查询标签上使用ResultMap属性引入声明的规则的ID
+</span><span class="c">		2、使用resultMap标签表明映射关系
+</span><span class="c">	注意：
+</span><span class="c">		1、resultMap配置的映射关系中可以只写属性名和字段名不一致的那些字段
+</span><span class="c">--&gt;</span>
+<span class="c">&lt;!--自动注入--&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpByAuto&#34;</span> <span class="na">resultType=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	select * from emp
+<span class="nt">&lt;/select&gt;</span>
+
+<span class="c">&lt;!--手动注入--&gt;</span>
+<span class="c">&lt;!--使用resultMap标签声明查询结果和实体类之间的映射关系--&gt;</span>
+<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;rm1&#34;</span> <span class="na">type=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;empid&#34;</span> <span class="na">column=</span><span class="s">&#34;empid&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;ename2&#34;</span> <span class="na">column=</span><span class="s">&#34;ename&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;job2&#34;</span> <span class="na">column=</span><span class="s">&#34;job&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;mgr&#34;</span> <span class="na">column=</span><span class="s">&#34;mgr&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;sal&#34;</span> <span class="na">column=</span><span class="s">&#34;sal&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">&#34;deptno&#34;</span> <span class="na">column=</span><span class="s">&#34;deptno&#34;</span><span class="nt">&gt;&lt;/result&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selEmpByResultMap&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;rm1&#34;</span><span class="nt">&gt;</span>
+    select * from emp
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><p>测试文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmpMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">sqlSession</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmpMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="c1">// 查询所有的员工信息（使用自动注入规则）
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">selEmpByAuto</span><span class="o">();</span> <span class="c1">// 此时如果实体类Emp中有属性ename2，但是数据库中没有该字段（或者说数据库中该字段叫ename），那么此时查到的结果中实体Emp的属性ename2将会是null
+</span><span class="c1"></span>
+<span class="c1">// 查询所有的员工信息（使用手动注入规则）
+</span><span class="c1"></span><span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="n">emps</span> <span class="o">=</span> <span class="n">empMapper</span><span class="o">.</span><span class="na">selEmpByResultMap</span><span class="o">();</span>
+</code></pre></div><h3 id="javatype">javaType</h3>
+<p>property的类型，一个完整的类名，或者是一个类型别名。如果你匹配的是一个JavaBean，那mybatis通常会自行检测到。</p>
+<p>首先改属性可写可不写，因为mybatis底层通过反射就可以直接拿到数据的类型</p>
+<p>简单来讲它的作用：column=”empid“，property=”empid“，我希望column的值转到property的值的时候能转成javaType的属性</p>
+<p>用法示例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">&#34;rm&#34;</span> <span class="na">type=</span><span class="s">&#34;com.bjsxt.pojo.Emp&#34;</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;empid&#34;</span> <span class="na">javaType=</span><span class="s">&#34;java.lang.Integer&#34;</span> <span class="na">column=</span><span class="s">&#34;empid&#34;</span><span class="nt">&gt;&lt;/id&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+</code></pre></div><h3 id="jdbctype">jdbcType</h3>
+<p>column在数据库表中的类型。这个属性只在insert、update或delete的时候对允许空的列有用。JDBC需要这项，但Mybatis不需要。取值是JDBCType枚举的值</p>
+<p>这个属性也是可写可不写的</p>
+<p>用法示例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">&#34;selectByPrimaryKey&#34;</span> <span class="na">resultMap=</span><span class="s">&#34;BaseResultMap&#34;</span><span class="nt">&gt;</span>
+    select *
+    from emp
+    where id = #{id,jdbcType=INTEGER}
+<span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h2 id="使用注解代替mapperxml">使用注解代替mapper.xml</h2>
+<p>注意：注解虽然可以完全替代mapper.xml文件，但是当写动态sql查询的时候注解会相当麻烦，此时最好还是用mapper.xml</p>
+<p>接口方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// 查询所有的员工信息
+</span><span class="c1"></span><span class="nd">@Select</span><span class="o">(</span><span class="s">&#34;select * from emp&#34;</span><span class="o">)</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpInfoMapper</span><span class="o">();</span>
+<span class="c1">// 根据id获取员工信息
+</span><span class="c1"></span><span class="nd">@Select</span><span class="o">(</span><span class="s">&#34;select * from emp where empid=#{empid}&#34;</span><span class="o">)</span>
+<span class="n">Emp</span> <span class="nf">selEmpByIdMapper</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;empid&#34;</span><span class="o">)</span><span class="n">Integer</span> <span class="n">empid</span><span class="o">);</span>
+<span class="c1">// 根据岗位和工资查询员工信息
+</span><span class="c1"></span><span class="nd">@Select</span><span class="o">(</span><span class="s">&#34;select * from emp where job like concat(&#39;%&#39;,#{job},&#39;%&#39;) and sal&gt;#{sal}&#34;</span><span class="o">)</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">Emp</span><span class="o">&gt;</span> <span class="nf">selEmpByJobSqlMapper</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;job&#34;</span><span class="o">)</span><span class="n">String</span> <span class="n">job</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;sal&#34;</span><span class="o">)</span><span class="n">Double</span> <span class="n">sal</span><span class="o">);</span>
+<span class="c1">// 新增员工信息
+</span><span class="c1"></span><span class="nd">@Insert</span><span class="o">(</span><span class="s">&#34;insert into emp values(default,#{ename},#{job},#{mgr},now(),#{sal},#{comm},#{deptno})&#34;</span><span class="o">)</span>
+<span class="kt">int</span> <span class="nf">addEmpMapper</span><span class="o">(</span><span class="n">Emp</span> <span class="n">emp</span><span class="o">);</span>
+<span class="c1">// 更新员工信息
+</span><span class="c1"></span><span class="nd">@Update</span><span class="o">(</span><span class="s">&#34;update emp set ename=#{ename} where empid=#{empid}&#34;</span><span class="o">)</span>
+<span class="kt">int</span> <span class="nf">updateEmpMapper</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;ename&#34;</span><span class="o">)</span><span class="n">String</span> <span class="n">ename</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;empid&#34;</span><span class="o">)</span><span class="n">String</span> <span class="n">empid</span><span class="o">);</span>
+<span class="c1">// 删除
+</span><span class="c1"></span><span class="nd">@Delete</span><span class="o">(</span><span class="s">&#34;delete from emp where empid=#{empid}&#34;</span><span class="o">)</span>
+<span class="kt">int</span> <span class="nf">delEmp</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">&#34;empid&#34;</span><span class="o">)</span><span class="n">Integer</span> <span class="n">empid</span><span class="o">);</span>
+</code></pre></div><h2 id="mybatis运行原理">Mybatis运行原理</h2>
+<h3 id="构建sqlsessionfactory">构建SqlSessionFactory</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">Resources</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&#34;mybatis.xml&#34;</span><span class="o">);</span>
+<span class="n">SqlSessionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SqlSessionFactoryBuilder</span><span class="o">().</span><span class="na">build</span><span class="o">(</span><span class="n">is</span><span class="o">);</span>
+</code></pre></div><p>第一步：通过XMLConfigBuilder解析全局配置文件，读出参数，并将读取的内容存入Configuration对象中。Configuration采用单例模式，只有一份。</p>
+<p>第二步：使用Configuration去创建SqlSessionFactory对象。SqlSessionFactory是一个接口，这里返回的是实现类DefaultSqlSessionFactory。此处使用的构建者（Builder）模式。对于复杂对象的创建，使用构造方法很难实现，可以使用构建者模式。</p>
+<p>经过跟踪发现，最终映射文件的信息存储到了Configuration的mappedStatements成员变量中：</p>
+<p><img src="/mybatis.assets/image-20210413205035791.png" alt="image-20210413205035791"></p>
+<p>这一块可以直接点SqlSessionFactory点进去看源码</p>
+<p>注意：构建SqlSessionFactory的时候，不仅读取了主配置文件的所有信息（包括&lt;mappers&gt;），而且也读取了各个映射文件的信息，均放入了MyBatis相应的对象中。</p>
+<h3 id="创建sqlsession">创建SqlSession</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">SqlSession</span> <span class="n">session</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">openSession</span><span class="o">();</span>
+</code></pre></div><p><img src="/mybatis.assets/image-20210413205302461.png" alt="image-20210413205302461"></p>
+<p>SqlSession是一个接口，这里返回的是其实现类DefaultSqlSession的一个实例。其中有一个Executor类型的成员变量。其实进行数据库操作时SqlSession就是一个门面，真正干活的却是Executor。</p>
+<ul>
+<li>Executor：执行器，由它来调度StatementHandler、ParameterHandler、ResultSetHandler等来执行对应的SQL，其中StatementHandler是最重要的。
+<ul>
+<li>StatementHandler：使用数据库的Statemet（PreparedStatement）执行操作</li>
+<li>ParameterHandler：处理SQL参数</li>
+<li>ResultSetHandler：处理结果集ResultSet的封装返回</li>
+</ul>
+</li>
+</ul>
+<h3 id="创建mapper代理对象并执行数据库crud操作">创建Mapper代理对象并执行数据库CRUD操作</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">EmployeeMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">getMapper</span><span class="o">(</span><span class="n">EmployeeMapper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</code></pre></div><p>底层使用了动态代理模式：</p>
+<p><img src="/mybatis.assets/image-20210413205703902.png" alt="image-20210413205703902"></p>
+<p>使用Mapper代理方式访问数据库：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Employee</span> <span class="n">emp</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+<span class="n">Employee</span> <span class="n">emp</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">7839</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">n</span><span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">insert</span><span class="o">(</span><span class="n">emp</span><span class="o">);</span>
+</code></pre></div><p>跟踪源码，发现其实还是调用了SqlSession的selectList()、selectOne()、update()等方法。具体查看org.apache.ibatis.binding.MapperMethod类：</p>
+<p><img src="/mybatis.assets/image-20210413205904585.png" alt="image-20210413205904585"></p>
+<p><img src="/mybatis.assets/image-20210413205911984.png" alt="image-20210413205911984"></p>
+<h3 id="使用sqlsession执行crud操作">使用SqlSession执行CRUD操作</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">session</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="s">&#34;com.bjsxt.mapper.EmployeeMapper.selectAll&#34;</span><span class="o">);</span>
+<span class="n">session</span><span class="o">.</span><span class="na">selectOne</span><span class="o">(</span><span class="s">&#34;com.bjsxt.mapper.EmployeeMapper.selectById&#34;</span><span class="o">,</span> <span class="n">7839</span><span class="o">);</span>
+<span class="n">session</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="s">&#34;com.bjsxt.mapper.EmployeeMapper.updateEmp&#34;</span><span class="o">,</span> <span class="n">emp</span><span class="o">);</span>
+</code></pre></div><p>经过跟踪代码发现，SqlSession的selectOne()、selectMap()方法的底层都调用了selectList()方法，而insert()、delete()底层都调用了update()方法。因为研究selectList()、update()方法即可：</p>
+<p><img src="/mybatis.assets/image-20210413210159674.png" alt="image-20210413210159674"></p>
+<p>执行过程中统领全局的代码都在Executor中，比如下图的doUpdate()是完成insert、update、delete操作的，而doQuery()是完成select操作的。</p>
+<p><img src="/mybatis.assets/image-20210413210215262.png" alt="image-20210413210215262"></p>
+<p><img src="/mybatis.assets/image-20210413210227389.png" alt="image-20210413210227389"></p>
+<p><strong>核心步骤就是四步：</strong></p>
+<ul>
+<li>获取数据库连接</li>
+<li>调用StatementHandler的prepare()方法，创建Statement对象并设置其超时、获取的最大行数等。</li>
+<li>调用StatementHandler的parameterize()方法。负责将具体的参数传递给SQL语句。</li>
+<li>调用StatementHandler的query()/update方法。完成查询/DML操作，并对结果集进行封装处理，然后返回最终结果。</li>
+</ul>
+<pre><code>1.Connection connection = getConnection(statementLog);
+2.stmt = handler.prepare(connection, transaction.getTimeout());
+3.handler.parameterize(stmt);
+4.handler.query(stmt, resultHandler);
+//4.handler.update(stmt);
+</code></pre><p><img src="/mybatis.assets/image-20210413210529919.png" alt="image-20210413210529919"></p>
+<p>第三步的parameterize()，负责将具体的参数传递给SQL语句。这其中用到了ParameterHandler的setParameters()和TypeHandler的setParameter()。</p>
+<p><img src="/mybatis.assets/image-20210413210635142.png" alt="image-20210413210635142"></p>
+<p><img src="/mybatis.assets/image-20210413210714023.png" alt="image-20210413210714023"></p>
+<p>第四步的query()，完成查询操作，并对结果集进行对象的封装处理。具体实现细节在ResultSetHandler的handleResults()方法中。</p>
+<p><img src="/mybatis.assets/image-20210413210800125.png" alt="image-20210413210800125"></p>
+<p><img src="/mybatis.assets/image-20210413210806649.png" alt="image-20210413210806649"></p>
+<h2 id="mybatis缓存">mybatis缓存</h2>
+<p>SqlSession是由SqlSessionFactory创建的，一个用户对应一个SqlSession，用完之后直接销毁</p>
+<p>所以SqlSession是一级缓存，SqlSessionFactory是二级缓存</p>
+<p>查数据的时候首先查二级缓存，如果二级缓存中没有，就查一级缓存，如果一级缓存还没有再查数据库</p>
+<p>可以想象，用户操作了一遍之后SqlSession中会缓存很多数据，那这些数据什么情况下会变二级缓存呢？</p>
+<p>首先，mybatis要发现该数据可能同样会被别的SqlSession请求（换句话说该数据可能比较公共，而且可能会被频繁查询）。然后，要等该SqlSession被销毁之后，这些数据才会被存入二级缓存。</p>
+<p><strong>注意</strong>：</p>
+<ul>
+<li>默认情况下，mybatis开启一级缓存，没有开启二级缓存，当数据量大的时候可以借助一些第三方缓存框架或Redis缓存来协助保存mybatis的二级缓存数据</li>
+<li>mybatis的缓存功能终究还是附带的功能，当我们真正需要用到缓存的时候，还是直接上redis等更专业的缓存工具</li>
+</ul>
+<h3 id="开启二级缓存">开启二级缓存</h3>
+<p>那么如何开启二级缓存呢？</p>
+<ul>
+<li>
+<p>全局开关</p>
+<p>在mybatis-config.xml文件中的&lt;settings&gt;标签配置开启二级缓存</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;settings&gt;</span>
+  <span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">&#34;cacheEnabled&#34;</span> <span class="na">value=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</code></pre></div><p>cacheEnabled的默认值就是true，所以这步的设置可以忽略</p>
+</li>
+<li>
+<p>分开关</p>
+<p>在要开启二级缓存的mapper文件中开启缓存</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;mapper</span> <span class="na">namespace=</span><span class="s">&#34;com.bjsxt.mapper.EmpMapper&#34;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;cache/&gt;</span>
+<span class="nt">&lt;/mapper&gt;</span>
+</code></pre></div></li>
+<li>
+<p>缓存中存储的JavaBean对象必须实现序列化接口</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Emp</span> <span class="n">implments</span> <span class="n">Serializable</span><span class="o">{}</span>
+</code></pre></div></li>
+</ul>
+<h2 id="idea使用技巧">idea使用技巧</h2>
+<h3 id="引入本地dtd文件">引入本地DTD文件</h3>
+<p>在没有联网的情况下，让dtd约束继续起作用，并且出现标签提示，可以通过引入本地dtd文件来实现。</p>
+<p>1、下载dtd：在浏览器中输入dtd的网络地址即可实现下载。比如：http://mybatis.org/dtd/mybatis-3-config.dtd</p>
+<p>2、将下载的dtd拷贝到本地的一个目录下</p>
+<p>3、idea操作路径：File &mdash; Settings &mdash; Languages &amp; Frameworks。其中URI复制dtd的网络地址，File选择dtd文件在本地的地址，就行了。</p>
+<p>注意：在mybatis的核心jar包中就提供了mybatis-3-config.dtd</p>
+<h3 id="创建文件模板">创建文件模板</h3>
+<p>idea提供了大量的内置文件模板template，可以自定义模板，避免重复，提高效率。</p>
+<p>创建入口1：右键&mdash;new&mdash;Edit file Templates</p>
+<p>创建入口2：File&mdash;settings&mdash;editor&mdash;File and Code Templates</p>
+<p>使用入口：右键&mdash;new&mdash;选择模板名称</p>
+<h3 id="自动生成mapperxml">自动生成mapper.xml</h3>
+<p>安装mybatisX插件（idea：点开File，点开settings，点开Pluign下载插件）</p>
+<p>这样的话我们一旦写好接口方法直接alt+enter就可以自动在mapper.xml中生成相应的标签</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>MyBatis</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#mybatis的xml配置文件">mybatis的xml配置文件</a>
+      <ul>
+        <li><a href="#transactionmanager">transactionManager</a></li>
+        <li><a href="#datasource">dataSource</a></li>
+        <li><a href="#mappers">mappers</a></li>
+        <li><a href="#将易变内容写到配置文件中并用var_name的形式引入到mybatis配置文件">将易变内容写到配置文件中并用${var_name}的形式引入到mybatis配置文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#resouces注意是mybatis的resouces">Resouces（注意是mybatis的Resouces）</a></li>
+    <li><a href="#sqlsessionfactory与sqlsession">SqlSessionFactory与SqlSession</a>
+      <ul>
+        <li><a href="#使用mapper">使用mapper</a></li>
+      </ul>
+    </li>
+    <li><a href="#mapper配置文件">mapper配置文件</a>
+      <ul>
+        <li><a href="#查">查</a></li>
+        <li><a href="#增删改">增、删、改</a></li>
+      </ul>
+    </li>
+    <li><a href="#日志">日志</a>
+      <ul>
+        <li><a href="#log4j配置文件">log4j配置文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#mybatis依赖的包">mybatis依赖的包</a></li>
+    <li><a href="#生命周期">生命周期</a></li>
+    <li><a href="#类型别名">类型别名</a></li>
+    <li><a href="#include标签和sql标签提取公共sql脚本片段">include标签和sql标签提取公共SQL脚本片段</a></li>
+    <li><a href="#param">@Param</a></li>
+    <li><a href="#使用占位的方式和使用占位的方式">使用#{}占位的方式和使用${}占位的方式</a></li>
+    <li><a href="#模糊查询">模糊查询</a>
+      <ul>
+        <li><a href="#小于或者大于判断">小于或者大于判断</a></li>
+      </ul>
+    </li>
+    <li><a href="#分页查询">分页查询</a></li>
+    <li><a href="#自增主键回填">自增主键回填</a></li>
+    <li><a href="#动态sql查询以及更新">动态SQL查询以及更新</a>
+      <ul>
+        <li><a href="#if标签">if标签</a></li>
+        <li><a href="#where标签">where标签</a></li>
+        <li><a href="#bind标签">bind标签</a></li>
+        <li><a href="#set标签">set标签</a></li>
+        <li><a href="#foreach标签">foreach标签</a></li>
+      </ul>
+    </li>
+    <li><a href="#多表查询">多表查询</a>
+      <ul>
+        <li><a href="#无级联查询">无级联查询</a></li>
+        <li><a href="#级联查询">级联查询</a></li>
+        <li><a href="#多表联合查询连接查询">多表联合查询（连接查询）</a></li>
+      </ul>
+    </li>
+    <li><a href="#查询结果注入规则自动注入auto-mapping与手动注入resultmap">查询结果注入规则：自动注入（Auto-Mapping）与手动注入（ResultMap）</a>
+      <ul>
+        <li><a href="#javatype">javaType</a></li>
+        <li><a href="#jdbctype">jdbcType</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用注解代替mapperxml">使用注解代替mapper.xml</a></li>
+    <li><a href="#mybatis运行原理">Mybatis运行原理</a>
+      <ul>
+        <li><a href="#构建sqlsessionfactory">构建SqlSessionFactory</a></li>
+        <li><a href="#创建sqlsession">创建SqlSession</a></li>
+        <li><a href="#创建mapper代理对象并执行数据库crud操作">创建Mapper代理对象并执行数据库CRUD操作</a></li>
+        <li><a href="#使用sqlsession执行crud操作">使用SqlSession执行CRUD操作</a></li>
+      </ul>
+    </li>
+    <li><a href="#mybatis缓存">mybatis缓存</a>
+      <ul>
+        <li><a href="#开启二级缓存">开启二级缓存</a></li>
+      </ul>
+    </li>
+    <li><a href="#idea使用技巧">idea使用技巧</a>
+      <ul>
+        <li><a href="#引入本地dtd文件">引入本地DTD文件</a></li>
+        <li><a href="#创建文件模板">创建文件模板</a></li>
+        <li><a href="#自动生成mapperxml">自动生成mapper.xml</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2021 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

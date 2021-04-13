@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Sat, 19 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/senior/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/senior/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MyBatis</title>
+      <link>https://pippichi.github.io/blog/mybatis/</link>
+      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/mybatis/</guid>
+      <description>&lt;p&gt;对于MyBatis的学习总结&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>webpack</title>
       <link>https://pippichi.github.io/blog/webpack/</link>

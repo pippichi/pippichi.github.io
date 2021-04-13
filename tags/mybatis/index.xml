@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MyBatis on Learning Records</title>
+    <link>https://pippichi.github.io/tags/mybatis/</link>
+    <description>Recent content in MyBatis on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
+    <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/mybatis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MyBatis</title>
+      <link>https://pippichi.github.io/blog/mybatis/</link>
+      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/mybatis/</guid>
+      <description>&lt;p&gt;对于MyBatis的学习总结&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

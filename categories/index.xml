@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Thu, 04 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 13 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Senior</title>
+      <link>https://pippichi.github.io/categories/senior/</link>
+      <pubDate>Tue, 13 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/categories/senior/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Basic</title>
       <link>https://pippichi.github.io/categories/basic/</link>
@@ -23,15 +32,6 @@
       <pubDate>Tue, 29 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/categories/additional/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Senior</title>
-      <link>https://pippichi.github.io/categories/senior/</link>
-      <pubDate>Sat, 19 Dec 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pippichi.github.io/categories/senior/</guid>
       <description></description>
     </item>
     
