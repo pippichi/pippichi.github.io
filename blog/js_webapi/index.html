@@ -443,7 +443,14 @@ javascript:;</p>
 <p><img src="/js_webapi/284b9fffa793e152203ee32afa2599aa.png" alt=""></p>
 <p>之前说的声明变量最好不要取名name，因为window对象里面就有一个name属性</p>
 <p><img src="/js_webapi/bbfe328ce7eb2812112d284bc33d0120.png" alt=""></p>
-<h3 id="window对象的常见事件">window对象的常见事件</h3>
+<h3 id="window对象">window对象</h3>
+<p><strong>parent属性</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 获取当前窗口的父窗口
+</span><span class="c1"></span><span class="nb">window</span><span class="p">.</span><span class="nx">parent</span>
+</code></pre></div><p><strong>top属性</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 获取当前窗口的最顶层浏览器窗口
+</span><span class="c1"></span><span class="nb">window</span><span class="p">.</span><span class="nx">top</span>
+</code></pre></div><h4 id="window对象的常见事件">window对象的常见事件</h4>
 <p><img src="/js_webapi/e4ce3a7907f4e9d0263f8acb156cddc2.png" alt=""></p>
 <p><img src="/js_webapi/b369bda1a4042f9353819b6dda2849fa.png" alt=""></p>
 <p><img src="/js_webapi/13482ffad762a8254bbc7a196f6bd2b5.png" alt=""></p>
@@ -452,14 +459,14 @@ javascript:;</p>
 <p><img src="/js_webapi/46c0c6b20270e5132377a26514f3f143.png" alt=""></p>
 <p>这样就可以注册多个了</p>
 <p>用了这个注册之后我们的js代码就能写到任何一个地方而不受限制了</p>
-<h4 id="窗口加载事件">窗口加载事件</h4>
+<h5 id="窗口加载事件">窗口加载事件</h5>
 <p><img src="/js_webapi/2d792a332cd533215e39b927adac95c1.png" alt=""></p>
 <p>document的DOMContentLoaded和window的load差不多，区别在于document的DOMContentLoaded不会等待样式表、图片、flash等的加载而会在仅当DOM加载完成之后就直接去执行js事件；对比来讲window的load会等待所有的元素都加载完毕（包括DOM、样式表、图片、flash等）之后再去执行js事件，显然当图片多的时候使用window的load的话js事件会需要等很长的时间才能被执行，用户体验会非常不好，而document的DOMContentLoaded就不需要等待这么久了，虽然可能图片什么的还没有加载出来，但是下拉框、js交互效果什么的还是能用的，用户体验会比较好</p>
 <p><img src="/js_webapi/fe47b598c086cd7fafe951f127aec5ce.png" alt=""></p>
 <p>另外当document的DOMContentLoaded和window的load写在一起的时候document的DOMContentLoaded会更快一点</p>
 <p><img src="/js_webapi/6ae7f4fa195519e37d5fb1ca0b822479.png" alt=""></p>
 <p>这里的执行顺序是：先跳出33 再跳出22 最后跳出“点击我”</p>
-<h4 id="调整窗口大小事件">调整窗口大小事件</h4>
+<h5 id="调整窗口大小事件">调整窗口大小事件</h5>
 <p><img src="/js_webapi/9749114d60531895226ecaa83579fad0.png" alt=""></p>
 <p><img src="/js_webapi/412758cd2d31c37be22bec21afe48127.png" alt=""></p>
 <h3 id="定时器">定时器</h3>
@@ -1191,7 +1198,7 @@ px，相当于默认写了li的宽度为100%，那么我们有5个li，我们将
     </li>
     <li><a href="#bom">BOM</a>
       <ul>
-        <li><a href="#window对象的常见事件">window对象的常见事件</a></li>
+        <li><a href="#window对象">window对象</a></li>
         <li><a href="#定时器">定时器</a></li>
         <li><a href="#this指向问题">this指向问题</a></li>
         <li><a href="#js执行队列">JS执行队列</a></li>
