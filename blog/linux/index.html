@@ -2893,7 +2893,7 @@ now?是否重新加载权限表（当我们更改了mysql用户相关的信息�
 <h2 id="一编译安装与卸载nginx">一、编译安装与卸载Nginx</h2>
 <p>Nginx：是一款比较流行的web服务器软件，类似于Apache。</p>
 <p><img src="/linux/ad8d1e4bf3a2d2d40ab82baf36899979.png" alt=""></p>
-<h3 id="1安装nginx">1、安装nginx</h3>
+<h3 id="安装nginx">安装nginx</h3>
 <p>①下载nginx</p>
 <p>下载地址：https://nginx.org/en/download.html</p>
 <p>使用在服务器端下载的方式进行下载（此处不使用filezilla）：</p>
@@ -2906,6 +2906,655 @@ now?是否重新加载权限表（当我们更改了mysql用户相关的信息�
 <p>用curl测试ip：curl -I ip号</p>
 <p><strong>#注意，wget和curl还有许多其他的功能，例如限速、断点处开始下载等</strong></p>
 <p>②解压nginx安装包</p>
+<h3 id="curl可替代postman类比浏览器">curl（可替代postman，类比浏览器）</h3>
+<p>curl是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在&quot;标准输出&rdquo;（stdout）上面。</p>
+<p>它支持多种协议，下面举例讲解如何将它用于网站开发。</p>
+<h4 id="查看网页源代码">查看网页源代码</h4>
+<pre><code>$ curl www.sina.com
+</code></pre><p>输出结果：</p>
+<pre><code>&lt;!DOCTYPE HTML PUBLIC &quot;-//IETF//DTD HTML 2.0//EN&quot;&gt;
+&lt;html&gt;&lt;head&gt;
+&lt;title&gt;301 Moved Permanently&lt;/title&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;Moved Permanently&lt;/h1&gt;
+&lt;p&gt;The document has moved &lt;a href=&quot;http://www.sina.com.cn/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+</code></pre><p>注意，像这样不带有任何参数时，curl就是发出GET请求</p>
+<p>如果要把这个网页保存下来，可以使用<code>-o</code>参数，这就相当于使用wget命令了。</p>
+<pre><code>$ curl -o [文件名] www.sina.com
+</code></pre><h4 id="自动跳转">自动跳转</h4>
+<p>有的网址是自动跳转的。使用<code>-L</code>参数，curl就会跳转到新的网址。</p>
+<pre><code>$ curl -L www.sina.com
+</code></pre><p>键入上面的命令，结果就自动跳转为www.sina.com.cn。</p>
+<h4 id="显示头信息">显示头信息</h4>
+<p><code>-i</code>参数可以显示http response的头信息，连同网页代码一起。</p>
+<pre><code>$ curl -i www.sina.com
+</code></pre><p>上面命令收到服务器回应后，先输出服务器回应的标头，然后空一行，再输出网页的源码。</p>
+<p>输出结果：</p>
+<pre><code>HTTP/1.0 301 Moved Permanently
+Date: Sat, 03 Sep 2011 23:44:10 GMT
+Server: Apache/2.0.54 (Unix)
+Location: http://www.sina.com.cn/
+Cache-Control: max-age=3600
+Expires: Sun, 04 Sep 2011 00:44:10 GMT
+Vary: Accept-Encoding
+Content-Length: 231
+Content-Type: text/html; charset=iso-8859-1
+Age: 3239
+X-Cache: HIT from sh201-9.sina.com.cn
+Connection: close
+
+&lt;!DOCTYPE HTML PUBLIC &quot;-//IETF//DTD HTML 2.0//EN&quot;&gt;
+&lt;html&gt;&lt;head&gt;
+&lt;title&gt;301 Moved Permanently&lt;/title&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;Moved Permanently&lt;/h1&gt;
+&lt;p&gt;The document has moved &lt;a href=&quot;http://www.sina.com.cn/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+</code></pre><p><code>-I</code>参数则是只显示http response的头信息。</p>
+<pre><code>$ curl -I www.sina.com
+</code></pre><p>输出结果：</p>
+<pre><code>HTTP/1.0 301 Moved Permanently
+Date: Sat, 03 Sep 2011 23:44:10 GMT
+Server: Apache/2.0.54 (Unix)
+Location: http://www.sina.com.cn/
+Cache-Control: max-age=3600
+Expires: Sun, 04 Sep 2011 00:44:10 GMT
+Vary: Accept-Encoding
+Content-Length: 231
+Content-Type: text/html; charset=iso-8859-1
+Age: 3239
+X-Cache: HIT from sh201-9.sina.com.cn
+Connection: close
+</code></pre><p><strong>--head</strong></p>
+<p><code>--head</code>参数等同于<code>-I</code>。</p>
+<pre><code>$ curl --head https://www.example.com
+</code></pre><h4 id="显示通信过程">显示通信过程</h4>
+<p><code>-v</code>参数可以显示一次http通信的整个过程，用于调试，包括端口连接和http request头信息。</p>
+<pre><code>$ curl -v www.sina.com
+</code></pre><p>输出结果：</p>
+<pre><code>* About to connect() to www.sina.com port 80 (#0)
+* Trying 61.172.201.195... connected
+* Connected to www.sina.com (61.172.201.195) port 80 (#0)
+&gt; GET / HTTP/1.1
+&gt; User-Agent: curl/7.21.3 (i686-pc-linux-gnu) libcurl/7.21.3 OpenSSL/0.9.8o zlib/1.2.3.4 libidn/1.18
+&gt; Host: www.sina.com
+&gt; Accept: */*
+&gt;
+* HTTP 1.0, assume close after body
+&lt; HTTP/1.0 301 Moved Permanently
+&lt; Date: Sun, 04 Sep 2011 00:42:39 GMT
+&lt; Server: Apache/2.0.54 (Unix)
+&lt; Location: http://www.sina.com.cn/
+&lt; Cache-Control: max-age=3600
+&lt; Expires: Sun, 04 Sep 2011 01:42:39 GMT
+&lt; Vary: Accept-Encoding
+&lt; Content-Length: 231
+&lt; Content-Type: text/html; charset=iso-8859-1
+&lt; X-Cache: MISS from sh201-19.sina.com.cn
+&lt; Connection: close
+&lt;
+&lt;!DOCTYPE HTML PUBLIC &quot;-//IETF//DTD HTML 2.0//EN&quot;&gt;
+&lt;html&gt;&lt;head&gt;
+&lt;title&gt;301 Moved Permanently&lt;/title&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;Moved Permanently&lt;/h1&gt;
+&lt;p&gt;The document has moved &lt;a href=&quot;http://www.sina.com.cn/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+* Closing connection #0
+</code></pre><p><strong>--trace</strong></p>
+<p><code>--trace</code>参数也可以用于调试，还会输出原始的二进制数据。如果你觉得<code>-v</code>的信息还不够，那么可以用<code>--trace</code>查看更详细的通信过程。</p>
+<pre><code>$ curl --trace output.txt www.sina.com
+</code></pre><p>或者</p>
+<pre><code>$ curl --trace-ascii output.txt www.sina.com
+</code></pre><p>运行后，请打开output.txt文件查看。</p>
+<h4 id="发送表单信息">发送表单信息</h4>
+<p>发送表单信息有GET和POST两种方法。GET方法相对简单，只要把数据附在网址后面就行。</p>
+<pre><code>$ curl example.com/form.cgi?data=xxx
+</code></pre><p>POST方法必须把数据和网址分开，curl就要用到&ndash;data参数。</p>
+<pre><code>$ curl -X POST --data &quot;data=xxx&quot; example.com/form.cgi
+</code></pre><p>如果你的数据没有经过表单编码，还可以让curl为你编码，参数是<code>--data-urlencode</code>。</p>
+<pre><code>$ curl -X POST --data-urlencode &quot;date=April 1&quot; example.com/form.cgi
+</code></pre><p><strong>-d</strong></p>
+<p><code>-d</code>参数用于发送 POST 请求的数据体。</p>
+<pre><code>$ curl -d'login=emma＆password=123'-X POST https://google.com/login
+# 或者
+$ curl -d 'login=emma' -d 'password=123' -X POST  https://google.com/login
+</code></pre><p>使用<code>-d</code>参数以后，HTTP 请求会自动加上标头<code>Content-Type : application/x-www-form-urlencoded</code>。并且会自动将请求转为 POST 方法，因此可以省略<code>-X POST</code>。</p>
+<p><code>-d</code>参数可以读取本地文本文件的数据，向服务器发送。</p>
+<pre><code>$ curl -d '@data.txt' https://google.com/login
+</code></pre><p>上面命令读取<code>data.txt</code>文件的内容，作为数据体向服务器发送。</p>
+<p><strong>--data-urlencode</strong></p>
+<p><code>--data-urlencode</code>参数等同于<code>-d</code>，发送 POST 请求的数据体，区别在于会自动将发送的数据进行 URL 编码。</p>
+<pre><code>$ curl --data-urlencode 'comment=hello world' https://google.com/login
+</code></pre><p>上面代码中，发送的数据<code>hello world</code>之间有一个空格，需要进行 URL 编码。</p>
+<h4 id="http动词">HTTP动词</h4>
+<p>curl默认的HTTP动词是GET，使用<code>-X</code>参数可以支持其他动词。</p>
+<pre><code>$ curl -X POST www.example.com
+</code></pre><pre><code>$ curl -X DELETE www.example.com
+</code></pre><p><strong>-x</strong></p>
+<p><code>-x</code>参数指定 HTTP 请求的代理。</p>
+<pre><code>$ curl -x socks5://james:cats@myproxy.com:8080 https://www.example.com
+</code></pre><p>上面命令指定 HTTP 请求通过<code>myproxy.com:8080</code>的 socks5 代理发出。</p>
+<p>如果没有指定代理协议，默认为 HTTP。</p>
+<pre><code>$ curl -x james:cats@myproxy.com:8080 https://www.example.com
+</code></pre><p>上面命令中，请求的代理使用 HTTP 协议。</p>
+<p><strong>-X</strong></p>
+<p><code>-X</code>参数指定 HTTP 请求的方法。</p>
+<pre><code>$ curl -X POST https://www.example.com
+</code></pre><p>上面命令对<code>https://www.example.com</code>发出 POST 请求。</p>
+<h4 id="文件上传">文件上传</h4>
+<p>假定文件上传的表单是下面这样：</p>
+<pre><code>&lt;form method=&quot;POST&quot; enctype='multipart/form-data' action=&quot;upload.cgi&quot;&gt;
+    &lt;input type=file name=upload&gt;
+    &lt;input type=submit name=press value=&quot;OK&quot;&gt;
+&lt;/form&gt;
+</code></pre><p>你可以用curl这样上传文件：</p>
+<pre><code>$ curl --form upload=@localfilename --form press=OK [URL]
+</code></pre><p><strong>-F</strong></p>
+<p><code>-F</code>参数用来向服务器上传二进制文件。</p>
+<pre><code>$ curl -F 'file=@photo.png' https://google.com/profile
+</code></pre><p>上面命令会给 HTTP 请求加上标头<code>Content-Type: multipart/form-data</code>，然后将文件<code>photo.png</code>作为<code>file</code>字段上传。</p>
+<p><code>-F</code>参数可以指定 MIME 类型。</p>
+<pre><code>$ curl -F 'filWe=@photo.png;type=image/png' https://google.com/profile
+</code></pre><p>上面命令指定 MIME 类型为<code>image/png</code>，否则 curl 会把 MIME 类型设为<code>application/octet-stream</code>。</p>
+<p><code>-F</code>参数也可以指定文件名。</p>
+<pre><code>$ curl -F 'file=@photo.png;filename=me.png' https://google.com/profile
+</code></pre><p>上面命令中，原始文件名为<code>photo.png</code>，但是服务器接收到的文件名为<code>me.png</code>。</p>
+<p><strong>-G</strong></p>
+<p><code>-G</code>参数用来构造 URL 的查询字符串。</p>
+<pre><code>$ curl -G -d 'q=kitties' -d 'count=20' https://google.com/search
+</code></pre><p>上面命令会发出一个 GET 请求，实际请求的 URL 为<code>https://google.com/search?q=kitties&amp;count=20</code>。如果省略<code>-G</code>，会发出一个 POST 请求。</p>
+<p>如果数据需要 URL 编码，可以结合<code>--data--urlencode</code>参数。</p>
+<pre><code>$ curl -G --data-urlencode 'comment=hello world' https://www.example.com
+</code></pre><h4 id="referer字段">Referer字段</h4>
+<p>有时你需要在http request头信息中，提供一个referer字段，表示你是从哪里跳转过来的。</p>
+<pre><code>$ curl --referer http://www.example.com http://www.example.com
+</code></pre><p><strong>-e</strong></p>
+<p><code>-e</code>参数用来设置 HTTP 的标头<code>Referer</code>，表示请求的来源。</p>
+<pre><code>curl -e 'https://google.com?q=example' https://www.example.com
+</code></pre><p>上面命令将<code>Referer</code>标头设为<code>https://google.com?q=example</code>。</p>
+<p><code>-H</code>参数可以通过直接添加标头<code>Referer</code>，达到同样效果。</p>
+<pre><code>curl -H 'Referer: https://google.com?q=example' https://www.example.com
+</code></pre><h4 id="user-agent字段">User Agent字段</h4>
+<p>这个字段是用来表示客户端的设备信息。服务器有时会根据这个字段，针对不同设备，返回不同格式的网页，比如手机版和桌面版。</p>
+<p>iPhone4的User Agent是：</p>
+<pre><code>Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_0 like Mac OS X; en-us) AppleWebKit/532.9 (KHTML, like Gecko) Version/4.0.5 Mobile/8A293 Safari/6531.22.7
+</code></pre><p>curl可以这样模拟：</p>
+<pre><code>$ curl --user-agent &quot;[User Agent]&quot; [URL]
+</code></pre><p><strong>-A</strong></p>
+<p><code>-A</code>参数指定客户端的用户代理标头，即<code>User-Agent</code>。curl 的默认用户代理字符串是<code>curl/[version]</code>。</p>
+<pre><code>$ curl -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' https://google.com
+</code></pre><p>上面命令将<code>User-Agent</code>改成 Chrome 浏览器。</p>
+<pre><code>$ curl -A '' https://google.com
+</code></pre><p>上面命令会移除<code>User-Agent</code>标头。</p>
+<p>也可以通过<code>-H</code>参数直接指定标头，更改<code>User-Agent</code>。</p>
+<pre><code>$ curl -H 'User-Agent: php/1.0' https://google.com
+</code></pre><h4 id="cookie">cookie</h4>
+<p>使用<code>--cookie</code>参数，可以让curl发送cookie。</p>
+<pre><code>$ curl --cookie &quot;name=xxx&quot; www.example.com
+</code></pre><p>至于具体的cookie的值，可以从http response头信息的<code>Set-Cookie</code>字段中得到。</p>
+<p><code>-c cookie-file</code>可以保存服务器返回的cookie到文件，<code>-b cookie-file</code>可以使用这个文件作为cookie信息，进行后续的请求。</p>
+<pre><code>$ curl -c cookies.txt http://example.com
+$ curl -b cookies.txt http://example.com
+</code></pre><p><strong>-c</strong></p>
+<p><code>-c</code>参数将服务器设置的 Cookie 写入一个文件。</p>
+<pre><code>$ curl -c cookies.txt https://www.google.com
+</code></pre><p>上面命令将服务器的 HTTP 回应所设置 Cookie 写入文本文件<code>cookies.txt</code>。</p>
+<p><strong>-b</strong></p>
+<p><code>-b</code>参数用来向服务器发送 Cookie。</p>
+<pre><code>$ curl -b 'foo=bar' https://google.com
+</code></pre><p>上面命令会生成一个标头<code>Cookie: foo=bar</code>，向服务器发送一个名为<code>foo</code>、值为<code>bar</code>的 Cookie。</p>
+<pre><code>$ curl -b 'foo1=bar;foo2=bar2' https://google.com
+</code></pre><p>上面命令发送两个 Cookie。</p>
+<pre><code>$ curl -b cookies.txt https://www.google.com
+</code></pre><p>上面命令读取本地文件<code>cookies.txt</code>，里面是服务器设置的 Cookie（参见<code>-c</code>参数），将其发送到服务器。</p>
+<h4 id="增加头信息">增加头信息</h4>
+<p>有时需要在http request之中，自行增加一个头信息。<code>--header</code>参数就可以起到这个作用。</p>
+<pre><code>$ curl --header &quot;Content-Type:application/json&quot; http://example.com
+</code></pre><p><strong>-H</strong></p>
+<p><code>-H</code>参数添加 HTTP 请求的标头。</p>
+<pre><code>$ curl -H 'Accept-Language: en-US' https://google.com
+</code></pre><p>上面命令添加 HTTP 标头<code>Accept-Language: en-US</code>。</p>
+<pre><code>$ curl -H 'Accept-Language: en-US' -H 'Secret-Message: xyzzy' https://google.com
+</code></pre><p>上面命令添加两个 HTTP 标头。</p>
+<pre><code>$ curl -d '{&quot;login&quot;: &quot;emma&quot;, &quot;pass&quot;: &quot;123&quot;}' -H 'Content-Type: application/json' https://google.com/login
+</code></pre><p>上面命令添加 HTTP 请求的标头是<code>Content-Type: application/json</code>，然后用<code>-d</code>参数发送 JSON 数据。</p>
+<h4 id="http认证">HTTP认证</h4>
+<pre><code>$ curl --user name:password example.com
+</code></pre><h4 id="指定跳过ssl检测">指定跳过SSL检测</h4>
+<p><strong>-k</strong></p>
+<p><code>-k</code>参数指定跳过 SSL 检测。</p>
+<pre><code>$ curl -k https://www.example.com
+</code></pre><p>上面命令不会检查服务器的 SSL 证书是否正确。</p>
+<h4 id="指定http请求跟随服务器的重定向curl默认不跟随重定向">指定HTTP请求跟随服务器的重定向。（curl默认不跟随重定向）</h4>
+<p><strong>-L</strong></p>
+<p><code>-L</code>参数会让 HTTP 请求跟随服务器的重定向。curl 默认不跟随重定向。</p>
+<pre><code>$ curl -L -d 'tweet=hi' https://api.twitter.com/tweet
+</code></pre><h4 id="限制http请求和回应的带宽模拟慢网速的环境">限制HTTP请求和回应的带宽，模拟慢网速的环境</h4>
+<p><strong>--limit-rate</strong></p>
+<p><code>--limit-rate</code>用来限制 HTTP 请求和回应的带宽，模拟慢网速的环境。</p>
+<pre><code>$ curl --limit-rate 200k https://google.com
+</code></pre><p>上面命令将带宽限制在每秒 200K 字节。</p>
+<h4 id="将服务器的回应保存成文件等同于wget命令">将服务器的回应保存成文件，等同于wget命令</h4>
+<p><strong>-o</strong></p>
+<p><code>-o</code>参数将服务器的回应保存成文件，等同于<code>wget</code>命令。</p>
+<pre><code>$ curl -o example.html https://www.example.com
+</code></pre><p>上面命令将<code>www.example.com</code>保存成<code>example.html</code>。</p>
+<h4 id="将服务器回应保存成文件并将-url-的最后部分当作文件名">将服务器回应保存成文件，并将 URL 的最后部分当作文件名</h4>
+<p><strong>-O</strong></p>
+<p><code>-O</code>参数将服务器回应保存成文件，并将 URL 的最后部分当作文件名。</p>
+<pre><code>$ curl -O https://www.example.com/foo/bar.html
+</code></pre><p>上面命令将服务器回应保存成文件，文件名为<code>bar.html</code>。</p>
+<h4 id="指定不输出错误和进度信息">指定不输出错误和进度信息</h4>
+<p><strong>-s</strong></p>
+<p><code>-s</code>参数将不输出错误和进度信息。</p>
+<pre><code>$ curl -s https://www.example.com
+</code></pre><p>上面命令一旦发生错误，不会显示错误信息。不发生错误的话，会正常显示运行结果。</p>
+<p>如果想让 curl 不产生任何输出，可以使用下面的命令。</p>
+<pre><code>$ curl -s -o /dev/null https://google.com
+</code></pre><h4 id="指定只输出错误信息">指定只输出错误信息</h4>
+<p><strong>-S</strong></p>
+<p><code>-S</code>参数指定只输出错误信息，通常与<code>-s</code>一起使用。</p>
+<pre><code>$ curl -sS -o /dev/null https://google.com
+</code></pre><p>上面命令没有任何输出，除非发生错误。</p>
+<h4 id="设置服务器认证的用户名和密码">设置服务器认证的用户名和密码</h4>
+<p><strong>-u</strong></p>
+<p><code>-u</code>参数用来设置服务器认证的用户名和密码。</p>
+<pre><code>$ curl -u 'bob:12345' https://google.com/login
+</code></pre><p>上面命令设置用户名为<code>bob</code>，密码为<code>12345</code>，然后将其转为 HTTP 标头<code>Authorization: Basic Ym9iOjEyMzQ1</code>。</p>
+<p>curl 能够识别 URL 里面的用户名和密码。</p>
+<pre><code>$ curl https://bob:12345@google.com/login
+</code></pre><p>上面命令能够识别 URL 里面的用户名和密码，将其转为上个例子里面的 HTTP 标头。</p>
+<pre><code>$ curl -u 'bob' https://google.com/login
+</code></pre><p>上面命令只设置了用户名，执行后，curl 会提示用户输入密码。</p>
+<h4 id="其它curl相关命令说明">其它curl相关命令说明</h4>
+<pre><code>-a/--append 上传文件时，附加到目标文件
+--anyauth 可以使用“任何”身份验证方法
+--basic 使用HTTP基本验证
+-A/--user-agent &lt;string&gt;   设置用户代理发送给服务器
+-b/--cookie &lt;name=string/file&gt;   cookie字符串或文件读取位置
+-c/--cookie-jar &lt;file&gt;    操作结束后把cookie写入到这个文件中
+-C/--continue-at &lt;offset&gt;     断点续转
+-D/--dump-header &lt;file&gt;    把header信息写入到该文件中
+-B/--use-ascii 使用ASCII文本传输
+-d/--data &lt;data&gt; HTTP POST方式传送数据
+--data-ascii &lt;data&gt; 以ascii的方式post数据
+--data-binary &lt;data&gt; 以二进制的方式post数据
+--negotiate 使用HTTP身份验证
+--digest 使用数字身份验证
+--disable-eprt 禁止使用EPRT或LPRT
+--disable-epsv 禁止使用EPSV
+--egd-file &lt;file&gt; 为随机数据(SSL)设置EGD socket路径
+--tcp-nodelay 使用TCP_NODELAY选项
+-E/--cert &lt;cert[:passwd]&gt; 客户端证书文件和密码 (SSL)
+-e/--referer 来源网址
+--cert-type &lt;type&gt; 证书文件类型 (DER/PEM/ENG) (SSL)
+--key &lt;key&gt; 私钥文件名 (SSL)
+--key-type &lt;type&gt; 私钥文件类型 (DER/PEM/ENG) (SSL)
+--pass &lt;pass&gt; 私钥密码 (SSL)
+--engine &lt;eng&gt; 加密引擎使用 (SSL). &quot;--engine list&quot; for list
+--cacert &lt;file&gt; CA证书 (SSL)
+--capath &lt;directory&gt; CA目 (made using c_rehash) to verify peer against (SSL)
+--ciphers &lt;list&gt; SSL密码
+--compressed 要求返回是压缩的形势 (using deflate or gzip)
+--connect-timeout &lt;seconds&gt; 设置最大请求时间
+--create-dirs 建立本地目录的目录层次结构
+--crlf 上传是把LF转变成CRLF
+--ftp-create-dirs 如果远程目录不存在，创建远程目录
+--ftp-method [multicwd/nocwd/singlecwd] 控制CWD的使用
+--ftp-pasv 使用 PASV/EPSV 代替端口
+--ftp-skip-pasv-ip 使用PASV的时候,忽略该IP地址
+--ftp-ssl 尝试用 SSL/TLS 来进行ftp数据传输
+--ftp-ssl-reqd 要求用 SSL/TLS 来进行ftp数据传输
+-F/--form &lt;name=content&gt; 模拟http表单提交数据
+-f/--fail  连接失败时不显示http错误
+-form-string &lt;name=string&gt; 模拟http表单提交数据
+-g/--globoff 禁用网址序列和范围使用{}和[]
+-G/--get 以get的方式来发送数据
+-h/--help 帮助
+-H/--header &lt;line&gt; 自定义头信息传递给服务器
+--ignore-content-length 忽略的HTTP头信息的长度
+-i/--include 输出时包括protocol头信息
+-I/--head 只显示文档信息
+-j/--junk-session-cookies 读取文件时忽略session cookie
+--interface &lt;interface&gt; 使用指定网络接口/地址
+--krb4 &lt;level&gt; 使用指定安全级别的krb4
+-k/--insecure 允许不使用证书到SSL站点
+-K/--config 指定的配置文件读取
+-l/--list-only 列出ftp目录下的文件名称
+--limit-rate &lt;rate&gt; 设置传输速度
+--local-port&lt;NUM&gt; 强制使用本地端口号
+-m/--max-time &lt;seconds&gt; 设置最大传输时间
+--max-redirs &lt;num&gt; 设置最大读取的目录数
+--max-filesize &lt;bytes&gt; 设置最大下载的文件总量
+-M/--manual	 显示全手动
+-n/--netrc	 从netrc文件中读取用户名和密码
+--netrc-optional	 使用 .netrc 或者 URL来覆盖-n
+--ntlm	 使用 HTTP NTLM 身份验证
+-N/--no-buffer	 禁用缓冲输出
+-o/--output	 把输出写到该文件中
+-O/--remote-name	 把输出写到该文件中，保留远程文件的文件名
+-p/--proxytunnel	 使用HTTP代理
+--proxy-anyauth	 选择任一代理身份验证方法
+--proxy-basic	 在代理上使用基本身份验证
+--proxy-digest	 在代理上使用数字身份验证
+--proxy-ntlm	 在代理上使用ntlm身份验证
+-P/--ftp-port &lt;address&gt;	 使用端口地址，而不是使用PASV
+-Q/--quote &lt;cmd&gt;	 文件传输前，发送命令到服务器
+-r/--range &lt;range&gt;	 检索来自HTTP/1.1或FTP服务器字节范围
+--range-file  	 读取（SSL）的随机文件
+-R/--remote-time	 在本地生成文件时，保留远程文件时间
+--retry &lt;num&gt;	 传输出现问题时，重试的次数
+--retry-delay &lt;seconds&gt;	 传输出现问题时，设置重试间隔时间
+--retry-max-time &lt;seconds&gt;	 传输出现问题时，设置最大重试时间
+-s/--silent	 静音模式。不输出任何东西
+-S/--show-error	 显示错误
+--socks4 &lt;host[:port]&gt;	 用socks4代理给定主机和端口
+--socks5 &lt;host[:port]&gt;	 用socks5代理给定主机和端口
+-t/--telnet-option &lt;OPT=val&gt;	 Telnet选项设置
+--trace &lt;file&gt;	 对指定文件进行debug
+--trace-ascii &lt;file&gt; Like	 跟踪但没有hex输出
+--trace-time	 跟踪/详细输出时，添加时间戳
+-T/--upload-file &lt;file&gt;	 上传文件
+--url &lt;URL&gt;	 Spet URL to work with
+-u/--user &lt;user[:password]&gt;	 设置服务器的用户和密码
+-U/--proxy-user &lt;user[:password]&gt;	 设置代理用户名和密码
+-V/--version	 显示版本信息
+-w/--write-out [format]	 什么输出完成后
+-x/--proxy &lt;host[:port]&gt;	 在给定的端口上使用HTTP代理
+-X/--request &lt;command&gt;	 指定什么命令
+-y/--speed-time	 放弃限速所要的时间。默认为30
+-Y/--speed-limit	 停止传输速度的限制，速度时间'秒
+-z/--time-cond	 传送时间设置
+-0/--http1.0	 使用HTTP 1.0
+-1/--tlsv1	 使用TLSv1（SSL）
+-2/--sslv2	 使用SSLv2的（SSL）
+-3/--sslv3	 使用的SSLv3（SSL）
+--3p-quote	  like -Q for the source URL for 3rd party transfer
+--3p-url	 使用url，进行第三方传送
+--3p-user	 使用用户名和密码，进行第三方传送
+-4/--ipv4	 使用IP4
+-6/--ipv6	 使用IP6
+-#/--progress-bar	 用进度条显示当前的传送状态
+</code></pre><h3 id="wget类比迅雷">wget（类比迅雷）</h3>
+<p>场景：下载文件到虚拟机，都是先下载到电脑磁盘，再使用ftp工具上传到服务器，而使用wget就不需要这么麻烦了</p>
+<p>wget支持断点下载功能，同时支持FTP和HTTP下载方式，下面我们来说明怎么使用wget</p>
+<p>首先安装wget</p>
+<pre><code>yum install -y wget
+</code></pre><p>查看帮助手册</p>
+<pre><code>wget --help
+</code></pre><p>输出结果：</p>
+<pre><code>GNU Wget 1.14，非交互式的网络文件下载工具。
+用法： wget [选项]... [URL]...
+
+长选项所必须的参数在使用短选项时也是必须的。
+
+启动：
+  -V,  --version           显示 Wget 的版本信息并退出。
+  -h,  --help              打印此帮助。
+  -b,  --background        启动后转入后台。
+  -e,  --execute=COMMAND   运行一个“.wgetrc”风格的命令。
+
+日志和输入文件：
+  -o,  --output-file=FILE    将日志信息写入 FILE。
+  -a,  --append-output=FILE  将信息添加至 FILE。
+  -d,  --debug               打印大量调试信息。
+  -q,  --quiet               安静模式 (无信息输出)。
+  -v,  --verbose             详尽的输出 (此为默认值)。
+  -nv, --no-verbose          关闭详尽输出，但不进入安静模式。
+       --report-speed=TYPE   Output bandwidth as TYPE.  TYPE can be bits.
+  -i,  --input-file=FILE     下载本地或外部 FILE 中的 URLs。
+  -F,  --force-html          把输入文件当成 HTML 文件。
+  -B,  --base=URL            解析与 URL 相关的
+                             HTML 输入文件 (由 -i -F 选项指定)。
+       --config=FILE         Specify config file to use.
+
+下载：
+  -t,  --tries=NUMBER            设置重试次数为 NUMBER (0 代表无限制)。
+       --retry-connrefused       即使拒绝连接也是重试。
+  -O,  --output-document=FILE    将文档写入 FILE。
+  -nc, --no-clobber              skip downloads that would download to
+                                 existing files (overwriting them).
+  -c,  --continue                断点续传下载文件。
+       --progress=TYPE           选择进度条类型。
+  -N,  --timestamping            只获取比本地文件新的文件。
+  --no-use-server-timestamps     不用服务器上的时间戳来设置本地文件。
+  -S,  --server-response         打印服务器响应。
+       --spider                  不下载任何文件。
+  -T,  --timeout=SECONDS         将所有超时设为 SECONDS 秒。
+       --dns-timeout=SECS        设置 DNS 查寻超时为 SECS 秒。
+       --connect-timeout=SECS    设置连接超时为 SECS 秒。
+       --read-timeout=SECS       设置读取超时为 SECS 秒。
+  -w,  --wait=SECONDS            等待间隔为 SECONDS 秒。
+       --waitretry=SECONDS       在获取文件的重试期间等待 1..SECONDS 秒。
+       --random-wait             获取多个文件时，每次随机等待间隔
+                                 0.5*WAIT...1.5*WAIT 秒。
+       --no-proxy                禁止使用代理。
+  -Q,  --quota=NUMBER            设置获取配额为 NUMBER 字节。
+       --bind-address=ADDRESS    绑定至本地主机上的 ADDRESS (主机名或是 IP)。
+       --limit-rate=RATE         限制下载速率为 RATE。
+       --no-dns-cache            关闭 DNS 查寻缓存。
+       --restrict-file-names=OS  限定文件名中的字符为 OS 允许的字符。
+       --ignore-case             匹配文件/目录时忽略大小写。
+  -4,  --inet4-only              仅连接至 IPv4 地址。
+  -6,  --inet6-only              仅连接至 IPv6 地址。
+       --prefer-family=FAMILY    首先连接至指定协议的地址
+                                 FAMILY 为 IPv6，IPv4 或是 none。
+       --user=USER               将 ftp 和 http 的用户名均设置为 USER。
+       --password=PASS           将 ftp 和 http 的密码均设置为 PASS。
+       --ask-password            提示输入密码。
+       --no-iri                  关闭 IRI 支持。
+       --local-encoding=ENC      IRI (国际化资源标识符) 使用 ENC 作为本地编码。
+       --remote-encoding=ENC     使用 ENC 作为默认远程编码。
+       --unlink                  remove file before clobber.
+
+目录：
+  -nd, --no-directories           不创建目录。
+  -x,  --force-directories        强制创建目录。
+  -nH, --no-host-directories      不要创建主目录。
+       --protocol-directories     在目录中使用协议名称。
+  -P,  --directory-prefix=PREFIX  以 PREFIX/... 保存文件
+       --cut-dirs=NUMBER          忽略远程目录中 NUMBER 个目录层。
+
+HTTP 选项：
+       --http-user=USER        设置 http 用户名为 USER。
+       --http-password=PASS    设置 http 密码为 PASS。
+       --no-cache              不在服务器上缓存数据。
+       --default-page=NAME     改变默认页
+                               (默认页通常是“index.html”)。
+  -E,  --adjust-extension      以合适的扩展名保存 HTML/CSS 文档。
+       --ignore-length         忽略头部的‘Content-Length’区域。
+       --header=STRING         在头部插入 STRING。
+       --max-redirect          每页所允许的最大重定向。
+       --proxy-user=USER       使用 USER 作为代理用户名。
+       --proxy-password=PASS   使用 PASS 作为代理密码。
+       --referer=URL           在 HTTP 请求头包含‘Referer: URL’。
+       --save-headers          将 HTTP 头保存至文件。
+  -U,  --user-agent=AGENT      标识为 AGENT 而不是 Wget/VERSION。
+       --no-http-keep-alive    禁用 HTTP keep-alive (永久连接)。
+       --no-cookies            不使用 cookies。
+       --load-cookies=FILE     会话开始前从 FILE 中载入 cookies。
+       --save-cookies=FILE     会话结束后保存 cookies 至 FILE。
+       --keep-session-cookies  载入并保存会话 (非永久) cookies。
+       --post-data=STRING      使用 POST 方式；把 STRING 作为数据发送。
+       --post-file=FILE        使用 POST 方式；发送 FILE 内容。
+       --content-disposition   当选中本地文件名时
+                               允许 Content-Disposition 头部 (尚在实验)。
+       --content-on-error      output the received content on server errors.
+       --auth-no-challenge     发送不含服务器询问的首次等待
+                               的基本 HTTP 验证信息。
+
+HTTPS (SSL/TLS) 选项：
+       --secure-protocol=PR     choose secure protocol, one of auto, SSLv2,
+                                SSLv3, TLSv1, TLSv1_1 and TLSv1_2.
+       --no-check-certificate   不要验证服务器的证书。
+       --certificate=FILE       客户端证书文件。
+       --certificate-type=TYPE  客户端证书类型，PEM 或 DER。
+       --private-key=FILE       私钥文件。
+       --private-key-type=TYPE  私钥文件类型，PEM 或 DER。
+       --ca-certificate=FILE    带有一组 CA 认证的文件。
+       --ca-directory=DIR       保存 CA 认证的哈希列表的目录。
+       --random-file=FILE       带有生成 SSL PRNG 的随机数据的文件。
+       --egd-file=FILE          用于命名带有随机数据的 EGD 套接字的文件。
+
+FTP 选项：
+       --ftp-user=USER         设置 ftp 用户名为 USER。
+       --ftp-password=PASS     设置 ftp 密码为 PASS。
+       --no-remove-listing     不要删除‘.listing’文件。
+       --no-glob               不在 FTP 文件名中使用通配符展开。
+       --no-passive-ftp        禁用“passive”传输模式。
+       --preserve-permissions  保留远程文件的权限。
+       --retr-symlinks         递归目录时，获取链接的文件 (而非目录)。
+
+WARC options:
+       --warc-file=FILENAME      save request/response data to a .warc.gz file.
+       --warc-header=STRING      insert STRING into the warcinfo record.
+       --warc-max-size=NUMBER    set maximum size of WARC files to NUMBER.
+       --warc-cdx                write CDX index files.
+       --warc-dedup=FILENAME     do not store records listed in this CDX file.
+       --no-warc-compression     do not compress WARC files with GZIP.
+       --no-warc-digests         do not calculate SHA1 digests.
+       --no-warc-keep-log        do not store the log file in a WARC record.
+       --warc-tempdir=DIRECTORY  location for temporary files created by the
+                                 WARC writer.
+
+递归下载：
+  -r,  --recursive          指定递归下载。
+  -l,  --level=NUMBER       最大递归深度 (inf 或 0 代表无限制，即全部下载)。
+       --delete-after       下载完成后删除本地文件。
+  -k,  --convert-links      让下载得到的 HTML 或 CSS 中的链接指向本地文件。
+  --backups=N   before writing file X, rotate up to N backup files.
+  -K,  --backup-converted   在转换文件 X 前先将它备份为 X.orig。
+  -m,  --mirror             -N -r -l inf --no-remove-listing 的缩写形式。
+  -p,  --page-requisites    下载所有用于显示 HTML 页面的图片之类的元素。
+       --strict-comments    用严格方式 (SGML) 处理 HTML 注释。
+
+递归接受/拒绝：
+  -A,  --accept=LIST               逗号分隔的可接受的扩展名列表。
+  -R,  --reject=LIST               逗号分隔的要拒绝的扩展名列表。
+       --accept-regex=REGEX        regex matching accepted URLs.
+       --reject-regex=REGEX        regex matching rejected URLs.
+       --regex-type=TYPE           regex type (posix|pcre).
+  -D,  --domains=LIST              逗号分隔的可接受的域列表。
+       --exclude-domains=LIST      逗号分隔的要拒绝的域列表。
+       --follow-ftp                跟踪 HTML 文档中的 FTP 链接。
+       --follow-tags=LIST          逗号分隔的跟踪的 HTML 标识列表。
+       --ignore-tags=LIST          逗号分隔的忽略的 HTML 标识列表。
+  -H,  --span-hosts                递归时转向外部主机。
+  -L,  --relative                  只跟踪有关系的链接。
+  -I,  --include-directories=LIST  允许目录的列表。
+  --trust-server-names             use the name specified by the redirection
+                                   url last component.
+  -X,  --exclude-directories=LIST  排除目录的列表。
+  -np, --no-parent                 不追溯至父目录。
+</code></pre><h4 id="使用wget下载单个文件">使用wget下载单个文件</h4>
+<p>以下的例子是从网络下载一个文件并保存在当前目录</p>
+<p>在下载的过程中会显示进度条，包含（下载完成百分比，已经下载的字节，当前下载速度，剩余下载时间）。</p>
+<pre><code>wget http://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz
+</code></pre><h4 id="使用-wget--o-下载并以不同的文件名保存">使用 wget -O 下载并以不同的文件名保存</h4>
+<pre><code>[root@network test]# wget https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz
+[root@network test]# ls
+wordpress-4.9.4-zh_CN.tar.gz
+</code></pre><p>我们可以使用参数<code>-O</code>来指定一个文件名：</p>
+<pre><code>[root@network test]# wget -O wordpress.tar.gz https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz
+[root@network test]# ls
+wordpress.tar.gz
+</code></pre><h4 id="使用-wget--c-断点续传">使用 wget -c 断点续传</h4>
+<p>使用<code>wget -c</code>重新启动下载中断的文件:</p>
+<p>对于我们下载大文件时突然由于网络等原因中断非常有帮助，我们可以继续接着下载而不是重新下载一个文件</p>
+<pre><code>wget -c https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz
+</code></pre><h4 id="使用-wget--b-后台下载">使用 wget -b 后台下载</h4>
+<p>对于下载非常大的文件的时候，我们可以使用参数-b进行后台下载</p>
+<pre><code>[root@network test]# wget -b https://cn.wordpress.org/wordpress-4.9.4-zh_CN.tar.gz
+继续在后台运行，pid 为 1463。
+将把输出写入至 “wget-log”。
+</code></pre><p>可以使用<code>tail -f wget-log</code>来察看下载进度</p>
+<pre><code>[root@network test]# tail -f wget-log
+  8550K .......... .......... .......... .......... .......... 96%  814K 0s
+  8600K .......... .......... .......... .......... .......... 97% 9.53M 0s
+  8650K .......... .......... .......... .......... .......... 98% 86.8M 0s
+  8700K .......... .......... .......... .......... .......... 98%  145M 0s
+  8750K .......... .......... .......... .......... .......... 99% 67.4M 0s
+  8800K .......... .......... .......... .......... .......... 99%  107M 0s
+  8850K .......... .........                                  100% 1.95M=16s
+
+2018-11-10 15:39:07 (564 KB/s) - 已保存 “wordpress-4.9.4-zh_CN.tar.gz.2” [9082696/9082696])
+</code></pre><h4 id="伪装代理名称下载">伪装代理名称下载</h4>
+<p>有些网站能通过根据判断代理名称不是浏览器而拒绝你的下载请求。不过你可以通过<code>–user-agent</code>参数伪装。</p>
+<h4 id="使用-wget---spider-测试下载链接">使用 wget --spider 测试下载链接</h4>
+<p>当你打算进行定时下载，你应该在预定时间测试下载链接是否有效。我们可以增加<code>–spider</code>参数进行检查。</p>
+<pre><code>wget –-spider URL
+如果下载链接正确，将会显示:
+
+wget –-spider URL
+Spider mode enabled. Check if remote file exists.
+HTTP request sent, awaiting response… 200 OK
+Length: unspecified [text/html]
+Remote file exists and could contain further links,
+but recursion is disabled — not retrieving.
+这保证了下载能在预定的时间进行，但当你给错了一个链接，将会显示如下错误:
+
+wget –-spider url
+Spider mode enabled. Check if remote file exists.
+HTTP request sent, awaiting response… 404 Not Found
+Remote file does not exist — broken link!!!
+</code></pre><p>注意，使用<code>--spider</code>的时候，只会模拟下载，不会真正下载：</p>
+<pre><code>[root@localhost ~]# wget --spider  www.baidu.com    #不下载任何文件
+</code></pre><p>你可以在以下几种情况下使用spider参数：</p>
+<ul>
+<li>定时下载之前进行检查</li>
+<li>间隔检测网站是否可用</li>
+<li>检查网站页面的死链接</li>
+</ul>
+<h4 id="使用-wget---tries-增加重试次数">使用 wget --tries 增加重试次数</h4>
+<p>如果网络有问题或下载一个大文件也有可能失败。wget默认重试20次连接下载文件。如果需要，你可以使用<code>–tries</code>增加重试次数。</p>
+<pre><code>wget –-tries=40 URL 
+</code></pre><h4 id="使用-wget--i-下载多个文件">使用 wget -i 下载多个文件</h4>
+<pre><code>首先，保存一份下载链接文件
+
+cat &gt; filelist.txt
+url1
+url2
+url3
+url4
+接着使用这个文件和参数-i下载
+
+wget -i filelist.txt
+</code></pre><h4 id="使用wget---mirror-镜像网站">使用wget --mirror 镜像网站</h4>
+<pre><code>wget --mirror -p --convert-links -P ./LOCAL URL
+</code></pre><p>说明：下载整个网站到本地</p>
+<p><code>--mirror</code>：开户镜像下载</p>
+<p><code>-p</code>：下载所有为了html页面显示正常的文件</p>
+<p><code>--convert-links</code>：下载后，转换成本地的链接</p>
+<p><code>-P ./LOCAL</code>：保存所有文件和目录到本地指定目录</p>
+<h4 id="使用-wget---reject-过滤指定格式下载">使用 wget --reject 过滤指定格式下载</h4>
+<p>你想下载一个网站，但你不希望下载gif格式图片，你可以使用以下命令。</p>
+<pre><code>wget -–reject=gif url 
+</code></pre><h4 id="使用-wget--o-把下载信息存入日志文件">使用 wget -o 把下载信息存入日志文件</h4>
+<p>你不希望下载信息直接显示在终端而是在一个日志文件，可以使用以下命令：</p>
+<pre><code>wget -o download.log URL
+</code></pre><h4 id="使用-wget--s-打印服务器响应">使用 wget -S 打印服务器响应</h4>
+<pre><code>[root@localhost ~]# wget -S  www.baidu.com     # 打印服务器响应
+</code></pre><p><img src="/linux/image-20210522151259370.png" alt="image-20210522151259370"></p>
+<h4 id="使用-wget---tries-设定尝试次数">使用 wget --tries 设定尝试次数</h4>
+<pre><code>[root@localhost ~]# wget -r --tries=2  www.baidu.com      (指定尝试2次，2次后不再尝试)
+[root@localhost ~]# wget -r --tries=2 -q www.baidu.com    (指定尝试，且不打印中间结果)
+</code></pre><p><img src="/linux/image-20210522151456090.png" alt="image-20210522151456090"></p>
+<h4 id="使用-wget--q-限制总下载文件大小">使用 wget -Q 限制总下载文件大小</h4>
+<pre><code>[root@localhost ~]# wget -Q5m -i filelist.txt
+</code></pre><p>当下载的文件超过5M时就会退出下载。</p>
+<p>注意：这个参数对单个文件下载不起作用，只能递归下载时才有效。</p>
+<h4 id="使用-wget--r--a-下载指定格式的文件">使用 wget -r -A 下载指定格式的文件</h4>
+<p>示例：</p>
+<pre><code>[root@localhost ~]# wget -r -A .pdf url
+</code></pre><p>可以在以下情况使用该功能：</p>
+<ul>
+<li>下载一个网站的所有图片</li>
+<li>下载一个网站的所有视频</li>
+<li>下载一个网站的所有PDF文件</li>
+<li>...</li>
+</ul>
 <h2 id="tar--zxvf-nginx-11311targz">tar -zxvf nginx-1.13.11.tar.gz</h2>
 <p>③进入nginx解压目录</p>
 <p>开始进行配置、编译、安装操作</p>
@@ -3360,7 +4009,9 @@ now?是否重新加载权限表（当我们更改了mysql用户相关的信息�
     <li><a href="#yum项目上线实战-网站运维">Yum项目上线实战 （网站运维）</a></li>
     <li><a href="#一编译安装与卸载nginx">一、编译安装与卸载Nginx</a>
       <ul>
-        <li><a href="#1安装nginx">1、安装nginx</a></li>
+        <li><a href="#安装nginx">安装nginx</a></li>
+        <li><a href="#curl可替代postman类比浏览器">curl（可替代postman，类比浏览器）</a></li>
+        <li><a href="#wget类比迅雷">wget（类比迅雷）</a></li>
       </ul>
     </li>
     <li><a href="#tar--zxvf-nginx-11311targz">tar -zxvf nginx-1.13.11.tar.gz</a></li>
