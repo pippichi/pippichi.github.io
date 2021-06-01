@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Thu, 13 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker</title>
+      <link>https://pippichi.github.io/tags/docker/</link>
+      <pubDate>Tue, 01 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>c</title>
       <link>https://pippichi.github.io/tags/c/</link>
@@ -77,15 +86,6 @@
       <pubDate>Wed, 16 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/tags/css/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Docker</title>
-      <link>https://pippichi.github.io/tags/docker/</link>
-      <pubDate>Sat, 01 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pippichi.github.io/tags/docker/</guid>
       <description></description>
     </item>
     
