@@ -309,9 +309,49 @@ profiles命令显示的query_id才可以，如下：</p>
 <h3 id="索引分类">索引分类</h3>
 <p><img src="/mysql_senior/097da9d723bfae94acaf2df2644e72c5.png" alt=""></p>
 <p><img src="/mysql_senior/c61cacb1cbed5c53c3747a5ce133f404.png" alt=""></p>
-<h3 id="基本语法">基本语法</h3>
+<p><strong>按照索引种类分还可以分成<code>B-TREE索引</code>和<code>HASH索引</code></strong></p>
+<p><code>B-TREE</code>索引的特点：</p>
+<ul>
+<li>B-TREE以B+树结构存储数据，大大加快了数据的查询速度</li>
+<li>B-TREE索引在范围查找的SQL语句中更加适合（顺序存储）</li>
+</ul>
+<p><code>B-TREE</code>索引使用场景：</p>
+<ul>
+<li>全值匹配的查询SQL，如 <code>where act_id= '1111_act'</code></li>
+<li>联合索引汇中匹配到最左前缀查询，如联合索引 <code>KEY idx_actid_name(act_id,act_name) USING BTREE</code>，只要条件中使用到了联合索引的第一列，就会用到该索引，但如果查询使用到的是联合索引的第二列<code>act_name</code>，该SQL则便无法使用到该联合索引（注：覆盖索引除外）</li>
+<li>匹配模糊查询的前匹配，如<code>where act_name like '11_act%'</code></li>
+<li>匹配范围值的SQL查询，如<code>where act_date &gt; '9865123547215'</code>（not in和&lt;&gt;无法使用索引）</li>
+<li>覆盖索引的SQL查询，就是说select出来的字段都建立了索引</li>
+</ul>
+<p>如何使用<code>B-TREE</code>索引：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">act_info</span><span class="p">(</span>
+    <span class="n">id</span> <span class="kt">BIGINT</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="n">act_id</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s2">&#34;活动id&#34;</span><span class="p">,</span>
+    <span class="n">act_name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s2">&#34;活动名称&#34;</span><span class="p">,</span>
+    <span class="n">act_date</span> <span class="kt">datetime</span> <span class="k">NOT</span> <span class="no">NULL</span><span class="p">,</span>
+    <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+    <span class="k">KEY</span> <span class="nf">idx_actid_name</span><span class="p">(</span><span class="n">act_id</span><span class="p">,</span><span class="n">act_name</span><span class="p">)</span> <span class="k">USING</span> <span class="n">BTREE</span>
+<span class="p">)</span> <span class="kp">ENGINE</span><span class="o">=</span><span class="n">INNODB</span> <span class="k">DEFAULT</span> <span class="kp">CHARSET</span><span class="o">=</span><span class="n">UTF8</span> <span class="n">ROW_FORMAT</span><span class="o">=</span><span class="n">COMPACT</span> <span class="n">COMMENT</span> <span class="s2">&#34;活动记录表&#34;</span><span class="p">;</span>
+</code></pre></div><p><code>HASH</code>的特点：</p>
+<ul>
+<li>Hash索引基于Hash表实现，只有查询条件精确匹配Hash索引中的所有列才会用到hash索引</li>
+<li>存储引擎会为Hash索引中的每一列都计算hash码，Hash索引中存储的即hash码，所以每次读取都会进行两次查询</li>
+<li>Hash索引无法用于排序</li>
+<li>Hash不适用于区分度小的列上，如性别字段</li>
+</ul>
+<p>如何使用<code>HASH</code>索引：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nf">act_info</span><span class="p">(</span>
+    <span class="n">id</span> <span class="kt">BIGINT</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="kp">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="n">act_id</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s2">&#34;活动id&#34;</span><span class="p">,</span>
+    <span class="n">act_name</span> <span class="kt">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="n">COMMENT</span> <span class="s2">&#34;活动名称&#34;</span><span class="p">,</span>
+    <span class="n">act_date</span> <span class="kt">datetime</span> <span class="k">NOT</span> <span class="no">NULL</span><span class="p">,</span>
+    <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
+    <span class="k">KEY</span> <span class="nf">idx_actid_name</span><span class="p">(</span><span class="n">act_id</span><span class="p">,</span><span class="n">act_name</span><span class="p">)</span> <span class="k">USING</span> <span class="n">HASH</span>
+<span class="p">)</span> <span class="kp">ENGINE</span><span class="o">=</span><span class="n">INNODB</span> <span class="k">DEFAULT</span> <span class="kp">CHARSET</span><span class="o">=</span><span class="n">UTF8</span> <span class="n">ROW_FORMAT</span><span class="o">=</span><span class="n">COMPACT</span> <span class="n">COMMENT</span> <span class="s2">&#34;活动记录表&#34;</span><span class="p">;</span>
+</code></pre></div><h3 id="基本语法">基本语法</h3>
 <h4 id="创建使用create字段">创建（使用create字段）</h4>
 <p><img src="/mysql_senior/774e460f5ede75bac3ed49e71e51f1db.png" alt=""></p>
+<p><code>key</code>表示最普通的索引，主要是用来加快查询速度的</p>
 <h5 id="创建单值索引">创建单值索引</h5>
 <p>Create index index_name on table_name(column)；</p>
 <h5 id="创建唯一索引">创建唯一索引</h5>

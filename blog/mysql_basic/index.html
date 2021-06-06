@@ -285,7 +285,7 @@ time_zone=’+9:00’意思是把时区设置为东9区，这个时候TIMESTAMP�
 <p>blob在于防止因为字符集的问题，导致信息丢失。比如：一张图片有0xFF字节，这个在ascii字符集认为为非法，在入库的时候，就被过滤了。</p>
 </li>
 <li>
-<p>longtext 存放超大量文本。</p>
+<p>longtext存放超大量文本，longblob存放超大量二进制数据，mediumtext存放中等大小文本，mediumblob存放中等大小二进制数据。</p>
 </li>
 <li>
 <p>text 用于存放大量文本（比如10000字）。text不用加默认值，加了没用。</p>

@@ -140,7 +140,10 @@ if (!doNotTrack) {
 <p><strong>配置git提交的用户名和邮件：</strong><br>
 格式：git config <a href="http://user.name/">user.name</a> 用户名；git config user.email
 邮箱</p>
-<h3 id="修改git的用户名和邮箱">修改git的用户名和邮箱</h3>
+<h3 id="查看当前的用户名和邮箱">查看当前的用户名和邮箱</h3>
+<pre><code>$ git config user.name
+$ git config user.email
+</code></pre><h3 id="修改git的用户名和邮箱">修改git的用户名和邮箱</h3>
 <p><img src="/git/893ebb45a22726cae25133d1adc607bb.png" alt=""></p>
 <h2 id="git-add">git add</h2>
 <p>Git add xxx/Git add .</p>
@@ -172,6 +175,11 @@ if (!doNotTrack) {
 <p>git rm &ndash;cached是删除单个缓存文件，git rm -rf &ndash;cached是删除整个缓存目录</p>
 <h3 id="git-rm--r---cached-">git rm -r &ndash;cached .</h3>
 <p>如果想要删除的已缓存文件或文件夹比较多或者在使用.gitgnore时想要忽略的文件或文件夹比较多，可以使用该命令重置所有缓存（该命令会移除所有缓存索引），再次提交（add、commit）后将刷新.gitgnore指示的忽略文件</p>
+<h2 id="git-restore与git-restore---staged">git restore与git restore --staged</h2>
+<p><code>git restore</code>指令使得在工作空间但是不在暂存区的文件撤销更改(内容恢复到没修改之前的状态)</p>
+<p>举个例子：我修改了<code>a.txt</code>文件，但是还没有将它<code>add</code>到暂存区，此时使用<code>git restore a.txt</code>命令可以将<code>a.txt</code>文件恢复到未修改之前的状态</p>
+<p><code>git restore --staged</code>的作用是将暂存区的文件从暂存区撤出，但不会更改文件的内容。</p>
+<p>举个例子：我修改了<code>a.txt</code>文件，并且将它<code>add</code>到暂存区，此时使用<code>git restore --staged a.txt</code>命令可以将<code>a.txt</code>文件移出暂存区，并且修改的操作是被保留的（该文件的内容是被修改之后的内容而不是未被修改之前的内容）</p>
 <h2 id="查看git当前状态">查看git当前状态</h2>
 <p>Git status</p>
 <h2 id="git-log">git log</h2>
@@ -340,6 +348,7 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
     <li><a href="#生成密钥">生成密钥</a></li>
     <li><a href="#git-config"><strong>git config</strong></a>
       <ul>
+        <li><a href="#查看当前的用户名和邮箱">查看当前的用户名和邮箱</a></li>
         <li><a href="#修改git的用户名和邮箱">修改git的用户名和邮箱</a></li>
       </ul>
     </li>
@@ -355,6 +364,7 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
         <li><a href="#git-rm--r---cached-">git rm -r &ndash;cached .</a></li>
       </ul>
     </li>
+    <li><a href="#git-restore与git-restore---staged">git restore与git restore --staged</a></li>
     <li><a href="#查看git当前状态">查看git当前状态</a></li>
     <li><a href="#git-log">git log</a></li>
     <li><a href="#git-reflog用于查看所有版本的回退信息">git reflog用于查看所有版本的回退信息</a></li>

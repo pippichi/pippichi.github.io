@@ -105,8 +105,8 @@ if (!doNotTrack) {
     
 
 
-<a href='/categories/senior' class="muted-link">
-  <span class="Label Label--gray-darker">Senior</span>
+<a href='/categories/basic' class="muted-link">
+  <span class="Label Label--gray-darker">Basic</span>
 </a>
 
 
@@ -486,7 +486,10 @@ binary，该目录也是存储一些可以被执行的二进制文件，但是�
 <p><img src="/linux/77422990f260b5d42ad723807752bf80.png" alt=""></p>
 <p>语法3：<strong>#mkdir 路径1 路径2 路径3 ….</strong>  【表示一次性创建多个目录】</p>
 <p><img src="/linux/101392aac412ae767d8efd2751262cb2.png" alt=""></p>
-<h3 id="5touch指令">5、touch指令</h3>
+<p>语法4：<strong>#mkdir -m</strong> 【表示在创建目录的同时设定权限（而不是采用umask默认值）】</p>
+<p>如：</p>
+<pre><code>$ mkdir -p -m 664 d1/d2/d3/d4   # 表示创建目录的同时设定权限为664
+</code></pre><h3 id="5touch指令">5、touch指令</h3>
 <p>指令：touch</p>
 <p>作用：创建文件</p>
 <p>语法：<strong>#touch 文件路径</strong> 【路径可以是直接的文件名也可以是路径】</p>

@@ -1419,6 +1419,10 @@ ${}方式占位：底层使用Statement对象完成数据库操作，本质为sq
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Emp</span> <span class="n">implments</span> <span class="n">Serializable</span><span class="o">{}</span>
 </code></pre></div></li>
 </ul>
+<h2 id="mybatis拦截器">Mybatis拦截器</h2>
+<p>参考张润华的<code>supcon-parent</code>（<strong><a href="https://github.com/pippichi/code_template">详见项目infrastructure</a></strong>）或者网络资料</p>
+<h2 id="mybatis处理器">Mybatis处理器</h2>
+<p>有诸如<code>TypeHandler</code>、<code>EnumOrdinalTypeHandler</code>等，可以参考张润华的<code>supcon-parent</code>（<strong><a href="https://github.com/pippichi/code_template">详见项目infrastructure</a></strong>）或者网络资料</p>
 <h2 id="mybatis代码生成器">Mybatis代码生成器</h2>
 <p><strong>Mybatis-Generator</strong></p>
 <p><code>Mybatis-Generator</code>的运行方式有很多种：</p>
@@ -2441,6 +2445,8 @@ TINYINT --&gt; Byte
         <li><a href="#开启二级缓存">开启二级缓存</a></li>
       </ul>
     </li>
+    <li><a href="#mybatis拦截器">Mybatis拦截器</a></li>
+    <li><a href="#mybatis处理器">Mybatis处理器</a></li>
     <li><a href="#mybatis代码生成器">Mybatis代码生成器</a>
       <ul>
         <li><a href="#实战注意点">实战注意点</a></li>

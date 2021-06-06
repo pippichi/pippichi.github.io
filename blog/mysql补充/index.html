@@ -1725,6 +1725,8 @@ Extra: Using where
 <li>1：如果mysiam表中没有空洞（即表的中间没有被删除的行），mysiam允许在一个进程读表的同时，另一个进程从表尾插入记录，这也是mysiam的默认设置，如果有空洞的话虽然不能很好地并发，但是mysql还是可以使用insert delayed来提升插入性能（仅适用于mysiam、memory、archive引擎）</li>
 <li>2：无论mysiam表中是否有空洞，都允许在表尾并发插入记录，这时MySQL允许insert和select语句在中间没有空数据块的mysiam表中并行运行</li>
 </ul>
+<h2 id="mysql-innodb行记录模式row_format">MySQL InnoDB行记录模式（ROW_FORMAT）</h2>
+<p>行模式主要分为<code>compressed</code>、<code>dynamic</code>、<code>Compact</code>、<code>Redundant</code>等，区别主要体现在硬件层面的存储方式，具体请查阅网络资料（参考：https://www.cnblogs.com/wilburxu/p/9435818.html）</p>
 <h2 id="引擎">引擎</h2>
 <h3 id="memory引擎">MEMORY引擎</h3>
 <p>内存表，一般用于存放临时数据，关闭数据库服务之后数据全部丢失</p>
@@ -1905,6 +1907,7 @@ mysql&gt; SELECT LAST_INSERT_ID();
       </ul>
     </li>
     <li><a href="#mysiam支持的并发插入">MYSIAM支持的并发插入</a></li>
+    <li><a href="#mysql-innodb行记录模式row_format">MySQL InnoDB行记录模式（ROW_FORMAT）</a></li>
     <li><a href="#引擎">引擎</a>
       <ul>
         <li><a href="#memory引擎">MEMORY引擎</a></li>
