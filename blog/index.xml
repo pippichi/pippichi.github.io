@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Tue, 01 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maven</title>
+      <link>https://pippichi.github.io/blog/maven%E8%A1%A5%E5%85%85/</link>
+      <pubDate>Sun, 06 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/maven%E8%A1%A5%E5%85%85/</guid>
+      <description>&lt;p&gt;Maven相关知识（可以结合maven.pdf来看）&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Docker Compose</title>
       <link>https://pippichi.github.io/blog/docker-compose/</link>

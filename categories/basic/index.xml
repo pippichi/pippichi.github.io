@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Thu, 04 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/basic/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/basic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maven</title>
+      <link>https://pippichi.github.io/blog/maven%E8%A1%A5%E5%85%85/</link>
+      <pubDate>Sun, 06 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/maven%E8%A1%A5%E5%85%85/</guid>
+      <description>&lt;p&gt;Maven相关知识（可以结合maven.pdf来看）&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>c语言基础</title>
       <link>https://pippichi.github.io/blog/c%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</link>

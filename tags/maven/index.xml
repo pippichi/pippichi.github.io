@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maven on Learning Records</title>
+    <link>https://pippichi.github.io/tags/maven/</link>
+    <description>Recent content in Maven on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
+    <lastBuildDate>Sun, 06 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/maven/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maven</title>
+      <link>https://pippichi.github.io/blog/maven%E8%A1%A5%E5%85%85/</link>
+      <pubDate>Sun, 06 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/maven%E8%A1%A5%E5%85%85/</guid>
+      <description>&lt;p&gt;Maven相关知识（可以结合maven.pdf来看）&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
