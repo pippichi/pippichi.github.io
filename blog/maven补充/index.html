@@ -668,6 +668,85 @@ POM中的name字段是为了给项目一个更容易阅读的名字，该名字�
 </code></pre></div><p><strong>相对路径理解</strong></p>
 <p>关键要理解module的值，这里每个module的值都是一个相对于当前POM的相对目录。</p>
 <p><img src="/maven%E8%A1%A5%E5%85%85.assets/image-20210606110927866.png" alt="image-20210606110927866"></p>
+<h2 id="projectgroupid-和-projectversion"><code>${project.groupId}</code> 和 <code>${project.version}</code></h2>
+<p>maven中的<code>${project.groupId}</code> 和 <code>${project.version}</code> 表示当前项目的groupId和version。</p>
+<h2 id="maven依赖中的scope传递与隔断">Maven依赖中的Scope、传递与隔断</h2>
+<p>可结合课件<code>maven.pdf</code>查阅</p>
+<p><strong>Scope的分类</strong></p>
+<ul>
+<li>compile
+默认的scope，表示 dependency 都可以在生命周期中使用。而且，这些dependencies 会传递到依赖的项目中。适用于所有阶段，会随着项目一起发布。即依赖的项目会参与到当前项目的编译、运行、测试以及打包发布，是一个比较强的依赖范围。</li>
+<li>test
+表示dependency作用在测试时，不作用在运行时。 只在测试时使用，用于编译和运行测试代码。不会随项目发布。</li>
+<li>runntime
+表示dependency不作用在编译时，但会作用在运行和测试时，如JDBC驱动，适用运行和测试阶段。即是跳过编译阶段，只参与测试或运行。</li>
+<li>provided
+跟compile相似，但是表明了dependency 由JDK或者容器提供，例如Servlet AP和一些Java EE APIs。这个scope 只能作用在编译和测试时，同时没有传递性。
+即该依赖是由系统组件提供的，我们不需要手动添加，它只存在于编译、运行和测试阶段，打包的时候并不会打进去，被剔除了的。</li>
+<li>system
+跟provided 相似，但是在系统中要以外部JAR包的形式提供，maven不会在repository查找它。需通过外部引入，不会在仓库中查找。例如一些特殊的jar我们或通过拷贝jar到web-info/lib下，这些jar就可以配置为system范围。</li>
+</ul>
+<p><img src="/maven%E8%A1%A5%E5%85%85.assets/image-20210608220355275.png" alt="image-20210608220355275"></p>
+<blockquote>
+<p>这里表述只是基于maven环境，有些同学在IDE(eclipse)下实践，由于IDE提供一些辅助功能，与上述记述不是十分符合。</p>
+</blockquote>
+<p><strong>依赖传递</strong>
+如有三个项目A、B、C，当前项目为A，A依赖于B，B依赖于C。则项目C在A中是什么样的依赖关系呢？
+我们可以根据B依赖于C的scope来判断：</p>
+<ul>
+<li>scope为test、provided、system时，则项目C被抛弃，A并不依赖于C</li>
+<li>否则A依赖于C</li>
+</ul>
+<p><strong>依赖隔断</strong>
+由上所述，maven的依赖关系是有传递性的。如：A–&gt;B，B–&gt;C，则A–&gt;C。但有时候，项目A可能不是必需依赖C，因此需要在项目A中隔断对C的依赖。隔断依赖有2种方式：</p>
+<ul>
+<li>
+<p>可选依赖（Optional Dependencies）</p>
+<p>配置optional选项，待选值为true/false。默认为false，此时依赖关系为强依赖。</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;project&gt;</span>
+  ...
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="c">&lt;!-- declare the dependency to be set as optional --&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>sample.ProjectC<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>Project-C<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>1.0<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>compile<span class="nt">&lt;/scope&gt;</span>
+      <span class="nt">&lt;optional&gt;</span>true<span class="nt">&lt;/optional&gt;</span> <span class="c">&lt;!-- value will be true or false only --&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</code></pre></div><p>这段配置为项目B依赖于项目C的配置，由于配置了optional为true，则项目A就被隔断了与项目C的依赖关系。如果想依赖C，则需要在项目A中另行配置。</p>
+</li>
+<li>
+<p>依赖排除（Dependency Exclusions）</p>
+<p>依赖排除用标签exclusions，样例如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;project&gt;</span>  
+  ...  
+  <span class="nt">&lt;dependencies&gt;</span>  
+    <span class="nt">&lt;dependency&gt;</span>  
+      <span class="nt">&lt;groupId&gt;</span>sample.ProjectB<span class="nt">&lt;/groupId&gt;</span>  
+      <span class="nt">&lt;artifactId&gt;</span>Project-B<span class="nt">&lt;/artifactId&gt;</span>  
+      <span class="nt">&lt;version&gt;</span>1.0<span class="nt">&lt;/version&gt;</span>  
+      <span class="nt">&lt;scope&gt;</span>compile<span class="nt">&lt;/scope&gt;</span>  
+      <span class="nt">&lt;exclusions&gt;</span>  
+        <span class="nt">&lt;exclusion&gt;</span>  
+          <span class="c">&lt;!-- declare the exclusion here --&gt;</span>  
+          <span class="nt">&lt;groupId&gt;</span>sample.ProjectC<span class="nt">&lt;/groupId&gt;</span>  
+          <span class="nt">&lt;artifactId&gt;</span>Project-C<span class="nt">&lt;/artifactId&gt;</span>  
+        <span class="nt">&lt;/exclusion&gt;</span>  
+      <span class="nt">&lt;/exclusions&gt;</span>   
+    <span class="nt">&lt;/dependency&gt;</span>  
+  <span class="nt">&lt;/dependencies&gt;</span>  
+<span class="nt">&lt;/project&gt;</span>
+</code></pre></div><p>此配置为项目A中的配置。当项目B依赖项目C时，并没有配置optional选项时，又不能更改项目B，则可以用此种方式隔断依赖关系。</p>
+</li>
+</ul>
+<p>依赖关系的隔断与scope中的provided都能阻止依赖关系的传递，个人认为他们之间的区别为：</p>
+<ul>
+<li>scope中的provided：虽然工程上隔断了关系，但此时表明，被隔断的工程是需要其它地方提供支持的，在最终运行环境中应该是一定被用到的。一般情况上层工程里一定有调用此处接口的代码。</li>
+<li>依赖关系的隔断则不一定如此，很有可能根本就不想用这个被排除的工程。</li>
+</ul>
   </section>
 
   <section>
@@ -697,6 +776,8 @@ POM中的name字段是为了给项目一个更容易阅读的名字，该名字�
     <li><a href="#profiles与指令中的-p"><code>&lt;profiles&gt;</code>与指令中的<code>-P</code></a></li>
     <li><a href="#maven继承">maven继承</a></li>
     <li><a href="#maven聚合">maven聚合</a></li>
+    <li><a href="#projectgroupid-和-projectversion"><code>${project.groupId}</code> 和 <code>${project.version}</code></a></li>
+    <li><a href="#maven依赖中的scope传递与隔断">Maven依赖中的Scope、传递与隔断</a></li>
   </ul>
 </nav></div>
   
