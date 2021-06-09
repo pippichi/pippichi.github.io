@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  zookeeper补充 &ndash; Learning Records
+
+    </title>
+    
+    <meta content="zookeeper" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="对于zookeeper的一些补充，可结合课件zookeeper.pdf一起查阅
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="zookeeper补充 | Learning Records">
+    <meta name="twitter:description" content="对于zookeeper的一些补充，可结合课件zookeeper.pdf一起查阅|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">zookeeper补充</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/additional' class="muted-link">
+  <span class="Label Label--gray-darker">Additional</span>
+</a>
+
+
+
+<a href='/tags/zookeeper' class="muted-link">
+  <span class="Label Label--gray">zookeeper</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2021-06-09. Published at: 2021-06-09.">
+        
+          Published: 2021-06-09
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>对于zookeeper的一些补充，可结合课件zookeeper.pdf一起查阅</p>
+<h2 id="结点">结点</h2>
+<h3 id="临时结点">临时结点</h3>
+<ul>
+<li>临时结点（包括临时顺序结点）在执行<code>quit</code>命令之后将会被删除（临时结点会在会话过期之后被删除，但在会话中断时不会被删除，也就是说<code>ctrl c</code>命令强行中断会话不会删除临时结点）</li>
+<li>临时结点无法创建子节点</li>
+</ul>
+<h3 id="持久顺序结点或临时顺序结点">持久顺序结点或临时顺序结点</h3>
+<p>这里主要补充说明<strong>顺序</strong>的含义：</p>
+<p>首先在ZK中，每个父节点会为他的第一级子节点维护一份时序，会记录每个子节点创建的先后顺序。基于这个特性，在创建子节点的时候，可以设置这个属性，那么在创建结点过程中，ZK会自动为给定节点名加上一个数字后缀作为新的节点名。这个数字后缀的范围是整形的最大值</p>
+<h2 id="使用docker部署zookeeper">使用docker部署zookeeper</h2>
+<pre><code>$ docker pull zookeeper:3.4.14
+$ docker run --name zk -p 2181:2181 -d zookeeper:3.4.14
+</code></pre><h2 id="监听">监听</h2>
+<p>在shell中，ZK的监听是一次性的，监听过一次之后第二次就不会再监听了</p>
+<p>但是在Java中，ZK的监听是无限次数的</p>
+<h2 id="java操作zk">Java操作ZK</h2>
+<p>创建项目引入依赖：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+	<span class="nt">&lt;groupId&gt;</span>com.101tec<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>zkclient<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.10<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><p>具体操作：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// junit测试：
+</span><span class="c1"></span><span class="kd">private</span> <span class="n">ZKClient</span> <span class="n">zkClient</span><span class="o">;</span>
+<span class="cm">/**
+</span><span class="cm"> * 获取ZK客户端连接
+</span><span class="cm"> */</span>
+<span class="nd">@Before</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">before</span><span class="o">(){</span>
+    <span class="c1">// 参数1：服务器的ip和端口
+</span><span class="c1"></span>    <span class="c1">// 参数2：会话的超时时间
+</span><span class="c1"></span>    <span class="c1">// 参数3：会话的连接时间
+</span><span class="c1"></span>    <span class="c1">// 参数4：序列化方式
+</span><span class="c1"></span>    <span class="c1">//// 单机模式
+</span><span class="c1"></span>    <span class="n">zkClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">zkClient</span><span class="o">(</span><span class="s">&#34;192.168.28.132:2181&#34;</span><span class="o">,</span> <span class="n">30000</span><span class="o">,</span> <span class="n">60000</span><span class="o">,</span> <span class="k">new</span> <span class="n">SerializableSerializer</span><span class="o">());</span>
+    <span class="c1">//// 集群模式
+</span><span class="c1"></span>    <span class="n">zkClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">zkClient</span><span class="o">(</span><span class="s">&#34;192.168.28.132:2181,192.168.28.132:2182,192.168.28.132:2183&#34;</span><span class="o">,</span> <span class="n">30000</span><span class="o">,</span> <span class="n">60000</span><span class="o">,</span> <span class="k">new</span> <span class="n">SerializableSerializer</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="c1">// 在ZK创建结点
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testCreateNode</span><span class="o">(){</span>
+    <span class="c1">// 1.持久结点
+</span><span class="c1"></span>    <span class="n">zkClient</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">&#34;/node1&#34;</span><span class="o">,</span> <span class="s">&#34;qyf&#34;</span><span class="o">,</span> <span class="n">CreateMode</span><span class="o">.</span><span class="na">PERSISTENT</span><span class="o">);</span>
+    <span class="c1">// 2.持久顺序结点
+</span><span class="c1"></span>    <span class="n">zkClient</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">&#34;/node1/names&#34;</span><span class="o">,</span> <span class="s">&#34;qianyifeng&#34;</span><span class="o">,</span> <span class="n">CreateMode</span><span class="o">.</span><span class="na">PERSISTENT_SEQUENTIAL</span><span class="o">);</span>
+    <span class="c1">// 3.临时结点
+</span><span class="c1"></span>    <span class="n">zkClient</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">&#34;/node1/lists&#34;</span><span class="o">,</span> <span class="s">&#34;qq&#34;</span><span class="o">,</span> <span class="n">CreateMode</span><span class="o">.</span><span class="na">EPHEMERAL</span><span class="o">);</span>
+    <span class="c1">// 4.临时顺序结点
+</span><span class="c1"></span>    <span class="n">zkClient</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">&#34;/node1/lists11&#34;</span><span class="o">,</span> <span class="s">&#34;qyftemp&#34;</span><span class="o">,</span> <span class="n">CreateMode</span><span class="o">.</span><span class="na">EPHEMERAL_SEQUENTIAL</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">// 删除结点
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDeleteNode</span><span class="o">(){</span>
+    <span class="c1">// 删除没有子节点的结点 返回值：是否删除成功
+</span><span class="c1"></span>    <span class="kt">boolean</span> <span class="n">delete</span> <span class="o">=</span> <span class="n">zkClient</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="s">&#34;/node1&#34;</span><span class="o">);</span>
+    <span class="c1">// 递归删除结点信息 返回值：是否删除成功
+</span><span class="c1"></span>    <span class="kt">boolean</span> <span class="n">recursive</span> <span class="o">=</span> <span class="n">zkClient</span><span class="o">.</span><span class="na">deleteRecursive</span><span class="o">(</span><span class="s">&#34;/node1&#34;</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">// 查看结点的子节点
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testFindNodes</span><span class="o">(){</span>
+    <span class="c1">// 获取指定路径的结点信息 
+</span><span class="c1"></span>    <span class="c1">// 返回值为当前节点的子节点信息
+</span><span class="c1"></span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">children</span> <span class="o">=</span> <span class="n">zkClient</span><span class="o">.</span><span class="na">getChildren</span><span class="o">(</span><span class="s">&#34;/&#34;</span><span class="o">);</span>
+    <span class="n">children</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">// 获取某个结点数据  
+</span><span class="c1">// 注意：通过Java客户端操作需要保证节点存储的数据和获取结点时数据序列化方式必须一致（Java是针对对象的序列化和反序列化，所以如果序列化的时候是按照字符串方式序列化，而读取的时候，也就是反序列化的时候按照对象的方式反序列化，那必然就会报错。解决方法就是如果要用Java去读，那就最好用Java去写而不要用shell的方式去写）
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testFindNodeData</span><span class="o">(){</span>
+    <span class="n">Object</span> <span class="n">readData</span> <span class="o">=</span> <span class="n">zkClient</span><span class="o">.</span><span class="na">readData</span><span class="o">(</span><span class="s">&#34;/node3&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readData</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">// 获取数据以及当前结点的状态信息
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testFindNodeDataAndStat</span><span class="o">(){</span>
+    <span class="n">Stat</span> <span class="n">stat</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Stat</span><span class="o">();</span>
+    <span class="n">Object</span> <span class="n">readData</span> <span class="o">=</span> <span class="n">zkClient</span><span class="o">.</span><span class="na">readData</span><span class="o">(</span><span class="s">&#34;/node0000000024&#34;</span><span class="o">,</span> <span class="n">stat</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">readData</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stat</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stat</span><span class="o">.</span><span class="na">getCversion</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stat</span><span class="o">.</span><span class="na">getCtime</span><span class="o">());</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">stat</span><span class="o">.</span><span class="na">getCzxid</span><span class="o">());</span>
+    <span class="c1">// ... 只要能在shell中的stat命令能看到的状态信息都可以用Java的方式去得到
+</span><span class="c1"></span><span class="o">}</span>
+<span class="c1">// 修改结点数据
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testWriteData</span><span class="o">(){</span>
+    <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">&#34;消遣&#34;</span><span class="o">);</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setAge</span><span class="o">(</span><span class="n">23</span><span class="o">);</span>
+    <span class="n">user</span><span class="o">.</span><span class="na">setBir</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">());</span>
+    <span class="n">zkClient</span><span class="o">.</span><span class="na">writeData</span><span class="o">(</span><span class="s">&#34;/node1&#34;</span><span class="o">,</span> <span class="n">user</span><span class="o">);</span>
+    <span class="n">User</span> <span class="n">o</span> <span class="o">=</span> <span class="n">zkClient</span><span class="o">.</span><span class="na">readData</span><span class="o">(</span><span class="s">&#34;/node1&#34;</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="c1">// 监听结点数据的变化
+</span><span class="c1">// 需要注意的是，Java中设置的监听必须由Java来执行具体的操作这些操作才能被Java监听到，如果是用shell以命令方式执行具体操作则监听不到
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testOnNodeDataChange</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">{</span>
+    <span class="n">zkClient</span><span class="o">.</span><span class="na">subscribeDataChanges</span><span class="o">(</span><span class="s">&#34;/node00000000024&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">IZkDataListener</span><span class="o">(){</span>
+        <span class="c1">// 当结点的值在修改时，会自动调用这个方法将当前修改节点的名字和节点变化之后的数据传递给方法
+</span><span class="c1"></span>        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDataChange</span><span class="o">(</span><span class="n">String</span> <span class="n">nodeName</span><span class="o">,</span> <span class="n">Object</span> <span class="n">result</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">nodeName</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="c1">// 当结点的值被删除的时候，会自动调用这个方法，会将节点的名字以参数形式传递给方法
+</span><span class="c1"></span>        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDataDeleted</span><span class="o">(</span><span class="n">String</span> <span class="n">nodeName</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;结点名字：&#34;</span> <span class="o">+</span> <span class="n">nodeName</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+    <span class="c1">// 阻塞客户端，如果不阻塞，程序就会直接执行完毕，读不到监听到的内容。这里我们用阻塞输入流的方式将监听到的内容打印到控制台
+</span><span class="c1"></span>    <span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="c1">// 监听结点目录的变化
+</span><span class="c1"></span><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testOnNodesChange</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">{</span>
+    <span class="n">zkClient</span><span class="o">.</span><span class="na">subscribeChildChanges</span><span class="o">(</span><span class="s">&#34;/node0000000024&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">IZkChildListener</span><span class="o">(){</span>
+        <span class="c1">// 当前结点发生变化时，会自动调用这个方法
+</span><span class="c1"></span>        <span class="c1">// 参数1：父节点名称
+</span><span class="c1"></span>        <span class="c1">// 参数2：父节点中的所有子节点名称
+</span><span class="c1"></span>        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleChileChange</span><span class="o">(</span><span class="n">String</span> <span class="n">nodeName</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;父节点名称：&#34;</span> <span class="o">+</span> <span class="n">nodeName</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;发生变更后结点的孩子结点名称：&#34;</span><span class="o">);</span>
+            <span class="n">list</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+    <span class="c1">// 阻塞客户端，如果不阻塞，程序就会直接执行完毕，读不到监听到的内容。这里我们用阻塞输入流的方式将监听到的内容打印到控制台
+</span><span class="c1"></span>    <span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="cm">/**
+</span><span class="cm"> * 关闭资源
+</span><span class="cm"> */</span>
+<span class="nd">@After</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">after</span><span class="o">(){</span>
+    <span class="n">zkClinet</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div><h2 id="集群搭建">集群搭建</h2>
+<p>具体参考官方文档：https://zookeeper.apache.org/doc/r3.7.0/zookeeperStarted.html</p>
+<p>大致说一下：</p>
+<ul>
+<li>
+<p>集群中机器数量最好是奇数</p>
+</li>
+<li>
+<p>首先需要创建三个文件夹<code>zkdata1</code>、<code>zkdata2</code>、<code>zkdata3</code>，每一个文件夹下创建<code>myid</code>文件，里面的内容分别为1、2、3</p>
+</li>
+<li>
+<p>在ZK的conf目录下创建三个ZK配置文件：<code>zoo1.cfg</code>、<code>zoo2.cfg</code>、<code>zoo3.cfg</code></p>
+<ul>
+<li>
+<p><code>zoo1.cfg</code></p>
+<pre><code>tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/root/zkdata1
+clientPort=3001
+server.1=10.15.0.5:3002:3003 // 说明一下这里的3002是集群之间做原子广播的通讯端口，3003是集群之间做心跳检查的通讯端口
+server.2=10.15.0.5:4002:4003
+server.3=10.15.0.5:5002:5003
+</code></pre></li>
+<li>
+<p><code>zoo2.cfg</code></p>
+<pre><code>tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/root/zkdata2
+clientPort=4001
+server.1=10.15.0.5:3002:3003 // 说明一下这里的3002是集群之间做原子广播的通讯端口，3003是集群之间做心跳检查的通讯端口
+server.2=10.15.0.5:4002:4003
+server.3=10.15.0.5:5002:5003
+</code></pre></li>
+<li>
+<p><code>zoo3.cfg</code></p>
+<pre><code>tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/root/zkdata3
+clientPort=5001
+server.1=10.15.0.5:3002:3003 // 说明一下这里的3002是集群之间做原子广播的通讯端口，3003是集群之间做心跳检查的通讯端口
+server.2=10.15.0.5:4002:4003
+server.3=10.15.0.5:5002:5003
+</code></pre></li>
+</ul>
+</li>
+<li>
+<p>分别启动各个zk服务器</p>
+<pre><code>$ ./bin/zkServer.sh start /usr/zookeeper/conf/zoo1.cfg
+$ ./bin/zkServer.sh start /usr/zookeeper/conf/zoo2.cfg
+$ ./bin/zkServer.sh start /usr/zookeeper/conf/zoo3.cfg
+</code></pre></li>
+<li>
+<p>查看各个zk服务器的角色信息</p>
+<pre><code>$ ./bin/zkServer.sh status /usr/zookeeper/conf/zoo1.cfg
+</code></pre></li>
+<li>
+<p>客户端连接任意zk服务器进行结点操作</p>
+<pre><code>$ ./bin/zkCli.sh -server 192.168.0.220:3001
+</code></pre></li>
+<li>
+<p>停止特定zk服务器</p>
+<pre><code>$ ./bin/zkServer.sh stop /usr/zookeeper/conf/zoo3.cfg
+</code></pre></li>
+</ul>
+<h2 id="集群数据同步">集群数据同步</h2>
+<p>集群中除了主结点（master结点）别的都是从节点（slave结点）</p>
+<p>当某个结点收到更改结点数据的commit之后，集群中半数的结点投票通过后就会同步数据</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>zookeeper补充</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#结点">结点</a>
+      <ul>
+        <li><a href="#临时结点">临时结点</a></li>
+        <li><a href="#持久顺序结点或临时顺序结点">持久顺序结点或临时顺序结点</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用docker部署zookeeper">使用docker部署zookeeper</a></li>
+    <li><a href="#监听">监听</a></li>
+    <li><a href="#java操作zk">Java操作ZK</a></li>
+    <li><a href="#集群搭建">集群搭建</a></li>
+    <li><a href="#集群数据同步">集群数据同步</a></li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2021 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>

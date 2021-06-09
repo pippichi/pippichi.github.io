@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>zookeeper补充</title>
+      <link>https://pippichi.github.io/blog/zookeeper%E8%A1%A5%E5%85%85/</link>
+      <pubDate>Wed, 09 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/zookeeper%E8%A1%A5%E5%85%85/</guid>
+      <description>&lt;p&gt;对于zookeeper的一些补充，可结合课件zookeeper.pdf一起查阅&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Shiro</title>
       <link>https://pippichi.github.io/blog/shiro/</link>
@@ -88,7 +97,7 @@
       <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/blog/linux%E8%A1%A5%E5%85%85/</guid>
-      <description>&lt;p&gt;对于Linux的一些额外的补充&lt;/p&gt;</description>
+      <description>&lt;p&gt;对于Linux的一些补充&lt;/p&gt;</description>
     </item>
     
     <item>
