@@ -670,7 +670,7 @@ POM中的name字段是为了给项目一个更容易阅读的名字，该名字�
 <p><img src="/maven%E8%A1%A5%E5%85%85.assets/image-20210606110927866.png" alt="image-20210606110927866"></p>
 <h2 id="projectgroupid-和-projectversion"><code>${project.groupId}</code> 和 <code>${project.version}</code></h2>
 <p>maven中的<code>${project.groupId}</code> 和 <code>${project.version}</code> 表示当前项目的groupId和version。</p>
-<h2 id="maven依赖中的scope传递与隔断">Maven依赖中的Scope、传递与隔断</h2>
+<h2 id="maven依赖中的scope传递与隔断">maven依赖中的Scope、传递与隔断</h2>
 <p>可结合课件<code>maven.pdf</code>查阅</p>
 <p><strong>Scope的分类</strong></p>
 <ul>
@@ -747,6 +747,39 @@ POM中的name字段是为了给项目一个更容易阅读的名字，该名字�
 <li>scope中的provided：虽然工程上隔断了关系，但此时表明，被隔断的工程是需要其它地方提供支持的，在最终运行环境中应该是一定被用到的。一般情况上层工程里一定有调用此处接口的代码。</li>
 <li>依赖关系的隔断则不一定如此，很有可能根本就不想用这个被排除的工程。</li>
 </ul>
+<h2 id="maven跳过单元测试maventestskip和skiptests的区别">maven跳过单元测试<code>maven.test.skip</code>和<code>skipTests</code>的区别</h2>
+<p><code>-DskipTests</code>，不执行测试用例，但编译测试用例类生成相应的<code>class</code>文件至<code>target/test-classes</code>下。</p>
+<p><code>-Dmaven.test.skip=true</code>，不执行测试用例，也不编译测试用例类。</p>
+<p>一、使用maven.test.skip，不但跳过单元测试的运行，也跳过测试代码的编译。</p>
+<pre><code>mvn package -Dmaven.test.skip=true 
+</code></pre><p>也可以在pom.xml文件中修改</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;plugin&gt;</span>  
+    <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugin<span class="nt">&lt;/groupId&gt;</span>  
+    <span class="nt">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="nt">&lt;/artifactId&gt;</span>  
+    <span class="nt">&lt;version&gt;</span>2.1<span class="nt">&lt;/version&gt;</span>  
+    <span class="nt">&lt;configuration&gt;</span>  
+        <span class="nt">&lt;skip&gt;</span>true<span class="nt">&lt;/skip&gt;</span>  
+    <span class="nt">&lt;/configuration&gt;</span>  
+<span class="nt">&lt;/plugin&gt;</span>  
+<span class="nt">&lt;plugin&gt;</span>  
+    <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>  
+    <span class="nt">&lt;artifactId&gt;</span>maven-surefire-plugin<span class="nt">&lt;/artifactId&gt;</span>  
+    <span class="nt">&lt;version&gt;</span>2.5<span class="nt">&lt;/version&gt;</span>  
+    <span class="nt">&lt;configuration&gt;</span>  
+        <span class="nt">&lt;skip&gt;</span>true<span class="nt">&lt;/skip&gt;</span>  
+    <span class="nt">&lt;/configuration&gt;</span>  
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre></div><p>二、使用<code>mvn package -DskipTests</code>跳过单元测试，但是会继续编译；如果没时间修改单元测试的bug，或者单元测试编译错误。使用上面的，不要用这个</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;plugin&gt;</span>  
+    <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>  
+    <span class="nt">&lt;artifactId&gt;</span>maven-surefire-plugin<span class="nt">&lt;/artifactId&gt;</span>  
+    <span class="nt">&lt;version&gt;</span>2.5<span class="nt">&lt;/version&gt;</span>  
+    <span class="nt">&lt;configuration&gt;</span>  
+        <span class="nt">&lt;skipTests&gt;</span>true<span class="nt">&lt;/skipTests&gt;</span>  
+    <span class="nt">&lt;/configuration&gt;</span>  
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre></div><p>默认idea的跳过测试采用的是第二种，所以仍然会编译代码，如果想不执行测试用例，也不编译测试用例类，那么必须采用第一种方式在pom中加上skip为true，这样才能跳过编译</p>
+<p><img src="/maven%E8%A1%A5%E5%85%85.assets/image-20210720184531959.png" alt="image-20210720184531959"></p>
   </section>
 
   <section>
@@ -777,7 +810,8 @@ POM中的name字段是为了给项目一个更容易阅读的名字，该名字�
     <li><a href="#maven继承">maven继承</a></li>
     <li><a href="#maven聚合">maven聚合</a></li>
     <li><a href="#projectgroupid-和-projectversion"><code>${project.groupId}</code> 和 <code>${project.version}</code></a></li>
-    <li><a href="#maven依赖中的scope传递与隔断">Maven依赖中的Scope、传递与隔断</a></li>
+    <li><a href="#maven依赖中的scope传递与隔断">maven依赖中的Scope、传递与隔断</a></li>
+    <li><a href="#maven跳过单元测试maventestskip和skiptests的区别">maven跳过单元测试<code>maven.test.skip</code>和<code>skipTests</code>的区别</a></li>
   </ul>
 </nav></div>
   

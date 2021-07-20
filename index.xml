@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Wed, 09 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://pippichi.github.io/about/</link>
@@ -16,6 +16,15 @@
       <guid>https://pippichi.github.io/about/</guid>
       <description>Welcome.
 Learn more on GitHub.</description>
+    </item>
+    
+    <item>
+      <title>Redis</title>
+      <link>https://pippichi.github.io/blog/redis%E8%A1%A5%E5%85%85/</link>
+      <pubDate>Tue, 20 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/redis%E8%A1%A5%E5%85%85/</guid>
+      <description>&lt;p&gt;redis消息订阅、新增命令、权限认证、高级客户端lettuce&amp;hellip;&lt;/p&gt;</description>
     </item>
     
     <item>

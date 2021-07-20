@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Redis on Learning Records</title>
+    <link>https://pippichi.github.io/tags/redis/</link>
+    <description>Recent content in Redis on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
+    <lastBuildDate>Tue, 20 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Redis</title>
+      <link>https://pippichi.github.io/blog/redis%E8%A1%A5%E5%85%85/</link>
+      <pubDate>Tue, 20 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/redis%E8%A1%A5%E5%85%85/</guid>
+      <description>&lt;p&gt;redis消息订阅、新增命令、权限认证、高级客户端lettuce&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
