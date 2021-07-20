@@ -725,7 +725,60 @@ of的，那么我们给它加一个：</p>
 <h3 id="本地安装">本地安装</h3>
 <p>npm install xxx 或 npm install xxx –-save-dev</p>
 <p><img src="/ES6/5b095988fdfed98a4929ceafe78428eb.png" alt=""></p>
-<h2 id="npx">npx</h2>
+<h3 id="配置镜像">配置镜像</h3>
+<ul>
+<li>
+<p>方式一（持久使用，推荐）</p>
+<pre><code>npm config set registry https://registry.npm.taobao.org
+// 配置后可通过下面命令来验证是否成功
+npm config ls // 此时：metrics-registry = &quot;http://registry.npm.taobao.org/&quot;表示设置成功
+// 或
+npm config get registry
+// 或
+npm info express
+</code></pre></li>
+<li>
+<p>方式二（临时使用）</p>
+<pre><code>npm --registry https://registry.npm.taobao.org install express
+</code></pre></li>
+<li>
+<p>方式三</p>
+<pre><code>npm install -g cnpm --registry=https://registry.npm.taobao.org
+// 使用
+cnpm install expresstall express
+</code></pre></li>
+<li>
+<p>方式四</p>
+<pre><code>安装nrm 管理，安装这个的前提是能确定链接到现在的镜像地址：
+npm install -g nrm
+  
+待安装完nrm 之后，通过nrm 管理镜像的地址，一条命令切换，如：
+nrm use taobao
+  
+nrm 除了淘宝站点镜像之外还有其他的，可以使用一下命令查看：
+nrm ls
+  
+当然也可以在 nrm 中添加自己的镜像地址：
+nrm add URL 'registry_name'
+  
+或者删除用不上的镜像地址：
+nrm del 'registry_name'
+  
+nrm 还提供测试镜像地址的响应速度：
+nrm test ['registry_name']
+</code></pre></li>
+</ul>
+<h3 id="配置全局和缓存目录">配置全局和缓存目录</h3>
+<pre><code>npm config set prefix &quot;C:\Program Files\nodejs\node_global&quot;
+npm config set cache &quot;C:\Program Files\nodejs\node_cache&quot;
+
+新建环境变量：
+NODE_HOME=&quot;D:\Program Files\nodejs&quot;
+
+path中添加：
+%NODE_HOME%\node_global
+%NODE_HOME%\node_cache
+</code></pre><h2 id="npx">npx</h2>
 <h3 id="安装npx">安装npx</h3>
 <p><img src="/ES6/975e18e92c485756465d543e5cf7ce61.png" alt=""></p>
 <h3 id="调用项目安装的模块">调用项目安装的模块</h3>
@@ -796,6 +849,8 @@ of的，那么我们给它加一个：</p>
       <ul>
         <li><a href="#全局安装">全局安装</a></li>
         <li><a href="#本地安装">本地安装</a></li>
+        <li><a href="#配置镜像">配置镜像</a></li>
+        <li><a href="#配置全局和缓存目录">配置全局和缓存目录</a></li>
       </ul>
     </li>
     <li><a href="#npx">npx</a>
