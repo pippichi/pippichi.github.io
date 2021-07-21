@@ -722,11 +722,62 @@ Phone)/i))) {</strong></p>
 <p><img src="/js_webapi/8e41870fe0830ac2612ae4e9a748e049.png" alt=""></p>
 <p>注意scrollHeight是内容顶部到边框下沿的长度：</p>
 <p><img src="/js_webapi/1b11661972ad8ebe197012c4271d8362.png" alt=""></p>
-<h5 id="scroll事件">scroll事件</h5>
+<h5 id="案例1">案例1</h5>
+<p>日志滚动窗口。实现新日志来的时候屏幕信息自动向下滚动，当鼠标放上去的时候屏幕信息停止滚动，鼠标离开的时候屏幕信息再次开始滚动。</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+    <span class="p">.</span><span class="nc">parent</span> <span class="p">{</span>
+        <span class="k">width</span><span class="p">:</span> <span class="mi">300</span><span class="kt">px</span><span class="p">;</span>
+        <span class="k">height</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
+        <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span> <span class="kc">auto</span><span class="p">;</span>
+        <span class="k">background</span><span class="p">:</span> <span class="mh">#242424</span><span class="p">;</span>
+        <span class="k">overflow-y</span><span class="p">:</span> <span class="kc">scroll</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">.</span><span class="nc">child</span> <span class="p">{</span>
+        <span class="k">height</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">.</span><span class="nc">child</span> <span class="nt">li</span> <span class="p">{</span>
+        <span class="k">height</span><span class="p">:</span> <span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
+        <span class="k">margin</span><span class="p">:</span> <span class="mi">2</span><span class="kt">px</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">background</span><span class="p">:</span> <span class="mh">#009678</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;parent&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;parent&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;child1&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;child&#34;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>1<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>2<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>3<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>4<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>5<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+        <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">parent</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;parent&#39;</span><span class="p">);</span>
+            <span class="kd">let</span> <span class="nx">child1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;child1&#39;</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">parent</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">&lt;=</span> <span class="nx">child1</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">parent</span><span class="p">.</span><span class="nx">scrollTop</span><span class="o">++</span><span class="p">;</span>
+                <span class="p">}</span> 
+            <span class="p">},</span> <span class="mi">10</span><span class="p">);</span>
+            <span class="nx">parent</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;mouseenter&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+            <span class="p">})</span>
+            <span class="nx">parent</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&#34;mouseleave&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+                <span class="nx">x</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">parent</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">&lt;=</span> <span class="nx">child1</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">parent</span><span class="p">.</span><span class="nx">scrollTop</span><span class="o">++</span><span class="p">;</span>
+                    <span class="p">}</span> 
+                <span class="p">},</span> <span class="mi">10</span><span class="p">);</span>
+            <span class="p">})</span>
+        <span class="p">})()</span>
+    <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</code></pre></div><h5 id="scroll事件">scroll事件</h5>
 <p><img src="/js_webapi/0fe66b666b51790c78d39b042bfaa953.png" alt=""></p>
 <p><img src="/js_webapi/807516834816d6b2dac867d55cc96c04.png" alt=""></p>
 <p><img src="/js_webapi/18b812596ed8ee023317d271291230c7.png" alt=""></p>
-<h5 id="案例-4">案例</h5>
+<h5 id="案例2">案例2</h5>
 <p><img src="/js_webapi/e73d5aa421c824f7da2c87e2152bbb8a.png" alt=""></p>
 <p><img src="/js_webapi/c54731c1ce39c589f7c1c212423de149.png" alt=""></p>
 <h6 id="pageyoffset">pageYOffset</h6>
@@ -795,7 +846,7 @@ Phone)/i))) {</strong></p>
 <p><img src="/js_webapi/6671a293fde278ea6754041346660f9c.png" alt=""></p>
 <h5 id="将动画函数写到单独的js文件中下次调用直接引入即可">将动画函数写到单独的js文件中，下次调用直接引入即可</h5>
 <p><img src="/js_webapi/534f0ca67d0e9a32dacff0358e557fe0.png" alt=""></p>
-<h5 id="案例-5">案例</h5>
+<h5 id="案例-4">案例</h5>
 <p>1、</p>
 <p><img src="/js_webapi/578894b86951507aea44cdf628324f49.png" alt=""></p>
 <p><img src="/js_webapi/c4620816c9c09bcd28c4d82dde02a04f.png" alt=""></p>
@@ -899,7 +950,23 @@ Phone)/i))) {</strong></p>
 <p><img src="/js_webapi/056f775865cafc0cc3478dc348917eef.png" alt=""></p>
 <p><img src="/js_webapi/abbef43826aa2f9ad506ba916ef01477.png" alt=""></p>
 <p><img src="/js_webapi/034398aafa95de9edb33119105c6306d.png" alt=""></p>
-<h2 id="移动端特效">移动端特效</h2>
+<h4 id="js动态修改css动画animation">js动态修改css动画(animation)</h4>
+<p>第一步：通过 document.styleSheets 定义动画变化的样式</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">styleSheets</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">insertRule</span><span class="p">(</span>
+	<span class="sb">`@keyframes example {
+</span><span class="sb">		0% {background-color: red;}
+</span><span class="sb">		100% {background-color: yellow;} }`</span><span class="p">,</span>
+	<span class="mi">0</span>
+<span class="p">);</span>
+</code></pre></div><p>第二步：使用 js 修改元素 animation 等属性</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;ele&#34;</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">animation</span> <span class="o">=</span> <span class="s2">&#34;example 1s linear&#34;</span>
+</code></pre></div><h4 id="js动态修改css渐变transition">js动态修改css渐变(transition)</h4>
+<p>使用过渡实现动画效果：</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;ele&#34;</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">transition</span> <span class="o">=</span> <span class="s2">&#34;width 5s linear&#34;</span><span class="p">;</span>
+</code></pre></div><p>操作 transform 属性：</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;ele&#34;</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">transition</span> <span class="o">=</span> <span class="s2">&#34;-webkit-transform 1000ms linear&#34;</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;ele&#34;</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">webkitTransform</span> <span class="o">=</span> <span class="s2">&#34;scale(1) scale(0.65)&#34;</span><span class="p">;</span>
+</code></pre></div><h2 id="移动端特效">移动端特效</h2>
 <p><img src="/js_webapi/5d4d20ebd1437ea8857d72ff968716c0.png" alt=""></p>
 <p>移动端的head上面要加这几行（目前还不知道什么意思，可能是移动端的全局基础属性配置），只知道中间那一行的user-scalable=no表示用户无法将页面放大缩小（一般是为了解决移动端click会有延时300ms的问题，这个问题在下面有说到）</p>
 <h3 id="触屏事件">触屏事件</h3>
@@ -1102,7 +1169,7 @@ px，相当于默认写了li的宽度为100%，那么我们有5个li，我们将
 <p><img src="/js_webapi/c103f27df2464624a7864c120c0083fe.png" alt=""></p>
 <h4 id="clear-1">clear</h4>
 <p><img src="/js_webapi/34e4caa361e6674e3bfffacd679f73bf.png" alt=""></p>
-<h3 id="案例-6">案例</h3>
+<h3 id="案例-5">案例</h3>
 <p><img src="/js_webapi/40d3b3f99e57ee22d17f2b7d4550690d.png" alt=""></p>
 <p><img src="/js_webapi/52f9732f0efdef878b3d7d46ea5adbc0.png" alt=""></p>
 <p><img src="/js_webapi/5945805e789af6a99897c0dd432b66ba.png" alt=""></p>
@@ -1223,7 +1290,7 @@ px，相当于默认写了li的宽度为100%，那么我们有5个li，我们将
       <ul>
         <li><a href="#sessionstorage">sessionStorage</a></li>
         <li><a href="#localstorage">localStorage</a></li>
-        <li><a href="#案例-6">案例</a></li>
+        <li><a href="#案例-5">案例</a></li>
       </ul>
     </li>
     <li><a href="#cookie的设置以及cookie中可能存在的敏感信息的加密解密">Cookie的设置以及Cookie中可能存在的敏感信息的加密解密</a></li>
