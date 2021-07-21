@@ -457,6 +457,56 @@ C组件: 读取A组件传入的数据显示 {this.props.data}
     兄弟组件：消息订阅-发布、集中式管理
     祖孙组件(跨级组件)：消息订阅-发布、集中式管理、conText(开发用的少，封装插件用的多)
 </code></pre>
+<h2 id="10如何修改项目启动端口号">10.如何修改项目启动端口号</h2>
+<ul>
+<li>
+<p>法一</p>
+<p>暴露webpack配置，然后在里面改</p>
+</li>
+<li>
+<p>法二</p>
+<p>修改start脚本</p>
+<p>示例：</p>
+<pre><code>&quot;start&quot;:&quot;react-scripts start&quot;
+改为：
+&quot;start&quot;: &quot;set PORT=9000 &amp;&amp; react-scripts start&quot;
+</code></pre></li>
+<li>
+<p>法三</p>
+<p>项目根目录新建<code>.env</code>文件</p>
+<p>修改项目启动端口时，在<code>.env</code>文件写入：</p>
+<pre><code>PORT=8080
+</code></pre></li>
+</ul>
+<h2 id="11env文件配置全局环境变量">11.<code>.env</code>文件配置全局环境变量</h2>
+<p>项目根目录新建<code>.env</code>文件配置全局环境变量</p>
+<p>关于文件名：必须以如下方式命名，不要乱起名，也无需专门手动控制加载哪个文件</p>
+<p><code>.env</code> 全局默认配置文件，不论什么环境都会加载合并</p>
+<p><code>.env.development</code> 开发环境下的配置文件</p>
+<p><code>.env.production</code> 生产环境下的配置文件</p>
+<p>修改项目启动端口时，在<code>.env</code>文件写入：</p>
+<pre><code>PORT=8080
+</code></pre><p>如果是vue项目，则属性名必须以<code>VUE_APP_</code>开头，比如：<code>VUE_APP_XXX</code></p>
+<p><strong><code>.env：</code></strong></p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20210721215323939.png" alt="image-20210721215323939"></p>
+<p><strong><code>.env.development：</code></strong></p>
+<p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20210721215638856.png" alt="image-20210721215638856"></p>
+<p>关于文件的加载：</p>
+<p>根据启动命令vue会自动加载对应的环境，vue是根据文件名进行加载的，所以上面说“不要乱起名，也无需专门控制加载哪个文件”</p>
+<p>比如执行<code>npm run serve</code>（具体看启动脚本）命令，会自动加载<code>.env.development</code>文件</p>
+<p>启动项目后我们打印一下全局属性：</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">)</span> <span class="c1">// process的介绍在JavaScript -senior中
+</span></code></pre></div><p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20210721215918264.png" alt="image-20210721215918264"></p>
+<p>可见<code>NODE_ENV</code>被改为了&quot;development&quot;，覆盖掉了<code>.env</code>中的全局属性</p>
+<p><code>.env</code>中的全局属性<code>NODE_ENV</code>、<code>VUE_APP_URL</code>被覆盖，</p>
+<p><code>.env</code>中的全局属性<code>VUE_APP_PREVIEW</code>、<code>VUE_APP_DEFAULT_PARAM</code>被保留</p>
+<h2 id="12使用react-app-rewired和customize-cra修改webpack的基本配置">12.使用<code>react-app-rewired</code>和<code>customize-cra</code>修改webpack的基本配置</h2>
+<h3 id="antd全局引入及按需引入">antd全局引入及按需引入</h3>
+<p>antd中js代码一般是具备tree shaking的，css存在全局引入和按需引入两种</p>
+<p>全局引入就是按照antd官网的做法把所有css引入：</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="s1">&#39;antd/dist/antd.css&#39;</span><span class="p">;</span>
+</code></pre></div><p>按需引入在GitHub的<code>react_basic</code>仓库中有示例代码，这里不再多做介绍</p>
+<h3 id="配置项目路径映射">配置项目路径映射</h3>
   </section>
 
   <section>
@@ -527,6 +577,14 @@ C组件: 读取A组件传入的数据显示 {this.props.data}
     <li><a href="#9-组件通信方式总结">9. 组件通信方式总结</a>
       <ul>
         <li></li>
+      </ul>
+    </li>
+    <li><a href="#10如何修改项目启动端口号">10.如何修改项目启动端口号</a></li>
+    <li><a href="#11env文件配置全局环境变量">11.<code>.env</code>文件配置全局环境变量</a></li>
+    <li><a href="#12使用react-app-rewired和customize-cra修改webpack的基本配置">12.使用<code>react-app-rewired</code>和<code>customize-cra</code>修改webpack的基本配置</a>
+      <ul>
+        <li><a href="#antd全局引入及按需引入">antd全局引入及按需引入</a></li>
+        <li><a href="#配置项目路径映射">配置项目路径映射</a></li>
       </ul>
     </li>
   </ul>

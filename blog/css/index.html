@@ -255,7 +255,25 @@ if (!doNotTrack) {
 <h3 id="子选择器">子选择器</h3>
 <p><img src="/css/7c962f1dccf9e42589238b3d9c3ad1e3.png" alt=""></p>
 <p><img src="/css/127d2417dbae1144607bbc160833c464.png" alt=""></p>
-<h3 id="并集选择器">并集选择器</h3>
+<h3 id="not选择器"><code>:not</code>选择器</h3>
+<p>示例1：</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* 设置非 &lt;p&gt; 元素的所有元素的背景色：*/</span>
+<span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="nt">p</span><span class="o">)</span> <span class="p">{</span> 
+	<span class="k">background-color</span><span class="p">:</span> <span class="mh">#ff0000</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>示例2：</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/*选中div里面非首个的p元素*/</span>
+<span class="nt">div</span> <span class="nt">p</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">first-child</span><span class="o">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div><p>示例3：</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/*选中div里面非首个、非最后一个的中间p元素*/</span>
+<span class="nt">div</span> <span class="nt">p</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">first-child</span><span class="o">)</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">last-child</span><span class="o">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div><p>示例4：</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">table</span> <span class="nt">tbody</span> <span class="nt">tr</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">first-child</span><span class="o">)</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="p">:</span><span class="nd">last-child</span><span class="o">)</span> <span class="nt">td</span> <span class="p">{</span>
+     <span class="k">text-align</span><span class="p">:</span> <span class="kc">right</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="并集选择器">并集选择器</h3>
 <p><img src="/css/03fa88e846725bc213bfce884ea4b6c5.png" alt=""></p>
 <p>例如：</p>
 <p><img src="/css/52694d8ff03b972940a3dbd6ed9b9d22.png" alt=""></p>
@@ -327,7 +345,59 @@ if (!doNotTrack) {
 <p><img src="/css/07720767348c770c3ab5608e347a4763.png" alt=""></p>
 <p>背景图片和颜色可以同时设置，图片会在颜色之上</p>
 <p><img src="/css/fe8b5fbe57ec0aa9a836e3febff096bb.png" alt=""></p>
-<h3 id="背景图片位置">背景图片位置</h3>
+<h3 id="调整背景图片大小">调整背景图片大小</h3>
+<p><code>background-size: length|percentage|cover|contain;</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">值</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">length</td>
+<td style="text-align:left">设置背景图片高度和宽度。第一个值设置宽度，第二个值设置的高度。如果只给出一个值，第二个是设置为 <strong>auto</strong>(自动)</td>
+</tr>
+<tr>
+<td style="text-align:left">percentage</td>
+<td style="text-align:left">将计算相对于背景定位区域的百分比。第一个值设置宽度，第二个值设置的高度。如果只给出一个值，第二个是设置为&quot;auto(自动)&quot;</td>
+</tr>
+<tr>
+<td style="text-align:left">cover</td>
+<td style="text-align:left">此时会保持图像的纵横比并将图像缩放成将完全覆盖背景定位区域的最小大小。</td>
+</tr>
+<tr>
+<td style="text-align:left">contain</td>
+<td style="text-align:left">此时会保持图像的纵横比并将图像缩放成将适合背景定位区域的最大大小。</td>
+</tr>
+</tbody>
+</table>
+<p>示例1：</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span>
+    <span class="k">background</span><span class="p">:</span> <span class="nb">url</span><span class="p">(</span><span class="sx">img_flwr.gif</span><span class="p">);</span>
+    <span class="k">background-size</span><span class="p">:</span> <span class="mi">80</span><span class="kt">px</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">background-repeat</span><span class="p">:</span> <span class="kc">no-repeat</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><p>示例2：</p>
+<pre><code>div {
+    background: url(img_flwr.gif);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+</code></pre><p>示例3：</p>
+<pre><code>div {
+    background: url(img_flwr.gif);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+</code></pre><p>示例4：</p>
+<pre><code>div {
+    background: url(img_flwr.gif);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+</code></pre><h3 id="背景图片位置">背景图片位置</h3>
 <p><img src="/css/3629f9da1cb06022900b64f8ad6f536c.png" alt=""></p>
 <p><img src="/css/23293ea39bfc296e261e7bcd67745904.png" alt=""></p>
 <p><img src="/css/611d75c1810449ef18e5c84de0e4be76.png" alt=""></p>
@@ -1310,6 +1380,7 @@ height，会十分麻烦，而设置margin的话就不需要这样了。</p>
       <ul>
         <li><a href="#后代选择器">后代选择器</a></li>
         <li><a href="#子选择器">子选择器</a></li>
+        <li><a href="#not选择器"><code>:not</code>选择器</a></li>
         <li><a href="#并集选择器">并集选择器</a></li>
         <li><a href="#伪类选择器">伪类选择器</a></li>
         <li><a href="#总结-4">总结</a></li>
@@ -1331,6 +1402,7 @@ height，会十分麻烦，而设置margin的话就不需要这样了。</p>
       <ul>
         <li><a href="#背景色">背景色</a></li>
         <li><a href="#背景图片">背景图片</a></li>
+        <li><a href="#调整背景图片大小">调整背景图片大小</a></li>
         <li><a href="#背景图片位置">背景图片位置</a></li>
         <li><a href="#案例-2">案例</a></li>
         <li><a href="#背景图像固定">背景图像固定</a></li>

@@ -152,9 +152,22 @@ if (!doNotTrack) {
 <p><img src="/js_basic/fa9e2f61c5d3c208a28f895c151ddf10.png" alt=""></p>
 <p><img src="/js_basic/2f3dfd7f3aaa79d75f732c3e7dbe5b29.png" alt=""></p>
 <p><img src="/js_basic/fe310ea7cee20fa8bf95abfa3114cb3a.png" alt=""></p>
-<h4 id="consoledir">console.dir</h4>
+<h3 id="consoledir"><code>console.dir</code></h3>
 <p>输出一个对象的所有属性和方法</p>
-<h2 id="标识符关键字保留字">标识符、关键字、保留字</h2>
+<h3 id="documentwrite和documentwriteln"><code>document.write</code>和<code>document.writeln</code></h3>
+<p>将字符串直接打印到浏览器</p>
+<p>两者都是JavaScript向客户端输出的方法，对比可知写法上的差别是一个<code>ln--line</code>的简写，换言之，<code>writeln</code> 方法是以行输出的，相当于在 <code>write </code>输出后加上一个换行符。</p>
+<p>示例1：</p>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;你好&#34;</span><span class="p">)</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;你好&#34;</span><span class="p">,</span> <span class="s2">&#34;世界&#34;</span><span class="p">)</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">&#34;你好&#34;</span><span class="p">,</span> <span class="s2">&#34;世界&#34;</span><span class="p">,</span> <span class="s2">&#34;!&#34;</span><span class="p">)</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">Date</span><span class="p">())</span>
+</code></pre></div><p>示例2：</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">document.writeln(&#34;你好&#34;)
+document.writeln(&#34;你好&#34;, &#34;世界&#34;)
+document.writeln(&#34;你好&#34;, &#34;世界&#34;, &#34;!&#34;)
+document.writeln(Date())
+</code></pre></div><h2 id="标识符关键字保留字">标识符、关键字、保留字</h2>
 <p><img src="/js_basic/0faf621a3e6537855cc0cfe3e0e50d8a.png" alt=""></p>
 <p><img src="/js_basic/aeb4e878efe2ccabd1be6df5f86264a1.png" alt=""></p>
 <p><img src="/js_basic/e3536c71eb6d8c5049ac4b06ff292d41.png" alt=""></p>
@@ -400,6 +413,8 @@ if (!doNotTrack) {
     <li><a href="#输入输出语句">输入输出语句</a>
       <ul>
         <li><a href="#promptalert和console">Prompt、alert和console</a></li>
+        <li><a href="#consoledir"><code>console.dir</code></a></li>
+        <li><a href="#documentwrite和documentwriteln"><code>document.write</code>和<code>document.writeln</code></a></li>
       </ul>
     </li>
     <li><a href="#标识符关键字保留字">标识符、关键字、保留字</a></li>
