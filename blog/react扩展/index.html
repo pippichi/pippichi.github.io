@@ -505,8 +505,91 @@ C组件: 读取A组件传入的数据显示 {this.props.data}
 <p>antd中js代码一般是具备tree shaking的，css存在全局引入和按需引入两种</p>
 <p>全局引入就是按照antd官网的做法把所有css引入：</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="s1">&#39;antd/dist/antd.css&#39;</span><span class="p">;</span>
-</code></pre></div><p>按需引入在GitHub的<code>react_basic</code>仓库中有示例代码，这里不再多做介绍</p>
-<h3 id="配置项目路径映射">配置项目路径映射</h3>
+</code></pre></div><p>按需引入在GitHub的<code>react_basic</code>仓库中有示例代码，具体步骤为：</p>
+<p>首先根目录创建<code>config-overrides.js</code>，然后在文件中写入：</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="p">{</span>
+  <span class="nx">override</span><span class="p">,</span>
+  <span class="nx">fixBabelImports</span><span class="p">,</span>
+  <span class="nx">addLessLoader</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;customize-cra&#39;</span><span class="p">)</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">override</span><span class="p">(</span>
+  <span class="c1">// 配置antd按需加载
+</span><span class="c1"></span>  <span class="nx">fixBabelImports</span><span class="p">(</span><span class="s1">&#39;import&#39;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">libraryName</span><span class="o">:</span> <span class="s1">&#39;antd&#39;</span><span class="p">,</span>
+      <span class="nx">libraryDirectory</span><span class="o">:</span> <span class="s1">&#39;es&#39;</span><span class="p">,</span>
+      <span class="nx">style</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">}),</span>
+  <span class="c1">// 配置antd自定义主题
+</span><span class="c1"></span>  <span class="nx">addLessLoader</span><span class="p">({</span>
+      <span class="nx">lessOptions</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">javascriptEnabled</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nx">modifyVars</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;@primary-color&#39;</span><span class="o">:</span> <span class="s1">&#39;green&#39;</span> <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">)</span>
+</code></pre></div><p>更多介绍请看博客：https://blog.csdn.net/weixin_46398902/article/details/104505491</p>
+<p>然后在<code>package.json</code>配置文件中修改：</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;scripts&#34;</span><span class="err">:</span> <span class="p">{</span>
+<span class="err">-</span>   <span class="nt">&#34;start&#34;</span><span class="p">:</span> <span class="s2">&#34;react-scripts start&#34;</span><span class="p">,</span>
+<span class="err">+</span>   <span class="nt">&#34;start&#34;</span><span class="p">:</span> <span class="s2">&#34;react-app-rewired start&#34;</span><span class="p">,</span>
+<span class="err">-</span>   <span class="nt">&#34;build&#34;</span><span class="p">:</span> <span class="s2">&#34;react-scripts build&#34;</span><span class="p">,</span>
+<span class="err">+</span>   <span class="nt">&#34;build&#34;</span><span class="p">:</span> <span class="s2">&#34;react-app-rewired build&#34;</span><span class="p">,</span>
+<span class="err">-</span>   <span class="nt">&#34;test&#34;</span><span class="p">:</span> <span class="s2">&#34;react-scripts test&#34;</span><span class="p">,</span>
+<span class="err">+</span>   <span class="nt">&#34;test&#34;</span><span class="p">:</span> <span class="s2">&#34;react-app-rewired test&#34;</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="配置项目路径映射">配置项目路径映射</h3>
+<ul>
+<li>
+<p>法一</p>
+<p>用到的工具包跟上面antd按需引入一样，首先根目录创建<code>config-overrides.js</code>，然后在文件中写入：</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="p">{</span>
+  <span class="nx">override</span><span class="p">,</span>
+  <span class="nx">addWebpackAlias</span><span class="p">,</span>
+  <span class="nx">addDecoratorsLegacy</span><span class="p">,</span>
+  <span class="nx">fixBabelImports</span><span class="p">,</span>
+  <span class="nx">addLessLoader</span><span class="p">,</span>
+<span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;customize-cra&#39;</span><span class="p">)</span>
+  
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">override</span><span class="p">(</span>
+  <span class="c1">// 配置装饰器。使用的时候就可以 @高阶组件 || @高阶组件(参数)
+</span><span class="c1"></span>  <span class="nx">addDecoratorsLegacy</span><span class="p">(),</span>
+  <span class="c1">// 配置路径映射
+</span><span class="c1"></span>  <span class="nx">addWebpackAlias</span><span class="p">({</span>
+    <span class="s1">&#39;@&#39;</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;src&#39;</span><span class="p">),</span>
+  <span class="p">}),</span>
+  <span class="c1">// 配置antd按需加载
+</span><span class="c1"></span>  <span class="nx">fixBabelImports</span><span class="p">(</span><span class="s1">&#39;import&#39;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">libraryName</span><span class="o">:</span> <span class="s1">&#39;antd&#39;</span><span class="p">,</span>
+      <span class="nx">libraryDirectory</span><span class="o">:</span> <span class="s1">&#39;es&#39;</span><span class="p">,</span>
+      <span class="nx">style</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">}),</span>
+  <span class="c1">// 配置自定义主题
+</span><span class="c1"></span>  <span class="nx">addLessLoader</span><span class="p">({</span>
+      <span class="nx">lessOptions</span><span class="o">:</span> <span class="p">{</span>
+          <span class="nx">javascriptEnabled</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nx">modifyVars</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;@primary-color&#39;</span><span class="o">:</span> <span class="s1">&#39;green&#39;</span> <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">)</span>
+</code></pre></div><p>更多介绍请看博客：https://blog.csdn.net/weixin_46398902/article/details/104505491</p>
+<p>然后在<code>package.json</code>配置文件中修改：</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;scripts&#34;</span><span class="err">:</span> <span class="p">{</span>
+<span class="err">-</span>   <span class="nt">&#34;start&#34;</span><span class="p">:</span> <span class="s2">&#34;react-scripts start&#34;</span><span class="p">,</span>
+<span class="err">+</span>   <span class="nt">&#34;start&#34;</span><span class="p">:</span> <span class="s2">&#34;react-app-rewired start&#34;</span><span class="p">,</span>
+<span class="err">-</span>   <span class="nt">&#34;build&#34;</span><span class="p">:</span> <span class="s2">&#34;react-scripts build&#34;</span><span class="p">,</span>
+<span class="err">+</span>   <span class="nt">&#34;build&#34;</span><span class="p">:</span> <span class="s2">&#34;react-app-rewired build&#34;</span><span class="p">,</span>
+<span class="err">-</span>   <span class="nt">&#34;test&#34;</span><span class="p">:</span> <span class="s2">&#34;react-scripts test&#34;</span><span class="p">,</span>
+<span class="err">+</span>   <span class="nt">&#34;test&#34;</span><span class="p">:</span> <span class="s2">&#34;react-app-rewired test&#34;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>
+<p>法二</p>
+<p>暴露webpack配置之后在里面修改路径映射相关的配置</p>
+</li>
+</ul>
   </section>
 
   <section>

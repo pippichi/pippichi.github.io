@@ -1254,6 +1254,8 @@ INDEX 也可以。</p>
 
 <span class="k">select</span> <span class="n">url</span> <span class="k">from</span> <span class="n">ngcc_metadata</span> <span class="k">where</span> <span class="nf">MBRDisjoint</span><span class="p">(</span><span class="nf">st_geomfromtext</span><span class="p">(</span><span class="s1">&#39;polygon((116.438599 39.832306, 116.374054 39.832306, 116.438599 39.876251, 116.374054 39.876251, 116.438599 39.832306))&#39;</span><span class="p">),</span><span class="o">`</span><span class="mi">5</span><span class="o">`</span><span class="p">);</span>
 </code></pre></div><p>更多的或者更具体的使用方法请参考官方文档</p>
+<h2 id="索引中的visible与invisible">索引中的visible与invisible</h2>
+<p>参考博客：https://blog.csdn.net/zhizhengguan/article/details/87276163</p>
 <h2 id="mysql查询某个表的字段名">mysql查询某个表的字段名</h2>
 <h3 id="描述表字段信息">描述表字段信息</h3>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">DESC</span> <span class="n">TableName</span><span class="p">;</span>
@@ -1890,6 +1892,7 @@ mysql&gt; SELECT LAST_INSERT_ID();
         <li><a href="#geometry类型">geometry类型</a></li>
       </ul>
     </li>
+    <li><a href="#索引中的visible与invisible">索引中的visible与invisible</a></li>
     <li><a href="#mysql查询某个表的字段名">mysql查询某个表的字段名</a>
       <ul>
         <li><a href="#描述表字段信息">描述表字段信息</a></li>
