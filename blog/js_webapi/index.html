@@ -800,6 +800,7 @@ Phone)/i))) {</strong></p>
 <p><img src="/js_webapi/0ff2e3bc0ec40757f5261cb5a94b4267.png" alt=""></p>
 <p><img src="/js_webapi/b06952ddbf1a8e64bfebf128025ebace.png" alt=""></p>
 <h6 id="解决pagexoffset和pageyoffset的兼容性问题">解决pageXOffset和pageYOffset的兼容性问题</h6>
+<p>可以让<code>window.pageYOffset</code>配合<code>document.documentElement.scrollTop</code>、<code>document.body.scrollTop</code>来做兼容；同理<code>window.pageXOffset</code>可以配合<code>document.documentElement.scrollLeft</code>、<code>document.body.scrollLeft</code>来做兼容：</p>
 <p><img src="/js_webapi/414d6aa6d13b51795ed01baf4fc3cd12.png" alt=""></p>
 <p>其实现在也不在乎兼容性问题了，直接用最新的就好</p>
 <p>####### DTD</p>
