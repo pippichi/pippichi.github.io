@@ -270,13 +270,37 @@ reset会使之前的记录全部消失，回滚之后就不能再回去了，所
 <h2 id="git-branch">git branch</h2>
 <p>查看本地及远程所有的分支 git branch -a</p>
 <p><img src="/git/3d951c2020409e15562cfbf9f3802df9.png" alt=""></p>
-<p>新建分支 git branch branch1</p>
-<p>将branch1推到远程 git checkout
-branch1,切换到branch1，然后做想要的操作，最后push，遇到操作不对的时候系统会有提示，比方说（最后push的时候其实是git
-push –set-upstream origin branch1）</p>
+<p>新建分支： <code>git branch branch1</code></p>
+<p>创建并切换到新分支：<code>git checkout -b newBranch</code></p>
+<p>将branch1推到远程： <code>git checkout branch1</code>,切换到branch1，然后做想要的操作，最后push，遇到操作不对的时候系统会有提示，比方说（最后push的时候其实是<code>git push –set-upstream origin branch1</code>）</p>
+<h3 id="设置分支推送的目的地">设置分支推送的目的地</h3>
+<p>默认将本地的<code>dev</code>分支推送到<code>origin/dev</code>：</p>
+<pre><code>git branch --set-upstream-to=origin/dev dev
+git branch --set-upstream dev origin/dev
+</code></pre><p>当然也可以在<code>pull</code>或<code>push</code>的时候去设置，比方说我们熟悉的：<code>git push –set-upstream origin branch1</code></p>
+<h3 id="设置推送方式">设置推送方式</h3>
+<pre><code>git config --global push.default xxx
+</code></pre><p>上面的<code>xxx</code>可以是：<code>nothing</code>、<code>matching</code>、<code>upstream</code>、<code>simple</code>、<code>current</code>。对于这些模式的解释（来自官网）：</p>
+<pre><code>push.default
+
+Defines the action git push should take if no refspec is given on the command line, no refspec is configured in the remote, and no refspec is implied by any of the options given on the command line. Possible values are:
+
+		nothing – do not push anything.
+		
+		matching – push all branches having the same name in both ends. This is for those who prepare all the branches into a publishable shape and then push them out with a single command. It is not appropriate for pushing into a repository shared by multiple users, since locally stalled branches will attempt a non-fast forward push if other users updated the branch.
+This is currently the default, but Git 2.0 will change the default to simple.
+
+		upstream – push the current branch to its upstream branch. With this, git push will update the same remote ref as the one which is merged by git pull, making push and pull symmetrical. See “branch.&lt;name&gt;.merge” for how to configure the upstream branch.
+		
+		simple – like upstream, but refuses to push if the upstream branch’s name is different from the local one. This is the safest option and is well-suited for beginners. It will become the default in Git 2.0.
+		
+		current – push the current branch to a branch of the same name.
+		
+		
+The simple, current and upstream modes are for those who want to push out a single branch after finishing work, even when the other branches are not yet ready to be pushed out. If you are working with other people to push into the same shared repository, you would want to use one of these.
+</code></pre><p>大体是说simple是最安全的，也非常适合初学者。simple也将是Git2.0的默认值</p>
 <h3 id="删除分支">删除分支</h3>
-<p>把本地的分支删除 git branch -d xxx，之后要是想将远程的分支也删除 git push origin
-&ndash;delete :xxx</p>
+<p>把本地的分支删除 <code>git branch -d xxx</code>，之后要是想将远程的分支也删除 <code>git push origin --delete :xxx</code>或<code>git push origin :xxx</code></p>
 <h3 id="查看本地分支">查看本地分支</h3>
 <p>git branch</p>
 <h3 id="查看全部分支包含本地的和远程的">查看全部分支（包含本地的和远程的）</h3>
@@ -316,6 +340,11 @@ push –set-upstream origin branch1）</p>
 <h2 id="git-stash">git stash</h2>
 <p>git stash #可用来暂存当前正在进行的工作<br>
 git stash pop #从Git栈中读取最近一次保存的内容</p>
+<h2 id="git-diff">git diff</h2>
+<p><code>git diff</code>用来比较文件之间的不同</p>
+<p>具体用法参考：</p>
+<p><a href="https://blog.csdn.net/wq6ylg08/article/details/88798254">https://blog.csdn.net/wq6ylg08/article/details/88798254</a></p>
+<p><a href="https://git-scm.com/docs/git-diff">https://git-scm.com/docs/git-diff</a></p>
 <h2 id="一台windows上管理多个公匙">一台windows上管理多个公匙</h2>
 <p><img src="/git/307d527d75cecc8d516028a7715fa448.png" alt=""></p>
 <p><img src="/git/2cb1825f9870519a7b999d927927033b.png" alt=""></p>
@@ -390,6 +419,8 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
     </li>
     <li><a href="#git-branch">git branch</a>
       <ul>
+        <li><a href="#设置分支推送的目的地">设置分支推送的目的地</a></li>
+        <li><a href="#设置推送方式">设置推送方式</a></li>
         <li><a href="#删除分支">删除分支</a></li>
         <li><a href="#查看本地分支">查看本地分支</a></li>
         <li><a href="#查看全部分支包含本地的和远程的">查看全部分支（包含本地的和远程的）</a></li>
@@ -408,6 +439,7 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
     </li>
     <li><a href="#git-remote">git remote</a></li>
     <li><a href="#git-stash">git stash</a></li>
+    <li><a href="#git-diff">git diff</a></li>
     <li><a href="#一台windows上管理多个公匙">一台windows上管理多个公匙</a></li>
     <li><a href="#更多">更多</a></li>
   </ul>

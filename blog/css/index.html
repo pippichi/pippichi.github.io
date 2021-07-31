@@ -300,7 +300,18 @@ if (!doNotTrack) {
 <p><img src="/css/547d38e7f3a7302be0d6af68b74a09a1.png" alt=""></p>
 <p><img src="/css/a0aba477b25514c9adc600589b071f92.png" alt=""></p>
 <p>我们发现这种写法div和.pulse是连着写的中间没有空格</p>
-<h2 id="css元素显示模式">css元素显示模式</h2>
+<h3 id="选中有多个class的某个标签的方法">选中有多个class的某个标签的方法</h3>
+<p>比方说有标签：</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;class1 class2 class3&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div><p>那么选中该标签可以这么写：</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">div</span><span class="p">.</span><span class="nc">class1</span> <span class="p">{</span>
+    
+<span class="p">}</span>
+</code></pre></div><p>也可以这么写：</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">div</span><span class="p">.</span><span class="nc">class1</span><span class="p">.</span><span class="nc">class2</span><span class="p">.</span><span class="nc">class3</span> <span class="p">{</span>
+    
+<span class="p">}</span>
+</code></pre></div><h2 id="css元素显示模式">css元素显示模式</h2>
 <p><img src="/css/16e004ac5a205c838a7e3231c67a2866.png" alt=""></p>
 <p><img src="/css/116be67f7f6e10d1cf27e2d2566ac74f.png" alt=""></p>
 <h3 id="块元素">块元素</h3>
@@ -1385,6 +1396,7 @@ height，会十分麻烦，而设置margin的话就不需要这样了。</p>
         <li><a href="#伪类选择器">伪类选择器</a></li>
         <li><a href="#总结-4">总结</a></li>
         <li><a href="#选择div中class为某个特定名字的方法">选择div中class为某个特定名字的方法</a></li>
+        <li><a href="#选中有多个class的某个标签的方法">选中有多个class的某个标签的方法</a></li>
       </ul>
     </li>
     <li><a href="#css元素显示模式">css元素显示模式</a>

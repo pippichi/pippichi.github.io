@@ -1302,6 +1302,14 @@ ${}方式占位：底层使用Statement对象完成数据库操作，本质为sq
     from emp
     where id = #{id,jdbcType=INTEGER}
 <span class="nt">&lt;/select&gt;</span>
+</code></pre></div><h2 id="mybatis配置联合主键">Mybatis配置联合主键</h2>
+<p>如果使用<code>&lt;resultType&gt;&lt;/resultType&gt;</code>标签，则直接指定Bean路径就行，不用管这个问题</p>
+<p>如果使用<code>&lt;resultMap&gt;&lt;/resultMap&gt;</code>标签，则需要这样定义<code>resultMap</code>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;resultMap&gt;</span>
+    <span class="c">&lt;!-- 下面这两个字段就是联合主键 --&gt;</span>
+　　 <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;enterId&#34;</span> <span class="na">column=</span><span class="s">&#34;enter_id&#34;</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">&#34;sId&#34;</span> <span class="na">column=</span><span class="s">&#34;s_id&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
 </code></pre></div><h2 id="使用注解代替mapperxml">使用注解代替mapper.xml</h2>
 <p>注意：注解虽然可以完全替代mapper.xml文件，但是当写动态sql查询的时候注解会相当麻烦，此时最好还是用mapper.xml</p>
 <p>接口方法：</p>
@@ -2431,6 +2439,7 @@ TINYINT --&gt; Byte
         <li><a href="#jdbctype">jdbcType</a></li>
       </ul>
     </li>
+    <li><a href="#mybatis配置联合主键">Mybatis配置联合主键</a></li>
     <li><a href="#使用注解代替mapperxml">使用注解代替mapper.xml</a></li>
     <li><a href="#mybatis运行原理">Mybatis运行原理</a>
       <ul>
