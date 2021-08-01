@@ -1087,6 +1087,23 @@ height，会十分麻烦，而设置margin的话就不需要这样了。</p>
 <p><img src="/css/147ac0fd9d9e9483a65d380811b8c624.png" alt=""></p>
 <p><img src="/css/f99dc4bf2ca419721cb9b01e006b3477.png" alt=""></p>
 <p>设置为auto将在需要的时候添加滚动条</p>
+<h3 id="隐藏滚动条">隐藏滚动条</h3>
+<p>具体请参考：http://caibaojian.com/hide-scrollbar.html</p>
+<p>推荐使用（虽然对IE兼容性不好，但是很方便）：</p>
+<ul>
+<li>
+<p>chrome 和 Safari</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">element</span><span class="p">::</span><span class="nd">-webkit-scrollbar</span> <span class="p">{</span> <span class="k">width</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span> <span class="p">}</span>
+</code></pre></div></li>
+<li>
+<p>IE 10+</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">element</span><span class="p">::</span><span class="nd">-webkit-scrollbar</span> <span class="p">{</span> <span class="k">width</span><span class="p">:</span> <span class="mi">0</span> <span class="cp">!important</span> <span class="p">}</span>
+</code></pre></div></li>
+<li>
+<p>Firefox</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">element</span> <span class="p">{</span> <span class="k">overflow</span><span class="p">:</span> <span class="kp">-moz-</span><span class="n">scrollbars-none</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div></li>
+</ul>
 <h3 id="总结-9">总结</h3>
 <p><img src="/css/1a7baea123159da3d50209889c2443e9.png" alt=""></p>
 <h3 id="案例-10">案例</h3>
@@ -1517,6 +1534,7 @@ height，会十分麻烦，而设置margin的话就不需要这样了。</p>
         <li><a href="#display重要">Display（重要）</a></li>
         <li><a href="#visibility">Visibility</a></li>
         <li><a href="#overflow">Overflow</a></li>
+        <li><a href="#隐藏滚动条">隐藏滚动条</a></li>
         <li><a href="#总结-9">总结</a></li>
         <li><a href="#案例-10">案例</a></li>
       </ul>
