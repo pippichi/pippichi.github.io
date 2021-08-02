@@ -134,18 +134,22 @@ if (!doNotTrack) {
     <p>The article contains the basic knowledge of MySQL&hellip;</p>
 <h2 id="补充">补充</h2>
 <h3 id="mysql-80修改密码">mysql 8.0修改密码</h3>
-<p>ALTER USER &lsquo;root&rsquo;@&lsquo;localhost&rsquo; IDENTIFIED WITH mysql_native_password BY
-&lsquo;你的密码&rsquo;;</p>
-<p>flush privileges;</p>
-<h3 id="用户授权">用户授权</h3>
-<p>一、用户授权<br>
-mysql&gt; grant all privileges on <em>.</em> to &lsquo;yangxin&rsquo;@'%' identified by
-&lsquo;yangxin123456&rsquo; with grant option;</p>
-<p>添加权限（和已有权限合并，不会覆盖已有权限）</p>
-<p>GRANT Insert ON <code>your database</code>.* TO <code>user</code>@<code>host</code>;</p>
-<p>删除权限</p>
-<p>REVOKE Delete ON <code>your database</code>.* FROM <code>user</code>@<code>host</code>;</p>
-<p>二、刷新权限<br>
+<pre><code>$ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '你的密码';
+$ flush privileges;
+</code></pre><h3 id="用户授权">用户授权</h3>
+<p>一、用户授权</p>
+<p>mysql8.0之前写法：</p>
+<pre><code>mysql&gt; grant all privileges on *.* to 'yangxin'@'%' identified by 'yangxin123456' with grant option;
+</code></pre><p>mysql8.0之后写法：</p>
+<pre><code>mysql&gt; CREATE USER 'qyf'@'%' IDENTIFIED BY '你的密码';
+mysql&gt; grant all privileges on *.* to 'qyf'@'%';
+</code></pre><p>添加远程访问权限：</p>
+<pre><code>mysql&gt; ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '你的密码';
+</code></pre><p>添加权限（和已有权限合并，不会覆盖已有权限）</p>
+<pre><code>GRANT Insert ON `your database`.`your table` TO `user`@`host`;
+</code></pre><p>删除权限</p>
+<pre><code>REVOKE Delete ON `your database`.`your table` FROM `user`@`host`;
+</code></pre><p>二、刷新权限<br>
 对用户做了权限变更之后，一定记得重新加载一下权限，将权限信息从内存中写入数据库。</p>
 <p>mysql&gt; flush privileges;</p>
 <h3 id="表文件结构innodbmyisam和memory的">表文件结构（innodb、myisam和memory的）</h3>
