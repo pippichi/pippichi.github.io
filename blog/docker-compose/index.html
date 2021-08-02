@@ -145,7 +145,10 @@ if (!doNotTrack) {
 <li>
 <p>linux</p>
 <pre><code>$ sudo curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose
-$ sudo chmod +x /usr/local/bin/docker-compose
+</code></pre><p>如果上面这段命令不行那就试试下面这段：</p>
+<pre><code>$ sudo curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m) &gt; /usr/local/bin/docker-compose
+</code></pre><p>之后更改执行权限：</p>
+<pre><code>$ sudo chmod +x /usr/local/bin/docker-compose
 </code></pre></li>
 <li>
 <p>macos、window</p>
