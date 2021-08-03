@@ -171,14 +171,14 @@ Code in GitHub:  react_basic|Just for record">
     <span class="o">&lt;</span><span class="err">/Suspense&gt;</span>
 </code></pre></div><hr>
 <h2 id="3-hooks">3. Hooks</h2>
-<h4 id="1-react-hookhooks是什么">1. React Hook/Hooks是什么?</h4>
+<h3 id="1-react-hookhooks是什么">1. React Hook/Hooks是什么?</h3>
 <pre><code>(1). Hook是React 16.8.0版本增加的新特性/新语法
 (2). 可以让你在函数组件中使用 state 以及其他的 React 特性
-</code></pre><h4 id="2-三个常用的hook">2. 三个常用的Hook</h4>
+</code></pre><h3 id="2-三个常用的hook">2. 三个常用的Hook</h3>
 <pre><code>(1). State Hook: React.useState()
 (2). Effect Hook: React.useEffect()
 (3). Ref Hook: React.useRef()
-</code></pre><h4 id="3-state-hook">3. State Hook</h4>
+</code></pre><h3 id="3-state-hook">3. State Hook</h3>
 <pre><code>(1). State Hook让函数组件也可以有state状态, 并进行状态数据的读写操作
 (2). 语法: const [xxx, setXxx] = React.useState(initValue)  
 (3). useState()说明:
@@ -193,7 +193,7 @@ Code in GitHub:  react_basic|Just for record">
 <p>那有两种以上的state需要维护的时候怎么办呢？</p>
 <p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221213210695.png" alt="image-20201221213210695"></p>
 <p>很简单，写两个React.useState()</p>
-<h4 id="4-effect-hook">4. Effect Hook</h4>
+<h3 id="4-effect-hook">4. Effect Hook</h3>
 <pre><code>(1). Effect Hook 可以让你在函数组件中执行副作用操作(用于模拟类组件中的生命周期钩子)
 (2). React中的副作用操作:
         发ajax请求数据获取
@@ -227,11 +227,19 @@ Code in GitHub:  react_basic|Just for record">
 <p>具体调用：</p>
 <p><img src="/React%E6%89%A9%E5%B1%95.assets/image-20201221215328378.png" alt="image-20201221215328378"></p>
 <p>直接return一个函数，这个return的函数其实就是componentWillUnMount的钩子</p>
-<h4 id="5-ref-hook">5. Ref Hook</h4>
+<h3 id="5-ref-hook">5. Ref Hook</h3>
 <pre><code>(1). Ref Hook可以在函数组件中存储/查找组件内的标签或任意其它数据
 (2). 语法: const refContainer = useRef()
 (3). 作用:保存标签对象,功能与React.createRef()一样
-</code></pre><hr>
+</code></pre><h3 id="6-react-router新钩子">6. react-router新钩子</h3>
+<ul>
+<li>useHistory</li>
+<li>useLocation</li>
+<li>useParams</li>
+<li>useRouteMatch</li>
+</ul>
+<p>具体内容参考博客：https://www.asni.cn/2572</p>
+<hr>
 <h2 id="4-fragment">4. Fragment</h2>
 <h3 id="使用">使用</h3>
 <pre><code>&lt;Fragment&gt;&lt;Fragment&gt;
@@ -433,13 +441,13 @@ C组件: 读取A组件传入的数据显示 {this.props.data}
 <p>渲染的时候子组件出了问题，就会调用componentDidCatch这个生命周期钩子</p>
 <p>一般我们在里面给后台发送信息，用于提醒编码人员修改bug</p>
 <h2 id="9-组件通信方式总结">9. 组件通信方式总结</h2>
-<h4 id="组件间的关系">组件间的关系：</h4>
+<h3 id="组件间的关系">组件间的关系：</h3>
 <ul>
 <li>父子组件</li>
 <li>兄弟组件（非嵌套组件）</li>
 <li>祖孙组件（跨级组件）</li>
 </ul>
-<h4 id="几种通信方式">几种通信方式：</h4>
+<h3 id="几种通信方式">几种通信方式：</h3>
 <pre><code>    1.props：
         (1).children props
         (2).render props
@@ -450,7 +458,7 @@ C组件: 读取A组件传入的数据显示 {this.props.data}
     4.conText:
         生产者-消费者模式
 </code></pre>
-<h4 id="比较好的搭配方式">比较好的搭配方式：</h4>
+<h3 id="比较好的搭配方式">比较好的搭配方式：</h3>
 <pre><code>    父子组件：props
     兄弟组件：消息订阅-发布、集中式管理
     祖孙组件(跨级组件)：消息订阅-发布、集中式管理、conText(开发用的少，封装插件用的多)
@@ -620,7 +628,12 @@ C组件: 读取A组件传入的数据显示 {this.props.data}
     </li>
     <li><a href="#3-hooks">3. Hooks</a>
       <ul>
-        <li></li>
+        <li><a href="#1-react-hookhooks是什么">1. React Hook/Hooks是什么?</a></li>
+        <li><a href="#2-三个常用的hook">2. 三个常用的Hook</a></li>
+        <li><a href="#3-state-hook">3. State Hook</a></li>
+        <li><a href="#4-effect-hook">4. Effect Hook</a></li>
+        <li><a href="#5-ref-hook">5. Ref Hook</a></li>
+        <li><a href="#6-react-router新钩子">6. react-router新钩子</a></li>
       </ul>
     </li>
     <li><a href="#4-fragment">4. Fragment</a>
@@ -658,7 +671,9 @@ C组件: 读取A组件传入的数据显示 {this.props.data}
     </li>
     <li><a href="#9-组件通信方式总结">9. 组件通信方式总结</a>
       <ul>
-        <li></li>
+        <li><a href="#组件间的关系">组件间的关系：</a></li>
+        <li><a href="#几种通信方式">几种通信方式：</a></li>
+        <li><a href="#比较好的搭配方式">比较好的搭配方式：</a></li>
       </ul>
     </li>
     <li><a href="#10如何修改项目启动端口号">10.如何修改项目启动端口号</a></li>
