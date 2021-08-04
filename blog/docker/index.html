@@ -214,7 +214,7 @@ $ docker image centos # 将会找出所有镜像名为&quot;centos&quot;的镜�
 <h2 id="容器操作">容器操作</h2>
 <h3 id="启动镜像">启动镜像</h3>
 <p>简写：</p>
-<p>Docker container run ID</p>
+<p><code>docker container run ID</code> （这样的写法等同于<code>docker container create imageId + docker container start containerId</code>）</p>
 <p>但是这样写系统会给容器一个默认的名字，不太好区分，因此我们使用—name “名称”
 选项手动指定：</p>
 <p><img src="/docker/0d0c4e1d5b2e3c10f62ae74a5debae03.png" alt=""></p>
