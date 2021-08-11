@@ -159,7 +159,8 @@ Code in GitHub:  react_basic|Just for record">
 <h3 id="不使用柯里化完成上述操作">不使用柯里化完成上述操作</h3>
 <p>他要函数，直接给他函数就行了</p>
 <p><img src="/react_basic.assets/image-20201217165804676.png" alt="image-20201217165804676"></p>
-<h2 id="新钩子getsnapshotbeforeupdate">新钩子getSnapshotBeforeUpdate</h2>
+<h2 id="新钩子getsnapshotbeforeupdate以及getderivedstatefromprops">新钩子getSnapshotBeforeUpdate以及getDerivedStateFromProps</h2>
+<p><strong>getSnapshotBeforeUpdate：</strong></p>
 <p><img src="/react_basic.assets/image-20201217202533962.png" alt="image-20201217202533962"></p>
 <p>使用场景：</p>
 <p><img src="/react_basic.assets/image-20201217203654674.png" alt="image-20201217203654674"></p>
@@ -167,6 +168,8 @@ Code in GitHub:  react_basic|Just for record">
 <p>这个时候我们就可以使用这个钩子了</p>
 <p>我们可以利用element.scrollHeight和element.scrollTop来控制页面从开始有滚动条的时候就不要再将新闻挤下去，同时新的新闻也是在不断加进去的</p>
 <p><img src="/react_basic.assets/image-20201217204140820.png" alt="image-20201217204140820"></p>
+<p><strong>getDerivedStateFromProps：</strong></p>
+<p>参考博客：https://www.jianshu.com/p/50fe3fb9f7c3</p>
 <h2 id="render中使用index为key的问题">render中使用index为key的问题</h2>
 <p><img src="/react_basic.assets/image-20201217205526133.png" alt="image-20201217205526133"></p>
 <p>点击添加一个小王之后：</p>
@@ -462,7 +465,7 @@ Code in GitHub:  react_basic|Just for record">
         <li><a href="#不使用柯里化完成上述操作">不使用柯里化完成上述操作</a></li>
       </ul>
     </li>
-    <li><a href="#新钩子getsnapshotbeforeupdate">新钩子getSnapshotBeforeUpdate</a></li>
+    <li><a href="#新钩子getsnapshotbeforeupdate以及getderivedstatefromprops">新钩子getSnapshotBeforeUpdate以及getDerivedStateFromProps</a></li>
     <li><a href="#render中使用index为key的问题">render中使用index为key的问题</a></li>
     <li><a href="#react脚手架">react脚手架</a>
       <ul>
