@@ -173,11 +173,13 @@ if (!doNotTrack) {
 <p><img src="/js_webapi/7c55fd780ef0d52f311c06ae297d12fe.png" alt=""></p>
 <p><img src="/js_webapi/19f8b9a0f4e1548f9edffdcd2e2eb00c.png" alt=""></p>
 <p><img src="/js_webapi/19b5897f1e07fbd1504dbc403d39f9f3.png" alt=""></p>
-<h5 id="innertext和innerhtml的区别">innerText和innerHtml的区别</h5>
+<h5 id="innertext与innerhtml">innerTEXT与innerHTML</h5>
 <p><img src="/js_webapi/f39ef87f9eaee9534d58448f3204d5cf.png" alt=""></p>
 <p>区别就是innerHtml识别html标签，另一个不识别，且innerHtml是W3C标准，而另一个不是，因此innerHtml用的更多。</p>
 <p>另外，innerText会去除空格和换行，而innerHtml不会，如下：</p>
 <p><img src="/js_webapi/d86d708f393e40c0e2d5c551e0b1e70b.png" alt=""></p>
+<h5 id="outertext与outerhtml">outerTEXT与outerHTML</h5>
+<p>具体参考博客：https://blog.csdn.net/html5_/article/details/23619103</p>
 <h5 id="属性操作">属性操作</h5>
 <p><img src="/js_webapi/9cdff92eacca6b9e66f0b947c5f19907.png" alt=""></p>
 <p><img src="/js_webapi/67fe2064b8e59081dcf2b06bab46efe8.png" alt=""></p>
@@ -1035,7 +1037,10 @@ px，相当于默认写了li的宽度为100%，那么我们有5个li，我们将
 <p>这里ul的每次过渡完成之后就会打印1</p>
 <p><img src="/js_webapi/cd58777559a2b103e8e65757feb9e8a1.png" alt=""></p>
 <p>Index为3说明走到最后一张图了，由于index控制着轮播图的位置我们需要修改index，但是index切为0之后在移的过程中轮播图会有过渡地移到第一张图上，因此我们还要清除过渡。同理index为-1。</p>
-<h4 id="返回元素类名列表classlist">返回元素类名列表classList</h4>
+<h4 id="返回元素类名classname">返回元素类名className</h4>
+<p>例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;myId&#39;</span><span class="p">).</span><span class="nx">className</span><span class="p">);</span>
+</code></pre></div><h4 id="返回元素类名列表classlist">返回元素类名列表classList</h4>
 <p><img src="/js_webapi/0c876021ec8ca86fab80efb799793b19.png" alt=""></p>
 <p><img src="/js_webapi/c6db8e01565e625b952cf618ddde52d7.png" alt=""></p>
 <p>第一个类名：</p>

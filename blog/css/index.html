@@ -1114,7 +1114,13 @@ height，会十分麻烦，而设置margin的话就不需要这样了。</p>
 <p><img src="/css/3f267d7e305eeb83980b5ea543fb6724.png" alt=""></p>
 <p><img src="/css/b2069b0a927b134349acf05a03ad652a.png" alt=""></p>
 <p><img src="/css/7e8a4fa88809b67e5f449c8db83e016c.png" alt=""></p>
-<h2 id="规范">规范</h2>
+<h2 id="使用unset将已有的css属性去掉">使用unset将已有的css属性去掉</h2>
+<p>在使用<code>elementui</code>或<code>antd</code>的时候，总有要改写组件css样式的时候，那么如何去掉组件原有的css样式呢？</p>
+<p>可以使用<code>unset</code>，例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">#</span><span class="nn">tag</span> <span class="p">{</span>
+    <span class="k">background</span><span class="p">:</span> <span class="kc">unset</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="规范">规范</h2>
 <h3 id="css属性书写顺序重点">CSS属性书写顺序（重点）</h3>
 <p><img src="/css/fc519c27ef691490ae427fcc4ff05549.png" alt=""></p>
 <p>例子：</p>
@@ -1539,6 +1545,7 @@ height，会十分麻烦，而设置margin的话就不需要这样了。</p>
         <li><a href="#案例-10">案例</a></li>
       </ul>
     </li>
+    <li><a href="#使用unset将已有的css属性去掉">使用unset将已有的css属性去掉</a></li>
     <li><a href="#规范">规范</a>
       <ul>
         <li><a href="#css属性书写顺序重点">CSS属性书写顺序（重点）</a></li>
