@@ -502,6 +502,8 @@ set global validate<span class="nb">_</span>password.length=1;
 <span class="c1">-- VALUES() 是针对同时插入多条记录时获取正确的待设置值 --
 </span></code></pre></div></li>
 </ul>
+<p>注意：<code>case when、duplicate key update、for循环</code>更新或插入数据时，<code>duplicate key update</code>是最快的，但是一般大公司都禁用，公司一般都禁止使用<code>replace into和INSERT INTO … ON DUPLICATE KEY UPDATE</code>，这种sql有可能会造成数据丢失和主从上表的自增id值不一致。而且用这个更新时，记得一定要加上id，而且<code>values()</code>括号里面放的是数据库字段，不是java对象的属性字段：
+<img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210905185036422.png" alt="image-20210905185036422"></p>
 <h2 id="delayed关键字">DELAYED关键字</h2>
 <p>延迟插入操作</p>
 <p>DELAYED调节符应用于INSERT和REPLACE语句。当DELAYED插入操作到达的时候i，服务器把数据行放入一个队列中，并立即给客户端返回一个状态信息，这样客户端就可以在数据表被真正地插入记录之前继续进行着操作了。如果读取者从该数据表中读取数据，队列中的数据就会被保持着，直到没有读取者为止。接着服务器开始插入延迟数据行（delayed-row）队列中的数据行。在插入操作的同时，服务器还要检查是否有新的读取请求到达和等待。如果有，延迟数据行队列就被挂起，允许读取者继续操作。当没有读取者的时候，服务器再次开始插入延迟的数据行。这个过程一直进行，直到队列空了为止。</p>
