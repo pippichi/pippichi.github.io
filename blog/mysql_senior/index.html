@@ -445,6 +445,8 @@ profiles命令显示的query_id才可以，如下：</p>
 <h6 id="index_merge这个or很关键">Index_merge(这个or很关键)</h6>
 <p><img src="/mysql_senior/2a54b5ccfda5f171d407c8e21d596a62.png" alt=""></p>
 <p>如果or两边的字段都用上了索引，那么MySQL会将这两个索引合并，显示index_merge，两个索引都能用。</p>
+<p>注意：where语句里面如果带有or条件，myisam表能用到索引，innodb不行。参考：https://www.cnblogs.com/microtiger/p/9075242.html</p>
+<p>因此应该尽可能使用union来代替or。</p>
 <h6 id="ref_or_null这里也是or">Ref_or_null(这里也是or)</h6>
 <p><img src="/mysql_senior/226dc503aafbf89d6e7e82e72bae8d01.png" alt=""></p>
 <p>这种情况下Or两边的字段是一样的，只不过只需要任意一个为空即可，这时候会显示ref_or_null。</p>
