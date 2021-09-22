@@ -136,6 +136,10 @@ if (!doNotTrack) {
 <p>ssh-keygen -t rsa -C “email”</p>
 <p>.ssh文件下的config 用于配置账号</p>
 <p><img src="/git/4e8c7a80a72d698019b06dfb23078a3c.png" alt=""></p>
+<h2 id="git上传大文件">git上传大文件</h2>
+<p>有时候git上传文件会报错：<code>remote: fatal: pack exceeds maximum allowed size</code></p>
+<p>这是因为上传的文件的大小超出了限制</p>
+<p>可以使用<code>git-lfs</code>插件解决这个问题，参考：https://cloud.tencent.com/developer/article/1785066</p>
 <h2 id="git-config"><strong>git config</strong></h2>
 <p><strong>配置git提交的用户名和邮件：</strong><br>
 格式：git config <a href="http://user.name/">user.name</a> 用户名；git config user.email
@@ -379,6 +383,7 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
       <b>Git</b><nav id="TableOfContents">
   <ul>
     <li><a href="#生成密钥">生成密钥</a></li>
+    <li><a href="#git上传大文件">git上传大文件</a></li>
     <li><a href="#git-config"><strong>git config</strong></a>
       <ul>
         <li><a href="#查看当前的用户名和邮箱">查看当前的用户名和邮箱</a></li>
