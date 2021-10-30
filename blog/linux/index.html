@@ -582,6 +582,10 @@ binary，该目录也是存储一些可以被执行的二进制文件，但是�
 <h3 id="13env指令">13、env指令</h3>
 <p><strong>用于查看配置的环境变量</strong></p>
 <p><img src="/linux/58239b6b1f81d9fa9fe390d6ab312d16.png" alt=""></p>
+<h3 id="14的用法">14、<code>{}</code>的用法</h3>
+<p>集合，<code>{}</code>内可进行枚举</p>
+<p>例子：<code>cp /root/{file1, file2}.txt /usr</code></p>
+<p>该命令会将<code>root</code>下的<code>file1.txt</code>和<code>file2.txt</code>都复制到<code>/usr</code>目录下</p>
 <h2 id="三进阶指令重点">三、进阶指令（重点）</h2>
 <h3 id="1df指令">1、df指令</h3>
 <p>作用：查看磁盘的空间</p>
@@ -809,6 +813,7 @@ process ID）；</p>
 <p>-o 只显示匹配内容</p>
 <p>-w 作为整个单词进行匹配</p>
 <p>-P 使用perl的正则表达式语法（perl的正则更强大）</p>
+<p><code>grep xxx /usr/dir/*</code>可以查询<code>/usr/dir</code>文件夹下所有文件中包含关键字<code>xxx</code>的内容</p>
 <h3 id="9service指令重点">9、service指令（重点）</h3>
 <p>作用：用于控制一些软件的服务启动/停止/重启</p>
 <p><strong>语法：#service 服务名 start/stop/restart</strong></p>
@@ -1472,6 +1477,9 @@ shell，安全外壳协议），该协议有2个常用的作用：<strong>远程
 “E:\coursedocs\运维学科\北京运维01期\01-基础班\20180329_Linux自有服务”
 <a href="root@192.168.21.128:/root">root@192.168.21.128:/root</a></p>
 <p><img src="/linux/8f52a0e5a2365b54383b738148a01b58.png" alt=""></p>
+<p>除了使用pscp，还可以使用scp，scp用于linux系统之间的文件传输</p>
+<p>总的来讲，scp解决linux与linux之间的传输，pscp解决windows与linux之间的传输，除此之外两者其他的功能都是相同的</p>
+<p>scp命令参考：https://www.runoob.com/linux/linux-comm-scp.html</p>
 <h2 id="五作业">五、作业</h2>
 <p>1、能够分别使用Filezilla和PSCP工具传输给定文件到“/usr/src/data”目录下，如目录不存在则自行创建。</p>
 <h2 id="linux自有服务2">Linux自有服务（2）</h2>
@@ -2649,31 +2657,31 @@ Server（微软）、Access（微软）、PostgreSQL、DB2、Mariadb（MySQL分�
 <p>案例：使用源码编译安装方式安装ncurses（一种常用的终端库）</p>
 <p>扩展：解包</p>
 <p>常用语法：</p>
-<p>#tar -zxvf *.tar.gz （大多数）</p>
-<p>#tar -jxvf *.tar.bz2</p>
+<p><code>#tar -zxvf *.tar.gz</code> （大多数）</p>
+<p><code>#tar -jxvf *.tar.bz2</code></p>
 <p>选项含义：</p>
-<p>-z或&ndash;gzip或&ndash;ungzip：通过gzip指令处理文件；</p>
-<p>-x或&ndash;extract或&ndash;get：从文件中还原文件；</p>
-<p>-v：显示操作过程；</p>
-<p>-f或&ndash;file：指定一个文件；</p>
-<p>-j：支持bzip2解压文件；</p>
-<p>①先将软件包传递到服务器上“/usr/local/src”</p>
+<p><code>-z</code>或<code>--gzip</code>或<code>--ungzip</code>：通过gzip指令处理文件；</p>
+<p><code>-x</code>或<code>--extract</code>或<code>--get</code>：从文件中还原文件；</p>
+<p><code>-v</code>：显示操作过程；</p>
+<p><code>-f</code>或<code>--file</code>：指定一个文件；</p>
+<p><code>-j</code>：支持bzip2解压文件；</p>
+<p>①先将软件包传递到服务器上<code>“/usr/local/src”</code></p>
 <p><img src="/linux/06ab6e6bbf1392c8a25dc667e9880bb1.png" alt=""></p>
 <p>②解压需要安装的源码包</p>
-<h2 id="tar--zxvf-ncurses-61targz">tar -zxvf ncurses-6.1.tar.gz</h2>
+<p><code>#tar -zxvf ncurses-6.1.tar.gz</code></p>
 <p><img src="/linux/9798d42475069f3b40692f1414a23b19.png" alt=""></p>
 <p>③切换到源码文件夹，然后执行后续操作</p>
 <p><strong>配置（config/configure/bootstrap） → 编译（make/bootstrapd） → 安装（make
 install/bootstrapd install） (在make之后还可以make test测试make的结果)</strong></p>
 <p><strong>配置操作主要是指定软件的安装目录、需要的依赖在什么地方、指定不需要可选依赖、配置文件的路径、通用数据存储位置等等。</strong></p>
-<p>指定安装的路径：&ndash;prefix=路径</p>
+<p>指定安装的路径：<code>--prefix</code>=路径</p>
 <p>需要依赖的路径：&ndash;with-PACKAGE名=[包所在的路径]</p>
 <p>不需要依赖：&ndash;without-PACHAGE名</p>
-<h2 id="configure---prefixusrlocalncurses">./configure &ndash;prefix=/usr/local/ncurses</h2>
+<p><code>./configure --prefix=/usr/local/ncurses</code></p>
 <p><img src="/linux/14b1a047f4d86359657e4a9a654e6cdc.png" alt=""></p>
-<h2 id="make">make</h2>
+<p><code>make</code></p>
 <p><img src="/linux/21aaaededa443b61c8334091dd991f69.png" alt=""></p>
-<h2 id="make-install">make install</h2>
+<p><code>make install</code></p>
 <p><img src="/linux/7f53872981f052123334afb4773046af.png" alt=""></p>
 <p>成功之后查看目录（可选）：</p>
 <p><img src="/linux/bef87d8d3532f503f4cc71ff2471f880.png" alt=""></p>
@@ -2681,10 +2689,10 @@ install/bootstrapd install） (在make之后还可以make test测试make的结�
 <p>优点: 包管理系统简单，只需要几个命令就可以实现包的安装，升级，查询和卸载</p>
 <p>缺点: 经过编译，不再可以看到源代码</p>
 <p>回顾rpm相关指令：</p>
-<p>#rpm -qa|grep 关键词</p>
-<p>#rpm -e 关键词 [&ndash;nodeps] （加上&ndash;nodeps表示排除依赖删除）</p>
-<p>#rpm -ivh 完整名称</p>
-<p>#rpm -Uvh 完整名称</p>
+<p><code>#rpm -qa|grep 关键词</code></p>
+<p><code>#rpm -e 关键词 [--nodeps] </code>（加上&ndash;nodeps表示排除依赖删除）</p>
+<p><code>#rpm -ivh 完整名称</code></p>
+<p><code>#rpm -Uvh 完整名称</code></p>
 <p><strong>#rpm -qf 文件路径</strong>   <strong>【查询指定文件属于哪个包】</strong></p>
 <p><img src="/linux/0d5ff63e8f6933189c2183c0146ebf74.png" alt=""></p>
 <p>案例：使用二进制包安装lynx（一款纯命令行的浏览器）</p>
@@ -2718,7 +2726,7 @@ install/bootstrapd install） (在make之后还可以make test测试make的结�
 <p><img src="/linux/5bd3b44e0bfcdeb2765fedbc5f20a914.png" alt=""></p>
 <p>查看端口号（<strong>默认端口号3306</strong>）：</p>
 <p><img src="/linux/78f531a0fb48299a64559df8d4d85c5b.png" alt=""></p>
-<h2 id="mysql_secure_installation">mysql_secure_installation</h2>
+<p>#mysql_secure_installation</p>
 <p>Enter current password for root (enter for
 none):请输入当前root用户的密码，如果没有按回车，注意此root并非linux的root用户。</p>
 <p>Set root password?是否设置root密码？</p>
@@ -2829,12 +2837,11 @@ now?是否重新加载权限表（当我们更改了mysql用户相关的信息�
 <p><img src="/linux/1b497a59ac5bca198139fedac5dfe7fa.png" alt=""></p>
 <h3 id="5备份与还原重点">5、备份与还原（重点）</h3>
 <h4 id="51备份导出">5.1、备份（导出）</h4>
-<p>全量备份（数据+结构）：#mysqldump -uroot -p123456 -A &gt; 备份文件路径</p>
-<p><strong>指定库备份（数据+结构）：## mysqldump -uroot -p123456 库名 &gt; 备份文件路径</strong></p>
-<p>多个库备份（数据+结构）：## mysqldump -uroot -p123456 &ndash;databases db1 db2 &gt;
-备份文件路径</p>
+<p>全量备份（数据+结构）：<code># mysqldump -uroot -p123456 -A &gt; 备份文件路径</code></p>
+<p>指定库备份（数据+结构）：<code># mysqldump -uroot -p123456 库名 &gt; 备份文件路径</code></p>
+<p>多个库备份（数据+结构）：<code># mysqldump -uroot -p123456 --databases db1 db2 &gt; 备份文件路径</code></p>
 <p>案例：备份整个库</p>
-<h2 id="mysqldump--uroot--pqhabofhllub9--a--rootsql_201804061609sql">mysqldump -uroot -pqhabOfhlluB9 -A &gt; /root/sql_201804061609.sql</h2>
+<p><code># mysqldump -uroot -pqhabOfhlluB9 -A &gt; /root/sql_201804061609.sql</code></p>
 <p><img src="/linux/c17112f1fc82c41b8e9f39ed852fec13.png" alt=""></p>
 <p><strong>案例：每1分钟自动备份1次test数据库</strong></p>
 <p><img src="/linux/7c255610a3d4cec9514d87fcb0ec3fd4.png" alt=""></p>
@@ -2909,6 +2916,42 @@ now?是否重新加载权限表（当我们更改了mysql用户相关的信息�
 <p>用curl测试ip：curl -I ip号</p>
 <p><strong>#注意，wget和curl还有许多其他的功能，例如限速、断点处开始下载等</strong></p>
 <p>②解压nginx安装包</p>
+<p><code># tar -zxvf nginx-1.13.11.tar.gz</code></p>
+<p>③进入nginx解压目录</p>
+<p>开始进行配置、编译、安装操作</p>
+<p>在配置时候报错：没有PCRE库</p>
+<p><img src="/linux/865a7037e85a94c2a5ff498052755b3c.png" alt=""></p>
+<p>直接yum安装pcre-devel：</p>
+<p><code># yum install pcre-devel</code></p>
+<p><img src="/linux/d891fdf365b0befa65409518404da94a.png" alt=""></p>
+<p>报错缺少zlib库：</p>
+<p><img src="/linux/9a3a263fbd2bb553e1b7e82bf61e44b7.png" alt=""></p>
+<p>直接使用yum安装zlib库：</p>
+<p><code># yum install zlib-devel</code></p>
+<p><img src="/linux/6a0072ddaa3ce5a67e366cb71d891cac.png" alt=""></p>
+<p>还需要自己去下载一个zlib的源码包，然后解压出来：</p>
+<p><img src="/linux/18b7ae6aaa644241c814fcb84f70ac8d.png" alt=""></p>
+<p><img src="/linux/28af934a596294d30977078b798da403.png" alt=""></p>
+<p>最终的nginx配置命令：</p>
+<p><code># ./configure --prefix=/usr/local/nginx --with-pcre --with-zlib=/usr/local/src/zlib-1.2.11</code></p>
+<p>开始安装：</p>
+<p><code># make</code></p>
+<p><img src="/linux/0dceb8af609aaea5346247f54678b4be.png" alt=""></p>
+<p>最后安装：</p>
+<p><code># make install</code></p>
+<p><img src="/linux/ab516dc69444c02c79342880a30204f3.png" alt=""></p>
+<p>安装好的目录：</p>
+<p><img src="/linux/c901eff5b680c359e8d5a4fb4e847a5a.png" alt=""></p>
+<p>④运行nginx</p>
+<p>先停止Apache，然后再运行nginx</p>
+<p><img src="/linux/0a7e8182f818a29b31d450460e301a84.png" alt=""></p>
+<p><code># /usr/local/nginx/sbin/nginx</code> 【启动命令】</p>
+<p><code># /usr/local/nginx/sbin/nginx -s reload</code> 【重载，重载配置文件】</p>
+<p>启动效果：</p>
+<p><img src="/linux/9ba4bb4c8f0c7e190c05f0b1703e13b9.png" alt=""></p>
+<p>⑤了解：卸载编译安装的软件</p>
+<p><code>#rm -rf 软件的安装目录</code></p>
+<p><strong>注意：卸载一个编译安装的软件的时候必须先停止。</strong></p>
 <h3 id="curl可替代postman类比浏览器">curl（可替代postman，类比浏览器）</h3>
 <p>curl是一种命令行工具，作用是发出网络请求，然后得到和提取数据，显示在&quot;标准输出&rdquo;（stdout）上面。</p>
 <p>它支持多种协议，下面举例讲解如何将它用于网站开发。</p>
@@ -3558,45 +3601,8 @@ wget -i filelist.txt
 <li>下载一个网站的所有PDF文件</li>
 <li>...</li>
 </ul>
-<h2 id="tar--zxvf-nginx-11311targz">tar -zxvf nginx-1.13.11.tar.gz</h2>
-<p>③进入nginx解压目录</p>
-<p>开始进行配置、编译、安装操作</p>
-<p>在配置时候报错：没有PCRE库</p>
-<p><img src="/linux/865a7037e85a94c2a5ff498052755b3c.png" alt=""></p>
-<p>直接yum安装pcre-devel：</p>
-<p>#yum install pcre-devel</p>
-<p><img src="/linux/d891fdf365b0befa65409518404da94a.png" alt=""></p>
-<p>报错缺少zlib库：</p>
-<p><img src="/linux/9a3a263fbd2bb553e1b7e82bf61e44b7.png" alt=""></p>
-<p>直接使用yum安装zlib库：</p>
-<p>#yum install zlib-devel</p>
-<p><img src="/linux/6a0072ddaa3ce5a67e366cb71d891cac.png" alt=""></p>
-<p>还需要自己去下载一个zlib的源码包，然后解压出来：</p>
-<p><img src="/linux/18b7ae6aaa644241c814fcb84f70ac8d.png" alt=""></p>
-<p><img src="/linux/28af934a596294d30977078b798da403.png" alt=""></p>
-<p>最终的nginx配置命令：</p>
-<p>#./configure &ndash;prefix=/usr/local/nginx &ndash;with-pcre
-&ndash;with-zlib=/usr/local/src/zlib-1.2.11</p>
-<p>开始安装：</p>
-<p>#make</p>
-<p><img src="/linux/0dceb8af609aaea5346247f54678b4be.png" alt=""></p>
-<p>最后安装：</p>
-<p>#make install</p>
-<p><img src="/linux/ab516dc69444c02c79342880a30204f3.png" alt=""></p>
-<p>安装好的目录：</p>
-<p><img src="/linux/c901eff5b680c359e8d5a4fb4e847a5a.png" alt=""></p>
-<p>④运行nginx</p>
-<p>先停止Apache，然后再运行nginx</p>
-<p><img src="/linux/0a7e8182f818a29b31d450460e301a84.png" alt=""></p>
-<p>#/usr/local/nginx/sbin/nginx 【启动命令】</p>
-<p>#/usr/local/nginx/sbin/nginx -s reload 【重载，重载配置文件】</p>
-<p>启动效果：</p>
-<p><img src="/linux/9ba4bb4c8f0c7e190c05f0b1703e13b9.png" alt=""></p>
-<p>⑤了解：卸载编译安装的软件</p>
-<p>#rm -rf 软件的安装目录</p>
-<p><strong>注意：卸载一个编译安装的软件的时候必须先停止。</strong></p>
 <h2 id="二关于lamp">二、关于LAMP</h2>
-<p><strong>LAMP：Linux + Apache + MySQL + PHP</strong>  <strong>LAMP架构（组合）</strong></p>
+<p>LAMP：Linux + Apache + MySQL + PHP LAMP架构（组合）</p>
 <p>LNMP：Linux + Nginx + MySQL + php-fpm LNMP架构（组合）</p>
 <p>LNMPA：Linux + Nginx + MySQL + PHP + Apache Nginx代理方式</p>
 <p><img src="/linux/c56ec57b44d9ed8d2517c46d86062179.png" alt=""></p>
@@ -3609,12 +3615,12 @@ wget -i filelist.txt
 <p><img src="/linux/93ef7477c262337642f46c177f86aaa3.png" alt=""></p>
 <p>在整个LAMP中需要自己安装的也就只有<strong>Apache + PHP + Mysql</strong>。后续以yum为例。</p>
 <h3 id="1php与apache的安装">1、PHP与Apache的安装</h3>
-<p><strong>#yum install php</strong>  <strong>【在安装好php的同时会一起顺带安装Apache】</strong></p>
+<p><code># yum install php</code>  <strong>【在安装好php的同时会一起顺带安装Apache】</strong></p>
 <p><img src="/linux/97897ac0299cabae57385e4041f78b27.png" alt=""></p>
 <p>启动Apache：#service httpd start</p>
 <p><img src="/linux/4d8b5702d141e980f6008e9f9e9438f8.png" alt=""></p>
 <p><strong>此处会有一个警告，无法确定主机的FQDN，如果需要处理，则需要修改Apache的配置文件（/etc/httpd/conf/httpd.conf）</strong></p>
-<h2 id="vim-etchttpdconfhttpdconf">vim /etc/httpd/conf/httpd.conf</h2>
+<p><code># vim /etc/httpd/conf/httpd.conf</code></p>
 <p>在文件中搜索“ServerName”</p>
 <p><img src="/linux/05d2ce2a1dd247b5a960474563e55cab.png" alt=""></p>
 <p>将前面的“#”去除，保存退出，重启apache</p>
@@ -3632,14 +3638,14 @@ wget -i filelist.txt
 <p>初始化操作：</p>
 <p>#service mysqld start 【启动】</p>
 <p><img src="/linux/4618e01159ed2eff601ab4e53e9ddb61.png" alt=""></p>
-<h2 id="mysql_secure_installation-1">mysql_secure_installation</h2>
+<p><code># mysql_secure_installation</code></p>
 <p><img src="/linux/bc0e15e4b4bf6eee8ef4a6726ef01184.png" alt=""></p>
 <p>测试进行命令行登录：</p>
-<p>#mysql -uroot -p</p>
+<p><code># mysql -uroot -p</code></p>
 <p>如果需要远程登录则需要修改登录主机：</p>
 <p><img src="/linux/587fa302bd15ad16382c4ade6de554d9.png" alt=""></p>
 <p>重启MYSQL或者刷新权限：</p>
-<p>Mysql&gt; flush privileges;</p>
+<p><code>Mysql&gt; flush privileges;</code></p>
 <p><img src="/linux/ac0a7c29fa0632dcc0ea38921758735f.png" alt=""></p>
 <p>阿里云上的安全组端口放行：</p>
 <p><img src="/linux/d4bc5d068df67ce39be5dde1b90ebb9e.png" alt=""></p>
@@ -3654,7 +3660,7 @@ wget -i filelist.txt
 <p><img src="/linux/4c542407f91549d14b29260524669e09.png" alt=""></p>
 <p>b. 赋予指定目录写权限</p>
 <p><img src="/linux/a804c52a1141d3ba3e20c647361fdce4.png" alt=""></p>
-<h2 id="chmod-777--r-varwwwhtml">chmod 777 -R /var/www/html</h2>
+<p><code># chmod 777 -R /var/www/html</code></p>
 <p><img src="/linux/3288821e8ed7af48154623ad543fadd1.png" alt=""></p>
 <p>#yum install php-mysqli</p>
 <p><img src="/linux/a8ad3baa2da82ab29935b405a3d3e0e3.png" alt=""></p>
@@ -3783,6 +3789,7 @@ wget -i filelist.txt
         <li><a href="#11cat指令">11、cat指令</a></li>
         <li><a href="#12history指令">12、history指令</a></li>
         <li><a href="#13env指令">13、env指令</a></li>
+        <li><a href="#14的用法">14、<code>{}</code>的用法</a></li>
       </ul>
     </li>
     <li><a href="#三进阶指令重点">三、进阶指令（重点）</a>
@@ -3973,20 +3980,7 @@ wget -i filelist.txt
     <li><a href="#二mysql的安装与初始化">二、MySQL的安装与初始化</a>
       <ul>
         <li><a href="#1linux下的软件安装方式初步">1、Linux下的软件安装方式（初步）</a></li>
-      </ul>
-    </li>
-    <li><a href="#tar--zxvf-ncurses-61targz">tar -zxvf ncurses-6.1.tar.gz</a></li>
-    <li><a href="#configure---prefixusrlocalncurses">./configure &ndash;prefix=/usr/local/ncurses</a></li>
-    <li><a href="#make">make</a></li>
-    <li><a href="#make-install">make install</a>
-      <ul>
-        <li></li>
         <li><a href="#2安装mysql重点">2、安装MySQL（重点）</a></li>
-      </ul>
-    </li>
-    <li><a href="#mysql_secure_installation">mysql_secure_installation</a>
-      <ul>
-        <li></li>
       </ul>
     </li>
     <li><a href="#三mysql的基本操作难点">三、MySQL的基本操作（难点）</a>
@@ -3996,11 +3990,6 @@ wget -i filelist.txt
         <li><a href="#3表操作">3、表操作</a></li>
         <li><a href="#4记录字段操作重点">4、记录/字段操作（重点）</a></li>
         <li><a href="#5备份与还原重点">5、备份与还原（重点）</a></li>
-      </ul>
-    </li>
-    <li><a href="#mysqldump--uroot--pqhabofhllub9--a--rootsql_201804061609sql">mysqldump -uroot -pqhabOfhlluB9 -A &gt; /root/sql_201804061609.sql</a>
-      <ul>
-        <li></li>
       </ul>
     </li>
     <li><a href="#四扩展">四、扩展</a>
@@ -4017,24 +4006,14 @@ wget -i filelist.txt
         <li><a href="#wget类比迅雷">wget（类比迅雷）</a></li>
       </ul>
     </li>
-    <li><a href="#tar--zxvf-nginx-11311targz">tar -zxvf nginx-1.13.11.tar.gz</a></li>
     <li><a href="#二关于lamp">二、关于LAMP</a></li>
     <li><a href="#三lamp环境部署">三、LAMP环境部署</a>
       <ul>
         <li><a href="#1php与apache的安装">1、PHP与Apache的安装</a></li>
-      </ul>
-    </li>
-    <li><a href="#vim-etchttpdconfhttpdconf">vim /etc/httpd/conf/httpd.conf</a>
-      <ul>
         <li><a href="#2mysql的安装与初始化">2、MySQL的安装与初始化</a></li>
-      </ul>
-    </li>
-    <li><a href="#mysql_secure_installation-1">mysql_secure_installation</a>
-      <ul>
         <li><a href="#3项目上线">3、项目上线</a></li>
       </ul>
     </li>
-    <li><a href="#chmod-777--r-varwwwhtml">chmod 777 -R /var/www/html</a></li>
     <li><a href="#其他">其他</a>
       <ul>
         <li><a href="#linux中的0-6">linux中的0-6</a></li>
