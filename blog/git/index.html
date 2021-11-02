@@ -259,18 +259,35 @@ $ git config user.email
 <h3 id="git-revert">git revert</h3>
 <p>在git log查询到commit_id之后，使用git revert
 commit_id，之后再推送到远端即可回滚。</p>
-<p>注意：如果在使用了一次revert之后再使用一次revert就又回去了，这是跟git
-reset不一样的地方（git
-reset会使之前的记录全部消失，回滚之后就不能再回去了，所以平时应该避免使用reset，多多使用revert）</p>
+<p>注意：如果在使用了一次revert之后再使用一次revert就又回去了，这是跟git reset不一样的地方（git reset会使之前的记录全部消失，回滚之后就不能再回去了，所以平时应该避免使用reset，多多使用revert）</p>
+<p>git revert一般是这么用的：</p>
+<pre><code> * git revert HEAD                  撤销前一次 commit
+ * git revert HEAD^                 撤销前前一次 commit
+ * git revert commitId              撤销指定的版本，撤销也会作为一次提交进行保存
+ * git revert --no-commit commitId  撤销指定的版本，撤销不会作为一次提交进行保存
+</code></pre><p>git revert是提交一个新的版本，将需要revert的版本的内容再反向修改回去，版本会递增，不影响之前提交的内容。换句话说，比方说有版本1、版本2、版本3，最新的就是版本3（该版本已经提交了commit），那么如果要回滚到版本2，版本3的commit不会被影响，将文件内容撤销到版本2的操作将会被视为新的修改，如果此时再commit，那么提交的是一个新的版本</p>
+<p>git revert还可以带<code>-n</code>等参数，具体参考：https://www.git-scm.com/docs/git-revert</p>
+<p>例子：</p>
+<p>假设我们执行git log能看到如下信息：</p>
+<p><img src="/git/image-20211102225009648.png" alt="image-20211102225009648"></p>
+<p>此时如果需要回退到44444版本，就需要revert 555555555 版本</p>
 <h3 id="git-reset">git reset</h3>
 <p>作用：当我们add和commit之后发现还需要修改代码或者说这次commit是错误的（对于已有文件的改动那问题也不大，但是有种情况就是本地代码库中git托管了某些新建的文件，有时候可能是大量的新建文件，这个时候想要通过git rm恢复到之前这些文件不被托管的状态是很麻烦的），这个时候如果再次commit也是可以的，只不过那些我们本不希望被托管的文件还是会被git托管，并且这样会多一次commit记录（git push之后使用git log可以看到多次commit记录），一般情况下再次commit的话上一次的commit理论上是无意义的。所以综合来看最理想的做法就是取消上一次的commit（本质上就是取消本地代码库中上一次add和commit造成的git对于代码的管理），这个时候git reset就能派上用场了，它不仅能完全取消上一次的commit（相当于没有上一次commit），还能保留工作区的所有未被git管理的代码。</p>
-<p>选择当前指针指向的位置 git reset –hard HEAD</p>
-<p>回退到上一个版本 git reset –hard HEAD^</p>
-<p>回退到上两个版本 git reset –hard HEAD^^</p>
-<p>回退到上三个版本 git reset –hard HEAD^^^</p>
-<p>回退到某一个确定的版本 git reset –hard xxx(用git log 获得的commit
-后面的遗传信息码)</p>
-<p>回退到上100个版本 git reset –hard HEAD~100</p>
+<p>选择当前指针指向的位置 git reset --hard HEAD</p>
+<p>回退到上一个版本 git reset --hard HEAD^</p>
+<p>回退到上两个版本 git reset --hard HEAD^^</p>
+<p>回退到上三个版本 git reset --hard HEAD^^^</p>
+<p>回退到某一个确定的版本 git reset --hard xxx(用git log 获得的commit后面的遗传信息码)</p>
+<p>回退到上100个版本 git reset --hard HEAD~100</p>
+<p><strong>git reset --hard与git reset --soft的区别：</strong></p>
+<p><code>git reset --hard</code>不仅会回退commit，还会将文件也恢复到未修改之前的状态，也就是说他是彻底的回退到了某个版本；而<code>git reset --soft</code>不会将文件恢复到未修改之前的状态，他只会回退commit，如果还要提交，直接commit即可</p>
+<p>具体参考：https://blog.csdn.net/yangfengjueqi/article/details/61668381</p>
+<h3 id="git-revert与git-reset的区别">git revert与git reset的区别</h3>
+<ul>
+<li>git revert是用一次新的commit来回滚之前的commit，git reset是直接删除指定的commit</li>
+<li>在回滚这一操作上看，效果差不多，但是在日后继续merge以前的老版本时有区别。因为git revert是用一次逆向的commit“中和”之前的提交，因此日后合并老的branch时，导致这部分改变不会再次出现，但是git reset是直接把某些commit在某个branch上删除，因而和老的branch再次merge时，这些被回滚的commit应该还会被引入</li>
+<li>git reset 是把HEAD向后移动了一下，而git revert是HEAD继续前进，只是新的commit的内容和要revert的内容正好相反，能够相互抵消</li>
+</ul>
 <h2 id="git-branch">git branch</h2>
 <p>查看本地及远程所有的分支 git branch -a</p>
 <p><img src="/git/3d951c2020409e15562cfbf9f3802df9.png" alt=""></p>
@@ -422,6 +439,7 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
       <ul>
         <li><a href="#git-revert">git revert</a></li>
         <li><a href="#git-reset">git reset</a></li>
+        <li><a href="#git-revert与git-reset的区别">git revert与git reset的区别</a></li>
       </ul>
     </li>
     <li><a href="#git-branch">git branch</a>
