@@ -1065,6 +1065,15 @@ cat（使得cat打印管道之前的文件中的内容，如果没有xargs修饰
 <p>可以根据进程查看进程相关信息占用的内存情况，比方说我们想要查看进程24603的相关信息占用的内存情况，那就执行命令<code>pmap -d 24603</code>，结果如下：</p>
 <p><img src="/linux/image-20211102223216904.png" alt="image-20211102223216904"></p>
 <p>更多关于pmap的细节请参考网络资料</p>
+<h3 id="29ip">29、ip</h3>
+<p>ip命令非常强大，他旨在替代ifconfig，使用ip命令，只需一个命令，就可以轻松执行一些网络管理任务，ifconfig是<code>net-tools</code>中已被废弃使用的一个命令，iproute2套件里提供了许多增强功能的命令，ip命令就是其中之一</p>
+<p>参考：https://linoxide.com/linux-ip-command/、https://www.cnblogs.com/liunaixu/p/12808936.html（命令使用详解，包括ip地址管理、路由管理、网络管理、ARP管理、网络监测、网络接口设置、路由策略设置等）</p>
+<p>其他例子：</p>
+<pre><code># 查看所有网卡的ip地址状态等信息
+ip a
+# 查看指定网卡的ip地址状态等信息
+ip a s ens33（网卡名）
+</code></pre><p><img src="/linux/image-20211108220411286.png" alt="image-20211108220411286"></p>
 <h2 id="二练习题">二、练习题</h2>
 <p>1、如何通过命令行重启linux操作系统？ #reboot</p>
 <p>2、<strong>如何在命令行中快速删除光标前/后的内容？</strong>  <strong>前：ctrl + u 后：ctrl + k</strong></p>
@@ -1478,9 +1487,8 @@ v（可视块）或V（可视行）或v（可视），上下左右移动，按�
 <p>#ifup eth0</p>
 <p><strong>提示：在实际工作的时候不要随意禁网卡。</strong></p>
 <h2 id="四ssh服务重点">四、ssh服务（重点）</h2>
-<p>ssh（secure
-shell，安全外壳协议），该协议有2个常用的作用：<strong>远程连接协议</strong>、远程文件传输协议。</p>
-<p>协议使用<strong>端口</strong>号：默认是22</p>
+<p>ssh（secure shell，安全外壳协议），该协议有2个常用的作用：远程连接协议、远程文件传输协议。</p>
+<p>协议使用端口号：默认是22</p>
 <p>可以是被修改的，如果需要修改，则需要修改ssh服务的配置文件：</p>
 <p>#/etc/ssh/ssh_config</p>
 <p><img src="/linux/88a88bc5d83628ff87a198d093e6917b.png" alt=""></p>
@@ -1492,7 +1500,10 @@ shell，安全外壳协议），该协议有2个常用的作用：<strong>远程
 <p>#/etc/init.d/sshd start/stop/restart</p>
 <p><img src="/linux/39392555f2457120df16599067cc0253.png" alt=""></p>
 <h3 id="1远程终端">1、远程终端</h3>
-<p>终端工具主要帮助运维人员连接远程的服务器，常见终端工具有：Xshell、secureCRT、Putty等。以putty为例：</p>
+<p>可以直接在linux操作系统中使用命令对远程终端做一些操作，例子：</p>
+<pre><code># 该命令可远程操作地址为192.168.44.156的机器，具体的操作就是在root用户下创建相应的文件夹
+# ssh root@192.168.44.156 mkdir -p /etc/kubernetes/pki/etcd
+</code></pre><p>终端工具主要帮助运维人员连接远程的服务器，常见终端工具有：Xshell、secureCRT、Putty等。以putty为例：</p>
 <p>①获取服务器ip地址，可以通过ifconfig命令进行查看，然后顺手测试ip的连接相通性</p>
 <p><img src="/linux/7b38108c60f1e6d602e566201cf699dd.png" alt=""></p>
 <p>②打开putty，输入相关的信息</p>
@@ -3894,6 +3905,7 @@ wget -i filelist.txt
         <li><a href="#26cut">26、cut</a></li>
         <li><a href="#27vmstatmpstat与sar">27、vmstat、mpstat与sar</a></li>
         <li><a href="#28pmap">28、pmap</a></li>
+        <li><a href="#29ip">29、ip</a></li>
       </ul>
     </li>
     <li><a href="#二练习题">二、练习题</a></li>
