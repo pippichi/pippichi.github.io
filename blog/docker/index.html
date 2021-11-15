@@ -209,6 +209,11 @@ $ docker image centos # 将会找出所有镜像名为&quot;centos&quot;的镜�
 <p><img src="/docker/1fddd9827333a249fd74cf2c009ecb21.png" alt=""></p>
 <p>删除所有镜像(用到上面“只查看镜像ID的命令”)</p>
 <p><img src="/docker/1312d46398fed198766e7a99991669bb.png" alt=""></p>
+<h3 id="docker-rmdocker-rmidocker-prune的差异"><code>docker rm</code>、<code>docker rmi</code>、<code>docker prune</code>的差异</h3>
+<p><code>docker rm</code> ： 删除一个或多个 <strong>容器</strong></p>
+<p><code>docker rmi</code> ： 删除一个或多个 <strong>镜像</strong></p>
+<p><code>docker prune</code> ： 用来删除不再使用的 <strong>docker 对象</strong></p>
+<p>参考：https://www.cnblogs.com/miracle-luna/p/11111907.html（docker rm &amp; docker rmi &amp; docker prune 的差异）</p>
 <h3 id="给镜像打标签">给镜像打标签</h3>
 <p><img src="/docker/d2a42fefe593c85c8b0a902a284ff97f.png" alt=""></p>
 <h2 id="容器操作">容器操作</h2>
@@ -308,6 +313,10 @@ MODULE= QYF
 </code></pre><blockquote>
 <p>打印成功 <strong>MODULE= QYF</strong></p>
 </blockquote>
+<h3 id="使用docker-save将指定镜像打包成tar归档文件">使用docker save将指定镜像打包成tar归档文件</h3>
+<p>参考：https://www.runoob.com/docker/docker-save-command.html（docker save）</p>
+<h3 id="使用docker-load导入使用docker-save命令导出的镜像">使用docker load导入使用docker save命令导出的镜像</h3>
+<p>参考：https://www.runoob.com/docker/docker-load-command.html（docker load）</p>
 <h2 id="显示完整信息--no-trunc">显示完整信息（&ndash;no-trunc）</h2>
 <p>这个命令可以显示完整ID号以及其他的一些显示不全的信息等</p>
 <p><img src="/docker/add99219010fdde5eada3dc5ba4792f2.png" alt=""></p>
@@ -884,6 +893,7 @@ ls我们会发现虽然没有在这台机器上创建这个overlay，但是我�
         <li><a href="#只查看镜像id">只查看镜像ID</a></li>
         <li><a href="#镜像的导入和导出">镜像的导入和导出</a></li>
         <li><a href="#镜像删除">镜像删除</a></li>
+        <li><a href="#docker-rmdocker-rmidocker-prune的差异"><code>docker rm</code>、<code>docker rmi</code>、<code>docker prune</code>的差异</a></li>
         <li><a href="#给镜像打标签">给镜像打标签</a></li>
       </ul>
     </li>
@@ -900,6 +910,8 @@ ls我们会发现虽然没有在这台机器上创建这个overlay，但是我�
         <li><a href="#让容器永生的三种方法">让容器永生的三种方法</a></li>
         <li><a href="#批量删除容器">批量删除容器</a></li>
         <li><a href="#docker-run--e或docker-run---env传递环境变量"><code>docker run -e</code>或<code>docker run --env</code>传递环境变量</a></li>
+        <li><a href="#使用docker-save将指定镜像打包成tar归档文件">使用docker save将指定镜像打包成tar归档文件</a></li>
+        <li><a href="#使用docker-load导入使用docker-save命令导出的镜像">使用docker load导入使用docker save命令导出的镜像</a></li>
       </ul>
     </li>
     <li><a href="#显示完整信息--no-trunc">显示完整信息（&ndash;no-trunc）</a></li>

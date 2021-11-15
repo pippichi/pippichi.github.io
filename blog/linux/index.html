@@ -959,7 +959,7 @@ filename：这个命令其实只是简单地读取脚本里面的语句依次在
 <h3 id="21echo">21、echo</h3>
 <p>命令详解，参考：https://www.zsythink.net/archives/96</p>
 <p>使用<code>echo -n &quot;admin&quot; | base64</code>可以输出对“admin”以base64加密之后的字符串</p>
-<p>使用<code>echo $变量名</code>可以输出该变量的值（变量包括系统环境变量）</p>
+<p>使用<code>echo $变量名</code>可以输出该变量的值（变量包括系统环境变量），比方说<code>$HOME</code>就是家目录</p>
 <p>使用<code>echo $?</code>可以查看上一个命令是否执行成功，0代表成功，1代表失败</p>
 <p><strong>shell中的特殊变量及其意义：</strong></p>
 <table>
@@ -1001,6 +1001,14 @@ filename：这个命令其实只是简单地读取脚本里面的语句依次在
 <tr>
 <td>$?</td>
 <td>代表上一个命令执行的状态，0代表成功，1代表失败</td>
+</tr>
+<tr>
+<td>$(id -u)</td>
+<td>当前用户</td>
+</tr>
+<tr>
+<td>$(id -g)</td>
+<td>当前用户组</td>
 </tr>
 </tbody>
 </table>
@@ -1754,6 +1762,9 @@ v（可视块）或V（可视行）或v（可视），上下左右移动，按�
 <p>还有一个配置文件：（白名单）</p>
 <p>/etc/cron.allow （本身不存在，自己创建）</p>
 <p><strong>注意：白名单优先级高于黑名单，如果一个用户同时存在两个名单文件中，则会被默认允许创建计划任务。</strong></p>
+<p>更详细的关于cron和crontab的命令参考：https://blog.csdn.net/mengzuchao/article/details/81172305（linux cron 定时任务）</p>
+<h2 id="七at命令用于一次性定时计划任务的命令">七、at命令（用于一次性定时计划任务的命令）</h2>
+<p>参考：https://blog.csdn.net/weixin_34162228/article/details/91682904（Linux之at命令）</p>
 <h2 id="linux的权限管理操作">Linux的权限管理操作</h2>
 <p><strong>Linux的权限操作与用户、用户组是兄弟操作。</strong></p>
 <h2 id="一权限概述">一、权限概述</h2>
@@ -2685,6 +2696,9 @@ PATH（环境变量） 里寻找有没有叫 test.sh 的，而只有 /bin, /sbin
 <p><img src="/linux/75ea616cc7a334123d448604d89af060.png" alt=""></p>
 <p>同时题目中要求是指令，所以可以再去添加个别名：</p>
 <p><img src="/linux/22ee8ce83da0b6c786f9e7bd93c8cd10.png" alt=""></p>
+<h3 id="5shell-test命令">5、shell test命令</h3>
+<p>test命令有很多用法，比如检查文件目录是否存在等</p>
+<p>参考：https://www.runoob.com/linux/linux-shell-test.html（shell test 命令）、https://blog.csdn.net/weixin_38233274/article/details/80097141（linux test命令详解）</p>
 <h2 id="三作业">三、作业</h2>
 <p>1、尝试写一个shell的简易计算器功能，实现加减乘除。</p>
 <p>2、作业：使用-e文件测试运算符，改写“1.4接收用户输入”的案例，在创建文件的时候需要先判断是否存在，如果存在则提示用户并且不执行创建操作，如果不存在则创建。</p>
@@ -3748,7 +3762,37 @@ wget -i filelist.txt
 <p><img src="/linux/f4d53350fbeae8cbf84e6a181eb299a6.png" alt=""></p>
 <h3 id="图片查看器">图片查看器</h3>
 <p><img src="/linux/ebb31976c405a22f59387ca8b2eaac51.png" alt=""></p>
-<h3 id="ulimit取消linux同时打开文件个数限制">ulimit取消linux同时打开文件个数限制</h3>
+<h3 id="nslookup">nslookup</h3>
+<p>nslookup用于查询DNS的记录，查询域名解析是否正常，在网络故障时用来诊断网络问题</p>
+<p>直接查询：</p>
+<pre><code>// 如果没有指定dns服务器，就采用系统默认的dns服务器
+nslookup domain [dns-server]
+</code></pre><p>查询其他记录：</p>
+<pre><code>nslookup -qt = type domain [dns-server]
+type:
+    A 				--&gt;地址记录
+    AAAA   			--&gt;地址记录
+    AFSDB Andrew    --&gt;文件系统数据库服务器记录
+    ATMA   			--&gt;ATM地址记录
+    CNAME  			--&gt;别名记录
+    HINHO  			--&gt;硬件配置记录，包括CPU、操作系统信息 
+    ISDN   			--&gt;域名对应的ISDN号码
+    MB     			--&gt;存放指定邮箱的服务器
+    MG     			--&gt;邮件组记录
+    MINFO  			--&gt;邮件组和邮箱的信息记录
+    MR     			--&gt;改名的邮箱记录
+    MX     			--&gt;邮件服务器记录
+    NS     			--&gt; 名字服务器记录
+    PTR    			--&gt;反向记录
+    RP     			--&gt;负责人记录
+    RT     			--&gt;路由穿透记录
+    SRV    			--&gt;TCP服务器信息记录
+    TXT    			--&gt;域名对应的文本信息
+    X25    			--&gt;域名对应的X.25地址记录
+</code></pre><p>查询更具体的信息：</p>
+<pre><code>// 只要在查询的时候，加上-d参数，即可查询域名的缓存
+nslookup -d [其他参数] domain [dns-server]
+</code></pre><h3 id="ulimit取消linux同时打开文件个数限制">ulimit取消linux同时打开文件个数限制</h3>
 <p>Linux默认能同时打开的文件个数为65535个，一般情况按照日期进行限制就不会出现访问一下子超过65535导致系统宕机的情况，同时也可以使用指令：ulimit
 -n 65535</p>
 <h3 id="权限管理命令umask">权限管理命令：umask</h3>
@@ -3972,6 +4016,7 @@ wget -i filelist.txt
     <li><a href="#四防火墙服务">四、防火墙服务</a></li>
     <li><a href="#五rpm管理重点">五、rpm管理（重点）</a></li>
     <li><a href="#六croncrontab计划任务重点">六、cron/crontab计划任务（重点）</a></li>
+    <li><a href="#七at命令用于一次性定时计划任务的命令">七、at命令（用于一次性定时计划任务的命令）</a></li>
     <li><a href="#linux的权限管理操作">Linux的权限管理操作</a></li>
     <li><a href="#一权限概述">一、权限概述</a>
       <ul>
@@ -4038,6 +4083,7 @@ wget -i filelist.txt
         <li><a href="#2条件判断语句">2、条件判断语句</a></li>
         <li><a href="#3运算符">3、运算符</a></li>
         <li><a href="#4shell脚本附带选项重点">4、shell脚本附带选项（重点）</a></li>
+        <li><a href="#5shell-test命令">5、shell test命令</a></li>
       </ul>
     </li>
     <li><a href="#三作业">三、作业</a></li>
@@ -4090,6 +4136,7 @@ wget -i filelist.txt
       <ul>
         <li><a href="#linux中的0-6">linux中的0-6</a></li>
         <li><a href="#图片查看器">图片查看器</a></li>
+        <li><a href="#nslookup">nslookup</a></li>
         <li><a href="#ulimit取消linux同时打开文件个数限制">ulimit取消linux同时打开文件个数限制</a></li>
         <li><a href="#权限管理命令umask">权限管理命令：umask</a></li>
         <li><a href="#其他文件搜索命令">其他文件搜索命令</a></li>
