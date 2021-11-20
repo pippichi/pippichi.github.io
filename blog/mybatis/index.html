@@ -744,6 +744,8 @@ log4j.appender.logfile.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %l %F %p
     AND level=#{permissionP.level}
 <span class="nt">&lt;select&gt;</span>
 </code></pre></div><p>注意：此时并不需要写出parameterType属性，Mybatis会进行自动搜索（这点在上面“使用mapper”这一章节中解释了）。</p>
+<h2 id="mapkey">@MapKey</h2>
+<p>参考：https://blog.csdn.net/u012734441/article/details/85861337</p>
 <h2 id="使用占位的方式和使用占位的方式">使用#{}占位的方式和使用${}占位的方式</h2>
 <p>现在有一个问题：</p>
 <p>目前我们在使用mybatis完成数据库操作的时候，mybatis底层默认使用PreparedStatement对象完成数据库操作，也就是说Sql语句的赋值都是通过占位赋值的，那么如果我们想通过字符串拼接的方式赋值怎么办？也就是底层使用Statement对象完成数据库操作。</p>
@@ -2418,6 +2420,7 @@ TINYINT --&gt; Byte
     <li><a href="#类型别名">类型别名</a></li>
     <li><a href="#include标签和sql标签提取公共sql脚本片段">include标签和sql标签提取公共SQL脚本片段</a></li>
     <li><a href="#param">@Param</a></li>
+    <li><a href="#mapkey">@MapKey</a></li>
     <li><a href="#使用占位的方式和使用占位的方式">使用#{}占位的方式和使用${}占位的方式</a></li>
     <li><a href="#模糊查询">模糊查询</a>
       <ul>
