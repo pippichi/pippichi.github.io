@@ -1260,7 +1260,13 @@ check(id&gt;0)或者drop check check_name</p>
 <p>PREPARE预编译之后execute执行</p>
 <p><img src="/mysql_basic/32bb014d1904524bd1a2dc71dd6ee265.png" alt=""></p>
 <p><img src="/mysql_basic/cc4836e8bf53c85654de2acaba177a66.png" alt=""></p>
-<h2 id="总结-2">总结</h2>
+<h2 id="论mysql中in的注意事项">论mysql中in的注意事项</h2>
+<p>sql语句in中的内容的个数最好限制在200个以下，不然会出现效率问题</p>
+<pre><code>SELECT id
+FROM t
+WHERE id
+IN (就是这里的内容的个数需要限制在200个以下);
+</code></pre><h2 id="总结-2">总结</h2>
 <p><img src="/mysql_basic/c7c43f2a6c4e7e37d7572756c4b34cbe.png" alt=""></p>
 <p><img src="/mysql_basic/61ae3729fbcb0bd195eb1205a6789178.png" alt=""></p>
 <p><img src="/mysql_basic/52d64e9120f3a021781866782c4c67e5.png" alt=""></p>
@@ -1528,6 +1534,7 @@ check(id&gt;0)或者drop check check_name</p>
     </li>
     <li><a href="#mysql游标">MySQL游标</a></li>
     <li><a href="#论mysql执行一个字符串">论mysql执行一个字符串</a></li>
+    <li><a href="#论mysql中in的注意事项">论mysql中in的注意事项</a></li>
     <li><a href="#总结-2">总结</a></li>
     <li><a href="#测试题">测试题</a></li>
   </ul>
