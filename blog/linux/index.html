@@ -1558,6 +1558,7 @@ v（可视块）或V（可视行）或v（可视），上下左右移动，按�
 <p>除了使用pscp，还可以使用scp，scp用于linux系统之间的文件传输</p>
 <p>总的来讲，scp解决linux与linux之间的传输，pscp解决windows与linux之间的传输，除此之外两者其他的功能都是相同的</p>
 <p>scp命令参考：https://www.runoob.com/linux/linux-comm-scp.html</p>
+<p>除了scp、pscp，还有sz、rz可以进行客户端与服务器之间的文件传输，具体参考：https://www.cnblogs.com/zeke-python-road/p/9610715.html（Linux的sz和rz命令）</p>
 <h2 id="五作业">五、作业</h2>
 <p>1、能够分别使用Filezilla和PSCP工具传输给定文件到“/usr/src/data”目录下，如目录不存在则自行创建。</p>
 <h2 id="linux自有服务2">Linux自有服务（2）</h2>
@@ -2741,14 +2742,16 @@ Server（微软）、Access（微软）、PostgreSQL、DB2、Mariadb（MySQL分�
 <p>案例：使用源码编译安装方式安装ncurses（一种常用的终端库）</p>
 <p>扩展：解包</p>
 <p>常用语法：</p>
-<p><code>#tar -zxvf *.tar.gz</code> （大多数）</p>
+<p><code>#tar -zxvf *.tar.gz</code> （这个命令最常用，他是用于解压的，与之对应的打包命令是：<code>#tar -zcvf *.tar.gz *.tar</code>）</p>
 <p><code>#tar -jxvf *.tar.bz2</code></p>
 <p>选项含义：</p>
 <p><code>-z</code>或<code>--gzip</code>或<code>--ungzip</code>：通过gzip指令处理文件；</p>
 <p><code>-x</code>或<code>--extract</code>或<code>--get</code>：从文件中还原文件；</p>
+<p><code>-c</code>：打包并生成打包文件；</p>
 <p><code>-v</code>：显示操作过程；</p>
 <p><code>-f</code>或<code>--file</code>：指定一个文件；</p>
 <p><code>-j</code>：支持bzip2解压文件；</p>
+<p>**更多关于tar命令的用法请参考：**<a href="https://blog.csdn.net/kkw1992/article/details/80000653">https://blog.csdn.net/kkw1992/article/details/80000653</a>（linux tar命令）</p>
 <p>①先将软件包传递到服务器上<code>“/usr/local/src”</code></p>
 <p><img src="/linux/06ab6e6bbf1392c8a25dc667e9880bb1.png" alt=""></p>
 <p>②解压需要安装的源码包</p>

@@ -651,7 +651,7 @@ nums&gt;200; having关键字的使用</p>
 <p><img src="/mysql_basic/f3742029d7604a73203c8876f03397bf.png" alt=""></p>
 <h2 id="分组函数">分组函数</h2>
 <p><img src="/mysql_basic/b6874e5e45707667309dfc9582851e01.png" alt=""></p>
-<h3 id="sumcountmaxminavg">Sum、count、max、min、avg</h3>
+<h3 id="sumcountmaxminavg">sum、count、max、min、avg</h3>
 <p><img src="/mysql_basic/321259ed0812e9c22ce17c2fec4bb246.png" alt=""></p>
 <p><img src="/mysql_basic/e1620d4f193ac46730c5e73861085a7b.png" alt=""></p>
 <p><img src="/mysql_basic/ec5ae0430563cfec75edd68214467e1f.png" alt=""></p>
@@ -1250,22 +1250,41 @@ check(id&gt;0)或者drop check check_name</p>
 <p>自动计算数据值，如果数据的值达到了一定的要求，则进行特定的处理。例如，如果公司的帐号上的资金低于5万元则立即给财务人员发送警告数据。</p>
 </li>
 </ul>
-<h2 id="mysql游标">MySQL游标</h2>
+<h2 id="mysql游标">mysql游标</h2>
 <p>用于循环集合</p>
 <p>CURSOR 游标</p>
 <p>FETCH xxx into xxx</p>
 <p>游标每fetch一次指针向下走一格，直到游标指向数据为空为止：</p>
 <p><img src="/mysql_basic/03bda695bc4802bb532aa508ce4b0c37.png" alt=""></p>
-<h2 id="论mysql执行一个字符串">论mysql执行一个字符串</h2>
+<h2 id="mysql执行一个字符串">mysql执行一个字符串</h2>
 <p>PREPARE预编译之后execute执行</p>
 <p><img src="/mysql_basic/32bb014d1904524bd1a2dc71dd6ee265.png" alt=""></p>
 <p><img src="/mysql_basic/cc4836e8bf53c85654de2acaba177a66.png" alt=""></p>
-<h2 id="论mysql中in的注意事项">论mysql中in的注意事项</h2>
+<h2 id="mysql中in的注意事项以及组合in的使用方法">mysql中in的注意事项以及组合in的使用方法</h2>
 <p>sql语句in中的内容的个数最好限制在200个以下，不然会出现效率问题</p>
 <pre><code>SELECT id
 FROM t
 WHERE id
 IN (就是这里的内容的个数需要限制在200个以下);
+</code></pre><p>mysql组合in的使用场景：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> 
+<span class="k">FROM</span> <span class="n">test</span> 
+<span class="k">WHERE</span> <span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">AND</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> 
+<span class="k">OR</span> <span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="mi">3</span> <span class="k">AND</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span> 
+<span class="k">OR</span> <span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span> <span class="k">AND</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span> 
+<span class="k">OR</span> <span class="p">(</span><span class="n">a</span> <span class="o">=</span> <span class="mi">9</span> <span class="k">AND</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">);</span>
+</code></pre></div><p>使用组合in优化后：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> 
+<span class="k">FROM</span> <span class="n">test</span> 
+<span class="k">WHERE</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> 
+<span class="k">IN</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">),(</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">));</span>
+</code></pre></div><p>当然，除了和SELECT配合使用，还能和DELETE等配合使用，举一个和DELETE联用的例子：</p>
+<pre><code>DELETE FROM test
+WHERE (a,b)
+IN (
+    SELECT a,b
+    FROM ...
+);
 </code></pre><h2 id="总结-2">总结</h2>
 <p><img src="/mysql_basic/c7c43f2a6c4e7e37d7572756c4b34cbe.png" alt=""></p>
 <p><img src="/mysql_basic/61ae3729fbcb0bd195eb1205a6789178.png" alt=""></p>
@@ -1419,7 +1438,7 @@ IN (就是这里的内容的个数需要限制在200个以下);
     </li>
     <li><a href="#分组函数">分组函数</a>
       <ul>
-        <li><a href="#sumcountmaxminavg">Sum、count、max、min、avg</a></li>
+        <li><a href="#sumcountmaxminavg">sum、count、max、min、avg</a></li>
         <li><a href="#分组函数与distinct联用">分组函数与distinct联用</a></li>
         <li><a href="#count函数详解">Count函数详解</a></li>
         <li><a href="#和分组函数一同查询的字段有限制">和分组函数一同查询的字段有限制</a></li>
@@ -1532,9 +1551,9 @@ IN (就是这里的内容的个数需要限制在200个以下);
         <li><a href="#总结-1">总结</a></li>
       </ul>
     </li>
-    <li><a href="#mysql游标">MySQL游标</a></li>
-    <li><a href="#论mysql执行一个字符串">论mysql执行一个字符串</a></li>
-    <li><a href="#论mysql中in的注意事项">论mysql中in的注意事项</a></li>
+    <li><a href="#mysql游标">mysql游标</a></li>
+    <li><a href="#mysql执行一个字符串">mysql执行一个字符串</a></li>
+    <li><a href="#mysql中in的注意事项以及组合in的使用方法">mysql中in的注意事项以及组合in的使用方法</a></li>
     <li><a href="#总结-2">总结</a></li>
     <li><a href="#测试题">测试题</a></li>
   </ul>
