@@ -154,6 +154,8 @@ if (!doNotTrack) {
 <p><img src="/docker/fcfae8507e8c0f1b5803500c97b3fb18.png" alt=""></p>
 <h2 id="docker体系结构">Docker体系结构</h2>
 <p><img src="/docker/e99268a2e67f78263a680a3f34619c60.png" alt=""></p>
+<h2 id="docker使用手册">Docker使用手册</h2>
+<p>使用<code>docker --help</code>可以查看docker的命令，包括登录登出harbor等命令都能找到</p>
 <h2 id="镜像操作">镜像操作</h2>
 <h3 id="基础镜像拉取">基础镜像拉取</h3>
 <p><img src="/docker/a78f841e8a71e18a0975830b09dea78f.png" alt=""></p>
@@ -711,8 +713,9 @@ login登录的时候报错；</strong></p>
 <p>进入之后一般会先新建一个项目（项目名称其实就是当初10.0.0.100/oldboy/nginx:v1中的oldboy，如果这两个oldboy名称对应不起来会报错）</p>
 <p><img src="/docker/d96ea1fb62bd00a7acc8e479c0613a65.png" alt=""></p>
 <p>然后选择公开，公开的意思就是push的时候需要密码但是pull的时候不需要密码</p>
+<p>当然，如果想登出docker harbor，可以使用命令<code>docker logout username</code></p>
 <h3 id="启动关闭和重启harbor">启动、关闭和重启harbor</h3>
-<p>使用命令docker-compose start|stop|restart</p>
+<p>使用命令<code>docker-compose start|stop|restart</code></p>
 <p><img src="/docker/76197ea3b8570b51ccb242f5b57a5251.png" alt=""></p>
 <h3 id="推送镜像">推送镜像</h3>
 <p><img src="/docker/de3b41a294024aac501609c21f394964.png" alt=""></p>
@@ -884,6 +887,7 @@ ls我们会发现虽然没有在这台机器上创建这个overlay，但是我�
     <li><a href="#什么叫做互不影响的两套系统">什么叫做互不影响的两套系统</a></li>
     <li><a href="#安装docker">安装docker</a></li>
     <li><a href="#docker体系结构">Docker体系结构</a></li>
+    <li><a href="#docker使用手册">Docker使用手册</a></li>
     <li><a href="#镜像操作">镜像操作</a>
       <ul>
         <li><a href="#基础镜像拉取">基础镜像拉取</a></li>
