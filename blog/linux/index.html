@@ -473,6 +473,7 @@ binary，该目录也是存储一些可以被执行的二进制文件，但是�
 <p>在Linux中有一个特殊的符号“~”，表示当前用户的家目录。</p>
 <p>切换的方式：#cd ~</p>
 <p><img src="/linux/bf4d8254d14f04b7de4264f3cb727146.png" alt=""></p>
+<p><code>cd -</code>：表示返回到上一次的工作目录</p>
 <h3 id="4mkdir指令">4、mkdir指令</h3>
 <p>指令：mkdir （make directory，创建目录）</p>
 <p>语法1：<strong>#mkdir 路径 【路径，可以是文件夹名称也可以是包含名称的一个完整路径】</strong></p>
@@ -674,7 +675,7 @@ $ mkdir /dir{1..3}
 <p>-F, &ndash;fixed-strings 指定的模式被解释为字符串</p>
 <p>-i 忽略大小写</p>
 <p>-o 只输出匹配到的部分(而不是整个行)</p>
-<p>-v 反向选择，即输出没有没有匹配的行</p>
+<p>-v 反向选择，即输出没有匹配到的行</p>
 <p>-c 计算找到的符号行的次数</p>
 <p>-n 顺便输出行号</p>
 <p><strong>在递归的过程中排除某些目录</strong><br>
@@ -696,12 +697,14 @@ $ grep -r &ndash;exclude=*.txt &lsquo;email&rsquo; .</p>
 <p><strong>答：#ls / | wc -l</strong></p>
 <h2 id="linux的基本指令2">Linux的基本指令（2）</h2>
 <h2 id="一高级指令">一、高级指令</h2>
-<h3 id="1hostname指令">1、hostname指令</h3>
+<h3 id="1hostname与hostnamectl指令">1、hostname与hostnamectl指令</h3>
 <p>作用：操作服务器的<strong>主机名</strong>（<strong>读取</strong>、设置）</p>
 <p>语法1：#hostname 含义：表示输出完整的主机名</p>
 <p><strong>语法2：#hostname -f</strong>
 <strong>含义：表示输出当前主机名中的FQDN</strong>（全限定<strong>域名</strong>）</p>
 <p><img src="/linux/e26961885e45b403298b34bce7e1cef0.png" alt=""></p>
+<p><strong>hostname与hostnamectl的区别</strong></p>
+<p>参考：https://blog.csdn.net/weixin_41831919/article/details/102767618（hostname与hostnamectl区别）</p>
 <h3 id="2id指令">2、id指令</h3>
 <p><strong>作用：查看一个用户的一些基本信息（包含用户id，用户组id，附加组id…），该指令如果不指定用户则默认当前用户。</strong></p>
 <p>语法1：#id 默认显示当前执行该命令的用户的基本信息</p>
@@ -808,7 +811,7 @@ process ID）；</p>
 <h3 id="8grep用于文件搜索">8、grep用于文件搜索</h3>
 <p><img src="/linux/6a839659dd4bd4f6244af4b3d64ba585.png" alt=""></p>
 <p>-i 不区分大小写</p>
-<p>-v 排除指定字符串</p>
+<p>-v 排除指定字符串，即输出没有匹配到的行</p>
 <p>grep 文件名 -v ^# /etc （去掉以#开头的行之后匹配文件名）</p>
 <p>-A 显示匹配行和它后面的n行 (after)</p>
 <p>-B 显示匹配行和它前面的n行 (before)</p>
@@ -848,6 +851,8 @@ process ID）；</p>
 <p>使用命令ifconfig eth0:1 10.0.0.101/24、ifconfig eth0:2 10.0.0.102/24等等</p>
 <p>这样的话就可以为eth0网卡生成多个相同端口不同ip的虚拟网络接口，如下：</p>
 <p><img src="/linux/5bf69f53a878d343ea093766ba6a1f44.png" alt=""></p>
+<p><strong>创建网卡子接口</strong></p>
+<p>参考：https://www.cnblogs.com/reachos/p/12167744.html（Linux 创建网卡子接口）</p>
 <h5 id="关闭子网卡">关闭子网卡</h5>
 <p>Ifconfig eth0:1 down</p>
 <h5 id="修改ping值">修改ping值</h5>
@@ -1082,7 +1087,7 @@ cat（使得cat打印管道之前的文件中的内容，如果没有xargs修饰
 <p>更多关于pmap的细节请参考网络资料</p>
 <h3 id="29ip">29、ip</h3>
 <p>ip命令非常强大，他旨在替代ifconfig，使用ip命令，只需一个命令，就可以轻松执行一些网络管理任务，ifconfig是<code>net-tools</code>中已被废弃使用的一个命令，iproute2套件里提供了许多增强功能的命令，ip命令就是其中之一</p>
-<p>参考：https://linoxide.com/linux-ip-command/、https://www.cnblogs.com/liunaixu/p/12808936.html（命令使用详解，包括ip地址管理、路由管理、网络管理、ARP管理、网络监测、网络接口设置、路由策略设置等）</p>
+<p>参考：https://linoxide.com/linux-ip-command/、https://www.cnblogs.com/liunaixu/p/12808936.html（命令使用详解，包括ip地址管理、路由管理、网络管理、ARP管理、网络监测、网络接口设置、路由策略设置等）、https://www.cnblogs.com/reachos/p/12167744.html（Linux 创建网卡子接口）</p>
 <p>其他例子：</p>
 <pre><code># 查看所有网卡的ip地址状态等信息
 ip a
@@ -1613,8 +1618,8 @@ v（可视块）或V（可视行）或v（可视），上下左右移动，按�
 <p><img src="/linux/44a3e13f31d4cc43b294ecf9617aec7a.png" alt=""></p>
 <p>案例：设置httpd服务在5的级别下默认开机不启动</p>
 <p><img src="/linux/64dc13f44d3bef1cfae3561c79ffbb32.png" alt=""></p>
-<h3 id="设置开机自启的文件">设置开机自启的文件</h3>
-<p>使用命令 vim /etc/rc.local 里面添加想要开机自启的内容即可，如下：</p>
+<p>⑤设置开机自启的文件</p>
+<p>使用命令 <code>vim /etc/rc.local</code> 里面添加想要开机自启的内容即可，如下：</p>
 <p><img src="/linux/59d43be7f5ec17944bdfcec56287b2f8.png" alt=""></p>
 <h2 id="三ntp服务">三、ntp服务</h2>
 <p>作用：ntp主要是用于<strong>对计算机的时间同步管理</strong>操作。</p>
@@ -1634,8 +1639,8 @@ v（可视块）或V（可视行）或v（可视），上下左右移动，按�
 <p>#service ntpd start 或者 /etc/init.d/ntpd start</p>
 <p><img src="/linux/260bc32b8ae6501e61a22c9dc560cb60.png" alt=""></p>
 <p>设置ntpd服务开机启动：</p>
-<h2 id="chkconfig---listgrep-ntpd">chkconfig &ndash;list|grep ntpd</h2>
-<h2 id="chkconfig---level-35-ntpd-on">chkconfig &ndash;level 35 ntpd on</h2>
+<p><code>chkconfig --list|grep ntpd</code></p>
+<p><code>chkconfig --level 35 ntpd on</code></p>
 <p><img src="/linux/eb6f975a551eb883cd3b3606c3c8266f.png" alt=""></p>
 <h2 id="四防火墙服务">四、防火墙服务</h2>
 <p>防火墙：<strong>防范一些网络攻击</strong>。有<strong>软件防火墙</strong>、硬件防火墙之分。</p>
@@ -3777,6 +3782,8 @@ wget -i filelist.txt
 <p><img src="/linux/f4d53350fbeae8cbf84e6a181eb299a6.png" alt=""></p>
 <h3 id="图片查看器">图片查看器</h3>
 <p><img src="/linux/ebb31976c405a22f59387ca8b2eaac51.png" alt=""></p>
+<h3 id="openssl">openssl</h3>
+<p>参考：https://www.openssl.net.cn/（openssl手册）</p>
 <h3 id="base64">base64</h3>
 <p>参考：https://blog.csdn.net/iw1210/article/details/53928436（Linux下用base64命令加解密字符串）</p>
 <h3 id="alias">alias</h3>
@@ -3811,9 +3818,11 @@ type:
 </code></pre><p>查询更具体的信息：</p>
 <pre><code>// 只要在查询的时候，加上-d参数，即可查询域名的缓存
 nslookup -d [其他参数] domain [dns-server]
-</code></pre><h3 id="ulimit取消linux同时打开文件个数限制">ulimit取消linux同时打开文件个数限制</h3>
-<p>Linux默认能同时打开的文件个数为65535个，一般情况按照日期进行限制就不会出现访问一下子超过65535导致系统宕机的情况，同时也可以使用指令：ulimit
--n 65535</p>
+</code></pre><h3 id="selinux">SELinux</h3>
+<p>与SELinux相关的有三个命令：getenforce、setenforce与sestatus</p>
+<p>参考：http://c.biancheng.net/view/3921.html（SELinux工作模式设置（getenforce、setenforce和sestatus命令））、https://blog.csdn.net/weixin_45861372/article/details/115362262（getenforce命令）</p>
+<h3 id="ulimit取消linux同时打开文件个数限制">ulimit取消linux同时打开文件个数限制</h3>
+<p>Linux默认能同时打开的文件个数为65535个，一般情况按照日期进行限制就不会出现访问一下子超过65535导致系统宕机的情况，同时也可以使用指令：<code>ulimit -n 65535</code></p>
 <h3 id="权限管理命令umask">权限管理命令：umask</h3>
 <p><img src="/linux/2c374c3b58b2030ad2da30475bb4d22d.png" alt=""></p>
 <p><img src="/linux/c8368c6fffada4661479dc8d38d1afc5.png" alt=""></p>
@@ -3940,7 +3949,7 @@ nslookup -d [其他参数] domain [dns-server]
     <li><a href="#linux的基本指令2">Linux的基本指令（2）</a></li>
     <li><a href="#一高级指令">一、高级指令</a>
       <ul>
-        <li><a href="#1hostname指令">1、hostname指令</a></li>
+        <li><a href="#1hostname与hostnamectl指令">1、hostname与hostnamectl指令</a></li>
         <li><a href="#2id指令">2、id指令</a></li>
         <li><a href="#3whoami指令">3、whoami指令</a></li>
         <li><a href="#4ps--ef指令重点">4、ps -ef指令（重点）</a></li>
@@ -4025,14 +4034,8 @@ nslookup -d [其他参数] domain [dns-server]
     <li><a href="#五作业">五、作业</a></li>
     <li><a href="#linux自有服务2">Linux自有服务（2）</a></li>
     <li><a href="#一设置主机名">一、设置主机名</a></li>
-    <li><a href="#二chkconfig">二、chkconfig</a>
-      <ul>
-        <li><a href="#设置开机自启的文件">设置开机自启的文件</a></li>
-      </ul>
-    </li>
+    <li><a href="#二chkconfig">二、chkconfig</a></li>
     <li><a href="#三ntp服务">三、ntp服务</a></li>
-    <li><a href="#chkconfig---listgrep-ntpd">chkconfig &ndash;list|grep ntpd</a></li>
-    <li><a href="#chkconfig---level-35-ntpd-on">chkconfig &ndash;level 35 ntpd on</a></li>
     <li><a href="#四防火墙服务">四、防火墙服务</a></li>
     <li><a href="#五rpm管理重点">五、rpm管理（重点）</a></li>
     <li><a href="#六croncrontab计划任务重点">六、cron/crontab计划任务（重点）</a></li>
@@ -4156,9 +4159,11 @@ nslookup -d [其他参数] domain [dns-server]
       <ul>
         <li><a href="#linux中的0-6">linux中的0-6</a></li>
         <li><a href="#图片查看器">图片查看器</a></li>
+        <li><a href="#openssl">openssl</a></li>
         <li><a href="#base64">base64</a></li>
         <li><a href="#alias">alias</a></li>
         <li><a href="#nslookup">nslookup</a></li>
+        <li><a href="#selinux">SELinux</a></li>
         <li><a href="#ulimit取消linux同时打开文件个数限制">ulimit取消linux同时打开文件个数限制</a></li>
         <li><a href="#权限管理命令umask">权限管理命令：umask</a></li>
         <li><a href="#其他文件搜索命令">其他文件搜索命令</a></li>

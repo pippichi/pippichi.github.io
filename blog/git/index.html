@@ -293,8 +293,16 @@ commit_id，之后再推送到远端即可回滚。</p>
 <p><img src="/git/3d951c2020409e15562cfbf9f3802df9.png" alt=""></p>
 <p>新建分支： <code>git branch branch1</code></p>
 <p>创建并切换到新分支：<code>git checkout -b newBranch</code></p>
+<p>创建并切换到新分支，且新分支的代码指向某个标签版本：<code>git checkout -b newBranch v1.15.1</code></p>
 <p>将branch1推到远程： <code>git checkout branch1</code>,切换到branch1，然后做想要的操作，最后push，遇到操作不对的时候系统会有提示，比方说（最后push的时候其实是<code>git push –set-upstream origin branch1</code>）</p>
-<h3 id="设置分支推送的目的地">设置分支推送的目的地</h3>
+<p>案例：</p>
+<pre><code>1、在目录下使用git clone git@github.com:xxxxx/yyyyy.git
+2、使用git branch查看本地的当前分支
+	你会看到你在master分支下
+3、这个时候往往会用git checkout -b dev origin/dev这个命令
+	它意思是说.切换到dev分支上,接着跟远程的origin地址上的dev分支关联起来,这里要注意origin代表是一个路径,可以用git remote -v 查看。说来白了,origin/dev有点像是git@github.com:xxxxx/yyyyy.git/dev
+4、接着在dev当前分支下进行操作,add,commit后,用git push origin dev,意思是推送当前的dev分支到远程origin地址的dev分支上
+</code></pre><h3 id="设置分支推送的目的地">设置分支推送的目的地</h3>
 <p>默认将本地的<code>dev</code>分支推送到<code>origin/dev</code>：</p>
 <pre><code>git branch --set-upstream-to=origin/dev dev
 git branch --set-upstream dev origin/dev
@@ -352,14 +360,20 @@ The simple, current and upstream modes are for those who want to push out a sing
 –skip忽略冲突。</p>
 <h2 id="git-remote">git remote</h2>
 <p>Git添加远程仓库：</p>
-<p>git remote add origin
-<a href="git@github.com:michaelliao/learngit.git">git@github.com:michaelliao/learngit.git</a></p>
+<p><code>git remote add origin git@github.com:michaelliao/learngit.git</code></p>
 <p>Git删除远程仓库：</p>
-<p>git remote rm origin</p>
+<p><code>git remote rm origin</code></p>
 <p>Git重定向远程仓库地址：</p>
-<p>git remote set-url origin xxxxx</p>
+<p><code>git remote set-url origin xxxxx</code></p>
 <p>Git重命名origin：</p>
-<p>git remote rename origin xxxxx</p>
+<p><code>git remote rename origin xxxxx</code></p>
+<p>查看远程仓库当前路径：</p>
+<p><code>git remote</code></p>
+<p><img src="git.assets/image-20220105232710554.png" alt="image-20220105232710554"></p>
+<p>这里origin代表的其实是一个路径</p>
+<p>查看远程仓库中origin路径（origin代表的是一个路径）：</p>
+<p><code>git remote -v</code></p>
+<p><img src="git.assets/image-20220105232808836.png" alt="image-20220105232808836"></p>
 <h2 id="git-stash">git stash</h2>
 <p>git stash #可用来暂存当前正在进行的工作<br>
 git stash pop #从Git栈中读取最近一次保存的内容</p>
