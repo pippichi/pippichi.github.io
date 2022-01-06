@@ -474,6 +474,14 @@ binary，该目录也是存储一些可以被执行的二进制文件，但是�
 <p>切换的方式：#cd ~</p>
 <p><img src="/linux/bf4d8254d14f04b7de4264f3cb727146.png" alt=""></p>
 <p><code>cd -</code>：表示返回到上一次的工作目录</p>
+<p><code>cd !$</code>：<code>!$</code>表示上一个命令后面带上的内容，因此<code>cd !$</code>表示进入到上一个命令后面带上的内容的目录中去。举个例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ mkdir /usr/local/data
+$ <span class="nb">cd</span> !$ <span class="c1"># 其实就相当于 cd /usr/local/data , 会进入到 /usr/local/data 目录中去</span>
+</code></pre></div><p>对于<code>!$</code>，我们也做个实验：</p>
+<p>先执行<code>uname -r</code>，再执行<code>!$</code>：</p>
+<p><img src="/linux/image-20220106225052913.png" alt="image-20220106225052913"></p>
+<p>先执行<code>mkdir data</code>，再执行<code>!$</code>：</p>
+<p><img src="/linux/image-20220106225209965.png" alt="image-20220106225209965"></p>
 <h3 id="4mkdir指令">4、mkdir指令</h3>
 <p>指令：mkdir （make directory，创建目录）</p>
 <p>语法1：<strong>#mkdir 路径 【路径，可以是文件夹名称也可以是包含名称的一个完整路径】</strong></p>
@@ -517,6 +525,7 @@ $ mkdir /dir{1..3}
 <p>案例：使用cp命令来复制一个文件夹</p>
 <p><strong>注意：当使用cp命令进行文件夹复制操作的时候需要添加选项“-r”【-r表示递归复制】，否则目录将被忽略</strong></p>
 <p><img src="/linux/ec2d5de9ef66e84f58dee229c178a49c.png" alt=""></p>
+<p>更多关于cp指令参数的说明请参考：https://www.runoob.com/linux/linux-comm-cp.html（cp命令）</p>
 <h3 id="7mv指令">7、mv指令</h3>
 <p>指令：mv （move，移动，剪切）</p>
 <p>作用：移动文档到新的位置</p>
@@ -880,9 +889,11 @@ process ID）；</p>
 <h3 id="15uname指令">15、uname指令</h3>
 <p>作用：获取计算机操作系统相关信息</p>
 <p>语法1：#uname 获取操作系统的类型</p>
-<p><strong>语法2：#uname -a</strong>
-<strong>all，表示获取全部的系统信息（类型、全部主机名、内核版本、发布时间、开源计划）</strong></p>
+<p>语法2：#uname -a
+all，表示获取全部的系统信息（类型、全部主机名、内核版本、发布时间、开源计划）</p>
 <p><img src="/linux/8979002cdf92505ebf42149606ab40f6.png" alt=""></p>
+<p>语法3：#uname -r 可以获取当前内核版本</p>
+<p><img src="/linux/image-20220106222630812.png" alt="image-20220106222630812"></p>
 <h3 id="16netstat--tnlp指令">16、netstat -tnlp指令</h3>
 <p>作用：查看网络连接状态</p>
 <p>语法：#netstat -tnlp</p>
@@ -2289,7 +2300,9 @@ Protocol），是<strong>根据IP地址获取（MAC）物理地址的协议</str
 <p><strong>大多数Linux系统默认使用的shell</strong>，bash shell 是 Bourne shell
 的一个免费版本，它是最早的 Unix
 shell，bash还有一个特点，可以通过help命令来查看帮助。包含的功能几乎可以涵盖shell所具有的功能，所以一般的shell脚本都会指定它为执行路径。</p>
-<h3 id="2shell入门">2、shell入门</h3>
+<p>运行脚本命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ bash xxx.sh
+</code></pre></div><h3 id="2shell入门">2、shell入门</h3>
 <p>编写规范：</p>
 <p>代码规范：</p>
 <p>#!/bin/bash [指定告知系统当前这个脚本要使用的shell解释器]</p>
@@ -3788,6 +3801,14 @@ wget -i filelist.txt
 <p>参考：https://blog.csdn.net/iw1210/article/details/53928436（Linux下用base64命令加解密字符串）</p>
 <h3 id="alias">alias</h3>
 <p>参考：https://blog.csdn.net/sway_wu/article/details/82992359（linux alias）</p>
+<h3 id="sysctl">sysctl</h3>
+<p>参考：https://blog.csdn.net/shixin_0125/article/details/78943245（Linux系统中sysctl命令详解 <code>sysctl -p</code>、<code>sysctl -a</code>、<code>sysctl -w</code>）</p>
+<h3 id="systemctl">systemctl</h3>
+<p>参考：https://blog.csdn.net/skh2015java/article/details/94012643（linux中systemctl详细理解及常用命令）</p>
+<h3 id="timedatectl">timedatectl</h3>
+<p>参考：https://blog.csdn.net/liumiaocn/article/details/88408155（timedatectl命令使用介绍）</p>
+<h3 id="lsmod">lsmod</h3>
+<p>参考：https://www.runoob.com/linux/linux-comm-lsmod.html（lsmod 命令）</p>
 <h3 id="nslookup">nslookup</h3>
 <p>nslookup用于查询DNS的记录，查询域名解析是否正常，在网络故障时用来诊断网络问题</p>
 <p>直接查询：</p>
@@ -3828,7 +3849,7 @@ nslookup -d [其他参数] domain [dns-server]
 <p><img src="/linux/c8368c6fffada4661479dc8d38d1afc5.png" alt=""></p>
 <p><img src="/linux/3487aa6a093e1add90f9ed51dfcb3f36.png" alt=""></p>
 <p><img src="/linux/672ef738f3dea6160888ba4091452e6a.png" alt=""></p>
-<h3 id="其他文件搜索命令">其他文件搜索命令</h3>
+<h3 id="文件搜索命令">文件搜索命令</h3>
 <h4 id="locate">locate</h4>
 <p><img src="/linux/059316edf3399e42b55c829007e0fe09.png" alt=""></p>
 <p>locate -i（忽略文件大小写）</p>
@@ -4162,11 +4183,15 @@ nslookup -d [其他参数] domain [dns-server]
         <li><a href="#openssl">openssl</a></li>
         <li><a href="#base64">base64</a></li>
         <li><a href="#alias">alias</a></li>
+        <li><a href="#sysctl">sysctl</a></li>
+        <li><a href="#systemctl">systemctl</a></li>
+        <li><a href="#timedatectl">timedatectl</a></li>
+        <li><a href="#lsmod">lsmod</a></li>
         <li><a href="#nslookup">nslookup</a></li>
         <li><a href="#selinux">SELinux</a></li>
         <li><a href="#ulimit取消linux同时打开文件个数限制">ulimit取消linux同时打开文件个数限制</a></li>
         <li><a href="#权限管理命令umask">权限管理命令：umask</a></li>
-        <li><a href="#其他文件搜索命令">其他文件搜索命令</a></li>
+        <li><a href="#文件搜索命令">文件搜索命令</a></li>
         <li><a href="#更新文件资料库">更新文件资料库</a></li>
         <li><a href="#whatis">whatis</a></li>
         <li><a href="#apropos">apropos</a></li>

@@ -304,48 +304,78 @@ http {
 <li>alias在使用正则匹配时，必须捕捉要匹配的内容并在指定的内容处使用。</li>
 <li>alias只能位于location块中。（root可以不放在location中）</li>
 </ul>
-<h2 id="配置keepalivedconf">配置keepalived.conf</h2>
-<p>global_defs {
-notification_email {
-<a href="mailto:acassen@firewall.loc">acassen@firewall.loc</a>
-<a href="mailto:failover@firewall.loc">failover@firewall.loc</a>
-<a href="mailto:sysadmin@firewall.loc">sysadmin@firewall.loc</a>
+<h2 id="nginx高可用配合keepalived实现vip">Nginx高可用（配合Keepalived实现VIP）</h2>
+<p>参考：https://blog.csdn.net/miraclerz/article/details/102504931（centos7 下用Keepalived nginx 实现Vip虚拟ip）</p>
+<h3 id="配置keepalivedconf">配置keepalived.conf</h3>
+<pre><code>global_defs {
+   notification_email {
+     acassen@firewall.loc
+     failover@firewall.loc
+     sysadmin@firewall.loc
+   }
+   notification_email_from Alexandre.Cassen@firewall.loc
+   smtp_server 192.168.200.1
+   smtp_connect_timeout 30
+   router_id LVS_DEVEL  # 访问到主机（LVS_DEVEL的说明见 linux补充.md）
+
 }
-notification_email_from <a href="mailto:Alexandre.Cassen@firewall.loc">Alexandre.Cassen@firewall.loc</a>
-smtp_server 192.168.200.1
-smtp_connect_timeout 30
-router_id LVS_DEVEL  # 访问到主机（LVS_DEVEL的说明见 linux补充.md）</p>
-<p>}</p>
-<p>vrrp_script chk_http_port {</p>
-<p>​	script &ldquo;/usr/local/src/nginx_check.sh&rdquo;  # 检测心跳用的脚本文件，具体说明见下方“检测心跳用的脚本文件”</p>
-<p>​	interval 2    # 检测脚本执行的间隔，这里的2表示每隔2秒检测一次</p>
-<p>​	weight -20  # 权重 ，当主服务器down机，从服务器需要变成主服务器，这时候我们会对主服务器的权重做一个改变，可能就会让他的权重 -20</p>
-<p>}</p>
-<p>vrrp_instance VI_1 {</p>
-<p>​	state BACKUP   # 主服务器用MASTER，备份服务器上将 MASTER 改为 BACKUP</p>
-<p>​	interface ens33  # 本机网卡，使用ifconfig查看</p>
-<p>​	virtual_router_id  51  # 主、备机的virtual_router_id必须相同</p>
-<p>​	priority  90  # 主、备机取不同的优先级，主机值较大，备份机值较小</p>
-<p>​	advert_int  1 # 每隔多久发送一次心跳，这里写了1，表示每隔1秒发送一次心跳</p>
-<p>​	authentication {  # 校验的方式，使用的是PASS（密码方式），密码是1111</p>
-<p>​		auth_type  PASS</p>
-<p>​		auth_pass  1111</p>
-<p>​	}</p>
-<p>​	virtual_ipaddress {</p>
-<p>​		192.168.17.50  # VRRP H虚拟地址。注意，这里可以绑定多个虚拟ip地址</p>
-<p>​	}</p>
-<p>}</p>
-<h2 id="检测心跳用的脚本文件">检测心跳用的脚本文件</h2>
-<p>#!/bin/bash</p>
-<p>A=``ps -C nginx -no-header |wc -l<code>\</code></p>
-<p>if [ $A -eq 0 ];then</p>
-<p>​	/usr/local/nginx/sbin/nginx</p>
-<p>​	sleep 2</p>
-<p>​	if [ ``ps -C nginx &ndash;no-header |wc -l<code>\</code> -eq 0  ];then</p>
-<p>​		killall keepalived</p>
-<p>​	fi</p>
-<p>fi</p>
-<p>注意这个脚本写的位置在：/usr/local/src/nginx_check.sh</p>
+
+vrrp_script chk_http_port {
+
+	script &quot;/usr/local/src/nginx_check.sh&quot;  # 检测心跳用的脚本文件，具体说明见下方“检测心跳用的脚本文件”
+
+	interval 2    # 检测脚本执行的间隔，这里的2表示每隔2秒检测一次
+
+	weight -20  # 权重 ，当主服务器down机，从服务器需要变成主服务器，这时候我们会对主服务器的权重做一个改变，可能就会让他的权重 -20 
+
+}
+
+vrrp_instance VI_1 {
+
+	state BACKUP   # 主服务器用MASTER，备份服务器上将 MASTER 改为 BACKUP
+
+	interface ens33  # 本机网卡，使用ifconfig查看
+
+	virtual_router_id  51  # 主、备机的virtual_router_id必须相同
+
+	priority  90  # 主、备机取不同的优先级，主机值较大，备份机值较小
+
+	advert_int  1 # 每隔多久发送一次心跳，这里写了1，表示每隔1秒发送一次心跳
+
+	authentication {  # 校验的方式，使用的是PASS（密码方式），密码是1111
+
+		auth_type  PASS
+
+		auth_pass  1111
+
+	}
+
+	virtual_ipaddress {
+
+		192.168.17.50  # VRRP H虚拟地址。注意，这里可以绑定多个虚拟ip地址
+
+	}
+
+}
+</code></pre><h3 id="检测心跳用的脚本文件nginx_checksh">检测心跳用的脚本文件<code>nginx_check.sh</code></h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>
+<span class="nv">A</span><span class="o">=</span>ps -C nginx -no-header <span class="p">|</span> wc -l
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$A</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+
+	/usr/local/nginx/sbin/nginx
+
+	sleep <span class="m">2</span>
+
+	<span class="k">if</span> <span class="o">[</span> ps -C nginx --no-header <span class="p">|</span>wc -l -eq <span class="m">0</span>  <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+
+		killall keepalived
+
+	<span class="k">fi</span>
+
+<span class="k">fi</span>
+</code></pre></div><p>注意这个脚本写的位置在：<code>/usr/local/src/nginx_check.sh</code></p>
   </section>
 
   <section>
@@ -366,8 +396,12 @@ router_id LVS_DEVEL  # 访问到主机（LVS_DEVEL的说明见 linux补充.md）
   <ul>
     <li><a href="#nginx配置模板">nginx配置模板</a></li>
     <li><a href="#nginx中locationrootalias的关系">nginx中location、root、alias的关系</a></li>
-    <li><a href="#配置keepalivedconf">配置keepalived.conf</a></li>
-    <li><a href="#检测心跳用的脚本文件">检测心跳用的脚本文件</a></li>
+    <li><a href="#nginx高可用配合keepalived实现vip">Nginx高可用（配合Keepalived实现VIP）</a>
+      <ul>
+        <li><a href="#配置keepalivedconf">配置keepalived.conf</a></li>
+        <li><a href="#检测心跳用的脚本文件nginx_checksh">检测心跳用的脚本文件<code>nginx_check.sh</code></a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
   
