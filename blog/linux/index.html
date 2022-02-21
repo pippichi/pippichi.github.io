@@ -2829,6 +2829,29 @@ install/bootstrapd install） (在make之后还可以make test测试make的结�
 <p><img src="/linux/3bcdec5d1bd9a6e138c18bbf24f40fe4.png" alt=""></p>
 <p>案例：使用yum指令安装火狐浏览器</p>
 <p>#yum install firefox</p>
+<p><strong>补充事项：</strong></p>
+<ul>
+<li>
+<p>yum会将下载下来的包文件rpm和头文件header存盘在本地机器的硬盘缓存中，这将占用硬盘空间，可以将这些内容清除掉，以释放磁盘空间：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ yum clean headers <span class="c1"># 释放头文件</span>
+$ yum clean packages <span class="c1"># 清除包文件</span>
+$ yum clean all <span class="c1"># 清除所有</span>
+</code></pre></div></li>
+<li>
+<p><code>yum makecache</code>的作用</p>
+<p><code>yum makecache</code>会从服务器中下载一些信息，测试：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ yum clean all
+$ yum install createrepo -y
+$ yum remove createrepo -y
+<span class="c1"># 断网之后</span>
+$ yum install createrepo -y <span class="c1"># 安装成功</span>
+<span class="c1"># 发现还是可以安装成功，所以可以判断这时通过缓存安装的，但是为了严谨再执行以下命令</span>
+$ yum clean all <span class="c1"># 清理缓存再安装</span>
+$ yum install createrepo -y <span class="c1"># 安装失败</span>
+</code></pre></div><p>根据上述实验，我们可以判断yum安装软件包的时候就已经把该软件包缓存起来了，而不需要执行<code>yum makecache</code>进行额外的缓存。但是很多资料中都说安装好软件之后需要执行<code>yum makecache</code>这个命令进行缓存（不知道是什么原因）</p>
+<p>总结：yum安装的时候会将安装包进行缓存，不过最好还是再执行一下<code>yum makecache</code>命令</p>
+</li>
+</ul>
 <h3 id="2安装mysql重点">2、安装MySQL（重点）</h3>
 <p>注：此处安装以yum安装为例</p>
 <h4 id="21mysql安装">2.1、MySQL安装</h4>
