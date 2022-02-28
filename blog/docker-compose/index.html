@@ -592,6 +592,8 @@ MYSQL_ROOT_PASSWORD=root
 </span><span class="w">  </span><span class="nt">db</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">postgres</span><span class="w">
 </span></code></pre></div><p>这样 web 服务就可以使用 db 或 database 作为 hostname 访问 db 服务了</p>
+<h3 id="16privileged">16、privileged</h3>
+<p>参考：https://blog.csdn.net/java_sha/article/details/109576497（<code>docker-compose</code> 中 privileged 的使用）</p>
 <h2 id="指令">指令</h2>
 <p><strong>compose 模板指令 和 指令 的区别</strong></p>
 <ul>
@@ -742,6 +744,11 @@ $ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /
 <h3 id="登录和使用">登录和使用</h3>
 <pre><code>http://localhost:9000
 </code></pre><p>使用方式查网络资料</p>
+<h2 id="env文件"><code>.env</code>文件</h2>
+<p><code>.env</code>文件包含了一些变量，这些变量可以在 <code>docker-compose.yml</code> 文件中通过 <code>${variable_name}</code> 来引用</p>
+<p>需要注意的是：<code>.env</code>文件需要与<code>docker-compose.yml</code>文件放在同一目录下</p>
+<h2 id="部署mysql-80">部署mysql 8.0</h2>
+<p>参考：https://www.cnblogs.com/amadeuslee/p/15696294.html（<code>docker-compose</code>部署mysql8）、https://blog.csdn.net/weixin_40461281/article/details/111246938（<code>docker-compose</code>部署mysql8并初始化数据）</p>
   </section>
 
   <section>
@@ -779,6 +786,7 @@ $ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /
         <li><a href="#13dns与dns_search">13、<code>dns</code>与<code>dns_search</code></a></li>
         <li><a href="#14expose与ports">14、expose与ports</a></li>
         <li><a href="#15links">15、links</a></li>
+        <li><a href="#16privileged">16、privileged</a></li>
       </ul>
     </li>
     <li><a href="#指令">指令</a>
@@ -794,6 +802,8 @@ $ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /
         <li><a href="#登录和使用">登录和使用</a></li>
       </ul>
     </li>
+    <li><a href="#env文件"><code>.env</code>文件</a></li>
+    <li><a href="#部署mysql-80">部署mysql 8.0</a></li>
   </ul>
 </nav></div>
   

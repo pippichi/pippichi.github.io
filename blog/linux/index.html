@@ -981,10 +981,11 @@ filename：这个命令其实只是简单地读取脚本里面的语句依次在
 <p>sed -i &lsquo;5,10 s/root/FTL/g&rsquo; yum.log【-i 会真正替换信息】</p>
 <h3 id="21echo">21、echo</h3>
 <p>命令详解，参考：https://www.zsythink.net/archives/96</p>
-<p>使用<code>echo -n &quot;admin&quot; | base64</code>可以输出对“admin”以base64加密之后的字符串</p>
-<p>使用<code>echo $变量名</code>可以输出该变量的值（变量包括系统环境变量），比方说<code>$HOME</code>就是家目录</p>
-<p>使用<code>echo $?</code>可以查看上一个命令是否执行成功，0代表成功，1代表失败</p>
-<p><strong>shell中的特殊变量及其意义：</strong></p>
+<pre><code>$ echo -n &quot;admin&quot; | base64 # 输出对“admin”以base64加密之后的字符串
+$ echo $变量名 # 输出该变量的值（变量包括系统环境变量），比方说$HOME就是家目录
+$ echo $? # 查看上一个命令是否执行成功，0代表成功，1代表失败
+$ echo `命令` # 输出执行该命令之后在屏幕上显示的文本内容，比如 echo `date` 就会显示“2022年02月28日 21:33:16”；再比如 echo `ls` 就会显示“blogs/ c/ c++/ tmp/ 特征工程.md git/ ...”
+</code></pre><p><strong>shell中的特殊变量及其意义：</strong></p>
 <table>
 <thead>
 <tr>
