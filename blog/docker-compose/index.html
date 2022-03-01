@@ -747,8 +747,163 @@ $ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /
 <h2 id="env文件"><code>.env</code>文件</h2>
 <p><code>.env</code>文件包含了一些变量，这些变量可以在 <code>docker-compose.yml</code> 文件中通过 <code>${variable_name}</code> 来引用</p>
 <p>需要注意的是：<code>.env</code>文件需要与<code>docker-compose.yml</code>文件放在同一目录下</p>
-<h2 id="部署mysql-80">部署mysql 8.0</h2>
+<h2 id="部署案例">部署案例</h2>
+<p><strong>部署mysql 8.0：</strong></p>
 <p>参考：https://www.cnblogs.com/amadeuslee/p/15696294.html（<code>docker-compose</code>部署mysql8）、https://blog.csdn.net/weixin_40461281/article/details/111246938（<code>docker-compose</code>部署mysql8并初始化数据）</p>
+<p><strong>部署PowerJob：</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.5&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">mysql</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:latest</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;3306:3306&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;${MYSQL_DIR}/data/:/var/lib/mysql/&#34;</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;${MYSQL_DIR}/conf/:/etc/mysql/conf.d/&#34;</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;${MYSQL_DIR}/init/:/docker-entrypoint-initdb.d/&#34;</span><span class="w">
+</span><span class="w">    </span><span class="c"># environment:</span><span class="w">
+</span><span class="w">    </span><span class="c">#   - MYSQL_ROOT_PASSWORD=root</span><span class="w">
+</span><span class="w">    </span><span class="nt">env_file</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># .env文件中主要是一些环境变量，比如MYSQL_ROOT_PASSWORD、MYSQL_DIR等</span><span class="w">
+</span><span class="w">      </span>- <span class="l">./.env</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> 
+</span><span class="w">      </span>--<span class="l">default-authentication-plugin=mysql_native_password</span><span class="w">
+</span><span class="w">      </span>--<span class="l">character-set-server=utf8mb4</span><span class="w">
+</span><span class="w">      </span>--<span class="l">collation-server=utf8mb4_general_ci</span><span class="w">
+</span><span class="w">      </span>--<span class="l">explicit_defaults_for_timestamp=true</span><span class="w">
+</span><span class="w">      </span>--<span class="l">lower_case_table_names=1</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">mongo</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">mongo</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mongo:latest</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;27017:27017&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">./mongo/data:/data/db</span><span class="w">
+</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">TZ</span><span class="p">:</span><span class="w"> </span><span class="l">Asia/Shanghai</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">powerjob-server</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># build:</span><span class="w">
+</span><span class="w">    </span><span class="c">#   context: ./bxfarming_backend</span><span class="w">
+</span><span class="w">    </span><span class="c">#   dockerfile: Dockerfile</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">tjqq/powerjob-server:latest</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server</span><span class="w">
+</span><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;7700:7700&#34;</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;10086:10086&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">TZ</span><span class="p">:</span><span class="w"> </span><span class="l">Asia/Shanghai</span><span class="w">
+</span><span class="w">      </span><span class="nt">JVMOPTIONS</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w">      </span><span class="nt">PARAMS</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;--spring.profiles.active=product --spring.datasource.core.jdbc-url=jdbc:mysql://localhost:3306/powerjob-product?useUnicode=true&amp;characterEncoding=UTF-8 --spring.datasource.core.username=root --spring.datasource.core.password=root --spring.data.mongodb.uri=mongodb://localhost:27017/powerjob-product&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">powerjob-server-data:/root/powerjob/server</span><span class="w">
+</span><span class="w">      </span>- <span class="l">./powerjob-server/.m2:/root/.m2</span><span class="w">
+</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">mysql</span><span class="w">
+</span><span class="w">      </span>- <span class="l">mongo</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">powerjob-server-data</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">external</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="kc">false</span><span class="w">
+</span></code></pre></div><p><strong>部署前后端项目：</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.5&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">mysql01</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">mysql01</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;3306:3306&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">mysqldata:/var/lib/mysql</span><span class="w">
+</span><span class="w">      </span>- <span class="l">mysqlconf:/etc/mysql</span><span class="w">
+</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">MYSQL_ROOT_PASSWORD=bxfarming</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">redis01</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">redis01</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;6379:6379&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">minio01</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">minio01</span><span class="w">
+</span><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">minio/minio</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;9000:9000&#34;</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;9001:9001&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">miniodata:/data</span><span class="w">
+</span><span class="w">      </span>- <span class="l">minioconfig:/root/.minio</span><span class="w">
+</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">MINIO_ACCESS_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">bxfarming</span><span class="w">
+</span><span class="w">      </span><span class="nt">MINIO_SECRET_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">bxfarming</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">server /data --address &#34;:9000&#34; --console-address &#34;:9001&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">minio_client01</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l">./minioClient</span><span class="w">
+</span><span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l">Dockerfile</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">minio_client01</span><span class="w">
+</span><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;10001:10001&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">redis01</span><span class="w">
+</span><span class="w">      </span>- <span class="l">minio01</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">bxfarming_backend01</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l">./bxfarming_backend</span><span class="w">
+</span><span class="w">      </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l">Dockerfile</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">bxfarming_backend01</span><span class="w">
+</span><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;8080:8080&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">mysql01</span><span class="w">
+</span><span class="w">      </span>- <span class="l">minio_client01</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">bxfarming_foreend01</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">bxfarming_foreend01</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:latest</span><span class="w">
+</span><span class="w">    </span><span class="c"># 数据卷 映射本地文件到容器</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">./bxfarming_foreend/scripts/nginx.conf:/etc/nginx/nginx.conf</span><span class="w">
+</span><span class="w">      </span>- <span class="l">./bxfarming_foreend/dist:/usr/share/nginx/html</span><span class="w">
+</span><span class="w">    </span><span class="c"># 覆盖容器启动后默认执行的命令。</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l">/bin/bash -c &#34;nginx -g &#39;daemon off;&#39;&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">network_mode</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;host&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;80:80&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">bxfarming_backend01</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">mysqldata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">mysqlconf</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">miniodata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">minioconfig</span><span class="p">:</span><span class="w">
+</span></code></pre></div><p>完整项目：<a href="https://github.com/pippichi/work/tree/master/bxfarming">bxfarming</a></p>
   </section>
 
   <section>
@@ -803,7 +958,7 @@ $ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /
       </ul>
     </li>
     <li><a href="#env文件"><code>.env</code>文件</a></li>
-    <li><a href="#部署mysql-80">部署mysql 8.0</a></li>
+    <li><a href="#部署案例">部署案例</a></li>
   </ul>
 </nav></div>
   

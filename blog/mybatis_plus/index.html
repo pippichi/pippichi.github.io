@@ -296,7 +296,7 @@ if (!doNotTrack) {
 </code></pre></div><p>这样我们就不需要给每个实体类都加上t_前缀了（换句话说实体类上的@TableName(&ldquo;t_xxx&rdquo;)就不需要了）</p>
 <p>而且我们还设置了默认主键自增，因此@TableId(type=IdType.AUTO)中的type属性也不需要写了，也就是说只需要写@TableId就行了</p>
 <h2 id="mybatis-plus-处理器">Mybatis Plus 处理器</h2>
-<p>有诸如<code>MetaObjectHandler</code>等，可以参考张润华的<code>supcon-parent</code>（<strong><a href="https://github.com/pippichi/code_template">详见项目infrastructure</a></strong>）或者网络资料</p>
+<p>有诸如<code>MetaObjectHandler</code>等，可以参考张润华的<a href="https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent"><code>supcon-parent</code></a>或者网络资料</p>
 <h2 id="ar模式">AR模式</h2>
 <p>AR模式中不需要再获取Mapper对象，然后再将实体类传入给mapper层完成数据库操作，直接使用实体类即可完成操作（pojo实体类就会有增删改查功能），提高开发效率（其实实体类调用的增删改查底层还是在调用mapper，而且这个mapper我们还是得创建，不然它找不到）</p>
 <p>使用示例：</p>

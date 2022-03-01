@@ -2975,7 +2975,7 @@ systemctl start nfs
 </span><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">nginx</span><span class="w">
 </span><span class="w"></span><span class="nn">---</span><span class="w">
-</span><span class="w"></span><span class="c"># 如果要创建以恶搞StatefulSet，必须要先创建一个无头svc</span><span class="w">
+</span><span class="w"></span><span class="c"># 如果要创建一个StatefulSet，必须要先创建一个无头svc</span><span class="w">
 </span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
 </span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">StatefulSet</span><span class="w">
 </span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
@@ -4990,6 +4990,192 @@ $ kubectl get endpoints kube-scheduler --namespace<span class="o">=</span>kube-s
 <p>那么工作节点的添加就很简单了，可以去<code>/usr/local/kubernetes/install/kubeadm-init.log</code>文件，看到下面这行命令：</p>
 <p><img src="/k8s2019.assets/image-20220106231310995.png" alt="image-20220106231310995"></p>
 <p>用这行命令逐一添加工作节点即可</p>
+<h2 id="部署案例">部署案例</h2>
+<p><strong>部署PowerJob：</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">init-config</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">initdb.sql</span><span class="p">:</span><span class="w"> </span><span class="sd">|
+</span><span class="sd">  	CREATE DATABASE IF NOT EXISTS `powerjob-product` DEFAULT CHARSET utf8mb4;
+</span><span class="sd">  TZ: Asia/Shanghai
+</span><span class="sd">  JVMOPTIONS: &#34;&#34;
+</span><span class="sd">  PARAMS: &#34;--spring.profiles.active=product --spring.datasource.core.jdbc-url=jdbc:mysql://localhost:3306/powerjob-product?useUnicode=true&amp;characterEncoding=UTF-8 --spring.datasource.core.username=root --spring.datasource.core.password=root --spring.data.mongodb.uri=mongodb://localhost:27017/powerjob-product&#34;
+</span><span class="sd">
+</span><span class="sd">---
+</span><span class="sd">
+</span><span class="sd">apiVersion: v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolume</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pv0001</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">capacity</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="nt">volumeMode</span><span class="p">:</span><span class="w"> </span><span class="l">Filesystem</span><span class="w">
+</span><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="c"># 回收策略</span><span class="w">
+</span><span class="w">  </span><span class="nt">persistentVolumeReclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="c"># mountOptions可以不用指定，让他自行判断</span><span class="w">
+</span><span class="w">  </span><span class="c"># mountOptions:</span><span class="w">
+</span><span class="w">    </span><span class="c"># - hard</span><span class="w">
+</span><span class="w">    </span><span class="c"># - nfsvers=4.1</span><span class="w">
+</span><span class="w">  </span><span class="nt">nfs</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolume</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pv0002</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">capacity</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="nt">volumeMode</span><span class="p">:</span><span class="w"> </span><span class="l">Filesystem</span><span class="w">
+</span><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="c"># 回收策略</span><span class="w">
+</span><span class="w">  </span><span class="nt">persistentVolumeReclaimPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="nt">storageClassName</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="c"># mountOptions可以不用指定，让他自行判断</span><span class="w">
+</span><span class="w">  </span><span class="c"># mountOptions:</span><span class="w">
+</span><span class="w">    </span><span class="c"># - hard</span><span class="w">
+</span><span class="w">    </span><span class="c"># - nfsvers=4.1</span><span class="w">
+</span><span class="w">  </span><span class="nt">nfs</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server-data</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="c"># storageClassName: xxx</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">m2</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">accessModes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="nt">resources</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">requests</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">storage</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="c"># storageClassName: xxx</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w"> 
+</span><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server</span><span class="w">
+</span><span class="w">      </span><span class="c"># release: xxx</span><span class="w">
+</span><span class="w">      </span><span class="c"># env: xxx</span><span class="w">
+</span><span class="w">    </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server</span><span class="w">
+</span><span class="w">          </span><span class="c"># release: xxx</span><span class="w">
+</span><span class="w">          </span><span class="c"># env: xxx</span><span class="w">
+</span><span class="w">      </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="c"># Init C没启动完毕之前Main C是不会启动的</span><span class="w">
+</span><span class="w">        </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server</span><span class="w">
+</span><span class="w">          </span><span class="c"># 这里镜像最好指定版本或者标签，不然的话默认下载latest，而10年前的latest跟现在的latest肯定不是一个版本，可能会导致镜像重复拉取最终导致拉取失败，导致报错，导致容器启动失败</span><span class="w">
+</span><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">tjqq/powerjob-server:latest</span><span class="w">
+</span><span class="w">          </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span><span class="w">          </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">xxx1</span><span class="w">
+</span><span class="w">          	</span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">7700</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">xxx2</span><span class="w">
+</span><span class="w">            </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">10086</span><span class="w">
+</span><span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">TZ</span><span class="w">
+</span><span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="nt">configMapKeyRef</span><span class="p">:</span><span class="w">
+</span><span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">init-config</span><span class="w">
+</span><span class="w">                </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">TZ</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">JVMOPTIONS</span><span class="w">
+</span><span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="nt">configMapKeyRef</span><span class="p">:</span><span class="w">
+</span><span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">init-config</span><span class="w">
+</span><span class="w">                </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">JVMOPTIONS</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PARAMS</span><span class="w">
+</span><span class="w">            </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span><span class="w">              </span><span class="nt">configMapKeyRef</span><span class="p">:</span><span class="w">
+</span><span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">init-config</span><span class="w">
+</span><span class="w">                </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">PARAMS</span><span class="w">
+</span><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/root/powerjob/server</span><span class="w">
+</span><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server-data</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/root/.m2</span><span class="w">
+</span><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">m2</span><span class="w">
+</span><span class="w">        </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server-data</span><span class="w">
+</span><span class="w">       	  </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">
+</span><span class="w">       	    </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server-data</span><span class="w">
+</span><span class="w">       	</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">m2</span><span class="w">
+</span><span class="w">       	  </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">
+</span><span class="w">       	    </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">m2</span><span class="w">
+</span><span class="w">        </span><span class="c"># initContainers表示以下容器是需要被先初始化的（就是上面说的Init C）</span><span class="w">
+</span><span class="w">        </span><span class="c"># 注意，不管是readinessProbe还是livenessProbe还是Init C还是start还是stop都是可以绑在一个容器下配合使用的，这里是为了演示方便，才单独分开写</span><span class="w">
+</span><span class="w">        </span><span class="nt">initContainers</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">init-mysql</span><span class="w">
+</span><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">          </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-C&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mysql -u xxx -p xxx -h xxx -P xxx &lt; app/config/init.sql&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">          </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">mysql-initdb</span><span class="w">
+</span><span class="w">            </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">app/config</span><span class="w">
+</span><span class="w">  		</span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">  		</span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">mysql-initdb</span><span class="w">
+</span><span class="w">    	  </span><span class="nt">configMap</span><span class="p">:</span><span class="w">
+</span><span class="w">      		</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">init-config</span><span class="w">
+</span><span class="w">      		</span><span class="nt">items</span><span class="p">:</span><span class="w">
+</span><span class="w">      		</span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">initdb.sql</span><span class="w">
+</span><span class="w">        	  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">init.sql</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nn">---</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server</span><span class="w">
+</span><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">xxx</span><span class="w">
+</span><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">powerjob-server</span><span class="w">
+</span><span class="w">    </span><span class="c"># release: xxx</span><span class="w">
+</span><span class="w">    </span><span class="c"># env: xxx</span><span class="w">
+</span><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">xxx1</span><span class="w">
+</span><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">7700</span><span class="w">
+</span><span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">7700</span><span class="w">
+</span><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">xxx2</span><span class="w">
+</span><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">10086</span><span class="w">
+</span><span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">10086</span><span class="w">
+</span></code></pre></div>
   </section>
 
   <section>
@@ -5104,6 +5290,7 @@ $ kubectl get endpoints kube-scheduler --namespace<span class="o">=</span>kube-s
         <li><a href="#kubeadm-部署安装">kubeadm 部署安装</a></li>
       </ul>
     </li>
+    <li><a href="#部署案例">部署案例</a></li>
   </ul>
 </nav></div>
   
