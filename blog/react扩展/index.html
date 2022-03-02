@@ -27,7 +27,7 @@ if (!doNotTrack) {
     
     
     <meta name="description" property="og:description" content="总结了setState两种写法、lazyLoad、State Hook、Effect Hook、Ref Hook、Fragment、Context、组件优化、render props、错误边界等
-Code in GitHub: react_basic
+Code in GitHub: react2021
 |Just for record">
     
 
@@ -41,7 +41,7 @@ Code in GitHub: react_basic
     <meta name="twitter:creator" content="@">
     <meta name="twitter:title" content="react补充 | Learning Records">
     <meta name="twitter:description" content="总结了setState两种写法、lazyLoad、State Hook、Effect Hook、Ref Hook、Fragment、Context、组件优化、render props、错误边界等
-Code in GitHub:  react_basic|Just for record">
+Code in GitHub:  react2021|Just for record">
     <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
     
 
@@ -134,7 +134,7 @@ Code in GitHub:  react_basic|Just for record">
   
   <section class="pb-6 mb-3 border-bottom">
     <p>总结了setState两种写法、lazyLoad、State Hook、Effect Hook、Ref Hook、Fragment、Context、组件优化、render props、错误边界等</p>
-<p>Code in GitHub:  <strong><a href="https://github.com/pippichi/react_basic/tree/master/react_extension">react_basic</a></strong></p>
+<p>Code in GitHub:  <strong><a href="https://github.com/pippichi/react/tree/master/react2021">react2021</a></strong></p>
 <h2 id="1-setstate">1. setState</h2>
 <h3 id="setstate更新状态的2种写法">setState更新状态的2种写法</h3>
 <pre><code>	(1). setState(stateChange, [callback])------对象式的setState
@@ -511,7 +511,7 @@ C组件: 读取A组件传入的数据显示 {this.props.data}
 <p>antd中js代码一般是具备tree shaking的，css存在全局引入和按需引入两种</p>
 <p>全局引入就是按照antd官网的做法把所有css引入：</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="s1">&#39;antd/dist/antd.css&#39;</span><span class="p">;</span>
-</code></pre></div><p>按需引入在GitHub的<code>react_basic</code>仓库中有示例代码，具体步骤为：</p>
+</code></pre></div><p>按需引入在GitHub的<a href="https://github.com/pippichi/react/tree/master/react2021"><code>react2021</code></a>仓库中有示例代码，具体步骤为：</p>
 <p>首先根目录创建<code>config-overrides.js</code>，然后在文件中写入：</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
 <span class="kr">const</span> <span class="p">{</span>

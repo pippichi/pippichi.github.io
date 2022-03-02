@@ -472,6 +472,8 @@ set global validate<span class="nb">_</span>password.length=1;
 当需要在&ndash;innodb_force_recovery选项是正数的情况下修复数据库时，错误日志通常会有明确的提示信息。</p>
 <p>当设置innodb_force_recovery大于0之后，可以对表进行select、create、drop操作，但insert、update、delete这类操作是不允许的。所以在最后表修复完成之后，不要忘了把innodb_force_recovery设置为0或注释掉</p>
 <p>如果仍不能启动，可以使用备份来还原数据库，推荐先物理备份下/var/lib/mysql，之后可以试着删除ib_logfile0、ib_logfile1和ibdata1文件，然后启动mysql服务来还原</p>
+<h2 id="数据备份">数据备份</h2>
+<p>参考：https://www.cnblogs.com/gered/p/10410978.html（MySQL备份（数据导出与导入））、https://blog.csdn.net/u012436346/article/details/86570902（使用mysqldump导入与导出数据）</p>
 <h2 id="optimize关键字">OPTIMIZE关键字</h2>
 <p>MySQL执行命令delete语句时，如果包括where条件，并不会真正的把数据从表中删除，而是将数据转换成了碎片，通过下面的命令可以查看表中的碎片数量和索引等信息：</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="k">table</span> <span class="n">status</span> <span class="k">like</span> <span class="n">tbl_name</span><span class="p">;</span>
@@ -860,6 +862,9 @@ null; 例如：select * from name where snum is not null;</p>
 <p>数据库的管理者（DBA 知识）：权限管理、数据备份、运行监控、性能监测</p>
 </li>
 </ul>
+<h2 id="查看mysql网络连接相关的变量属性与网络连接状态">查看MySQL网络连接相关的变量属性与网络连接状态</h2>
+<p>查看mysql网络连接的变量属性：<code>show variables like '%connection%';</code>、<code>show global variables like '%connection%';</code></p>
+<p>查看mysql网络连接的状态：<code>show status like '%connection%';</code>、<code>show global status like '%connection%';</code></p>
 <h2 id="索引">索引</h2>
 <p>创建索引时，需要保证索引是应用在sql查询语句的条件(一般作为where子句的条件)。</p>
 <p>实际上索引也是一张表，该表保存了主键与索引字段，并指向实体表的记录。索引大大提高查询速度，但降低了更新表的速度。</p>
@@ -1842,6 +1847,7 @@ mysql&gt; SELECT LAST_INSERT_ID();
     <li><a href="#analyze关键字">ANALYZE关键字</a></li>
     <li><a href="#repair-table修复表">repair table修复表★</a></li>
     <li><a href="#innodb数据损坏修复">InnoDB数据损坏修复</a></li>
+    <li><a href="#数据备份">数据备份</a></li>
     <li><a href="#optimize关键字">OPTIMIZE关键字</a></li>
     <li><a href="#duplicate关键字">DUPLICATE关键字</a></li>
     <li><a href="#delayed关键字">DELAYED关键字</a></li>
@@ -1866,6 +1872,7 @@ mysql&gt; SELECT LAST_INSERT_ID();
     <li><a href="#mysql的current_timestamp">Mysql的CURRENT_TIMESTAMP</a></li>
     <li><a href="#联合algorithm创建视图">联合algorithm创建视图</a></li>
     <li><a href="#ifnullnullif其他">Ifnull|nullif|其他</a></li>
+    <li><a href="#查看mysql网络连接相关的变量属性与网络连接状态">查看MySQL网络连接相关的变量属性与网络连接状态</a></li>
     <li><a href="#索引">索引</a>
       <ul>
         <li><a href="#创建索引">创建索引</a></li>
