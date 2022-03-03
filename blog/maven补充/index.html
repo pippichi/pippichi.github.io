@@ -782,6 +782,48 @@ POM中的name字段是为了给项目一个更容易阅读的名字，该名字�
 <p><img src="/maven%E8%A1%A5%E5%85%85.assets/image-20210720184531959.png" alt="image-20210720184531959"></p>
 <h2 id="linux环境下maven私有库和本地库的安装与配置nexus">Linux环境下Maven私有库和本地库的安装与配置（Nexus）</h2>
 <p>参考：https://blog.csdn.net/weixin_40663800/article/details/83043920（Linux环境下Maven私有库和本地库的安装与配置）</p>
+<p>需要注意的是，在配置nexus服务地址的时候，一般情况下我们会将他配置在maven的<code>setting.xml</code>中，但也可以写到项目的<code>pom.xml</code>中，如：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+    
+    ...
+    
+    &lt;dependencies&gt;
+    	&lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-quartz&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    
+    &lt;distributionManagement&gt;
+        &lt;repository&gt;
+            &lt;id&gt;maven-releases&lt;/id&gt;
+            &lt;name&gt;Nexus Maven Release Repository&lt;/name&gt;
+            &lt;url&gt;http://10.30.21.22:83/repository/maven-releases/&lt;/url&gt;
+        &lt;/repository&gt;
+        &lt;snapshotRepository&gt;
+            &lt;id&gt;maven-snapshots&lt;/id&gt;
+            &lt;name&gt;Nexus Maven Snapshot Repository&lt;/name&gt;
+            &lt;url&gt;http://10.30.21.22:83/repository/maven-snapshots/&lt;/url&gt;
+        &lt;/snapshotRepository&gt;
+    &lt;/distributionManagement&gt;
+
+    &lt;repositories&gt;
+        &lt;repository&gt;
+            &lt;id&gt;nexus&lt;/id&gt;
+            &lt;name&gt;Nexus Maven Repository&lt;/name&gt;
+            &lt;url&gt;http://10.30.21.22:83/repository/maven-public/&lt;/url&gt;
+            &lt;snapshots&gt;
+                &lt;enabled&gt;true&lt;/enabled&gt;
+            &lt;/snapshots&gt;
+        &lt;/repository&gt;
+    &lt;/repositories&gt;
+    
+    ...
+    
+&lt;/project&gt;
+</code></pre>
   </section>
 
   <section>

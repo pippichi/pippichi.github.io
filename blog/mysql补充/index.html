@@ -474,7 +474,11 @@ set global validate<span class="nb">_</span>password.length=1;
 <p>如果仍不能启动，可以使用备份来还原数据库，推荐先物理备份下/var/lib/mysql，之后可以试着删除ib_logfile0、ib_logfile1和ibdata1文件，然后启动mysql服务来还原</p>
 <h2 id="数据备份">数据备份</h2>
 <p>参考：https://www.cnblogs.com/gered/p/10410978.html（MySQL备份（数据导出与导入））、https://blog.csdn.net/u012436346/article/details/86570902（使用mysqldump导入与导出数据）</p>
-<h2 id="optimize关键字">OPTIMIZE关键字</h2>
+<p>注意，mysqldump的时候可能会报错：</p>
+<pre><code>mysqldump: Couldn't execute 'SELECT COLUMN_NAME,JSON_EXTRACT(HISTOGRAM, '$.&quot;number-of-buckets-specified&quot;')ROM information_schema.COLUMN_STATISTICS WHERE SCHEMA_NAME = 'store' AND TABLE_NAME = 't_address';': Unknown table 'column_statistics' in information_schema (1109)
+</code></pre><p>原因是早期版本MySQL的<code>information_schema</code>数据库中没有名为<code>COLUMN_STATISTICS</code>的数据表，而新版的mysqldump对于<code>--column-statistics</code>参数默认是启动的（<code>--column-statistics=1</code>），我们可以通过<code>--column-statistics=0</code>来禁用他：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ mysqldump --column-statistics<span class="o">=</span><span class="m">0</span> -h x.x.x.x -P xxxx -u xxx -p xxx &gt; xxx.sql
+</code></pre></div><h2 id="optimize关键字">OPTIMIZE关键字</h2>
 <p>MySQL执行命令delete语句时，如果包括where条件，并不会真正的把数据从表中删除，而是将数据转换成了碎片，通过下面的命令可以查看表中的碎片数量和索引等信息：</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="k">table</span> <span class="n">status</span> <span class="k">like</span> <span class="n">tbl_name</span><span class="p">;</span>
 </code></pre></div><p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210410230027928.png" alt="image-20210410230027928"></p>
