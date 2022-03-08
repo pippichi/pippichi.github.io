@@ -668,6 +668,10 @@ found</p>
 <p>C 表示与Java的calender联系后计算过的值</p>
 <h5 id="表达式连写">表达式连写</h5>
 <p>比方说 LW 就表示最后一个工作日</p>
+<h4 id="schedulingconfigurer">SchedulingConfigurer</h4>
+<p>基于注解 @Scheduled 能实现简单定时器，那么如何实现高级定制（比如实现动态定时任务）呢？</p>
+<p>这个时候就要用到SchedulingConfigurer接口了</p>
+<p>参考：https://blog.csdn.net/u013998466/article/details/90373811（SpringBoot 实现定时任务的两种方式：基于注解(@Scheduled)的简单定时器、基于接口SchedulingConfigurer的动态定时任务）</p>
 <h3 id="邮件任务">邮件任务</h3>
 <p><img src="/springboot_senior/ee0768c35b5ae2102274e95c14b950ce.png" alt=""></p>
 <p>JavaMailSenderImpl就是用来发送邮件的：</p>
