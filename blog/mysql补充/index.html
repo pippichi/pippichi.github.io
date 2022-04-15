@@ -1817,9 +1817,25 @@ mysql&gt; SELECT LAST_INSERT_ID();
 </code></pre><p>UPDATE 语句会增加顺序计数器并引发向LAST_INSERT_ID() 的下一次调用，用来返回升级后的值。 SELECT 语句会检索这个值。 mysql_insert_id()、C API函数也可用于获取这个值。</p>
 <p>你可以不用调用LAST_INSERT_ID()而产生序列，但这样使用这个函数的效用在于 ID值被保存在服务器中，作为自动产生的值。它适用于多个用户，原因是多个用户均可使用 UPDATE语句并用SELECT语句(或mysql_insert_id()),得到他们自己的序列值，而不会影响其它产生他们自己的序列值的客户端或被其它产生他们自己的序列值的客户端所影响。</p>
 <p>注意： mysql_insert_id() 仅会在INSERT 和UPDATE语句后面被升级， 因此你不能在执行了其它诸如SELECT或 SET 这样的SQL语句后使用 C API 函数来找回 LAST_INSERT_ID(<em>expr</em>) 对应的值。</p>
+<h3 id="row_number和rank和dense_rank">ROW_NUMBER()和RANK()和DENSE_RANK()</h3>
+<p>参考：https://developer.aliyun.com/article/593698（mysql8.0窗口函数：rank，dense_rank，row_number 使用上的区别）、https://blog.csdn.net/weixin_40869022/article/details/120275001（ROW_NUMBER和RANK和DENSE_RANK的区别）</p>
 <h2 id="属性">属性</h2>
 <h3 id="identity">@@identity</h3>
-<p>跟函数last_insert_id()的返回值一样，@@identity表示的是最近一次向具有identity属性(即自增列)的表插入数据时对应的自增列的值,是系统定义的全局变量。</p>
+<p>跟函数<code>last_insert_id()</code>的返回值一样，@@identity表示的是最近一次向具有identity属性(即自增列)的表插入数据时对应的自增列的值,是系统定义的全局变量。</p>
+<h3 id="names">NAMES</h3>
+<p>MySQL中<code>SET NAMES charset_name</code> 相当于设置了3个session变量：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">SET</span> <span class="n">character_set_client</span> <span class="o">=</span> <span class="n">charset_name</span><span class="p">;</span>
+<span class="kt">SET</span> <span class="n">character_set_results</span> <span class="o">=</span> <span class="n">charset_name</span><span class="p">;</span>
+<span class="kt">SET</span> <span class="n">character_set_connection</span> <span class="o">=</span> <span class="n">charset_name</span><span class="p">;</span>
+</code></pre></div><p>参考：https://blog.csdn.net/czh500/article/details/86665509（MySQL SET NAMES）</p>
+<h3 id="foreign_key_checks"><code>FOREIGN_KEY_CHECKS</code></h3>
+<p>禁用外码约束：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">SET</span> <span class="n">FOREIGN_KEY_CHECKS</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div><p>启动外码约束：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">SET</span> <span class="n">FOREIGN_KEY_CHECKS</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+</code></pre></div><p>查看当前<code>FOREIGN_KEY_CHECKS</code>的值可用如下命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">@@</span><span class="n">FOREIGN_KEY_CHECKS</span><span class="p">;</span>
+</code></pre></div>
   </section>
 
   <section>
@@ -1934,11 +1950,14 @@ mysql&gt; SELECT LAST_INSERT_ID();
         <li><a href="#group_concat">group_concat()</a></li>
         <li><a href="#default">DEFAULT()</a></li>
         <li><a href="#last_insert_id">LAST_INSERT_ID()</a></li>
+        <li><a href="#row_number和rank和dense_rank">ROW_NUMBER()和RANK()和DENSE_RANK()</a></li>
       </ul>
     </li>
     <li><a href="#属性">属性</a>
       <ul>
         <li><a href="#identity">@@identity</a></li>
+        <li><a href="#names">NAMES</a></li>
+        <li><a href="#foreign_key_checks"><code>FOREIGN_KEY_CHECKS</code></a></li>
       </ul>
     </li>
   </ul>
