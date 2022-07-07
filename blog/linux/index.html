@@ -1796,7 +1796,15 @@ v（可视块）或V（可视行）或v（可视），上下左右移动，按�
 <p>更详细的关于cron和crontab的命令参考：https://blog.csdn.net/mengzuchao/article/details/81172305（linux cron 定时任务）</p>
 <h2 id="七at命令用于一次性定时计划任务的命令">七、at命令（用于一次性定时计划任务的命令）</h2>
 <p>参考：https://blog.csdn.net/weixin_34162228/article/details/91682904（Linux之at命令）</p>
-<h2 id="linux的权限管理操作">Linux的权限管理操作</h2>
+<h2 id="八fgbgjobs等指令linux任务相关指令">八、fg、bg、&amp;、jobs等指令（linux任务相关指令）</h2>
+<p>参考：https://ehlxr.me/2017/01/18/Linux-%E4%B8%AD-fg%E3%80%81bg%E3%80%81jobs%E3%80%81-%E6%8C%87%E4%BB%A4/?spm=5176.12026607.tutorial.1.9c7732e2saACwe（Linux 中 fg、bg、jobs 等指令）</p>
+<h2 id="九lsof命令">九、lsof命令</h2>
+<p>lsof命令用于查看进程开打的文件，打开文件的进程，进程打开的端口(TCP、UDP)</p>
+<p>参考：https://blog.csdn.net/qq_27870421/article/details/92803453</p>
+<p>案例：当我们希望查看linux系统目前的端口占用情况的时候，也可以使用netstat或者lsof来查看：</p>
+<pre><code>1、lsof -i:端口号
+2、netstat -tunlp | grep 端口号
+</code></pre><h2 id="linux的权限管理操作">Linux的权限管理操作</h2>
 <p><strong>Linux的权限操作与用户、用户组是兄弟操作。</strong></p>
 <h2 id="一权限概述">一、权限概述</h2>
 <p>总述：Linux系统一般将文件可存/取访问的身份分为3个类别：owner、group、others，且3种身份各有read、write、execute等权限。</p>
@@ -3824,6 +3832,8 @@ wget -i filelist.txt
 <p>nfs：https://blog.csdn.net/sinat_41075146/article/details/80800812（Linux下部署NFS服务）</p>
 <p>ceph：https://blog.csdn.net/don_chiang709/article/details/89472242（Ceph基本原理）、https://blog.csdn.net/weixin_41843699/article/details/97411434（Ceph分布式存储架构搭建）</p>
 <p>iscsi：https://blog.csdn.net/tjiyu/article/details/52811458（iSCSI详解 及 iSCSI配置）</p>
+<h3 id="远端登入工具telnet">远端登入工具telnet</h3>
+<p>参考：https://www.runoob.com/linux/linux-comm-telnet.html</p>
 <h3 id="openssl">openssl</h3>
 <p>参考：https://www.openssl.net.cn/（openssl手册）</p>
 <h3 id="base64">base64</h3>
@@ -4092,6 +4102,8 @@ nslookup -d [其他参数] domain [dns-server]
     <li><a href="#五rpm管理重点">五、rpm管理（重点）</a></li>
     <li><a href="#六croncrontab计划任务重点">六、cron/crontab计划任务（重点）</a></li>
     <li><a href="#七at命令用于一次性定时计划任务的命令">七、at命令（用于一次性定时计划任务的命令）</a></li>
+    <li><a href="#八fgbgjobs等指令linux任务相关指令">八、fg、bg、&amp;、jobs等指令（linux任务相关指令）</a></li>
+    <li><a href="#九lsof命令">九、lsof命令</a></li>
     <li><a href="#linux的权限管理操作">Linux的权限管理操作</a></li>
     <li><a href="#一权限概述">一、权限概述</a>
       <ul>
@@ -4212,6 +4224,7 @@ nslookup -d [其他参数] domain [dns-server]
         <li><a href="#linux中的0-6">linux中的0-6</a></li>
         <li><a href="#图片查看器">图片查看器</a></li>
         <li><a href="#数据存储服务">数据存储服务</a></li>
+        <li><a href="#远端登入工具telnet">远端登入工具telnet</a></li>
         <li><a href="#openssl">openssl</a></li>
         <li><a href="#base64">base64</a></li>
         <li><a href="#alias">alias</a></li>
