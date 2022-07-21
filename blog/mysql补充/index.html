@@ -632,6 +632,8 @@ LOAD INDEX INTO CACHE仅适用于MyISAM 表，包括分区MyISAM表。此外，�
 <p>所以，Oracle并不推荐使用for update作为日常开发使用。而且，在平时开发和运维中，使用了for update却忘记提交，会引起很多锁表故障。 <!-- raw HTML omitted -->那么，什么时候需要使用for update？就是那些需要业务层面数据独占时，可以考虑使用for update。场景上，比如火车票订票，在屏幕上显示邮票，而真正进行出票时，需要重新确定一下这个数据没有被其他客户端修改。<!-- raw HTML omitted -->所以，在这个确认过程中，可以使用for update。这是统一的解决方案方案问题，需要前期有所准备。</p>
 <h2 id="筛选并查看变量">筛选并查看变量</h2>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="n">variables</span> <span class="k">where</span> <span class="n">variable_name</span> <span class="k">like</span> <span class="s1">&#39;wait%&#39;</span> <span class="k">and</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">;</span>
+</code></pre></div><h2 id="查看已安装的插件">查看已安装的插件</h2>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span> <span class="n">PLUGINS</span><span class="p">;</span>
 </code></pre></div><h2 id="generated-column">generated column</h2>
 <p>定义Generated column列的语法如下：</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="err">列名</span> <span class="err">类型</span> <span class="p">[</span><span class="n">GENERATED</span> <span class="n">ALWAYS</span><span class="p">]</span> <span class="k">AS</span> <span class="p">(</span><span class="n">expr</span><span class="p">)</span> <span class="p">[</span><span class="n">VIRTUAL</span> <span class="o">|</span> <span class="n">STORED</span><span class="p">]</span> <span class="p">[</span><span class="k">NOT</span> <span class="no">NULL</span> <span class="o">|</span> <span class="no">NULL</span><span class="p">]</span> <span class="p">[</span><span class="k">UNIQUE</span> <span class="p">[</span><span class="k">KEY</span><span class="p">]]</span> <span class="p">[[</span><span class="k">PRIMARY</span><span class="p">]</span> <span class="k">KEY</span><span class="p">]</span> <span class="p">[</span><span class="n">COMMENT</span> <span class="s1">&#39;string&#39;</span><span class="p">]</span>
@@ -1746,11 +1748,13 @@ Extra: Using where
 <p>可通过ma_heap_table_size（默认16MB）控制Memory表的大小</p>
 <h2 id="函数">函数</h2>
 <h3 id="group_concat">group_concat()</h3>
-<p>语法：</p>
+<p><strong>语法：</strong></p>
 <p>group_concat([DISTINCT] 要连接的字段 [Order BY 排序字段 ASC/DESC] [Spearator &lsquo;分隔符&rsquo;])</p>
 <p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313113431061.png" alt="image-20210313113431061"></p>
 <p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313113523239.png" alt="image-20210313113523239"></p>
 <p><img src="/mysql%E8%A1%A5%E5%85%85.assets/image-20210313113537599.png" alt="image-20210313113537599"></p>
+<p><strong>案例：</strong></p>
+<p><code>group_concat()</code>和<code>substring_index()</code>函数连用可解决 group by 后 order by 失效问题（还有一种替代方案是使用<code>max()</code>函数配合 group by 实现与 group by 后 order by 同样的效果），参考：<a href="https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent">钱依峰<code>app-service</code>项目</a></p>
 <h4 id="参数设置与限制说明">参数设置与限制说明</h4>
 <p><strong>查看服务器中的设置</strong></p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;%group_concat%&#39;</span><span class="p">;</span>
@@ -1819,6 +1823,10 @@ mysql&gt; SELECT LAST_INSERT_ID();
 <p>注意： mysql_insert_id() 仅会在INSERT 和UPDATE语句后面被升级， 因此你不能在执行了其它诸如SELECT或 SET 这样的SQL语句后使用 C API 函数来找回 LAST_INSERT_ID(<em>expr</em>) 对应的值。</p>
 <h3 id="row_number和rank和dense_rank">ROW_NUMBER()和RANK()和DENSE_RANK()</h3>
 <p>参考：https://developer.aliyun.com/article/593698（mysql8.0窗口函数：rank，dense_rank，row_number 使用上的区别）、https://blog.csdn.net/weixin_40869022/article/details/120275001（ROW_NUMBER和RANK和DENSE_RANK的区别）</p>
+<h3 id="substring_index">SUBSTRING_INDEX()</h3>
+<p>参考：https://blog.csdn.net/weixin_50853979/article/details/124669207</p>
+<h3 id="cast">CAST()</h3>
+<p>参考：https://blog.csdn.net/Hudas/article/details/124399908</p>
 <h2 id="属性">属性</h2>
 <h3 id="identity">@@identity</h3>
 <p>跟函数<code>last_insert_id()</code>的返回值一样，@@identity表示的是最近一次向具有identity属性(即自增列)的表插入数据时对应的自增列的值,是系统定义的全局变量。</p>
@@ -1876,6 +1884,7 @@ mysql&gt; SELECT LAST_INSERT_ID();
     <li><a href="#ignore关键字">IGNORE关键字</a></li>
     <li><a href="#select--for-update使用方法">SELECT &hellip; FOR UPDATE使用方法</a></li>
     <li><a href="#筛选并查看变量">筛选并查看变量</a></li>
+    <li><a href="#查看已安装的插件">查看已安装的插件</a></li>
     <li><a href="#generated-column">generated column</a>
       <ul>
         <li><a href="#generated-column上创建索引与oracle的函数索引的区别">Generated Column上创建索引与Oracle的函数索引的区别</a></li>
@@ -1951,6 +1960,8 @@ mysql&gt; SELECT LAST_INSERT_ID();
         <li><a href="#default">DEFAULT()</a></li>
         <li><a href="#last_insert_id">LAST_INSERT_ID()</a></li>
         <li><a href="#row_number和rank和dense_rank">ROW_NUMBER()和RANK()和DENSE_RANK()</a></li>
+        <li><a href="#substring_index">SUBSTRING_INDEX()</a></li>
+        <li><a href="#cast">CAST()</a></li>
       </ul>
     </li>
     <li><a href="#属性">属性</a>
