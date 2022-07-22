@@ -380,6 +380,12 @@ profiles命令显示的query_id才可以，如下：</p>
 <p>由于建索引之后写操作会变慢，所以经常增删改的就不要建索引了。</p>
 <p>Where里用不到的字段建了索引也浪费。</p>
 <p>过滤性不好的例如性别这些的也别建立索引。</p>
+<h3 id="mysql索引中的using-btree-和-using-hash">MYSQL索引中的USING BTREE 和 USING HASH</h3>
+<ul>
+<li><code>B-TREE</code>索引在范围查找的SQL语句中更加适合（顺序存储）</li>
+<li>Hash索引无法用于排序，不适用于区分度小的列上，如性别字段</li>
+</ul>
+<p>参考：https://blog.csdn.net/m0_46864744/article/details/113635073</p>
 <h3 id="性能分析">性能分析</h3>
 <p><img src="/mysql_senior/fe32c049fc8d360e585c4fcabbd79c64.png" alt=""></p>
 <p><img src="/mysql_senior/a702499d25ee347b72ce620ef730e51b.png" alt=""></p>
@@ -790,6 +796,30 @@ by分组之前先排序，之后还会创建临时表，最后还要把临时表
 <p><img src="/mysql_senior/08e0a9b22f1dcd476a55f95de8d5bbeb.png" alt=""></p>
 <p>可见copying to tmp table非常损耗性能</p>
 <h2 id="锁机制">锁机制</h2>
+<p>MySQL中有共享锁、排他锁、意向锁：</p>
+<ul>
+<li>
+<p>共享锁（Shared Lock）针对行锁，主要为了支持并发读场景，语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">T</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">LOCK</span> <span class="k">IN</span> <span class="n">SHARE</span> <span class="n">MODE</span><span class="p">;</span>
+</code></pre></div></li>
+<li>
+<p>排他锁（Exclusive Lock）针对行锁，主要为了支持并发写场景，语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">T</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">FOR</span> <span class="k">UPDATE</span><span class="p">;</span>
+</code></pre></div></li>
+<li>
+<p>意向锁（Intention Lock）针对表锁，无法手动创建</p>
+</li>
+<li>
+<p>表级读锁：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">LOCK</span> <span class="k">TABLE</span> <span class="n">user_info</span> <span class="k">READ</span><span class="p">;</span>
+</code></pre></div></li>
+<li>
+<p>表级写锁：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">LOCK</span> <span class="k">TABLE</span> <span class="n">user_info</span> <span class="k">WRITE</span><span class="p">;</span>
+</code></pre></div></li>
+</ul>
+<p>参考：https://blog.csdn.net/songzehao/article/details/124074013</p>
+<h3 id="概述">概述</h3>
 <p><img src="/mysql_senior/56a2e953ed2133153c88d584a64a6b44.png" alt=""></p>
 <p><img src="/mysql_senior/800a302e49dec7aac8b5e23d9559c3c2.png" alt=""></p>
 <p><img src="/mysql_senior/ba797536f5ee3ed19f5b17c870884bb1.png" alt=""></p>
@@ -1231,6 +1261,7 @@ over（）这两个函数，这两个函数还可以实现并列第一名之后�
         <li><a href="#基本语法">基本语法</a></li>
         <li><a href="#哪些情况需要创建索引">哪些情况需要创建索引</a></li>
         <li><a href="#哪些情况不需要创建索引">哪些情况不需要创建索引</a></li>
+        <li><a href="#mysql索引中的using-btree-和-using-hash">MYSQL索引中的USING BTREE 和 USING HASH</a></li>
         <li><a href="#性能分析">性能分析</a></li>
         <li><a href="#实际开发中处理索引">实际开发中处理索引</a></li>
       </ul>
@@ -1254,6 +1285,7 @@ over（）这两个函数，这两个函数还可以实现并列第一名之后�
     </li>
     <li><a href="#锁机制">锁机制</a>
       <ul>
+        <li><a href="#概述">概述</a></li>
         <li><a href="#表锁主要是myisam偏读">表锁（主要是myisam，偏读）</a></li>
         <li><a href="#行锁主要是innodb偏写">行锁（主要是innodb，偏写）</a></li>
         <li><a href="#页锁">页锁</a></li>
