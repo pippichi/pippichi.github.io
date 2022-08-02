@@ -674,17 +674,32 @@ POM中的name字段是为了给项目一个更容易阅读的名字，该名字�
 <p>可结合课件<code>maven.pdf</code>查阅</p>
 <p><strong>Scope的分类</strong></p>
 <ul>
-<li>compile
-默认的scope，表示 dependency 都可以在生命周期中使用。而且，这些dependencies 会传递到依赖的项目中。适用于所有阶段，会随着项目一起发布。即依赖的项目会参与到当前项目的编译、运行、测试以及打包发布，是一个比较强的依赖范围。</li>
-<li>test
-表示dependency作用在测试时，不作用在运行时。 只在测试时使用，用于编译和运行测试代码。不会随项目发布。</li>
-<li>runntime
-表示dependency不作用在编译时，但会作用在运行和测试时，如JDBC驱动，适用运行和测试阶段。即是跳过编译阶段，只参与测试或运行。</li>
-<li>provided
+<li>
+<p>compile
+默认的scope，表示 dependency 都可以在生命周期中使用。而且，这些dependencies 会传递到依赖的项目中。适用于所有阶段，会随着项目一起发布。即依赖的项目会参与到当前项目的编译、运行、测试以及打包发布，是一个比较强的依赖范围。</p>
+</li>
+<li>
+<p>test
+表示dependency作用在测试时，不作用在运行时。 只在测试时使用，用于编译和运行测试代码。不会随项目发布。</p>
+</li>
+<li>
+<p>runntime
+表示dependency不作用在编译时，但会作用在运行和测试时，如JDBC驱动，适用运行和测试阶段。即是跳过编译阶段，只参与测试或运行。</p>
+</li>
+<li>
+<p>provided
 跟compile相似，但是表明了dependency 由JDK或者容器提供，例如Servlet AP和一些Java EE APIs。这个scope 只能作用在编译和测试时，同时没有传递性。
-即该依赖是由系统组件提供的，我们不需要手动添加，它只存在于编译、运行和测试阶段，打包的时候并不会打进去，被剔除了的。</li>
-<li>system
-跟provided 相似，但是在系统中要以外部JAR包的形式提供，maven不会在repository查找它。需通过外部引入，不会在仓库中查找。例如一些特殊的jar我们或通过拷贝jar到web-info/lib下，这些jar就可以配置为system范围。</li>
+即该依赖是由系统组件提供的，我们不需要手动添加，它只存在于编译、运行和测试阶段，打包的时候并不会打进去，被剔除了的。</p>
+</li>
+<li>
+<p>system
+跟provided 相似，但是在系统中要以外部JAR包的形式提供，maven不会在repository查找它。需通过外部引入，不会在仓库中查找。例如一些特殊的jar我们或通过拷贝jar到web-info/lib下，这些jar就可以配置为system范围。</p>
+</li>
+<li>
+<p>import</p>
+<p>可用于实现多继承</p>
+<p>参考：https://blog.csdn.net/K_520_W/article/details/84900722（maven中使用<code>scope = import</code>）</p>
+</li>
 </ul>
 <p><img src="/maven%E8%A1%A5%E5%85%85.assets/image-20210608220355275.png" alt="image-20210608220355275"></p>
 <blockquote>
