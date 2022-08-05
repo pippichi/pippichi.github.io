@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>keepalived on Learning Records</title>
+    <link>https://pippichi.github.io/tags/keepalived/</link>
+    <description>Recent content in keepalived on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
+    <lastBuildDate>Fri, 05 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/keepalived/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>高可用负载均衡</title>
+      <link>https://pippichi.github.io/blog/%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</link>
+      <pubDate>Fri, 05 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/%E9%AB%98%E5%8F%AF%E7%94%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</guid>
+      <description>&lt;p&gt;高可用负载均衡搭建&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
