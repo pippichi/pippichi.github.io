@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-12345678-0', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      
+  分布式事务 &ndash; Learning Records
+
+    </title>
+    
+    <meta content="分布式事务, Seata" name="keywords">
+    
+    
+    <meta name="description" property="og:description" content="关于分布式事务的介绍以及Seata的AT、XA、TCC、SAGA模式的使用
+|Just for record">
+    
+
+    <meta name="apple-mobile-web-app-title" content="Learning Records">
+    
+    
+    
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@">
+    <meta name="twitter:creator" content="@">
+    <meta name="twitter:title" content="分布式事务 | Learning Records">
+    <meta name="twitter:description" content="关于分布式事务的介绍以及Seata的AT、XA、TCC、SAGA模式的使用|Just for record">
+    <meta name="twitter:image" content="https://pippichi.github.iotwitter-card.png">
+    
+
+
+    <link rel="stylesheet" href="/assets/syntax.css">
+    <link rel="stylesheet" href="/assets/primer-build.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/custom_style.css">
+  </head>
+
+
+  <body class="bg-gray">
+    <div id="holy" class="container-lg bg-white h-100">
+
+      <div id="header" class="px-1 bg-white">
+        <nav class="UnderlineNav UnderlineNav--right px-2">
+  <a class="UnderlineNav-actions muted-link h2" href="https://pippichi.github.io">
+    Learning Records
+  </a>
+
+  
+  
+  <div class="UnderlineNav-body">
+    
+    
+    
+    <a class="UnderlineNav-item" href="/blog/">
+      
+      <span>Home</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/">
+      
+      <span>PDF/CODE</span>
+    </a>
+    
+    
+    
+    
+    <a class="UnderlineNav-item" href="/about/">
+      
+      <span>About</span>
+    </a>
+    
+    
+  </div>
+  
+</nav>
+
+      </div>
+
+      <div role="main" id="main" class="holy-main markdown-body px-4 bg-white">
+        
+
+<div class="Subhead">
+  <div class="Subhead-heading">
+    <div class="h1 mt-3 mb-1">分布式事务</div>
+  </div>
+  <div class="Subhead-description">
+    
+
+
+<a href='/categories/senior' class="muted-link">
+  <span class="Label Label--gray-darker">Senior</span>
+</a>
+
+
+
+<a href='/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1' class="muted-link">
+  <span class="Label Label--gray">分布式事务</span>
+</a>
+
+<a href='/tags/seata' class="muted-link">
+  <span class="Label Label--gray">Seata</span>
+</a>
+
+
+
+    
+    <div class="float-md-right">
+      <span title="Lastmod: 2022-08-06. Published at: 2022-08-06.">
+        
+          Published: 2022-08-06
+        
+      </span>
+    </div>
+    
+  </div>
+</div>
+<article>
+  
+  <section class="pb-6 mb-3 border-bottom">
+    <p>关于分布式事务的介绍以及Seata的AT、XA、TCC、SAGA模式的使用</p>
+<h2 id="分布式事务简介">分布式事务简介</h2>
+<h3 id="概念">概念</h3>
+<p>基础概念：事务ACID</p>
+<ul>
+<li>A（Atomic）：原子性，构成事务的所有操作，要么都执行完成，要么全部不执行，不可能出现部分成功部分失 败的情况。</li>
+<li>C（Consistency）：一致性，在事务执行前后，数据库的一致性约束没有被破坏。比如：张三向李四转100元， 转账前和转账后的数据是正确状态这叫一致性，如果出现张三转出100元，李四账户没有增加100元这就出现了数 据错误，就没有达到一致性。</li>
+<li>I（Isolation）：隔离性，数据库中的事务一般都是并发的，隔离性是指并发的两个事务的执行互不干扰，一个事 务不能看到其他事务运行过程的中间状态。通过配置事务隔离级别可以避脏读、重复读等问题。</li>
+<li>D（Durability）：持久性，事务完成之后，该事务对数据的更改会被持久化到数据库，且不会被回滚。</li>
+</ul>
+<h3 id="事务">事务</h3>
+<ul>
+<li>本地事务：同一数据库和服务器，称为本地事务
+在计算机系统中，更多的是通过关系型数据库来控制事务，这是利用数据库本身的事务特性来实现的，因此叫数据库事务，由于应用主要靠关系数据库来控制事务，而数据库通常和应用在同一个服务器，所以基于关系型数据库的事务又被称为本地事务。</li>
+<li>分布式事务：
+分布式事务指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于<strong>不同的分布式系统</strong>的不同节点之上，且属于不同的应用，分布式事务需要保证这些操作要么全部成功，要么全部失败。本质上来说，分布式事务就是为了保证不同数据库的数据一致性。</li>
+<li>举例：
+分布式系统会把一个应用系统拆分为可独立部署的多个服务，因此需要服务与服务之间远程协作才能完成事务操 作，这种分布式系统环境下由不同的服务之间通过网络远程协作完成事务称之为分布式事务，例如用户注册送积分事务、创建订单减库存事务，银行转账事务等都是分布式事务。</li>
+</ul>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220111162727304.png" alt="image-20220111162727304.png"></p>
+<p>通过以上的图中我们可以看出，其实只要涉及到操作多个数据源，就可能会产生事务问题，当然在实际开发中我们要尽量避免这种问题的出现，当然如果避免不了，我们就需要进行解决，在我们的微服务系统架构中，目前比较好，比较常用的解决方案就是Seata。</p>
+<h3 id="分布式事务理论">分布式事务理论</h3>
+<p>随着互联化的蔓延，各种项目都逐渐向分布式服务做转换。如今微服务已经普遍存在，本地事务已经无法满足分布式的要求，由此分布式事务问题诞生。 分布式事务被称为世界性的难题，目前分布式事务存在两大理论依据：CAP定律 BASE理论。</p>
+<h4 id="cap定律">CAP定律</h4>
+<p>这个定理的内容是指的是在一个分布式系统中、Consistency（一致性）、 Availability（可用性）、Partition tolerance（分区容错性），三者不可得兼。</p>
+<ul>
+<li>
+<p>一致性（C）</p>
+<p>在分布式系统中的所有数据备份，在同一时刻是否同样的值。（等同于所有节点访问同一份最新的数据副本）</p>
+</li>
+<li>
+<p>可用性（A）</p>
+<p>在集群中一部分节点故障后，集群整体是否还能响应客户端的读写请求。（对数据更新具备高可用性）</p>
+</li>
+<li>
+<p>分区容错性（P）</p>
+<p>以实际效果而言，分区相当于对通信的时限要求。系统如果不能在时限内达成数据一致性，就意味着发生了分区的情况，必须就当前操作在C和A之间做出选择</p>
+</li>
+</ul>
+<p>CAP是无法同时存在的，一下通过这个例子来说明</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220113155408713.png" alt="image-20220113155408713"></p>
+<ol>
+<li>当库存服务减库存以后，那么需要将数据同步到其他的服务上，这是为了保证数据一致性C，但是网络是不可靠的，所以我们系统就需要保证分区容错性P，也就是我们必须容忍网络所带来的的一些问题，此时如果我们想保证C那么就需要舍弃A，也就是说我们在保证C的情况下，就必须舍弃A，也就是CP无法保证高可用。</li>
+<li>如果为了保证A，高可用的情况下，也就是必须在限定时间内给出响应，同样由于网络不可靠P，订单服务就有可能无法拿到新的数据，但是也要给用户作出响应，那么也就无法保证C一致性。所以AP是无法保证强一致性的。</li>
+<li>如果我们想保证CA，也就是高可用和一致性，也就是必须保证网络良好才能实现，那么也就是说我们需要将库存、订单、用户放到一起，但是这种情况也就丧失了P这个保证，这个时候系统也就不是分布式系统了。</li>
+<li>总结：在分布式系统中，p是必然的存在的，所以我们只能在C和A之间进行取舍，在这种条件下就诞生了BASE理论</li>
+</ol>
+<h4 id="base理论">BASE理论</h4>
+<p>BASE是Basically Available（基本可用）、Soft state（软状态）和 Eventually consistent（最终一致性）三个短语的缩写。BASE理论是对CAP中一致性和可用性权衡的结果，其来源于对大规模互联网系统分布式实践的总结， 是基于CAP定理逐步演化而来的。BASE理论的核心思想是：即使无法做到强一致性，但每个应用都可以根据自身业务特点，采用适当的方式来使系统达到最终一致性。</p>
+<ul>
+<li>
+<p>基本可用</p>
+<p>基本可用是指分布式系统在出现不可预知故障的时候，允许损失部分可用性—-注意，这绝不等价于系统不可用。比如：</p>
+<p>（1）响应时间上的损失。正常情况下，一个在线搜索引擎需要在0.5秒之内返回给用户相应的查询结果，但由于出现故障，查询结果的响应时间增加了1~2秒</p>
+<p>（2）系统功能上的损失：正常情况下，在一个电子商务网站上进行购物的时候，消费者几乎能够顺利完成每一笔订单，但是在一些节日大促购物高峰的时候，由于消费者的购物行为激增，为了保护购物系统的稳定性，部分消费者可能会被引导到一个降级页面</p>
+</li>
+<li>
+<p>软状态</p>
+<p>软状态指允许系统中的数据存在中间状态，并认为该中间状态的存在不会影响系统的整体可用性，即允许系统在不同节点的数据副本之间进行数据同步的过程存在延时</p>
+</li>
+<li>
+<p>最终一致性</p>
+<p>最终一致性强调的是所有的数据副本，在经过一段时间的同步之后，最终都能够达到一个一致的状态。因此，最终一致性的本质是需要系统保证最终数据能够达到一致，而不需要实时保证系统数据的强一致性。</p>
+</li>
+</ul>
+<p>那这个位置我们依旧可以用我们刚才的例子来进行说明</p>
+<p>**基本可用：**保证核心服务是可以使用的，至于其他的服务可以适当的降低响应时间，甚至是服务降级</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220113162344531.png" alt="image-20220113162344531"></p>
+<p>**软状态：**存在中间状态，不影响整体系统使用，数据同步存在延时</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220113162554630.png" alt="image-20220113162554630"></p>
+<p>**最终一致性：**再过了流量高峰期以后，经过一段时间的同步，保持各服务数据的一致</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220113162813542.png" alt="image-20220113162813542"></p>
+<h3 id="分布式事务解决方案">分布式事务解决方案</h3>
+<p>2PC即两阶段提交协议，是将整个事务流程分为两个阶段，P是指准备阶段，C是指提交阶段。</p>
+<ol>
+<li>准备阶段（Prepare phase）</li>
+<li>提交阶段（commit phase）</li>
+</ol>
+<p>举例：比如说相亲对象两个人去吃饭，店老板要求，先付钱在吃饭，这是男女双方提出了AA，也就是说只有男女双方都付钱，才能落座吃饭，但是只要两个人中有一个不统一付款就不能落座吃饭。</p>
+<ul>
+<li>准备阶段：老板要求男方付款，男方付款。老板要求女方付款，女方付款</li>
+<li>提交阶段：老板出餐，两人纷纷落座</li>
+</ul>
+<p>其实此例子就形成了一个事务，如果男女双方有一个人拒绝付款，那么老板就不会出餐，并且会把已收取的钱原路退回。</p>
+<p>真个事务过程是由事务管理器和参与者组成的，店老板就是事务管管理器，男女双发就是参与者，事务管理器决策整个分布式事务在计算机中关系数据库支持的两阶段提交协议：</p>
+<ul>
+<li>准备阶段（Prepare phase）：事务管理器给每个参与者发送Prepare消息，每个数据库参与者在本地执行事务，并写本地的Undo/Redo日志，此时事务没有提交。</li>
+<li>（Undo日志是记录修改前的数据，用于数据库回滚，Redo日志是记录修改后的数据，用于提交事务后写入数据文件）</li>
+<li>提交阶段（commit phase）：如果事务管理器收到了参与者的执行失败或者超时消息时，直接给每个参与者发送回滚(Rollback)消息；否则，发送提交(Commit)消息；参与者根据事务管理器的指令执行提交或者回滚操作，并释放事务处理过程中使用的资源。</li>
+</ul>
+<p>具体步骤图例：</p>
+<p>成功：</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220113180953684.png" alt="image-20220113180953684"></p>
+<p>失败：</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220113181028153.png" alt="image-20220113181028153"></p>
+<h2 id="seata-server安装">Seata-Server安装</h2>
+<h3 id="seata简介">Seata简介</h3>
+<p>官网：https://seata.io/zh-cn/docs/overview/what-is-seata.html</p>
+<p>概念：Seata 是一款开源的分布式事务解决方案，致力于提供高性能和简单易用的分布式事务服务。Seata 将为用户提供了 AT、TCC、SAGA 和 XA 事务模式，为用户打造一站式的分布式解决方案。</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/145942191-7a2d469f-94c8-4cd2-8c7e-46ad75683636.png" alt="145942191-7a2d469f-94c8-4cd2-8c7e-46ad75683636"></p>
+<p>在我们的微服务系统中，对应业务被对应的拆分成独立模块，在官方提供的架构图中，我们可以看出当前是三个服务：</p>
+<ul>
+<li>仓储服务：对给定的商品进行增删操作记录数量</li>
+<li>订单服务：根据采购者的需求创建订单</li>
+<li>账户服务：从用户账户中扣除余额、积分等</li>
+</ul>
+<p>在这套架构中，用户下单购买商品的业务，就需要三个服务来完成，每个服务内部的数据一致性由本地事务来保证，但是全局的数据一致性问题就没办法保证，Seata就是来进行解决这种问题的解决方案。</p>
+<h3 id="seata术语">Seata术语</h3>
+<p>官网地址：https://seata.io/zh-cn/docs/overview/terminology.html</p>
+<p>要了解Seata，首先我们要了解一下Seata的几个关键的概念：</p>
+<ul>
+<li>
+<p>TC (Transaction Coordinator) - 事务协调者</p>
+<p>维护全局和分支事务的状态，驱动全局事务提交或回滚。</p>
+</li>
+<li>
+<p>TM (Transaction Manager) - 事务管理器（发起者，同时也是RM的一种）</p>
+<p>定义全局事务的范围：开始全局事务、提交或回滚全局事务。</p>
+</li>
+<li>
+<p>RM (Resource Manager) - 资源管理器（每个参与事务的微服务）</p>
+<p>管理分支事务处理的资源，与TC交谈以注册分支事务和报告分支事务的状态，并驱动分支事务提交或回滚。</p>
+</li>
+</ul>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220111191919517.png" alt="image-20220111191919517"></p>
+<h3 id="seata-server下载">Seata-Server下载</h3>
+<p>官方下载地址：https://github.com/seata/seata/releases</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806124223563.png" alt="image-20220806124223563"></p>
+<p>下载完成之后需要解压</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806124238750.png" alt="image-20220806124238750"></p>
+<h3 id="seata-server配置">Seata-Server配置</h3>
+<p>1、需要打开conf目录</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806125343113.png" alt="image-20220806125343113"></p>
+<p>2、配置<code>registry.conf</code>配置文件，修改Seata的注册中心和配置中心为Nacos</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806124309428.png" alt="image-20220806124309428"></p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806124316875.png" alt="image-20220806124316875"></p>
+<pre><code>registry {
+  # file 、nacos 、eureka、redis、zk、consul、etcd3、sofa
+  type = &quot;nacos&quot;
+
+  nacos {
+    application = &quot;seata-server&quot;
+    serverAddr = &quot;127.0.0.1:8848&quot;
+    group = &quot;SEATA_GROUP&quot;
+    namespace = &quot;&quot;
+    cluster = &quot;default&quot;
+    username = &quot;&quot;
+    password = &quot;&quot;
+  }
+  eureka {
+    serviceUrl = &quot;http://localhost:8761/eureka&quot;
+    application = &quot;default&quot;
+    weight = &quot;1&quot;
+  }
+  redis {
+    serverAddr = &quot;localhost:6379&quot;
+    db = 0
+    password = &quot;&quot;
+    cluster = &quot;default&quot;
+    timeout = 0
+  }
+  zk {
+    cluster = &quot;default&quot;
+    serverAddr = &quot;127.0.0.1:2181&quot;
+    sessionTimeout = 6000
+    connectTimeout = 2000
+    username = &quot;&quot;
+    password = &quot;&quot;
+  }
+  consul {
+    cluster = &quot;default&quot;
+    serverAddr = &quot;127.0.0.1:8500&quot;
+    aclToken = &quot;&quot;
+  }
+  etcd3 {
+    cluster = &quot;default&quot;
+    serverAddr = &quot;http://localhost:2379&quot;
+  }
+  sofa {
+    serverAddr = &quot;127.0.0.1:9603&quot;
+    application = &quot;default&quot;
+    region = &quot;DEFAULT_ZONE&quot;
+    datacenter = &quot;DefaultDataCenter&quot;
+    cluster = &quot;default&quot;
+    group = &quot;SEATA_GROUP&quot;
+    addressWaitTime = &quot;3000&quot;
+  }
+  file {
+    name = &quot;file.conf&quot;
+  }
+}
+
+config {
+  # file、nacos 、apollo、zk、consul、etcd3
+  type = &quot;nacos&quot;
+
+  nacos {
+    serverAddr = &quot;127.0.0.1:8848&quot;
+    namespace = &quot;&quot;
+    group = &quot;SEATA_GROUP&quot;
+    username = &quot;&quot;
+    password = &quot;&quot;
+    dataId = &quot;seataServer.properties&quot;
+  }
+  consul {
+    serverAddr = &quot;127.0.0.1:8500&quot;
+    aclToken = &quot;&quot;
+  }
+  apollo {
+    appId = &quot;seata-server&quot;
+    ## apolloConfigService will cover apolloMeta
+    apolloMeta = &quot;http://192.168.1.204:8801&quot;
+    apolloConfigService = &quot;http://192.168.1.204:8080&quot;
+    namespace = &quot;application&quot;
+    apolloAccesskeySecret = &quot;&quot;
+    cluster = &quot;seata&quot;
+  }
+  zk {
+    serverAddr = &quot;127.0.0.1:2181&quot;
+    sessionTimeout = 6000
+    connectTimeout = 2000
+    username = &quot;&quot;
+    password = &quot;&quot;
+    nodePath = &quot;/seata/seata.properties&quot;
+  }
+  etcd3 {
+    serverAddr = &quot;http://localhost:2379&quot;
+  }
+  file {
+    name = &quot;file.conf&quot;
+  }
+}
+</code></pre><p>3、接着我们需要修改Seata的存储模式，修改file.conf文件，把Seata的默认存储模式修改为数据库&quot;DB&quot;，同时需要配置JDBC</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806124327589.png" alt="image-20220806124327589"></p>
+<p>先备份<code>file.conf</code>文件</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806125756270.png" alt="image-20220806125756270"></p>
+<p>打开<code>file.conf</code>文件进行修改</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806124347169.png" alt="image-20220806124347169"></p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806124359421.png" alt="image-20220806124359421"></p>
+<pre><code>## transaction log store, only used in seata-server
+store {
+  ## store mode: file、db、redis
+  mode = &quot;db&quot;
+  ## rsa decryption public key
+  publicKey = &quot;&quot;
+  ## file store property
+  file {
+    ## store location dir
+    dir = &quot;sessionStore&quot;
+    # branch session size , if exceeded first try compress lockkey, still exceeded throws exceptions
+    maxBranchSessionSize = 16384
+    # globe session size , if exceeded throws exceptions
+    maxGlobalSessionSize = 512
+    # file buffer size , if exceeded allocate new buffer
+    fileWriteBufferCacheSize = 16384
+    # when recover batch read size
+    sessionReloadReadSize = 100
+    # async, sync
+    flushDiskMode = async
+  }
+
+  ## database store property
+  db {
+    ## the implement of javax.sql.DataSource, such as DruidDataSource(druid)/BasicDataSource(dbcp)/HikariDataSource(hikari) etc.
+    datasource = &quot;druid&quot;
+    ## mysql/oracle/postgresql/h2/oceanbase etc.
+    dbType = &quot;mysql&quot;
+    driverClassName = &quot;com.mysql.jdbc.Driver&quot;
+    ## if using mysql to store the data, recommend add rewriteBatchedStatements=true in jdbc connection param
+    url = &quot;jdbc:mysql://localhost:3306/seata?useUnicode=true&amp;characterEncoding=UTF-8&quot;
+    user = &quot;root&quot;
+    password = &quot;root&quot;
+    minConn = 5
+    maxConn = 100
+    globalTable = &quot;global_table&quot;
+    branchTable = &quot;branch_table&quot;
+    lockTable = &quot;lock_table&quot;
+    queryLimit = 100
+    maxWait = 5000
+  }
+
+  ## redis store property
+  redis {
+    ## redis mode: single、sentinel
+    mode = &quot;single&quot;
+    ## single mode property
+    single {
+      host = &quot;127.0.0.1&quot;
+      port = &quot;6379&quot;
+    }
+    ## sentinel mode property
+    sentinel {
+      masterName = &quot;&quot;
+      ## such as &quot;10.28.235.65:26379,10.28.235.65:26380,10.28.235.65:26381&quot;
+      sentinelHosts = &quot;&quot;
+    }
+    password = &quot;&quot;
+    database = &quot;0&quot;
+    minConn = 1
+    maxConn = 10
+    maxTotal = 100
+    queryLimit = 100
+  }
+}
+</code></pre><h3 id="seata-server启动">Seata-Server启动</h3>
+<p>启动步骤为，先启动nacos然后在启动Seata-Server</p>
+<p>启动Seata-Server的方式非常简单，直接双击此文件即可:seata-server-1.4.2\bin\seata-server.bat</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806124439239-16597610794201.png" alt="image-20220806124439239"></p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806124455252.png" alt="image-20220806124455252"></p>
+<p>然后在nacos控制台上就可以看到Seata-Server</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220806124510303.png" alt="image-20220806124510303"></p>
+<h2 id="seata-servertc环境搭建详解">Seata Server（TC）环境搭建详解</h2>
+<p>Server端存储模式（store.mode）支持三种：</p>
+<ul>
+<li>
+<p>file：单机模式，全局事务会话信息内存中读写并持久化本地文件root.data，性能较高（默认）</p>
+</li>
+<li>
+<p>DB：高可用模式，全局事务会话信息通过DB共享，相对性能差一些</p>
+</li>
+<li>
+<p>redis：Seata-Server1.3及以上版本支持，性能较高，存在事务信息丢失风险，需要配合实际场景使用。</p>
+</li>
+</ul>
+<p><strong>操作步骤</strong></p>
+<ol>
+<li>修改Seata-Server模式为DB高可用模式</li>
+</ol>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118173041657-1642518614185.png" alt="image-20220118173041657"></p>
+<p>找到以下对应的db配置，要修改其中的jdbc连接，以及要注意其中涉及到了三个表，分别是global_table，branch_table，lock_table分别是全局事务会话表，分支事务会话表，锁数据表；</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118231142489.png" alt="image-20220118231142489"></p>
+<ol start="2">
+<li>建表语句地址：https://github.com/seata/seata/blob/develop/script/server/db/mysql.sql</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">--</span> <span class="n">the</span> <span class="n">table</span> <span class="n">to</span> <span class="n">store</span> <span class="n">GlobalSession</span> <span class="n">data</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">IF</span> <span class="n">NOT</span> <span class="n">EXISTS</span> <span class="err">`</span><span class="n">global_table</span><span class="err">`</span>
+<span class="o">(</span>
+    <span class="err">`</span><span class="n">xid</span><span class="err">`</span>                       <span class="n">VARCHAR</span><span class="o">(</span><span class="n">128</span><span class="o">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">transaction_id</span><span class="err">`</span>            <span class="n">BIGINT</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">status</span><span class="err">`</span>                    <span class="n">TINYINT</span>      <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">application_id</span><span class="err">`</span>            <span class="n">VARCHAR</span><span class="o">(</span><span class="n">32</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">transaction_service_group</span><span class="err">`</span> <span class="n">VARCHAR</span><span class="o">(</span><span class="n">32</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">transaction_name</span><span class="err">`</span>          <span class="n">VARCHAR</span><span class="o">(</span><span class="n">128</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">timeout</span><span class="err">`</span>                   <span class="n">INT</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">begin_time</span><span class="err">`</span>                <span class="n">BIGINT</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">application_data</span><span class="err">`</span>          <span class="n">VARCHAR</span><span class="o">(</span><span class="n">2000</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">gmt_create</span><span class="err">`</span>                <span class="n">DATETIME</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">gmt_modified</span><span class="err">`</span>              <span class="n">DATETIME</span><span class="o">,</span>
+    <span class="n">PRIMARY</span> <span class="nf">KEY</span> <span class="o">(</span><span class="err">`</span><span class="n">xid</span><span class="err">`</span><span class="o">),</span>
+    <span class="n">KEY</span> <span class="err">`</span><span class="n">idx_gmt_modified_status</span><span class="err">`</span> <span class="o">(</span><span class="err">`</span><span class="n">gmt_modified</span><span class="err">`</span><span class="o">,</span> <span class="err">`</span><span class="n">status</span><span class="err">`</span><span class="o">),</span>
+    <span class="n">KEY</span> <span class="err">`</span><span class="n">idx_transaction_id</span><span class="err">`</span> <span class="o">(</span><span class="err">`</span><span class="n">transaction_id</span><span class="err">`</span><span class="o">)</span>
+<span class="o">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span>
+  <span class="n">DEFAULT</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="n">utf8</span><span class="o">;</span>
+
+<span class="o">--</span> <span class="n">the</span> <span class="n">table</span> <span class="n">to</span> <span class="n">store</span> <span class="n">BranchSession</span> <span class="n">data</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">IF</span> <span class="n">NOT</span> <span class="n">EXISTS</span> <span class="err">`</span><span class="n">branch_table</span><span class="err">`</span>
+<span class="o">(</span>
+    <span class="err">`</span><span class="n">branch_id</span><span class="err">`</span>         <span class="n">BIGINT</span>       <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">xid</span><span class="err">`</span>               <span class="n">VARCHAR</span><span class="o">(</span><span class="n">128</span><span class="o">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">transaction_id</span><span class="err">`</span>    <span class="n">BIGINT</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">resource_group_id</span><span class="err">`</span> <span class="n">VARCHAR</span><span class="o">(</span><span class="n">32</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">resource_id</span><span class="err">`</span>       <span class="n">VARCHAR</span><span class="o">(</span><span class="n">256</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">branch_type</span><span class="err">`</span>       <span class="n">VARCHAR</span><span class="o">(</span><span class="n">8</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">status</span><span class="err">`</span>            <span class="n">TINYINT</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">client_id</span><span class="err">`</span>         <span class="n">VARCHAR</span><span class="o">(</span><span class="n">64</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">application_data</span><span class="err">`</span>  <span class="n">VARCHAR</span><span class="o">(</span><span class="n">2000</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">gmt_create</span><span class="err">`</span>        <span class="n">DATETIME</span><span class="o">(</span><span class="n">6</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">gmt_modified</span><span class="err">`</span>      <span class="n">DATETIME</span><span class="o">(</span><span class="n">6</span><span class="o">),</span>
+    <span class="n">PRIMARY</span> <span class="nf">KEY</span> <span class="o">(</span><span class="err">`</span><span class="n">branch_id</span><span class="err">`</span><span class="o">),</span>
+    <span class="n">KEY</span> <span class="err">`</span><span class="n">idx_xid</span><span class="err">`</span> <span class="o">(</span><span class="err">`</span><span class="n">xid</span><span class="err">`</span><span class="o">)</span>
+<span class="o">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span>
+  <span class="n">DEFAULT</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="n">utf8</span><span class="o">;</span>
+
+<span class="o">--</span> <span class="n">the</span> <span class="n">table</span> <span class="n">to</span> <span class="n">store</span> <span class="n">lock</span> <span class="n">data</span>
+<span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">IF</span> <span class="n">NOT</span> <span class="n">EXISTS</span> <span class="err">`</span><span class="n">lock_table</span><span class="err">`</span>
+<span class="o">(</span>
+    <span class="err">`</span><span class="n">row_key</span><span class="err">`</span>        <span class="n">VARCHAR</span><span class="o">(</span><span class="n">128</span><span class="o">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">xid</span><span class="err">`</span>            <span class="n">VARCHAR</span><span class="o">(</span><span class="n">128</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">transaction_id</span><span class="err">`</span> <span class="n">BIGINT</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">branch_id</span><span class="err">`</span>      <span class="n">BIGINT</span>       <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">resource_id</span><span class="err">`</span>    <span class="n">VARCHAR</span><span class="o">(</span><span class="n">256</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">table_name</span><span class="err">`</span>     <span class="n">VARCHAR</span><span class="o">(</span><span class="n">32</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">pk</span><span class="err">`</span>             <span class="n">VARCHAR</span><span class="o">(</span><span class="n">36</span><span class="o">),</span>
+    <span class="err">`</span><span class="n">status</span><span class="err">`</span>         <span class="n">TINYINT</span>      <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">DEFAULT</span> <span class="sc">&#39;0&#39;</span> <span class="n">COMMENT</span> <span class="err">&#39;</span><span class="n">0</span><span class="o">:</span><span class="n">locked</span> <span class="o">,</span><span class="n">1</span><span class="o">:</span><span class="n">rollbacking</span><span class="err">&#39;</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">gmt_create</span><span class="err">`</span>     <span class="n">DATETIME</span><span class="o">,</span>
+    <span class="err">`</span><span class="n">gmt_modified</span><span class="err">`</span>   <span class="n">DATETIME</span><span class="o">,</span>
+    <span class="n">PRIMARY</span> <span class="nf">KEY</span> <span class="o">(</span><span class="err">`</span><span class="n">row_key</span><span class="err">`</span><span class="o">),</span>
+    <span class="n">KEY</span> <span class="err">`</span><span class="n">idx_status</span><span class="err">`</span> <span class="o">(</span><span class="err">`</span><span class="n">status</span><span class="err">`</span><span class="o">),</span>
+    <span class="n">KEY</span> <span class="err">`</span><span class="n">idx_branch_id</span><span class="err">`</span> <span class="o">(</span><span class="err">`</span><span class="n">branch_id</span><span class="err">`</span><span class="o">)</span>
+<span class="o">)</span> <span class="n">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span>
+  <span class="n">DEFAULT</span> <span class="n">CHARSET</span> <span class="o">=</span> <span class="n">utf8</span><span class="o">;</span>
+</code></pre></div><ol start="3">
+<li>重启Seata即可生效。</li>
+</ol>
+<h2 id="seata配置nacos注册中心和配置中心">Seata配置Nacos注册中心和配置中心</h2>
+<p>Seata支持注册服务到Nacos，以及支持Seata所有配置放到Nacos配置中心，在Nacos中统一维护；</p>
+<p>高可用模式下就需要配合Nacos来完成</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118234555417.png" alt="image-20220118234555417"></p>
+<h3 id="具体配置如下">具体配置如下</h3>
+<h4 id="注册中心">注册中心</h4>
+<p>Seata-server端配置注册中心，在registry.conf中加入配置注册中心nacos</p>
+<p><strong>注意：确保client与server的注册处于同一个namespace和group，不然会找不到服务。</strong></p>
+<pre><code>registry {
+  # file 、nacos 、eureka、redis、zk、consul、etcd3、sofa
+  type = &quot;nacos&quot;
+
+  nacos {
+    application = &quot;seata-server&quot;
+    serverAddr = &quot;127.0.0.1:8848&quot;
+    group = &quot;SEATA_GROUP&quot; # 这里的配置要和客户端保持一致
+    namespace = &quot;&quot; # 这里的配置要和客户端保持一致
+    cluster = &quot;default&quot;
+    username = &quot;nacos&quot;
+    password = &quot;nacos&quot;
+  }
+    ......
+</code></pre><h4 id="配置中心">配置中心</h4>
+<ol>
+<li>Seata-Server配置配置中心，在registry.conf中加入配置使用nacos作为配置中心</li>
+</ol>
+<pre><code>config {
+  # file、nacos 、apollo、zk、consul、etcd3
+  type = &quot;nacos&quot;
+
+  nacos {
+    serverAddr = &quot;127.0.0.1:8848&quot;
+    namespace = &quot;&quot;
+    group = &quot;SEATA_GROUP&quot;
+    username = &quot;&quot;
+    password = &quot;&quot;
+    dataId = &quot;seataServer.properties&quot;
+  }
+............
+</code></pre><ol start="2">
+<li>
+<p>我们需要把Seata的一些配置上传到Nacos中，配置比较多，所以官方给我们提供了一个config.txt，我们下载并且修改其中参数，上传到Nacos中</p>
+<p>下载地址：https://github.com/seata/seata/tree/develop/script/config-center</p>
+</li>
+<li>
+<p>具体修改：</p>
+<p>**注意：**事务分组：用于防护机房停电，来启用备用机房，或者异地机房，容错机制，当然如果Seata-Server配置了对应的事务分组，Client也需要配置相同的事务分组</p>
+<pre><code>service.vgroupMapping.可以自定义=default
+default这里必须等于 registry.config 中的cluster=&quot;default&quot;(当然可以更改 )
+</code></pre></li>
+</ol>
+<pre><code>transport.type=TCP
+transport.server=NIO
+transport.heartbeat=true
+transport.enableTmClientBatchSendRequest=false
+transport.enableRmClientBatchSendRequest=true
+transport.rpcRmRequestTimeout=5000
+transport.rpcTmRequestTimeout=10000
+transport.rpcTcRequestTimeout=10000
+transport.threadFactory.bossThreadPrefix=NettyBoss
+transport.threadFactory.workerThreadPrefix=NettyServerNIOWorker
+transport.threadFactory.serverExecutorThreadPrefix=NettyServerBizHandler
+transport.threadFactory.shareBossWorker=false
+transport.threadFactory.clientSelectorThreadPrefix=NettyClientSelector
+transport.threadFactory.clientSelectorThreadSize=1
+transport.threadFactory.clientWorkerThreadPrefix=NettyClientWorkerThread
+transport.threadFactory.bossThreadSize=1
+transport.threadFactory.workerThreadSize=default
+#-------------修改这个区域的映射--------------    
+transport.shutdown.wait=3
+service.vgroupMapping.mygroup=default # 事务分组
+service.default.grouplist=127.0.0.1:8091
+service.enableDegrade=false
+service.disableGlobalTransaction=false
+#------------------------------------------    
+client.rm.asyncCommitBufferLimit=10000
+client.rm.lock.retryInterval=10
+client.rm.lock.retryTimes=30
+client.rm.lock.retryPolicyBranchRollbackOnConflict=true
+client.rm.reportRetryCount=5
+client.rm.tableMetaCheckEnable=false
+client.rm.tableMetaCheckerInterval=60000
+client.rm.sqlParserType=druid
+client.rm.reportSuccessEnable=false
+client.rm.sagaBranchRegisterEnable=false
+client.rm.sagaJsonParser=fastjson
+client.rm.tccActionInterceptorOrder=-2147482648
+client.tm.commitRetryCount=5
+client.tm.rollbackRetryCount=5
+client.tm.defaultGlobalTransactionTimeout=60000
+client.tm.degradeCheck=false
+client.tm.degradeCheckAllowTimes=10
+client.tm.degradeCheckPeriod=2000
+client.tm.interceptorOrder=-2147482648
+store.mode=db # 修改
+store.lock.mode=file
+store.session.mode=file
+store.publicKey=
+store.file.dir=file_store/data
+store.file.maxBranchSessionSize=16384
+store.file.maxGlobalSessionSize=512
+store.file.fileWriteBufferCacheSize=16384
+store.file.flushDiskMode=async
+store.file.sessionReloadReadSize=100
+#-----------修改这个区域的JDBC连接-----------    
+store.db.datasource=druid
+store.db.dbType=mysql
+store.db.driverClassName=com.mysql.jdbc.Driver
+store.db.url=jdbc:mysql://127.0.0.1:3306/seata?useUnicode=true&amp;rewriteBatchedStatements=true
+store.db.user=root
+store.db.password=root
+store.db.minConn=5
+store.db.maxConn=30
+#------------------------------------------    
+store.db.globalTable=global_table
+store.db.branchTable=branch_table
+store.db.distributedLockTable=distributed_lock
+store.db.queryLimit=100
+store.db.lockTable=lock_table
+store.db.maxWait=5000
+store.redis.mode=single
+store.redis.single.host=127.0.0.1
+store.redis.single.port=6379
+store.redis.sentinel.masterName=
+store.redis.sentinel.sentinelHosts=
+store.redis.maxConn=10
+store.redis.minConn=1
+store.redis.maxTotal=100
+store.redis.database=0
+store.redis.password=
+store.redis.queryLimit=100
+server.recovery.committingRetryPeriod=1000
+server.recovery.asynCommittingRetryPeriod=1000
+server.recovery.rollbackingRetryPeriod=1000
+server.recovery.timeoutRetryPeriod=1000
+server.maxCommitRetryTimeout=-1
+server.maxRollbackRetryTimeout=-1
+server.rollbackRetryTimeoutUnlockEnable=false
+server.distributedLockExpireTime=10000
+client.undo.dataValidation=true
+client.undo.logSerialization=jackson
+client.undo.onlyCareUpdateColumns=true
+server.undo.logSaveDays=7
+server.undo.logDeletePeriod=86400000
+client.undo.logTable=undo_log
+client.undo.compress.enable=true
+client.undo.compress.type=zip
+client.undo.compress.threshold=64k
+log.exceptionRate=100
+transport.serialization=seata
+transport.compressor=none
+metrics.enabled=false
+metrics.registryType=compact
+metrics.exporterList=prometheus
+metrics.exporterPrometheusPort=9898
+tcc.fence.logTableName=tcc_fence_log
+tcc.fence.cleanPeriod=1h
+</code></pre><ol start="4">
+<li>修改好这个文件以后，我们就需要把这个文件放到seata目录下</li>
+</ol>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118195227875.png" alt="image-20220118195227875"></p>
+<ol start="5">
+<li>
+<p>此时我们需要把这些配置一个个的加入到Nacos配置中，所以我们需要一个脚本来进行执行，官方已经提供好了，地址为：https://github.com/seata/seata/blob/develop/script/config-center/nacos/nacos-config.sh</p>
+</li>
+<li>
+<p>我们需要在seata-server-1.4.2文件夹中新建一个脚本文件nacos-config.sh，然后把脚本内容复制进去</p>
+</li>
+</ol>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118200307770.png" alt="image-20220118200307770"></p>
+<ol start="7">
+<li>利用git来进行执行命令：</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ sh nacos-config.sh -h localhost -p <span class="m">8848</span> -g SEATA_GROUP -t 命名空间 -u nacos -w nacos
+</code></pre></div><p>参数说明：</p>
+<p>-h：host，默认值localhost</p>
+<p>-p：port，默认值8848</p>
+<p>-g：配置分组，默认为SEATA_GROUP</p>
+<p>-t：租户信息，对应Nacos的命名空间ID，默认为空</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118200423603.png" alt="image-20220118200423603"></p>
+<ol start="8">
+<li>在执行naocs-config文件的时候要注意，它默认寻找config.txt的路径和我们的路径不同，所以要打开naocs-config文件进行修改，否则无法执行。</li>
+</ol>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220119002450133.png" alt="image-20220119002450133"></p>
+<h4 id="测试启动">测试启动</h4>
+<p>当以上的这些配置完成以后，我们就可以启动nacos和seata-server了，此时我们查看Nacos的配置中心，就会看到我们传入的所有配置信息</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220119003324612.png" alt="image-20220119003324612"></p>
+<h3 id="附加">附加</h3>
+<p>各位我们Seata-Server默认端口是8091，那么如果我们是集群部署方式，我们如何修改端口那？</p>
+<p>在 Linux/Mac 下</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ sh ./bin/seata-server.sh
+</code></pre></div><p>在 Windows 下</p>
+<div class="highlight"><pre class="chroma"><code class="language-cmd" data-lang="cmd">bin\seata-server.bat
+</code></pre></div><h4 id="支持的启动参数">支持的启动参数</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th style="text-align:left">全写</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-h</td>
+<td style="text-align:left">&ndash;host</td>
+<td style="text-align:left">指定在注册中心注册的 IP</td>
+<td style="text-align:left">不指定时获取当前的 IP，外部访问部署在云环境和容器中的 server 建议指定</td>
+</tr>
+<tr>
+<td style="text-align:left">-p</td>
+<td style="text-align:left">&ndash;port</td>
+<td style="text-align:left">指定 server 启动的端口</td>
+<td style="text-align:left">默认为 8091</td>
+</tr>
+<tr>
+<td style="text-align:left">-m</td>
+<td style="text-align:left">&ndash;storeMode</td>
+<td style="text-align:left">事务日志存储方式</td>
+<td style="text-align:left">支持<code>file</code>,<code>db</code>,<code>redis</code>，默认为 <code>file</code> 注:redis需seata-server 1.3版本及以上</td>
+</tr>
+<tr>
+<td style="text-align:left">-n</td>
+<td style="text-align:left">&ndash;serverNode</td>
+<td style="text-align:left">用于指定seata-server节点ID</td>
+<td style="text-align:left">如 <code>1</code>,<code>2</code>,<code>3</code>&hellip;, 默认为 <code>1</code></td>
+</tr>
+<tr>
+<td style="text-align:left">-e</td>
+<td style="text-align:left">&ndash;seataEnv</td>
+<td style="text-align:left">指定 seata-server 运行环境</td>
+<td style="text-align:left">如 <code>dev</code>, <code>test</code> 等, 服务启动时会使用 <code>registry-dev.conf</code> 这样的配置</td>
+</tr>
+</tbody>
+</table>
+<p>如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ sh ./bin/seata-server.sh -p <span class="m">8091</span> -h 127.0.0.1 -m file
+</code></pre></div><h2 id="seata-at模式">Seata-AT模式</h2>
+<p>概念：AT模式是一种无侵入的分布式事务解决方案，在 AT 模式下，用户只需关注自己的“业务 SQL”，用户的 “业务 SQL” 作为一阶段，Seata 框架会自动生成事务的二阶段提交和回滚操作。</p>
+<h3 id="整体机制">整体机制</h3>
+<p>两阶段提交协议的演变：</p>
+<ul>
+<li>一阶段：业务数据和回滚日志记录在同一个本地事务中提交，释放本地锁和连接资源。</li>
+<li>二阶段：
+<ul>
+<li>提交异步化，非常快速地完成。</li>
+<li>回滚通过一阶段的回滚日志进行反向补偿。</li>
+</ul>
+</li>
+</ul>
+<h4 id="一阶段">一阶段</h4>
+<p>在一阶段中，Seata会拦截“业务SQL“，首先解析SQL语义，找到要更新的业务数据，在数据被更新前，保存下来&quot;undo&quot;，然后执行”业务SQL“更新数据，更新之后再次保存数据”redo“，最后生成行锁，这些操作都在本地数据库事务内完成，这样保证了一阶段的原子性。</p>
+<h4 id="二阶段">二阶段</h4>
+<p>相对一阶段，二阶段比较简单，负责整体的回滚和提交，如果之前的一阶段中有本地事务没有通过，那么就执行全局回滚，否在执行全局提交，回滚用到的就是一阶段记录的&quot;undo Log&quot;，通过回滚记录生成反向更新SQL并执行，以完成分支的回滚。当然事务完成后会释放所有资源和删除所有日志。</p>
+<h4 id="具体图解">具体图解</h4>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118161225488.png" alt="image-20220118161225488"></p>
+<h3 id="案例">案例</h3>
+<ol>
+<li>
+<p>首先设计两个服务，一个订单order8801 一个库存stock8802</p>
+</li>
+<li>
+<p>stock库存表为：</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220117223403744.png" alt="image-20220117223403744"></p>
+</li>
+<li>
+<p>order订单表为：</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220117223340923.png" alt="image-20220117223340923"></p>
+</li>
+<li>
+<p>订单服务通过OpenFegin远程调用库存服务，然后库存服务减库存，订单服务生成订单，完成基本的调用以后我们给订单服务添加异常</p>
+</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderServiceImpl</span> <span class="kd">implements</span> <span class="n">OrderService</span> <span class="o">{</span>
+    <span class="nd">@Resource</span>
+    <span class="kd">private</span> <span class="n">OrderMapper</span> <span class="n">orderMapper</span><span class="o">;</span>
+
+    <span class="nd">@Resource</span>
+    <span class="kd">private</span> <span class="n">StockClient</span> <span class="n">stockClient</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">create</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 减库存
+</span><span class="c1"></span>        <span class="n">stockClient</span><span class="o">.</span><span class="na">decrement</span><span class="o">();</span>
+
+        <span class="c1">// 添加异常
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">/</span><span class="n">0</span><span class="o">;</span>
+
+        <span class="c1">// 创建订单
+</span><span class="c1"></span>        <span class="n">orderMapper</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ol start="5">
+<li>此时我们会发现访问接口出现异常情况，但是库存减少，订单没有增加此时已经出现了分布式事务的问题</li>
+</ol>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220117223455391.png" alt="image-20220117223455391"></p>
+<p>订单表，没有增加数据</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220117223513706.png" alt="image-20220117223513706"></p>
+<h4 id="通过seata的at模式解决分布式事务">通过Seata的AT模式解决分布式事务</h4>
+<ol>
+<li>首先增加对应的Seata依赖</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">alibaba</span><span class="o">.</span><span class="na">cloud</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">cloud</span><span class="o">-</span><span class="n">starter</span><span class="o">-</span><span class="n">alibaba</span><span class="o">-</span><span class="n">seata</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+</code></pre></div><ol start="2">
+<li>在对应的微服务数据库上加上undo_log表，此表用于数据的回滚</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">CREATE</span> <span class="n">TABLE</span> <span class="err">`</span><span class="n">undo_log</span><span class="err">`</span> <span class="o">(</span>
+  <span class="err">`</span><span class="n">id</span><span class="err">`</span> <span class="n">bigint</span><span class="o">(</span><span class="n">20</span><span class="o">)</span> <span class="n">NOT</span> <span class="n">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="o">,</span>
+  <span class="err">`</span><span class="n">branch_id</span><span class="err">`</span> <span class="n">bigint</span><span class="o">(</span><span class="n">20</span><span class="o">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+  <span class="err">`</span><span class="n">xid</span><span class="err">`</span> <span class="n">varchar</span><span class="o">(</span><span class="n">100</span><span class="o">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+  <span class="err">`</span><span class="n">context</span><span class="err">`</span> <span class="n">varchar</span><span class="o">(</span><span class="n">128</span><span class="o">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+  <span class="err">`</span><span class="n">rollback_info</span><span class="err">`</span> <span class="n">longblob</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+  <span class="err">`</span><span class="n">log_status</span><span class="err">`</span> <span class="kt">int</span><span class="o">(</span><span class="n">11</span><span class="o">)</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+  <span class="err">`</span><span class="n">log_created</span><span class="err">`</span> <span class="n">datetime</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+  <span class="err">`</span><span class="n">log_modified</span><span class="err">`</span> <span class="n">datetime</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="o">,</span>
+  <span class="err">`</span><span class="n">ext</span><span class="err">`</span> <span class="n">varchar</span><span class="o">(</span><span class="n">100</span><span class="o">)</span> <span class="n">DEFAULT</span> <span class="n">NULL</span><span class="o">,</span>
+  <span class="n">PRIMARY</span> <span class="nf">KEY</span> <span class="o">(</span><span class="err">`</span><span class="n">id</span><span class="err">`</span><span class="o">),</span>
+  <span class="n">UNIQUE</span> <span class="n">KEY</span> <span class="err">`</span><span class="n">ux_undo_log</span><span class="err">`</span> <span class="o">(</span><span class="err">`</span><span class="n">xid</span><span class="err">`</span><span class="o">,</span><span class="err">`</span><span class="n">branch_id</span><span class="err">`</span><span class="o">)</span>
+<span class="o">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="n">1</span> <span class="n">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="o">;</span>
+</code></pre></div><p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220117225203163.png" alt="image-20220117225203163"></p>
+<ol start="3">
+<li>配置yml（8801和8802Seata的配置保持一致）</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nl">server:</span>
+  <span class="n">port</span><span class="o">:</span> <span class="n">8801</span>
+<span class="nl">spring:</span>
+  <span class="n">application</span><span class="o">:</span>
+    <span class="n">name</span><span class="o">:</span> <span class="n">seata</span><span class="o">-</span><span class="n">order</span>
+  <span class="n">cloud</span><span class="o">:</span>
+    <span class="n">nacos</span><span class="o">:</span>
+      <span class="n">discovery</span><span class="o">:</span>
+        <span class="n">server</span><span class="o">-</span><span class="n">addr</span><span class="o">:</span> <span class="n">localhost</span><span class="o">:</span><span class="n">8848</span>
+  <span class="n">datasource</span><span class="o">:</span>
+    <span class="n">driver</span><span class="o">-</span><span class="n">class</span><span class="o">-</span><span class="n">name</span><span class="o">:</span> <span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">Driver</span>
+    <span class="n">url</span><span class="o">:</span> <span class="n">jdbc</span><span class="o">:</span><span class="n">mysql</span><span class="o">:</span><span class="c1">//localhost:3306/test_at?characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai&amp;rewriteBatchedStatements=true
+</span><span class="c1"></span>    <span class="n">username</span><span class="o">:</span> <span class="n">root</span>
+    <span class="n">password</span><span class="o">:</span> <span class="n">root</span>
+    <span class="n">type</span><span class="o">:</span> <span class="n">com</span><span class="o">.</span><span class="na">alibaba</span><span class="o">.</span><span class="na">druid</span><span class="o">.</span><span class="na">pool</span><span class="o">.</span><span class="na">DruidDataSource</span>
+<span class="nl">
+</span><span class="nl">seata:</span>
+  <span class="n">tx</span><span class="o">-</span><span class="n">service</span><span class="o">-</span><span class="n">group</span><span class="o">:</span> <span class="n">mygroup</span> <span class="err">#</span> <span class="n">事务组名称</span><span class="err">，</span><span class="n">要和服务端对应</span>
+  <span class="n">service</span><span class="o">:</span>
+    <span class="n">vgroup</span><span class="o">-</span><span class="n">mapping</span><span class="o">:</span>
+      <span class="n">mygroup</span><span class="o">:</span> <span class="k">default</span> <span class="err">#</span> <span class="n">key是事务组名称</span> <span class="n">value要和服务端的机房名称保持一致</span>
+
+</code></pre></div><ol start="4">
+<li>需要在order8801(TM)的Controller上添加注解</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@RestController</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderController</span> <span class="o">{</span>
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">OrderService</span> <span class="n">orderService</span><span class="o">;</span>
+
+    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/order/create&#34;</span><span class="o">)</span>
+    <span class="nd">@GlobalTransactional</span><span class="c1">// 开启分布式事务
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">String</span> <span class="nf">create</span><span class="o">(){</span>
+        <span class="n">orderService</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+        <span class="k">return</span> <span class="s">&#34;生成订单&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ol start="5">
+<li>
+<p>把8801和8802都跑起来，当然Nacos和Seata都要进行启动，这个时候我们进行访问Order的REST接口：http://localhost:8801/order/create，我们就会发现此时已经解决了分布式事务问题</p>
+<p>库存没有减少</p>
+<p>订单也没有增加</p>
+</li>
+</ol>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118162757573.png" alt="image-20220118162757573"></p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118162832649.png" alt="image-20220118162832649"></p>
+<ol start="6">
+<li>那么为了验证undo_log表用于存储回滚的数据，我们在OrderServiceImpl上异常位置添加断点，同时以debug方式来启动8801订单服务</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderServiceImpl</span> <span class="kd">implements</span> <span class="n">OrderService</span> <span class="o">{</span>
+    <span class="nd">@Resource</span>
+    <span class="kd">private</span> <span class="n">OrderMapper</span> <span class="n">orderMapper</span><span class="o">;</span>
+
+    <span class="nd">@Resource</span>
+    <span class="kd">private</span> <span class="n">StockClient</span> <span class="n">stockClient</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">create</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 减库存
+</span><span class="c1"></span>        <span class="n">stockClient</span><span class="o">.</span><span class="na">decrement</span><span class="o">();</span>
+
+        <span class="c1">// 添加异常
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">/</span><span class="n">0</span><span class="o">;</span><span class="c1">// 此处添加断点
+</span><span class="c1"></span>
+        <span class="c1">// 创建订单
+</span><span class="c1"></span>        <span class="n">orderMapper</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div><ol start="7">
+<li>
+<p>然后访问接口：http://localhost:8801/order/create，程序会卡在断点上，此时我们来查看undo_log表和库存表，此时我们会发现，库存确实减少了，但是在undo_log表中出现了快照记录了当前修改前的数据，这个数据就是用于回滚的数据</p>
+<p>库存减少</p>
+</li>
+</ol>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118163714002.png" alt="image-20220118163714002"></p>
+<p>​		undo_log表记录快照</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118163908365.png" alt="image-20220118163908365"></p>
+<p>​		放行以后，库存数量回复，回滚生效</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220118164019307.png" alt="image-20220118164019307"></p>
+<ol start="8">
+<li>此时我们就验证了AT事务的执行过程。</li>
+</ol>
+<h2 id="tcc事务模式">TCC事务模式</h2>
+<p>首先我们先来了解常规的TCC模式。</p>
+<h3 id="什么是tcc">什么是TCC</h3>
+<p>TCC 是分布式事务中的二阶段提交协议，它的全称为 Try-Confirm-Cancel，即资源预留（Try）、确认操作（Confirm）、取消操作（Cancel），他们的具体含义如下：</p>
+<ol>
+<li>Try：对业务资源的检查并预留；</li>
+<li>Confirm：对业务处理进行提交，即 commit 操作，只要 Try 成功，那么该步骤一定成功；</li>
+<li>Cancel：对业务处理进行取消，即回滚操作，该步骤回对 Try 预留的资源进行释放。</li>
+</ol>
+<p>TCC 是一种侵入式的分布式事务解决方案，以上三个操作都需要业务系统自行实现，对业务系统有着非常大的入侵性，设计相对复杂，但优点是 TCC 完全不依赖数据库，能够实现跨数据库、跨应用资源管理，对这些不同数据访问通过侵入式的编码方式实现一个原子操作，更好地解决了在各种复杂业务场景下的分布式事务问题。</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220215233609040.png" alt="image-20220215233609040"></p>
+<h3 id="seata的tcc模式">Seata的TCC模式</h3>
+<p>Seata TCC 模式跟通用型 TCC 模式原理一致。</p>
+<h3 id="tcc和at区别">TCC和AT区别</h3>
+<p>AT 模式基于 <strong>支持本地 ACID 事务</strong> 的 <strong>关系型数据库</strong>：</p>
+<ul>
+<li>一阶段 prepare 行为：在本地事务中，一并提交业务数据更新和相应回滚日志记录。</li>
+<li>二阶段 commit 行为：马上成功结束，<strong>自动</strong> 异步批量清理回滚日志。</li>
+<li>二阶段 rollback 行为：通过回滚日志，<strong>自动</strong> 生成补偿操作，完成数据回滚。</li>
+</ul>
+<p>相应的，TCC 模式，不依赖于底层数据资源的事务支持：</p>
+<ul>
+<li>一阶段 prepare 行为：调用 <strong>自定义</strong> 的 prepare 逻辑。</li>
+<li>二阶段 commit 行为：调用 <strong>自定义</strong> 的 commit 逻辑。</li>
+<li>二阶段 rollback 行为：调用 <strong>自定义</strong> 的 rollback 逻辑。</li>
+</ul>
+<p>所谓 TCC 模式，是指支持把 <strong>自定义</strong> 的分支事务纳入到全局事务的管理中。</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/seata_tcc-1-1644422133604.png" alt="Overview of a global transaction"></p>
+<h3 id="特点">特点</h3>
+<ol>
+<li>侵入性比较强，并且需要自己实现相关事务控制逻辑</li>
+<li>在整个过程基本没有锁，性能较强</li>
+</ol>
+<h3 id="详细讲解">详细讲解</h3>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220125210417709.png" alt="image-20220125210417709"></p>
+<p>具体使用案例：https://seata.io/zh-cn/blog/integrate-seata-tcc-mode-with-spring-cloud.html</p>
+<h2 id="seata-xa模式">Seata-XA模式</h2>
+<p>Seata 1.2.0 版本重磅发布新的事务模式：XA 模式，实现对 XA 协议的支持。</p>
+<p>我们从三个方面来深入分析：</p>
+<ol>
+<li>XA模式是什么？</li>
+<li>为什么支持XA？</li>
+<li>XA模式如何实现的，以及如何使用？</li>
+</ol>
+<h3 id="xa模式">XA模式</h3>
+<p>首先我们需要先了解一下什么是XA？</p>
+<p>XA 规范早在上世纪 90 年代初就被提出，用以解决分布式事务处理这个领域的问题。</p>
+<p>注意：不存在某一种分布式事务机制可以完美适应所有场景，满足所有需求。</p>
+<p>现在，无论 AT 模式、TCC 模式还是 Saga 模式，这些模式的提出，本质上都源自 XA 规范对某些场景需求的无法满足。</p>
+<h4 id="什么是xa协议">什么是XA协议</h4>
+<p>XA 规范 是 X/Open 组织定义的分布式事务处理（DTP，Distributed Transaction Processing）标准</p>
+<p>XA 规范 描述了全局的事务管理器与局部的资源管理器之间的接口。 XA规范 的目的是允许的多个资源（如数据库，应用服务器，消息队列等）在同一事务中访问，这样可以使 ACID 属性跨越应用程序而保持有效。</p>
+<p>XA 规范 使用两阶段提交（2PC，Two-Phase Commit）来保证所有资源同时提交或回滚任何特定的事务。</p>
+<p>XA 规范 在上世纪 90 年代初就被提出。目前，几乎所有主流的数据库都对 XA 规范 提供了支持。</p>
+<p>DTP模型定义如下角色：</p>
+<ul>
+<li>AP：即应用程序，可以理解为使用DTP分布式事务的程序</li>
+<li>RM：资源管理器，可以理解为事务的参与者，一般情况下是指一个数据库的实例（MySql），通过资源管理器对该数据库进行控制，资源管理器控制着分支事务</li>
+<li>TM：事务管理器，负责协调和管理事务，事务管理器控制着全局事务，管理实务生命周期，并协调各个RM。全局事务是指分布式事务处理环境中，需要操作多个数据库共同完成一个工作，这个工作即是一个全局事务。</li>
+<li>DTP模式定义TM和RM之间通讯的接口规范叫XA，简单理解为数据库提供的2PC接口协议，基于数据库的XA协议来实现的2PC又称为XA方案。</li>
+</ul>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/20200722160231749.png" alt="img"></p>
+<p>案例解释：</p>
+<ol>
+<li>应用程序（AP）持有订单库和商品库两个数据源。</li>
+<li>应用程序（AP）通过TM通知订单库（RM）和商品库（RM），来创建订单和减库存，RM此时未提交事务，此时商品和订单资源锁定。</li>
+<li>TM收到执行回复，只要有一方失败则分别向其他RM发送回滚事务，回滚完毕，资源锁释放。</li>
+<li>TM收到执行回复，全部成功，此时向所有的RM发起提交事务，提交完毕，资源锁释放。</li>
+</ol>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220209173222316.png" alt="image-20220209173222316"></p>
+<h5 id="xa协议的痛点">XA协议的痛点</h5>
+<p>如果一个参与全局事务的资源 “失联” 了（收不到分支事务结束的命令），那么它锁定的数据，将一直被锁定。进而，甚至可能因此产生死锁。</p>
+<p>这是 XA 协议的核心痛点，也是 Seata 引入 XA 模式要重点解决的问题。</p>
+<h4 id="seata的事务模式">Seata的事务模式</h4>
+<p>Seata 定义了全局事务的框架。</p>
+<p>全局事务 定义为若干 分支事务 的整体协调：</p>
+<ol>
+<li>TM 向 TC 请求发起（Begin）、提交（Commit）、回滚（Rollback）全局事务。</li>
+<li>TM 把代表全局事务的 XID 绑定到分支事务上。</li>
+<li>RM 向 TC 注册，把分支事务关联到 XID 代表的全局事务中。</li>
+<li>RM 把分支事务的执行结果上报给 TC。（可选）</li>
+<li>TC 发送分支提交（Branch Commit）或分支回滚（Branch Rollback）命令给 RM。</li>
+</ol>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/TB19qmhOrY1gK0jSZTEXXXDQVXa-1330-924.png" alt="seata-mod"></p>
+<p>Seata 的 全局事务 处理过程，分为两个阶段：</p>
+<ul>
+<li>执行阶段 ：执行分支事务，并保证执行结果满足是 <em>可回滚的（Rollbackable）</em> 和 <em>持久化的（Durable）</em>。</li>
+<li>完成阶段： 根据 执行阶段 结果形成的决议，应用通过 TM 发出的全局提交或回滚的请求给 TC，TC 命令 RM 驱动 分支事务 进行 Commit 或 Rollback。</li>
+</ul>
+<p>Seata 的所谓事务模式是指：运行在 Seata 全局事务框架下的 分支事务 的行为模式。准确地讲，应该叫作 分支事务模式。</p>
+<p>不同的 事务模式 区别在于 分支事务 使用不同的方式达到全局事务两个阶段的目标。即，回答以下两个问题：</p>
+<ul>
+<li>执行阶段 ：如何执行并 保证 执行结果满足是 <em>可回滚的（Rollbackable）</em> 和 <em>持久化的（Durable）</em>。
+<ul>
+<li>完成阶段： 收到 TC 的命令后，如何做到分支的提交或回滚？</li>
+</ul>
+</li>
+</ul>
+<p>我们以AT模式举例：</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/TB1NTuzOBr0gK0jSZFnXXbRRXXa-1330-924.png" alt="at-mod"></p>
+<ul>
+<li>执行阶段：
+<ul>
+<li>可回滚：根据 SQL 解析结果，记录回滚日志</li>
+<li>持久化：回滚日志和业务 SQL 在同一个本地事务中提交到数据库</li>
+</ul>
+</li>
+<li>完成阶段：
+<ul>
+<li>分支提交：异步删除回滚日志记录</li>
+<li>分支回滚：依据回滚日志进行反向补偿更新</li>
+</ul>
+</li>
+</ul>
+<h3 id="seata的xa模式">Seata的XA模式</h3>
+<p>XA模式：</p>
+<p>在 Seata 定义的分布式事务框架内，利用事务资源（数据库、消息服务等）对 XA 协议的支持，以 XA 协议的机制来管理分支事务的一种 事务模式。</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/TB1hSpccIVl614jSZKPXXaGjpXa-1330-924.png" alt="xa-mod"></p>
+<ul>
+<li>执行阶段：
+<ul>
+<li>可回滚：业务 SQL 操作放在 XA 分支中进行，由资源对 XA 协议的支持来保证 可回滚</li>
+<li>持久化：XA 分支完成后，执行 XA prepare，同样，由资源对 XA 协议的支持来保证 <em>持久化</em>（即，之后任何意外都不会造成无法回滚的情况）</li>
+</ul>
+</li>
+<li>完成阶段：
+<ul>
+<li>分支提交：执行 XA 分支的 commit</li>
+<li>分支回滚：执行 XA 分支的 rollback</li>
+</ul>
+</li>
+</ul>
+<h4 id="为什么要在seata中支持xa">为什么要在Seata中支持XA</h4>
+<p>为什么要在 Seata 中增加 XA 模式呢？支持 XA 的意义在哪里呢？</p>
+<p>本质上，Seata 已经支持的 3 大事务模式：AT、TCC、Saga 都是 补偿型 的。</p>
+<p>补偿型 事务处理机制构建在 事务资源 之上（要么在中间件层面，要么在应用层面），事务资源 本身对分布式事务是无感知的。</p>
+<p>事务资源 对分布式事务的无感知存在一个根本性的问题：无法做到真正的 全局一致性 。</p>
+<p>比如，一条库存记录，处在 补偿型 事务处理过程中，由 100 扣减为 50。此时，仓库管理员连接数据库，查询统计库存，就看到当前的 50。之后，事务因为异外回滚，库存会被补偿回滚为 100。显然，仓库管理员查询统计到的 50 就是 脏 数据。所以补偿型事务是存在中间状态的（中途可能读到脏数据）</p>
+<h4 id="xa的价值">XA的价值</h4>
+<p>与 补偿型 不同，XA 协议 要求 事务资源 本身提供对规范和协议的支持。</p>
+<p>因为 事务资源 感知并参与分布式事务处理过程，所以 事务资源（如数据库）可以保障从任意视角对数据的访问有效隔离，满足全局数据一致性。</p>
+<p>比如，刚才提到的库存更新场景，XA 事务处理过程中，中间状态数据库存 50 由数据库本身保证，是不会仓库管理员的查询统计看到的。</p>
+<p>除了 全局一致性 这个根本性的价值外，支持 XA 还有如下几个方面的好处：</p>
+<ol>
+<li>业务无侵入：和 AT 一样，XA 模式将是业务无侵入的，不给应用设计和开发带来额外负担。</li>
+<li>数据库的支持广泛：XA 协议被主流关系型数据库广泛支持，不需要额外的适配即可使用。</li>
+<li>多语言支持容易：因为不涉及 SQL 解析，XA 模式对 Seata 的 RM 的要求比较少。</li>
+<li>传统基于 XA 应用的迁移：传统的，基于 XA 协议的应用，迁移到 Seata 平台，使用 XA 模式将更平滑。</li>
+</ol>
+<h3 id="xa模式的使用">XA模式的使用</h3>
+<p>我们从官方案例入手，具体的官方案例下载地址：https://github.com/seata/seata-samples</p>
+<p>官方案例演示图：</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220211150003482.png" alt="image-20220211150003482"></p>
+<p>案例解析：</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220211155757596.png" alt="image-20220211155757596"></p>
+<p>整体运行机制：</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/TB1uM2OaSslXu8jSZFuXXXg7FXa-1330-958.png" alt="xa-fw"></p>
+<h3 id="总结">总结</h3>
+<p>在当前的技术发展阶段，不存一个分布式事务处理机制可以完美满足所有场景的需求。</p>
+<p>一致性、可靠性、易用性、性能等诸多方面的系统设计约束，需要用不同的事务处理机制去满足。</p>
+<p>Seata 项目最核心的价值在于：构建一个全面解决分布式事务问题的 标准化 平台。</p>
+<p>基于 Seata，上层应用架构可以根据实际场景的需求，灵活选择合适的分布式事务解决方案。</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/TB1lTSoOqL7gK0jSZFBXXXZZpXa-1028-528.png" alt="img"></p>
+<p>XA 模式的加入，补齐了 Seata 在 全局一致性 场景下的缺口，形成 AT、TCC、Saga、XA 四大 事务模式 的版图，基本可以满足所有场景的分布式事务处理诉求。</p>
+<h2 id="seata中的saga事务模式">Seata中的Saga事务模式</h2>
+<h3 id="基本概念">基本概念</h3>
+<p>Saga模式是SEATA提供的长事务解决方案，在Saga模式中，业务流程中每个参与者都提交本地事务，当出现某一个参与者失败则补偿前面已经成功的参与者，一阶段正向服务和二阶段补偿服务（执行处理时候出错了，给一个修复的机会）都由业务开发实现。</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/TB1Y2kuw7T2gK0jSZFkXXcIQFXa-445-444.png" alt="TB1Y2kuw7T2gK0jSZFkXXcIQFXa-445-444"></p>
+<p>Saga 模式下分布式事务通常是由事件驱动的，各个参与者之间是异步执行的，Saga 模式是一种长事务解决方案。</p>
+<h3 id="为什么需要saga">为什么需要Saga</h3>
+<p>之前我们学习的Seata分布式三种操作模型中所使用的的微服务全部可以根据开发者的需求进行修改，但是在一些特殊环境下，比如老系统，封闭的系统（无法修改，同时没有任何分布式事务引入），那么AT、XA、TCC模型将全部不能使用，为了解决这样的问题，才引用了Saga模型。</p>
+<p>比如：事务参与者可能是其他公司的服务或者是遗留系统，无法改造，可以使用Saga模式。</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220215170345079.png" alt="image-20220215170345079"></p>
+<p>Saga模式是Seata提供的长事务解决方案，提供了<strong>异构系统的事务统一处理模型</strong>。在Saga模式中，所有的子业务都不在直接参与整体事务的处理（只负责本地事务的处理），而是全部交由了最终调用端来负责实现，而在进行总业务逻辑处理时，在某一个子业务出现问题时，则自动补偿全面已经成功的其他参与者，这样一阶段的正向服务调用和二阶段的服务补偿处理全部由总业务开发实现。</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/Saga%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B.png" alt="Saga执行模型"></p>
+<h3 id="saga状态机">Saga状态机</h3>
+<p>目前Seata提供的Saga模式只能通过状态机引擎来实现，需要开发者手工的进行Saga业务流程绘制，并且将其转换为Json配置文件，而后在程序运行时，将依据子配置文件实现业务处理以及服务补偿处理，而要想进行Saga状态图的绘制，一般需要通过Saga状态机来实现。</p>
+<p>基本原理：</p>
+<ul>
+<li>通过状态图来定义服务调用的流程并生成json定义文件</li>
+<li>状态图中一个节点可以调用一个服务，节点可以配置它的补偿节点</li>
+<li>状态图 json 由状态机引擎驱动执行，当出现异常时状态引擎反向执行已成功节点对应的补偿节点将事务回滚</li>
+<li>可以实现服务编排需求，支持单项选择、并发、子流程、参数转换、参数映射、服务执行状态判断、异常捕获等功能</li>
+</ul>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/demo_statelang.png" alt=""></p>
+<h3 id="saga状态机的应用">Saga状态机的应用</h3>
+<p>官方提供了一个状态机设计器</p>
+<p><img src="/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1.assets/image-20220215175333918.png" alt="image-20220215175333918"></p>
+<p>官方文档地址：https://seata.io/zh-cn/docs/user/saga.html</p>
+<p>Seata Safa状态机可视化图形设计器使用地址：https://github.com/seata/seata/blob/develop/saga/seata-saga-statemachine-designer/README.zh-CN.md</p>
+<h3 id="springcloud整合seata-saga模式">SpringCloud整合Seata-Saga模式</h3>
+<p>参考：https://blog.csdn.net/zjj2006/article/details/108723488（springcloud+eureka整合阿里seata-saga模式）、https://blog.csdn.net/zjj2006/article/details/109430048（Seata源码剖析：Saga模式实现）</p>
+  </section>
+
+  <section>
+    
+      
+    
+  </section>
+</article>
+
+      </div>
+
+      <div id="side" class="pr-1 bg-white">
+        <aside class="pr-3">
+          
+  
+    <div id="toc" class="Box Box--blue mb-3">
+      <b>分布式事务</b><nav id="TableOfContents">
+  <ul>
+    <li><a href="#分布式事务简介">分布式事务简介</a>
+      <ul>
+        <li><a href="#概念">概念</a></li>
+        <li><a href="#事务">事务</a></li>
+        <li><a href="#分布式事务理论">分布式事务理论</a></li>
+        <li><a href="#分布式事务解决方案">分布式事务解决方案</a></li>
+      </ul>
+    </li>
+    <li><a href="#seata-server安装">Seata-Server安装</a>
+      <ul>
+        <li><a href="#seata简介">Seata简介</a></li>
+        <li><a href="#seata术语">Seata术语</a></li>
+        <li><a href="#seata-server下载">Seata-Server下载</a></li>
+        <li><a href="#seata-server配置">Seata-Server配置</a></li>
+        <li><a href="#seata-server启动">Seata-Server启动</a></li>
+      </ul>
+    </li>
+    <li><a href="#seata-servertc环境搭建详解">Seata Server（TC）环境搭建详解</a></li>
+    <li><a href="#seata配置nacos注册中心和配置中心">Seata配置Nacos注册中心和配置中心</a>
+      <ul>
+        <li><a href="#具体配置如下">具体配置如下</a></li>
+        <li><a href="#附加">附加</a></li>
+      </ul>
+    </li>
+    <li><a href="#seata-at模式">Seata-AT模式</a>
+      <ul>
+        <li><a href="#整体机制">整体机制</a></li>
+        <li><a href="#案例">案例</a></li>
+      </ul>
+    </li>
+    <li><a href="#tcc事务模式">TCC事务模式</a>
+      <ul>
+        <li><a href="#什么是tcc">什么是TCC</a></li>
+        <li><a href="#seata的tcc模式">Seata的TCC模式</a></li>
+        <li><a href="#tcc和at区别">TCC和AT区别</a></li>
+        <li><a href="#特点">特点</a></li>
+        <li><a href="#详细讲解">详细讲解</a></li>
+      </ul>
+    </li>
+    <li><a href="#seata-xa模式">Seata-XA模式</a>
+      <ul>
+        <li><a href="#xa模式">XA模式</a></li>
+        <li><a href="#seata的xa模式">Seata的XA模式</a></li>
+        <li><a href="#xa模式的使用">XA模式的使用</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#seata中的saga事务模式">Seata中的Saga事务模式</a>
+      <ul>
+        <li><a href="#基本概念">基本概念</a></li>
+        <li><a href="#为什么需要saga">为什么需要Saga</a></li>
+        <li><a href="#saga状态机">Saga状态机</a></li>
+        <li><a href="#saga状态机的应用">Saga状态机的应用</a></li>
+        <li><a href="#springcloud整合seata-saga模式">SpringCloud整合Seata-Saga模式</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+  
+
+  
+    <div>
+      
+    </div>
+  
+
+        </aside>
+      </div>
+
+      <div id="footer" class="pt-2 pb-3 bg-white text-center">
+        
+
+  <span class="text-small text-gray">
+    ©QYF Just for record 2018-2021 &middot; 
+
+    Powered by the
+    <a href="https://github.com/qqhann/hugo-primer" class="link-gray-dark">Hugo-Primer</a> theme for
+    <a href="https://gohugo.io" class="link-gray-dark">Hugo</a>.
+  </span>
+
+
+      </div>
+    </div>
+
+    
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });</script>
+    
+  </body>
+</html>
