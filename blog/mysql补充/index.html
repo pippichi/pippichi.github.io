@@ -1843,7 +1843,10 @@ mysql&gt; SELECT LAST_INSERT_ID();
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">SET</span> <span class="n">FOREIGN_KEY_CHECKS</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div><p>查看当前<code>FOREIGN_KEY_CHECKS</code>的值可用如下命令：</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">@@</span><span class="n">FOREIGN_KEY_CHECKS</span><span class="p">;</span>
-</code></pre></div>
+</code></pre></div><h2 id="canal和binlog">Canal和Binlog</h2>
+<p>MySQL Binlog 是一种实时的数据流，用于主从节点之间的数据复制，我们可以利用它来进行数据抽取。</p>
+<p>Canal 能够非常便捷地将 MySQL 中的数据抽取到任意目标存储中。</p>
+<p>参考：https://blog.csdn.net/zjerryj/article/details/77152226（使用 Binlog 和 Canal 从 MySQL 抽取数据）、https://blog.csdn.net/singgel/article/details/86166154（canal实现mysql实时数据binlog同步）</p>
   </section>
 
   <section>
@@ -1971,6 +1974,7 @@ mysql&gt; SELECT LAST_INSERT_ID();
         <li><a href="#foreign_key_checks"><code>FOREIGN_KEY_CHECKS</code></a></li>
       </ul>
     </li>
+    <li><a href="#canal和binlog">Canal和Binlog</a></li>
   </ul>
 </nav></div>
   
