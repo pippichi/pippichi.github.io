@@ -1827,6 +1827,10 @@ mysql&gt; SELECT LAST_INSERT_ID();
 <p>参考：https://blog.csdn.net/weixin_50853979/article/details/124669207</p>
 <h3 id="cast">CAST()</h3>
 <p>参考：https://blog.csdn.net/Hudas/article/details/124399908</p>
+<h3 id="timestampdiff">TIMESTAMPDIFF()</h3>
+<p>时间差函数</p>
+<p>语法：<code>TIMESTAMPDIFF(unit, begin, end)</code></p>
+<p>参考：https://blog.csdn.net/qq_16470351/article/details/103686956</p>
 <h2 id="属性">属性</h2>
 <h3 id="identity">@@identity</h3>
 <p>跟函数<code>last_insert_id()</code>的返回值一样，@@identity表示的是最近一次向具有identity属性(即自增列)的表插入数据时对应的自增列的值,是系统定义的全局变量。</p>
@@ -1965,6 +1969,7 @@ mysql&gt; SELECT LAST_INSERT_ID();
         <li><a href="#row_number和rank和dense_rank">ROW_NUMBER()和RANK()和DENSE_RANK()</a></li>
         <li><a href="#substring_index">SUBSTRING_INDEX()</a></li>
         <li><a href="#cast">CAST()</a></li>
+        <li><a href="#timestampdiff">TIMESTAMPDIFF()</a></li>
       </ul>
     </li>
     <li><a href="#属性">属性</a>

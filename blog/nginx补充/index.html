@@ -304,7 +304,7 @@ http {
 <li>alias在使用正则匹配时，必须捕捉要匹配的内容并在指定的内容处使用。</li>
 <li>alias只能位于location块中。（root可以不放在location中）</li>
 </ul>
-<h2 id="nginx高可用配合keepalived实现vip">Nginx高可用（配合Keepalived实现VIP）</h2>
+<h2 id="nginx高可用配合keepalived实现vip">nginx高可用（配合keepalived实现VIP）</h2>
 <p>参考：https://blog.csdn.net/miraclerz/article/details/102504931（centos7 下用Keepalived nginx 实现Vip虚拟ip）</p>
 <h3 id="配置keepalivedconf">配置keepalived.conf</h3>
 <pre><code>global_defs {
@@ -396,7 +396,7 @@ vrrp_instance VI_1 {
   <ul>
     <li><a href="#nginx配置模板">nginx配置模板</a></li>
     <li><a href="#nginx中locationrootalias的关系">nginx中location、root、alias的关系</a></li>
-    <li><a href="#nginx高可用配合keepalived实现vip">Nginx高可用（配合Keepalived实现VIP）</a>
+    <li><a href="#nginx高可用配合keepalived实现vip">nginx高可用（配合keepalived实现VIP）</a>
       <ul>
         <li><a href="#配置keepalivedconf">配置keepalived.conf</a></li>
         <li><a href="#检测心跳用的脚本文件nginx_checksh">检测心跳用的脚本文件<code>nginx_check.sh</code></a></li>

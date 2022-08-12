@@ -353,9 +353,8 @@ if (!doNotTrack) {
 <span class="kt">boolean</span> <span class="n">i</span> <span class="o">=</span> <span class="n">stu</span><span class="o">.</span><span class="na">deleteById</span><span class="o">();</span>
 
 <span class="c1">// 还有update(Wrapper queryWrapper)、delete(Wrapper queryWrapper)等方法（条件更新、条件删除等），具体的去看文档
-</span></code></pre></div><h2 id="mp代码生成器">mp代码生成器</h2>
-<p>作用：</p>
-<p>​	根据数据库中的表动态生成表对应的mapper，service，pojo，controller层的基础代码，提升开发效率</p>
+</span></code></pre></div><h2 id="mbp代码生成器">mbp代码生成器</h2>
+<p>作用：根据数据库中的表动态生成表对应的mapper，service，pojo，controller层的基础代码，提升开发效率</p>
 <p>1、导入代码生成器相关jar包</p>
 <p><img src="/mybatis_plus.assets/image-20210414223311600.png" alt="image-20210414223311600"></p>
 <p>2、直接运行下面的代码就好了</p>
@@ -407,7 +406,12 @@ if (!doNotTrack) {
 </span><span class="c1"></span>            <span class="n">mpg</span><span class="o">.</span><span class="na">execute</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div><h2 id="lombok插件">LomBok插件</h2>
+</code></pre></div><p><strong>自定义代码模板</strong></p>
+<p>mbp默认是提供代码模板的，但有时候默认的模板比较简单，无法满足实际需要，这个时候就需要自己定义代码模板</p>
+<p>mbp自带的默认模板：</p>
+<p><img src="/mybatis_plus.assets/image-20220812201003465.png" alt="image-20220812201003465"></p>
+<p>自定义模板请参考：<a href="https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent">张润华<code>generator-spring-boot-starter</code>项目</a></p>
+<h2 id="lombok插件">LomBok插件</h2>
 <p>用了Lombok注解之后，虽然看似Java代码中没写setter、getter等方法了，但其实等它被编译成.class文件之后，setter、getter等方法还是会在的，而且该.class文件跟不加LomBok注解之前的Java文件编译成的.class文件是一样的</p>
 <p>如果idea要用的话需要先下载一个lombok插件，因为在idea中写的Java代码是由idea去编译的，而idea不支持也不认识lombok，所以要先下个lombok插件：</p>
 <p><img src="/mybatis_plus.assets/image-20210414225652834.png" alt="image-20210414225652834"></p>
@@ -460,7 +464,7 @@ if (!doNotTrack) {
     <li><a href="#全局配置策略">全局配置策略</a></li>
     <li><a href="#mybatis-plus-处理器">Mybatis Plus 处理器</a></li>
     <li><a href="#ar模式">AR模式</a></li>
-    <li><a href="#mp代码生成器">mp代码生成器</a></li>
+    <li><a href="#mbp代码生成器">mbp代码生成器</a></li>
     <li><a href="#lombok插件">LomBok插件</a></li>
     <li><a href="#mybatisx插件">MybatisX插件</a></li>
     <li><a href="#mybatis-plus动态数据源配置">Mybatis-plus动态数据源配置</a></li>
