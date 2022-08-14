@@ -796,29 +796,67 @@ by分组之前先排序，之后还会创建临时表，最后还要把临时表
 <p><img src="/mysql_senior/08e0a9b22f1dcd476a55f95de8d5bbeb.png" alt=""></p>
 <p>可见copying to tmp table非常损耗性能</p>
 <h2 id="锁机制">锁机制</h2>
-<p>MySQL中有共享锁、排他锁、意向锁：</p>
+<h3 id="锁分类">锁分类</h3>
+<p><strong>锁粒度</strong></p>
 <ul>
 <li>
+<p>表锁</p>
+<p>表级读锁：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">LOCK</span> <span class="k">TABLE</span> <span class="n">user_info</span> <span class="k">READ</span><span class="p">;</span>
+</code></pre></div><p>表级写锁：</p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">LOCK</span> <span class="k">TABLE</span> <span class="n">user_info</span> <span class="k">WRITE</span><span class="p">;</span>
+</code></pre></div></li>
+<li>
+<p>行锁</p>
+</li>
+<li>
+<p>页锁</p>
+</li>
+</ul>
+<p><strong>加锁机制</strong></p>
+<ul>
+<li>乐观锁</li>
+<li>悲观锁</li>
+</ul>
+<p><strong>兼容性</strong></p>
+<ul>
+<li>
+<p>共享锁</p>
 <p>共享锁（Shared Lock）针对行锁，主要为了支持并发读场景，语法：</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">T</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">LOCK</span> <span class="k">IN</span> <span class="n">SHARE</span> <span class="n">MODE</span><span class="p">;</span>
 </code></pre></div></li>
 <li>
+<p>排他锁（互斥锁）</p>
 <p>排他锁（Exclusive Lock）针对行锁，主要为了支持并发写场景，语法：</p>
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">T</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">FOR</span> <span class="k">UPDATE</span><span class="p">;</span>
 </code></pre></div></li>
+</ul>
+<p><strong>加锁模式</strong></p>
+<ul>
 <li>
+<p>记录锁</p>
+</li>
+<li>
+<p>gap锁（间隙锁）</p>
+</li>
+<li>
+<p>next-key锁（临建锁）</p>
+<p>原则1：加锁的基本单位是next-key lock，next-key lock是前开后闭区间</p>
+<p>原则2：查找过程中访问到的对象才会加锁</p>
+<p>优化1：索引上的等值查询，给唯一索引加锁的时候，next-key lock退化为行锁</p>
+<p>优化2：索引上的等值查询，向右遍历时且最后一个值不满足等值条件时，next-key lock退化为间隙锁</p>
+<p>注意：唯一索引上的范围查询会访问到不满足条件的第一个值为止</p>
+<p>参考：https://www.likecs.com/show-204851943.html（MySQL锁 - 间隙锁实战）</p>
+</li>
+<li>
+<p>意向锁</p>
 <p>意向锁（Intention Lock）针对表锁，无法手动创建</p>
 </li>
 <li>
-<p>表级读锁：</p>
-<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">LOCK</span> <span class="k">TABLE</span> <span class="n">user_info</span> <span class="k">READ</span><span class="p">;</span>
-</code></pre></div></li>
-<li>
-<p>表级写锁：</p>
-<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">LOCK</span> <span class="k">TABLE</span> <span class="n">user_info</span> <span class="k">WRITE</span><span class="p">;</span>
-</code></pre></div></li>
+<p>插入意向锁</p>
+</li>
 </ul>
-<p>参考：https://blog.csdn.net/songzehao/article/details/124074013</p>
+<p>参考：https://www.jianshu.com/p/478bc84a7721（MySQL记录锁、间隙锁、临键锁（Next-Key Locks）详解）、https://blog.csdn.net/songzehao/article/details/124074013（MySQL的共享锁、排他锁、意向锁）</p>
 <h3 id="概述">概述</h3>
 <p><img src="/mysql_senior/56a2e953ed2133153c88d584a64a6b44.png" alt=""></p>
 <p><img src="/mysql_senior/800a302e49dec7aac8b5e23d9559c3c2.png" alt=""></p>
@@ -1286,6 +1324,7 @@ over（）这两个函数，这两个函数还可以实现并列第一名之后�
     </li>
     <li><a href="#锁机制">锁机制</a>
       <ul>
+        <li><a href="#锁分类">锁分类</a></li>
         <li><a href="#概述">概述</a></li>
         <li><a href="#表锁主要是myisam偏读">表锁（主要是myisam，偏读）</a></li>
         <li><a href="#行锁主要是innodb偏写">行锁（主要是innodb，偏写）</a></li>
