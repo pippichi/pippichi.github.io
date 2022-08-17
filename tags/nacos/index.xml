@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NACOS on Learning Records</title>
+    <link>https://pippichi.github.io/tags/nacos/</link>
+    <description>Recent content in NACOS on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
+    <lastBuildDate>Wed, 17 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/nacos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NACOS 集群部署</title>
+      <link>https://pippichi.github.io/blog/nacos%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Wed, 17 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/nacos%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/</guid>
+      <description>&lt;p&gt;nacos集群部署教程&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
