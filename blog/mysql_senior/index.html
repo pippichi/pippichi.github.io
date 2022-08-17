@@ -1192,6 +1192,9 @@ by ‘123456’;</strong></p>
 <p>解决方案：</p>
 <p><img src="/mysql_senior/567e50118e7fdeda23c5f9ff2d807980.png" alt=""></p>
 <p>之后重启即可</p>
+<h2 id="tidb">TiDB</h2>
+<p>在 NewSQL 数据库出现之前，一般采用单机数据库（比如 MySQL）作为存储，随着数据量的增加，分库分表是早晚面临的问题，即使有诸如 MyCat、ShardingJDBC 等优秀的中间件，分库分表还是给 RD 和 DBA 带来较高的成本；NewSQL 数据库出现后，由于它不仅有 NoSQL 对海量数据的管理存储能力、还支持传统关系数据库的 ACID 和 SQL，所以对业务开发来说，存储问题已经变得更加简单友好，进而可以更专注于业务本身。而 TiDB，正是 NewSQL 的一个杰出代表！</p>
+<p>关于TiDB的安装部署请参考：https://blog.csdn.net/weixin_45730091/article/details/112321400（TiDB安装部署）</p>
 <h2 id="联合查询复习">联合查询复习</h2>
 <p><img src="/mysql_senior/bc9534b3684f95d6c457e1451ce76e5f.png" alt=""></p>
 <p><img src="/mysql_senior/d2de90de07026cce3f4aec06fc0d84fe.png" alt=""></p>
@@ -1354,6 +1357,7 @@ over（）这两个函数，这两个函数还可以实现并列第一名之后�
         <li><a href="#可能出现的错误centos68就出现过">可能出现的错误（centos6.8就出现过）</a></li>
       </ul>
     </li>
+    <li><a href="#tidb">TiDB</a></li>
     <li><a href="#联合查询复习">联合查询复习</a></li>
     <li><a href="#思考题">思考题</a></li>
     <li><a href="#优化习题">优化习题</a></li>

@@ -132,143 +132,9 @@ if (!doNotTrack) {
   
   <section class="pb-6 mb-3 border-bottom">
     <p>The article contains the basic knowledge of MySQL&hellip;</p>
-<h2 id="补充">补充</h2>
-<h3 id="mysql-80修改密码">mysql 8.0修改密码</h3>
-<pre><code>$ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '你的密码';
-$ flush privileges;
-</code></pre><h3 id="用户授权">用户授权</h3>
-<p>一、用户授权</p>
-<p>mysql8.0之前写法：</p>
-<pre><code>mysql&gt; grant all privileges on *.* to 'yangxin'@'%' identified by 'yangxin123456' with grant option;
-</code></pre><p>mysql8.0之后写法：</p>
-<pre><code>mysql&gt; CREATE USER 'qyf'@'%' IDENTIFIED BY '你的密码';
-mysql&gt; grant all privileges on *.* to 'qyf'@'%';
-</code></pre><p>添加远程访问权限：</p>
-<pre><code>mysql&gt; ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '你的密码';
-</code></pre><p>添加权限（和已有权限合并，不会覆盖已有权限）</p>
-<pre><code>GRANT Insert ON `your database`.`your table` TO `user`@`host`;
-</code></pre><p>删除权限</p>
-<pre><code>REVOKE Delete ON `your database`.`your table` FROM `user`@`host`;
-</code></pre><p>二、刷新权限<br>
-对用户做了权限变更之后，一定记得重新加载一下权限，将权限信息从内存中写入数据库。</p>
-<p>mysql&gt; flush privileges;</p>
-<h3 id="表文件结构innodbmyisam和memory的">表文件结构（innodb、myisam和memory的）</h3>
-<p><img src="/mysql_basic/image-20210410201523552.png" alt="image-20210410201523552"></p>
-<h3 id="innodb的独立表空间和共享表空间">Innodb的独立表空间和共享表空间</h3>
-<p><strong>共享表空间优点</strong></p>
-<p>表空间可以分成多个文件存放到各个磁盘，所以表也就可以分成多个文件存放在磁盘上，表的大小不受磁盘大小的限制（很多文档描述有点问题）。</p>
-<p>数据和文件放在一起方便管理。</p>
-<p><strong>共享表空间缺点</strong></p>
-<p>所有的数据和索引存放到一个文件，虽然可以把一个大文件分成多个小文件，但是多个表及索引在表空间中混合存储，当数据量非常大的时候，表做了大量删除操作后表空间中将会有大量的空隙，特别是对于统计分析，对于经常删除操作的这类应用最不适合用共享表空间。</p>
-<p>共享表空间分配后不能回缩：当出现临时建索引或是创建一个临时表的操作表空间扩大后，就是删除相关的表也没办法回缩那部分空间了（可以理解为oracle的表空间10G，但是才使用10M，但是操作系统显示mysql的表空间为10G），进行数据库的冷备很慢；</p>
-<p><strong>独立表空间优点</strong></p>
-<p>每个表都有自已独立的表空间，每个表的数据和索引都会存在自已的表空间中，可以实现单表在不同的数据库中移动。</p>
-<p>空间可以回收（除drop table操作处，表空不能自已回收）</p>
-<p>Drop table操作自动回收表空间，如果对于统计分析或是日值表，删除大量数据后可以通过:alter table TableName engine=innodb;回缩不用的空间。</p>
-<p>对于使innodb-plugin的Innodb使用turncate table也会使空间收缩。</p>
-<p>对于使用独立表空间的表，不管怎么删除，表空间的碎片不会太严重的影响性能，而且还有机会处理。</p>
-<p><strong>独立表空间缺点</strong></p>
-<p>单表增加过大，当单表占用空间过大时，存储空间不足，只能从操作系统层面思考解决方法；</p>
-<p><strong>共享表空间和独立表空间之间的互换</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span> <span class="n">VARIABLES</span> <span class="k">LIKE</span> <span class="s2">&#34;innodb_file_per_table&#34;</span><span class="p">;</span>
-<span class="c1">-- ON表示独立表空间管理，OFF表示共享表空间管理 --
-</span></code></pre></div><h3 id="查看当前库">查看当前库</h3>
-<p>mysql&gt; select database();</p>
-<h3 id="执行计划explain">执行计划（EXPLAIN）</h3>
-<p>类似于DESC，在语句前添加关键字EXPLAIN后显示一些信息。https://www.cnblogs.com/yinjw/p/11864477.html</p>
-<h3 id="配置文件">配置文件</h3>
-<p><img src="/mysql_basic/3f2128f5103751de0dfb44c9b425e91e.png" alt=""></p>
-<h3 id="select用法">Select用法</h3>
-<p><img src="/mysql_basic/bc6c360fbfaf63fe5a5f4fdda95d2e73.png" alt=""></p>
-<p><img src="/mysql_basic/3183e536b83b397b511cc27a9bf55a01.png" alt=""></p>
-<h3 id="set用法">Set用法</h3>
-<p>设置系统的变量</p>
-<p><img src="/mysql_basic/d3a59ab41c644a60c4b8fb4bc04f0895.png" alt=""></p>
-<p>设置隔离级别</p>
-<p><img src="/mysql_basic/a15bd7d4468f20bf6d06fdc6518baf18.png" alt=""></p>
-<h3 id="limit以及offset用法">Limit以及offset用法</h3>
-<p>limit offsite，N； （offsite（起始游标）可以不写，相当于 limit 0，N（长度））</p>
-<p>语句1：select * from student limit 9,4</p>
-<p>语句2：slect * from student limit 4 offset 9</p>
-<p>//语句1和2均返回表student的第10、11、12、13行</p>
-<p>//语句2中的4表示返回4行，9表示从表的第十行开始</p>
-<h3 id="distinct用法">Distinct用法</h3>
-<p><img src="/mysql_basic/151512ee32b1e32711019a06b75fd9c7.png" alt=""></p>
-<ol>
-<li>
-<p>select distinct(goods_name) ,goods_id from goods;
-注意：distinct只能放在查询列名的最前面，但是与其他函数使用的时候，没有前后位置限制。</p>
-</li>
-<li>
-<p>select distinct name,age from user;</p>
-</li>
-</ol>
-<h3 id="between用法">Between用法</h3>
-<p>select goods_name from goods where goods_price not between 50 and 4000;</p>
-<h3 id="-的作用">“+” 的作用</h3>
-<p><img src="/mysql_basic/0e0c37382c16a149c3ff0fd147630aeb.png" alt=""></p>
-<p><img src="/mysql_basic/ac418ad0bdccba83e44dd2dd92202e17.png" alt=""></p>
-<h3 id="g的作用">\G的作用</h3>
-<p>按列显示，使得显示出来的信息更加人性化</p>
-<h3 id="null的性质">Null的性质</h3>
-<p>任何东西跟null拼接都为null；字符串‘null’跟null没有关系。坑点：我们用concate函数的时候如果拼接内容中有一方为null，则结果为null，因此可能返回的不是我们想要的拼接的结果。</p>
-<h3 id="ifnull判空后面那个0表示如果是空的话就显示0">IFNULL判空（后面那个“0”表示如果是空的话就显示0）</h3>
-<p><img src="/mysql_basic/56d35f408bf53ca2720fc676119e321f.png" alt=""></p>
-<p><img src="/mysql_basic/d70f7514218144773dcb2f2e1392a838.png" alt=""></p>
-<h3 id="条件运算符">条件运算符</h3>
-<p><img src="/mysql_basic/953b8b78b026ac18542eb28ba3198a05.png" alt=""></p>
-<h3 id="模糊查询包括安全等于is-nullinescape转义的运用注意-null是不行的一定要is-null">模糊查询（包括安全等于&lt;=&gt;、is null、in、escape、转义的运用）（注意= NULL是不行的，一定要IS NULL）</h3>
-<p><img src="/mysql_basic/818608c39f86f17abc1251603155bda6.png" alt=""></p>
-<p><img src="/mysql_basic/85e1f4db3d1e3cd8643cb6cb5b303b05.png" alt=""></p>
-<p><img src="/mysql_basic/56d59a5ac7a47a2c595af39e962f2e60.png" alt=""></p>
-<p>下面这个‘$’可以是任意字符，只要后面excape里面表明清楚就可以了，他的意思是表示该字符后面的那个字符是转义的意思</p>
-<p><img src="/mysql_basic/7cda42046e349b1714bc270920f6f262.png" alt=""></p>
-<p><img src="/mysql_basic/21fd2e2c55cb00f866d70a87d39d2833.png" alt=""></p>
-<p><img src="/mysql_basic/e8bf37fb14214656404cb284168f13bc.png" alt=""></p>
-<p><img src="/mysql_basic/e1c8abfcdfa841a27c9132dc16510193.png" alt=""></p>
-<p><img src="/mysql_basic/dbc38f57b831c62d231440dd55721fe7.png" alt=""></p>
-<p><img src="/mysql_basic/a569418058553d3e4f7320437dc8e6ba.png" alt=""></p>
-<p><img src="/mysql_basic/0ace3328e64dd3efa29970c05e48f267.png" alt=""></p>
-<p>注意：在可能为0的字段前面加IFNULL</p>
-<p><img src="/mysql_basic/5a71605f1a0f3875f00ac319ebbee2dd.png" alt=""></p>
-<h3 id="多字段排序">多字段排序</h3>
-<p><img src="/mysql_basic/09a366005d53a1c6b37e396c20583147.png" alt=""></p>
-<h3 id="show-variables-like-char">Show variables like ‘%char%’</h3>
-<p><img src="/mysql_basic/646f060fe2c7efd7f93bb4342c9abba0.png" alt=""></p>
-<p><img src="/mysql_basic/ec4244952620a918ef5c70233be7a869.png" alt=""></p>
-<h3 id="hostname">@@hostname</h3>
-<p>系统变量，显示主机名，应用场景：使用mycat时区分到底是哪个机器的库，因为linux跟windows的主机名必定不一样，因此可以使用这种方法来进行区分</p>
-<h3 id="select-transaction_isolation-from-dualfrom-dual可以省略">Select @@transaction_isolation from dual（from dual可以省略）</h3>
-<p>Dual表示虚表，表示这个表根本不存在，我主要是想找前面那个东西。</p>
-<p><img src="/mysql_basic/80108a713207e934eacaee8534e134c9.png" alt=""></p>
-<h3 id="设置时区">设置时区</h3>
-<p>Set
-time_zone=’+9:00’意思是把时区设置为东9区，这个时候TIMESTAMP会发生变化但是DATETIME不会变。</p>
-<p><img src="/mysql_basic/504a52e26846452d8d9dcc26503e36b2.png" alt=""></p>
-<p><img src="/mysql_basic/3360480b44c82c23997bfbba4ca1de2a.png" alt=""></p>
-<p>其中t1是datetime，t2是timestamp</p>
-<h3 id="建表时设置timestamp为当前时间">建表时设置timestamp为当前时间</h3>
-<p>timeStamp not null default CURRENT_TIMESTAMP;</p>
-<h3 id="刷新权限">刷新权限</h3>
-<p>flush privileges;</p>
-<h3 id="sql注释">sql注释</h3>
-<p>&ndash;</p>
-<h3 id="查看表结构">查看表结构</h3>
-<p>DESC 表名;</p>
-<h3 id="查看表的各种参数状态">查看表的各种参数状态</h3>
-<p>SHOW TABLE STATUS;</p>
-<h3 id="查看表索引约束">查看表索引约束</h3>
-<p>SHOW INDEX FROM 表名；</p>
-<p><img src="/mysql_basic/cc83e0656a57c18a17389c7995ee87f1.png" alt=""></p>
-<h3 id="返回建表时的sql语句">返回建表时的sql语句</h3>
-<p>show create table 表名;</p>
-<h3 id="sql_no_cache">SQL_NO_CACHE</h3>
-<p>加这个字段表示查询的时候不被缓存干扰</p>
-<p>示例：</p>
-<p><img src="/mysql_basic/6dec475adb8cf5eae650f99b4d9f7fea.png" alt=""></p>
-<h3 id="查看innodb引擎状态">查看innodb引擎状态</h3>
-<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="kp">ENGINE</span> <span class="n">innodb</span> <span class="n">status</span><span class="p">;</span>
-</code></pre></div><h2 id="数据类型">数据类型</h2>
+<h2 id="安装mysql">安装MySQL</h2>
+<p>参考：https://blog.csdn.net/xhmico/article/details/125197747（Linux下安装MySQL（详细教程））</p>
+<h2 id="数据类型">数据类型</h2>
 <p><img src="/mysql_basic/c054897ef402f0dd123dd889966a7f7e.png" alt=""></p>
 <p><img src="/mysql_basic/f11198227324e85a34fae1f513732df0.png" alt=""></p>
 <ol>
@@ -1286,7 +1152,7 @@ IN (
     SELECT a,b
     FROM ...
 );
-</code></pre><h2 id="总结-2">总结</h2>
+</code></pre><h2 id="mysql面试题">MySQL面试题</h2>
 <p><img src="/mysql_basic/c7c43f2a6c4e7e37d7572756c4b34cbe.png" alt=""></p>
 <p><img src="/mysql_basic/61ae3729fbcb0bd195eb1205a6789178.png" alt=""></p>
 <p><img src="/mysql_basic/52d64e9120f3a021781866782c4c67e5.png" alt=""></p>
@@ -1294,7 +1160,6 @@ IN (
 <p><img src="/mysql_basic/e6a3d8c53e8913c3d47a6fe9fcb7712b.png" alt=""></p>
 <p><img src="/mysql_basic/4fee3ebfeb34c0e1727429c2c117d339.png" alt=""></p>
 <p><img src="/mysql_basic/99353b115eb5292a9ea64f00725de70e.png" alt=""></p>
-<h2 id="测试题">测试题</h2>
 <p><img src="/mysql_basic/4ef913ca91c78a265a52952cd275d584.png" alt=""></p>
 <p><img src="/mysql_basic/624a2b0bd519104ab2223feb0040e194.png" alt=""></p>
 <p><img src="/mysql_basic/903a160cfbde315cd0c1503c58d81f3d.png" alt=""></p>
@@ -1340,6 +1205,143 @@ IN (
 <p><img src="/mysql_basic/5a769843c043e9a6ca1b7a8231642d2f.png" alt=""></p>
 <p><img src="/mysql_basic/24165e8b69314c832a95a57d1e189aea.png" alt=""></p>
 <p><img src="/mysql_basic/e2b8a721f90ff09a9bb7832c28c022c2.png" alt=""></p>
+<h2 id="其他">其他</h2>
+<h3 id="mysql-80修改密码">mysql 8.0修改密码</h3>
+<pre><code>$ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '你的密码';
+$ flush privileges;
+</code></pre><h3 id="用户授权">用户授权</h3>
+<p>一、用户授权</p>
+<p>mysql8.0之前写法：</p>
+<pre><code>mysql&gt; grant all privileges on *.* to 'yangxin'@'%' identified by 'yangxin123456' with grant option;
+</code></pre><p>mysql8.0之后写法：</p>
+<pre><code>mysql&gt; CREATE USER 'qyf'@'%' IDENTIFIED BY '你的密码';
+mysql&gt; grant all privileges on *.* to 'qyf'@'%';
+</code></pre><p>添加远程访问权限：</p>
+<pre><code>mysql&gt; ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '你的密码';
+</code></pre><p>添加权限（和已有权限合并，不会覆盖已有权限）</p>
+<pre><code>GRANT Insert ON `your database`.`your table` TO `user`@`host`;
+</code></pre><p>删除权限</p>
+<pre><code>REVOKE Delete ON `your database`.`your table` FROM `user`@`host`;
+</code></pre><p>二、刷新权限<br>
+对用户做了权限变更之后，一定记得重新加载一下权限，将权限信息从内存中写入数据库。</p>
+<p>mysql&gt; flush privileges;</p>
+<h3 id="表文件结构innodbmyisam和memory的">表文件结构（innodb、myisam和memory的）</h3>
+<p><img src="/mysql_basic/image-20210410201523552.png" alt="image-20210410201523552"></p>
+<h3 id="innodb的独立表空间和共享表空间">Innodb的独立表空间和共享表空间</h3>
+<p><strong>共享表空间优点</strong></p>
+<p>表空间可以分成多个文件存放到各个磁盘，所以表也就可以分成多个文件存放在磁盘上，表的大小不受磁盘大小的限制（很多文档描述有点问题）。</p>
+<p>数据和文件放在一起方便管理。</p>
+<p><strong>共享表空间缺点</strong></p>
+<p>所有的数据和索引存放到一个文件，虽然可以把一个大文件分成多个小文件，但是多个表及索引在表空间中混合存储，当数据量非常大的时候，表做了大量删除操作后表空间中将会有大量的空隙，特别是对于统计分析，对于经常删除操作的这类应用最不适合用共享表空间。</p>
+<p>共享表空间分配后不能回缩：当出现临时建索引或是创建一个临时表的操作表空间扩大后，就是删除相关的表也没办法回缩那部分空间了（可以理解为oracle的表空间10G，但是才使用10M，但是操作系统显示mysql的表空间为10G），进行数据库的冷备很慢；</p>
+<p><strong>独立表空间优点</strong></p>
+<p>每个表都有自已独立的表空间，每个表的数据和索引都会存在自已的表空间中，可以实现单表在不同的数据库中移动。</p>
+<p>空间可以回收（除drop table操作处，表空不能自已回收）</p>
+<p>Drop table操作自动回收表空间，如果对于统计分析或是日值表，删除大量数据后可以通过:alter table TableName engine=innodb;回缩不用的空间。</p>
+<p>对于使innodb-plugin的Innodb使用turncate table也会使空间收缩。</p>
+<p>对于使用独立表空间的表，不管怎么删除，表空间的碎片不会太严重的影响性能，而且还有机会处理。</p>
+<p><strong>独立表空间缺点</strong></p>
+<p>单表增加过大，当单表占用空间过大时，存储空间不足，只能从操作系统层面思考解决方法；</p>
+<p><strong>共享表空间和独立表空间之间的互换</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span> <span class="n">VARIABLES</span> <span class="k">LIKE</span> <span class="s2">&#34;innodb_file_per_table&#34;</span><span class="p">;</span>
+<span class="c1">-- ON表示独立表空间管理，OFF表示共享表空间管理 --
+</span></code></pre></div><h3 id="查看当前库">查看当前库</h3>
+<p>mysql&gt; select database();</p>
+<h3 id="执行计划explain">执行计划（EXPLAIN）</h3>
+<p>类似于DESC，在语句前添加关键字EXPLAIN后显示一些信息。https://www.cnblogs.com/yinjw/p/11864477.html</p>
+<h3 id="配置文件">配置文件</h3>
+<p><img src="/mysql_basic/3f2128f5103751de0dfb44c9b425e91e.png" alt=""></p>
+<h3 id="select用法">Select用法</h3>
+<p><img src="/mysql_basic/bc6c360fbfaf63fe5a5f4fdda95d2e73.png" alt=""></p>
+<p><img src="/mysql_basic/3183e536b83b397b511cc27a9bf55a01.png" alt=""></p>
+<h3 id="set用法">Set用法</h3>
+<p>设置系统的变量</p>
+<p><img src="/mysql_basic/d3a59ab41c644a60c4b8fb4bc04f0895.png" alt=""></p>
+<p>设置隔离级别</p>
+<p><img src="/mysql_basic/a15bd7d4468f20bf6d06fdc6518baf18.png" alt=""></p>
+<h3 id="limit以及offset用法">Limit以及offset用法</h3>
+<p>limit offsite，N； （offsite（起始游标）可以不写，相当于 limit 0，N（长度））</p>
+<p>语句1：select * from student limit 9,4</p>
+<p>语句2：slect * from student limit 4 offset 9</p>
+<p>//语句1和2均返回表student的第10、11、12、13行</p>
+<p>//语句2中的4表示返回4行，9表示从表的第十行开始</p>
+<h3 id="distinct用法">Distinct用法</h3>
+<p><img src="/mysql_basic/151512ee32b1e32711019a06b75fd9c7.png" alt=""></p>
+<ol>
+<li>
+<p>select distinct(goods_name) ,goods_id from goods;
+注意：distinct只能放在查询列名的最前面，但是与其他函数使用的时候，没有前后位置限制。</p>
+</li>
+<li>
+<p>select distinct name,age from user;</p>
+</li>
+</ol>
+<h3 id="between用法">Between用法</h3>
+<p>select goods_name from goods where goods_price not between 50 and 4000;</p>
+<h3 id="-的作用">“+” 的作用</h3>
+<p><img src="/mysql_basic/0e0c37382c16a149c3ff0fd147630aeb.png" alt=""></p>
+<p><img src="/mysql_basic/ac418ad0bdccba83e44dd2dd92202e17.png" alt=""></p>
+<h3 id="g的作用">\G的作用</h3>
+<p>按列显示，使得显示出来的信息更加人性化</p>
+<h3 id="null的性质">Null的性质</h3>
+<p>任何东西跟null拼接都为null；字符串‘null’跟null没有关系。坑点：我们用concate函数的时候如果拼接内容中有一方为null，则结果为null，因此可能返回的不是我们想要的拼接的结果。</p>
+<h3 id="ifnull判空后面那个0表示如果是空的话就显示0">IFNULL判空（后面那个“0”表示如果是空的话就显示0）</h3>
+<p><img src="/mysql_basic/56d35f408bf53ca2720fc676119e321f.png" alt=""></p>
+<p><img src="/mysql_basic/d70f7514218144773dcb2f2e1392a838.png" alt=""></p>
+<h3 id="条件运算符">条件运算符</h3>
+<p><img src="/mysql_basic/953b8b78b026ac18542eb28ba3198a05.png" alt=""></p>
+<h3 id="模糊查询包括安全等于is-nullinescape转义的运用注意-null是不行的一定要is-null">模糊查询（包括安全等于&lt;=&gt;、is null、in、escape、转义的运用）（注意= NULL是不行的，一定要IS NULL）</h3>
+<p><img src="/mysql_basic/818608c39f86f17abc1251603155bda6.png" alt=""></p>
+<p><img src="/mysql_basic/85e1f4db3d1e3cd8643cb6cb5b303b05.png" alt=""></p>
+<p><img src="/mysql_basic/56d59a5ac7a47a2c595af39e962f2e60.png" alt=""></p>
+<p>下面这个‘$’可以是任意字符，只要后面excape里面表明清楚就可以了，他的意思是表示该字符后面的那个字符是转义的意思</p>
+<p><img src="/mysql_basic/7cda42046e349b1714bc270920f6f262.png" alt=""></p>
+<p><img src="/mysql_basic/21fd2e2c55cb00f866d70a87d39d2833.png" alt=""></p>
+<p><img src="/mysql_basic/e8bf37fb14214656404cb284168f13bc.png" alt=""></p>
+<p><img src="/mysql_basic/e1c8abfcdfa841a27c9132dc16510193.png" alt=""></p>
+<p><img src="/mysql_basic/dbc38f57b831c62d231440dd55721fe7.png" alt=""></p>
+<p><img src="/mysql_basic/a569418058553d3e4f7320437dc8e6ba.png" alt=""></p>
+<p><img src="/mysql_basic/0ace3328e64dd3efa29970c05e48f267.png" alt=""></p>
+<p>注意：在可能为0的字段前面加IFNULL</p>
+<p><img src="/mysql_basic/5a71605f1a0f3875f00ac319ebbee2dd.png" alt=""></p>
+<h3 id="多字段排序">多字段排序</h3>
+<p><img src="/mysql_basic/09a366005d53a1c6b37e396c20583147.png" alt=""></p>
+<h3 id="show-variables-like-char">Show variables like ‘%char%’</h3>
+<p><img src="/mysql_basic/646f060fe2c7efd7f93bb4342c9abba0.png" alt=""></p>
+<p><img src="/mysql_basic/ec4244952620a918ef5c70233be7a869.png" alt=""></p>
+<h3 id="hostname">@@hostname</h3>
+<p>系统变量，显示主机名，应用场景：使用mycat时区分到底是哪个机器的库，因为linux跟windows的主机名必定不一样，因此可以使用这种方法来进行区分</p>
+<h3 id="select-transaction_isolation-from-dualfrom-dual可以省略">Select @@transaction_isolation from dual（from dual可以省略）</h3>
+<p>Dual表示虚表，表示这个表根本不存在，我主要是想找前面那个东西。</p>
+<p><img src="/mysql_basic/80108a713207e934eacaee8534e134c9.png" alt=""></p>
+<h3 id="设置时区">设置时区</h3>
+<p>Set
+time_zone=’+9:00’意思是把时区设置为东9区，这个时候TIMESTAMP会发生变化但是DATETIME不会变。</p>
+<p><img src="/mysql_basic/504a52e26846452d8d9dcc26503e36b2.png" alt=""></p>
+<p><img src="/mysql_basic/3360480b44c82c23997bfbba4ca1de2a.png" alt=""></p>
+<p>其中t1是datetime，t2是timestamp</p>
+<h3 id="建表时设置timestamp为当前时间">建表时设置timestamp为当前时间</h3>
+<p>timeStamp not null default CURRENT_TIMESTAMP;</p>
+<h3 id="刷新权限">刷新权限</h3>
+<p>flush privileges;</p>
+<h3 id="sql注释">sql注释</h3>
+<p>&ndash;</p>
+<h3 id="查看表结构">查看表结构</h3>
+<p>DESC 表名;</p>
+<h3 id="查看表的各种参数状态">查看表的各种参数状态</h3>
+<p>SHOW TABLE STATUS;</p>
+<h3 id="查看表索引约束">查看表索引约束</h3>
+<p>SHOW INDEX FROM 表名；</p>
+<p><img src="/mysql_basic/cc83e0656a57c18a17389c7995ee87f1.png" alt=""></p>
+<h3 id="返回建表时的sql语句">返回建表时的sql语句</h3>
+<p>show create table 表名;</p>
+<h3 id="sql_no_cache">SQL_NO_CACHE</h3>
+<p>加这个字段表示查询的时候不被缓存干扰</p>
+<p>示例：</p>
+<p><img src="/mysql_basic/6dec475adb8cf5eae650f99b4d9f7fea.png" alt=""></p>
+<h3 id="查看innodb引擎状态">查看innodb引擎状态</h3>
+<div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span> <span class="kp">ENGINE</span> <span class="n">innodb</span> <span class="n">status</span><span class="p">;</span>
+</code></pre></div>
   </section>
 
   <section>
@@ -1358,42 +1360,7 @@ IN (
     <div id="toc" class="Box Box--blue mb-3">
       <b>MySQL -basic</b><nav id="TableOfContents">
   <ul>
-    <li><a href="#补充">补充</a>
-      <ul>
-        <li><a href="#mysql-80修改密码">mysql 8.0修改密码</a></li>
-        <li><a href="#用户授权">用户授权</a></li>
-        <li><a href="#表文件结构innodbmyisam和memory的">表文件结构（innodb、myisam和memory的）</a></li>
-        <li><a href="#innodb的独立表空间和共享表空间">Innodb的独立表空间和共享表空间</a></li>
-        <li><a href="#查看当前库">查看当前库</a></li>
-        <li><a href="#执行计划explain">执行计划（EXPLAIN）</a></li>
-        <li><a href="#配置文件">配置文件</a></li>
-        <li><a href="#select用法">Select用法</a></li>
-        <li><a href="#set用法">Set用法</a></li>
-        <li><a href="#limit以及offset用法">Limit以及offset用法</a></li>
-        <li><a href="#distinct用法">Distinct用法</a></li>
-        <li><a href="#between用法">Between用法</a></li>
-        <li><a href="#-的作用">“+” 的作用</a></li>
-        <li><a href="#g的作用">\G的作用</a></li>
-        <li><a href="#null的性质">Null的性质</a></li>
-        <li><a href="#ifnull判空后面那个0表示如果是空的话就显示0">IFNULL判空（后面那个“0”表示如果是空的话就显示0）</a></li>
-        <li><a href="#条件运算符">条件运算符</a></li>
-        <li><a href="#模糊查询包括安全等于is-nullinescape转义的运用注意-null是不行的一定要is-null">模糊查询（包括安全等于&lt;=&gt;、is null、in、escape、转义的运用）（注意= NULL是不行的，一定要IS NULL）</a></li>
-        <li><a href="#多字段排序">多字段排序</a></li>
-        <li><a href="#show-variables-like-char">Show variables like ‘%char%’</a></li>
-        <li><a href="#hostname">@@hostname</a></li>
-        <li><a href="#select-transaction_isolation-from-dualfrom-dual可以省略">Select @@transaction_isolation from dual（from dual可以省略）</a></li>
-        <li><a href="#设置时区">设置时区</a></li>
-        <li><a href="#建表时设置timestamp为当前时间">建表时设置timestamp为当前时间</a></li>
-        <li><a href="#刷新权限">刷新权限</a></li>
-        <li><a href="#sql注释">sql注释</a></li>
-        <li><a href="#查看表结构">查看表结构</a></li>
-        <li><a href="#查看表的各种参数状态">查看表的各种参数状态</a></li>
-        <li><a href="#查看表索引约束">查看表索引约束</a></li>
-        <li><a href="#返回建表时的sql语句">返回建表时的sql语句</a></li>
-        <li><a href="#sql_no_cache">SQL_NO_CACHE</a></li>
-        <li><a href="#查看innodb引擎状态">查看innodb引擎状态</a></li>
-      </ul>
-    </li>
+    <li><a href="#安装mysql">安装MySQL</a></li>
     <li><a href="#数据类型">数据类型</a>
       <ul>
         <li><a href="#整形">整形</a></li>
@@ -1555,8 +1522,43 @@ IN (
     <li><a href="#mysql游标">mysql游标</a></li>
     <li><a href="#mysql执行一个字符串">mysql执行一个字符串</a></li>
     <li><a href="#mysql中in的注意事项以及组合in的使用方法">mysql中in的注意事项以及组合in的使用方法</a></li>
-    <li><a href="#总结-2">总结</a></li>
-    <li><a href="#测试题">测试题</a></li>
+    <li><a href="#mysql面试题">MySQL面试题</a></li>
+    <li><a href="#其他">其他</a>
+      <ul>
+        <li><a href="#mysql-80修改密码">mysql 8.0修改密码</a></li>
+        <li><a href="#用户授权">用户授权</a></li>
+        <li><a href="#表文件结构innodbmyisam和memory的">表文件结构（innodb、myisam和memory的）</a></li>
+        <li><a href="#innodb的独立表空间和共享表空间">Innodb的独立表空间和共享表空间</a></li>
+        <li><a href="#查看当前库">查看当前库</a></li>
+        <li><a href="#执行计划explain">执行计划（EXPLAIN）</a></li>
+        <li><a href="#配置文件">配置文件</a></li>
+        <li><a href="#select用法">Select用法</a></li>
+        <li><a href="#set用法">Set用法</a></li>
+        <li><a href="#limit以及offset用法">Limit以及offset用法</a></li>
+        <li><a href="#distinct用法">Distinct用法</a></li>
+        <li><a href="#between用法">Between用法</a></li>
+        <li><a href="#-的作用">“+” 的作用</a></li>
+        <li><a href="#g的作用">\G的作用</a></li>
+        <li><a href="#null的性质">Null的性质</a></li>
+        <li><a href="#ifnull判空后面那个0表示如果是空的话就显示0">IFNULL判空（后面那个“0”表示如果是空的话就显示0）</a></li>
+        <li><a href="#条件运算符">条件运算符</a></li>
+        <li><a href="#模糊查询包括安全等于is-nullinescape转义的运用注意-null是不行的一定要is-null">模糊查询（包括安全等于&lt;=&gt;、is null、in、escape、转义的运用）（注意= NULL是不行的，一定要IS NULL）</a></li>
+        <li><a href="#多字段排序">多字段排序</a></li>
+        <li><a href="#show-variables-like-char">Show variables like ‘%char%’</a></li>
+        <li><a href="#hostname">@@hostname</a></li>
+        <li><a href="#select-transaction_isolation-from-dualfrom-dual可以省略">Select @@transaction_isolation from dual（from dual可以省略）</a></li>
+        <li><a href="#设置时区">设置时区</a></li>
+        <li><a href="#建表时设置timestamp为当前时间">建表时设置timestamp为当前时间</a></li>
+        <li><a href="#刷新权限">刷新权限</a></li>
+        <li><a href="#sql注释">sql注释</a></li>
+        <li><a href="#查看表结构">查看表结构</a></li>
+        <li><a href="#查看表的各种参数状态">查看表的各种参数状态</a></li>
+        <li><a href="#查看表索引约束">查看表索引约束</a></li>
+        <li><a href="#返回建表时的sql语句">返回建表时的sql语句</a></li>
+        <li><a href="#sql_no_cache">SQL_NO_CACHE</a></li>
+        <li><a href="#查看innodb引擎状态">查看innodb引擎状态</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
   

@@ -159,34 +159,31 @@ if (!doNotTrack) {
 </li>
 <li>
 <p>不重启Redis设置密码：</p>
-<p>在配置文件中配置requirepass的密码（当redis重启时密码依然有效）。</p>
-<pre><code>redis 127.0.0.1:6379&gt; config set requirepass test123
-</code></pre><pre><code>
+<pre><code>在配置文件中配置requirepass的密码（当redis重启时密码依然有效）:
+redis 127.0.0.1:6379&gt; config set requirepass test123
+  
 查询密码：
-
-</code></pre><pre><code>  redis 127.0.0.1:6379&gt; config get requirepass
-   (error) ERR operation not permitted
-</code></pre><pre><code>	
-  密码验证：
-	
-</code></pre><pre><code>  redis 127.0.0.1:6379&gt; auth test123
-   OK
-</code></pre><pre><code>	
-  再次查询：
-	
-</code></pre><pre><code>  redis 127.0.0.1:6379&gt; config get requirepass
-   1) &quot;requirepass&quot;
-   2) &quot;test123&quot;
-</code></pre><pre><code>	
-  PS：如果配置文件中没添加密码 那么redis重启后，密码失效；
-
-</code></pre></li>
+redis 127.0.0.1:6379&gt; config get requirepass
+ (error) ERR operation not permitted
+   
+密码验证：
+redis 127.0.0.1:6379&gt; auth test123
+ OK
+   
+再次查询：
+redis 127.0.0.1:6379&gt; config get requirepass
+ 1) &quot;requirepass&quot;
+ 2) &quot;test123&quot;
+</code></pre><p>PS：如果配置文件中没添加密码 那么redis重启后，密码失效</p>
+</li>
 <li>
 <p>登陆有密码的Redis：</p>
-<p>在登录的时候的时候输入密码：</p>
-<pre><code>redis-cli -p 6379 -a test123
-</code></pre><p>先登陆后验证：</p>
-<pre><code>redis-cli -p 6379
+<pre><code>在登录的时候的时候输入密码：
+redis-cli -p 6379 -a test123
+  
+  
+先登陆后验证：
+redis-cli -p 6379
   
 redis 127.0.0.1:6379&gt; auth test123
  OK
