@@ -1108,6 +1108,15 @@ ip a s ens33（网卡名）
 </code></pre><p><img src="/linux/image-20211108220411286.png" alt="image-20211108220411286"></p>
 <h3 id="30dig">30、dig</h3>
 <p>参考：https://www.cnblogs.com/ginvip/p/6365605.html（linux命令总结之dig命令）、https://blog.csdn.net/liwf616/article/details/53502387（Linux dig 命令详解）</p>
+<h3 id="31ncnetcatlinux-的-ncat">31、nc（netcat；Linux 的 ncat）</h3>
+<p>nc是netcat的简写，是一个功能强大的网络工具，有着网络界的瑞士军刀美誉。nc命令在linux系统中实际命令是ncat，nc是软连接到ncat。nc命令的主要作用如下：</p>
+<ul>
+<li>实现任意TCP/UDP端口的侦听，nc可以作为server以TCP或UDP方式侦听指定端口</li>
+<li>端口的扫描，nc可以作为client发起TCP或UDP连接</li>
+<li>机器之间传输文件</li>
+<li>机器之间网络测速</li>
+</ul>
+<p>参考：https://blog.csdn.net/carefree2005/article/details/117850029（Linux命令之nc命令）、https://blog.csdn.net/itworld123/article/details/124487458（Linux 的 ncat（nc）命令）</p>
 <h2 id="二练习题">二、练习题</h2>
 <p>1、如何通过命令行重启linux操作系统？ #reboot</p>
 <p>2、<strong>如何在命令行中快速删除光标前/后的内容？</strong>  <strong>前：ctrl + u 后：ctrl + k</strong></p>
@@ -3915,8 +3924,18 @@ nslookup -d [其他参数] domain [dns-server]
 <p>删除文件夹</p>
 <h3 id="moreless">more/less</h3>
 <p>可搜索，可上翻，也可以像vim一样在里面找关键词，如果有多个匹配关键词可用n键选择下一个</p>
-<h3 id="xsync">xsync</h3>
+<h3 id="rsync与xsync">rsync与xsync</h3>
+<p>xsync是对rsync脚本的二次封装</p>
+<ul>
+<li>
+<p>rsync</p>
+<p>参考：https://blog.csdn.net/wq1205750492/article/details/124497271（rsync详解）</p>
+</li>
+<li>
+<p>xsync</p>
 <p>参考：https://blog.csdn.net/nalw2012/article/details/98322637（xsync同步脚本的使用）</p>
+</li>
+</ul>
 <h3 id="文件和文件夹中rwx的意义">文件和文件夹中rwx的意义</h3>
 <p><img src="/linux/51b7a224a3828bd8690eb4c6034c435a.png" alt=""></p>
 <h3 id="linux各目录的作用兄弟连版">linux各目录的作用（兄弟连版）</h3>
@@ -4041,6 +4060,7 @@ nslookup -d [其他参数] domain [dns-server]
         <li><a href="#28pmap">28、pmap</a></li>
         <li><a href="#29ip">29、ip</a></li>
         <li><a href="#30dig">30、dig</a></li>
+        <li><a href="#31ncnetcatlinux-的-ncat">31、nc（netcat；Linux 的 ncat）</a></li>
       </ul>
     </li>
     <li><a href="#二练习题">二、练习题</a></li>
@@ -4244,7 +4264,7 @@ nslookup -d [其他参数] domain [dns-server]
         <li><a href="#tac">tac</a></li>
         <li><a href="#rmdir">rmdir</a></li>
         <li><a href="#moreless">more/less</a></li>
-        <li><a href="#xsync">xsync</a></li>
+        <li><a href="#rsync与xsync">rsync与xsync</a></li>
         <li><a href="#文件和文件夹中rwx的意义">文件和文件夹中rwx的意义</a></li>
         <li><a href="#linux各目录的作用兄弟连版">linux各目录的作用（兄弟连版）</a></li>
         <li><a href="#分区格式化设备文件名挂载">分区、格式化、设备文件名、挂载</a></li>
