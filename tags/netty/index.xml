@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Netty on Learning Records</title>
+    <link>https://pippichi.github.io/tags/netty/</link>
+    <description>Recent content in Netty on Learning Records</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
+    <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/netty/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Netty01-nio</title>
+      <link>https://pippichi.github.io/blog/netty01-nio/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/netty01-nio/</guid>
+      <description>&lt;p&gt;netty基础 - nio（non-blocking io 非阻塞 IO）&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/netty&#34;&gt;netty&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Netty02-入门</title>
+      <link>https://pippichi.github.io/blog/netty02-%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/netty02-%E5%85%A5%E9%97%A8/</guid>
+      <description>&lt;p&gt;netty基础&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/netty&#34;&gt;netty&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Netty03-进阶</title>
+      <link>https://pippichi.github.io/blog/netty03-%E8%BF%9B%E9%98%B6/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/netty03-%E8%BF%9B%E9%98%B6/</guid>
+      <description>&lt;p&gt;netty进阶&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/netty&#34;&gt;netty&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Netty04-优化与源码</title>
+      <link>https://pippichi.github.io/blog/netty04-%E4%BC%98%E5%8C%96%E4%B8%8E%E6%BA%90%E7%A0%81/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/netty04-%E4%BC%98%E5%8C%96%E4%B8%8E%E6%BA%90%E7%A0%81/</guid>
+      <description>&lt;p&gt;netty进阶 - 优化与源码&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/netty&#34;&gt;netty&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

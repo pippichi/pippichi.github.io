@@ -7,7 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Mon, 07 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/basic/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/categories/basic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Netty01-nio</title>
+      <link>https://pippichi.github.io/blog/netty01-nio/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/netty01-nio/</guid>
+      <description>&lt;p&gt;netty基础 - nio（non-blocking io 非阻塞 IO）&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/netty&#34;&gt;netty&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Netty02-入门</title>
+      <link>https://pippichi.github.io/blog/netty02-%E5%85%A5%E9%97%A8/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/netty02-%E5%85%A5%E9%97%A8/</guid>
+      <description>&lt;p&gt;netty基础&lt;/p&gt;
+&lt;p&gt;Code in GitHub:  &lt;strong&gt;&lt;a href=&#34;https://github.com/pippichi/netty&#34;&gt;netty&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Shiro</title>
       <link>https://pippichi.github.io/blog/shiro/</link>

@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Wed, 17 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java</title>
+      <link>https://pippichi.github.io/tags/java/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Netty</title>
+      <link>https://pippichi.github.io/tags/netty/</link>
+      <pubDate>Sat, 10 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/netty/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>K8S</title>
       <link>https://pippichi.github.io/tags/k8s/</link>
@@ -198,29 +216,20 @@
     </item>
     
     <item>
-      <title>Java</title>
-      <link>https://pippichi.github.io/tags/java/</link>
+      <title>Spring Boot</title>
+      <link>https://pippichi.github.io/tags/spring-boot/</link>
       <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://pippichi.github.io/tags/java/</guid>
+      <guid>https://pippichi.github.io/tags/spring-boot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Spring</title>
       <link>https://pippichi.github.io/tags/spring/</link>
-      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 20 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://pippichi.github.io/tags/spring/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Spring Boot</title>
-      <link>https://pippichi.github.io/tags/spring-boot/</link>
-      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://pippichi.github.io/tags/spring-boot/</guid>
       <description></description>
     </item>
     
