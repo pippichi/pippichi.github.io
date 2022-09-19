@@ -2643,7 +2643,7 @@ secret &quot;myregistrykey&quot; created.
 <p>案例：</p>
 <p>远程文件存储服务集群配合hostPath</p>
 <p><img src="/k8s2019.assets/image-20211227150249424.png" alt="image-20211227150249424"></p>
-<h3 id="persistent-volume">Persistent Volume</h3>
+<h3 id="persistentvolume">PersistentVolume</h3>
 <h4 id="概念-1">概念</h4>
 <p><strong>PersistentVolume（PV）</strong></p>
 <p>是由管理员设置的存储，它是群集的一部分。就像节点是集群中的资源一样，PV也是集群中的资源。PV是Volume之类的卷插件，但具有独立于使用PV的Pod的生命周期。此API对象包含存储实现的细节，即NFS、iSCSI或特定于云供应商的存储系统</p>
@@ -3188,6 +3188,12 @@ kubectl delete pvc xx（如果想都删了，则执行kubectl delete pvc --all�
 <p>总结一下StatefulSet + 无头服务 + PVC + PV + NFS的架构图：</p>
 <p><img src="/k8s2019.assets/image-20211228110622259.png" alt="image-20211228110622259"></p>
 <p>现在看来PVC讲白了其实就是匹配PV的属性选择</p>
+<h3 id="storageclasssc动态卷供应">StorageClass（SC动态卷供应）</h3>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/cuichongxin/article/details/121403914">https://blog.csdn.net/cuichongxin/article/details/121403914</a>（【Kubernetes】k8s的【statefulset】sc的详细说明与创建使用详细代码）</p>
+<p><a href="https://cuichongxin.blog.csdn.net/article/details/119734951">https://cuichongxin.blog.csdn.net/article/details/119734951</a>（超10万字整理完k8s的volume卷之本地卷和网络卷详细说明，代码和理论都超详细，建议跟着做一遍实验【emptyDir、hostPath、nfs共享的网络卷】【1】）</p>
+<p><a href="https://cuichongxin.blog.csdn.net/article/details/119808157">https://cuichongxin.blog.csdn.net/article/details/119808157</a>（超10万字整理完k8s的volume卷之持久性存储pv和pvc原理和创建绑定-超详细说明，代码和理论都超详细，建议跟着做一遍实验【2】）</p>
+<p><a href="https://cuichongxin.blog.csdn.net/article/details/119828052">https://cuichongxin.blog.csdn.net/article/details/119828052</a>（超10万字整理完k8s的volume卷之sc动态卷供应-超详细说明，代码和理论都超详细，建议跟着做一遍实验【3】）</p>
 <h2 id="集群调度">集群调度</h2>
 <h3 id="调度器---调度说明">调度器 - 调度说明</h3>
 <h4 id="简介">简介</h4>
@@ -5255,7 +5261,8 @@ $ kubectl get endpoints kube-scheduler --namespace<span class="o">=</span>kube-s
         <li><a href="#configmap">ConfigMap</a></li>
         <li><a href="#secret">Secret</a></li>
         <li><a href="#volume">Volume</a></li>
-        <li><a href="#persistent-volume">Persistent Volume</a></li>
+        <li><a href="#persistentvolume">PersistentVolume</a></li>
+        <li><a href="#storageclasssc动态卷供应">StorageClass（SC动态卷供应）</a></li>
       </ul>
     </li>
     <li><a href="#集群调度">集群调度</a>
