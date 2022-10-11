@@ -3584,6 +3584,9 @@ kubectl taint nodes node1 key1:NoSchedule-
 </span><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
 </span></code></pre></div><p>注意，由于此时并没有存在标签“type=backEndNode1”的节点，因此上述Deployment创建之后会一直处于“Pending”状态，那么执行<code>kubectl label node k8s-node01 type=backEndNode1</code>给<code>k8s-node01</code>打上对应标签，这个时候上述Deployment就会立马被创建在<code>k8s-node01</code>上</p>
 <p>当然，除了给<code>k8s-node01</code>打“type=backEndNode1”的标签，还可以给<code>k8s-node02</code>打上述标签，打完标签之后执行<code>kubectl edit deployment myweb</code>将副本数修改为8，然后查看被创建的pod，会发现有一部分pod被创建在<code>k8s-node01</code>上有一部分被创建在<code>k8s-node02</code>上</p>
+<h3 id="分发策略之sessionaffinity">分发策略之SessionAffinity</h3>
+<p>基于客户端IP地址进行会话保持/关联的模式，即第1次将某个客户端发起的请求转发到后端的某个Pod上，之后从相同的客户端发起的请求都将被转发到后端相同的Pod上</p>
+<p>参考：https://blog.csdn.net/weixin_42715225/article/details/119609253（k8s分发策略之SessionAffinity）</p>
 <h2 id="安全">安全</h2>
 <h3 id="集群安全---机制说明">集群安全 - 机制说明</h3>
 <p>Kubernetes作为一个分布式集群的管理工具，保证集群的安全性是其一个重要的任务。API Server是集群内部各个组件通信的中介，也是外部控制的入口。所以Kubernetes的安全机制基本就是围绕保护API Server来设计的。Kubernetes使用了认证（Authentication）、鉴权（Authorization）、准入控制（AdmissionControl）三步来保证API Server的安全</p>
@@ -5271,6 +5274,7 @@ $ kubectl get endpoints kube-scheduler --namespace<span class="o">=</span>kube-s
         <li><a href="#调度器---调度亲和性">调度器 - 调度亲和性</a></li>
         <li><a href="#调度器---污点">调度器 - 污点</a></li>
         <li><a href="#调度器---固定节点">调度器 - 固定节点</a></li>
+        <li><a href="#分发策略之sessionaffinity">分发策略之SessionAffinity</a></li>
       </ul>
     </li>
     <li><a href="#安全">安全</a>
