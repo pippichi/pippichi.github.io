@@ -262,6 +262,8 @@ Code in GitHub:  react2021|Just for record">
 <p>使用history.listen监听，如果页面发生跳转就会被监听到</p>
 <p><img src="/react_basic.assets/image-20201220104926886.png" alt="image-20201220104926886"></p>
 <h2 id="router">router</h2>
+<p>参考：https://blog.csdn.net/qq_45677671/article/details/116168250（【React】路由详解）</p>
+<h3 id="browserrouter与hashrouter">BrowserRouter与HashRouter</h3>
 <p>react中有两个router：</p>
 <ul>
 <li>
@@ -274,10 +276,10 @@ Code in GitHub:  react2021|Just for record">
 </li>
 </ul>
 <p>区别：</p>
-<p>也跟history的createBrowserHistory()和createHashHistory()一样：</p>
-<p>HashRouter多一个 # ：</p>
+<p><img src="/react_basic.assets/image-20201220154541626.png" alt="image-20201220154541626"></p>
+<p>跟history的createBrowserHistory()和createHashHistory()一样，HashRouter多一个<code>#</code>：</p>
 <p><img src="/react_basic.assets/image-20201220110942959.png" alt="image-20201220110942959"></p>
-<h3 id="后面的资源都不发送给服务器">#（#后面的资源都不发送给服务器）</h3>
+<p>注意：<code>#</code>后面的资源都不发送给服务器</p>
 <p><img src="/react_basic.assets/image-20201220110942959.png" alt="image-20201220110942959"></p>
 <p>比方说上图，后面这个/home就不会发送给服务器</p>
 <h3 id="navlink">navlink</h3>
@@ -326,6 +328,49 @@ Code in GitHub:  react2021|Just for record">
 <p>点击Message之后页面变这样了：</p>
 <p><img src="/react_basic.assets/image-20201220131337050.png" alt="image-20201220131337050"></p>
 <p>跳转到Redirect的页面上去了，这里我们设置的Redirect中to指向的是&quot;/about&quot;，因此他由于精准匹配的原因什么都没匹配到就走到/about页面去了</p>
+<h3 id="路由组件传递参数">路由组件传递参数</h3>
+<p>首先route自动传递了一些props：</p>
+<p><img src="/react_basic.assets/image-20201220134542551.png" alt="image-20201220134542551"></p>
+<p>路由组件传递参数的三种方法：</p>
+<ul>
+<li>params（match对象）</li>
+<li>search（location对象）</li>
+<li>state（location对象）</li>
+</ul>
+<p>具体的去看代码总结</p>
+<p>要注意的是只有state传的参数不会体现在url后面</p>
+<p>那就有一个问题了：刷新页面state传的参数会消失吗？</p>
+<p>答案是不会，因为我们用的是BrowserRouter，他有某个API ：history.xxx会维护history，而state是保存在location中的，而location又是保存在history中的，因此刷新页面参数不会丢</p>
+<p>但是当我们把历史记录清了，再次刷新页面他就不行了：</p>
+<p><img src="/react_basic.assets/image-20201220135126273.png" alt="image-20201220135126273"></p>
+<p>那至少让他不报错呗：</p>
+<p><img src="/react_basic.assets/image-20201220135320574.png" alt="image-20201220135320574"></p>
+<h3 id="withrouter">withRouter</h3>
+<p>哪个一般组件需要使用路由组件函数就在哪个组件下引入并使用withRouter</p>
+<p><img src="/react_basic.assets/image-20201220153810382.png" alt="image-20201220153810382"></p>
+<p>withRouter包裹一般组件，往一般组件身上加上了history、location、match这三个属性</p>
+<p>注意，被withRouter包裹之后返回的是一个新组件</p>
+<h3 id="编程式路由导航">编程式路由导航</h3>
+<p><img src="/react_basic.assets/image-20201220151228404.png" alt="image-20201220151228404"></p>
+<p>利用history完成路由跳转</p>
+<p>注意上图这边这么写之后最好看看Link和Route那边需不需要对应的修改，尤其是Route</p>
+<p>那么怎么用编程式路由导航实现state传参呢？</p>
+<p><img src="/react_basic.assets/image-20201220151835430.png" alt="image-20201220151835430"></p>
+<p>其实history上的API都已经给我们准备好了，如上图</p>
+<p><img src="/react_basic.assets/image-20201220151934264.png" alt="image-20201220151934264"></p>
+<p>注意：</p>
+<p>只有路由组件的props里面才有history、location、match这几个对象，一般组件中是没有的</p>
+<p>所以在一般组件中无法调用诸如replace、go、push等只有在history中才有的函数</p>
+<p>vue中就没有这些顾虑了，没有什么一般组件和路由组件之分，因此都是可以使用history中的东西的</p>
+<p>那react中如何使用路由组件才有的函数呢？</p>
+<p>用react-router-dom中的withRouter</p>
+<h3 id="link如何开启history的replace模式">link如何开启history的replace模式</h3>
+<p>link跳转的时候默认是history的push模式</p>
+<p>那怎么开始replace模式呢？</p>
+<p>添加replace={true}</p>
+<p><img src="/react_basic.assets/image-20201220140004940.png" alt="image-20201220140004940"></p>
+<p>也可以直接写replace：</p>
+<p><img src="/react_basic.assets/image-20201220140134558.png" alt="image-20201220140134558"></p>
 <h2 id="多级路径下解决样式丢失问题">多级路径下解决样式丢失问题</h2>
 <p><img src="/react_basic.assets/image-20201220122648732.png" alt="image-20201220122648732"></p>
 <p>我们给path加个前缀 /atguigu</p>
@@ -357,51 +402,6 @@ Code in GitHub:  react2021|Just for record">
 <h2 id="模板字符串在render中报错的原因">模板字符串在render中报错的原因</h2>
 <p>因为模板字符串是js的东西，所以要在外面加一个大括号：</p>
 <p><img src="/react_basic.assets/image-20201220132900260.png" alt="image-20201220132900260"></p>
-<h2 id="路由组件传递参数">路由组件传递参数</h2>
-<p>首先route自动传递了一些props：</p>
-<p><img src="/react_basic.assets/image-20201220134542551.png" alt="image-20201220134542551"></p>
-<p>路由组件传递参数的三种方法：</p>
-<ul>
-<li>params（match对象）</li>
-<li>search（location对象）</li>
-<li>state（location对象）</li>
-</ul>
-<p>具体的去看代码总结</p>
-<p>要注意的是只有state传的参数不会体现在url后面</p>
-<p>那就有一个问题了：刷新页面state传的参数会消失吗？</p>
-<p>答案是不会，因为我们用的是BrowserRouter，他有某个API ：history.xxx会维护history，而state是保存在location中的，而location又是保存在history中的，因此刷新页面参数不会丢</p>
-<p>但是当我们把历史记录清了，再次刷新页面他就不行了：</p>
-<p><img src="/react_basic.assets/image-20201220135126273.png" alt="image-20201220135126273"></p>
-<p>那至少让他不报错呗：</p>
-<p><img src="/react_basic.assets/image-20201220135320574.png" alt="image-20201220135320574"></p>
-<h2 id="link如何开启history的replace模式">link如何开启history的replace模式</h2>
-<p>link跳转的时候默认是history的push模式</p>
-<p>那怎么开始replace模式呢？</p>
-<p>添加replace={true}</p>
-<p><img src="/react_basic.assets/image-20201220140004940.png" alt="image-20201220140004940"></p>
-<p>也可以直接写replace：</p>
-<p><img src="/react_basic.assets/image-20201220140134558.png" alt="image-20201220140134558"></p>
-<h2 id="编程式路由导航">编程式路由导航</h2>
-<p><img src="/react_basic.assets/image-20201220151228404.png" alt="image-20201220151228404"></p>
-<p>利用history完成路由跳转</p>
-<p>注意上图这边这么写之后最好看看Link和Route那边需不需要对应的修改，尤其是Route</p>
-<p>那么怎么用编程式路由导航实现state传参呢？</p>
-<p><img src="/react_basic.assets/image-20201220151835430.png" alt="image-20201220151835430"></p>
-<p>其实history上的API都已经给我们准备好了，如上图</p>
-<p><img src="/react_basic.assets/image-20201220151934264.png" alt="image-20201220151934264"></p>
-<p>注意：</p>
-<p>只有路由组件的props里面才有history、location、match这几个对象，一般组件中是没有的</p>
-<p>所以在一般组件中无法调用诸如replace、go、push等只有在history中才有的函数</p>
-<p>vue中就没有这些顾虑了，没有什么一般组件和路由组件之分，因此都是可以使用history中的东西的</p>
-<p>那react中如何使用路由组件才有的函数呢？</p>
-<p>用react-router-dom中的withRouter</p>
-<h2 id="withrouter">withRouter</h2>
-<p>哪个一般组件需要使用路由组件函数就在哪个组件下引入并使用withRouter</p>
-<p><img src="/react_basic.assets/image-20201220153810382.png" alt="image-20201220153810382"></p>
-<p>withRouter包裹一般组件，往一般组件身上加上了history、location、match这三个属性</p>
-<p>注意，被withRouter包裹之后返回的是一个新组件</p>
-<h2 id="browserrouter与hashrouter的区别">BrowserRouter与HashRouter的区别</h2>
-<p><img src="/react_basic.assets/image-20201220154541626.png" alt="image-20201220154541626"></p>
 <h2 id="暴露核心配置eject">暴露核心配置（eject）</h2>
 <p>在执行了create-react-app命令之后</p>
 <p><img src="/react_basic.assets/image-20201220173927958.png" alt="image-20201220173927958"></p>
@@ -484,21 +484,20 @@ Code in GitHub:  react2021|Just for record">
     </li>
     <li><a href="#router">router</a>
       <ul>
-        <li><a href="#后面的资源都不发送给服务器">#（#后面的资源都不发送给服务器）</a></li>
+        <li><a href="#browserrouter与hashrouter">BrowserRouter与HashRouter</a></li>
         <li><a href="#navlink">navlink</a></li>
         <li><a href="#switch">switch</a></li>
         <li><a href="#路由模糊匹配">路由模糊匹配</a></li>
         <li><a href="#其他路由参数">其他路由参数</a></li>
         <li><a href="#嵌套路由">嵌套路由</a></li>
+        <li><a href="#路由组件传递参数">路由组件传递参数</a></li>
+        <li><a href="#withrouter">withRouter</a></li>
+        <li><a href="#编程式路由导航">编程式路由导航</a></li>
+        <li><a href="#link如何开启history的replace模式">link如何开启history的replace模式</a></li>
       </ul>
     </li>
     <li><a href="#多级路径下解决样式丢失问题">多级路径下解决样式丢失问题</a></li>
     <li><a href="#模板字符串在render中报错的原因">模板字符串在render中报错的原因</a></li>
-    <li><a href="#路由组件传递参数">路由组件传递参数</a></li>
-    <li><a href="#link如何开启history的replace模式">link如何开启history的replace模式</a></li>
-    <li><a href="#编程式路由导航">编程式路由导航</a></li>
-    <li><a href="#withrouter">withRouter</a></li>
-    <li><a href="#browserrouter与hashrouter的区别">BrowserRouter与HashRouter的区别</a></li>
     <li><a href="#暴露核心配置eject">暴露核心配置（eject）</a></li>
     <li><a href="#纯函数">纯函数</a></li>
     <li><a href="#redux-devtools">Redux DevTools</a></li>

@@ -598,6 +598,26 @@ C组件: 读取A组件传入的数据显示 {this.props.data}
 </ul>
 <h2 id="13-路由守卫">13. 路由守卫</h2>
 <p>作用：可以通过用户的权限等级控制用户可访问的页面（其实也并不是非得是权限上的，就是通过一些逻辑来控制路由的跳转，最常用于控制用户对于某些敏感页面的访问）</p>
+<p>参考：https://blog.csdn.net/qq_45677671/article/details/116168250（【React】路由详解）</p>
+<h2 id="14函数式组件function-component">14.函数式组件（Function Component）</h2>
+<p>参考：https://blog.csdn.net/m0_45315697/article/details/107235793（React函数式组件 -函数式组件传值、常用hook的使用(useState、seEffect、useRef)）</p>
+<p>注意看下面这段代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">interface</span> <span class="nx">PropsType</span><span class="p">{</span>
+  <span class="nx">info</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">msg</span><span class="o">?:</span> <span class="nx">string</span><span class="p">;</span> <span class="c1">// ? 表示可以为undefined
+</span><span class="c1"></span><span class="p">}</span>
+<span class="kr">const</span> <span class="nx">app</span><span class="o">:</span> <span class="nx">React</span><span class="p">.</span><span class="nx">FC</span><span class="o">&lt;</span><span class="nx">PropsType</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">({</span><span class="nx">msg</span><span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{</span> <span class="c1">//{msg}相当于解构赋值，从props中解构
+</span><span class="c1"></span>  <span class="k">return</span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">hello</span><span class="p">,{</span><span class="nx">msg</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// 其中诸如interface（在这里用于限定字段类型）、React.FC&lt;xxx&gt;（React Function Component）等都是TypeScript中的东西
+</span></code></pre></div><h2 id="关于vue">关于Vue</h2>
+<p>vue跟react很像，react有的概念他基本上也都有</p>
+<p>这里补充几个关于Vue的知识点</p>
+<p><a href="https://blog.csdn.net/sinat_16998945/article/details/102488163">https://blog.csdn.net/sinat_16998945/article/details/102488163</a>（new Vue()创建一个新的 Vue 实例）</p>
+<p><a href="https://segmentfault.com/a/1190000022937276">https://segmentfault.com/a/1190000022937276</a>（Vue 函数式组件的使用技巧）</p>
+<p>关于vue函数式组件、生命周期钩子、slot插槽、内置组件、自定义指令、路由等更多知识点请参考vue官网：https://cn.vuejs.org/guide/introduction.html</p>
   </section>
 
   <section>
@@ -685,6 +705,8 @@ C组件: 读取A组件传入的数据显示 {this.props.data}
       </ul>
     </li>
     <li><a href="#13-路由守卫">13. 路由守卫</a></li>
+    <li><a href="#14函数式组件function-component">14.函数式组件（Function Component）</a></li>
+    <li><a href="#关于vue">关于Vue</a></li>
   </ul>
 </nav></div>
   
