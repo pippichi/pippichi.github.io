@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KafKa</title>
+      <link>https://pippichi.github.io/tags/kafka/</link>
+      <pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/kafka/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RocketMQ</title>
+      <link>https://pippichi.github.io/tags/rocketmq/</link>
+      <pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/tags/rocketmq/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Java</title>
       <link>https://pippichi.github.io/tags/java/</link>

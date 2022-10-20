@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>&amp;copy;QYF Just for record 2018-2021</copyright>
-    <lastBuildDate>Sat, 10 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 20 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://pippichi.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>消息中间件详解</title>
+      <link>https://pippichi.github.io/blog/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Thu, 20 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://pippichi.github.io/blog/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6%E8%AF%A6%E8%A7%A3/</guid>
+      <description>&lt;p&gt;关于Kafka和RocketMQ的详细介绍以及集群搭建方案&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Netty01-nio</title>
       <link>https://pippichi.github.io/blog/netty01-nio/</link>
