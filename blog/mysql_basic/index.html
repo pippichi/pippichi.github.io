@@ -926,7 +926,7 @@ check(id&gt;0)或者drop check check_name</p>
 <p><img src="/mysql_basic/4a27abc3c88b9df176b4ec55df7e5385.png" alt=""></p>
 <p><img src="/mysql_basic/488761d6d41897d7a3d4e90c54158bbc.png" alt=""></p>
 <p><img src="/mysql_basic/213fc2e9c35927fa1539766be629190f.png" alt=""></p>
-<h2 id="mysql触发器">MySQL触发器</h2>
+<h2 id="触发器">触发器</h2>
 <p>Trigger：当一件事情发生了，会引发另外的一件事情发生，我们称之为触发器。</p>
 <p>在MySQL里触发器的意思就是，当我们对一张表操作的时候，会触发对其他表相关的一些操作。</p>
 <p>MySQL是关系型的数据库，表与表之间是有联系的，当我们修改一张表的时候，也希望另一张表也做相应的修改。</p>
@@ -1117,6 +1117,16 @@ check(id&gt;0)或者drop check check_name</p>
 <p>自动计算数据值，如果数据的值达到了一定的要求，则进行特定的处理。例如，如果公司的帐号上的资金低于5万元则立即给财务人员发送警告数据。</p>
 </li>
 </ul>
+<h2 id="事件">事件</h2>
+<p>事件就是定时任务，是MySQL在相应的时刻调用的过程式数据库对象。一个事件可调用一次，也可周期性的启动，它由一个特定的线程来管理的，也就是所谓的“事件调度器”。</p>
+<p>优点：1、一些对数据定时性操作不再依赖外部程序，而直接使用数据库本身提供的功能；2、可以实现每秒钟执行一个任务，这在一些对实时性要求较高的环境下就非常实用了；
+缺点：1、定时触发，不可以调用；</p>
+<p>参考：https://blog.csdn.net/weixin_57176230/article/details/124905271（MySQL 事件）</p>
+<h2 id="definer与invoker与存储过程函数事件触发器视图相关">DEFINER与INVOKER（与存储过程、函数、事件、触发器、视图相关）</h2>
+<p>mysql创建view、trigger、function、procedure、event时都会定义一个Definer</p>
+<p>SQL SECURITY 有两个选项，一个为DEFINER，一个为INVOKER；</p>
+<p>SQL SECURITY { DEFINER | INVOKER } ：指明谁有权限来执行。DEFINER 表示按定义者拥有的权限来执行；INVOKER 表示用调用者的权限来执行。默认情况下，系统指定为DEFINER；</p>
+<p>参考：https://blog.csdn.net/weixin_29266749/article/details/113274335（mysql definer/invoker是什么？MySQL定义数据库对象之指定definer/invoker）、https://blog.csdn.net/weixin_39757212/article/details/113137727（mysql 存储过程中definer和invoker详解）</p>
 <h2 id="mysql游标">mysql游标</h2>
 <p>用于循环集合</p>
 <p>CURSOR 游标</p>
@@ -1508,7 +1518,7 @@ time_zone=’+9:00’意思是把时区设置为东9区，这个时候TIMESTAMP�
         <li><a href="#案例-1">案例</a></li>
       </ul>
     </li>
-    <li><a href="#mysql触发器">MySQL触发器</a>
+    <li><a href="#触发器">触发器</a>
       <ul>
         <li><a href="#new和old">New和Old</a></li>
         <li><a href="#在触发器中定义变量">在触发器中定义变量：</a></li>
@@ -1519,6 +1529,8 @@ time_zone=’+9:00’意思是把时区设置为东9区，这个时候TIMESTAMP�
         <li><a href="#总结-1">总结</a></li>
       </ul>
     </li>
+    <li><a href="#事件">事件</a></li>
+    <li><a href="#definer与invoker与存储过程函数事件触发器视图相关">DEFINER与INVOKER（与存储过程、函数、事件、触发器、视图相关）</a></li>
     <li><a href="#mysql游标">mysql游标</a></li>
     <li><a href="#mysql执行一个字符串">mysql执行一个字符串</a></li>
     <li><a href="#mysql中in的注意事项以及组合in的使用方法">mysql中in的注意事项以及组合in的使用方法</a></li>

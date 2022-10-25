@@ -1849,8 +1849,12 @@ mysql&gt; SELECT LAST_INSERT_ID();
 <div class="highlight"><pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SELECT</span> <span class="o">@@</span><span class="n">FOREIGN_KEY_CHECKS</span><span class="p">;</span>
 </code></pre></div><h2 id="canal和binlog">Canal和Binlog</h2>
 <p>MySQL Binlog 是一种实时的数据流，用于主从节点之间的数据复制，我们可以利用它来进行数据抽取。</p>
-<p>Canal 能够非常便捷地将 MySQL 中的数据抽取到任意目标存储中。</p>
-<p>参考：https://blog.csdn.net/zjerryj/article/details/77152226（使用 Binlog 和 Canal 从 MySQL 抽取数据）、https://blog.csdn.net/singgel/article/details/86166154（canal实现mysql实时数据binlog同步）</p>
+<p>Canal 能够非常便捷地将 MySQL 中的数据抽取到任意目标存储中，使用Canal能做很多很灵活的事情，包括不规则表结构的数据迁移等。</p>
+<p>参考：https://blog.csdn.net/zjerryj/article/details/77152226（使用 Binlog 和 Canal 从 MySQL 抽取数据）、https://blog.csdn.net/singgel/article/details/86166154（canal实现mysql实时数据binlog同步）、https://blog.csdn.net/qq_36724582/article/details/124267612（Canal使用流程、部署安装文档）</p>
+<h2 id="环形多主多从部署">环形多主多从部署</h2>
+<p>参考：https://lostphp.com/blog/623.html（关于mysql主从复制（单向、双向、环状））、https://blog.csdn.net/rockyzhuo2014/article/details/82316619（Mysql主从复制、双向同步、环形同步实现）、https://blog.csdn.net/weixin_45742032/article/details/117554233（MYSQL多主多从）</p>
+<h2 id="读写分离">读写分离</h2>
+<p>参考：https://blog.csdn.net/FateZRK/article/details/125526077（MySQL读写分离）</p>
   </section>
 
   <section>
@@ -1980,6 +1984,8 @@ mysql&gt; SELECT LAST_INSERT_ID();
       </ul>
     </li>
     <li><a href="#canal和binlog">Canal和Binlog</a></li>
+    <li><a href="#环形多主多从部署">环形多主多从部署</a></li>
+    <li><a href="#读写分离">读写分离</a></li>
   </ul>
 </nav></div>
   
