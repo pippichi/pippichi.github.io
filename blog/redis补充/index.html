@@ -133,11 +133,25 @@ if (!doNotTrack) {
   <section class="pb-6 mb-3 border-bottom">
     <p>redis消息订阅、新增命令、权限认证、高级客户端lettuce&hellip;</p>
 <h2 id="redis消息订阅">redis消息订阅</h2>
-<p>关键命令：<code>publish</code>和<code>subscribe</code></p>
-<h3 id="使用redismessagelistenercontainer">使用redismessagelistenercontainer</h3>
-<p><a href="https://blog.csdn.net/single_cong/article/details/101845344">https://blog.csdn.net/single_cong/article/details/101845344</a></p>
-<h3 id="使用streammessagelistenercontainer">使用streammessagelistenercontainer</h3>
-<p><a href="https://my.oschina.net/shisl/blog/4775282">https://my.oschina.net/shisl/blog/4775282</a></p>
+<p>redis有4种方式实现消息队列：</p>
+<ul>
+<li>
+<p>基于List的 LPUSH+BRPOP 的实现</p>
+</li>
+<li>
+<p>PUB/SUB，订阅/发布模式</p>
+<p>命令：<code>publish</code>和<code>subscribe</code></p>
+<p>SpringBoot整合redis使用redismessagelistenercontainer来实现消息发布订阅，参考：https://blog.csdn.net/single_cong/article/details/101845344（SpringBoot整合Redis实现消息发布订阅）</p>
+</li>
+<li>
+<p>基于<code>Sorted-Set</code>的实现</p>
+</li>
+<li>
+<p>基于Stream类型的实现</p>
+<p>借鉴了kafka，参考：https://blog.csdn.net/dndndnnffj/article/details/124020407（redis stream 实现消息队列）</p>
+</li>
+</ul>
+<p>参考：https://blog.csdn.net/weixin_40918067/article/details/116582463（Redis实现消息队列的4种方案）</p>
 <h2 id="高级客户端lettuce可以使用异步redis接口">高级客户端lettuce（可以使用异步redis接口）</h2>
 <p><a href="https://blog.csdn.net/qq_18671415/article/details/110875621">https://blog.csdn.net/qq_18671415/article/details/110875621</a></p>
 <h2 id="新增命令">新增命令</h2>
@@ -209,12 +223,7 @@ redis 127.0.0.1:6379&gt; auth test123
     <div id="toc" class="Box Box--blue mb-3">
       <b>Redis</b><nav id="TableOfContents">
   <ul>
-    <li><a href="#redis消息订阅">redis消息订阅</a>
-      <ul>
-        <li><a href="#使用redismessagelistenercontainer">使用redismessagelistenercontainer</a></li>
-        <li><a href="#使用streammessagelistenercontainer">使用streammessagelistenercontainer</a></li>
-      </ul>
-    </li>
+    <li><a href="#redis消息订阅">redis消息订阅</a></li>
     <li><a href="#高级客户端lettuce可以使用异步redis接口">高级客户端lettuce（可以使用异步redis接口）</a></li>
     <li><a href="#新增命令">新增命令</a></li>
     <li><a href="#权限认证">权限认证</a></li>
