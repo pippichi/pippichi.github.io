@@ -154,7 +154,7 @@ $ git config user.email
 <h2 id="gitgnore失效问题">.gitgnore失效问题</h2>
 <p>有时候我们在.gitgnore编写了规则，但却不起作用，那很可能是这种情况：使用IDEA的时候开启了自动接受git管理的功能，导致新增的文件自动被add进git本地工作栈，导致该文件被git管理，这个时候就算在.gitgnore添加了该文件的排除规则也不会起作用，原因就是它已经被git管理了</p>
 <p>那么如何解除呢？</p>
-<p>使用git rm &ndash;cached filename，这样就可以不受git管理了</p>
+<p>使用<code>git rm --cached filename</code>，这样就可以不受git管理了</p>
 <p>如果执行了上面这行代码之后还是无法解除，那就只能执行git rm或git rm -f命令将文件从工作区和暂存区删除，一般情况下这么操作之后问题都会得到解决</p>
 <h2 id="git-rm">git rm</h2>
 <h3 id="rm命令">rm命令</h3>
@@ -171,15 +171,15 @@ $ git config user.email
 <p>注意：<!-- raw HTML omitted -->要删除的文件已经修改过<!-- raw HTML omitted -->，就是说和当前版本库文件的内容不同</p>
 <p>如果要影响到暂存区文件，不需要再add了，直接commit即可</p>
 <p>如果要影响到版本库文件，不需要再add了，直接commit和push即可</p>
-<h3 id="git-rm---cached命令">git rm &ndash;cached命令（★）</h3>
+<h3 id="git-rm---cached命令"><code>git rm --cached</code>命令（★）</h3>
 <p>作用：删除暂存区文件，但保留工作区的文件，并将此次删除放入暂存区（相当于是取消了git对该文件的跟踪）</p>
 <p>如果要影响暂存区中文件，不需要再add了，直接commit即可</p>
 <p>如果要影响版本库中文件，不需要再add了，直接commit和push即可（此时版本库中的该文件也会被删除，最终的结果就是只有工作区会保留该文件，而暂存区和版本库中该文件都会被删除）</p>
-<h3 id="git-rm--rf---cached-foldname">git rm -rf &ndash;cached foldname</h3>
-<p>git rm &ndash;cached是删除单个缓存文件，git rm -rf &ndash;cached是删除整个缓存目录</p>
-<h3 id="git-rm--r---cached-">git rm -r &ndash;cached .</h3>
+<h3 id="git-rm--rf---cached-foldname"><code>git rm -rf --cached foldname</code></h3>
+<p><code>git rm --cached</code>是删除单个缓存文件，<code>git rm -rf --cached</code>是删除整个缓存目录</p>
+<h3 id="git-rm--r---cached-"><code>git rm -r --cached .</code></h3>
 <p>如果想要删除的已缓存文件或文件夹比较多或者在使用.gitgnore时想要忽略的文件或文件夹比较多，可以使用该命令重置所有缓存（该命令会移除所有缓存索引），再次提交（add、commit）后将刷新.gitgnore指示的忽略文件</p>
-<h2 id="git-restore与git-restore---staged">git restore与git restore --staged</h2>
+<h2 id="git-restore与git-restore---staged">git restore与<code>git restore --staged</code></h2>
 <p><code>git restore</code>指令使得在工作空间但是不在暂存区的文件撤销更改(内容恢复到没修改之前的状态)</p>
 <p>举个例子：我修改了<code>a.txt</code>文件，但是还没有将它<code>add</code>到暂存区，此时使用<code>git restore a.txt</code>命令可以将<code>a.txt</code>文件恢复到未修改之前的状态</p>
 <p><code>git restore --staged</code>的作用是将暂存区的文件从暂存区撤出，但不会更改文件的内容。</p>
@@ -203,7 +203,7 @@ $ git config user.email
 <h2 id="git-tag">git tag</h2>
 <h3 id="创建标签">创建标签</h3>
 <p>标签分为两种：轻量标签和附注标签</p>
-<p>轻量标签很像一个不会改变的分支&ndash;它只是某个特定提交的引用。而附注标签是存储在git数据库中的一个完整对象，它们是可以被校验的，其中包含打标签者的名字、电子邮件地址、日期时间，此外还有一个标签信息，并且可以使用GNU Privacy Guard（GPG）签名并验证。通常会建议创建附注标签，这样就可以拥有以上所有信息。但如果只是想用一个临时的标签，或者因为某些原因不想保存这些信息，那也可以使用轻量标签。</p>
+<p>轻量标签很像一个不会改变的分支，它只是某个特定提交的引用。而附注标签是存储在git数据库中的一个完整对象，它们是可以被校验的，其中包含打标签者的名字、电子邮件地址、日期时间，此外还有一个标签信息，并且可以使用GNU Privacy Guard（GPG）签名并验证。通常会建议创建附注标签，这样就可以拥有以上所有信息。但如果只是想用一个临时的标签，或者因为某些原因不想保存这些信息，那也可以使用轻量标签。</p>
 <h4 id="附注标签">附注标签</h4>
 <p>git tag -a v1.4 -m &lsquo;my version 1.4&rsquo; （-a制定标签名字，-m指定一条将会存储在标签中的信息。如果没有为附注标签指定一条信息，git会启动编辑器要求你输入信息）</p>
 <p>git tag（打标签）</p>
@@ -229,7 +229,7 @@ $ git config user.email
 <p>那就会列出所有v18.5开头的标签，比如v18.5.1、v18.5等</p>
 <h3 id="后期打标签">后期打标签</h3>
 <p>当提交了多次代码之后我们希望给其中的某几次提交的代码打上标签</p>
-<p>此时可以使用命令：git log &ndash;pretty=oneline 显示提交信息，如下：</p>
+<p>此时可以使用命令：<code>git log --pretty=oneline</code> 显示提交信息，如下：</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">$</span> <span class="n">git</span> <span class="n">log</span> <span class="o">--</span><span class="n">pretty</span><span class="o">=</span><span class="n">oneline</span>
 <span class="n">15027957951b64cf874c3557a0f3547bd83b3ff6</span> <span class="n">Merge</span> <span class="n">branch</span> <span class="err">&#39;</span><span class="n">experiment</span><span class="err">&#39;</span>
 <span class="n">a6b4c97498bd301d84096da251c98a07c7723e65</span> <span class="n">beginning</span> <span class="n">write</span> <span class="n">support</span>
@@ -274,12 +274,12 @@ commit_id，之后再推送到远端即可回滚。</p>
 <h3 id="git-reset">git reset</h3>
 <p>作用：当我们add和commit之后发现还需要修改代码或者说这次commit是错误的（对于已有文件的改动那问题也不大，但是有种情况就是本地代码库中git托管了某些新建的文件，有时候可能是大量的新建文件，这个时候想要通过git rm恢复到之前这些文件不被托管的状态是很麻烦的），这个时候如果再次commit也是可以的，只不过那些我们本不希望被托管的文件还是会被git托管，并且这样会多一次commit记录（git push之后使用git log可以看到多次commit记录），一般情况下再次commit的话上一次的commit理论上是无意义的。所以综合来看最理想的做法就是取消上一次的commit（本质上就是取消本地代码库中上一次add和commit造成的git对于代码的管理），这个时候git reset就能派上用场了，它不仅能完全取消上一次的commit（相当于没有上一次commit），还能保留工作区的所有未被git管理的代码。</p>
 <p>选择当前指针指向的位置 git reset --hard HEAD</p>
-<p>回退到上一个版本 git reset --hard HEAD^</p>
-<p>回退到上两个版本 git reset --hard HEAD^^</p>
-<p>回退到上三个版本 git reset --hard HEAD^^^</p>
-<p>回退到某一个确定的版本 git reset --hard xxx(用git log 获得的commit后面的遗传信息码)</p>
-<p>回退到上100个版本 git reset --hard HEAD~100</p>
-<p><strong>git reset --hard与git reset --soft的区别：</strong></p>
+<p>回退到上一个版本 <code>git reset --hard HEAD^</code></p>
+<p>回退到上两个版本 <code>git reset --hard HEAD^^</code></p>
+<p>回退到上三个版本 <code>git reset --hard HEAD^^^</code></p>
+<p>回退到某一个确定的版本 <code>git reset --hard xxx</code>(用git log 获得的commit后面的遗传信息码)</p>
+<p>回退到上100个版本 <code>git reset --hard HEAD~100</code></p>
+<p><strong><code>git reset --hard</code>与<code>git reset --soft</code>的区别：</strong></p>
 <p><code>git reset --hard</code>不仅会回退commit，还会将文件也恢复到未修改之前的状态，也就是说他是彻底的回退到了某个版本；而<code>git reset --soft</code>不会将文件恢复到未修改之前的状态，他只会回退commit，如果还要提交，直接commit即可</p>
 <p>具体参考：https://blog.csdn.net/yangfengjueqi/article/details/61668381</p>
 <h3 id="git-revert与git-reset的区别">git revert与git reset的区别</h3>
@@ -388,6 +388,8 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
 <h2 id="git-remote-prune-origin">git remote prune origin</h2>
 <p>有些分支在远程已经被删掉了，但在本地还未被删除，该命令就是用于清除本地的这些分支的。</p>
 <p>参考：https://www.cnblogs.com/wangiqngpei557/p/6058115.html（聊下 git remote prune origin）</p>
+<h2 id="git对于提交记录的修改git-rebasegit-commit---amendpick命令drop命令git-filter-branch--f---commit-filtergit-filter-branch---tree-filter等">git对于提交记录的修改（<code>git rebase</code>、<code>git commit --amend</code>、pick命令、drop命令、<code>git filter-branch -f --commit-filter</code>、<code>git filter-branch --tree-filter</code>等）</h2>
+<p>参考：https://blog.csdn.net/LeoForBest/article/details/90313471（Git 删除提交\commit的log记录、修改历史提交消息、删除历史提交、修改所有提交的邮箱地址、从所有提交中删除一个文件）</p>
 <h2 id="一台windows上管理多个公匙">一台windows上管理多个公匙</h2>
 <p><img src="/git/307d527d75cecc8d516028a7715fa448.png" alt=""></p>
 <p><img src="/git/2cb1825f9870519a7b999d927927033b.png" alt=""></p>
@@ -434,12 +436,12 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
         <li><a href="#rm命令">rm命令</a></li>
         <li><a href="#git-rm命令">git rm命令</a></li>
         <li><a href="#git-rm--f命令">git rm -f命令</a></li>
-        <li><a href="#git-rm---cached命令">git rm &ndash;cached命令（★）</a></li>
-        <li><a href="#git-rm--rf---cached-foldname">git rm -rf &ndash;cached foldname</a></li>
-        <li><a href="#git-rm--r---cached-">git rm -r &ndash;cached .</a></li>
+        <li><a href="#git-rm---cached命令"><code>git rm --cached</code>命令（★）</a></li>
+        <li><a href="#git-rm--rf---cached-foldname"><code>git rm -rf --cached foldname</code></a></li>
+        <li><a href="#git-rm--r---cached-"><code>git rm -r --cached .</code></a></li>
       </ul>
     </li>
-    <li><a href="#git-restore与git-restore---staged">git restore与git restore --staged</a></li>
+    <li><a href="#git-restore与git-restore---staged">git restore与<code>git restore --staged</code></a></li>
     <li><a href="#查看git当前状态">查看git当前状态</a></li>
     <li><a href="#git-log">git log</a></li>
     <li><a href="#git-reflog用于查看所有版本的回退信息">git reflog用于查看所有版本的回退信息</a></li>
@@ -487,6 +489,7 @@ git stash pop #从Git栈中读取最近一次保存的内容</p>
     <li><a href="#git-stash">git stash</a></li>
     <li><a href="#git-diff">git diff</a></li>
     <li><a href="#git-remote-prune-origin">git remote prune origin</a></li>
+    <li><a href="#git对于提交记录的修改git-rebasegit-commit---amendpick命令drop命令git-filter-branch--f---commit-filtergit-filter-branch---tree-filter等">git对于提交记录的修改（<code>git rebase</code>、<code>git commit --amend</code>、pick命令、drop命令、<code>git filter-branch -f --commit-filter</code>、<code>git filter-branch --tree-filter</code>等）</a></li>
     <li><a href="#一台windows上管理多个公匙">一台windows上管理多个公匙</a></li>
     <li><a href="#更多">更多</a></li>
   </ul>
