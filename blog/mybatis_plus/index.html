@@ -185,7 +185,10 @@ if (!doNotTrack) {
 <span class="n">ids</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
 <span class="n">ids</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">2</span><span class="o">);</span>
 <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">studentMapper</span><span class="o">.</span><span class="na">deleteBatchIds</span><span class="o">(</span><span class="n">ids</span><span class="o">);</span>
-</code></pre></div><h2 id="tablenametableid与tablefield">@TableName、@TableId与@TableField</h2>
+</code></pre></div><h2 id="mybatis-plus配置文件详解">Mybatis-Plus配置文件详解</h2>
+<p>参考：https://blog.csdn.net/Huang_ZX_259/article/details/122562231（MyBatis-Plus——超详细讲解配置文件）</p>
+<h2 id="注解">注解</h2>
+<h3 id="tablenametableid与tablefield">@TableName、@TableId与@TableField</h3>
 <p>由于mybatis_plus是根据实体类来反向推测可能用到的sql查询从而免去我们手动写基本sql查询的，而有时候实体类类名或属性和数据库表名或字段名不一定对的上，这个时候就需要用@TableName(&ldquo;表名&rdquo;)和@TableField(&ldquo;字段名&rdquo;)的方式来指定了</p>
 <p>@TableId是在实体类对应的主键属性上使用的，用来表明该属性是主键，并且需要说明主键的设置类型，比如：自增。</p>
 <p>而且加了@TableId这个注解之后可以实现主键回填（那么为什么不加的时候新增还是可以做到数据库表中的主键自增，但是回填的时候实体类的主键还是为null呢？那是因为新增的时候mbp一看实体类有个属性跟数据库表的主键对上了，那就会判定这个属性就是主键，那就会正常生成记录并自增主键，但是回填的时候它没法判断谁是主键，因此没法回填主键）</p>
@@ -411,7 +414,12 @@ if (!doNotTrack) {
 <p>mbp自带的默认模板：</p>
 <p><img src="/mybatis_plus.assets/image-20220812201003465.png" alt="image-20220812201003465"></p>
 <p>自定义模板请参考：<a href="https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent">张润华<code>generator-spring-boot-starter</code>项目</a></p>
-<h2 id="lombok插件">LomBok插件</h2>
+<h2 id="mybatis-plus动态数据源配置">Mybatis-plus动态数据源配置</h2>
+<p>参考：https://www.cnblogs.com/zhaww/p/12706941.html（mybatis-plus动态数据源配置）</p>
+<h2 id="插件">插件</h2>
+<h3 id="多表插件mybatis-plus-join">多表插件<code>mybatis-plus-join</code></h3>
+<p>参考：https://blog.csdn.net/mahuibo123/article/details/125886063（<code>mybatis-plus-join mybatis-plus</code>必备神器）、https://blog.csdn.net/weixin_39555954/article/details/128217887（<code>Mybatis-plus-join</code>连表查询）</p>
+<h3 id="lombok插件">lombok插件</h3>
 <p>用了Lombok注解之后，虽然看似Java代码中没写setter、getter等方法了，但其实等它被编译成.class文件之后，setter、getter等方法还是会在的，而且该.class文件跟不加LomBok注解之前的Java文件编译成的.class文件是一样的</p>
 <p>如果idea要用的话需要先下载一个lombok插件，因为在idea中写的Java代码是由idea去编译的，而idea不支持也不认识lombok，所以要先下个lombok插件：</p>
 <p><img src="/mybatis_plus.assets/image-20210414225652834.png" alt="image-20210414225652834"></p>
@@ -431,14 +439,12 @@ if (!doNotTrack) {
 <span class="o">}</span>
 </code></pre></div><p><img src="/mybatis_plus.assets/image-20210414230148156.png" alt="image-20210414230148156"></p>
 <p><img src="/mybatis_plus.assets/image-20210414230110724.png" alt="image-20210414230110724"></p>
-<h2 id="mybatisx插件">MybatisX插件</h2>
+<h3 id="mybatisx插件">MybatisX插件</h3>
 <p>MybatisX 是一款基于 IDEA 的快速开发插件，为效率而生。安装方法：打开 IDEA，进入 File -&gt; Settings -&gt; Plugins -&gt; Browse Repositories，输入 <code>mybatisx</code> 搜索并安装。</p>
 <ul>
 <li>Java与mapper.xml来回跳转</li>
 <li>Mapper方法自动生成XML</li>
 </ul>
-<h2 id="mybatis-plus动态数据源配置">Mybatis-plus动态数据源配置</h2>
-<p>参考：https://www.cnblogs.com/zhaww/p/12706941.html（mybatis-plus动态数据源配置）</p>
   </section>
 
   <section>
@@ -458,16 +464,26 @@ if (!doNotTrack) {
       <b>MyBatis_plus</b><nav id="TableOfContents">
   <ul>
     <li><a href="#使用mybatis_plus">使用mybatis_plus</a></li>
-    <li><a href="#tablenametableid与tablefield">@TableName、@TableId与@TableField</a></li>
+    <li><a href="#mybatis-plus配置文件详解">Mybatis-Plus配置文件详解</a></li>
+    <li><a href="#注解">注解</a>
+      <ul>
+        <li><a href="#tablenametableid与tablefield">@TableName、@TableId与@TableField</a></li>
+      </ul>
+    </li>
     <li><a href="#wrapper条件构造器">Wrapper条件构造器</a></li>
     <li><a href="#分页器配置">分页器配置</a></li>
     <li><a href="#全局配置策略">全局配置策略</a></li>
     <li><a href="#mybatis-plus-处理器">Mybatis Plus 处理器</a></li>
     <li><a href="#ar模式">AR模式</a></li>
     <li><a href="#mbp代码生成器">mbp代码生成器</a></li>
-    <li><a href="#lombok插件">LomBok插件</a></li>
-    <li><a href="#mybatisx插件">MybatisX插件</a></li>
     <li><a href="#mybatis-plus动态数据源配置">Mybatis-plus动态数据源配置</a></li>
+    <li><a href="#插件">插件</a>
+      <ul>
+        <li><a href="#多表插件mybatis-plus-join">多表插件<code>mybatis-plus-join</code></a></li>
+        <li><a href="#lombok插件">lombok插件</a></li>
+        <li><a href="#mybatisx插件">MybatisX插件</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
   
