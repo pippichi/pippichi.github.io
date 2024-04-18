@@ -1411,6 +1411,10 @@ ${}方式占位：底层使用Statement对象完成数据库操作，本质为sq
 <li>默认情况下，mybatis开启一级缓存，没有开启二级缓存，当数据量大的时候可以借助一些第三方缓存框架或Redis缓存来协助保存mybatis的二级缓存数据</li>
 <li>mybatis的缓存功能终究还是附带的功能，当我们真正需要用到缓存的时候，还是直接上redis等更专业的缓存工具</li>
 </ul>
+<h3 id="一级二级缓存">一级/二级缓存</h3>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/apple_67445472/article/details/130620705">https://blog.csdn.net/apple_67445472/article/details/130620705</a>（MyBatis一级缓存详细讲解）</p>
+<p><a href="https://blog.csdn.net/weixin_52851967/article/details/125190163">https://blog.csdn.net/weixin_52851967/article/details/125190163</a>（Mybatis 之 二级缓存）</p>
 <h3 id="开启二级缓存">开启二级缓存</h3>
 <p>那么如何开启二级缓存呢？</p>
 <ul>
@@ -2471,6 +2475,7 @@ TINYINT --&gt; Byte
     </li>
     <li><a href="#mybatis缓存">mybatis缓存</a>
       <ul>
+        <li><a href="#一级二级缓存">一级/二级缓存</a></li>
         <li><a href="#开启二级缓存">开启二级缓存</a></li>
       </ul>
     </li>
