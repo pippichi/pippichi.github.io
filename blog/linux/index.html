@@ -617,6 +617,10 @@ $ mkdir /dir{1..3}
 <p>集合，{}内可进行枚举</p>
 <p>例子：<code>cp /root/{file1, file2}.txt /usr</code></p>
 <p>该命令会将<code>root</code>下的<code>file1.txt</code>和<code>file2.txt</code>都复制到<code>/usr</code>目录下</p>
+<h3 id="15seq生成数字">15、seq生成数字</h3>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/AH99999/article/details/135602061">https://blog.csdn.net/AH99999/article/details/135602061</a>（Linux系统命令 &mdash; seq tr cut sort uniq）</p>
+<p><a href="https://blog.csdn.net/z19861216/article/details/133126781">https://blog.csdn.net/z19861216/article/details/133126781</a>（Linux命令(96)之seq）</p>
 <h2 id="三进阶指令重点">三、进阶指令（重点）</h2>
 <h3 id="1df指令">1、df指令</h3>
 <p>作用：查看磁盘的空间</p>
@@ -639,19 +643,28 @@ $ mkdir /dir{1..3}
 <p>作用2：可以通过tail指令来查看一个文件的动态变化内容【<strong>变化的内容不能是用户手动增加的</strong>】</p>
 <p><strong>语法：#tail -f 文件路径</strong></p>
 <p><strong>该命令一般用于查看系统的日志比较多。</strong></p>
-<h3 id="5less指令">5、less指令</h3>
-<p>作用：查看文件，以较少的内容进行输出，按下辅助功能键（数字+回车、<strong>空格键</strong>+上下方向键）查看更多</p>
+<h3 id="5od命令">5、od命令</h3>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/u012964600/article/details/134926222">https://blog.csdn.net/u012964600/article/details/134926222</a>（Linux od命令教程：如何以各种格式转储文件(附案例详解和注意事项)）</p>
+<h3 id="6hexdump命令">6、hexdump命令</h3>
+<p>参考：</p>
+<p><a href="https://worktile.com/kb/ask/293169.html">https://worktile.com/kb/ask/293169.html</a>（linux hexdump命令）</p>
+<p><a href="https://blog.csdn.net/qq_33471732/article/details/134982264">https://blog.csdn.net/qq_33471732/article/details/134982264</a>（linux中的od命令与hexdump命令）</p>
+<h3 id="7moreless指令">7、more/less指令</h3>
+<p><strong>作用：</strong></p>
+<p>查看文件，以较少的内容进行输出，按下辅助功能键（数字+回车、<strong>空格键</strong>+上下方向键）查看更多</p>
+<p>可搜索，可上翻，也可以像vim一样在里面找关键词，如果有多个匹配关键词可用n键选择下一个</p>
 <p><strong>语法：#less 需要查看的文件路径</strong></p>
 <p><img src="/linux/18238c8fb6c4eeab62aa7717ced2ed46.png" alt=""></p>
 <p>在退出的只需要按下q键即可。</p>
-<h3 id="6wc指令">6、wc指令</h3>
+<h3 id="8wc指令">8、wc指令</h3>
 <p>作用：统计文件内容信息（包含行数、单词数、字节数）</p>
 <p>语法：<strong>#wc -lwc 需要统计的文件路径</strong></p>
 <p><strong>-l：表示lines，行数</strong></p>
 <p>-w：表示words，单词数 依照空格来判断单词数量</p>
 <p>-c：表示bytes，字节数</p>
 <p><img src="/linux/175bc71fc8c023453dba928787752bf1.png" alt=""></p>
-<h3 id="7date指令重点">7、date指令（重点）</h3>
+<h3 id="9date指令重点">9、date指令（重点）</h3>
 <p>作用：表示操作时间日期（<strong>读取</strong>、设置）</p>
 <p>语法1：#date 输出的形式：2018年 3月 24日 星期六 15:54:28</p>
 <p>语法2：<strong>#date +%F （等价于#date “+%Y-%m-%d” ）</strong> 输出形式：2018-03-24</p>
@@ -670,16 +683,16 @@ $ mkdir /dir{1..3}
 <p>%H：表示小时（带前导0）</p>
 <p>%M：表示分钟（带前导0）</p>
 <p>%S：表示秒数（带前导0）</p>
-<h3 id="8cal指令">8、cal指令</h3>
+<h3 id="10cal指令">10、cal指令</h3>
 <p><strong>作用：用来操作日历的</strong></p>
 <p><strong>语法1：#cal 等价于 #cal -1</strong> 直接输出当前月份的日历</p>
 <p><strong>语法2：#cal -3</strong> 表示输出上一个月+本月+下个月的日历</p>
 <p><strong>语法3：#cal -y 年份</strong> 表示输出某一个年份的日历</p>
-<h3 id="9clearctrl--l指令">9、clear/ctrl + L指令</h3>
+<h3 id="11clearctrl--l指令">11、clear/ctrl + L指令</h3>
 <p>作用：清除终端中已经存在的命令和结果（信息）。</p>
 <p><strong>语法：clear</strong>  <strong>或者快捷键：ctrl + L</strong></p>
 <p>需要注意的是，该命令并不是真的清除了之前的信息，而是把之前的信息的隐藏到了最上面，通过滚动条继续查看以前的信息。</p>
-<h3 id="10管道重要">10、管道（重要）</h3>
+<h3 id="12管道重要">12、管道（重要）</h3>
 <p>注意！并不是只有grep才能使用正则表达式，一般的命令下也是可以用正则的</p>
 <p><strong>管道符：|</strong></p>
 <p>作用：管道一般可以用于“<strong>过滤</strong>”，“特殊”，“扩展处理”。</p>
@@ -718,8 +731,7 @@ $ grep -r &ndash;exclude=*.txt &lsquo;email&rsquo; .</p>
 <p>现在通过管道还可以这么：#cat 路径|less</p>
 <p>③扩展处理：请使用学过的命令，来统计某个目录下的文档的总个数？</p>
 <p><strong>答：#ls / | wc -l</strong></p>
-<h2 id="linux的基本指令2">Linux的基本指令（2）</h2>
-<h2 id="一高级指令">一、高级指令</h2>
+<h2 id="三高级指令">三、高级指令</h2>
 <h3 id="1hostname与hostnamectl指令">1、hostname与hostnamectl指令</h3>
 <p>作用：操作服务器的<strong>主机名</strong>（<strong>读取</strong>、设置）</p>
 <p>语法1：#hostname 含义：表示输出完整的主机名</p>
@@ -999,6 +1011,10 @@ filename：这个命令其实只是简单地读取脚本里面的语句依次在
 $ echo $变量名 # 输出该变量的值（变量包括系统环境变量），比方说$HOME就是家目录
 $ echo $? # 查看上一个命令是否执行成功，0代表成功，1代表失败
 $ echo `命令` # 输出执行该命令之后在屏幕上显示的文本内容，比如 echo `date` 就会显示“2022年02月28日 21:33:16”；再比如 echo `ls` 就会显示“blogs/ c/ c++/ tmp/ 特征工程.md git/ ...”
+
+$ echo -e “[ftp]\ncontent=hello” &gt; test.txt # 使用-e可以将\n解析成回车
+
+$ echo “123456” | passwd root –stdin # 使用echo修改root用户的密码
 </code></pre><p><strong>shell中的特殊变量及其意义：</strong></p>
 <table>
 <thead>
@@ -1050,20 +1066,20 @@ $ echo `命令` # 输出执行该命令之后在屏幕上显示的文本内容�
 </tr>
 </tbody>
 </table>
-<h3 id="22xargs和echo的连用">22、xargs和echo的连用</h3>
-<p>Echo'/mongodb/sharded_cluster/myshardrs01_27018/mongo.keyfile
+<h3 id="22xargs">22、xargs</h3>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/feiying0canglang/article/details/127965271">https://blog.csdn.net/feiying0canglang/article/details/127965271</a>（Linux命令&ndash;xargs(将命令的结果作为参数)）</p>
+<p><a href="https://blog.csdn.net/2301_79054215/article/details/138390574">https://blog.csdn.net/2301_79054215/article/details/138390574</a>（如何在Linux上使用xargs命令（非常详细）零基础入门到精通，收藏这一篇就够了）</p>
+<p><a href="https://blog.csdn.net/m0_61066945/article/details/126823524">https://blog.csdn.net/m0_61066945/article/details/126823524</a>（Linux命令_xargs &amp; 批量杀进程、批量拷贝文件、组合字符串）</p>
+<p><strong>xargs和echo连用：</strong></p>
+<pre><code>Echo '/mongodb/sharded_cluster/myshardrs01_27018/mongo.keyfile
 /mongodb/sharded_cluster/myshardrs01_27118/mongo.keyfile
 /mongodb/sharded_cluster/mymongos_27117/mongo.keyfile' | xargs -n 1 cp -v
-/root/mongo.keyfile</p>
-<p>解释：上述代码可以将某一个文件拷贝到其他多个文件中。</p>
+/root/mongo.keyfile
+</code></pre><p>解释：上述代码可以将某一个文件拷贝到其他多个文件中。</p>
 <p>其他类似的还有 | xargs
 cat（使得cat打印管道之前的文件中的内容，如果没有xargs修饰，那么将打印文件名称而不会打印文件内容）
 等等。</p>
-<h4 id="配合echo将内容输入到文件">配合echo将内容输入到文件</h4>
-<p><strong>Echo -e “[ftp]\ncontent=hello” &gt; test.txt</strong></p>
-<p><strong>使用-e可以将\n解析成回车</strong></p>
-<h4 id="使用echo修改root用户的密码">使用echo修改root用户的密码</h4>
-<p><strong>Echo “123456” | passwd root –stdin</strong></p>
 <h3 id="23tee">23、tee</h3>
 <p><img src="/linux/a09db06c8a190fbeb4007c2f47d1539c.png" alt=""></p>
 <p><img src="/linux/737346ed4c7df2a085b0102710db8739.png" alt=""></p>
@@ -1139,6 +1155,17 @@ ip a s ens33（网卡名）
 <h3 id="34route">34、route</h3>
 <p>route命令用于显示和操作IP路由表，使用route命令可以实现路由转发</p>
 <p>参考：https://www.cnblogs.com/snake-hand/p/3143041.html（linux route命令的使用详解）、https://blog.csdn.net/weixin_42352759/article/details/102671179（路由转发route详解）</p>
+<h3 id="35tr">35、tr</h3>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/redrose2100/article/details/128374863">https://blog.csdn.net/redrose2100/article/details/128374863</a>（<code>Linux----tr命令详细使用方法</code>）</p>
+<p><a href="https://blog.csdn.net/z19861216/article/details/132577197">https://blog.csdn.net/z19861216/article/details/132577197</a>（Linux命令(79)之tr）</p>
+<h3 id="36uniq">36、uniq</h3>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/u012964600/article/details/135522037">https://blog.csdn.net/u012964600/article/details/135522037</a>（Linux uniq命令教程：去重和计数的小能手(附实例详解和注意事项)）</p>
+<p><a href="https://www.cnblogs.com/1130136248wlxk/articles/6264805.html">https://www.cnblogs.com/1130136248wlxk/articles/6264805.html</a>（Linux下uniq命令详解）</p>
+<h3 id="37sort">37、sort</h3>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/qq_16268979/article/details/128336037">https://blog.csdn.net/qq_16268979/article/details/128336037</a>（linux命令：sort）</p>
 <h2 id="二练习题">二、练习题</h2>
 <p>1、如何通过命令行重启linux操作系统？ #reboot</p>
 <p>2、<strong>如何在命令行中快速删除光标前/后的内容？</strong>  <strong>前：ctrl + u 后：ctrl + k</strong></p>
@@ -1292,7 +1319,10 @@ v（可视块）或V（可视行）或v（可视），上下左右移动，按�
 <p>⑧显示行号（临时）</p>
 <p>输入：“<strong>:set nu</strong>”[number]</p>
 <p>如果想取消显示，则输入：“:set nonu”</p>
-<p>⑨扩展2：使用vim同时打开多个文件，在末行模式下进行切换文件</p>
+<p>⑨显示控制字符（临时）</p>
+<p>输入：“<strong>:set list</strong>”</p>
+<p>参考：https://blog.csdn.net/weixin_55959870/article/details/124071698（Linux 命令）</p>
+<p>⑩扩展2：使用vim同时打开多个文件，在末行模式下进行切换文件</p>
 <p><strong>查看当前已经打开的文件名称：“:files”</strong></p>
 <p><img src="/linux/5e5bf0b895fe126972330e4ce907a6df.png" alt=""></p>
 <p>在%a的位置有2种显示可能</p>
@@ -1828,8 +1858,12 @@ v（可视块）或V（可视行）或v（可视），上下左右移动，按�
 <p>更详细的关于cron和crontab的命令参考：https://blog.csdn.net/mengzuchao/article/details/81172305（linux cron 定时任务）</p>
 <h2 id="七at命令用于一次性定时计划任务的命令">七、at命令（用于一次性定时计划任务的命令）</h2>
 <p>参考：https://blog.csdn.net/weixin_34162228/article/details/91682904（Linux之at命令）</p>
-<h2 id="八fgbgjobs等指令linux任务相关指令">八、fg、bg、&amp;、jobs等指令（linux任务相关指令）</h2>
-<p>参考：https://ehlxr.me/2017/01/18/Linux-%E4%B8%AD-fg%E3%80%81bg%E3%80%81jobs%E3%80%81-%E6%8C%87%E4%BB%A4/?spm=5176.12026607.tutorial.1.9c7732e2saACwe（Linux 中 fg、bg、jobs 等指令）</p>
+<h2 id="八fgbgjobsscreennuhup等指令linux任务相关指令转入后台运行命令">八、fg、bg、&amp;、jobs、screen、nuhup等指令（linux任务相关指令/转入后台运行命令）</h2>
+<p>参考：</p>
+<p><a href="https://ehlxr.me/2017/01/18/Linux-%E4%B8%AD-fg%E3%80%81bg%E3%80%81jobs%E3%80%81-%E6%8C%87%E4%BB%A4/?spm=5176.12026607.tutorial.1.9c7732e2saACwe">https://ehlxr.me/2017/01/18/Linux-%E4%B8%AD-fg%E3%80%81bg%E3%80%81jobs%E3%80%81-%E6%8C%87%E4%BB%A4/?spm=5176.12026607.tutorial.1.9c7732e2saACwe</a>（Linux 中 fg、bg、jobs 等指令）</p>
+<p><a href="https://www.jb51.net/server/3169882ey.htm">https://www.jb51.net/server/3169882ey.htm</a>（Linux让程序在后台运行的四种方法）</p>
+<p><a href="https://blog.csdn.net/weixin_45565886/article/details/137752086">https://blog.csdn.net/weixin_45565886/article/details/137752086</a>（Linux配置程序后台运行（前后台来回切换））</p>
+<p><a href="https://www.cnblogs.com/chenmaoling/articles/17342136.html">https://www.cnblogs.com/chenmaoling/articles/17342136.html</a>（linux 后台运行的命令是什么）</p>
 <h2 id="九lsof命令">九、lsof命令</h2>
 <p>lsof命令用于查看进程开打的文件，打开文件的进程，进程打开的端口(TCP、UDP)</p>
 <p>参考：https://blog.csdn.net/qq_27870421/article/details/92803453</p>
@@ -3876,6 +3910,10 @@ wget -i filelist.txt
 <p>参考：https://blog.csdn.net/shixin_0125/article/details/78943245（Linux系统中sysctl命令详解 <code>sysctl -p</code>、<code>sysctl -a</code>、<code>sysctl -w</code>）</p>
 <h3 id="systemctl">systemctl</h3>
 <p>参考：https://blog.csdn.net/skh2015java/article/details/94012643（linux中systemctl详细理解及常用命令）</p>
+<p><strong>使用systemctl管理自己的程序：</strong></p>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/qq_38844263/article/details/131858298">https://blog.csdn.net/qq_38844263/article/details/131858298</a>（Linux使用systemctl添加自启动程序）、https://blog.csdn.net/sayyy/article/details/79276575（Linux使用systemctl设置程序开机自启动）、https://blog.csdn.net/tl4832194/article/details/109781230（systemctl开机启动设置）、https://cloud.tencent.com/developer/article/2296762（将服务注册为Linux Systemctl 启动项 – /usr/local/bin/ 注册为服务器的命令）</p>
+<p><a href="https://blog.csdn.net/bandaoyu/article/details/124358513">https://blog.csdn.net/bandaoyu/article/details/124358513</a>（【linux】使用systemctl start xxx启动自己的程序|开机启动|守护进程）、https://www.liuvv.com/p/c9c96ac3.html（systemd和systemctl详解）、https://blog.csdn.net/skh2015java/article/details/94012643（linux中systemctl详细理解及常用命令）</p>
 <h3 id="timedatectl">timedatectl</h3>
 <p>参考：https://blog.csdn.net/liumiaocn/article/details/88408155（timedatectl命令使用介绍）</p>
 <h3 id="journalctl">journalctl</h3>
@@ -3946,8 +3984,6 @@ nslookup -d [其他参数] domain [dns-server]
 <p>反向浏览文件（不支持-n）</p>
 <h3 id="rmdir">rmdir</h3>
 <p>删除文件夹</p>
-<h3 id="moreless">more/less</h3>
-<p>可搜索，可上翻，也可以像vim一样在里面找关键词，如果有多个匹配关键词可用n键选择下一个</p>
 <h3 id="rsync与xsync">rsync与xsync</h3>
 <p>xsync是对rsync脚本的二次封装</p>
 <ul>
@@ -4040,6 +4076,7 @@ nslookup -d [其他参数] domain [dns-server]
         <li><a href="#12history指令">12、history指令</a></li>
         <li><a href="#13env指令">13、env指令</a></li>
         <li><a href="#14的用法">14、{}的用法</a></li>
+        <li><a href="#15seq生成数字">15、seq生成数字</a></li>
       </ul>
     </li>
     <li><a href="#三进阶指令重点">三、进阶指令（重点）</a>
@@ -4048,16 +4085,17 @@ nslookup -d [其他参数] domain [dns-server]
         <li><a href="#2free指令">2、free指令</a></li>
         <li><a href="#3head指令">3、head指令</a></li>
         <li><a href="#4tail指令">4、tail指令</a></li>
-        <li><a href="#5less指令">5、less指令</a></li>
-        <li><a href="#6wc指令">6、wc指令</a></li>
-        <li><a href="#7date指令重点">7、date指令（重点）</a></li>
-        <li><a href="#8cal指令">8、cal指令</a></li>
-        <li><a href="#9clearctrl--l指令">9、clear/ctrl + L指令</a></li>
-        <li><a href="#10管道重要">10、管道（重要）</a></li>
+        <li><a href="#5od命令">5、od命令</a></li>
+        <li><a href="#6hexdump命令">6、hexdump命令</a></li>
+        <li><a href="#7moreless指令">7、more/less指令</a></li>
+        <li><a href="#8wc指令">8、wc指令</a></li>
+        <li><a href="#9date指令重点">9、date指令（重点）</a></li>
+        <li><a href="#10cal指令">10、cal指令</a></li>
+        <li><a href="#11clearctrl--l指令">11、clear/ctrl + L指令</a></li>
+        <li><a href="#12管道重要">12、管道（重要）</a></li>
       </ul>
     </li>
-    <li><a href="#linux的基本指令2">Linux的基本指令（2）</a></li>
-    <li><a href="#一高级指令">一、高级指令</a>
+    <li><a href="#三高级指令">三、高级指令</a>
       <ul>
         <li><a href="#1hostname与hostnamectl指令">1、hostname与hostnamectl指令</a></li>
         <li><a href="#2id指令">2、id指令</a></li>
@@ -4080,7 +4118,7 @@ nslookup -d [其他参数] domain [dns-server]
         <li><a href="#19source">19、source</a></li>
         <li><a href="#20sed">20、sed</a></li>
         <li><a href="#21echo">21、echo</a></li>
-        <li><a href="#22xargs和echo的连用">22、xargs和echo的连用</a></li>
+        <li><a href="#22xargs">22、xargs</a></li>
         <li><a href="#23tee">23、tee</a></li>
         <li><a href="#24info">24、info</a></li>
         <li><a href="#25diff">25、diff</a></li>
@@ -4093,6 +4131,9 @@ nslookup -d [其他参数] domain [dns-server]
         <li><a href="#32awk">32、awk</a></li>
         <li><a href="#33exportfs">33、exportfs</a></li>
         <li><a href="#34route">34、route</a></li>
+        <li><a href="#35tr">35、tr</a></li>
+        <li><a href="#36uniq">36、uniq</a></li>
+        <li><a href="#37sort">37、sort</a></li>
       </ul>
     </li>
     <li><a href="#二练习题">二、练习题</a></li>
@@ -4154,7 +4195,7 @@ nslookup -d [其他参数] domain [dns-server]
     <li><a href="#五rpm管理重点">五、rpm管理（重点）</a></li>
     <li><a href="#六croncrontab计划任务重点">六、cron/crontab计划任务（重点）</a></li>
     <li><a href="#七at命令用于一次性定时计划任务的命令">七、at命令（用于一次性定时计划任务的命令）</a></li>
-    <li><a href="#八fgbgjobs等指令linux任务相关指令">八、fg、bg、&amp;、jobs等指令（linux任务相关指令）</a></li>
+    <li><a href="#八fgbgjobsscreennuhup等指令linux任务相关指令转入后台运行命令">八、fg、bg、&amp;、jobs、screen、nuhup等指令（linux任务相关指令/转入后台运行命令）</a></li>
     <li><a href="#九lsof命令">九、lsof命令</a></li>
     <li><a href="#linux的权限管理操作">Linux的权限管理操作</a></li>
     <li><a href="#一权限概述">一、权限概述</a>
@@ -4295,7 +4336,6 @@ nslookup -d [其他参数] domain [dns-server]
         <li><a href="#help">help</a></li>
         <li><a href="#tac">tac</a></li>
         <li><a href="#rmdir">rmdir</a></li>
-        <li><a href="#moreless">more/less</a></li>
         <li><a href="#rsync与xsync">rsync与xsync</a></li>
         <li><a href="#xcall">xcall</a></li>
         <li><a href="#文件和文件夹中rwx的意义">文件和文件夹中rwx的意义</a></li>

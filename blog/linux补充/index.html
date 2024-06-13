@@ -212,6 +212,23 @@ if (!doNotTrack) {
 <p>参考：https://blog.csdn.net/qq_40172610/article/details/120447600（VMware虚拟机中配置静态IP）、https://blog.csdn.net/li93675/article/details/81175883（虚拟机配置静态ip地址（俗称固定ip地址））</p>
 <h2 id="linux多台机器之间的免密登录设置">linux多台机器之间的免密登录设置</h2>
 <p>参考：https://www.cnblogs.com/luzhanshi/p/13369797.html（Linux多台机器之间的免密登录设置）</p>
+<h2 id="部署在linux上程序的问题排查案例">部署在linux上程序的问题排查案例★</h2>
+<h3 id="美团调试案例">美团调试案例</h3>
+<p>参考：https://tech.meituan.com/2019/01/03/spring-boot-native-memory-leak.html（Spring Boot引起的“堆外内存泄漏”排查及经验总结）</p>
+<h3 id="跟踪linux用户态内核态的系统调用">跟踪linux用户态、内核态的系统调用</h3>
+<ul>
+<li>
+<p>strace命令</p>
+<p>可跟踪进程和线程的系统调用</p>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/smartvxworks/article/details/132096816">https://blog.csdn.net/smartvxworks/article/details/132096816</a>（【Linux】运行程序前加上strace，可以追踪到函数库调用过程）、https://blog.csdn.net/weixin_43230594/article/details/134874408（Linux 详细介绍strace命令）</p>
+</li>
+</ul>
+<h3 id="linux查看进程运行输出">linux查看进程运行输出</h3>
+<p>场景：linux后台运行了一个jdk，如果想要查看该jdk的控制台输出则可以使用这种方案</p>
+<p>参考：https://blog.csdn.net/u014756245/article/details/120023188（<code>Linux查看进程运行输出（/proc/＜pid＞/fd)</code>）</p>
+<h3 id="使用pspstreepidofpgrep查看进程">使用ps、pstree、pidof、pgrep查看进程</h3>
+<p>参考：https://blog.csdn.net/weixin_33344629/article/details/116550719（linux 查看所有子进程id,技术|Linux 中 4 个简单的找出进程 ID（PID）的方法）</p>
   </section>
 
   <section>
@@ -253,6 +270,14 @@ if (!doNotTrack) {
     </li>
     <li><a href="#vmware虚拟机设置静态ip">vmware虚拟机设置静态ip</a></li>
     <li><a href="#linux多台机器之间的免密登录设置">linux多台机器之间的免密登录设置</a></li>
+    <li><a href="#部署在linux上程序的问题排查案例">部署在linux上程序的问题排查案例★</a>
+      <ul>
+        <li><a href="#美团调试案例">美团调试案例</a></li>
+        <li><a href="#跟踪linux用户态内核态的系统调用">跟踪linux用户态、内核态的系统调用</a></li>
+        <li><a href="#linux查看进程运行输出">linux查看进程运行输出</a></li>
+        <li><a href="#使用pspstreepidofpgrep查看进程">使用ps、pstree、pidof、pgrep查看进程</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
   
