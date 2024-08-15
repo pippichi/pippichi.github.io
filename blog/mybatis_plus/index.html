@@ -300,6 +300,11 @@ if (!doNotTrack) {
 <p>而且我们还设置了默认主键自增，因此@TableId(type=IdType.AUTO)中的type属性也不需要写了，也就是说只需要写@TableId就行了</p>
 <h2 id="mybatis-plus-处理器">Mybatis Plus 处理器</h2>
 <p>有诸如<code>MetaObjectHandler</code>等，可以参考张润华的<a href="https://github.com/pippichi/work/tree/master/zk/%E9%80%9A%E7%94%A8%E4%BC%98%E5%8C%96%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/base/supcon-parent"><code>supcon-parent</code></a>或者网络资料</p>
+<h2 id="mybatis-plus-sql注入器sqlinjector">MyBatis Plus SQL注入器（SqlInjector）</h2>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/qq_44824164/article/details/140081872">https://blog.csdn.net/qq_44824164/article/details/140081872</a>（【第24章】MyBatis-Plus之SQL注入器）</p>
+<p><a href="https://www.jb51.net/program/320701w60.htm">https://www.jb51.net/program/320701w60.htm</a>（MybatisPlus更新为null的字段及自定义sql注入）</p>
+<p><a href="https://blog.csdn.net/qq_42472539/article/details/135859158">https://blog.csdn.net/qq_42472539/article/details/135859158</a>（【MybatisPlus深入使用指南】mybatisplus创建自定义方法sql注入器，批量操作详细（涵盖主键生成））</p>
 <h2 id="ar模式">AR模式</h2>
 <p>AR模式中不需要再获取Mapper对象，然后再将实体类传入给mapper层完成数据库操作，直接使用实体类即可完成操作（pojo实体类就会有增删改查功能），提高开发效率（其实实体类调用的增删改查底层还是在调用mapper，而且这个mapper我们还是得创建，不然它找不到）</p>
 <p>使用示例：</p>
@@ -474,6 +479,7 @@ if (!doNotTrack) {
     <li><a href="#分页器配置">分页器配置</a></li>
     <li><a href="#全局配置策略">全局配置策略</a></li>
     <li><a href="#mybatis-plus-处理器">Mybatis Plus 处理器</a></li>
+    <li><a href="#mybatis-plus-sql注入器sqlinjector">MyBatis Plus SQL注入器（SqlInjector）</a></li>
     <li><a href="#ar模式">AR模式</a></li>
     <li><a href="#mbp代码生成器">mbp代码生成器</a></li>
     <li><a href="#mybatis-plus动态数据源配置">Mybatis-plus动态数据源配置</a></li>
