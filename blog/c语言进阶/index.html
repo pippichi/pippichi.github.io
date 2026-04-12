@@ -1010,6 +1010,28 @@ Code in GitHub:  c|Just for record">
     <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
     <span class="k">struct</span> <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span> <span class="c1">// 这里的struct也不要省略
 </span><span class="c1"></span><span class="p">}</span><span class="n">Node</span><span class="p">;</span>
+</code></pre></div><h4 id="结构体数组的重命名">结构体数组的重命名</h4>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#define MaxSize 10
+</span><span class="cp"></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">ElemType</span> <span class="n">data</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">text</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">SLinkList</span><span class="p">[</span><span class="n">MaxSize</span><span class="p">];</span>
+
+<span class="c1">// 上述写法等价于：
+</span><span class="c1"></span>
+<span class="cp">#define MaxSize 10
+</span><span class="cp"></span><span class="k">struct</span> <span class="n">Node</span><span class="p">{</span>
+    <span class="n">ElemType</span> <span class="n">data</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">text</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">Node</span> <span class="n">SLinkList</span><span class="p">[</span><span class="n">MaxSize</span><span class="p">];</span>
+</code></pre></div><p>对结构体数组重命名后，下面两个写法等价：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">test1</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">SLinkList</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">test2</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">Node</span> <span class="n">a</span><span class="p">[</span><span class="n">MaxSize</span><span class="p">];</span>
+<span class="p">}</span>
 </code></pre></div><h4 id="结构体变量的定义和初始化">结构体变量的定义和初始化</h4>
 <p>不想初始化：</p>
 <div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">Node</span> <span class="n">n1</span><span class="p">;</span>
